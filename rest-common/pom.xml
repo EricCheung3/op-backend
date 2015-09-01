@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.openprice</groupId>
+        <artifactId>openprice-project</artifactId>
+        <version>0.0.2</version>
+    </parent>
+
+    <artifactId>openprice-rest-common</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Rest API Common Code Module</name>
+    <description>OpenPrice Common shared classes for Rest API modules.</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-domain-account</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-domain-receipt</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-process</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- introduce spring hateoas for restful api -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>
+
+        <!-- Evo Inflector implements English pluralization algorithm -->
+        <dependency>
+            <groupId>org.atteo</groupId>
+            <artifactId>evo-inflector</artifactId>
+            <version>${evo-inflector.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Use DBUnit and Spring Test DBUnit for integration test -->
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>${dbunit.version}</version>
+            <type>jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.springtestdbunit</groupId>
+            <artifactId>spring-test-dbunit</artifactId>
+            <version>${spring-test-dbunit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Use RESTAssured to test RESTful API -->
+        <dependency>
+            <groupId>com.jayway.restassured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.damnhandy</groupId>
+            <artifactId>handy-uri-templates</artifactId>
+            <version>${handy-uri-templates.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- package test-jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.openprice</groupId>
+        <artifactId>openprice-project</artifactId>
+        <version>0.0.2</version>
+    </parent>
+
+    <artifactId>openprice-security</artifactId>
+    <packaging>jar</packaging>
+
+    <name>JWT Authentication</name>
+    <description>Stateless Authentication with Spring Securioty and JWT</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+    </dependencies>
+</project>

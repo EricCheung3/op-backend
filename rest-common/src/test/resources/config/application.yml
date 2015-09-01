@@ -1,0 +1,13 @@
+application:
+    email:
+        systemName: GroundTruth Inc.
+        systemEmail: no-reply@openprice.com
+        adminName: Open Price
+        adminEmail: admin@openprice.com
+
+spring:
+    jpa:
+        database: H2
+        show-sql: false
+        hibernate:
+            ddl-auto: create-drop

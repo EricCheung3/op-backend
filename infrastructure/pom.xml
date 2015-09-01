@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.openprice</groupId>
+        <artifactId>openprice-project</artifactId>
+        <version>0.0.2</version>
+    </parent>
+
+    <artifactId>openprice-infrastructure</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Infrastructure API Module</name>
+    <description>Infrastructure API for email, messaging with dummy implementation.</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.jimfs</groupId>
+            <artifactId>jimfs</artifactId>
+            <version>${google-jimfs.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+</project>

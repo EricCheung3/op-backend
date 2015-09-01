@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.openprice</groupId>
+        <artifactId>openprice-project</artifactId>
+        <version>0.0.2</version>
+    </parent>
+
+    <artifactId>openprice-domain-common</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Business Domain Common Module</name>
+    <description>OpenPrice common code for business domain modules.</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-infrastructure</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- introduce jpa and security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- used by json annotation -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>info.solidsoft.mockito</groupId>
+            <artifactId>mockito-java8</artifactId>
+            <version>0.3.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

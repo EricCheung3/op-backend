@@ -1,0 +1,21 @@
+server:
+    port: 8800
+
+---
+
+spring:
+    profiles: local
+application:
+    file:
+        virtual: false
+        imageRootFolder: /tmp/groundtruth/images/
+
+---
+
+spring:
+    profiles: docker
+application:
+    file:
+        virtual: false
+        imageRootFolder: /groundtruth/images/
+    
