@@ -15,6 +15,8 @@ public class TesseractCommandImpl implements Tesseract {
         final long start = System.currentTimeMillis();
         
         final StringBuilder output = new StringBuilder();
+        final StringBuilder errorMessage = new StringBuilder();
+        try {
         try {
             final Process p = Runtime.getRuntime().exec(command);
             p.waitFor();
@@ -22,6 +24,14 @@ public class TesseractCommandImpl implements Tesseract {
             String line;
             while ((line = reader.readLine())!= null) {
                 output.append(line + "\n");
+            }
+            
+            reader = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+            while ((line = reader.readLine())!= null) {
+                errorMessage.append(line + "\n");
+            }
+            if (errorMessage.length() > 0) {
+                log.warn("Got error message from OCR program: " + errorMessage);
             }
             log.info("took {} milli-seconds to ocr image.", (System.currentTimeMillis() - start));
         } catch (Exception ex) {
