@@ -16,10 +16,10 @@ import com.openprice.rest.AbstractRestApiIntegrationTest;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.common.ImageDataForm;
 
+@DatabaseSetup("classpath:/data/testData.xml")
 public class UserReceiptItemRestApiIT extends AbstractRestApiIntegrationTest {
     @Test
-    @DatabaseSetup("classpath:/data/testReceipt.xml")
-    public void getUserReceiptItems_ShouldReturn() throws Exception {
+    public void getUserReceiptItems_ShouldReturnCorrectReceiptItems() throws Exception {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
         
         String receiptsLink = 
@@ -69,7 +69,8 @@ public class UserReceiptItemRestApiIT extends AbstractRestApiIntegrationTest {
                 .get(receiptItemsUrl)
             ;
 
-        response.prettyPrint();
+        //response.prettyPrint();
+        // TODO verify returned items after parser is stable
     }
 
 }

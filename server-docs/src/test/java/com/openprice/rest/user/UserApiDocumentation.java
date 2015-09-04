@@ -36,6 +36,9 @@ public class UserApiDocumentation extends ApiDocumentationBase {
                     linkWithRel("profile").description("The <<resources-user-profile,Profile resource>>"),
                     linkWithRel("receipts").description("The <<resources-user-receipts,Receipts resource>>"),
                     linkWithRel("receipt").description("The <<resources-user-receipt-retrieve,Receipt resource>>"),
+                    linkWithRel("shoppingList").description("The <<resources-user-shoppinglist,ShoppingList resource>>"),
+                    linkWithRel("stores").description("The <<resources-user-stores,Stores resource>>"),
+                    linkWithRel("store").description("The <<resources-user-store-retrieve,Store resource>>"),
                     linkWithRel("upload").description("The <<resources-user-receipt-upload,Upload resource>>")
                 )
                 .withResponseFields(

@@ -27,6 +27,7 @@ import com.openprice.rest.AbstractRestApiIntegrationTest;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.common.ImageDataForm;
 
+@DatabaseSetup("classpath:/data/testData.xml")
 public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
     @Value("classpath:/data/sample1.txt")
     private Resource sampleReceipt1;
@@ -35,7 +36,6 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
     private Resource sampleReceipt2;
 
     @Test
-    @DatabaseSetup("classpath:/data/testReceipt.xml")
     public void getCurrentUserReceipts_ShouldReturnAllUserReceipts() {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
         
@@ -78,11 +78,10 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
             .when()
                 .get(nextUrl)
             ;
-            response.prettyPrint();
+        //response.prettyPrint();
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testReceipt.xml")
     public void getUserReceiptById_ShouldReturnUserReceipt() {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
         
@@ -113,7 +112,6 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
     }
     
     @Test
-    @DatabaseSetup("classpath:/data/testReceipt.xml")
     public void getUserReceiptImages_ShouldReturnUserReceiptImages() {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
         
@@ -157,7 +155,6 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testReceipt.xml")
     public void createNewReceipt_ShouldCreateReceipt_AndSaveImage_FromBase64String() throws Exception {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
         
@@ -228,7 +225,6 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testReceipt.xml")
     public void uploadNewReceipt_ShouldCreateReceipt_AndSaveImageFile() throws Exception {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
         
@@ -289,7 +285,6 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
     }
     
     @Test
-    @DatabaseSetup("classpath:/data/testReceipt.xml")
     public void uploadReceiptImage_ShouldAddReceiptImage_AndSaveImageFile() throws Exception {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
 

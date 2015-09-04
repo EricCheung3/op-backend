@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.openprice</groupId>
+        <artifactId>openprice-project</artifactId>
+        <version>0.0.2</version>
+    </parent>
+
+    <artifactId>openprice-domain-shopping</artifactId>
+    <packaging>jar</packaging>
+
+    <name>User Shopping Domain Module</name>
+    <description>OpenPrice business domain module for shopping list.</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-domain-store</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-domain-account</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+</project>

@@ -23,6 +23,8 @@
         <module>domain-common</module>
         <module>domain-account</module>
         <module>domain-receipt</module>
+        <module>domain-store</module>
+        <module>domain-shopping</module>
         <module>infrastructure</module>
         <module>process</module>
         <module>rest-common</module>

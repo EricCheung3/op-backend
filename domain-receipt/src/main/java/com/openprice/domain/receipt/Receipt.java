@@ -24,7 +24,6 @@ import lombok.ToString;
 
 /**
  * Receipt uploaded by user in the server side.
- * The status will indicate in which state the receipt was processed.
  *
  */
 @ToString(callSuper=true, exclude={"user", "images"})

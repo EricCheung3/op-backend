@@ -16,9 +16,9 @@ import com.openprice.rest.AbstractRestApiIntegrationTest;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.common.UserProfileForm;
 
+@DatabaseSetup("classpath:/data/testData.xml")
 public class UserAccountRestApiIT extends AbstractRestApiIntegrationTest {
     @Test
-    @DatabaseSetup("classpath:/data/testReceipt.xml")
     public void getCurrentUser_ShouldReturnLoggedInUserAccount() {
         final SessionFilter sessionFilter = login("john.doe");
         
@@ -28,9 +28,9 @@ public class UserAccountRestApiIT extends AbstractRestApiIntegrationTest {
             .when()
                 .get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
             ;
-        
+
         //response.prettyPrint();
-        
+
         response
             .then()
                 .statusCode(HttpStatus.SC_OK)
@@ -51,23 +51,21 @@ public class UserAccountRestApiIT extends AbstractRestApiIntegrationTest {
                 .body("_links.receipt.href", endsWith(UserApiUrls.URL_USER_RECEIPTS_RECEIPT))
                 .body("_links.upload.href", endsWith(UserApiUrls.URL_USER_RECEIPTS_UPLOAD))
             ;
-
     }
-    
+
     @Test
-    @DatabaseSetup("classpath:/data/testReceipt.xml")
     public void getCurrentUserProfile_ShouldReturnLoggedInUserProfile() {
         final SessionFilter sessionFilter = login("jane.doe");
-        
+
         Response response = 
             given()
                 .filter(sessionFilter)
             .when()
                 .get(UtilConstants.API_ROOT + UserApiUrls.URL_USER_PROFILE)
             ;
-        
+
         //response.prettyPrint();
-        
+
         response
             .then()
                 .statusCode(HttpStatus.SC_OK)
@@ -80,7 +78,6 @@ public class UserAccountRestApiIT extends AbstractRestApiIntegrationTest {
     }
     
     @Test
-    @DatabaseSetup("classpath:/data/testReceipt.xml")
     public void updateProfile_ShouldChangeProfileAddress() {
         final SessionFilter sessionFilter = login("jane.doe");
         
@@ -105,7 +102,7 @@ public class UserAccountRestApiIT extends AbstractRestApiIntegrationTest {
         UserProfileForm form = constructUserProfileFormByProfileResource(response);
         form.setAddress1("888 Broadway Ave");
         form.setCity("Calgary");
-        
+
         given()
             .filter(sessionFilter)
             .contentType(ContentType.JSON)
@@ -115,16 +112,16 @@ public class UserAccountRestApiIT extends AbstractRestApiIntegrationTest {
         .then()
             .statusCode(HttpStatus.SC_NO_CONTENT)
         ;
-        
+
         response = 
             given()
                 .filter(sessionFilter)
             .when()
                 .get(UtilConstants.API_ROOT + UserApiUrls.URL_USER_PROFILE)
             ;
-        
+
         //response.prettyPrint();
-        
+
         response
             .then()
                 .statusCode(HttpStatus.SC_OK)
@@ -133,7 +130,6 @@ public class UserAccountRestApiIT extends AbstractRestApiIntegrationTest {
                 .body("address.address1", equalTo("888 Broadway Ave"))
                 .body("address.city", equalTo("Calgary"))
             ;
-
     }
 
 }
