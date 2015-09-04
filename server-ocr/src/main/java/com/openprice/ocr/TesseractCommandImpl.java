@@ -17,15 +17,15 @@ public class TesseractCommandImpl implements Tesseract {
         final StringBuilder output = new StringBuilder();
         final StringBuilder errorMessage = new StringBuilder();
         try {
-        try {
             final Process p = Runtime.getRuntime().exec(command);
             p.waitFor();
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
             while ((line = reader.readLine())!= null) {
                 output.append(line + "\n");
             }
-            
+
             reader = new BufferedReader(new InputStreamReader(p.getErrorStream()));
             while ((line = reader.readLine())!= null) {
                 errorMessage.append(line + "\n");
