@@ -1,13 +1,15 @@
 package com.openprice.rest;
 
-import static org.springframework.restdocs.RestDocumentation.documentationConfiguration;
-
 import javax.inject.Inject;
 
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.restdocs.RestDocumentation;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -34,6 +36,9 @@ public abstract class ApiDocumentationBase {
     
     public static final String USERNAME = "testuser";
 
+    @Rule
+    public final RestDocumentation restDocumentation = new RestDocumentation("target/generated-snippets");
+    
     @Inject
     protected WebApplicationContext context;
     
@@ -65,7 +70,7 @@ public abstract class ApiDocumentationBase {
     public void setUp() throws Exception {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context)
                                       .apply(SecurityMockMvcConfigurers.springSecurity())
-                                      .apply(documentationConfiguration())
+                                      .apply(documentationConfiguration(restDocumentation))
                                       .build();
     }
     

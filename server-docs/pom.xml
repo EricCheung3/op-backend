@@ -56,36 +56,31 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-            <version>4.0.2.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>4.0.2.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>4.0.2.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
-            <version>4.0.2.RELEASE</version>
         </dependency>
 
         <!-- use Spring REST Docs to document API -->
         <dependency>
             <groupId>org.springframework.restdocs</groupId>
-            <artifactId>spring-restdocs</artifactId>
-            <version>${spring-restdocs.version}</version>
+            <artifactId>spring-restdocs-mockmvc</artifactId>
+            <version>1.0.0.BUILD-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <!-- Use JsonPath 2.0.0 -->
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
-            <version>2.0.0</version>
             <scope>test</scope>
         </dependency>
 

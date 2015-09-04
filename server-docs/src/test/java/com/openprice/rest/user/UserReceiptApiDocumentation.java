@@ -1,20 +1,24 @@
 package com.openprice.rest.user;
 
-import static org.springframework.restdocs.RestDocumentation.document;
-import static org.springframework.restdocs.RestDocumentation.modifyResponseTo;
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.fileUpload;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.restdocs.response.ResponsePostProcessors;
 
 import com.jayway.jsonpath.JsonPath;
 import com.openprice.domain.account.UserAccount;
@@ -32,16 +36,17 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
         mockMvc
             .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS).with(user(USERNAME)))
             .andExpect(status().isOk())
-            .andDo(modifyResponseTo(ResponsePostProcessors.prettyPrintContent()).andDocument("user-receipts-list-example")
-                .withLinks(
+            .andDo(document("user-receipt-list-example",
+                preprocessResponse(prettyPrint()),
+                links(
                     linkWithRel("self").description("The self link")
-                )
-                .withResponseFields(
+                ),
+                responseFields(
                     fieldWithPath("_embedded.receipts").description("An array of <<resources-user-receipt,Receipt resources>>"),
                     fieldWithPath("page").description("Pagination data"),
                     fieldWithPath("_links").description("<<resources-user-receipts-links,Links>> to other resources")
                 )
-            );
+            ));
     }
     
     @Test
@@ -52,12 +57,17 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
             .perform(
                 fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
                 .file(file)
+                .param("filename", "test.jpg")
                 .with(user(USERNAME))
-                .with(csrf())
+                //.with(csrf())
                 
             )
             .andExpect(status().isCreated())
-            .andDo(document("user-receipt-upload-example"));
+            .andDo(document("user-receipt-upload-example",
+                requestParameters( 
+                    parameterWithName("filename").description("The uploaded image file name")
+                )
+            ));
     }
 
     @Test
@@ -80,14 +90,15 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
         mockMvc
             .perform(get(receiptLocation).with(user(USERNAME)))
             .andExpect(status().isOk())
-            .andDo(modifyResponseTo(ResponsePostProcessors.prettyPrintContent()).andDocument("user-receipt-retrieve-example")
-                .withLinks(
+            .andDo(document("user-receipt-retrieve-example",
+                preprocessResponse(prettyPrint()),
+                links(
                     linkWithRel("self").description("The self link"),
-                    linkWithRel("images").description("<<resources-user-receipt-image-list, Link>> to receipt images"),
-                    linkWithRel("items").description("<<resources-user-receipt-item-list, Link>> to receipt items"),
+                    linkWithRel("images").description("<<resources-user-receipt-images, Link>> to receipt images"),
+                    linkWithRel("items").description("<<resources-user-receipt-items, Link>> to receipt items"),
                     linkWithRel("upload").description("<<resources-user-receipt-image-upload, Link>> to upload images")
-                )
-                .withResponseFields(
+                ),
+                responseFields(
                     fieldWithPath("id").description("Primary ID"),
                     fieldWithPath("version").description("Entity version"),
                     fieldWithPath("createdBy").description("Who created the entity"),
@@ -97,7 +108,7 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                     fieldWithPath("images").description("Receipt image list"),
                     fieldWithPath("_links").description("<<resources-user-receipt-links,Links>> to other resources")
                 )
-            );
+            ));
 
     }
 
@@ -142,13 +153,14 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
         mockMvc
             .perform(get(receiptImageLocation).with(user(USERNAME)))
             .andExpect(status().isOk())
-            .andDo(modifyResponseTo(ResponsePostProcessors.prettyPrintContent()).andDocument("user-receipt-image-retrieve-example")
-                .withLinks(
+            .andDo(document("user-receipt-image-retrieve-example",
+                preprocessResponse(prettyPrint()),
+                links(
                     linkWithRel("self").description("The self link"),
                     linkWithRel("download").description("<<resources-user-receipt-image-download, Link>> to download image"),
                     linkWithRel("base64").description("<<resources-user-receipt-image-base64, Link>> to download image  as base64 string")
-                )
-                .withResponseFields(
+                ),
+                responseFields(
                     fieldWithPath("id").description("Primary ID"),
                     fieldWithPath("version").description("Entity version"),
                     fieldWithPath("createdBy").description("Who created the entity"),
@@ -160,7 +172,7 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                     fieldWithPath("fileName").description("Receipt image file name"),
                     fieldWithPath("_links").description("<<resources-user-receipt-image-links,Links>> to other resources")
                 )
-            );
+            ));
 
         mockMvc
             .perform(
@@ -176,19 +188,53 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
         mockMvc
             .perform(get(imagesLink).with(user(USERNAME)))
             .andExpect(status().isOk())
-            .andDo(modifyResponseTo(ResponsePostProcessors.prettyPrintContent()).andDocument("user-receipt-image-list-example")
-                .withLinks(
+            .andDo(document("user-receipt-image-list-example",
+                preprocessResponse(prettyPrint()),
+                links(
                     linkWithRel("self").description("The self link")
-                )
-                .withResponseFields(
+                ),
+                responseFields(
                     fieldWithPath("_embedded.receiptImages").description("An array of <<resources-user-receipt-image, ReceiptImage resources>>"),
                     fieldWithPath("page").description("Pagination data"),
                     fieldWithPath("_links").description("<<resources-user-receipt-images-links,Links>> to other resources")
                 )
-            );
+            ));
 
     }
     
+    @Test
+    public void receiptItemExample() throws Exception {
+        MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
+        
+        String receiptLocation = mockMvc
+            .perform(
+                fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
+                .file(file)
+                .with(user(USERNAME))
+                .with(csrf())
+                
+            )
+            .andExpect(status().isCreated())
+            .andReturn()
+            .getResponse()
+            .getHeader("Location");
+        
+        String responseContent = mockMvc
+                .perform(get(receiptLocation).with(user(USERNAME)))
+                .andExpect(status().isOk())
+                .andReturn().getResponse()
+                .getContentAsString();
+        String itemsLink = JsonPath.read(responseContent, "_links.items.href");
+
+        mockMvc
+            .perform(get(itemsLink).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andDo(document("user-receipt-item-list-example",
+                preprocessResponse(prettyPrint())
+            ));
+
+    }
+
     @Before
     public void setUp() throws Exception {
         super.setUp();
