@@ -54,7 +54,6 @@ public class AdminAccountRestApiIT extends AbstractRestApiIntegrationTest {
             .body("id", equalTo("user001"))
             .body("email", equalTo("user1@openprice.com"))
             .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN))
-            .body("_links.users.templated", equalTo(false))
             .body("_links.users.href", endsWith(AdminApiUrls.URL_ADMIN_USERS))
         ;
     }
