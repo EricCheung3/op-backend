@@ -4,14 +4,17 @@ import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.li
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -101,9 +104,7 @@ public class UserApiDocumentation extends ApiDocumentationBase {
         UserProfile profile = account.getProfile();
         UserProfileForm form = new UserProfileForm(profile);
         form.setFirstName("Jonny");
-        
-        //ConstrainedFields fields = new ConstrainedFields(UserProfileForm.class);
-        
+
         mockMvc
             .perform(
                 put(UtilConstants.API_ROOT + UserApiUrls.URL_USER_PROFILE)
@@ -113,8 +114,8 @@ public class UserApiDocumentation extends ApiDocumentationBase {
                 .content(objectMapper.writeValueAsString(form))
             )
             .andExpect(status().isNoContent())
-            .andDo(document("profile-update-example",
-                preprocessResponse(prettyPrint()),
+            .andDo(document("user-profile-update-example",
+                preprocessRequest(prettyPrint()),
                 requestFields(
                     fieldWithPath("firstName").description("User first name"),
                     fieldWithPath("middleName").description("User middle name"),
@@ -128,7 +129,6 @@ public class UserApiDocumentation extends ApiDocumentationBase {
                     fieldWithPath("country").description("User address country")
                 )
             ));
-
     }
 
     @Before

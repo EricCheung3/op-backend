@@ -32,7 +32,6 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
 
     @Test
     public void receiptListExample() throws Exception {
-
         mockMvc
             .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS).with(user(USERNAME)))
             .andExpect(status().isOk())
@@ -52,15 +51,13 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
     @Test
     public void uploadReceiptExample() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
-        
+
         mockMvc
             .perform(
                 fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
                 .file(file)
                 .param("filename", "test.jpg")
                 .with(user(USERNAME))
-                //.with(csrf())
-                
             )
             .andExpect(status().isCreated())
             .andDo(document("user-receipt-upload-example",
@@ -73,7 +70,7 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
     @Test
     public void receiptExample() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
-        
+
         String receiptLocation = mockMvc
             .perform(
                 fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
@@ -115,20 +112,22 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
     @Test
     public void receiptImageExample() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
-        
-        String receiptLocation = mockMvc
-            .perform(
-                fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
-                .file(file)
-                .with(user(USERNAME))
-                .with(csrf())
-            )
-            .andExpect(status().isCreated())
-            .andReturn()
-            .getResponse()
-            .getHeader("Location");
+
+        String receiptLocation = 
+            mockMvc
+                .perform(
+                    fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
+                    .file(file)
+                    .with(user(USERNAME))
+                    .with(csrf())
+                )
+                .andExpect(status().isCreated())
+                .andReturn()
+                .getResponse()
+                .getHeader("Location");
  
-        String responseContent = mockMvc
+        String responseContent = 
+            mockMvc
                 .perform(get(receiptLocation).with(user(USERNAME)))
                 .andExpect(status().isOk())
                 .andReturn().getResponse()
@@ -138,17 +137,18 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
         
         file = new MockMultipartFile("file", "image2.jpg", "image/jpeg", "base64codedimg".getBytes());
         
-        String receiptImageLocation = mockMvc
-            .perform(
-                fileUpload(uploadLink).file(file)
-                                      .with(user(USERNAME))
-                                      .with(csrf())
-                
-            )
-            .andExpect(status().isCreated())
-            .andReturn()
-            .getResponse()
-            .getHeader("Location");
+        String receiptImageLocation = 
+            mockMvc
+                .perform(
+                    fileUpload(uploadLink)
+                    .file(file)
+                    .with(user(USERNAME))
+                    .with(csrf())
+                )
+                .andExpect(status().isCreated())
+                .andReturn()
+                .getResponse()
+                .getHeader("Location");
 
         mockMvc
             .perform(get(receiptImageLocation).with(user(USERNAME)))
@@ -178,12 +178,15 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
             .perform(
                 fileUpload(uploadLink)
                 .file(file)
+                .param("filename", "test.jpg")
                 .with(user(USERNAME))
-                .with(csrf())
-                
             )
             .andExpect(status().isCreated())
-            .andDo(document("user-receipt-image-upload-example"));
+            .andDo(document("user-receipt-image-upload-example",
+                requestParameters( 
+                    parameterWithName("filename").description("The uploaded image file name")
+                )
+            ));
 
         mockMvc
             .perform(get(imagesLink).with(user(USERNAME)))
@@ -206,20 +209,22 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
     public void receiptItemExample() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
         
-        String receiptLocation = mockMvc
-            .perform(
-                fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
-                .file(file)
-                .with(user(USERNAME))
-                .with(csrf())
-                
-            )
-            .andExpect(status().isCreated())
-            .andReturn()
-            .getResponse()
-            .getHeader("Location");
-        
-        String responseContent = mockMvc
+        String receiptLocation = 
+            mockMvc
+                .perform(
+                    fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
+                    .file(file)
+                    .with(user(USERNAME))
+                    .with(csrf())
+                    
+                )
+                .andExpect(status().isCreated())
+                .andReturn()
+                .getResponse()
+                .getHeader("Location");
+
+        String responseContent = 
+            mockMvc
                 .perform(get(receiptLocation).with(user(USERNAME)))
                 .andExpect(status().isOk())
                 .andReturn().getResponse()

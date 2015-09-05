@@ -220,13 +220,13 @@ This resource is for uploading image for a new receipt.
 TODO: find a better restful way to do it?
 
 [[resources-user-receipt-upload]]
-=== Create a new receipt by uploading a receipt image
+=== Uploading a receipt image for a new Receipt
 
 A `POST` request is used to upload a receipt image for new receipt
 
 ==== Request structure
 
-include::{snippets}/user-receipt-upload-example/request-fields.adoc[]
+include::{snippets}/user-receipt-upload-example/request-parameters.adoc[]
 
 ==== Example request
 
@@ -296,7 +296,7 @@ A `POST` request is used to upload a receipt image for existing receipt
 
 ==== Request structure
 
-include::{snippets}/user-receipt-image-upload-example/request-fields.adoc[]
+include::{snippets}/user-receipt-image-upload-example/request-parameters.adoc[]
 
 ==== Example request
 
@@ -405,6 +405,31 @@ include::{snippets}/user-store-retrieve-example/curl-request.adoc[]
 include::{snippets}/user-store-retrieve-example/http-response.adoc[]
 
 
+
+[[resources-user-shoppinglist]]
+== User Shopping List
+
+User Shopping List resource is for user uploading shopping list.
+
+[[resources-user-shoppinglist-upload]]
+=== Upload User Shopping List 
+
+A `POST` request is used to upload a user's shoppinglist for a store
+
+==== Request structure
+
+include::{snippets}/user-shoppinglist-upload-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/user-shoppinglist-upload-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/user-shoppinglist-upload-example/http-response.adoc[]
+
+
+
 [[resources-user-store-items]]
 == User Shopping List Items
 
@@ -450,4 +475,6 @@ include::{snippets}/user-store-item-retrieve-example/curl-request.adoc[]
 ==== Example response
 
 include::{snippets}/user-store-item-retrieve-example/http-response.adoc[]
+
+
 
