@@ -43,7 +43,7 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                 responseFields(
                     fieldWithPath("_embedded.receipts").description("An array of <<resources-user-receipt,Receipt resources>>"),
                     fieldWithPath("page").description("Pagination data"),
-                    fieldWithPath("_links").description("<<resources-user-receipts-links,Links>> to other resources")
+                    fieldWithPath("_links").description("<<resources-user-receipt-list-links,Links>> to other resources")
                 )
             ));
     }
@@ -157,8 +157,8 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                 preprocessResponse(prettyPrint()),
                 links(
                     linkWithRel("self").description("The self link"),
-                    linkWithRel("download").description("<<resources-user-receipt-image-download, Link>> to download image"),
-                    linkWithRel("base64").description("<<resources-user-receipt-image-base64, Link>> to download image  as base64 string")
+                    linkWithRel("download").description("URL for downloading image as jpg file"),
+                    linkWithRel("base64").description("URL for downloading image  as base64 string")
                 ),
                 responseFields(
                     fieldWithPath("id").description("Primary ID"),
@@ -199,7 +199,7 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                 responseFields(
                     fieldWithPath("_embedded.receiptImages").description("An array of <<resources-user-receipt-image, ReceiptImage resources>>"),
                     fieldWithPath("page").description("Pagination data"),
-                    fieldWithPath("_links").description("<<resources-user-receipt-images-links,Links>> to other resources")
+                    fieldWithPath("_links").description("<<resources-user-receipt-image-list-links,Links>> to other resources")
                 )
             ));
 

@@ -20,7 +20,7 @@ public interface UserApiUrls {
     String URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_DOWNLOAD = "/user/receipts/{receiptId}/images/{imageId}/download";
     String URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_BASE64 = "/user/receipts/{receiptId}/images/{imageId}/base64";
     
-    String URL_USER_SHOPPINGLIST = "/user/shoppinglist";
+    String URL_USER_SHOPPINGLIST = "/user/shoppingList";
     String URL_USER_SHOPPING_STORES = "/user/stores";
     String URL_USER_SHOPPING_STORES_STORE = "/user/stores/{storeId}";
     String URL_USER_SHOPPING_STORES_STORE_ITEMS = "/user/stores/{storeId}/items";

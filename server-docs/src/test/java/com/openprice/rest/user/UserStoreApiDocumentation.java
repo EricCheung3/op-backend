@@ -59,7 +59,7 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
                 responseFields(
                     fieldWithPath("_embedded.stores").description("An array of <<resources-user-store,Store resources>>"),
                     fieldWithPath("page").description("Pagination data"),
-                    fieldWithPath("_links").description("<<resources-user-stores-links,Links>> to other resources")
+                    fieldWithPath("_links").description("<<resources-user-store-list-links,Links>> to other resources")
                 )
             ));
 
@@ -90,7 +90,7 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
                     fieldWithPath("lastModifiedBy").description("Who last modified the entity"),
                     fieldWithPath("lastModifiedTime").description("When last modified the entity"),
                     fieldWithPath("name").description("Store name"),
-                    fieldWithPath("_links").description("<<resources-user-store-links,Links>> to other resources")
+                    fieldWithPath("_links").description("<<resources-user-store-retrieve-links,Links>> to other resources")
                 )
             ));
 
@@ -130,8 +130,8 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
             .andDo(document("user-shoppinglist-upload-example",
                 preprocessRequest(prettyPrint()),
                 requestFields(
-                    fieldWithPath("storeId").description("The id of the store for shoppinglist."),
-                    fieldWithPath("items").description("The shoppinglist items array.")
+                    fieldWithPath("storeId").description("The id of the store for shopping list."),
+                    fieldWithPath("items").description("The shopping list items array.")
                 )
             ));
 
@@ -182,7 +182,7 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
                 responseFields(
                     fieldWithPath("_embedded.shoppingItems").description("An array of <<resources-user-store-item,Shopping Item resources>>"),
                     fieldWithPath("page").description("Pagination data"),
-                    fieldWithPath("_links").description("<<resources-user-store-items-links,Links>> to other resources")
+                    fieldWithPath("_links").description("<<resources-user-store-item-list-links,Links>> to other resources")
                 )
             ));
 
@@ -192,9 +192,9 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
             .andDo(document("user-store-item-retrieve-example",
                 preprocessResponse(prettyPrint()),
                 links(
-                    linkWithRel("self").description("The self link"),
-                    linkWithRel("user").description("The user link"),
-                    linkWithRel("store").description("The store link")
+                    linkWithRel("self").description("The self link."),
+                    linkWithRel("user").description("<<resources-user,Link>> to shopping list item owner."),
+                    linkWithRel("store").description("<<resources-user-store, Link>> to the store this item belong to.")
                 ),
                 responseFields(
                     fieldWithPath("id").description("Primary ID"),
@@ -205,7 +205,7 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
                     fieldWithPath("lastModifiedTime").description("When last modified the entity"),
                     fieldWithPath("itemName").description("Shopping Item name"),
                     fieldWithPath("itemPrice").description("Shopping Item price"),
-                    fieldWithPath("_links").description("<<resources-user-store-items-links,Links>> to other resources")
+                    fieldWithPath("_links").description("<<resources-user-store-item-retrieve-links,Links>> to other resources")
                 )
             ));
 

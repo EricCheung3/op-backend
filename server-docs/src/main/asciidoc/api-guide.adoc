@@ -141,7 +141,7 @@ include::{snippets}/user-example/links.adoc[]
 [[resources-user-profile]]
 == User Profile
 
-The Profile resource is used to retrieve and update current 
+The Profile resource is used to retrieve and update current
 logged in user profile.
 
 
@@ -288,6 +288,10 @@ include::{snippets}/user-receipt-image-list-example/curl-request.adoc[]
 
 include::{snippets}/user-receipt-image-list-example/http-response.adoc[]
 
+[[resources-user-receipt-image-list-links]]
+==== Links
+
+include::{snippets}/user-receipt-image-list-example/links.adoc[]
 
 [[resources-user-receipt-image-upload]]
 === Upload another image to receipt
@@ -314,7 +318,7 @@ include::{snippets}/user-receipt-image-upload-example/http-response.adoc[]
 User Receipt Image resource is for one image of specific receipt.
 
 [[resources-user-receipt-image-retrieve]]
-=== Get receipt image 
+=== Get receipt image
 
 A `GET` request is used to retrieve a receipt image data for existing receipt
 
@@ -382,6 +386,11 @@ include::{snippets}/user-store-list-example/curl-request.adoc[]
 
 include::{snippets}/user-store-list-example/http-response.adoc[]
 
+[[resources-user-store-list-links]]
+==== Links
+
+include::{snippets}/user-store-list-example/links.adoc[]
+
 [[resources-user-store]]
 == User Store
 
@@ -404,6 +413,10 @@ include::{snippets}/user-store-retrieve-example/curl-request.adoc[]
 
 include::{snippets}/user-store-retrieve-example/http-response.adoc[]
 
+[[resources-user-store-retrieve-links]]
+==== Links
+
+include::{snippets}/user-store-retrieve-example/links.adoc[]
 
 
 [[resources-user-shoppinglist]]
@@ -412,7 +425,7 @@ include::{snippets}/user-store-retrieve-example/http-response.adoc[]
 User Shopping List resource is for user uploading shopping list.
 
 [[resources-user-shoppinglist-upload]]
-=== Upload User Shopping List 
+=== Upload User Shopping List
 
 A `POST` request is used to upload a user's shoppinglist for a store
 
@@ -452,10 +465,15 @@ include::{snippets}/user-store-item-list-example/curl-request.adoc[]
 
 include::{snippets}/user-store-item-list-example/http-response.adoc[]
 
+[[resources-user-store-item-list-links]]
+==== Links
+
+include::{snippets}/user-store-item-list-example/links.adoc[]
+
 
 
 [[resources-user-store-item]]
-== User Shopping List Item 
+== User Shopping List Item
 
 User Shopping List Item Resource is for the item in one of user shopping list for a store.
 
@@ -476,5 +494,7 @@ include::{snippets}/user-store-item-retrieve-example/curl-request.adoc[]
 
 include::{snippets}/user-store-item-retrieve-example/http-response.adoc[]
 
+[[resources-user-store-item-retrieve-links]]
+==== Links
 
-
+include::{snippets}/user-store-item-retrieve-example/links.adoc[]
