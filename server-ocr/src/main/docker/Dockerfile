@@ -1,5 +1,7 @@
 FROM openprice/ocr
 MAINTAINER Yuan Ji
+RUN apt-get update
+RUN apt-get install -y wget curl git
 
 # download and install JDK 1.8
  # set shell variables for java installation
