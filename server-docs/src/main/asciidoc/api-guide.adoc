@@ -353,7 +353,9 @@ A `GET` request will list all of the items from a specific receipt.
 
 ==== Response structure
 
-include::{snippets}/user-receipt-item-list-example/response-fields.adoc[]
+TODO : fix receipt item resource
+
+/*include::{snippets}/user-receipt-item-list-example/response-fields.adoc[]*/
 
 ==== Example request
 

@@ -1,27 +1,5 @@
-FROM ubuntu:15.10
-MAINTAINER Haipeng (Paul) <solittlework.li@gmail.com>
-RUN apt-get update
-RUN apt-get install -y wget curl git
-RUN apt-get install -y build-essential
-RUN apt-get install -y libleptonica-dev
-RUN apt-get install -y tesseract-ocr-dev
-#install all of the tesseract language packages
-RUN apt-get install -y tesseract-ocr-all
-RUN apt-get install -y make cmake git libgtk2.0-dev pkg-config python python-dev python-numpy libavcodec-dev libavformat-dev libswscale-dev libjpeg-dev libpng-dev libtiff-dev
-RUN  rm /bin/sh \
-&& ln /bin/bash /bin/sh
-WORKDIR  cd ~/Downloads
-RUN  git clone https://github.com/itseez/opencv \
-&& mv opencv /opt
-WORKDIR /opt/opencv
-RUN git checkout 2.4.10.1 \
-&& mkdir build
-WORKDIR /opt/opencv/build
-RUN cmake -j4 -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
-RUN  make -j4 \
-&& make -j4 install
-RUN ldconfig
-RUN ln /dev/null /dev/raw1394 #remove the compile error of opencv
+FROM openprice/ocr
+MAINTAINER Yuan Ji
 
 # download and install JDK 1.8
  # set shell variables for java installation
