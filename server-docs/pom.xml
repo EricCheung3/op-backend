@@ -74,7 +74,7 @@
         <dependency>
             <groupId>org.springframework.restdocs</groupId>
             <artifactId>spring-restdocs-mockmvc</artifactId>
-            <version>1.0.0.BUILD-SNAPSHOT</version>
+            <version>1.0.0.RC1</version>
             <scope>test</scope>
         </dependency>
         <!-- Use JsonPath 2.0.0 -->
