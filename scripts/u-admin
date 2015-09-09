@@ -1,0 +1,12 @@
+cd ~/openprice-admin-ui
+git pull
+
+cd ~/openprice-admin-ui
+grunt build
+cd ~/openprice-admin-ui/docker
+docker build -t openprice/openprice-server-admin-ui .
+
+docker stop openprice-server-admin-ui
+docker rm openprice-server-admin-ui
+
+docker run --name openprice-server-admin-ui -p 8080:80 -d openprice/openprice-server-admin-ui

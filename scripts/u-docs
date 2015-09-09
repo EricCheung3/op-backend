@@ -1,0 +1,12 @@
+cd ~/openprice-backend
+git pull
+
+cd ~/openprice-backend
+mvn clean install -Pdev
+cd ~/openprice-backend/server-docs
+mvn docker:build
+
+docker stop openprice-server-docs
+docker rm openprice-server-docs
+
+docker run --name openprice-server-docs -p 8080:8080 -d openprice/openprice-server-docs
