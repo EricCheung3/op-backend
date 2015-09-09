@@ -25,6 +25,7 @@
         <module>domain-receipt</module>
         <module>domain-store</module>
         <module>domain-shopping</module>
+        <module>domain-admin-account</module>
         <module>infrastructure</module>
         <module>process</module>
         <module>rest-common</module>
