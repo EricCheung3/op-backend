@@ -8,13 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.openprice.domain.account.UserAccount;
 
-
 /**
  * JPA Repository for Receipt entity.
  *
  */
 public interface ReceiptRepository extends JpaRepository<Receipt, String> {
+
     List<Receipt> findByUser(UserAccount user);
-    
+
     Page<Receipt> findByUserOrderByCreatedTimeDesc(UserAccount user, Pageable pageable);
 }

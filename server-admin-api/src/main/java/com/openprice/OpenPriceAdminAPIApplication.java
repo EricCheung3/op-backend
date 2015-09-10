@@ -24,14 +24,13 @@ import com.openprice.mail.EmailService;
 import com.openprice.mail.sendgrid.EmailServiceImpl;
 import com.openprice.mail.stub.DummyEmailService;
 import com.openprice.parser.simple.SimpleParser;
-import com.openprice.process.ProcessSettings;
 
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @EnableAspectJAutoProxy
-@EnableConfigurationProperties({EmailProperties.class, FileFolderSettings.class, ProcessSettings.class})
+@EnableConfigurationProperties({EmailProperties.class, FileFolderSettings.class})
 @Slf4j
 public class OpenPriceAdminAPIApplication {
 

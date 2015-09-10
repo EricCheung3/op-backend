@@ -19,17 +19,17 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class FileSystemService {
-    
+
     private final FileSystem fileSystem;
     private final FileFolderSettings fileFolderSettings;
-    
+
     @Inject
     public FileSystemService(final FileFolderSettings fileFolderSettings) {
         this.fileFolderSettings = fileFolderSettings;
-        
+
         if (fileFolderSettings.isVirtual()) {
             fileSystem = Jimfs.newFileSystem(Configuration.unix());
-            
+
             // create image root folder
             final Path imageRootFolder = fileSystem.getPath(fileFolderSettings.getImageRootFolder());
             try{
@@ -39,7 +39,7 @@ public class FileSystemService {
             }
         } else {
             fileSystem = FileSystems.getDefault();
-            
+
             // check image root folder
             final Path imageRootFolder = fileSystem.getPath(fileFolderSettings.getImageRootFolder());
             if (!Files.exists(imageRootFolder, LinkOption.NOFOLLOW_LINKS)) {
@@ -47,11 +47,11 @@ public class FileSystemService {
             }
         }
     }
-    
+
     public Path getImageRootFolder() {
         return fileSystem.getPath(fileFolderSettings.getImageRootFolder());
     }
-    
+
     public Path getImageSubFolder(String subFolderName) {
         final Path subFolder = fileSystem.getPath(fileFolderSettings.getImageRootFolder(), subFolderName);
         if (Files.notExists(subFolder)) {
@@ -64,7 +64,7 @@ public class FileSystemService {
         }
         return subFolder;
     }
-    
+
     public String getPathSeparator() {
         return fileSystem.getSeparator();
     }

@@ -25,11 +25,6 @@
             <artifactId>openprice-domain-receipt</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.openprice</groupId>
-            <artifactId>openprice-process</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <!-- introduce spring hateoas for restful api -->
         <dependency>

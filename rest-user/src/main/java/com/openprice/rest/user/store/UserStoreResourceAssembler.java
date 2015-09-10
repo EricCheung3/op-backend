@@ -19,7 +19,7 @@ public class UserStoreResourceAssembler implements ResourceAssembler<Store, User
     @Override
     public UserStoreResource toResource(final Store store) {
         final UserStoreResource resource = new UserStoreResource(store);
-        
+
         resource.add(linkTo(methodOn(UserStoreRestController.class).getUserStoreById(store.getId()))
                 .withSelfRel());
 

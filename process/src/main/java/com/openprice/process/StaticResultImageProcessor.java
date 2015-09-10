@@ -41,7 +41,6 @@ public class StaticResultImageProcessor implements ImageProcessor {
         }
     }
 
-
     @Override
     public String getName() {
         return "StaticResult";

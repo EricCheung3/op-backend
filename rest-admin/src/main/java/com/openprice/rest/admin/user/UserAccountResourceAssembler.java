@@ -32,9 +32,6 @@ public class UserAccountResourceAssembler implements ResourceAssembler<UserAccou
 //        resource.add(linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(userAccount.getId(), null))
 //                .withRel(UserAccountResource.LINK_NAME_RECEIPT));
 
-        resource.add(linkTo(methodOn(UserReceiptRestController.class).getUploadNewReceiptPath(userAccount.getId()))
-                .withRel(UserAccountResource.LINK_NAME_UPLOAD));
-
         return resource;
     }
 }

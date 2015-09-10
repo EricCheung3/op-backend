@@ -6,14 +6,16 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ProcessQueueConsumer implements Runnable {
+
     private final BlockingQueue<ProcessItem> queue;
     private final ImageProcessor imageProcessor;
-    
+
     public ProcessQueueConsumer(final BlockingQueue<ProcessItem> queue, final ImageProcessor imageProcessor) {
         this.queue = queue;
         this.imageProcessor = imageProcessor;
     }
-    
+
+    @Override
     public void run() {
         log.info("Process Queue Consumer started for processor {}.", imageProcessor.getName());
         while (true) {
@@ -24,7 +26,7 @@ public class ProcessQueueConsumer implements Runnable {
                 }
                 imageProcessor.processImage(item);
             } catch (InterruptedException ex) {
-                log.error("Got InterruptedException in ImageProcessor!", ex); 
+                log.error("Got InterruptedException in ImageProcessor!", ex);
             } catch (Exception ex) {
                 log.error("SEVERE!!! got exception during image processing.", ex);
             }

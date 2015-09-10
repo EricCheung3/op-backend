@@ -20,29 +20,28 @@ import lombok.ToString;
 @SuppressWarnings("serial")
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Address implements Serializable {
-    
+
     @Getter @Setter
     @Column
     private String address1;
-    
+
     @Getter @Setter
     @Column
     private String address2;
-    
+
     @Getter @Setter
     @Column
     private String city;
-    
+
     @Getter @Setter
     @Column
     private String state;
-    
+
     @Getter @Setter
     @Column
     private String zip;
-    
+
     @Getter @Setter
     @Column
     private String country;
 }
-

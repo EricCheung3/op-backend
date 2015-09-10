@@ -38,7 +38,6 @@ public class AdminAccountServiceTest {
                 account.setId("admin123");
                 return account;
             }
-
         });
 
         final AdminAccount newAccount = serviceToTest.createAdminAccount(

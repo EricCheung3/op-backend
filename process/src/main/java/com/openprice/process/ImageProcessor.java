@@ -6,10 +6,10 @@ public interface ImageProcessor {
      * @return
      */
     String getName();
-    
+
     /**
      * Starts the image process with process item.
-     * 
+     *
      * @param item
      */
     void processImage(final ProcessItem item);

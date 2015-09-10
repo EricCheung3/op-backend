@@ -22,16 +22,17 @@ import lombok.ToString;
 @Entity
 @Table
 public class ReceiptImage extends BaseAuditableEntity {
+
     @Getter @Setter
     @JsonIgnore
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="receipt_id")
     private Receipt receipt;
-    
+
     @Getter @Setter
     @Column
     private String fileName;
-    
+
     @Getter @Setter
     @Enumerated(EnumType.STRING)
     @Column

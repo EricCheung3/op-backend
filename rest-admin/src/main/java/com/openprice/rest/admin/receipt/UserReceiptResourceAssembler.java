@@ -32,9 +32,6 @@ public class UserReceiptResourceAssembler implements ResourceAssembler<Receipt, 
         resource.add(linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getUser().getId(), receipt.getId()))
                 .withSelfRel());
 
-        resource.add(linkTo(methodOn(UserReceiptRestController.class).getUploadReceiptImagePath(receipt.getUser().getId(), receipt.getId()))
-                .withRel(UserReceiptResource.LINK_NAME_UPLOAD));
-
         // TODO fix _embedded issue
         List<UserReceiptImageResource> images = new ArrayList<>();
         for (ReceiptImage image : receipt.getImages()) {

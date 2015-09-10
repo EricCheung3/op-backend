@@ -1,11 +1,6 @@
 package com.openprice.rest.admin.receipt;
 
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
-import java.net.URI;
-
 import javax.inject.Inject;
 
 import org.springframework.core.io.PathResource;
@@ -16,18 +11,14 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.openprice.domain.account.UserAccount;
 import com.openprice.domain.account.UserAccountRepository;
@@ -38,7 +29,6 @@ import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
-import com.openprice.process.ProcessQueueService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.AbstractUserAdminRestController;
@@ -54,7 +44,6 @@ public class UserReceiptRestController extends AbstractUserAdminRestController {
     private final ReceiptService receiptService;
     private final UserReceiptResourceAssembler receiptResourceAssembler;
     private final UserReceiptImageResourceAssembler receiptImageResourceAssembler;
-    private final ProcessQueueService processQueueService;
 
     @Inject
     public UserReceiptRestController(final AdminAccountService adminAccountService,
@@ -64,15 +53,13 @@ public class UserReceiptRestController extends AbstractUserAdminRestController {
                                      final ReceiptImageRepository receiptImageRepository,
                                      final ReceiptService receiptService,
                                      final UserReceiptResourceAssembler receiptResourceAssembler,
-                                     final UserReceiptImageResourceAssembler receiptImageResourceAssembler,
-                                     final ProcessQueueService processQueueService) {
+                                     final UserReceiptImageResourceAssembler receiptImageResourceAssembler) {
         super(adminAccountService, userAccountService, userAccountRepository);
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
         this.receiptService = receiptService;
         this.receiptResourceAssembler = receiptResourceAssembler;
         this.receiptImageResourceAssembler = receiptImageResourceAssembler;
-        this.processQueueService = processQueueService;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS)
@@ -93,28 +80,6 @@ public class UserReceiptRestController extends AbstractUserAdminRestController {
             throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(userId, receiptId);
         return ResponseEntity.ok(receiptResourceAssembler.toResource(receipt));
-
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_UPLOAD)
-    public HttpEntity<Void> getUploadNewReceiptPath(@PathVariable("userId") final String userId) {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @RequestMapping(method = RequestMethod.POST, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_UPLOAD)
-    public HttpEntity<Void> uploadNewReceipt(@PathVariable("userId") final String userId,
-                                             @RequestParam("file") final MultipartFile file) {
-        if (!file.isEmpty()) {
-            final Receipt receipt = newReceiptWithFile(userId, file);
-            processQueueService.addImage(receipt.getImages().get(0));
-
-            URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(userId, receipt.getId())).toUri();
-            return ResponseEntity.created(location).body(null);
-        }
-        else {
-            log.error("No file uploaded!");
-            return ResponseEntity.badRequest().build();
-        }
 
     }
 
@@ -139,30 +104,6 @@ public class UserReceiptRestController extends AbstractUserAdminRestController {
         final ReceiptImage image = getReceiptImageByIdAndCheckReceipt(imageId, receipt);
 
         return ResponseEntity.ok(receiptImageResourceAssembler.toResource(image));
-
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_IMAGES_UPLOAD)
-    public HttpEntity<Void> getUploadReceiptImagePath(@PathVariable("userId") final String userId,
-                                                      @PathVariable("receiptId") final String receiptId) {
-        return ResponseEntity.notFound().build();
-    }
-
-    @RequestMapping(method = RequestMethod.POST, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_IMAGES_UPLOAD)
-    public HttpEntity<Void> uploadReceiptImage(@PathVariable("userId") final String userId,
-                                               @PathVariable("receiptId") final String receiptId,
-                                               @RequestParam(value="file") final MultipartFile file) {
-        if (!file.isEmpty()) {
-            final ReceiptImage image = newReceiptImageWithFile(userId, receiptId, file);
-            processQueueService.addImage(image);
-
-            URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptImageById(userId, receiptId, image.getId())).toUri();
-            return ResponseEntity.created(location).body(null);
-        }
-        else {
-            log.error("No file uploaded!");
-            return ResponseEntity.badRequest().build();
-        }
 
     }
 
@@ -208,22 +149,4 @@ public class UserReceiptRestController extends AbstractUserAdminRestController {
         }
         return image;
     }
-
-    @Transactional
-    private Receipt newReceiptWithFile(final String userId, final MultipartFile file) {
-        final UserAccount user = getUserByUserId(userId);
-        log.debug("Admin upload image for new receipt to user {}", user.getUsername());
-        return receiptService.uploadImageForNewReceipt(user, file);
-    }
-
-    @Transactional
-    private ReceiptImage newReceiptImageWithFile(final String userId,
-                                                 final String receiptId,
-                                                 final MultipartFile file) {
-        final UserAccount user = getUserByUserId(userId);
-        final Receipt receipt = getReceiptByIdAndCheckUser(userId, receiptId);
-        log.debug("Admin upload image for receipt {} to user {}.", receiptId, user.getUsername());
-        return receiptService.appendImageToReceipt(receipt, file);
-    }
-
 }

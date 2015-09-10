@@ -22,6 +22,12 @@
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
+            <artifactId>openprice-process</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.openprice</groupId>
             <artifactId>openprice-rest-common</artifactId>
             <version>${project.version}</version>
         </dependency>

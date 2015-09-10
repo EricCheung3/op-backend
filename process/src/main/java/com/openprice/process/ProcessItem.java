@@ -13,7 +13,7 @@ public class ProcessItem {
     private ReceiptImage image;
 
     @Getter @Setter
-    private String username;
+    private String username; // for end user, it is user's email
 
     @Getter @Setter
     private Date addTime;

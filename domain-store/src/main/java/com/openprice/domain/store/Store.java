@@ -20,5 +20,4 @@ public class Store extends BaseAuditableEntity {
     @Column
     private String name;
 
-    
 }

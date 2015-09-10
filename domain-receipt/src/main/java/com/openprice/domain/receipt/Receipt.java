@@ -44,7 +44,6 @@ public class Receipt extends BaseAuditableEntity {
     @OrderBy("createdTime")
     private List<ReceiptImage> images = new ArrayList<>();
 
-
     /**
      * Builder method to create a new receipt.
      *

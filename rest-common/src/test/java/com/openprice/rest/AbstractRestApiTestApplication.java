@@ -7,10 +7,10 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -24,21 +24,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.openprice.file.FileFolderSettings;
 import com.openprice.file.FileSystemService;
-import com.openprice.mail.EmailProperties;
 import com.openprice.mail.EmailService;
 import com.openprice.mail.stub.DummyEmailService;
 import com.openprice.parser.simple.SimpleParser;
-import com.openprice.process.ProcessSettings;
 
 import lombok.extern.slf4j.Slf4j;
 
-//@Configuration
+@Configuration
 @EnableAutoConfiguration
 @ComponentScan({ "com.openprice.domain", "com.openprice.rest", "com.openprice.process", "com.openprice.parser" })
 @EntityScan("com.openprice.domain")
 @EnableJpaRepositories("com.openprice.domain")
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
-@EnableConfigurationProperties( {FileFolderSettings.class, EmailProperties.class, ProcessSettings.class} )
 @Slf4j
 public abstract class AbstractRestApiTestApplication extends WebSecurityConfigurerAdapter {
 

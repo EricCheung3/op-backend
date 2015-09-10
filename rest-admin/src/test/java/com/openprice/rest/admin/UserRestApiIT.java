@@ -69,7 +69,6 @@ public class UserRestApiIT extends AbstractAdminRestApiIntegrationTest {
             .body("_links.lockState.href", endsWith(UserAccountResource.LINK_NAME_LOCK_STATE))
             .body("_links.profile.href", endsWith(UserAccountResource.LINK_NAME_PROFILE))
             .body("_links.receipts.href", endsWith(UserAccountResource.LINK_NAME_RECEIPTS))
-            .body("_links.upload.href", endsWith(UserAccountResource.LINK_NAME_UPLOAD))
         ;
     }
 

@@ -47,16 +47,15 @@ public class ProcessLog extends BaseEntity {
 
     @Getter @Setter
     @Column
-    private Long parserDuration;
+    private Long parserDuration; // not used
 
     @Getter @Setter
     @Column
     @Lob
-    private String parserResult;
+    private String parserResult; // not used
 
     @Getter @Setter
     @Column
     private String errorMessage;
-
 
 }

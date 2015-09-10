@@ -26,4 +26,3 @@ public class UserAccountResource extends Resource<UserAccount> {
     }
 
 }
-

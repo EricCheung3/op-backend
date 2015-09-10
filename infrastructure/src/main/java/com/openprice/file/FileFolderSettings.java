@@ -9,7 +9,7 @@ import lombok.Setter;
 public class FileFolderSettings {
     @Getter @Setter
     private String imageRootFolder = "/images_test";
-    
+
     @Getter @Setter
     private boolean virtual = true;
 
