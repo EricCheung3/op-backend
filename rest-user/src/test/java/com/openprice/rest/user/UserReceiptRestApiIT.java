@@ -23,12 +23,10 @@ import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.openprice.domain.receipt.ProcessStatusType;
-import com.openprice.rest.AbstractRestApiIntegrationTest;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.common.ImageDataForm;
 
 @DatabaseSetup("classpath:/data/testData.xml")
-public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
+public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
     @Value("classpath:/data/sample1.txt")
     private Resource sampleReceipt1;
 
@@ -38,9 +36,9 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
     @Test
     public void getCurrentUserReceipts_ShouldReturnAllUserReceipts() {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
-        
+
         // get receipts link
-        String receiptsLink = 
+        String receiptsLink =
                 given().filter(sessionFilter)
                        .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
                        .then().extract().path("_links.receipts.href");
@@ -50,14 +48,14 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
                                          .set("sort", null)
                                          .expand();
 
-        Response response = 
+        Response response =
             given()
                 .filter(sessionFilter)
             .when()
                 .get(receiptsUrl)
             ;
         //response.prettyPrint();
-        
+
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
@@ -70,9 +68,9 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
             .body("_embedded.receipts[1].id", equalTo("receipt013"))
             .body("_embedded.receipts[2].id", equalTo("receipt012"))
         ;
-        
+
         final String nextUrl = response.then().extract().path("_links.next.href");
-        response = 
+        response =
             given()
                 .filter(sessionFilter)
             .when()
@@ -84,15 +82,15 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
     @Test
     public void getUserReceiptById_ShouldReturnUserReceipt() {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
-        
-        String receiptLink = 
+
+        String receiptLink =
                 given().filter(sessionFilter)
                        .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
                        .then().extract().path("_links.receipt.href");
         String receiptUrl =  UriTemplate.fromTemplate(receiptLink)
                                         .set("receiptId", "receipt001")
                                         .expand();
-        
+
         given()
             .filter(sessionFilter)
         .when()
@@ -110,34 +108,34 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
             .body("_links.items.href", endsWith(receiptUrl + "/items"))
         ;
     }
-    
+
     @Test
     public void getUserReceiptImages_ShouldReturnUserReceiptImages() {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
-        
-        final String receiptLink = 
+
+        final String receiptLink =
                 given().filter(sessionFilter)
                        .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
                        .then().extract().path("_links.receipt.href");
-        final String receiptUrl =  
+        final String receiptUrl =
                 UriTemplate.fromTemplate(receiptLink)
                            .set("receiptId", "receipt001")
                            .expand();
-        
-        final String imagesUrl = 
+
+        final String imagesUrl =
                 given().filter(sessionFilter)
                        .when().get(receiptUrl)
                        .then().extract().path("_links.images.href");
-        
-        Response response = 
+
+        Response response =
             given()
                 .filter(sessionFilter)
             .when()
                 .get(imagesUrl)
             ;
-        
+
         //response.prettyPrint();
-        
+
         response
             .then()
                 .statusCode(HttpStatus.SC_OK)
@@ -157,8 +155,8 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
     @Test
     public void createNewReceipt_ShouldCreateReceipt_AndSaveImage_FromBase64String() throws Exception {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
-        
-        String receiptsLink = 
+
+        String receiptsLink =
                 given().filter(sessionFilter)
                        .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
                        .then().extract().path("_links.receipts.href");
@@ -167,12 +165,12 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
                                          .set("size", null)
                                          .set("sort", null)
                                          .expand();
-        
+
         // add new image as base64 encoded string
         final String base64String = Base64.getEncoder().encodeToString("test".getBytes());
         ImageDataForm form = new ImageDataForm();
         form.setBase64String(base64String);
-        Response response = 
+        Response response =
             given()
                 .filter(sessionFilter)
                 .contentType(ContentType.JSON)
@@ -180,15 +178,15 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
             .when()
                 .post(receiptsUrl)
             ;
-        
+
         response
             .then()
             .statusCode(HttpStatus.SC_CREATED)
         ;
-        
+
         // verify new receipt
         String receiptUrl = response.getHeader("Location");
-        
+
         response =
             given()
                 .filter(sessionFilter)
@@ -203,16 +201,16 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
                 //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name())) TODO should be UPLOADED without process thread
                 .body("_links.images.href", endsWith(UserApiUrls.URL_USER_RECEIPTS + "/" + receiptId + "/images"))
             ;
-        
+
         //response.prettyPrint();
-        
+
         // verify image in FileSystem
         String fileName = response.then().extract().path("images[0].fileName");
         Path imageFile = fileSystemService.getImageSubFolder(USERNAME_JOHN_DOE).resolve(fileName);
         assertTrue(Files.exists(imageFile));
         BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
         assertEquals("test", reader.readLine());
-        
+
         String downloadUrl = response.then().extract().path("images[0]._links.download.href");
         given()
             .filter(sessionFilter)
@@ -227,52 +225,52 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
     @Test
     public void uploadNewReceipt_ShouldCreateReceipt_AndSaveImageFile() throws Exception {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
-        
-        String uploadUrl = 
+
+        String uploadUrl =
             given().filter(sessionFilter)
                    .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
                    .then().extract().path("_links.upload.href");
-        
+
         // add new image as base64 encoded string
-        Response response = 
+        Response response =
             given()
                 .filter(sessionFilter)
                 .multiPart("file", sampleReceipt1.getFile())
             .when()
                 .post(uploadUrl)
             ;
-        
+
         response
             .then()
             .statusCode(HttpStatus.SC_CREATED)
         ;
-        
+
         // verify new receipt
         String receiptUrl = response.getHeader("Location");
-        
+
         response =
             given()
                 .filter(sessionFilter)
             .when()
                 .get(receiptUrl)
             ;
-        
+
         response
             .then()
                 .statusCode(HttpStatus.SC_OK)
                 .contentType(ContentType.JSON)
                 //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name()))
             ;
-        
+
         //response.prettyPrint();
-        
+
         // verify image in FileSystem
         String fileName = response.then().extract().path("images[0].fileName");
         Path imageFile = fileSystemService.getImageSubFolder(USERNAME_JOHN_DOE).resolve(fileName);
         assertTrue(Files.exists(imageFile));
         BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
         assertEquals("test", reader.readLine());
-        
+
         String downloadUrl = response.then().extract().path("images[0]._links.download.href");
         given()
             .filter(sessionFilter)
@@ -283,17 +281,17 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
             .contentType("image/jpeg")
         ;
     }
-    
+
     @Test
     public void uploadReceiptImage_ShouldAddReceiptImage_AndSaveImageFile() throws Exception {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
 
-        String uploadUrl = 
+        String uploadUrl =
                 given().filter(sessionFilter)
                        .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
                        .then().extract().path("_links.upload.href");
 
-        Response response = 
+        Response response =
             given()
                 .filter(sessionFilter)
                 .multiPart("file", sampleReceipt1.getFile())
@@ -307,7 +305,7 @@ public class UserReceiptRestApiIT extends AbstractRestApiIntegrationTest {
         ;
 
         String receiptUrl = response.getHeader("Location");
-        
+
         response =
             given()
                 .filter(sessionFilter)

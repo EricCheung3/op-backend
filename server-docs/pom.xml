@@ -30,11 +30,6 @@
             <artifactId>openprice-rest-user</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.openprice</groupId>
-            <artifactId>openprice-rest-admin</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <!-- JWT -->
         <dependency>

@@ -12,18 +12,19 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
-import com.openprice.rest.AbstractRestApiIntegrationTest;
 import com.openprice.rest.UtilConstants;
+import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 import com.openprice.rest.user.UserApiUrls;
 
 @DatabaseSetup("classpath:/data/testData.xml")
-public class UserStoreRestApiIT extends AbstractRestApiIntegrationTest {
+public class UserStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
+
     @Test
     public void getCurrentUserStores_ShouldReturnAllStores() {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
-        
+
         // get stores link
-        String storesLink = 
+        String storesLink =
                 given().filter(sessionFilter)
                        .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
                        .then().extract().path("_links.stores.href");
@@ -33,14 +34,14 @@ public class UserStoreRestApiIT extends AbstractRestApiIntegrationTest {
                                          .set("sort", null)
                                          .expand();
 
-        Response response = 
+        Response response =
             given()
                 .filter(sessionFilter)
             .when()
                 .get(receiptsUrl)
             ;
         //response.prettyPrint();
-        
+
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
@@ -58,27 +59,26 @@ public class UserStoreRestApiIT extends AbstractRestApiIntegrationTest {
     @Test
     public void getUserStoreById_ShouldReturnStore() {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
-        
-        final String storeLink = 
+
+        final String storeLink =
                 given().filter(sessionFilter)
                        .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
                        .then().extract().path("_links.store.href");
-        final String storeUrl =  
+        final String storeUrl =
                 UriTemplate.fromTemplate(storeLink)
                            .set("storeId", "store001")
                            .expand();
-        
-        final Response response = 
-        given()
-            .filter(sessionFilter)
-        .when()
-            .get(storeUrl)
-        ;
-        
+
+        final Response response =
+            given()
+                .filter(sessionFilter)
+            .when()
+                .get(storeUrl)
+            ;
+
         //response.prettyPrint();
-        
-        response
-        .then()
+
+        response.then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("id", equalTo("store001"))
@@ -87,7 +87,7 @@ public class UserStoreRestApiIT extends AbstractRestApiIntegrationTest {
             .body("_links.user.href", endsWith("/user"))
             .body("_links.items.href", endsWith(storeUrl + "/items"))
             .body("_links.item.href", endsWith(storeUrl + "/items/{itemId}"))
-        ;
+            ;
     }
 
 }

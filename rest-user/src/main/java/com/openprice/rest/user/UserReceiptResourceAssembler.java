@@ -13,23 +13,21 @@ import org.springframework.stereotype.Component;
 
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
-import com.openprice.rest.common.UserReceiptImageResource;
-import com.openprice.rest.common.UserReceiptResource;
 
 @Component
 public class UserReceiptResourceAssembler implements ResourceAssembler<Receipt, UserReceiptResource> {
 
     private final UserReceiptImageResourceAssembler imageResourceAssembler;
-    
+
     @Inject
     public UserReceiptResourceAssembler(final UserReceiptImageResourceAssembler imageResourceAssembler) {
         this.imageResourceAssembler = imageResourceAssembler;
     }
-    
+
     @Override
     public UserReceiptResource toResource(final Receipt receipt) {
         final UserReceiptResource resource = new UserReceiptResource(receipt);
-        
+
         resource.add(linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId()))
                 .withSelfRel());
 

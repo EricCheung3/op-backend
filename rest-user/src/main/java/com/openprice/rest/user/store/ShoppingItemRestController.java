@@ -29,15 +29,15 @@ import com.openprice.domain.shopping.ShoppingItem;
 import com.openprice.domain.shopping.ShoppingItemRepository;
 import com.openprice.domain.store.Store;
 import com.openprice.domain.store.StoreRepository;
-import com.openprice.rest.AbstractRestController;
 import com.openprice.rest.ResourceNotFoundException;
+import com.openprice.rest.user.AbstractUserRestController;
 import com.openprice.rest.user.UserApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-public class ShoppingItemRestController extends AbstractRestController {
+public class ShoppingItemRestController extends AbstractUserRestController {
     private final StoreRepository storeRepository;
     private final ShoppingItemRepository shoppingItemRepository;
     private final ShoppingItemResourceAssembler shoppingItemResourceAssembler;
@@ -52,7 +52,7 @@ public class ShoppingItemRestController extends AbstractRestController {
         this.shoppingItemResourceAssembler = shoppingItemResourceAssembler;
         this.storeRepository = storeRepository;
     }
-    
+
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_SHOPPINGLIST)
     public HttpEntity<Void> getUploadShoppingListPath() {
         return ResponseEntity.notFound().build();
@@ -61,7 +61,7 @@ public class ShoppingItemRestController extends AbstractRestController {
     @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_SHOPPINGLIST)
     public HttpEntity<Void> uploadShoppingList(@RequestBody final ShoppingListForm form) {
         saveShoppingList(form);
-        
+
         URI location = linkTo(methodOn(ShoppingItemRestController.class).getStoreShoppingItems(form.getStoreId(), null, null)).toUri();
         return ResponseEntity.created(location).body(null);
     }
@@ -84,8 +84,8 @@ public class ShoppingItemRestController extends AbstractRestController {
         final ShoppingItem item = getShoppingItemByIdAndCheckStore(storeId, itemId);
         return ResponseEntity.ok(shoppingItemResourceAssembler.toResource(item));
     }
-    
-    @RequestMapping(method = RequestMethod.DELETE, value = UserApiUrls.URL_USER_SHOPPING_STORES_STORE_ITEMS_ITEM) 
+
+    @RequestMapping(method = RequestMethod.DELETE, value = UserApiUrls.URL_USER_SHOPPING_STORES_STORE_ITEMS_ITEM)
     public HttpEntity<Void> deleteStoreShoppingItemById(
             @PathVariable("storeId") final String storeId,
             @PathVariable("itemId") final String itemId) throws ResourceNotFoundException {
@@ -93,26 +93,26 @@ public class ShoppingItemRestController extends AbstractRestController {
         shoppingItemRepository.delete(item);
         return ResponseEntity.noContent().build();
     }
-    
+
     private Store getStoreByIdAndCheckOwner(final String storeId) {
         final Store store = storeRepository.findOne(storeId);
         if (store == null) {
             log.warn("ILLEGAL STORE ACCESS! No such store Id: {}.", storeId);
             throw new ResourceNotFoundException("No store with the id: " + storeId);
         }
-        
+
         // TODO? May need to check if current user has the store
-        
+
         return store;
     }
-    
+
     private ShoppingItem getShoppingItemByIdAndCheckStore(final String storeId, final String itemId) {
         final Store store = storeRepository.findOne(storeId);
         if (store == null) {
             log.warn("ILLEGAL STORE ACCESS! No such store Id: {}.", storeId);
             throw new ResourceNotFoundException("No store with the id: " + storeId);
         }
-        
+
         final ShoppingItem item = shoppingItemRepository.findOne(itemId);
         if (item == null) {
             log.warn("ILLEGAL SHOPPING ITEM ACCESS! No such item Id: {}.", itemId);

@@ -8,26 +8,21 @@
         <version>0.0.2</version>
     </parent>
 
-    <artifactId>openprice-server-web-api</artifactId>
+    <artifactId>openprice-server-admin-api</artifactId>
     <packaging>jar</packaging>
 
-    <name>REST API Web Service</name>
-    <description>OpenPrice REST API server code.</description>
+    <name>Admin REST API Web Service</name>
+    <description>OpenPrice REST API server code for admin functions.</description>
 
     <properties>
-        <start-class>com.openprice.OpenPriceAPIApplication</start-class>
+        <start-class>com.openprice.OpenPriceAdminAPIApplication</start-class>
     </properties>
 
     <dependencies>
         <!-- Rest API Modules -->
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-rest-site</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.openprice</groupId>
-            <artifactId>openprice-rest-user</artifactId>
+            <artifactId>openprice-rest-admin</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -66,14 +61,10 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
-        <finalName>api-server</finalName>
+        <finalName>admin-api-server</finalName>
 
         <plugins>
             <plugin>

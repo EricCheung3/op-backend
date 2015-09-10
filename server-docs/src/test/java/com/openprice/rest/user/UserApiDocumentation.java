@@ -24,13 +24,12 @@ import com.openprice.domain.account.UserAccount;
 import com.openprice.domain.account.UserProfile;
 import com.openprice.rest.ApiDocumentationBase;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.common.UserProfileForm;
 
 public class UserApiDocumentation extends ApiDocumentationBase {
-    
+
     @Test
     public void currentUserExample() throws Exception {
-                
+
         mockMvc
             .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER).with(user(USERNAME)))
             .andExpect(status().isOk())
@@ -74,7 +73,7 @@ public class UserApiDocumentation extends ApiDocumentationBase {
 
     @Test
     public void profileExample() throws Exception {
-                
+
         mockMvc
             .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER_PROFILE).with(user(USERNAME)))
             .andExpect(status().isOk())
@@ -97,7 +96,7 @@ public class UserApiDocumentation extends ApiDocumentationBase {
                 )
             ));
     }
-    
+
     @Test
     public void profileUpdateExample() throws Exception {
         UserAccount account = userAccountRepository.findByUsername(USERNAME);
@@ -131,6 +130,7 @@ public class UserApiDocumentation extends ApiDocumentationBase {
             ));
     }
 
+    @Override
     @Before
     public void setUp() throws Exception {
         super.setUp();
@@ -141,5 +141,5 @@ public class UserApiDocumentation extends ApiDocumentationBase {
     public void teardown() throws Exception {
         deleteTestUser();
     }
-    
+
 }

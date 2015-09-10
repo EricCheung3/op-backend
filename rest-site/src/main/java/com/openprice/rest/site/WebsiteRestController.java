@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openprice.domain.account.UserAccountService;
 import com.openprice.rest.AbstractRestController;
 
 @RestController
@@ -17,9 +16,7 @@ public class WebsiteRestController extends AbstractRestController {
     private final WebsiteResourceAssembler websiteResourceAssembler;
 
     @Inject
-    public WebsiteRestController(final UserAccountService userAccountService,
-                                 final WebsiteResourceAssembler websiteResourceAssembler) {
-        super(userAccountService);
+    public WebsiteRestController(final WebsiteResourceAssembler websiteResourceAssembler) {
         this.websiteResourceAssembler = websiteResourceAssembler;
     }
 

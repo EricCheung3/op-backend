@@ -1,0 +1,29 @@
+package com.openprice.rest.user;
+
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+
+import com.openprice.domain.account.UserAccount;
+import com.openprice.domain.account.UserAccountService;
+import com.openprice.rest.AbstractRestController;
+
+public class AbstractUserRestController extends AbstractRestController {
+
+    protected final UserAccountService userAccountService;
+
+    public AbstractUserRestController(final UserAccountService userAccountService) {
+        this.userAccountService = userAccountService;
+    }
+
+    protected UserAccount getCurrentUser() {
+        return userAccountService.getCurrentUser();
+    }
+
+    protected UserAccount getCurrentAuthenticatedUser() {
+        final UserAccount currentUser = getCurrentUser();
+        if (currentUser == null) {
+            throw new AuthenticationCredentialsNotFoundException("User not logged in.");
+        }
+        return currentUser;
+    }
+
+}

@@ -15,20 +15,16 @@ import com.openprice.domain.account.UserAccountRepository;
 import com.openprice.domain.account.UserAccountService;
 import com.openprice.domain.account.UserProfile;
 import com.openprice.domain.account.UserProfileRepository;
-import com.openprice.rest.AbstractRestController;
-import com.openprice.rest.common.UserAccountResource;
-import com.openprice.rest.common.UserProfileForm;
-import com.openprice.rest.common.UserProfileResource;
 
 
 
 /**
  * REST API Controller for current user account management.
- * 
+ *
  */
 @RestController
-public class UserAccountRestController extends AbstractRestController {
-    
+public class UserAccountRestController extends AbstractUserRestController {
+
     private final UserAccountRepository userAccountRepository;
     private final UserProfileRepository userProfileRepository;
     private final UserAccountResourceAssembler userAccountResourceAssembler;
@@ -58,7 +54,7 @@ public class UserAccountRestController extends AbstractRestController {
     @Transactional(readOnly=true)
     public HttpEntity<UserProfileResource> getCurrentUserProfile() {
         final UserAccount currentUserAccount = getCurrentAuthenticatedUser();
-        
+
         return ResponseEntity.ok(new UserProfileResource(currentUserAccount.getProfile()));
     }
 
@@ -69,13 +65,13 @@ public class UserAccountRestController extends AbstractRestController {
         final UserProfile profile = currentUserAccount.getProfile();
         profileForm.updateProfile(profile);
         userProfileRepository.save(profile);
-        
+
         return ResponseEntity.noContent().build();
     }
-    
+
     // TODO change password
-    
+
     // TODO change email?
-    
-    
+
+
 }

@@ -1,4 +1,4 @@
-package com.openprice.rest.common;
+package com.openprice.rest.user;
 
 import com.openprice.domain.account.UserProfile;
 import com.openprice.domain.common.Address;

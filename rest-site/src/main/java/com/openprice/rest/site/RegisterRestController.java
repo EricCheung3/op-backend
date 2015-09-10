@@ -26,29 +26,29 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class RegisterRestController extends AbstractRestController {
-
+    private final UserAccountService userAccountService;
     private final UserAccountRepository userAccountRepository;
     private final EmailProperties emailProperties;
     private final EmailService emailService;
 
     @Inject
-    public RegisterRestController(final UserAccountRepository userAccountRepository,
-                                  final UserAccountService userAccountService,
+    public RegisterRestController(final UserAccountService userAccountService,
+                                  final UserAccountRepository userAccountRepository,
                                   final EmailProperties emailProperties,
                                   final EmailService emailService) {
-        super(userAccountService);
+        this.userAccountService = userAccountService;
         this.userAccountRepository = userAccountRepository;
         this.emailProperties = emailProperties;
         this.emailService = emailService;
     }
-    
+
     @RequestMapping(method = RequestMethod.POST, value = SiteApiUrls.URL_REGISTRATION_USERS)
     @Transactional
     public HttpEntity<Void> registerNewUser(@RequestBody final RegistrationForm registration)
                                                     throws ResourceNotFoundException {
 
         log.info("A new user tried to register with username '{}'.", registration.getUsername());
-        
+
         //if user already exist, return 409 conflict
         if (this.userAccountRepository.findByUsername(registration.getUsername()) != null) {
             log.warn("Same username '{}' already registered!", registration.getUsername());

@@ -1,4 +1,4 @@
-package com.openprice.rest.common;
+package com.openprice.rest.user;
 
 import lombok.Getter;
 import lombok.Setter;

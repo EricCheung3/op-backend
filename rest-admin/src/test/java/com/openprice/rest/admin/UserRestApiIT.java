@@ -15,19 +15,19 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
-import com.openprice.rest.common.UserAccountResource;
-import com.openprice.rest.common.UserProfileForm;
+import com.openprice.rest.admin.user.UserAccountResource;
+import com.openprice.rest.admin.user.UserProfileForm;
 
 public class UserRestApiIT extends AbstractAdminRestApiIntegrationTest {
-    
+
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getUserAccounts_ShouldReturnAllUserAccounts() {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
-        
+
         String usersLink = getAdminAccountUsersLink(sessionFilter);
         String usersUrl =  UriTemplate.fromTemplate(usersLink).set("page", 0).set("size", 10).set("sort", null).expand();
-        
+
         given()
             .filter(sessionFilter)
         .when()
@@ -49,9 +49,9 @@ public class UserRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getUserAccount_ShouldReturnSpecificUserAccount() {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
-        
-        final String userUrl =  getUserLinkUrl(sessionFilter, USERID_JANE_DOE); 
-        
+
+        final String userUrl =  getUserLinkUrl(sessionFilter, USERID_JANE_DOE);
+
         given()
             .filter(sessionFilter)
         .when()
@@ -77,16 +77,16 @@ public class UserRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void changeUserLockState_ShouldLockUserAccount() {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
-        
+
         final String userUrl =  getUserLinkUrl(sessionFilter, USERID_JANE_DOE);
-        
+
         // get lockState link
         final String lockStateLink = given().filter(sessionFilter).when().get(userUrl).then().extract().path("_links.lockState.href");
-        
+
         // lock user
         final Map<String, Boolean> lockState = new HashMap<>();
         lockState.put("locked", true);
-        
+
         given()
             .filter(sessionFilter)
             .contentType(ContentType.JSON)
@@ -96,7 +96,7 @@ public class UserRestApiIT extends AbstractAdminRestApiIntegrationTest {
         .then()
             .statusCode(HttpStatus.SC_NO_CONTENT)
         ;
-        
+
         // verify user lock state
         given()
             .filter(sessionFilter)
@@ -107,24 +107,24 @@ public class UserRestApiIT extends AbstractAdminRestApiIntegrationTest {
             .contentType(ContentType.JSON)
             .body("accountLocked", equalTo(true))
         ;
-        
+
     }
 
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void updateUserProfile_ShouldChangeProfileAddress() {
         final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
-        
-        final String userUrl =  getUserLinkUrl(sessionFilter, USERID_JANE_DOE); 
+
+        final String userUrl =  getUserLinkUrl(sessionFilter, USERID_JANE_DOE);
         final String profileLink = given().filter(sessionFilter).when().get(userUrl).then().extract().path("_links.profile.href");
 
-        Response response = 
+        Response response =
             given()
                 .filter(sessionFilter)
             .when()
                 .get(profileLink)
             ;
-        
+
         //response.prettyPrint();
 
         response
@@ -139,7 +139,7 @@ public class UserRestApiIT extends AbstractAdminRestApiIntegrationTest {
         UserProfileForm form = constructUserProfileFormByProfileResource(response);
         form.setAddress1("888 Broadway Ave");
         form.setCity("Calgary");
-        
+
         given()
             .filter(sessionFilter)
             .contentType(ContentType.JSON)
@@ -149,15 +149,15 @@ public class UserRestApiIT extends AbstractAdminRestApiIntegrationTest {
         .then()
             .statusCode(HttpStatus.SC_NO_CONTENT)
         ;
-        
-        response = 
+
+        response =
             given()
                 .filter(sessionFilter)
             .when()
                 .get(profileLink)
             ;
         //response.prettyPrint();
-        
+
         response
             .then()
                 .statusCode(HttpStatus.SC_OK)

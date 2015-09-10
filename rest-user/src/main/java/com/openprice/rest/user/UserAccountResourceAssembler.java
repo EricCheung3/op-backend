@@ -11,10 +11,8 @@ import org.springframework.stereotype.Component;
 
 import com.openprice.domain.account.UserAccount;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.common.UserAccountResource;
 import com.openprice.rest.user.store.ShoppingItemRestController;
 import com.openprice.rest.user.store.UserStoreRestController;
-
 
 @Component
 public class UserAccountResourceAssembler implements ResourceAssembler<UserAccount, UserAccountResource> {
@@ -41,7 +39,7 @@ public class UserAccountResourceAssembler implements ResourceAssembler<UserAccou
         resource.add(linkTo(methodOn(ShoppingItemRestController.class).getUploadShoppingListPath())
                 .withRel(UserAccountResource.LINK_NAME_SHOPPING_LIST));
 
-        // Hack solution to build template links for "receipt", "store". 
+        // Hack solution to build template links for "receipt", "store".
         // Monitor https://github.com/spring-projects/spring-hateoas/issues/169 for nice solution from Spring HATEOAS
         final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();
         final Link receiptLink = new Link(

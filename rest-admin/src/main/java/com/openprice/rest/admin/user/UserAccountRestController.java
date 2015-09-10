@@ -1,4 +1,4 @@
-package com.openprice.rest.admin;
+package com.openprice.rest.admin.user;
 
 import java.util.Map;
 
@@ -24,24 +24,24 @@ import com.openprice.domain.account.UserAccountRepository;
 import com.openprice.domain.account.UserAccountService;
 import com.openprice.domain.account.UserProfile;
 import com.openprice.domain.account.UserProfileRepository;
+import com.openprice.domain.admin.AdminAccountService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.common.UserAccountResource;
-import com.openprice.rest.common.UserProfileForm;
-import com.openprice.rest.common.UserProfileResource;
+import com.openprice.rest.admin.AbstractUserAdminRestController;
+import com.openprice.rest.admin.AdminApiUrls;
 
 @RestController
-public class UserRestController extends AbstractAdminRestController {
-
+public class UserAccountRestController extends AbstractUserAdminRestController {
     private final UserProfileRepository userProfileRepository;
-    private final UserResourceAssembler userResourceAssembler;
+    private final UserAccountResourceAssembler userResourceAssembler;
 
     @Inject
-    public UserRestController(final UserAccountService userAccountService,
-                              final UserAccountRepository userAccountRepository,
-                              final UserProfileRepository userProfileRepository,
-                              final UserResourceAssembler userResourceAssembler) {
-        super(userAccountService, userAccountRepository);
+    public UserAccountRestController(final AdminAccountService adminAccountService,
+                                     final UserAccountService userAccountService,
+                                     final UserAccountRepository userAccountRepository,
+                                     final UserProfileRepository userProfileRepository,
+                                     final UserAccountResourceAssembler userResourceAssembler) {
+        super(adminAccountService, userAccountService, userAccountRepository);
         this.userProfileRepository = userProfileRepository;
         this.userResourceAssembler = userResourceAssembler;
     }
@@ -71,22 +71,22 @@ public class UserRestController extends AbstractAdminRestController {
             @PathVariable("userId") final String userId,
             @RequestBody final Map<String, Boolean> updateMap) throws ResourceNotFoundException {
         final UserAccount user = getUserByUserId(userId);
-        
+
         final Boolean status = updateMap.get("locked");
         if (status != null) {
             user.setAccountLocked(status);
             userAccountRepository.save(user);
-        } 
-        
+        }
+
         return ResponseEntity.noContent().build();
     }
-    
+
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_PROFILE)
     @Transactional(readOnly=true)
     public HttpEntity<UserProfileResource> getUserProfile(@PathVariable("userId") final String userId) {
         final UserAccount user = getUserByUserId(userId);
         final UserProfile profile = user.getProfile();
-        
+
         return ResponseEntity.ok(new UserProfileResource(profile));
     }
 
@@ -98,7 +98,7 @@ public class UserRestController extends AbstractAdminRestController {
         final UserProfile profile = user.getProfile();
         profileForm.updateProfile(profile);
         userProfileRepository.save(profile);
-        
+
         return ResponseEntity.noContent().build();
     }
 

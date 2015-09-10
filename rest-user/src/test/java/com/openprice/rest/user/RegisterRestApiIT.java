@@ -16,46 +16,46 @@ import com.openprice.rest.AbstractRestApiIntegrationTest;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.site.RegistrationForm;
 
-public class RegisterRestApiIT extends AbstractRestApiIntegrationTest {
-    
+public class RegisterRestApiIT extends AbstractUserRestApiIntegrationTest {
+
     @Test
     public void registerNewUser_ShouldAddUserAccount() {
         String registrationLink = when().get(UtilConstants.API_ROOT).then().extract().path("_links.registration.href");
         String registrationUrl =  UriTemplate.fromTemplate(registrationLink).set("username", "testuser").expand();
-        
+
         RegistrationForm registration = new RegistrationForm();
         registration.setFirstName("John");
         registration.setLastName("Doe");
         registration.setUsername("testuser");
         registration.setPassword("abcd");
         registration.setEmail("john.doe@openprice.com");
-        
-        Response response = 
+
+        Response response =
             given()
                 .contentType(ContentType.JSON)
                 .body(registration)
             .when()
                 .post(registrationUrl)
             ;
-        
+
         response
             .then()
             .statusCode(HttpStatus.SC_CREATED)
             //.header("Location", containsString(API_ROOT + URL_USER_PROFILE))
             ;
-            
+
         // verify user profile
         final SessionFilter sessionFilter = login("testuser");
-        
-        response = 
+
+        response =
             given()
                 .filter(sessionFilter)
             .when()
                 .get(UtilConstants.API_ROOT + "/user")
             ;
-        
+
         //response.prettyPrint();
-        
+
         response
             .then()
                 .statusCode(HttpStatus.SC_OK)

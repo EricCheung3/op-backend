@@ -1,4 +1,4 @@
-package com.openprice.rest.common;
+package com.openprice.rest.user;
 
 import org.springframework.hateoas.Resource;
 

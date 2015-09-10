@@ -1,4 +1,5 @@
-package com.openprice.rest.common;
+package com.openprice.rest.user;
+
 import org.springframework.hateoas.Resource;
 
 import com.openprice.domain.account.UserAccount;
@@ -15,10 +16,10 @@ public class UserAccountResource extends Resource<UserAccount> {
     public static final String LINK_NAME_STORE = "store";
     public static final String LINK_NAME_UPLOAD = "upload";
     public static final String LINK_NAME_SHOPPING_LIST = "shoppingList";
-    
+
     @Getter @Setter
     private UserProfileResource profile;
-    
+
     public UserAccountResource(final UserAccount account) {
         super(account);
         profile = new UserProfileResource(account.getProfile());

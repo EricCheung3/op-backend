@@ -17,6 +17,22 @@
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
+            <artifactId>openprice-domain-admin-account</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-domain-account</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-domain-receipt</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.openprice</groupId>
             <artifactId>openprice-rest-common</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -27,6 +43,20 @@
             <version>${project.version}</version>
             <type>test-jar</type>
             <scope>test</scope>
+        </dependency>
+
+        <!-- introduce spring hateoas for restful api -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>
+
+        <!-- Evo Inflector implements English pluralization algorithm -->
+        <dependency>
+            <groupId>org.atteo</groupId>
+            <artifactId>evo-inflector</artifactId>
+            <version>${evo-inflector.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Use DBUnit and Spring Test DBUnit for integration test -->

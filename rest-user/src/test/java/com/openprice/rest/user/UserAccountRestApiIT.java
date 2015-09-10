@@ -12,17 +12,15 @@ import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.openprice.domain.account.UserRoleType;
-import com.openprice.rest.AbstractRestApiIntegrationTest;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.common.UserProfileForm;
 
 @DatabaseSetup("classpath:/data/testData.xml")
-public class UserAccountRestApiIT extends AbstractRestApiIntegrationTest {
+public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
     @Test
     public void getCurrentUser_ShouldReturnLoggedInUserAccount() {
         final SessionFilter sessionFilter = login("john.doe");
-        
-        Response response = 
+
+        Response response =
             given()
                 .filter(sessionFilter)
             .when()
@@ -57,7 +55,7 @@ public class UserAccountRestApiIT extends AbstractRestApiIntegrationTest {
     public void getCurrentUserProfile_ShouldReturnLoggedInUserProfile() {
         final SessionFilter sessionFilter = login("jane.doe");
 
-        Response response = 
+        Response response =
             given()
                 .filter(sessionFilter)
             .when()
@@ -76,18 +74,18 @@ public class UserAccountRestApiIT extends AbstractRestApiIntegrationTest {
             ;
 
     }
-    
+
     @Test
     public void updateProfile_ShouldChangeProfileAddress() {
         final SessionFilter sessionFilter = login("jane.doe");
-        
-        Response response = 
+
+        Response response =
             given()
                 .filter(sessionFilter)
             .when()
                 .get(UtilConstants.API_ROOT + UserApiUrls.URL_USER_PROFILE)
             ;
-        
+
         //response.prettyPrint();
 
         response
@@ -113,7 +111,7 @@ public class UserAccountRestApiIT extends AbstractRestApiIntegrationTest {
             .statusCode(HttpStatus.SC_NO_CONTENT)
         ;
 
-        response = 
+        response =
             given()
                 .filter(sessionFilter)
             .when()

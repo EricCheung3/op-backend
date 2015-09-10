@@ -5,13 +5,15 @@ import static org.hamcrest.Matchers.endsWith;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 
 import com.jayway.restassured.http.ContentType;
 import com.openprice.rest.AbstractRestApiIntegrationTest;
 import com.openprice.rest.UtilConstants;
 
+@SpringApplicationConfiguration(classes = {SiteApiTestApplication.class})
 public class WebsiteRestApiIT extends AbstractRestApiIntegrationTest {
-    
+
     @Test
     public void getPublic_ShouldReturnWebsiteResource() {
         when()

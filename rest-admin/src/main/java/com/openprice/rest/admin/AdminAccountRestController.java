@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openprice.domain.account.UserAccount;
-import com.openprice.domain.account.UserAccountRepository;
-import com.openprice.domain.account.UserAccountService;
+import com.openprice.domain.admin.AdminAccount;
+import com.openprice.domain.admin.AdminAccountService;
 
 /**
  * RESTful API for AdminAccountResource.
@@ -22,10 +21,9 @@ public class AdminAccountRestController extends AbstractAdminRestController {
     private final AdminAccountResourceAssembler adminAccountResourceAssembler;
 
     @Inject
-    public AdminAccountRestController(final UserAccountService userAccountService,
-                                      final UserAccountRepository userAccountRepository,
+    public AdminAccountRestController(final AdminAccountService adminAccountService,
                                       final AdminAccountResourceAssembler adminAccountResourceAssembler) {
-        super(userAccountService, userAccountRepository);
+        super(adminAccountService);
         this.adminAccountResourceAssembler = adminAccountResourceAssembler;
     }
 
@@ -36,7 +34,7 @@ public class AdminAccountRestController extends AbstractAdminRestController {
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN)
     @Transactional(readOnly=true)
     public HttpEntity<AdminAccountResource> getAdminAccount() {
-        final UserAccount currentUser = getCurrentAuthenticatedAdmin();
+        final AdminAccount currentUser = getCurrentAuthenticatedAdmin();
         final AdminAccountResource resource = adminAccountResourceAssembler.toResource(currentUser);
         return ResponseEntity.ok(resource);
     }

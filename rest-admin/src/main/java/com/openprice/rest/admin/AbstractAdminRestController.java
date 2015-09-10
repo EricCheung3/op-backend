@@ -1,30 +1,24 @@
 package com.openprice.rest.admin;
 
-import javax.inject.Inject;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 
-import com.openprice.domain.account.UserAccount;
-import com.openprice.domain.account.UserAccountRepository;
-import com.openprice.domain.account.UserAccountService;
+import com.openprice.domain.admin.AdminAccount;
+import com.openprice.domain.admin.AdminAccountService;
 import com.openprice.rest.AbstractRestController;
-import com.openprice.rest.ResourceNotFoundException;
 
 public abstract class AbstractAdminRestController extends AbstractRestController {
-    protected final UserAccountRepository userAccountRepository;
-    
-    @Inject
-    public AbstractAdminRestController(final UserAccountService userAccountService,
-                                       final UserAccountRepository userAccountRepository) {
-        super(userAccountService);
-        this.userAccountRepository = userAccountRepository;
+    protected final AdminAccountService adminAccountService;
+
+    public AbstractAdminRestController(final AdminAccountService adminAccountService) {
+        this.adminAccountService = adminAccountService;
     }
 
-    protected UserAccount getUserByUserId(String userId) throws ResourceNotFoundException {
-        UserAccount user = userAccountRepository.findOne(userId);
-        if (user == null) {
-            throw new ResourceNotFoundException("No such user for id "+user);
+    protected AdminAccount getCurrentAuthenticatedAdmin() {
+        final AdminAccount currentAdmin = adminAccountService.getCurrentAdmin();
+        if (currentAdmin == null) {
+            throw new AuthenticationCredentialsNotFoundException("Admin not logged in.");
         }
-        return user;
+        return currentAdmin;
     }
-
 
 }

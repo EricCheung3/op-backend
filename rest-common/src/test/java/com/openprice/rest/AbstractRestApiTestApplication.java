@@ -6,19 +6,21 @@ import java.util.Arrays;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.openprice.file.FileFolderSettings;
 import com.openprice.file.FileSystemService;
@@ -30,7 +32,7 @@ import com.openprice.process.ProcessSettings;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Configuration
+//@Configuration
 @EnableAutoConfiguration
 @ComponentScan({ "com.openprice.domain", "com.openprice.rest", "com.openprice.process", "com.openprice.parser" })
 @EntityScan("com.openprice.domain")
@@ -38,13 +40,15 @@ import lombok.extern.slf4j.Slf4j;
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @EnableConfigurationProperties( {FileFolderSettings.class, EmailProperties.class, ProcessSettings.class} )
 @Slf4j
-public class RestApiTestApplication {
+public abstract class AbstractRestApiTestApplication extends WebSecurityConfigurerAdapter {
+
     @Inject
     private Environment env;
 
     @Bean
     public AuditorAware<String> auditorAware() {
         return new AuditorAware<String>() {
+            @Override
             public String getCurrentAuditor() {
                 final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -66,14 +70,10 @@ public class RestApiTestApplication {
     public FileSystemService fileSystemService() {
         return new FileSystemService(new FileFolderSettings());
     }
-    
+
     @Bean
     public SimpleParser simpleParser() {
         return new SimpleParser();
-    }
-    
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(RestApiTestApplication.class, args);
     }
 
     @PostConstruct
@@ -85,4 +85,27 @@ public class RestApiTestApplication {
         }
     }
 
+    @Override
+    protected void configure(final AuthenticationManagerBuilder builder) throws Exception {
+        builder
+            .authenticationProvider(testAuthenticationProvider());
+    }
+
+    @Bean
+    public TestAuthenticationProvider testAuthenticationProvider() {
+        return new TestAuthenticationProvider(getUserDetailsService());
+    }
+
+    @Bean
+    public TestAuthenticationFilter testAuthenticationFilter() throws Exception {
+        return new TestAuthenticationFilter(UtilConstants.URL_SIGNIN, authenticationManagerBean());
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    protected abstract UserDetailsService getUserDetailsService();
 }
