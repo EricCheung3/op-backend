@@ -2,6 +2,8 @@ server:
     port: 7801
 
 application:
+    token:
+        secret: skdjvjvndjwkenfnhvjksknsjndjsdnf
     email:
         systemName: GroundTruth Inc.
         systemEmail: no-reply@openprice.com

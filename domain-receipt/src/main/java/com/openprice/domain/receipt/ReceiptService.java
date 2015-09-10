@@ -31,7 +31,7 @@ public class ReceiptService {
     private final ReceiptImageRepository receiptImageRepository;
     private final FileSystemService fileSystemService;
     private final SimpleParser simpleParser;
-    
+
     @Inject
     public ReceiptService(final ReceiptRepository receiptRepository,
                           final ReceiptImageRepository receiptImageRepository,
@@ -42,7 +42,7 @@ public class ReceiptService {
         this.fileSystemService = fileSystemService;
         this.simpleParser = simpleParser;
     }
-    
+
     public Receipt uploadImageForNewReceipt(final UserAccount user, final String base64Data) {
         byte[] content = null;
         try {
@@ -53,10 +53,10 @@ public class ReceiptService {
         }
         final Receipt receipt = receiptRepository.save(Receipt.createReceipt(user));
         saveImage(receipt, content);
-        
+
         return receiptRepository.save(receipt);
     }
-    
+
     public Receipt uploadImageForNewReceipt(final UserAccount user, final MultipartFile file) {
         byte[] content = null;
         try {
@@ -68,10 +68,10 @@ public class ReceiptService {
 
         final Receipt receipt = receiptRepository.save(Receipt.createReceipt(user));
         saveImage(receipt, content);
-        
+
         return receiptRepository.save(receipt);
     }
-    
+
     public ReceiptImage appendImageToReceipt(final Receipt receipt, final String base64Data) {
         byte[] content = null;
         try {
@@ -96,29 +96,29 @@ public class ReceiptService {
         }
 
         final ReceiptImage image = saveImage(receipt, content);
-        
+
         receiptRepository.save(receipt);
         return image;
     }
-    
+
     public String getImageFilePath(final ReceiptImage image) {
         final Receipt receipt = image.getReceipt();
         final UserAccount user = receipt.getUser();
-        return user.getUsername() + fileSystemService.getPathSeparator() + image.getFileName();
+        return user.getId() + fileSystemService.getPathSeparator() + image.getFileName();
     }
-    
+
     public Path getImageFile(final ReceiptImage image) {
         final Receipt receipt = image.getReceipt();
         final UserAccount user = receipt.getUser();
-        final Path imageFolder = fileSystemService.getImageSubFolder(user.getUsername());
+        final Path imageFolder = fileSystemService.getImageSubFolder(user.getId());
         return imageFolder.resolve(image.getFileName());
     }
-    
+
     private ReceiptImage saveImage(final Receipt receipt, final byte[] content) {
         final ReceiptImage image = receipt.createImage();
         final Path imageFile = getImageFile(image);
 
-        try (final OutputStream out = new BufferedOutputStream(Files.newOutputStream(imageFile, StandardOpenOption.CREATE_NEW)))  
+        try (final OutputStream out = new BufferedOutputStream(Files.newOutputStream(imageFile, StandardOpenOption.CREATE_NEW)))
         {
             out.write(content);
         } catch (IOException ex) {
@@ -135,7 +135,7 @@ public class ReceiptService {
      * First, check if all receipt images are processed with OCR. If not, wait and check again.
      * If timeout, return empty item list.
      * If OCR finished for all images, get OCR result from database, and call parser to get receipt items.
-     * 
+     *
      * @param receipt
      * @return
      */
@@ -143,7 +143,7 @@ public class ReceiptService {
         final List<ReceiptItem> result = new ArrayList<>();
         final List<String> ocrTextList = new ArrayList<>();
         boolean ocrReady = true;
-        
+
         int counter = 0;
         while (counter++ < 20) {
             final List<ReceiptImage> images = receiptImageRepository.findByReceiptOrderByCreatedTime(receipt);
@@ -162,7 +162,7 @@ public class ReceiptService {
             try {
                 Thread.sleep(300);
             } catch (Exception ex) {
-                
+
             }
         }
 
@@ -180,7 +180,7 @@ public class ReceiptService {
                     receiptItem.setUnitPrice(item.unitPrice());
                     receiptItem.setWeight(item.weight());
                     result.add(receiptItem);
-                }  
+                }
                 log.debug("SimpleParser returns {} items.", result.size());
             } catch (Exception ex) {
                 log.error("SEVERE: Got exception during parsing ocr text.", ex);
@@ -188,6 +188,6 @@ public class ReceiptService {
         }
         return result;
     }
-    
-    
+
+
 }

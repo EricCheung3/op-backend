@@ -30,9 +30,9 @@ public class UserReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getUserReceipts_ShouldReturnAllUserReceipts() {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
 
-        final String userUrl =  getUserLinkUrl(sessionFilter, USERID_JOHN_DOE); // John Doe
+        final String userUrl =  getUserLinkUrl(sessionFilter, TEST_USERID_JOHN_DOE); // John Doe
 
         // get receipts link
         String receiptsUrl = given().filter(sessionFilter)
@@ -58,10 +58,10 @@ public class UserReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getUserReceiptById_ShouldReturnCorrectReceipt() {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
 
         String receiptUrl =  UriTemplate.fromTemplate(UtilConstants.API_ROOT+AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT)
-                                        .set("userId", USERID_JOHN_DOE)
+                                        .set("userId", TEST_USERID_JOHN_DOE)
                                         .set("receiptId", "receipt001")
                                         .expand();
 
@@ -79,9 +79,9 @@ public class UserReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void uploadNewReceipt_ShouldCreateReceipt_AndSaveImageFile() throws Exception {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
 
-        final String userUrl =  getUserLinkUrl(sessionFilter, USERID_JANE_DOE);
+        final String userUrl =  getUserLinkUrl(sessionFilter, TEST_USERID_JANE_DOE);
 
         String uploadUrl =
             given().filter(sessionFilter)
@@ -123,7 +123,7 @@ public class UserReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
 
         // verify image in FileSystem
         String fileName = response.then().extract().path("images[0].fileName");
-        Path imageFilePath = fileSystemService.getImageSubFolder(USERNAME_JANE_DOE).resolve(fileName);
+        Path imageFilePath = fileSystemService.getImageSubFolder(TEST_USERID_JANE_DOE).resolve(fileName);
         Assert.assertTrue(Files.exists(imageFilePath));
 
         String downloadUrl = response.then().extract().path("images[0]._links.download.href");
@@ -140,9 +140,9 @@ public class UserReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void uploadReceiptImage_ShouldAddReceiptImage_AndSaveImage() throws Exception {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
 
-        final String userUrl =  getUserLinkUrl(sessionFilter, USERID_JANE_DOE);
+        final String userUrl =  getUserLinkUrl(sessionFilter, TEST_USERID_JANE_DOE);
         String uploadUrl =
                 given().filter(sessionFilter)
                        .when().get(userUrl)
@@ -206,7 +206,7 @@ public class UserReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
         //response.prettyPrint();
 
         String fileName = response.then().extract().path("fileName");
-        Path imageFilePath = fileSystemService.getImageSubFolder(USERNAME_JANE_DOE).resolve(fileName);
+        Path imageFilePath = fileSystemService.getImageSubFolder(TEST_USERID_JANE_DOE).resolve(fileName);
         Assert.assertTrue(Files.exists(imageFilePath));
 
         String downloadUrl = response.then().extract().path("_links.download.href");

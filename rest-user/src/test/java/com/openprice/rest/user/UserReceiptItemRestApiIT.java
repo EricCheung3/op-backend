@@ -18,7 +18,7 @@ import com.openprice.rest.UtilConstants;
 public class UserReceiptItemRestApiIT extends AbstractUserRestApiIntegrationTest {
     @Test
     public void getUserReceiptItems_ShouldReturnCorrectReceiptItems() throws Exception {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         String receiptsLink =
                 given().filter(sessionFilter)
@@ -44,7 +44,7 @@ public class UserReceiptItemRestApiIT extends AbstractUserRestApiIntegrationTest
             ;
 
         response
-            .then()
+        .then()
             .statusCode(HttpStatus.SC_CREATED)
         ;
 

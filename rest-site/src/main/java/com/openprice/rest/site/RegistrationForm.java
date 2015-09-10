@@ -20,11 +20,8 @@ public class RegistrationForm implements Serializable {
     private String lastName;
 
     @Getter @Setter
-    private String username;
+    private String email;
 
     @Getter @Setter
     private String password;
-
-    @Getter @Setter
-    private String email;
 }

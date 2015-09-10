@@ -35,7 +35,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test
     public void getCurrentUserReceipts_ShouldReturnAllUserReceipts() {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         // get receipts link
         String receiptsLink =
@@ -81,7 +81,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test
     public void getUserReceiptById_ShouldReturnUserReceipt() {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         String receiptLink =
                 given().filter(sessionFilter)
@@ -111,7 +111,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test
     public void getUserReceiptImages_ShouldReturnUserReceiptImages() {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         final String receiptLink =
                 given().filter(sessionFilter)
@@ -137,24 +137,24 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
         //response.prettyPrint();
 
         response
-            .then()
-                .statusCode(HttpStatus.SC_OK)
-                .contentType(ContentType.JSON)
-                .body("page.size", equalTo(100))
-                .body("page.totalElements", equalTo(4))
-                .body("page.totalPages", equalTo(1))
-                .body("page.number", equalTo(0))
-                .body("_embedded.receiptImages[0].id", equalTo("image001"))
-                .body("_embedded.receiptImages[0].status", equalTo(ProcessStatusType.UPLOADED.name()))
-                .body("_embedded.receiptImages[1].id", equalTo("image003"))
-                .body("_embedded.receiptImages[2].id", equalTo("image002"))
-                .body("_embedded.receiptImages[3].id", equalTo("image004"))
-            ;
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("page.size", equalTo(100))
+            .body("page.totalElements", equalTo(4))
+            .body("page.totalPages", equalTo(1))
+            .body("page.number", equalTo(0))
+            .body("_embedded.receiptImages[0].id", equalTo("image001"))
+            .body("_embedded.receiptImages[0].status", equalTo(ProcessStatusType.UPLOADED.name()))
+            .body("_embedded.receiptImages[1].id", equalTo("image003"))
+            .body("_embedded.receiptImages[2].id", equalTo("image002"))
+            .body("_embedded.receiptImages[3].id", equalTo("image004"))
+        ;
     }
 
     @Test
     public void createNewReceipt_ShouldCreateReceipt_AndSaveImage_FromBase64String() throws Exception {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         String receiptsLink =
                 given().filter(sessionFilter)
@@ -180,7 +180,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             ;
 
         response
-            .then()
+        .then()
             .statusCode(HttpStatus.SC_CREATED)
         ;
 
@@ -195,18 +195,18 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             ;
         final String receiptId = response.then().extract().path("id");
         response
-            .then()
-                .statusCode(HttpStatus.SC_OK)
-                .contentType(ContentType.JSON)
-                //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name())) TODO should be UPLOADED without process thread
-                .body("_links.images.href", endsWith(UserApiUrls.URL_USER_RECEIPTS + "/" + receiptId + "/images"))
-            ;
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name())) TODO should be UPLOADED without process thread
+            .body("_links.images.href", endsWith(UserApiUrls.URL_USER_RECEIPTS + "/" + receiptId + "/images"))
+        ;
 
         //response.prettyPrint();
 
         // verify image in FileSystem
         String fileName = response.then().extract().path("images[0].fileName");
-        Path imageFile = fileSystemService.getImageSubFolder(USERNAME_JOHN_DOE).resolve(fileName);
+        Path imageFile = fileSystemService.getImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
         assertTrue(Files.exists(imageFile));
         BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
         assertEquals("test", reader.readLine());
@@ -224,7 +224,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test
     public void uploadNewReceipt_ShouldCreateReceipt_AndSaveImageFile() throws Exception {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         String uploadUrl =
             given().filter(sessionFilter)
@@ -241,7 +241,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             ;
 
         response
-            .then()
+        .then()
             .statusCode(HttpStatus.SC_CREATED)
         ;
 
@@ -256,17 +256,17 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             ;
 
         response
-            .then()
-                .statusCode(HttpStatus.SC_OK)
-                .contentType(ContentType.JSON)
-                //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name()))
-            ;
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name()))
+        ;
 
         //response.prettyPrint();
 
         // verify image in FileSystem
         String fileName = response.then().extract().path("images[0].fileName");
-        Path imageFile = fileSystemService.getImageSubFolder(USERNAME_JOHN_DOE).resolve(fileName);
+        Path imageFile = fileSystemService.getImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
         assertTrue(Files.exists(imageFile));
         BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
         assertEquals("test", reader.readLine());
@@ -284,7 +284,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test
     public void uploadReceiptImage_ShouldAddReceiptImage_AndSaveImageFile() throws Exception {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         String uploadUrl =
                 given().filter(sessionFilter)
@@ -300,7 +300,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             ;
 
         response
-            .then()
+        .then()
             .statusCode(HttpStatus.SC_CREATED)
         ;
 
@@ -314,11 +314,11 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             ;
 
         response
-            .then()
-                .statusCode(HttpStatus.SC_OK)
-                .contentType(ContentType.JSON)
-                //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name()))
-            ;
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name()))
+        ;
 
         //response.prettyPrint();
 
@@ -341,17 +341,17 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             ;
 
         response
-            .then()
-                .statusCode(HttpStatus.SC_OK)
-                .contentType(ContentType.JSON)
-                //.body("status", equalTo(ProcessStatusType.SCANNED.name()))
-            ;
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            //.body("status", equalTo(ProcessStatusType.SCANNED.name()))
+        ;
 
         //response.prettyPrint();
 
         // verify image in FileSystem
         String fileName = response.then().extract().path("fileName");
-        Path imageFile = fileSystemService.getImageSubFolder(USERNAME_JOHN_DOE).resolve(fileName);
+        Path imageFile = fileSystemService.getImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
         assertTrue(Files.exists(imageFile));
         BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
         assertEquals("Another Test", reader.readLine());

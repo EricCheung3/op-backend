@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class RestApiLoggingAspect {
 
     @Pointcut("within(com.openprice.rest..*Controller)")
-    public void loggingPoincut() {}
+    public void loggingPointcut() {}
 
     @AfterThrowing(pointcut = "loggingPoincut()", throwing = "e")
     public void logAfterThrowing(final JoinPoint joinPoint, final Throwable e) {
@@ -27,7 +27,7 @@ public class RestApiLoggingAspect {
                 joinPoint.getSignature().getName(), e.getCause(), e);
     }
 
-    @Around("loggingPoincut()")
+    @Around("loggingPointcut()")
     public Object logAround(final ProceedingJoinPoint joinPoint) throws Throwable {
         if (log.isDebugEnabled()) {
             log.debug("Enter: {}.{}() with argument[s] = {}", joinPoint.getSignature().getDeclaringTypeName(),

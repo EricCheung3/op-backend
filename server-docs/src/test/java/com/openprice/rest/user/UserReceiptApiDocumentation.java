@@ -47,7 +47,7 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                 )
             ));
     }
-    
+
     @Test
     public void uploadReceiptExample() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
@@ -61,7 +61,7 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
             )
             .andExpect(status().isCreated())
             .andDo(document("user-receipt-upload-example",
-                requestParameters( 
+                requestParameters(
                     parameterWithName("filename").description("The uploaded image file name")
                 )
             ));
@@ -77,13 +77,13 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                 .file(file)
                 .with(user(USERNAME))
                 .with(csrf())
-                
+
             )
             .andExpect(status().isCreated())
             .andReturn()
             .getResponse()
             .getHeader("Location");
-        
+
         mockMvc
             .perform(get(receiptLocation).with(user(USERNAME)))
             .andExpect(status().isOk())
@@ -113,7 +113,7 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
     public void receiptImageExample() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
 
-        String receiptLocation = 
+        String receiptLocation =
             mockMvc
                 .perform(
                     fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
@@ -125,8 +125,8 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                 .andReturn()
                 .getResponse()
                 .getHeader("Location");
- 
-        String responseContent = 
+
+        String responseContent =
             mockMvc
                 .perform(get(receiptLocation).with(user(USERNAME)))
                 .andExpect(status().isOk())
@@ -134,10 +134,10 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                 .getContentAsString();
         String uploadLink = JsonPath.read(responseContent, "_links.upload.href");
         String imagesLink = JsonPath.read(responseContent, "_links.images.href");
-        
+
         file = new MockMultipartFile("file", "image2.jpg", "image/jpeg", "base64codedimg".getBytes());
-        
-        String receiptImageLocation = 
+
+        String receiptImageLocation =
             mockMvc
                 .perform(
                     fileUpload(uploadLink)
@@ -183,7 +183,7 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
             )
             .andExpect(status().isCreated())
             .andDo(document("user-receipt-image-upload-example",
-                requestParameters( 
+                requestParameters(
                     parameterWithName("filename").description("The uploaded image file name")
                 )
             ));
@@ -204,26 +204,26 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
             ));
 
     }
-    
+
     @Test
     public void receiptItemExample() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
-        
-        String receiptLocation = 
+
+        String receiptLocation =
             mockMvc
                 .perform(
                     fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
                     .file(file)
                     .with(user(USERNAME))
                     .with(csrf())
-                    
+
                 )
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse()
                 .getHeader("Location");
 
-        String responseContent = 
+        String responseContent =
             mockMvc
                 .perform(get(receiptLocation).with(user(USERNAME)))
                 .andExpect(status().isOk())
@@ -240,6 +240,7 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
 
     }
 
+    @Override
     @Before
     public void setUp() throws Exception {
         super.setUp();
@@ -254,11 +255,11 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
     }
 
     protected void createReceipts() throws Exception {
-        final UserAccount user = userAccountRepository.findByUsername(USERNAME);
+        final UserAccount user = userAccountRepository.findByEmail(USERNAME);
         Receipt receipt = new Receipt();
         receipt.setUser(user);
         receipt = receiptRepository.save(receipt);
-        
+
         // add two images to the receipt
         final ReceiptImage image1 = receipt.createImage();
         image1.setStatus(ProcessStatusType.UPLOADED);
@@ -268,7 +269,7 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
         image2.setStatus(ProcessStatusType.UPLOADED);
         receipt.getImages().add(image2);
         receiptImageRepository.save(image2);
-        
+
         receipt = new Receipt();
         receipt.setUser(user);
         receipt = receiptRepository.save(receipt);
@@ -276,11 +277,11 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
         image.setStatus(ProcessStatusType.UPLOADED);
         receipt.getImages().add(image);
         receiptImageRepository.save(image);
-        
+
     }
 
     protected void deleteReceipts() throws Exception {
-        UserAccount user = userAccountRepository.findByUsername(USERNAME);
+        UserAccount user = userAccountRepository.findByEmail(USERNAME);
         for (Receipt receipt : receiptRepository.findByUser(user)) {
             receiptRepository.delete(receipt);
         }

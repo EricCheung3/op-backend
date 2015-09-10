@@ -27,6 +27,7 @@ public class UserApiTestApplication extends AbstractRestApiTestApplication {
             .authorizeRequests()
                 .antMatchers("/api/user/**").hasAuthority(UserRoleType.ROLE_USER.name())
                 .antMatchers("/api/public/**").permitAll()
+                .antMatchers("/api/signin").permitAll()
                 .antMatchers("/api").permitAll()
                 .anyRequest().authenticated()
                 .and()

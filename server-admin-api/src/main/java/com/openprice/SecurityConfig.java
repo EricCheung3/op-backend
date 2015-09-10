@@ -13,8 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 
-import com.openprice.domain.account.UserAccountService;
-import com.openprice.domain.account.UserRoleType;
+import com.openprice.domain.admin.AdminAccountService;
+import com.openprice.domain.admin.AdminRoleType;
 import com.openprice.rest.UtilConstants;
 import com.openprice.security.jwt.StatelessAuthenticationFilter;
 import com.openprice.security.jwt.StatelessLoginFilter;
@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private String secret;
 
     @Inject
-    private UserAccountService userAccountService;
+    private AdminAccountService adminAccountService;
 
     public SecurityConfig() {
         super(true);
@@ -43,13 +43,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             //.headers().cacheControl().and()
             .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/api/admin/**").hasAuthority(UserRoleType.ROLE_SUPER_ADMIN.name())
-                .antMatchers("/api/user/**").authenticated()
-                .antMatchers("/api/public").permitAll()
+                .antMatchers("/api/admin/admins/**").hasAuthority(AdminRoleType.ROLE_SUPER_ADMIN.name())
+                .antMatchers("/api/admin/users/**").hasAuthority(AdminRoleType.ROLE_USER_MANAGER.name())
                 .antMatchers("/api/signin").permitAll()
-                .antMatchers("/api/currentUser").permitAll()
-                .antMatchers("/api/registration/**").permitAll()
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
                 .and()
             .csrf().disable()
             .addFilterBefore(new CorsFilter(), AbstractPreAuthenticatedProcessingFilter.class)
@@ -61,22 +58,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public TokenAuthenticationService tokenAuthenticationService() {
-        final TokenAuthenticationService service = new TokenAuthenticationService(secret, userAccountService);
+        final TokenAuthenticationService service = new TokenAuthenticationService(secret, adminAccountService);
         return service;
     }
 
     private StatelessLoginFilter statelessLoginFilter() throws Exception {
-        return new StatelessLoginFilter(UtilConstants.URL_SIGNIN, tokenAuthenticationService(), userAccountService, authenticationManager());
+        return new StatelessLoginFilter(UtilConstants.URL_SIGNIN, tokenAuthenticationService(), adminAccountService, authenticationManager());
     }
 
     private StatelessAuthenticationFilter statelessAuthenticationFilter() {
         return new StatelessAuthenticationFilter(tokenAuthenticationService());
     }
-    
+
     @Inject
     public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .userDetailsService(userAccountService)
+            .userDetailsService(adminAccountService)
             .passwordEncoder(new BCryptPasswordEncoder());
     }
 }

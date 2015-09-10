@@ -11,11 +11,11 @@ public class ProcessItem {
 
     @Getter @Setter
     private ReceiptImage image;
-    
+
     @Getter @Setter
     private String username;
-    
+
     @Getter @Setter
     private Date addTime;
-    
+
 }

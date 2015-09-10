@@ -36,7 +36,7 @@ public class AdminAccount extends BaseAuditableEntity implements UserDetails {
     @Getter @Setter
     @ElementCollection(targetClass=AdminRoleType.class, fetch=FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name="admin_role", joinColumns=@JoinColumn(name="account_id"))
+    @CollectionTable(name="admin_role", joinColumns=@JoinColumn(name="admin_account_id"))
     @Column(name="role")
     private Collection<AdminRoleType> roles;
 

@@ -19,7 +19,7 @@ CREATE TABLE shopping_item (
     last_modified_by VARCHAR(50),
     last_modified_time TIMESTAMP,
 
-    account_id VARCHAR(50) NOT NULL,
+    user_account_id VARCHAR(50) NOT NULL,
     store_id VARCHAR(50) NOT NULL,
     item_name VARCHAR(255) NOT NULL,
     item_price VARCHAR(50),
@@ -28,11 +28,11 @@ CREATE TABLE shopping_item (
 ) ENGINE=InnoDB;
 
 CREATE INDEX idx_shopping_item_1
-    ON shopping_item(account_id, store_id);
+    ON shopping_item(user_account_id, store_id);
     
 ALTER TABLE shopping_item
     ADD CONSTRAINT fk_shopping_item_user_account
-    FOREIGN KEY (account_id)
+    FOREIGN KEY (user_account_id)
     REFERENCES user_account(id);
 
 CREATE INDEX idx_shopping_item_2

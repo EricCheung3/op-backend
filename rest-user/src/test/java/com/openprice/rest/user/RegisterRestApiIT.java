@@ -12,7 +12,6 @@ import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.openprice.domain.account.UserRoleType;
-import com.openprice.rest.AbstractRestApiIntegrationTest;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.site.RegistrationForm;
 
@@ -26,9 +25,8 @@ public class RegisterRestApiIT extends AbstractUserRestApiIntegrationTest {
         RegistrationForm registration = new RegistrationForm();
         registration.setFirstName("John");
         registration.setLastName("Doe");
-        registration.setUsername("testuser");
-        registration.setPassword("abcd");
         registration.setEmail("john.doe@openprice.com");
+        registration.setPassword("abcd");
 
         Response response =
             given()
@@ -41,11 +39,10 @@ public class RegisterRestApiIT extends AbstractUserRestApiIntegrationTest {
         response
             .then()
             .statusCode(HttpStatus.SC_CREATED)
-            //.header("Location", containsString(API_ROOT + URL_USER_PROFILE))
             ;
 
         // verify user profile
-        final SessionFilter sessionFilter = login("testuser");
+        final SessionFilter sessionFilter = login("john.doe@openprice.com");
 
         response =
             given()

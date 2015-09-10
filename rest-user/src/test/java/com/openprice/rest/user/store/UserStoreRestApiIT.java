@@ -21,7 +21,7 @@ public class UserStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test
     public void getCurrentUserStores_ShouldReturnAllStores() {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         // get stores link
         String storesLink =
@@ -58,7 +58,7 @@ public class UserStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test
     public void getUserStoreById_ShouldReturnStore() {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         final String storeLink =
                 given().filter(sessionFilter)
@@ -78,7 +78,8 @@ public class UserStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
 
         //response.prettyPrint();
 
-        response.then()
+        response
+        .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("id", equalTo("store001"))
@@ -87,7 +88,7 @@ public class UserStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("_links.user.href", endsWith("/user"))
             .body("_links.items.href", endsWith(storeUrl + "/items"))
             .body("_links.item.href", endsWith(storeUrl + "/items/{itemId}"))
-            ;
+        ;
     }
 
 }

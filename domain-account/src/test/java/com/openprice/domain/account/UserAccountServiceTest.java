@@ -19,10 +19,10 @@ import org.mockito.stubbing.Answer;
 public class UserAccountServiceTest {
     @Mock
     UserAccountRepository accountRepositoryMock;
-    
+
     @Mock
     UserProfileRepository profileRepositoryMock;
-    
+
     UserAccountService serviceToTest;
 
     @Before
@@ -44,9 +44,9 @@ public class UserAccountServiceTest {
 
         });
 
-        final UserAccount newAccount = serviceToTest.createUserAccountByRegistrationData("johndoe", "password", "John", "Doe", "john.doe@mail.com");
+        final UserAccount newAccount = serviceToTest.createUserAccountByRegistrationData("john.doe@email.com", "password", "John", "Doe");
 
-        assertEquals("johndoe", newAccount.getUsername());
+        assertEquals("john.doe@email.com", newAccount.getEmail());
         assertFalse(newAccount.isTrustedAccount());
         //assertFalse(newAccount.isEnabled());
         assertEquals("John", newAccount.getProfile().getFirstName());

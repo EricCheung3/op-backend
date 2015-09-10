@@ -37,6 +37,7 @@
 
         <module>server-ocr</module>
         <module>server-web-api</module>
+        <module>server-admin-api</module>
         <module>server-docs</module>
 
     </modules>

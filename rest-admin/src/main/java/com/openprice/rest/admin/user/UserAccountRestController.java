@@ -30,7 +30,7 @@ import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.AbstractUserAdminRestController;
 import com.openprice.rest.admin.AdminApiUrls;
 
-@RestController
+@RestController("admin_UserAccountRestController")
 public class UserAccountRestController extends AbstractUserAdminRestController {
     private final UserProfileRepository userProfileRepository;
     private final UserAccountResourceAssembler userResourceAssembler;

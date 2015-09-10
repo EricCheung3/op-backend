@@ -35,19 +35,19 @@ public class Receipt extends BaseAuditableEntity {
     @Getter @Setter
     @JsonIgnore
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="account_id")
+    @JoinColumn(name="user_account_id")
     private UserAccount user;
-    
+
     @Getter @Setter
     @JsonIgnore
     @OneToMany(cascade=CascadeType.ALL, mappedBy="receipt")
     @OrderBy("createdTime")
     private List<ReceiptImage> images = new ArrayList<>();
 
-    
+
     /**
      * Builder method to create a new receipt.
-     * 
+     *
      * @param user
      * @return
      */
@@ -56,22 +56,22 @@ public class Receipt extends BaseAuditableEntity {
         receipt.setUser(user);
         return receipt;
     }
-    
+
     /**
      * Builder method to create a new receipt image for this receipt.
-     * 
+     *
      * @return
      */
     public ReceiptImage createImage() {
         final ReceiptImage image = new ReceiptImage();
         image.setReceipt(this);
         images.add(image);
-        
+
         // set default value for new image without real content yet
         final SimpleDateFormat dt = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_SSS");
         image.setFileName(dt.format(new Date()) + ".jpg");  // always save as jpg?
         image.setStatus(ProcessStatusType.CREATED);
-        
+
         return image;
     }
 }

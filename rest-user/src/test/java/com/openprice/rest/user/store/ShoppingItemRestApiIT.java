@@ -21,7 +21,7 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test
     public void getShoppingItems_ShouldReturnUserShoppingItemsForStore() {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         final String storeLink =
                 given().filter(sessionFilter)
@@ -47,28 +47,28 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
         //response.prettyPrint();
 
         response
-            .then()
-                .statusCode(HttpStatus.SC_OK)
-                .contentType(ContentType.JSON)
-                .body("page.size", equalTo(10))
-                .body("page.totalElements", equalTo(3))
-                .body("page.totalPages", equalTo(1))
-                .body("page.number", equalTo(0))
-                .body("_embedded.shoppingItems[0].id", equalTo("item003"))
-                .body("_embedded.shoppingItems[0].itemName", equalTo("bread"))
-                .body("_embedded.shoppingItems[0].itemPrice", equalTo("1.99"))
-                .body("_embedded.shoppingItems[1].id", equalTo("item002"))
-                .body("_embedded.shoppingItems[1].itemName", equalTo("eggs"))
-                .body("_embedded.shoppingItems[1].itemPrice", equalTo("2.99"))
-                .body("_embedded.shoppingItems[2].id", equalTo("item001"))
-                .body("_embedded.shoppingItems[2].itemName", equalTo("milk"))
-                .body("_embedded.shoppingItems[2].itemPrice", equalTo("4.99"))
-            ;
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("page.size", equalTo(10))
+            .body("page.totalElements", equalTo(3))
+            .body("page.totalPages", equalTo(1))
+            .body("page.number", equalTo(0))
+            .body("_embedded.shoppingItems[0].id", equalTo("item003"))
+            .body("_embedded.shoppingItems[0].itemName", equalTo("bread"))
+            .body("_embedded.shoppingItems[0].itemPrice", equalTo("1.99"))
+            .body("_embedded.shoppingItems[1].id", equalTo("item002"))
+            .body("_embedded.shoppingItems[1].itemName", equalTo("eggs"))
+            .body("_embedded.shoppingItems[1].itemPrice", equalTo("2.99"))
+            .body("_embedded.shoppingItems[2].id", equalTo("item001"))
+            .body("_embedded.shoppingItems[2].itemName", equalTo("milk"))
+            .body("_embedded.shoppingItems[2].itemPrice", equalTo("4.99"))
+        ;
     }
 
     @Test
     public void getShoppingListItemById_ShouldReturnShoppingListItem() {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         final String storeLink =
                 given().filter(sessionFilter)
@@ -112,7 +112,7 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test
     public void deleteShoppingListItemById_ShouldDeleteShoppingListItem() {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         final String storeLink =
                 given().filter(sessionFilter)

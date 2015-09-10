@@ -24,9 +24,8 @@ public class RegisterRestApiIT extends AbstractRestApiIntegrationTest {
         RegistrationForm registration = new RegistrationForm();
         registration.setFirstName("John");
         registration.setLastName("Doe");
-        registration.setUsername("testuser");
-        registration.setPassword("abcd");
         registration.setEmail("john.doe@openprice.com");
+        registration.setPassword("abcd");
 
         Response response =
             given()

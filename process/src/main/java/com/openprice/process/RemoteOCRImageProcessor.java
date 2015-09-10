@@ -21,7 +21,7 @@ public class RemoteOCRImageProcessor implements ImageProcessor {
     private final String serverUrl;
     private final ProcessLogRepository processLogRepository;
     private final ReceiptImageRepository receiptImageRepository;
-    
+
     public RemoteOCRImageProcessor(final String serverName,
                                    final String serverUrl,
                                    final ProcessLogRepository processLogRepository,
@@ -32,26 +32,28 @@ public class RemoteOCRImageProcessor implements ImageProcessor {
         this.processLogRepository = processLogRepository;
         this.receiptImageRepository = receiptImageRepository;
     }
-    
+
+    @Override
     public String getName() {
         return serverName;
     }
-    
+
+    @Override
     public void processImage(final ProcessItem item) {
         final ProcessLog processLog = new ProcessLog();
         processLog.setImageId(item.getImage().getId());
         processLog.setUsername(item.getUsername());
         processLog.setServerName(serverName);
-        
+
         final long start = System.currentTimeMillis();
         processLog.setStartTime(start);
-        
-        log.debug("==> Start process image {} from user '{}' by calling '{}'", 
+
+        log.debug("==> Start process image {} from user '{}' by calling '{}'",
                 item.getImage().getFileName(), item.getUsername(), serverUrl);
-        
+
         final ImageProcessResult result = restTemplate.getForObject(serverUrl + OcrServerApiUrls.URL_OCR_PROCESS,
-                                                                    ImageProcessResult.class, 
-                                                                    item.getUsername(), 
+                                                                    ImageProcessResult.class,
+                                                                    item.getUsername(),
                                                                     item.getImage().getFileName());
         processLog.setOcrResult(result.getOcrResult());
         log.debug("Got OCR result as\n" + result.getOcrResult());
@@ -62,11 +64,11 @@ public class RemoteOCRImageProcessor implements ImageProcessor {
         image.setOcrResult(result.getOcrResult());
         saveProcessResult(processLog, image);
 
-        log.info("Finish process image {} with server '{}', took {} milli-seconds.", 
+        log.info("Finish process image {} with server '{}', took {} milli-seconds.",
                 item.getImage().getFileName(), serverName, processLog.getOcrDuration());
 
     }
-    
+
     @Transactional
     private void saveProcessResult(final ProcessLog processLog, final ReceiptImage image) {
         processLogRepository.save(processLog);

@@ -64,7 +64,6 @@ public class UserApiDocumentation extends ApiDocumentationBase {
                     fieldWithPath("trustedAccount").description("Whether this user account is trusted"),
                     fieldWithPath("activated").description("Whether this user account is activated"),
                     fieldWithPath("enabled").description("Whether this user account is enabled/activated"),
-                    fieldWithPath("superAdmin").description("Whether this user account is SUPER_ADMIN"),
                     fieldWithPath("profile").description("User profile data"),
                     fieldWithPath("_links").description("<<resources-user-links,Links>> to other resources")
                 )
@@ -99,7 +98,7 @@ public class UserApiDocumentation extends ApiDocumentationBase {
 
     @Test
     public void profileUpdateExample() throws Exception {
-        UserAccount account = userAccountRepository.findByUsername(USERNAME);
+        UserAccount account = userAccountRepository.findByEmail(USERNAME);
         UserProfile profile = account.getProfile();
         UserProfileForm form = new UserProfileForm(profile);
         form.setFirstName("Jonny");

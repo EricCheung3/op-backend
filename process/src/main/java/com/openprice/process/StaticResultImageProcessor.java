@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StaticResultImageProcessor implements ImageProcessor {
     static final String OCR_RESULT_FILE_PATH = "ocrResult.txt";
-    
+
     private final ProcessLogRepository processLogRepository;
     private final ReceiptImageRepository receiptImageRepository;
     private final String staticResult;
@@ -30,7 +30,7 @@ public class StaticResultImageProcessor implements ImageProcessor {
                                       final ReceiptImageRepository receiptImageRepository) {
         this.processLogRepository = processLogRepository;
         this.receiptImageRepository = receiptImageRepository;
-        
+
         try {
             Resource resource = new ClassPathResource(OCR_RESULT_FILE_PATH);
             InputStream resourceInputStream = resource.getInputStream();
@@ -40,20 +40,20 @@ public class StaticResultImageProcessor implements ImageProcessor {
             throw new RuntimeException("Error loading static result file "+OCR_RESULT_FILE_PATH, ex);
         }
     }
-    
+
 
     @Override
     public String getName() {
         return "StaticResult";
     }
-    
+
     @Override
     public void processImage(final ProcessItem item) {
         final ProcessLog processLog = new ProcessLog();
         processLog.setImageId(item.getImage().getId());
         processLog.setUsername(item.getUsername());
         processLog.setServerName("static");
-        
+
         processLog.setStartTime(System.currentTimeMillis());
         processLog.setOcrResult(staticResult);
         processLog.setOcrDuration(0l);
@@ -63,7 +63,7 @@ public class StaticResultImageProcessor implements ImageProcessor {
         image.setOcrResult(staticResult);
         saveProcessResult(processLog, image);
     }
-    
+
     @Transactional
     private void saveProcessResult(final ProcessLog processLog, final ReceiptImage image) {
         processLogRepository.save(processLog);

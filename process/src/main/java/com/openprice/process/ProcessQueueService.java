@@ -27,9 +27,9 @@ public class ProcessQueueService {
     private final ProcessSettings settings;
     private final ProcessLogRepository processLogRepository;
     private final ReceiptImageRepository receiptImageRepository;
-    
+
     @Inject
-    public ProcessQueueService(final ProcessSettings settings, 
+    public ProcessQueueService(final ProcessSettings settings,
                                final ProcessLogRepository processLogRepository,
                                final ReceiptImageRepository receiptImageRepository) {
         this.queue = new LinkedBlockingQueue<>();
@@ -38,11 +38,11 @@ public class ProcessQueueService {
         this.processLogRepository = processLogRepository;
         this.receiptImageRepository = receiptImageRepository;
     }
-    
+
     @PostConstruct
     public void init() {
         log.info("init ProcessQueueService...");
-        
+
         if ( StringUtils.hasText(settings.getServerPrefix()) && settings.getNumberOfServers() > 0) {
             for (int i=1; i<=settings.getNumberOfServers(); i++) {
                 startConsumer(settings.getServerPrefix() + i);
@@ -50,7 +50,7 @@ public class ProcessQueueService {
         } else if (!settings.getServers().isEmpty()) {
             for (final String server : settings.getServers()) {
                 startConsumer(server);
-            }            
+            }
         } else {
             final ImageProcessor p = new StaticResultImageProcessor(processLogRepository, receiptImageRepository);
             final ProcessQueueConsumer consumer = new ProcessQueueConsumer(queue, p);
@@ -58,7 +58,7 @@ public class ProcessQueueService {
             new Thread(consumer).start();
         }
     }
-    
+
     private void startConsumer(final String server) {
         final String serverUrl = "http://" + server + ":" + settings.getServerPort();
         final RemoteOCRImageProcessor p = new RemoteOCRImageProcessor(server, serverUrl, processLogRepository, receiptImageRepository);
@@ -66,7 +66,7 @@ public class ProcessQueueService {
         consumers.add(consumer);
         new Thread(consumer).start();
     }
-    
+
     @PreDestroy()
     public void stop() {
         log.info("stop ProcessQueueService...");
@@ -78,7 +78,7 @@ public class ProcessQueueService {
 
     /**
      * Adds one receipt image to the process queue, and it will be consumed by one of image processor.
-     * 
+     *
      * @param image
      */
     public void addImage(final ReceiptImage image) {
@@ -89,5 +89,5 @@ public class ProcessQueueService {
         item.setUsername(image.getReceipt().getUser().getUsername());
         queue.add(item);
     }
-    
+
 }

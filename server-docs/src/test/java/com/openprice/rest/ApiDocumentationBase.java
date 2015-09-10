@@ -33,37 +33,37 @@ import com.openprice.domain.receipt.ReceiptService;
 @WebIntegrationTest(randomPort = true)
 @ActiveProfiles("dev")
 public abstract class ApiDocumentationBase {
-    
-    public static final String USERNAME = "testuser";
+
+    public static final String USERNAME = "john.doe@email.com";
 
     @Rule
     public final RestDocumentation restDocumentation = new RestDocumentation("target/generated-snippets");
-    
+
     @Inject
     protected WebApplicationContext context;
-    
+
     @Inject
     protected UserAccountService userAccountService;
 
     @Inject
     protected UserAccountRepository userAccountRepository;
-    
-    @Inject 
+
+    @Inject
     protected UserProfileRepository userProfileRepository;
 
     @Inject
     protected ReceiptService receiptService;
-    
+
     @Inject
     protected ReceiptRepository receiptRepository;
-    
+
     @Inject
     protected ReceiptImageRepository receiptImageRepository;
-    
-    
+
+
     @Inject
     protected ObjectMapper objectMapper;
-    
+
     protected MockMvc mockMvc;
 
     @Before
@@ -73,11 +73,11 @@ public abstract class ApiDocumentationBase {
                                       .apply(documentationConfiguration(restDocumentation))
                                       .build();
     }
-    
+
     protected String createTestUser() throws Exception {
-        UserAccount account = userAccountService.createUserAccountByRegistrationData(USERNAME, "password", "John", "Doe", "john.doe@email.com");
+        UserAccount account = userAccountService.createUserAccountByRegistrationData(USERNAME, "password", "John", "Doe");
         userAccountService.activateAccount(account.getId());
-        account = userAccountRepository.findByUsername(USERNAME);
+        account = userAccountRepository.findByEmail(USERNAME);
         UserProfile profile = account.getProfile();
         profile.setPhone("780-888-1234");
         profile.getAddress().setAddress1("GroundTruth Inc.");
@@ -86,12 +86,12 @@ public abstract class ApiDocumentationBase {
         profile.getAddress().setState("AB");
         profile.getAddress().setCountry("Canada");
         userProfileRepository.save(profile);
-        
+
         return USERNAME;
     }
-    
+
     protected void deleteTestUser() throws Exception {
-        UserAccount account = userAccountRepository.findByUsername(USERNAME);
+        UserAccount account = userAccountRepository.findByEmail(USERNAME);
         userAccountRepository.delete(account);
     }
 

@@ -23,7 +23,7 @@ public class UserRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getUserAccounts_ShouldReturnAllUserAccounts() {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
 
         String usersLink = getAdminAccountUsersLink(sessionFilter);
         String usersUrl =  UriTemplate.fromTemplate(usersLink).set("page", 0).set("size", 10).set("sort", null).expand();
@@ -48,9 +48,9 @@ public class UserRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getUserAccount_ShouldReturnSpecificUserAccount() {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
 
-        final String userUrl =  getUserLinkUrl(sessionFilter, USERID_JANE_DOE);
+        final String userUrl =  getUserLinkUrl(sessionFilter, TEST_USERID_JANE_DOE);
 
         given()
             .filter(sessionFilter)
@@ -59,8 +59,8 @@ public class UserRestApiIT extends AbstractAdminRestApiIntegrationTest {
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            .body("id", equalTo(USERID_JANE_DOE))
-            .body("email", equalTo("user2@openprice.com"))
+            .body("id", equalTo(TEST_USERID_JANE_DOE))
+            .body("email", equalTo(TEST_USERNAME_JANE_DOE))
             .body("accountLocked", equalTo(false))
             .body("profile.firstName", equalTo("Jane"))
             .body("profile.lastName", equalTo("Doe"))
@@ -76,9 +76,9 @@ public class UserRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void changeUserLockState_ShouldLockUserAccount() {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
 
-        final String userUrl =  getUserLinkUrl(sessionFilter, USERID_JANE_DOE);
+        final String userUrl =  getUserLinkUrl(sessionFilter, TEST_USERID_JANE_DOE);
 
         // get lockState link
         final String lockStateLink = given().filter(sessionFilter).when().get(userUrl).then().extract().path("_links.lockState.href");
@@ -113,9 +113,9 @@ public class UserRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void updateUserProfile_ShouldChangeProfileAddress() {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
 
-        final String userUrl =  getUserLinkUrl(sessionFilter, USERID_JANE_DOE);
+        final String userUrl =  getUserLinkUrl(sessionFilter, TEST_USERID_JANE_DOE);
         final String profileLink = given().filter(sessionFilter).when().get(userUrl).then().extract().path("_links.profile.href");
 
         Response response =

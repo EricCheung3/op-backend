@@ -19,34 +19,34 @@ import lombok.ToString;
 @Entity
 @Table
 public class UserProfile extends BaseAuditableEntity {
-    
+
     @Getter @Setter
     @OneToOne(mappedBy="profile")
     @JsonIgnore
     private UserAccount user;
-    
+
     @Getter @Setter
     @Column
     private String firstName;
-    
+
     @Getter @Setter
     @Column
     private String middleName;
-    
+
     @Getter @Setter
     @Column
     private String lastName;
-    
+
     @Getter @Setter
     @Column
     private String phone;
-    
+
     @Setter
     @Embedded
     private Address address;
 
     /**
-     * Because Hibernate will set address to null if all properties of address are null, 
+     * Because Hibernate will set address to null if all properties of address are null,
      * we have to handle it by setting a new value object.
      * @return
      */
@@ -56,7 +56,7 @@ public class UserProfile extends BaseAuditableEntity {
         }
         return address;
     }
-    
+
     public String getDisplayName() {
         return firstName + " " + lastName;
     }

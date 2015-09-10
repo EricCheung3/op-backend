@@ -29,12 +29,12 @@ import com.openprice.file.FileSystemService;
         DbUnitTestExecutionListener.class })
 public abstract class AbstractRestApiIntegrationTest {
 
-    public static final String USERID_JOHN_DOE = "user001";
-    public static final String USERNAME_JOHN_DOE = "john.doe";
-    public static final String USERID_JANE_DOE = "user002";
-    public static final String USERNAME_JANE_DOE = "jane.doe";
-    public static final String USERID_JUNIOR_DOE = "user003";
-    public static final String USERNAME_JUNIOR_DOE = "junior.doe";
+    public static final String TEST_USERID_JOHN_DOE = "user001";
+    public static final String TEST_USERNAME_JOHN_DOE = "john.doe@email.com";
+    public static final String TEST_USERID_JANE_DOE = "user002";
+    public static final String TEST_USERNAME_JANE_DOE = "jane.doe@email.com";
+    public static final String TEST_USERID_JUNIOR_DOE = "user003";
+    public static final String TEST_USERNAME_JUNIOR_DOE = "junior.doe@email.com";
 
     @Value("${local.server.port}")
     private int port;

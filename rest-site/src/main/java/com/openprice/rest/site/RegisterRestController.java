@@ -47,20 +47,19 @@ public class RegisterRestController extends AbstractRestController {
     public HttpEntity<Void> registerNewUser(@RequestBody final RegistrationForm registration)
                                                     throws ResourceNotFoundException {
 
-        log.info("A new user tried to register with username '{}'.", registration.getUsername());
+        log.info("A new user tried to register with email '{}'.", registration.getEmail());
 
         //if user already exist, return 409 conflict
-        if (this.userAccountRepository.findByUsername(registration.getUsername()) != null) {
-            log.warn("Same username '{}' already registered!", registration.getUsername());
+        if (this.userAccountRepository.findByEmail(registration.getEmail()) != null) {
+            log.warn("Same user '{}' already registered!", registration.getEmail());
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
 
         final UserAccount newUser =
-                userAccountService.createUserAccountByRegistrationData(registration.getUsername(),
+                userAccountService.createUserAccountByRegistrationData(registration.getEmail(),
                                                                        registration.getPassword(),
                                                                        registration.getFirstName(),
-                                                                       registration.getLastName(),
-                                                                       registration.getEmail());
+                                                                       registration.getLastName());
 
         sendNewUserRegistered(newUser);
         sendWelcomeEmailToNewUser(newUser);

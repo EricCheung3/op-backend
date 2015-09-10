@@ -38,22 +38,18 @@ public class UserAccount extends BaseAuditableEntity implements UserDetails {
     @Getter @Setter
     @ElementCollection(targetClass=UserRoleType.class, fetch=FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name="user_role", joinColumns=@JoinColumn(name="account_id"))
+    @CollectionTable(name="user_role", joinColumns=@JoinColumn(name="user_account_id"))
     @Column(name="role")
     private Collection<UserRoleType> roles;
 
     @Getter @Setter
     @Column
-    private String username;
+    private String email;
 
     @Getter @Setter
     @Column
     @JsonIgnore
     private String password;
-
-    @Getter @Setter
-    @Column
-    private String email;
 
     @Getter @Setter
     @Column
@@ -66,7 +62,7 @@ public class UserAccount extends BaseAuditableEntity implements UserDetails {
     @Getter @Setter
     @Column
     private boolean activated = false;
-    
+
     @Getter @Setter
     @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn
@@ -102,12 +98,13 @@ public class UserAccount extends BaseAuditableEntity implements UserDetails {
         return activated;
     }
 
-    public boolean isSuperAdmin(){
-        for (UserRoleType role : getRoles()) {
-            if (role == UserRoleType.ROLE_SUPER_ADMIN){
-                return true;
-            }
-        }
-        return false;
+    /**
+     * We are using email as unique username.
+     */
+    @Override
+    public String getUsername() {
+        return email;
     }
+
+
 }

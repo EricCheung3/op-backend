@@ -21,7 +21,7 @@ public class ShoppingListRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test
     public void postShoppingList_ShouldAddShoppingItemsForUserStore() {
-        final SessionFilter sessionFilter = login(USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         final String shoppingListLink =
                 given().filter(sessionFilter)
@@ -78,7 +78,7 @@ public class ShoppingListRestApiIT extends AbstractUserRestApiIntegrationTest {
             ;
 
         response
-            .then()
+        .then()
             .statusCode(HttpStatus.SC_CREATED)
         ;
 

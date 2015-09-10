@@ -14,7 +14,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 
 import com.openprice.domain.account.UserAccountService;
-import com.openprice.domain.account.UserRoleType;
 import com.openprice.rest.UtilConstants;
 import com.openprice.security.jwt.StatelessAuthenticationFilter;
 import com.openprice.security.jwt.StatelessLoginFilter;
@@ -43,13 +42,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             //.headers().cacheControl().and()
             .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/api/admin/**").hasAuthority(UserRoleType.ROLE_SUPER_ADMIN.name())
                 .antMatchers("/api/user/**").authenticated()
-                .antMatchers("/api/public").permitAll()
+                .antMatchers("/api/public/**").permitAll()
                 .antMatchers("/api/signin").permitAll()
-                .antMatchers("/api/currentUser").permitAll()
-                .antMatchers("/api/registration/**").permitAll()
-                .anyRequest().permitAll()
+                .antMatchers("/api").permitAll()
+                .anyRequest().authenticated()
                 .and()
             .csrf().disable()
             .addFilterBefore(new CorsFilter(), AbstractPreAuthenticatedProcessingFilter.class)
@@ -72,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private StatelessAuthenticationFilter statelessAuthenticationFilter() {
         return new StatelessAuthenticationFilter(tokenAuthenticationService());
     }
-    
+
     @Inject
     public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
         auth

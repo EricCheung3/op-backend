@@ -16,9 +16,10 @@ import com.openprice.rest.UtilConstants;
 
 @DatabaseSetup("classpath:/data/testData.xml")
 public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
+
     @Test
     public void getCurrentUser_ShouldReturnLoggedInUserAccount() {
-        final SessionFilter sessionFilter = login("john.doe");
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         Response response =
             given()
@@ -33,10 +34,10 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
             .then()
                 .statusCode(HttpStatus.SC_OK)
                 .contentType(ContentType.JSON)
-                .body("id", equalTo("user001"))
-                .body("email", equalTo("user1@openprice.com"))
+                .body("id", equalTo(TEST_USERID_JOHN_DOE))
+                .body("email", equalTo(TEST_USERNAME_JOHN_DOE))
                 .body("roles[0]", equalTo(UserRoleType.ROLE_USER.name()))
-                .body("roles[1]", equalTo(UserRoleType.ROLE_SUPER_ADMIN.name()))
+                .body("roles[1]", equalTo(UserRoleType.ROLE_STORE_MANAGER.name()))
                 .body("accountNonLocked", equalTo(true))
                 .body("accountNonExpired", equalTo(true))
                 .body("enabled", equalTo(true))
@@ -53,7 +54,7 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test
     public void getCurrentUserProfile_ShouldReturnLoggedInUserProfile() {
-        final SessionFilter sessionFilter = login("jane.doe");
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JANE_DOE);
 
         Response response =
             given()
@@ -77,7 +78,7 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test
     public void updateProfile_ShouldChangeProfileAddress() {
-        final SessionFilter sessionFilter = login("jane.doe");
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JANE_DOE);
 
         Response response =
             given()

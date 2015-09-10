@@ -6,17 +6,17 @@ CREATE TABLE receipt (
     last_modified_by VARCHAR(50),
     last_modified_time TIMESTAMP,
 
-    account_id VARCHAR(50) NOT NULL,
+    user_account_id VARCHAR(50) NOT NULL,
 
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
 CREATE INDEX idx_receipt_1
-    ON receipt(account_id ASC);
+    ON receipt(user_account_id ASC);
     
 ALTER TABLE receipt
     ADD CONSTRAINT fk_receipt_user_account
-    FOREIGN KEY (account_id)
+    FOREIGN KEY (user_account_id)
     REFERENCES user_account(id)
     ON DELETE CASCADE;
 

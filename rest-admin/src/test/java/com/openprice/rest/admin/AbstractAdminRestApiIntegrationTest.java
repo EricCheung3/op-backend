@@ -14,6 +14,13 @@ import com.openprice.rest.admin.user.UserProfileForm;
 @SpringApplicationConfiguration(classes = {AdminApiTestApplication.class})
 public abstract class AbstractAdminRestApiIntegrationTest extends AbstractRestApiIntegrationTest {
 
+    public static final String TEST_ADMIN_USERID_JOHN_DOE = "admin001";
+    public static final String TEST_ADMIN_USERNAME_JOHN_DOE = "john.doe";
+    public static final String TEST_ADMIN_USERID_JANE_DOE = "admin002";
+    public static final String TEST_ADMIN_USERNAME_JANE_DOE = "jane.doe";
+    public static final String TEST_ADMIN_USERID_JUNIOR_DOE = "admin003";
+    public static final String TEST_ADMIN_USERNAME_JUNIOR_DOE = "junior.doe";
+
     protected String getAdminAccountUsersLink(final SessionFilter sessionFilter) {
         return given().filter(sessionFilter)
                       .when().get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN)

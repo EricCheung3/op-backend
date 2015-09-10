@@ -16,18 +16,18 @@ import lombok.ToString;
 @Entity
 @Table
 public class ProcessLog extends BaseEntity {
-    
+
     /**
      * Use imageId to reference ReceiptImage, in case the image was deleted.
      */
     @Getter @Setter
     @Column(nullable = false)
     private String imageId;
-    
+
     @Getter @Setter
     @Column(nullable = false)
     private String username;
-    
+
     @Getter @Setter
     @Column(nullable = false)
     private String serverName;
@@ -35,11 +35,11 @@ public class ProcessLog extends BaseEntity {
     @Getter @Setter
     @Column(nullable = false)
     private Long startTime;
-    
+
     @Getter @Setter
     @Column
     private Long ocrDuration;
-    
+
     @Getter @Setter
     @Column
     @Lob
@@ -48,12 +48,12 @@ public class ProcessLog extends BaseEntity {
     @Getter @Setter
     @Column
     private Long parserDuration;
-    
+
     @Getter @Setter
     @Column
     @Lob
     private String parserResult;
-    
+
     @Getter @Setter
     @Column
     private String errorMessage;

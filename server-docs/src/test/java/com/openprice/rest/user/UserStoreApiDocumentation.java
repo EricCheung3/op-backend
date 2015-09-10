@@ -40,7 +40,7 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
 
     @Test
     public void storeExample() throws Exception {
-        String responseContent = 
+        String responseContent =
             mockMvc
                 .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER).with(user(USERNAME)))
                 .andExpect(status().isOk())
@@ -63,7 +63,7 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
                 )
             ));
 
-        responseContent = 
+        responseContent =
             mockMvc
                 .perform(get(storesLink).with(user(USERNAME)))
                 .andExpect(status().isOk())
@@ -95,10 +95,10 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
             ));
 
     }
-    
+
     @Test
     public void uploadShoppingListExample() throws Exception {
-        String responseContent = 
+        String responseContent =
             mockMvc
                 .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER).with(user(USERNAME)))
                 .andExpect(status().isOk())
@@ -106,7 +106,7 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
                 .getContentAsString();
         String shoppinglistLink = JsonPath.read(responseContent, "_links.shoppingList.href");
         String storesLink = JsonPath.read(responseContent, "_links.stores.href");
-        responseContent = 
+        responseContent =
             mockMvc
                 .perform(get(storesLink).with(user(USERNAME)))
                 .andExpect(status().isOk())
@@ -141,29 +141,29 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
     @Test
     public void shoppingItemExample() throws Exception {
         createShoppingItems();
-        
-        String responseContent = 
+
+        String responseContent =
             mockMvc
                 .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER).with(user(USERNAME)))
                 .andExpect(status().isOk())
                 .andReturn().getResponse()
                 .getContentAsString();
         String storesLink = JsonPath.read(responseContent, "_links.stores.href");
-        responseContent = 
+        responseContent =
             mockMvc
                 .perform(get(storesLink).with(user(USERNAME)))
                 .andExpect(status().isOk())
                 .andReturn().getResponse()
                 .getContentAsString();
         String storeLink = JsonPath.read(responseContent, "_embedded.stores[0]._links.self.href");
-        responseContent = 
+        responseContent =
             mockMvc
                 .perform(get(storeLink).with(user(USERNAME)))
                 .andExpect(status().isOk())
                 .andReturn().getResponse()
                 .getContentAsString();
         String itemsLink = JsonPath.read(responseContent, "_links.items.href");
-        responseContent = 
+        responseContent =
             mockMvc
                 .perform(get(itemsLink).with(user(USERNAME)))
                 .andExpect(status().isOk())
@@ -213,6 +213,7 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
     }
 
 
+    @Override
     @Before
     public void setUp() throws Exception {
         super.setUp();
@@ -241,9 +242,9 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
     }
 
     protected void createShoppingItems() throws Exception {
-        final UserAccount user = userAccountRepository.findByUsername(USERNAME);
+        final UserAccount user = userAccountRepository.findByEmail(USERNAME);
         final Store store = storeRepository.findByName("Safeway");
-        
+
         ShoppingItem item = new ShoppingItem();
         item.setUser(user);
         item.setStore(store);

@@ -24,7 +24,7 @@ public class ShoppingItem extends BaseAuditableEntity {
     @Getter @Setter
     @JsonIgnore
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="account_id")
+    @JoinColumn(name="user_account_id")
     private UserAccount user;
 
     @Getter @Setter
