@@ -95,7 +95,7 @@ public class ReceiptServiceTest {
         assertEquals(ProcessStatusType.UPLOADED, image.getStatus());
 
         // check file exists and content is the same as test content
-        final Path imageFile = fileSystemService.getImageSubFolder(testUser.getId()).resolve(image.getFileName());
+        final Path imageFile = fileSystemService.getReceiptImageSubFolder(testUser.getId()).resolve(image.getFileName());
         assertTrue(Files.exists(imageFile));
         BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
         assertEquals(TEST_CONTENT, reader.readLine());
@@ -141,7 +141,7 @@ public class ReceiptServiceTest {
         assertEquals(ProcessStatusType.UPLOADED, image.getStatus());
 
         // check file exists and content is the same as test content
-        final Path imageFile = fileSystemService.getImageSubFolder(testUser.getId()).resolve(image.getFileName());
+        final Path imageFile = fileSystemService.getReceiptImageSubFolder(testUser.getId()).resolve(image.getFileName());
         assertTrue(Files.exists(imageFile));
         BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
         assertEquals(TEST_CONTENT, reader.readLine());
@@ -186,7 +186,7 @@ public class ReceiptServiceTest {
         assertEquals(ProcessStatusType.UPLOADED, image.getStatus());
 
         // check file exists and content is the same as test content
-        final Path imageFile = fileSystemService.getImageSubFolder(testUser.getId()).resolve(image.getFileName());
+        final Path imageFile = fileSystemService.getReceiptImageSubFolder(testUser.getId()).resolve(image.getFileName());
         assertTrue(Files.exists(imageFile));
         BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
         assertEquals(TEST_CONTENT, reader.readLine());
@@ -230,7 +230,7 @@ public class ReceiptServiceTest {
         assertEquals(ProcessStatusType.UPLOADED, image.getStatus());
 
         // check file exists and content is the same as test content
-        final Path imageFile = fileSystemService.getImageSubFolder(testUser.getId()).resolve(image.getFileName());
+        final Path imageFile = fileSystemService.getReceiptImageSubFolder(testUser.getId()).resolve(image.getFileName());
         assertTrue(Files.exists(imageFile));
         BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
         assertEquals(TEST_CONTENT, reader.readLine());

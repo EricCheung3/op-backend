@@ -206,7 +206,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
 
         // verify image in FileSystem
         String fileName = response.then().extract().path("images[0].fileName");
-        Path imageFile = fileSystemService.getImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
+        Path imageFile = fileSystemService.getReceiptImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
         assertTrue(Files.exists(imageFile));
         BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
         assertEquals("test", reader.readLine());
@@ -266,7 +266,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
 
         // verify image in FileSystem
         String fileName = response.then().extract().path("images[0].fileName");
-        Path imageFile = fileSystemService.getImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
+        Path imageFile = fileSystemService.getReceiptImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
         assertTrue(Files.exists(imageFile));
         BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
         assertEquals("test", reader.readLine());
@@ -351,7 +351,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
 
         // verify image in FileSystem
         String fileName = response.then().extract().path("fileName");
-        Path imageFile = fileSystemService.getImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
+        Path imageFile = fileSystemService.getReceiptImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
         assertTrue(Files.exists(imageFile));
         BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
         assertEquals("Another Test", reader.readLine());

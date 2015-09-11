@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class FileSystemService {
+    public static final String RECEIPTS_FOLDER_NAME = "receipts";
 
     private final FileSystem fileSystem;
     private final FileFolderSettings fileFolderSettings;
@@ -30,10 +31,14 @@ public class FileSystemService {
         if (fileFolderSettings.isVirtual()) {
             fileSystem = Jimfs.newFileSystem(Configuration.unix());
 
-            // create image root folder
-            final Path imageRootFolder = fileSystem.getPath(fileFolderSettings.getImageRootFolder());
+            // create image root folder and receipt image folder
             try{
-                Files.createDirectory(imageRootFolder);
+                Files.createDirectory(getImageRootFolder());
+            } catch (IOException ex) {
+                throw new RuntimeException("Cannot create root folder: "+fileFolderSettings.getImageRootFolder(), ex);
+            }
+            try{
+                Files.createDirectory(getReceiptImageFolder());
             } catch (IOException ex) {
                 throw new RuntimeException("Cannot create root folder: "+fileFolderSettings.getImageRootFolder(), ex);
             }
@@ -52,14 +57,18 @@ public class FileSystemService {
         return fileSystem.getPath(fileFolderSettings.getImageRootFolder());
     }
 
-    public Path getImageSubFolder(String subFolderName) {
-        final Path subFolder = fileSystem.getPath(fileFolderSettings.getImageRootFolder(), subFolderName);
+    public Path getReceiptImageFolder() {
+        return fileSystem.getPath(fileFolderSettings.getImageRootFolder(), RECEIPTS_FOLDER_NAME);
+    }
+
+    public Path getReceiptImageSubFolder(String subFolderName) {
+        final Path subFolder = fileSystem.getPath(fileFolderSettings.getImageRootFolder(), RECEIPTS_FOLDER_NAME, subFolderName);
         if (Files.notExists(subFolder)) {
             try {
                 Files.createDirectory(subFolder);
             } catch (IOException ex) {
-                log.error("Cannot create image sub folder {}, please check file system!", subFolderName);
-                throw new RuntimeException("System Error! Cannot create image sub folder."); //TODO design exceptions
+                log.error("Cannot create receipt image sub folder {}, please check file system!", subFolderName);
+                throw new RuntimeException("System Error! Cannot create receipt image sub folder."); //TODO design exceptions
             }
         }
         return subFolder;

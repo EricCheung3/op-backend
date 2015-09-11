@@ -110,7 +110,7 @@ public class ReceiptService {
     public Path getImageFile(final ReceiptImage image) {
         final Receipt receipt = image.getReceipt();
         final UserAccount user = receipt.getUser();
-        final Path imageFolder = fileSystemService.getImageSubFolder(user.getId());
+        final Path imageFolder = fileSystemService.getReceiptImageSubFolder(user.getId());
         return imageFolder.resolve(image.getFileName());
     }
 
