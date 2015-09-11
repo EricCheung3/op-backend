@@ -3,7 +3,7 @@ CREATE TABLE process_log (
     version BIGINT NOT NULL DEFAULT 1,
 
     image_id VARCHAR(50) NOT NULL,
-    user_email VARCHAR(100) NOT NULL,
+    username VARCHAR(100) NOT NULL,
     server_name VARCHAR(255) NOT NULL,
     start_time BIGINT NOT NULL,
     ocr_duration BIGINT,
@@ -20,4 +20,3 @@ CREATE INDEX idx_process_log_1
 
 CREATE INDEX idx_process_log_2
     ON process_log(server_name);
-    
