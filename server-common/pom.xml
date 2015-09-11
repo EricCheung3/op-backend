@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.openprice</groupId>
+        <artifactId>openprice-project</artifactId>
+        <version>0.0.3</version>
+    </parent>
+
+    <artifactId>openprice-server-common</artifactId>
+    <packaging>jar</packaging>
+
+    <name>REST API Server Common</name>
+    <description>OpenPrice REST API server common code for web-api and admin-api.</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-rest-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- JWT -->
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-security</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Use SendGrid for email -->
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-email-sendgrid</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- recommended by Spring Social to use it as HTTP client -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

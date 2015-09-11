@@ -25,6 +25,11 @@
             <artifactId>openprice-rest-admin</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-server-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- JWT -->
         <dependency>

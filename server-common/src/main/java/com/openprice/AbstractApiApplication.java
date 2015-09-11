@@ -6,9 +6,7 @@ import java.util.Arrays;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Profile;
@@ -18,19 +16,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.openprice.file.FileFolderSettings;
-import com.openprice.mail.EmailProperties;
 import com.openprice.parser.simple.SimpleParser;
-import com.openprice.process.ProcessSettings;
 
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @EnableAspectJAutoProxy
-@EnableConfigurationProperties({EmailProperties.class, FileFolderSettings.class, ProcessSettings.class})
 @Slf4j
-public class OpenPriceAPIApplication {
+public abstract class AbstractApiApplication {
 
     @Inject
     private Environment env;
@@ -50,17 +44,10 @@ public class OpenPriceAPIApplication {
         }
     }
 
-    /**
-     * Main method, used to run the application.
-     */
-    public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(OpenPriceAPIApplication.class);
-        app.run(args);
-    }
-
     @Bean
     public AuditorAware<String> auditorAware() {
         return new AuditorAware<String>() {
+            @Override
             public String getCurrentAuditor() {
                 final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -72,7 +59,7 @@ public class OpenPriceAPIApplication {
             }
         };
     }
-    
+
     @Bean
     public SimpleParser simpleParser() {
         return new SimpleParser();

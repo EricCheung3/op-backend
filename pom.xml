@@ -35,6 +35,7 @@
         <module>email-sendgrid</module>
         <module>security</module>
 
+        <module>server-common</module>
         <module>server-ocr</module>
         <module>server-web-api</module>
         <module>server-admin-api</module>
