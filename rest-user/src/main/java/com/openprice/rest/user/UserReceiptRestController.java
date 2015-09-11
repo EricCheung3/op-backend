@@ -90,6 +90,14 @@ public class UserReceiptRestController extends AbstractUserRestController {
         return ResponseEntity.ok(receiptResourceAssembler.toResource(receipt));
     }
 
+    @RequestMapping(method = RequestMethod.DELETE, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT)
+    public HttpEntity<Void> deleteReceiptById(@PathVariable("receiptId") final String receiptId)
+            throws ResourceNotFoundException {
+        final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
+        receiptRepository.delete(receipt);
+        return ResponseEntity.noContent().build();
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS)
     public HttpEntity<Void> createNewReceiptWithBase64String(@RequestBody final ImageDataForm imageDataForm) {
         final Receipt receipt = newReceiptWithBase64ImageData(imageDataForm.getBase64String());
@@ -173,7 +181,6 @@ public class UserReceiptRestController extends AbstractUserRestController {
             return ResponseEntity.badRequest().build();
         }
     }
-
 
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_DOWNLOAD,
             produces = MediaType.IMAGE_JPEG_VALUE)
