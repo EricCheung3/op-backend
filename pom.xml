@@ -48,19 +48,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <docker.image.prefix>openprice</docker.image.prefix>
 
-        <spring-restdocs.version>1.0.0.M1</spring-restdocs.version>
-
+        <spring-restdocs.version>1.0.0.RC1</spring-restdocs.version>
         <jjwt.version>0.5.1</jjwt.version>
         <google-jimfs.version>1.0</google-jimfs.version>
         <evo-inflector.version>1.2.1</evo-inflector.version>
         <guava.version>18.0</guava.version>
-        <sendgrid-java.version>2.2.2</sendgrid-java.version>
         <lombok.version>1.16.4</lombok.version>
         <dbunit.version>2.5.1</dbunit.version>
         <spring-test-dbunit.version>1.2.1</spring-test-dbunit.version>
-        <rest-assured.version>2.4.1</rest-assured.version>
+        <rest-assured.version>2.5.0</rest-assured.version>
         <handy-uri-templates.version>2.0.2</handy-uri-templates.version>
-        <docker-maven-plugin.version>0.3.1</docker-maven-plugin.version>
+        <docker-maven-plugin.version>0.3.3</docker-maven-plugin.version>
     </properties>
 
     <!-- Generic Dependencies used by all modules -->

@@ -69,10 +69,10 @@
         <dependency>
             <groupId>org.springframework.restdocs</groupId>
             <artifactId>spring-restdocs-mockmvc</artifactId>
-            <version>1.0.0.RC1</version>
+            <version>${spring-restdocs.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- Use JsonPath 2.0.0 -->
+        <!-- Use JsonPath -->
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>

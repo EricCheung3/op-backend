@@ -23,7 +23,6 @@
         <dependency>
             <groupId>com.sendgrid</groupId>
             <artifactId>sendgrid-java</artifactId>
-            <version>${sendgrid-java.version}</version>
         </dependency>
     </dependencies>
 </project>
