@@ -92,6 +92,7 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                 links(
                     linkWithRel("self").description("The self link"),
                     linkWithRel("images").description("<<resources-user-receipt-images, Link>> to receipt images"),
+                    linkWithRel("image").description("<<resources-user-receipt-image, Link>> to receipt image"),
                     linkWithRel("items").description("<<resources-user-receipt-items, Link>> to receipt items"),
                     linkWithRel("upload").description("<<resources-user-receipt-image-upload, Link>> to upload images")
                 ),
@@ -157,6 +158,7 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                 preprocessResponse(prettyPrint()),
                 links(
                     linkWithRel("self").description("The self link"),
+                    linkWithRel("receipt").description("<<resources-user-receipt,Link>> to owner receipt resource"),
                     linkWithRel("download").description("URL for downloading image as jpg file"),
                     linkWithRel("base64").description("URL for downloading image  as base64 string")
                 ),

@@ -26,8 +26,10 @@ import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.openprice.domain.receipt.ProcessStatusType;
+import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
+import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.rest.UtilConstants;
 
 @DatabaseSetup("classpath:/data/testData.xml")
@@ -37,6 +39,9 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Value("classpath:/data/sample2.txt")
     private Resource sampleReceipt2;
+
+    @Inject
+    private ReceiptRepository receiptRepository;
 
     @Inject
     private ReceiptImageRepository receiptImageRepository;
@@ -113,6 +118,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("images[2].id", equalTo("image002"))
             .body("images[3].id", equalTo("image004"))
             .body("_links.images.href", endsWith(receiptUrl + "/images"))
+            .body("_links.image.href", endsWith(receiptUrl + "/images/{imageId}"))
             .body("_links.items.href", endsWith(receiptUrl + "/items"))
         ;
     }
@@ -277,7 +283,9 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .statusCode(HttpStatus.SC_NOT_FOUND)
         ;
 
-        // check image record
+        // check receipt and image record
+        Receipt receipt = receiptRepository.findOne("receipt001");
+        assertNull(receipt);
         ReceiptImage image = receiptImageRepository.findOne("image001");
         assertNull(image);
     }

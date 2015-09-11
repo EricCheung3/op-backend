@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.openprice.domain.account.UserAccount;
 import com.openprice.rest.UtilConstants;
+import com.openprice.rest.user.receipt.UserReceiptRestController;
 import com.openprice.rest.user.store.ShoppingItemRestController;
 import com.openprice.rest.user.store.UserStoreRestController;
 

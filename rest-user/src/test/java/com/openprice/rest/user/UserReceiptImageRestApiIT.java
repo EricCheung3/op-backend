@@ -3,12 +3,15 @@ package com.openprice.rest.user;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
+import javax.inject.Inject;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
@@ -21,6 +24,8 @@ import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.openprice.domain.receipt.ProcessStatusType;
+import com.openprice.domain.receipt.ReceiptImage;
+import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.rest.UtilConstants;
 
 @DatabaseSetup("classpath:/data/testData.xml")
@@ -30,6 +35,9 @@ public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTes
 
     @Value("classpath:/data/sample2.txt")
     private Resource sampleReceipt2;
+
+    @Inject
+    private ReceiptImageRepository receiptImageRepository;
 
     @Test
     public void getUserReceiptImages_ShouldReturnUserReceiptImages() {
@@ -158,4 +166,47 @@ public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTes
             .contentType("image/jpeg")
         ;
     }
+
+    @Test
+    public void deleteUserReceiptImageById_ShouldDeleteReceiptImage() {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+
+        String receiptLink =
+                given().filter(sessionFilter)
+                       .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
+                       .then().extract().path("_links.receipt.href");
+        String receiptUrl =
+                UriTemplate.fromTemplate(receiptLink)
+                           .set("receiptId", "receipt001")
+                           .expand();
+        String imageLink =
+                given().filter(sessionFilter)
+                       .when().get(receiptUrl)
+                       .then().extract().path("_links.image.href");
+        String imageUrl =
+                UriTemplate.fromTemplate(imageLink)
+                           .set("imageId", "image001")
+                           .expand();
+
+        given()
+            .filter(sessionFilter)
+        .when()
+            .delete(imageUrl)
+        .then()
+            .statusCode(HttpStatus.SC_NO_CONTENT)
+        ;
+
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(imageUrl)
+        .then()
+            .statusCode(HttpStatus.SC_NOT_FOUND)
+        ;
+
+        // check image record
+        ReceiptImage image = receiptImageRepository.findOne("image001");
+        assertNull(image);
+    }
+
 }
