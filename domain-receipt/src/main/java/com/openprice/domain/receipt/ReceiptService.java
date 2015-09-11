@@ -188,6 +188,4 @@ public class ReceiptService {
         }
         return result;
     }
-
-
 }

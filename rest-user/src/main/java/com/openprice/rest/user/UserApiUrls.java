@@ -11,6 +11,7 @@ public interface UserApiUrls {
 
     String URL_USER_RECEIPTS = "/user/receipts";
     String URL_USER_RECEIPTS_RECEIPT = "/user/receipts/{receiptId}";
+    String URL_USER_RECEIPTS_RECEIPT_RATING = "/user/receipts/{receiptId}/rating";
     String URL_USER_RECEIPTS_RECEIPT_IMAGES = "/user/receipts/{receiptId}/images";
     String URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE = "/user/receipts/{receiptId}/images/{imageId}";
     String URL_USER_RECEIPTS_RECEIPT_ITEMS = "/user/receipts/{receiptId}/items";

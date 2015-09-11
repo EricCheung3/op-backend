@@ -12,6 +12,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -288,6 +290,64 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
         assertNull(receipt);
         ReceiptImage image = receiptImageRepository.findOne("image001");
         assertNull(image);
+    }
+
+    @Test
+    public void setUserReceiptRating_ShouldChangeReceiptRating() {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+
+        String receiptLink =
+                given().filter(sessionFilter)
+                       .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
+                       .then().extract().path("_links.receipt.href");
+        String receiptUrl =
+                UriTemplate.fromTemplate(receiptLink)
+                           .set("receiptId", "receipt001")
+                           .expand();
+        final String ratingUrl =
+                given().filter(sessionFilter)
+                       .when().get(receiptUrl)
+                       .then().extract().path("_links.rating.href");
+
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(receiptUrl)
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("id", equalTo("receipt001"))
+            .body("rating", equalTo(null))
+        ;
+
+        final Map<String, Integer> ratingUpdate = new HashMap<>();
+        ratingUpdate.put("rating", 1);
+
+        Response response =
+            given()
+                .filter(sessionFilter)
+                .contentType(ContentType.JSON)
+                .body(ratingUpdate)
+            .when()
+                .put(ratingUrl)
+            ;
+
+        response
+        .then()
+            .statusCode(HttpStatus.SC_NO_CONTENT)
+        ;
+
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(receiptUrl)
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("id", equalTo("receipt001"))
+            .body("rating", equalTo(1))
+        ;
+
     }
 
 }

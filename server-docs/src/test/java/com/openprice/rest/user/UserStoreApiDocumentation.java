@@ -19,7 +19,7 @@ import javax.inject.Inject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.hateoas.MediaTypes;
+import org.springframework.http.MediaType;
 
 import com.jayway.jsonpath.JsonPath;
 import com.openprice.domain.account.UserAccount;
@@ -123,7 +123,7 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
             .perform(
                 post(shoppinglistLink)
                 .with(user(USERNAME))
-                .contentType(MediaTypes.HAL_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(this.objectMapper.writeValueAsString(form))
             )
             .andExpect(status().isCreated())

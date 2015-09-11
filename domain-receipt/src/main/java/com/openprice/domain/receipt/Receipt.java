@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -43,6 +44,10 @@ public class Receipt extends BaseAuditableEntity {
     @OneToMany(cascade=CascadeType.ALL, mappedBy="receipt")
     @OrderBy("createdTime")
     private List<ReceiptImage> images = new ArrayList<>();
+
+    @Getter @Setter
+    @Column
+    private Integer rating;
 
     /**
      * Builder method to create a new receipt.

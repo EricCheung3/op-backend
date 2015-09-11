@@ -5,9 +5,12 @@ import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.li
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.fileUpload;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
@@ -15,9 +18,13 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 
 import com.jayway.jsonpath.JsonPath;
@@ -94,7 +101,8 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                     linkWithRel("images").description("<<resources-user-receipt-images, Link>> to receipt images"),
                     linkWithRel("image").description("<<resources-user-receipt-image, Link>> to receipt image"),
                     linkWithRel("items").description("<<resources-user-receipt-items, Link>> to receipt items"),
-                    linkWithRel("upload").description("<<resources-user-receipt-image-upload, Link>> to upload images")
+                    linkWithRel("upload").description("<<resources-user-receipt-image-upload, Link>> to upload images"),
+                    linkWithRel("rating").description("<<resources-user-receipt-rating, Link>> to receipt rating")
                 ),
                 responseFields(
                     fieldWithPath("id").description("Primary ID"),
@@ -104,7 +112,26 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                     fieldWithPath("lastModifiedBy").description("Who last modified the entity"),
                     fieldWithPath("lastModifiedTime").description("When last modified the entity"),
                     fieldWithPath("images").description("Receipt image list"),
+                    fieldWithPath("rating").description("User feedback for the receipt quality"),
                     fieldWithPath("_links").description("<<resources-user-receipt-links,Links>> to other resources")
+                )
+            ));
+
+        final Map<String, Integer> ratingUpdate = new HashMap<>();
+        ratingUpdate.put("rating", 1);
+
+        mockMvc
+            .perform(
+                put(receiptLocation+"/rating")
+                .with(user(USERNAME))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(this.objectMapper.writeValueAsString(ratingUpdate))
+            )
+            .andExpect(status().isNoContent())
+            .andDo(document("user-receipt-rating-update-example",
+                preprocessRequest(prettyPrint()),
+                requestFields(
+                    fieldWithPath("rating").description("The user given feedback, right now we only use 1 or 0.")
                 )
             ));
 

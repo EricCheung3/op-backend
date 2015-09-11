@@ -5,6 +5,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -15,6 +16,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -117,6 +119,25 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         List<ReceiptItem> result = receiptService.getParsedReceiptItems(receipt);
         return ResponseEntity.ok(result);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_RATING)
+    public HttpEntity<Void> setReceiptRatingById(
+            @PathVariable("receiptId") final String receiptId,
+            @RequestBody final Map<String, Integer> updateMap)
+                    throws ResourceNotFoundException {
+        final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
+        final Integer rating = updateMap.get("rating");
+        if (rating != null) {
+            setReceiptRating(receipt, rating);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+    @Transactional
+    private void setReceiptRating(Receipt receipt, Integer rating) {
+        receipt.setRating(rating);
+        receiptRepository.save(receipt);
     }
 
 }
