@@ -65,8 +65,9 @@ public class RemoteOCRImageProcessorTest {
 
         when(restTemplateMock.getForObject(eq("http://test/process/{userId}?fileName={fileName}&username={username}"),
                                            eq(ImageProcessResult.class),
-                                           eq(TEST_USERNAME),
-                                           eq(TEST_FILENAME))).thenReturn(mockResult);
+                                           eq(TEST_USERID),
+                                           eq(TEST_FILENAME),
+                                           eq(TEST_USERNAME))).thenReturn(mockResult);
         when(receiptImageRepositoryMock.findOne(eq(IMAGE_ID))).thenReturn(image);
 
         processorToTest.processImage(item);

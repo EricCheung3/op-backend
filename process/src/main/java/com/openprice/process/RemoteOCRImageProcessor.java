@@ -61,8 +61,9 @@ public class RemoteOCRImageProcessor implements ImageProcessor {
 
         final ImageProcessResult result = restTemplate.getForObject(serverUrl + OcrServerApiUrls.URL_OCR_PROCESS,
                                                                     ImageProcessResult.class,
-                                                                    item.getUsername(),
-                                                                    item.getImage().getFileName());
+                                                                    item.getUserId(),
+                                                                    item.getImage().getFileName(),
+                                                                    item.getUsername());
         processLog.setOcrResult(result.getOcrResult());
         log.debug("Got OCR result as\n" + result.getOcrResult());
         processLog.setOcrDuration(System.currentTimeMillis() - start);
