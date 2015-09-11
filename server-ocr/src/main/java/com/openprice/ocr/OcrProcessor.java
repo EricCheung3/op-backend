@@ -14,13 +14,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class OCRProcessor {
+public class OcrProcessor {
 
     private final FileSystemService fileSystemService;
     private final Tesseract tesseract;
 
     @Inject
-    public OCRProcessor(final FileSystemService fileSystemService,
+    public OcrProcessor(final FileSystemService fileSystemService,
                         final Tesseract tesseract) {
         this.fileSystemService = fileSystemService;
         this.tesseract = tesseract;

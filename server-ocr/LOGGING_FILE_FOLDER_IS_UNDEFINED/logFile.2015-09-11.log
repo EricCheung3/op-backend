@@ -1,0 +1,47 @@
+2015-09-11 11:27:07,096 OCR_SERVER_NAME_IS_UNDEFINED ERROR [main] org.springframework.test.context.TestContextManager.prepareTestInstance(231): Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@1563da5] to prepare test instance [com.openprice.ocr.OcrServiceApiTest@2bbf4b8b]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124) ~[spring-test-4.2.1.RELEASE.jar:4.2.1.RELEASE]
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83) ~[spring-test-4.2.1.RELEASE.jar:4.2.1.RELEASE]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:117) ~[spring-test-4.2.1.RELEASE.jar:4.2.1.RELEASE]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83) ~[spring-test-4.2.1.RELEASE.jar:4.2.1.RELEASE]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:228) ~[spring-test-4.2.1.RELEASE.jar:4.2.1.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:217) [spring-test-4.2.1.RELEASE.jar:4.2.1.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:276) [spring-test-4.2.1.RELEASE.jar:4.2.1.RELEASE]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.12.jar:4.12]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:278) [spring-test-4.2.1.RELEASE.jar:4.2.1.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:236) [spring-test-4.2.1.RELEASE.jar:4.2.1.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:87) [spring-test-4.2.1.RELEASE.jar:4.2.1.RELEASE]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268) [junit-4.12.jar:4.12]
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-4.2.1.RELEASE.jar:4.2.1.RELEASE]
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70) [spring-test-4.2.1.RELEASE.jar:4.2.1.RELEASE]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363) [junit-4.12.jar:4.12]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:180) [spring-test-4.2.1.RELEASE.jar:4.2.1.RELEASE]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:na]
+Caused by: java.lang.IllegalArgumentException: Cannot load an ApplicationContext with a NULL 'contextLoader'. Consider annotating your test class with @ContextConfiguration or @ContextHierarchy.
+	at org.springframework.util.Assert.notNull(Assert.java:115) ~[spring-core-4.2.1.RELEASE.jar:4.2.1.RELEASE]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:91) ~[spring-test-4.2.1.RELEASE.jar:4.2.1.RELEASE]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116) ~[spring-test-4.2.1.RELEASE.jar:4.2.1.RELEASE]
+	... 25 common frames omitted
+2015-09-11 11:28:04,233 OCR_SERVER_NAME_IS_UNDEFINED INFO  [main] com.openprice.ocr.OcrServiceApiTest.logStarting(47): Starting OcrServiceApiTest on Yuans-MBP-2 with PID 6388 (/Users/jiwhiz/groundtruth/dev/openprice-backend/server-ocr/target/test-classes started by jiwhiz in /Users/jiwhiz/groundtruth/dev/openprice-backend/server-ocr)
+2015-09-11 11:28:04,236 OCR_SERVER_NAME_IS_UNDEFINED DEBUG [main] com.openprice.ocr.OcrServiceApiTest.logStarting(50): Running with Spring Boot v1.3.0.M5, Spring v4.2.1.RELEASE
+2015-09-11 11:28:04,991 OCR_SERVER_NAME_IS_UNDEFINED DEBUG [main] org.jboss.logging.logProvider(160): Logging Provider: org.jboss.logging.Slf4jLoggerProvider found via system property
+2015-09-11 11:28:06,303 OCR_SERVER_NAME_IS_UNDEFINED INFO  [main] com.openprice.ocr.OcrServiceApiTest.logStarted(56): Started OcrServiceApiTest in 2.282 seconds (JVM running for 2.822)
+2015-09-11 11:28:07,035 OCR_SERVER_NAME_IS_UNDEFINED INFO  [http-nio-auto-1-exec-1] com.openprice.ocr.OcrProcessor.processImage(30): Process image 2015_09_09_12_00_01_001.jpg from user 'john.doe%40openprice.com'.
+2015-09-11 11:28:07,093 OCR_SERVER_NAME_IS_UNDEFINED DEBUG [main] com.jayway.restassured.internal.RequestSpecificationImpl$RestAssuredHttpBuilder.parseResponse(541): Parsing response as: application/json;charset=UTF-8
+2015-09-11 11:28:07,093 OCR_SERVER_NAME_IS_UNDEFINED DEBUG [main] com.jayway.restassured.internal.RequestSpecificationImpl$RestAssuredHttpBuilder.parseResponse(544): Parsed data to instance of: class org.apache.http.conn.EofSensorInputStream
+2015-09-11 11:36:37,040 OCR_SERVER_NAME_IS_UNDEFINED INFO  [main] com.openprice.ocr.OcrServiceApiTest.logStarting(47): Starting OcrServiceApiTest on Yuans-MBP-2 with PID 6395 (/Users/jiwhiz/groundtruth/dev/openprice-backend/server-ocr/target/test-classes started by jiwhiz in /Users/jiwhiz/groundtruth/dev/openprice-backend/server-ocr)
+2015-09-11 11:36:37,043 OCR_SERVER_NAME_IS_UNDEFINED DEBUG [main] com.openprice.ocr.OcrServiceApiTest.logStarting(50): Running with Spring Boot v1.3.0.M5, Spring v4.2.1.RELEASE
+2015-09-11 11:36:37,831 OCR_SERVER_NAME_IS_UNDEFINED DEBUG [main] org.jboss.logging.logProvider(160): Logging Provider: org.jboss.logging.Slf4jLoggerProvider found via system property
+2015-09-11 11:36:39,200 OCR_SERVER_NAME_IS_UNDEFINED INFO  [main] com.openprice.ocr.OcrServiceApiTest.logStarted(56): Started OcrServiceApiTest in 2.374 seconds (JVM running for 2.939)
+2015-09-11 11:36:39,973 OCR_SERVER_NAME_IS_UNDEFINED INFO  [http-nio-auto-1-exec-1] com.openprice.ocr.OcrProcessor.processImage(30): Process image 2015_09_09_12_00_01_001.jpg from user 'john.doe@openprice.com'.
+2015-09-11 11:36:40,037 OCR_SERVER_NAME_IS_UNDEFINED DEBUG [main] com.jayway.restassured.internal.RequestSpecificationImpl$RestAssuredHttpBuilder.parseResponse(541): Parsing response as: application/json;charset=UTF-8
+2015-09-11 11:36:40,038 OCR_SERVER_NAME_IS_UNDEFINED DEBUG [main] com.jayway.restassured.internal.RequestSpecificationImpl$RestAssuredHttpBuilder.parseResponse(544): Parsed data to instance of: class org.apache.http.conn.EofSensorInputStream

@@ -1,12 +1,9 @@
 package com.openprice.ocr;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.inject.Inject;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,18 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.openprice.common.api.ImageProcessResult;
-import com.openprice.file.FileFolderSettings;
-import com.openprice.mail.EmailProperties;
 
-@SpringBootApplication
-@ComponentScan({ "com.openprice.file", "com.openprice.ocr" })
 @Controller
-@EnableConfigurationProperties({EmailProperties.class, FileFolderSettings.class})
-public class OpenPriceOCRServerApplication{
-
+public class OcrServiceController {
     @Inject
-    OCRProcessor ocrProcessor;
+    OcrProcessor ocrProcessor;
 
+    // TODO change to health check
     @RequestMapping(method = RequestMethod.GET, value="/", produces = "text/plain")
     @ResponseBody
     String hello() {
@@ -38,15 +30,14 @@ public class OpenPriceOCRServerApplication{
     public ImageProcessResult process(@PathVariable("userId") final String userId,
                                       @RequestParam("fileName") final String fileName,
                                       @RequestParam("username") final String username) {
-        return ocrProcessor.processImage(userId, fileName, username);
+        try {
+            final String decodedUsername = java.net.URLDecoder.decode(username, "UTF-8");
+            return ocrProcessor.processImage(userId, fileName, decodedUsername);
+        } catch (UnsupportedEncodingException ex) {
+            // ignore
+        }
+        return null;
     }
 
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(OpenPriceOCRServerApplication.class, args);
-    }
 
-    @Bean
-    public Tesseract tesseract() {
-        return new TesseractCommandImpl();
-    }
 }
