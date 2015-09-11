@@ -74,6 +74,7 @@ CREATE TABLE admin_account (
     email VARCHAR(100) NOT NULL,
     first_name VARCHAR(100),
     last_name VARCHAR(100),
+    title VARCHAR(100),
     account_locked BOOLEAN DEFAULT false,
     activated BOOLEAN DEFAULT false,
 
