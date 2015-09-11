@@ -26,20 +26,21 @@ public class OpenPriceOCRServerApplication{
 
     @Inject
     OCRProcessor ocrProcessor;
-    
+
     @RequestMapping(method = RequestMethod.GET, value="/", produces = "text/plain")
     @ResponseBody
     String hello() {
         return "Hello!";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value="/process/{username}")
+    @RequestMapping(method = RequestMethod.GET, value="/process/{userId}")
     @ResponseBody
-    public ImageProcessResult process(@PathVariable("username") final String username,
-                                      @RequestParam("fileName") final String fileName) {
-        return ocrProcessor.processImage(username, fileName);
+    public ImageProcessResult process(@PathVariable("userId") final String userId,
+                                      @RequestParam("fileName") final String fileName,
+                                      @RequestParam("username") final String username) {
+        return ocrProcessor.processImage(userId, fileName, username);
     }
-    
+
     public static void main(String[] args) throws Exception {
         SpringApplication.run(OpenPriceOCRServerApplication.class, args);
     }

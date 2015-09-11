@@ -26,11 +26,19 @@ public class RemoteOCRImageProcessor implements ImageProcessor {
                                    final String serverUrl,
                                    final ProcessLogRepository processLogRepository,
                                    final ReceiptImageRepository receiptImageRepository) {
-        this.restTemplate = new RestTemplate();
+        this(serverName, serverUrl, processLogRepository, receiptImageRepository, new RestTemplate());
+    }
+
+    public RemoteOCRImageProcessor(final String serverName,
+                                   final String serverUrl,
+                                   final ProcessLogRepository processLogRepository,
+                                   final ReceiptImageRepository receiptImageRepository,
+                                   final RestTemplate restTemplate) {
         this.serverName = serverName;
         this.serverUrl = serverUrl.endsWith("/")? serverUrl.substring(0, serverUrl.length()-1) : serverUrl;
         this.processLogRepository = processLogRepository;
         this.receiptImageRepository = receiptImageRepository;
+        this.restTemplate = restTemplate;
     }
 
     @Override

@@ -13,6 +13,9 @@ public class ProcessItem {
     private ReceiptImage image;
 
     @Getter @Setter
+    private String userId;
+
+    @Getter @Setter
     private String username; // for end user, it is user's email
 
     @Getter @Setter

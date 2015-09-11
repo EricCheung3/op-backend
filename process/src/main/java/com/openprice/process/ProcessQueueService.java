@@ -86,6 +86,7 @@ public class ProcessQueueService {
         final ProcessItem item = new ProcessItem();
         item.setImage(image);
         item.setAddTime(new Date());
+        item.setUserId(image.getReceipt().getUser().getId());
         item.setUsername(image.getReceipt().getUser().getUsername());
         queue.add(item);
     }

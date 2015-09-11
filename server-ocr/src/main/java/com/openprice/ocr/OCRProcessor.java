@@ -26,14 +26,14 @@ public class OCRProcessor {
         this.tesseract = tesseract;
     }
 
-    public ImageProcessResult processImage(final String username, final String fileName) {
+    public ImageProcessResult processImage(final String userId, final String fileName, final String username) {
         log.info("Process image {} from user '{}'.", fileName, username);
 
         // TODO return if it is still processing
 
         // change state to processing
 
-        final String imagePath = username + fileSystemService.getPathSeparator() + fileName;
+        final String imagePath = userId + fileSystemService.getPathSeparator() + fileName;
         final Path imageFile = fileSystemService.getReceiptImageFolder().resolve(imagePath);
 
         if (Files.notExists(imageFile)) {

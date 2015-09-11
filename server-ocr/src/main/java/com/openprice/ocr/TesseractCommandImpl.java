@@ -14,7 +14,7 @@ public class TesseractCommandImpl implements Tesseract {
         final String command = "./OP_OCR -i " + filePath;
         log.info("call tesseract: '{}'.", command);
         final long start = System.currentTimeMillis();
-        
+
         final StringBuilder output = new StringBuilder();
         final StringBuilder errorMessage = new StringBuilder();
         try {
@@ -37,7 +37,7 @@ public class TesseractCommandImpl implements Tesseract {
             log.info("took {} milli-seconds to ocr image.", (System.currentTimeMillis() - start));
         } catch (Exception ex) {
             log.error("Got error while calling tesseract!", ex);
-            // TODO 
+            // TODO
         }
 
         return output.toString();
