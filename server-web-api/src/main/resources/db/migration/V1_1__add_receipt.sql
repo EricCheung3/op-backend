@@ -7,6 +7,7 @@ CREATE TABLE receipt (
     last_modified_time TIMESTAMP,
 
     user_account_id VARCHAR(50) NOT NULL,
+    rating SMALLINT,
 
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
