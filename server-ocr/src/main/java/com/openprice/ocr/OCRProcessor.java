@@ -34,7 +34,7 @@ public class OCRProcessor {
         // change state to processing
 
         final String imagePath = username + fileSystemService.getPathSeparator() + fileName;
-        final Path imageFile = fileSystemService.getImageRootFolder().resolve(imagePath);
+        final Path imageFile = fileSystemService.getReceiptImageFolder().resolve(imagePath);
 
         if (Files.notExists(imageFile)) {
             log.error("Cannot open image file at "+imageFile.toString());
