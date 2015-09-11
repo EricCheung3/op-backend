@@ -15,7 +15,7 @@
     <description>OpenPrice OCR server code.</description>
 
     <properties>
-        <start-class>com.openprice.ocr.OpenPriceOCRServerApplication</start-class>
+        <start-class>com.openprice.ocr.OpenPriceOcrServerApplication</start-class>
     </properties>
 
     <dependencies>
