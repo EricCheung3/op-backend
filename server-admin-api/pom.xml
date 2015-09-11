@@ -15,7 +15,7 @@
     <description>OpenPrice REST API server code for admin functions.</description>
 
     <properties>
-        <start-class>com.openprice.OpenPriceAdminAPIApplication</start-class>
+        <start-class>com.openprice.OpenPriceAdminApiApplication</start-class>
     </properties>
 
     <dependencies>
