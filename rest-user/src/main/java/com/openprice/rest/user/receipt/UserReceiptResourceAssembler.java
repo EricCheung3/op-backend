@@ -46,8 +46,8 @@ public class UserReceiptResourceAssembler implements ResourceAssembler<Receipt, 
                 UserReceiptResource.LINK_NAME_IMAGE);
         resource.add(imageLink);
         final Link ratingLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/rating"),
-                UserReceiptResource.LINK_NAME_RATING);
+                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/feedback"),
+                UserReceiptResource.LINK_NAME_FEEDBACK);
         resource.add(ratingLink);
 
         resource.add(linkTo(methodOn(UserReceiptRestController.class).getUserReceiptItems(receipt.getId()))

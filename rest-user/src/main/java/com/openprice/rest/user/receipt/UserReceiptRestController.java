@@ -121,8 +121,9 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
         return ResponseEntity.ok(result);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_RATING)
-    public HttpEntity<Void> setReceiptRatingById(
+    // TODO add comment feedback
+    @RequestMapping(method = RequestMethod.PUT, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_FEEDBACK)
+    public HttpEntity<Void> setReceiptFeedbackById(
             @PathVariable("receiptId") final String receiptId,
             @RequestBody final Map<String, Integer> updateMap)
                     throws ResourceNotFoundException {

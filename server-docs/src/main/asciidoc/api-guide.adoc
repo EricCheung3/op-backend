@@ -183,7 +183,7 @@ include::{snippets}/user-profile-update-example/http-response.adoc[]
 
 
 [[resources-user-receipts]]
-== User Receipts
+== User Receipts Resource
 
 User Receipts resource is used to manage current logged in user
 receipts for listing, uploading new receipt images.
@@ -213,14 +213,14 @@ include::{snippets}/user-receipt-list-example/links.adoc[]
 
 
 
-[[resources-user-upload-receipt]]
-== User Upload Receipt
+[[resources-user-receipt-upload]]
+== User Receipt Upload Resource
 
 This resource is for uploading image for a new receipt.
 TODO: find a better restful way to do it?
 
-[[resources-user-receipt-upload]]
-=== Uploading a receipt image for a new Receipt
+[[resources-user-receipt-upload-create]]
+=== Uploading a receipt image to create a new Receipt
 
 A `POST` request is used to upload a receipt image for new receipt
 
@@ -238,8 +238,9 @@ include::{snippets}/user-receipt-upload-example/http-response.adoc[]
 
 
 [[resources-user-receipt]]
-== User Receipt
-Resource for a single user uploaded receipt.
+== User Receipt Resource
+
+Resource for a single user uploaded receipt, may contain one or more images.
 
 [[resources-user-receipt-retrieve]]
 === Get user receipt with id
@@ -262,6 +263,30 @@ include::{snippets}/user-receipt-retrieve-example/http-response.adoc[]
 ==== Links
 
 include::{snippets}/user-receipt-retrieve-example/links.adoc[]
+
+
+
+[[resources-user-receipt-feedback]]
+== User Receipt Feedback Resource
+
+Resource for user feedback to the receipt. Right now only has rating. TODO: add comment later.
+
+[[resources-user-receipt-feedback-update]]
+=== Update user feedback to the receipt
+
+A `PUT` request is used to update user rating for the receipt
+
+==== Request structure
+
+include::{snippets}/user-receipt-feedback-update-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/user-receipt-feedback-update-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/user-receipt-feedback-update-example/http-response.adoc[]
 
 
 

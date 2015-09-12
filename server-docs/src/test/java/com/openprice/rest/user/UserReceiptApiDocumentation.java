@@ -101,8 +101,8 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                     linkWithRel("images").description("<<resources-user-receipt-images, Link>> to receipt images"),
                     linkWithRel("image").description("<<resources-user-receipt-image, Link>> to receipt image"),
                     linkWithRel("items").description("<<resources-user-receipt-items, Link>> to receipt items"),
-                    linkWithRel("upload").description("<<resources-user-receipt-image-upload, Link>> to upload images"),
-                    linkWithRel("rating").description("<<resources-user-receipt-rating, Link>> to receipt rating")
+                    linkWithRel("upload").description("<<resources-user-receipt-image-upload, Link>> to upload more image for this receipt"),
+                    linkWithRel("feedback").description("<<resources-user-receipt-feedback, Link>> to receipt feedback")
                 ),
                 responseFields(
                     fieldWithPath("id").description("Primary ID"),
@@ -112,26 +112,26 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                     fieldWithPath("lastModifiedBy").description("Who last modified the entity"),
                     fieldWithPath("lastModifiedTime").description("When last modified the entity"),
                     fieldWithPath("images").description("Receipt image list"),
-                    fieldWithPath("rating").description("User feedback for the receipt quality"),
+                    fieldWithPath("rating").description("User rating for the receipt quality (0 or 1 for bad/good), default is null."),
                     fieldWithPath("_links").description("<<resources-user-receipt-links,Links>> to other resources")
                 )
             ));
 
-        final Map<String, Integer> ratingUpdate = new HashMap<>();
-        ratingUpdate.put("rating", 1);
+        final Map<String, Integer> feedbackUpdate = new HashMap<>();
+        feedbackUpdate.put("rating", 1);
 
         mockMvc
             .perform(
-                put(receiptLocation+"/rating")
+                put(receiptLocation+"/feedback")
                 .with(user(USERNAME))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(ratingUpdate))
+                .content(this.objectMapper.writeValueAsString(feedbackUpdate))
             )
             .andExpect(status().isNoContent())
-            .andDo(document("user-receipt-rating-update-example",
+            .andDo(document("user-receipt-feedback-update-example",
                 preprocessRequest(prettyPrint()),
                 requestFields(
-                    fieldWithPath("rating").description("The user given feedback, right now we only use 1 or 0.")
+                    fieldWithPath("rating").description("The user rating for the receipt, right now we only use 1 or 0 to indicate good or bad.")
                 )
             ));
 
@@ -187,7 +187,7 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                     linkWithRel("self").description("The self link"),
                     linkWithRel("receipt").description("<<resources-user-receipt,Link>> to owner receipt resource"),
                     linkWithRel("download").description("URL for downloading image as jpg file"),
-                    linkWithRel("base64").description("URL for downloading image  as base64 string")
+                    linkWithRel("base64").description("URL for downloading image as base64 string")
                 ),
                 responseFields(
                     fieldWithPath("id").description("Primary ID"),

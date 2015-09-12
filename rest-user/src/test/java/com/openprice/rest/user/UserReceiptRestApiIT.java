@@ -293,7 +293,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
     }
 
     @Test
-    public void setUserReceiptRating_ShouldChangeReceiptRating() {
+    public void setUserReceiptFeedback_ShouldChangeReceiptRating() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         String receiptLink =
@@ -304,10 +304,10 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
                 UriTemplate.fromTemplate(receiptLink)
                            .set("receiptId", "receipt001")
                            .expand();
-        final String ratingUrl =
+        final String feedbackUrl =
                 given().filter(sessionFilter)
                        .when().get(receiptUrl)
-                       .then().extract().path("_links.rating.href");
+                       .then().extract().path("_links.feedback.href");
 
         given()
             .filter(sessionFilter)
@@ -329,7 +329,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
                 .contentType(ContentType.JSON)
                 .body(ratingUpdate)
             .when()
-                .put(ratingUrl)
+                .put(feedbackUrl)
             ;
 
         response

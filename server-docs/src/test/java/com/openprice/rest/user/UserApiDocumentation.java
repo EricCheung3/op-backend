@@ -43,7 +43,7 @@ public class UserApiDocumentation extends ApiDocumentationBase {
                     linkWithRel("shoppingList").description("The <<resources-user-shoppinglist,ShoppingList resource>>"),
                     linkWithRel("stores").description("The <<resources-user-stores,Stores resource>>"),
                     linkWithRel("store").description("The <<resources-user-store,Store resource>>"),
-                    linkWithRel("upload").description("The <<resources-user-upload-receipt,Upload New Receipt resource>>")
+                    linkWithRel("upload").description("The <<resources-user-receipt-upload,Upload New Receipt resource>>")
                 ),
                 responseFields(
                     fieldWithPath("id").description("Primary ID"),
