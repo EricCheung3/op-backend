@@ -243,7 +243,7 @@ include::{snippets}/user-receipt-upload-example/http-response.adoc[]
 Resource for a single user uploaded receipt, may contain one or more images.
 
 [[resources-user-receipt-retrieve]]
-=== Get user receipt with id
+=== Get user receipt
 
 A `GET` request is used to retrieve user receipt
 
@@ -264,6 +264,19 @@ include::{snippets}/user-receipt-retrieve-example/http-response.adoc[]
 
 include::{snippets}/user-receipt-retrieve-example/links.adoc[]
 
+
+[[resources-user-receipt-delete]]
+=== Delete user receipt
+
+A `DELETE` request is used to delete user receipt, it will delete all images with this receipt.
+
+==== Example request
+
+include::{snippets}/user-receipt-delete-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/user-receipt-delete-example/http-response.adoc[]
 
 
 [[resources-user-receipt-feedback]]
