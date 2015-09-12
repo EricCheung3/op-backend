@@ -10,6 +10,7 @@ public enum ProcessStatusType {
     QUEUED,
     STARTED,
     SCANNED,
+    SCANNED_ERR,
     PARSED,
     VALIDATED
 }

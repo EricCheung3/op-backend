@@ -1,5 +1,6 @@
 package com.openprice.ocr;
 
+import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -25,11 +26,11 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
-import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
-import com.openprice.common.api.OcrServerApiUrls;
 import com.openprice.file.FileSystemService;
+import com.openprice.ocr.api.ImageProcessRequest;
+import com.openprice.ocr.api.OcrServerApiUrls;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebIntegrationTest(randomPort = true)
@@ -56,7 +57,7 @@ public class OcrServiceApiTest {
         final String TEST_USERID = "user001";
         final String TEST_USERNAME = "john.doe@openprice.com";
         final byte[] content = "image".getBytes();
-        // save test file
+        // save test image file
         final Path imageFolder = fileSystemService.getReceiptImageSubFolder(TEST_USERID);
         final Path imageFile = imageFolder.resolve(TEST_FILENAME);
         try (final OutputStream out = new BufferedOutputStream(Files.newOutputStream(imageFile, StandardOpenOption.CREATE_NEW)))
@@ -66,18 +67,20 @@ public class OcrServiceApiTest {
             throw new RuntimeException("System Error! Cannot save image.", ex);
         }
 
-        String url =  UriTemplate.fromTemplate(OcrServerApiUrls.URL_OCR_PROCESS)
-                                 .set("userId", TEST_USERID)
-                                 .set("fileName", TEST_FILENAME)
-                                 .set("username", TEST_USERNAME)
-                                 .expand();
-        when()
-            .get(url)
+        final ImageProcessRequest request = new ImageProcessRequest();
+        request.setUserId(TEST_USERID);
+        request.setUsername(TEST_USERNAME);
+        request.setFileName(TEST_FILENAME);
+
+        given()
+            .contentType(ContentType.JSON)
+            .body(request)
+        .when()
+            .post(OcrServerApiUrls.URL_OCR_PROCESSOR)
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            .body("username", equalTo(TEST_USERNAME))
-            .body("fileName", equalTo(TEST_FILENAME))
+            .body("success", equalTo(true))
             .body("ocrResult", equalTo("result"))
         ;
 

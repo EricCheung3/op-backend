@@ -19,7 +19,6 @@
     <inceptionYear>2015-</inceptionYear>
 
     <modules>
-        <module>api-common</module>
         <module>domain-common</module>
         <module>domain-account</module>
         <module>domain-receipt</module>
@@ -36,9 +35,13 @@
         <module>security</module>
 
         <module>server-common</module>
-        <module>server-ocr</module>
         <module>server-web-api</module>
         <module>server-admin-api</module>
+        
+        <module>api-ocr</module>
+        <module>rest-ocr</module>
+        <module>server-ocr</module>
+        
         <module>server-docs</module>
 
     </modules>

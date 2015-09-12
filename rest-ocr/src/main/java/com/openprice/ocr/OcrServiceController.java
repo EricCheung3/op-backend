@@ -1,19 +1,20 @@
 package com.openprice.ocr;
 
-import java.io.UnsupportedEncodingException;
-
 import javax.inject.Inject;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.openprice.common.api.ImageProcessResult;
+import com.openprice.ocr.api.ImageProcessRequest;
+import com.openprice.ocr.api.ImageProcessResult;
+import com.openprice.ocr.api.OcrServerApiUrls;
 
-@Controller
+@RestController
 public class OcrServiceController {
     @Inject
     OcrProcessor ocrProcessor;
@@ -25,19 +26,17 @@ public class OcrServiceController {
         return "Hello!";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value="/process/{userId}")
-    @ResponseBody
-    public ImageProcessResult process(@PathVariable("userId") final String userId,
-                                      @RequestParam("fileName") final String fileName,
-                                      @RequestParam("username") final String username) {
+    @RequestMapping(method = RequestMethod.POST, value = OcrServerApiUrls.URL_OCR_PROCESSOR)
+    public HttpEntity<ImageProcessResult> process(@RequestBody final ImageProcessRequest request) {
+        ImageProcessResult result = new ImageProcessResult();
         try {
-            final String decodedUsername = java.net.URLDecoder.decode(username, "UTF-8");
-            return ocrProcessor.processImage(userId, fileName, decodedUsername);
-        } catch (UnsupportedEncodingException ex) {
-            // ignore
+            result.setSuccess(true);
+            result.setOcrResult(ocrProcessor.processImage(request));
+        } catch (Exception ex) {
+            result.setSuccess(false);
+            result.setErrorMessage(ex.getMessage());
         }
-        return null;
+        return ResponseEntity.ok(result);
     }
-
 
 }

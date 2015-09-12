@@ -21,12 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-api-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.openprice</groupId>
-            <artifactId>openprice-infrastructure</artifactId>
+            <artifactId>openprice-rest-ocr</artifactId>
             <version>${project.version}</version>
         </dependency>
 

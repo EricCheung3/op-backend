@@ -7,8 +7,8 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Component;
 
-import com.openprice.common.api.ImageProcessResult;
 import com.openprice.file.FileSystemService;
+import com.openprice.ocr.api.ImageProcessRequest;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,29 +26,24 @@ public class OcrProcessor {
         this.tesseract = tesseract;
     }
 
-    public ImageProcessResult processImage(final String userId, final String fileName, final String username) {
-        log.info("Process image {} from user '{}'.", fileName, username);
+    public String processImage(final ImageProcessRequest request) {
+        log.info("Process image {} from user '{}'.", request.getFileName(), request.getUsername());
 
         // TODO return if it is still processing
 
         // change state to processing
 
-        final String imagePath = userId + fileSystemService.getPathSeparator() + fileName;
+        final String imagePath = request.getUserId() + fileSystemService.getPathSeparator() + request.getFileName();
         final Path imageFile = fileSystemService.getReceiptImageFolder().resolve(imagePath);
 
         if (Files.notExists(imageFile)) {
-            log.error("Cannot open image file at "+imageFile.toString());
-            return null;  // TODO throw exception?
+            log.error("Cannot open image file {}, please check file system.", imageFile.toString());
+            throw new RuntimeException("Image file not exist: " + imageFile.toString());
         }
 
         final String ocrResult = tesseract.scan(imageFile.toString());
         // TODO get log output and save to file
 
-
-        final ImageProcessResult result = new ImageProcessResult();
-        result.setUsername(username);
-        result.setFileName(fileName);
-        result.setOcrResult(ocrResult);
-        return result;
+        return ocrResult;
     }
 }

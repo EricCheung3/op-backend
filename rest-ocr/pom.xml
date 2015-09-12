@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-api-common</artifactId>
+            <artifactId>openprice-api-ocr</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -27,17 +27,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.openprice</groupId>
-            <artifactId>openprice-rest-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.openprice</groupId>
-            <artifactId>openprice-rest-common</artifactId>
-            <version>${project.version}</version>
-            <type>test-jar</type>
-            <scope>test</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
         </dependency>
 
         <dependency>

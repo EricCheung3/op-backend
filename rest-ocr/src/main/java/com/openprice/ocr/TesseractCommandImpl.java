@@ -37,7 +37,7 @@ public class TesseractCommandImpl implements Tesseract {
             log.info("took {} milli-seconds to ocr image.", (System.currentTimeMillis() - start));
         } catch (Exception ex) {
             log.error("Got error while calling tesseract!", ex);
-            // TODO
+            throw new RuntimeException("Got exception from tesseract: " + ex.getMessage(), ex);
         }
 
         return output.toString();

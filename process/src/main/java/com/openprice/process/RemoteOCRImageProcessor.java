@@ -4,13 +4,14 @@ import javax.transaction.Transactional;
 
 import org.springframework.web.client.RestTemplate;
 
-import com.openprice.common.api.ImageProcessResult;
-import com.openprice.common.api.OcrServerApiUrls;
 import com.openprice.domain.receipt.ProcessLog;
 import com.openprice.domain.receipt.ProcessLogRepository;
 import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
+import com.openprice.ocr.api.ImageProcessRequest;
+import com.openprice.ocr.api.ImageProcessResult;
+import com.openprice.ocr.api.OcrServerApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -59,18 +60,26 @@ public class RemoteOCRImageProcessor implements ImageProcessor {
         log.debug("==> Start process image {} from user '{}' by calling '{}'",
                 item.getImage().getFileName(), item.getUsername(), serverUrl);
 
-        final ImageProcessResult result = restTemplate.getForObject(serverUrl + OcrServerApiUrls.URL_OCR_PROCESS,
-                                                                    ImageProcessResult.class,
-                                                                    item.getUserId(),
-                                                                    item.getImage().getFileName(),
-                                                                    item.getUsername());
-        processLog.setOcrResult(result.getOcrResult());
-        log.debug("Got OCR result as\n" + result.getOcrResult());
+        final ImageProcessRequest request = new ImageProcessRequest(item.getUserId(), item.getUsername(), item.getImage().getFileName());
+
+        final ImageProcessResult result = restTemplate.postForObject(serverUrl + OcrServerApiUrls.URL_OCR_PROCESSOR,
+                                                                    request,
+                                                                    ImageProcessResult.class);
         processLog.setOcrDuration(System.currentTimeMillis() - start);
 
-        ReceiptImage image = receiptImageRepository.findOne(item.getImage().getId());
-        image.setStatus(ProcessStatusType.SCANNED);
-        image.setOcrResult(result.getOcrResult());
+        final ReceiptImage image = receiptImageRepository.findOne(item.getImage().getId());
+
+        if (result.isSuccess()) {
+            log.debug("Got OCR result as\n" + result.getOcrResult());
+            processLog.setOcrResult(result.getOcrResult());
+            image.setStatus(ProcessStatusType.SCANNED);
+            image.setOcrResult(result.getOcrResult());
+        } else {
+            log.warn("OCR process error: "+result.getErrorMessage());
+            processLog.setErrorMessage(result.getErrorMessage());
+            image.setStatus(ProcessStatusType.SCANNED_ERR);
+        }
+
         saveProcessResult(processLog, image);
 
         log.info("Finish process image {} with server '{}', took {} milli-seconds.",

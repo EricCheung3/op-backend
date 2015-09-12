@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-api-common</artifactId>
+            <artifactId>openprice-api-ocr</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
