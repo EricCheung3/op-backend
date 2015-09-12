@@ -30,8 +30,6 @@
             <artifactId>openprice-rest-user</artifactId>
             <version>${project.version}</version>
         </dependency>
-
-        <!-- JWT -->
         <dependency>
             <groupId>com.openprice</groupId>
             <artifactId>openprice-security</artifactId>
@@ -48,18 +46,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>

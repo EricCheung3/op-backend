@@ -26,7 +26,6 @@ import com.openprice.file.FileFolderSettings;
 import com.openprice.file.FileSystemService;
 import com.openprice.mail.EmailService;
 import com.openprice.mail.stub.DummyEmailService;
-import com.openprice.parser.simple.SimpleParser;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -66,11 +65,6 @@ public abstract class AbstractRestApiTestApplication extends WebSecurityConfigur
     @Bean
     public FileSystemService fileSystemService() {
         return new FileSystemService(new FileFolderSettings());
-    }
-
-    @Bean
-    public SimpleParser simpleParser() {
-        return new SimpleParser();
     }
 
     @PostConstruct

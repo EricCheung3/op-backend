@@ -21,7 +21,7 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!-- introduce jpa and security -->
+        <!-- introduce spring jpa and security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -35,19 +35,6 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>info.solidsoft.mockito</groupId>
-            <artifactId>mockito-java8</artifactId>
-            <version>0.3.0</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

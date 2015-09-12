@@ -36,34 +36,10 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!-- JWT -->
-        <dependency>
-            <groupId>com.openprice</groupId>
-            <artifactId>openprice-security</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- Use SendGrid for email -->
-        <dependency>
-            <groupId>com.openprice</groupId>
-            <artifactId>openprice-email-sendgrid</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
-        </dependency>
-
-        <!-- recommended by Spring Social to use it as HTTP client -->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
         </dependency>
 
         <!-- Database and migration by Flyway -->

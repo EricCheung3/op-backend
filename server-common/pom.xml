@@ -17,18 +17,19 @@
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
+            <artifactId>openprice-domain-receipt</artifactId> <!-- TODO: remove it after parser merged into backend -->
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.openprice</groupId>
             <artifactId>openprice-rest-common</artifactId>
             <version>${project.version}</version>
         </dependency>
-
-        <!-- JWT -->
         <dependency>
             <groupId>com.openprice</groupId>
             <artifactId>openprice-security</artifactId>
             <version>${project.version}</version>
         </dependency>
-
-        <!-- Use SendGrid for email -->
         <dependency>
             <groupId>com.openprice</groupId>
             <artifactId>openprice-email-sendgrid</artifactId>
@@ -39,13 +40,8 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
 
-        <!-- recommended by Spring Social to use it as HTTP client -->
+        <!-- recommended by Spring Social to use it as HTTP client ?? TODO: do we need it??-->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>

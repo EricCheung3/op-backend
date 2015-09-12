@@ -17,27 +17,32 @@
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-domain-account</artifactId>
+            <artifactId>openprice-infrastructure</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-domain-receipt</artifactId>
+            <artifactId>openprice-domain-common</artifactId>
             <version>${project.version}</version>
         </dependency>
 
-        <!-- introduce spring hateoas for restful api -->
+        <!-- spring hateoas for restful api -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-hateoas</artifactId>
         </dependency>
-
         <!-- Evo Inflector implements English pluralization algorithm -->
         <dependency>
             <groupId>org.atteo</groupId>
             <artifactId>evo-inflector</artifactId>
             <version>${evo-inflector.version}</version>
             <scope>runtime</scope>
+        </dependency>
+        <!-- Java implementation for RFC6570 -->
+        <dependency>
+            <groupId>com.damnhandy</groupId>
+            <artifactId>handy-uri-templates</artifactId>
+            <version>${handy-uri-templates.version}</version>
         </dependency>
 
         <!-- Use DBUnit and Spring Test DBUnit for integration test -->
@@ -60,17 +65,6 @@
             <groupId>com.jayway.restassured</groupId>
             <artifactId>rest-assured</artifactId>
             <version>${rest-assured.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.damnhandy</groupId>
-            <artifactId>handy-uri-templates</artifactId>
-            <version>${handy-uri-templates.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path</artifactId>
             <scope>test</scope>
         </dependency>
 
