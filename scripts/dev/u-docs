@@ -9,4 +9,4 @@ mvn docker:build
 docker stop openprice-server-docs
 docker rm openprice-server-docs
 
-docker run --name openprice-server-docs -p 8080:8080 -d openprice/openprice-server-docs
+docker run --name openprice-server-docs -p 8880:8080 -d openprice/openprice-server-docs

@@ -5,7 +5,7 @@ import lombok.Setter;
 
 /**
  * Value object for user login credentials: username and password.
- *
+ * For Web UI app, username is email.
  */
 public class UserLogin {
     @Getter @Setter

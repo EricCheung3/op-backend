@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             //.headers().cacheControl().and()
             .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers("/api/admin").authenticated()
                 .antMatchers("/api/admin/admins/**").hasAuthority(AdminRoleType.ROLE_SUPER_ADMIN.name())
                 .antMatchers("/api/admin/users/**").hasAuthority(AdminRoleType.ROLE_USER_MANAGER.name())
                 .antMatchers("/api/signin").permitAll()

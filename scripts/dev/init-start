@@ -24,4 +24,25 @@ docker run --name openprice-server-ocr-2 -d -e SPRING_PROFILES_ACTIVE=dev,docker
 docker run --name openprice-server-web-api -d -p 7800:7800 -e SPRING_PROFILES_ACTIVE=dev,docker,noemail -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link openprice-mysql:mysql --link openprice-server-ocr-1:openprice-server-ocr-1 --link openprice-server-ocr-2:openprice-server-ocr-2 openprice/openprice-server-web-api
 docker run --name openprice-server-admin-api -d -p 7801:7801 -e SPRING_PROFILES_ACTIVE=dev,docker,noemail -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link openprice-mysql:mysql --link openprice-server-ocr-1:openprice-server-ocr-1 --link openprice-server-ocr-2:openprice-server-ocr-2 openprice/openprice-server-admin-api
 
-docker run --name openprice-server-docs -p 8080:8080 -d openprice/openprice-server-docs
+docker run --name openprice-server-docs -p 8880:8080 -d openprice/openprice-server-docs
+
+cd ~/openprice-admin-ui
+git pull
+npm install
+bower install
+gulp build
+
+cd ~/openprice-admin-ui/docker
+docker build -t openprice/openprice-server-admin-ui .
+docker run --name openprice-server-admin-ui -p 8081:80 -d openprice/openprice-server-admin-ui
+
+
+cd ~/openprice-web-ui
+git pull
+npm install
+bower install
+gulp build
+
+cd ~/openprice-web-ui/docker
+docker build -t openprice/openprice-server-web-ui .
+docker run --name openprice-server-web-ui -p 8080:80 -d openprice/openprice-server-web-ui

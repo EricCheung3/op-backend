@@ -54,7 +54,7 @@
     </dependencies>
 
     <build>
-        <finalName>api-server</finalName>
+        <finalName>web-api-server</finalName>
 
         <plugins>
             <plugin>

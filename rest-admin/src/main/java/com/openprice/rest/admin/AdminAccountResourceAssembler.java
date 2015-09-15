@@ -33,7 +33,5 @@ public class AdminAccountResourceAssembler implements ResourceAssembler<AdminAcc
         resource.add(userLink);
 
         return resource;
-
     }
-
 }

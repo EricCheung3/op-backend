@@ -38,5 +38,4 @@ public class AdminAccountRestController extends AbstractAdminRestController {
         final AdminAccountResource resource = adminAccountResourceAssembler.toResource(currentUser);
         return ResponseEntity.ok(resource);
     }
-
 }

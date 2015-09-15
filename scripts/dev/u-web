@@ -1,0 +1,13 @@
+cd ~/openprice-web-ui
+git pull
+npm install
+bower install
+gulp build
+
+cd ~/openprice-web-ui/docker
+docker build -t openprice/openprice-server-web-ui .
+
+docker stop openprice-server-web-ui
+docker rm openprice-server-web-ui
+
+docker run --name openprice-server-web-ui -p 8080:80 -d openprice/openprice-server-web-ui
