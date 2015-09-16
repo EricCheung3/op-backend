@@ -25,10 +25,6 @@ public abstract class AbstractAccount extends BaseAuditableEntity implements Use
     private boolean accountLocked = false;
 
     @Getter @Setter
-    @Column(name="trusted_account")
-    private boolean trustedAccount = false;
-
-    @Getter @Setter
     @Column(name="activated")
     private boolean activated = false;
 

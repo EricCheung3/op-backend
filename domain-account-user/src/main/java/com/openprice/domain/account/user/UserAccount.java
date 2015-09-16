@@ -47,6 +47,10 @@ public class UserAccount extends AbstractAccount implements UserDetails {
     private String email;
 
     @Getter @Setter
+    @Column(name="trusted_account")
+    private boolean trustedAccount = false;
+
+    @Getter @Setter
     @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn
     @JsonIgnore
