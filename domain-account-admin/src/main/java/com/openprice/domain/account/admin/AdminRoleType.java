@@ -1,4 +1,4 @@
-package com.openprice.domain.admin;
+package com.openprice.domain.account.admin;
 
 import org.springframework.security.core.GrantedAuthority;
 

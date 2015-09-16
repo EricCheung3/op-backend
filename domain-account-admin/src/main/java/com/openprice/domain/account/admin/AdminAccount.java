@@ -1,4 +1,4 @@
-package com.openprice.domain.admin;
+package com.openprice.domain.account.admin;
 
 import java.util.ArrayList;
 import java.util.Collection;

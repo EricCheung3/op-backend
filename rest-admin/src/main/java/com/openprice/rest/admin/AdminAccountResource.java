@@ -2,7 +2,7 @@ package com.openprice.rest.admin;
 
 import org.springframework.hateoas.Resource;
 
-import com.openprice.domain.admin.AdminAccount;
+import com.openprice.domain.account.admin.AdminAccount;
 
 /**
  * REST resource for admin user account with links to users, blogs, comments.

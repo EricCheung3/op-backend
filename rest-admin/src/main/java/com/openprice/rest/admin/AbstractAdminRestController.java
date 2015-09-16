@@ -2,8 +2,8 @@ package com.openprice.rest.admin;
 
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 
-import com.openprice.domain.admin.AdminAccount;
-import com.openprice.domain.admin.AdminAccountService;
+import com.openprice.domain.account.admin.AdminAccount;
+import com.openprice.domain.account.admin.AdminAccountService;
 import com.openprice.rest.AbstractRestController;
 
 public abstract class AbstractAdminRestController extends AbstractRestController {

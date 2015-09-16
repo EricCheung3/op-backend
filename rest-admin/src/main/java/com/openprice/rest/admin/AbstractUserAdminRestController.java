@@ -1,9 +1,9 @@
 package com.openprice.rest.admin;
 
+import com.openprice.domain.account.admin.AdminAccountService;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.domain.account.user.UserAccountService;
-import com.openprice.domain.admin.AdminAccountService;
 import com.openprice.rest.ResourceNotFoundException;
 
 public abstract class AbstractUserAdminRestController extends AbstractAdminRestController {

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openprice.domain.admin.AdminAccount;
-import com.openprice.domain.admin.AdminAccountService;
+import com.openprice.domain.account.admin.AdminAccount;
+import com.openprice.domain.account.admin.AdminAccountService;
 
 /**
  * RESTful API for AdminAccountResource.

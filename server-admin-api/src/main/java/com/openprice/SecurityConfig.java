@@ -13,8 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 
-import com.openprice.domain.admin.AdminAccountService;
-import com.openprice.domain.admin.AdminRoleType;
+import com.openprice.domain.account.admin.AdminAccountService;
+import com.openprice.domain.account.admin.AdminRoleType;
 import com.openprice.rest.UtilConstants;
 import com.openprice.security.jwt.StatelessAuthenticationFilter;
 import com.openprice.security.jwt.StatelessLoginFilter;

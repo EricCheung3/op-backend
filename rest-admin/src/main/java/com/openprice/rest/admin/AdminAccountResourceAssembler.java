@@ -9,7 +9,7 @@ import org.springframework.hateoas.UriTemplate;
 import org.springframework.hateoas.mvc.BasicLinkBuilder;
 import org.springframework.stereotype.Component;
 
-import com.openprice.domain.admin.AdminAccount;
+import com.openprice.domain.account.admin.AdminAccount;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.user.UserAccountRestController;
 

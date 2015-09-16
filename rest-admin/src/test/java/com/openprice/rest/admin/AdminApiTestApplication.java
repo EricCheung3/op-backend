@@ -8,8 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 
-import com.openprice.domain.admin.AdminAccountService;
-import com.openprice.domain.admin.AdminRoleType;
+import com.openprice.domain.account.admin.AdminAccountService;
+import com.openprice.domain.account.admin.AdminRoleType;
 import com.openprice.parser.simple.SimpleParser;
 import com.openprice.rest.AbstractRestApiTestApplication;
 
