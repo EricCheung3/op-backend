@@ -17,7 +17,7 @@ import lombok.ToString;
 @ToString(callSuper=true, exclude={"user"})
 @SuppressWarnings("serial")
 @Entity
-@Table
+@Table( name="user_profile" )
 public class UserProfile extends BaseAuditableEntity {
 
     @Getter @Setter
@@ -26,19 +26,19 @@ public class UserProfile extends BaseAuditableEntity {
     private UserAccount user;
 
     @Getter @Setter
-    @Column
+    @Column(name="first_name")
     private String firstName;
 
     @Getter @Setter
-    @Column
+    @Column(name="middle_name")
     private String middleName;
 
     @Getter @Setter
-    @Column
+    @Column(name="last_name")
     private String lastName;
 
     @Getter @Setter
-    @Column
+    @Column(name="phone")
     private String phone;
 
     @Setter

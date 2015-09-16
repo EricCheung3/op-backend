@@ -14,48 +14,48 @@ import lombok.ToString;
 @ToString
 @SuppressWarnings("serial")
 @Entity
-@Table
+@Table( name="process_log" )
 public class ProcessLog extends BaseEntity {
 
     /**
      * Use imageId to reference ReceiptImage, in case the image was deleted.
      */
     @Getter @Setter
-    @Column(nullable = false)
+    @Column(name="image_id", nullable = false)
     private String imageId;
 
     @Getter @Setter
-    @Column(nullable = false)
+    @Column(name="username", nullable = false)
     private String username;
 
     @Getter @Setter
-    @Column(nullable = false)
+    @Column(name="server_name", nullable = false)
     private String serverName;
 
     @Getter @Setter
-    @Column(nullable = false)
+    @Column(name="start_time", nullable = false)
     private Long startTime;
 
     @Getter @Setter
-    @Column
+    @Column(name="ocr_duration")
     private Long ocrDuration;
 
     @Getter @Setter
-    @Column
+    @Column(name="ocr_result")
     @Lob
     private String ocrResult;
 
     @Getter @Setter
-    @Column
+    @Column(name="parser_duration")
     private Long parserDuration; // not used
 
     @Getter @Setter
-    @Column
+    @Column(name="parser_result")
     @Lob
     private String parserResult; // not used
 
     @Getter @Setter
-    @Column
+    @Column(name="error_message")
     private String errorMessage;
 
 }

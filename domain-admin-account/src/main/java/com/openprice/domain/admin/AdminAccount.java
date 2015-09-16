@@ -30,7 +30,7 @@ import lombok.ToString;
 @ToString(callSuper=true)
 @SuppressWarnings("serial")
 @Entity
-@Table
+@Table( name="admin_account" )
 public class AdminAccount extends BaseAuditableEntity implements UserDetails {
 
     @Getter @Setter
@@ -41,36 +41,36 @@ public class AdminAccount extends BaseAuditableEntity implements UserDetails {
     private Collection<AdminRoleType> roles;
 
     @Getter @Setter
-    @Column
+    @Column(name="username")
     private String username;
 
     @Getter @Setter
-    @Column
+    @Column(name="password")
     @JsonIgnore
     private String password;
 
     @Getter @Setter
-    @Column
+    @Column(name="email")
     private String email;
 
     @Getter @Setter
-    @Column
+    @Column(name="first_name")
     private String firstName;
 
     @Getter @Setter
-    @Column
+    @Column(name="last_name")
     private String lastName;
 
     @Getter @Setter
-    @Column
+    @Column(name="title")
     private String title;
 
     @Getter @Setter
-    @Column
+    @Column(name="account_locked")
     private boolean accountLocked = false;
 
     @Getter @Setter
-    @Column
+    @Column(name="activated")
     private boolean activated = true;
 
     public AdminAccount() {

@@ -107,11 +107,6 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                 ),
                 responseFields(
                     fieldWithPath("id").description("Primary ID"),
-                    fieldWithPath("version").description("Entity version"),
-                    fieldWithPath("createdBy").description("Who created the entity"),
-                    fieldWithPath("createdTime").description("When created the entity"),
-                    fieldWithPath("lastModifiedBy").description("Who last modified the entity"),
-                    fieldWithPath("lastModifiedTime").description("When last modified the entity"),
                     fieldWithPath("images").description("Receipt image list"),
                     fieldWithPath("rating").description("User rating for the receipt quality (0 or 1 for bad/good), default is null."),
                     fieldWithPath("_links").description("<<resources-user-receipt-links,Links>> to other resources")
@@ -197,11 +192,6 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                 ),
                 responseFields(
                     fieldWithPath("id").description("Primary ID"),
-                    fieldWithPath("version").description("Entity version"),
-                    fieldWithPath("createdBy").description("Who created the entity"),
-                    fieldWithPath("createdTime").description("When created the entity"),
-                    fieldWithPath("lastModifiedBy").description("Who last modified the entity"),
-                    fieldWithPath("lastModifiedTime").description("When last modified the entity"),
                     fieldWithPath("status").description("Receipt image process status"),
                     fieldWithPath("ocrResult").description("Receipt image ocr process result"),
                     fieldWithPath("fileName").description("Receipt image file name"),

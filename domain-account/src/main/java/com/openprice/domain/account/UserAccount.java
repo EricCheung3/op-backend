@@ -32,7 +32,7 @@ import lombok.ToString;
 @ToString(callSuper=true, exclude={"profile"})
 @SuppressWarnings("serial")
 @Entity
-@Table
+@Table( name="user_account" )
 public class UserAccount extends BaseAuditableEntity implements UserDetails {
 
     @Getter @Setter
@@ -43,24 +43,24 @@ public class UserAccount extends BaseAuditableEntity implements UserDetails {
     private Collection<UserRoleType> roles;
 
     @Getter @Setter
-    @Column
+    @Column(name="email")
     private String email;
 
     @Getter @Setter
-    @Column
+    @Column(name="password")
     @JsonIgnore
     private String password;
 
     @Getter @Setter
-    @Column
+    @Column(name="account_locked")
     private boolean accountLocked = false;
 
     @Getter @Setter
-    @Column
+    @Column(name="trusted_account")
     private boolean trustedAccount = false;
 
     @Getter @Setter
-    @Column
+    @Column(name="activated")
     private boolean activated = false;
 
     @Getter @Setter
@@ -74,26 +74,31 @@ public class UserAccount extends BaseAuditableEntity implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return !accountLocked;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return activated;
     }

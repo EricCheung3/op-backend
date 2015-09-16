@@ -3,7 +3,6 @@ package com.openprice.domain;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 
@@ -13,7 +12,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.openprice.domain.util.LocalDateTimePersistenceConverter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -28,25 +27,27 @@ import lombok.ToString;
 public abstract class BaseAuditableEntity extends BaseEntity {
 
     @Getter
+    @Column(name="created_by")
     @CreatedBy
-    @Column
+    @JsonIgnore
     private String createdBy;
 
     @Getter
+    @Column(name="created_time")
     @CreatedDate
-    @Column
-    @Convert(converter = LocalDateTimePersistenceConverter.class)
+    @JsonIgnore
     private LocalDateTime createdTime;
 
     @Getter
+    @Column(name="last_modified_by")
     @LastModifiedBy
-    @Column
+    @JsonIgnore
     private String lastModifiedBy;
 
     @Getter
+    @Column(name="last_modified_time")
     @LastModifiedDate
-    @Column
-    @Convert(converter = LocalDateTimePersistenceConverter.class)
+    @JsonIgnore
     private LocalDateTime lastModifiedTime;
 
 }

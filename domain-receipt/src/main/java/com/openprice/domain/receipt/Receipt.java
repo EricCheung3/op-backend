@@ -46,7 +46,7 @@ public class Receipt extends BaseAuditableEntity {
     private List<ReceiptImage> images = new ArrayList<>();
 
     @Getter @Setter
-    @Column
+    @Column(name="rating")
     private Integer rating;
 
     /**

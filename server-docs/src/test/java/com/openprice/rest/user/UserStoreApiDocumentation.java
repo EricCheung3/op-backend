@@ -84,11 +84,6 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
                 ),
                 responseFields(
                     fieldWithPath("id").description("Primary ID"),
-                    fieldWithPath("version").description("Entity version"),
-                    fieldWithPath("createdBy").description("Who created the entity"),
-                    fieldWithPath("createdTime").description("When created the entity"),
-                    fieldWithPath("lastModifiedBy").description("Who last modified the entity"),
-                    fieldWithPath("lastModifiedTime").description("When last modified the entity"),
                     fieldWithPath("name").description("Store name"),
                     fieldWithPath("_links").description("<<resources-user-store-retrieve-links,Links>> to other resources")
                 )
@@ -198,11 +193,6 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
                 ),
                 responseFields(
                     fieldWithPath("id").description("Primary ID"),
-                    fieldWithPath("version").description("Entity version"),
-                    fieldWithPath("createdBy").description("Who created the entity"),
-                    fieldWithPath("createdTime").description("When created the entity"),
-                    fieldWithPath("lastModifiedBy").description("Who last modified the entity"),
-                    fieldWithPath("lastModifiedTime").description("When last modified the entity"),
                     fieldWithPath("itemName").description("Shopping Item name"),
                     fieldWithPath("itemPrice").description("Shopping Item price"),
                     fieldWithPath("_links").description("<<resources-user-store-item-retrieve-links,Links>> to other resources")

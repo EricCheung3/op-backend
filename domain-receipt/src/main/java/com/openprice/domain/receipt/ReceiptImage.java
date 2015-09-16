@@ -20,7 +20,7 @@ import lombok.ToString;
 @ToString(callSuper=true, exclude={"receipt", "ocrResult"})
 @SuppressWarnings("serial")
 @Entity
-@Table
+@Table( name="receipt_image" )
 public class ReceiptImage extends BaseAuditableEntity {
 
     @Getter @Setter
@@ -30,16 +30,16 @@ public class ReceiptImage extends BaseAuditableEntity {
     private Receipt receipt;
 
     @Getter @Setter
-    @Column
+    @Column(name="file_name")
     private String fileName;
 
     @Getter @Setter
     @Enumerated(EnumType.STRING)
-    @Column
+    @Column(name="status")
     private ProcessStatusType status;
 
     @Getter @Setter
-    @Column
+    @Column(name="ocr_result")
     @Lob
     private String ocrResult;
 

@@ -59,9 +59,8 @@ public class RegisterRestApiIT extends AbstractUserRestApiIntegrationTest {
                 .contentType(ContentType.JSON)
                 .body("email", equalTo("john.doe@openprice.com"))
                 .body("roles[0]", equalTo(UserRoleType.ROLE_USER.name()))
-                .body("accountNonLocked", equalTo(true))
-                .body("accountNonExpired", equalTo(true))
-                .body("enabled", equalTo(true)) // FIXME
+                .body("trustedAccount", equalTo(false))
+                .body("activated", equalTo(true)) // FIXME
                 .body("profile.firstName", equalTo("John"))
                 .body("profile.lastName", equalTo("Doe"))
             ;

@@ -19,7 +19,7 @@ import lombok.ToString;
 @ToString(callSuper=true, exclude={"user", "store"})
 @SuppressWarnings("serial")
 @Entity
-@Table
+@Table( name="shopping_item" )
 public class ShoppingItem extends BaseAuditableEntity {
     @Getter @Setter
     @JsonIgnore
@@ -34,11 +34,11 @@ public class ShoppingItem extends BaseAuditableEntity {
     private Store store;
 
     @Getter @Setter
-    @Column
+    @Column(name="item_name")
     private String itemName;
 
     @Getter @Setter
-    @Column
+    @Column(name="item_price")
     private String itemPrice;
 
 }

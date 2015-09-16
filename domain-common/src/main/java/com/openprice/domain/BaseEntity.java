@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
@@ -23,15 +24,16 @@ import lombok.Setter;
 public abstract class BaseEntity implements Serializable {
 
     @Getter @Setter
+    @Column(name="id")
     @Id
-    @Column
     @GeneratedValue(generator="system-uuid")
     @org.hibernate.annotations.GenericGenerator(name="system-uuid", strategy = "uuid2")
     private String id;
 
     @Getter @Setter
+    @Column(name="version", nullable=false)
     @Version
-    @Column
+    @JsonIgnore
     private Long version;
 
     @Override
