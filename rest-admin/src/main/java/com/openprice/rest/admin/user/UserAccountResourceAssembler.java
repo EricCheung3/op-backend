@@ -6,7 +6,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
 
-import com.openprice.domain.account.UserAccount;
+import com.openprice.domain.account.user.UserAccount;
 import com.openprice.rest.admin.receipt.UserReceiptRestController;
 
 @Component("admin_UserResourceAssembler")

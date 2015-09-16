@@ -4,8 +4,8 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.openprice.domain.account.UserAccount;
-import com.openprice.domain.account.UserAccountService;
+import com.openprice.domain.account.user.UserAccount;
+import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptRepository;

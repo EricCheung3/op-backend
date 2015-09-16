@@ -2,7 +2,7 @@ package com.openprice.rest.user;
 
 import org.springframework.hateoas.Resource;
 
-import com.openprice.domain.account.UserAccount;
+import com.openprice.domain.account.user.UserAccount;
 
 import lombok.Getter;
 import lombok.Setter;

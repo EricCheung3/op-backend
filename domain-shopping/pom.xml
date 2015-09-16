@@ -22,7 +22,7 @@
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-domain-account</artifactId>
+            <artifactId>openprice-domain-account-user</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

@@ -24,11 +24,11 @@
         <module>security</module>
 
         <module>domain-common</module>
-        <module>domain-account</module>
+        <module>domain-account-user</module>
+        <module>domain-account-admin</module>
         <module>domain-receipt</module>
         <module>domain-store</module>
         <module>domain-shopping</module>
-        <module>domain-admin-account</module>
         <module>process</module>
         <module>rest-common</module>
         <module>rest-site</module>

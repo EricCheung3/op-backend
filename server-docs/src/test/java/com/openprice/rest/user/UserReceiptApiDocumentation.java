@@ -29,7 +29,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 
 import com.jayway.jsonpath.JsonPath;
-import com.openprice.domain.account.UserAccount;
+import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;

@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openprice.domain.account.UserAccount;
-import com.openprice.domain.account.UserAccountRepository;
-import com.openprice.domain.account.UserAccountService;
-import com.openprice.domain.account.UserProfile;
-import com.openprice.domain.account.UserProfileRepository;
+import com.openprice.domain.account.user.UserAccount;
+import com.openprice.domain.account.user.UserAccountRepository;
+import com.openprice.domain.account.user.UserAccountService;
+import com.openprice.domain.account.user.UserProfile;
+import com.openprice.domain.account.user.UserProfileRepository;
 import com.openprice.domain.admin.AdminAccountService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;

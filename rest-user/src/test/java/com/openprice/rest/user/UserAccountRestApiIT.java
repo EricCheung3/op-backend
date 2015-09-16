@@ -11,7 +11,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
-import com.openprice.domain.account.UserRoleType;
+import com.openprice.domain.account.user.UserRoleType;
 import com.openprice.rest.UtilConstants;
 
 @DatabaseSetup("classpath:/data/testData.xml")

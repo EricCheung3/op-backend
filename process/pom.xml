@@ -22,11 +22,6 @@
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-domain-account</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.openprice</groupId>
             <artifactId>openprice-domain-receipt</artifactId>
             <version>${project.version}</version>
         </dependency>

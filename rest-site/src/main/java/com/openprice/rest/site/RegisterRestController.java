@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openprice.domain.account.UserAccount;
-import com.openprice.domain.account.UserAccountRepository;
-import com.openprice.domain.account.UserAccountService;
+import com.openprice.domain.account.user.UserAccount;
+import com.openprice.domain.account.user.UserAccountRepository;
+import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.mail.EmailMessage;
 import com.openprice.mail.EmailProperties;
 import com.openprice.mail.EmailService;

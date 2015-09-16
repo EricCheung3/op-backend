@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.openprice.domain.account.UserAccount;
-import com.openprice.domain.account.UserAccountService;
+import com.openprice.domain.account.user.UserAccount;
+import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptItem;

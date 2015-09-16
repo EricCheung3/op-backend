@@ -17,12 +17,12 @@
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-domain-admin-account</artifactId>
+            <artifactId>openprice-domain-account-admin</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-domain-account</artifactId>
+            <artifactId>openprice-domain-account-user</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

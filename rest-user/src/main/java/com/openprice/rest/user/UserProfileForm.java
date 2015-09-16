@@ -1,6 +1,6 @@
 package com.openprice.rest.user;
 
-import com.openprice.domain.account.UserProfile;
+import com.openprice.domain.account.user.UserProfile;
 import com.openprice.domain.common.Address;
 
 import lombok.Getter;

@@ -2,8 +2,8 @@ package com.openprice.rest.user;
 
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 
-import com.openprice.domain.account.UserAccount;
-import com.openprice.domain.account.UserAccountService;
+import com.openprice.domain.account.user.UserAccount;
+import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.rest.AbstractRestController;
 
 public class AbstractUserRestController extends AbstractRestController {

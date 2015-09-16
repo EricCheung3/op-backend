@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <admin_account id="admin001" version="1" username="john.doe" password="12345" account_locked="false" activated="true" 
+    <admin_account id="admin001" version="1" username="john.doe" password="12345" account_locked="false" trusted_account="true" activated="true" 
         email="john.doe@openprice.com" first_name="John" last_name="Doe" title="CEO" created_time="2009-01-01 10:00:01.0000"/>
-    <admin_account id="admin002" version="1" username="jane.doe" password="12345" account_locked="false" activated="true" 
+    <admin_account id="admin002" version="1" username="jane.doe" password="12345" account_locked="false" trusted_account="true" activated="true" 
         email="jane.doe@openprice.com" first_name="Jane" last_name="Doe" title="CFO" created_time="2009-01-02 10:00:01.0000"/>
-    <admin_account id="admin003" version="1" username="junior.doe" password="12345" account_locked="false" activated="true" 
+    <admin_account id="admin003" version="1" username="junior.doe" password="12345" account_locked="false" trusted_account="true" activated="true" 
         email="junior.doe@openprice.com" first_name="Junior" last_name="Doe" title="Manager" created_time="2009-01-03 10:00:01.0000"/>
 
     <admin_role admin_account_id="admin001" role="ROLE_SUPER_ADMIN"/>

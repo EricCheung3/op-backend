@@ -1,8 +1,8 @@
 package com.openprice.rest.admin;
 
-import com.openprice.domain.account.UserAccount;
-import com.openprice.domain.account.UserAccountRepository;
-import com.openprice.domain.account.UserAccountService;
+import com.openprice.domain.account.user.UserAccount;
+import com.openprice.domain.account.user.UserAccountRepository;
+import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.admin.AdminAccountService;
 import com.openprice.rest.ResourceNotFoundException;
 

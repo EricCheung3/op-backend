@@ -19,11 +19,11 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openprice.OpenPriceAPIDocsApplication;
-import com.openprice.domain.account.UserAccount;
-import com.openprice.domain.account.UserAccountRepository;
-import com.openprice.domain.account.UserAccountService;
-import com.openprice.domain.account.UserProfile;
-import com.openprice.domain.account.UserProfileRepository;
+import com.openprice.domain.account.user.UserAccount;
+import com.openprice.domain.account.user.UserAccountRepository;
+import com.openprice.domain.account.user.UserAccountService;
+import com.openprice.domain.account.user.UserProfile;
+import com.openprice.domain.account.user.UserProfileRepository;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;

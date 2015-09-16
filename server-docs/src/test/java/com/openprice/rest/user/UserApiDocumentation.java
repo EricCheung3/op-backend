@@ -20,8 +20,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.hateoas.MediaTypes;
 
-import com.openprice.domain.account.UserAccount;
-import com.openprice.domain.account.UserProfile;
+import com.openprice.domain.account.user.UserAccount;
+import com.openprice.domain.account.user.UserProfile;
 import com.openprice.rest.ApiDocumentationBase;
 import com.openprice.rest.UtilConstants;
 

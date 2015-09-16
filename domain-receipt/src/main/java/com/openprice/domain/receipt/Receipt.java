@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
-import com.openprice.domain.account.UserAccount;
+import com.openprice.domain.account.user.UserAccount;
 
 import lombok.Getter;
 import lombok.Setter;

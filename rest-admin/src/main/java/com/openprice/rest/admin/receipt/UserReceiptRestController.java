@@ -1,6 +1,5 @@
 package com.openprice.rest.admin.receipt;
 
-
 import javax.inject.Inject;
 
 import org.springframework.core.io.PathResource;
@@ -20,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openprice.domain.account.UserAccount;
-import com.openprice.domain.account.UserAccountRepository;
-import com.openprice.domain.account.UserAccountService;
+import com.openprice.domain.account.user.UserAccount;
+import com.openprice.domain.account.user.UserAccountRepository;
+import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.admin.AdminAccountService;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;

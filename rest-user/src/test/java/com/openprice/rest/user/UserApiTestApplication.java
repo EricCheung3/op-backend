@@ -9,8 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 
-import com.openprice.domain.account.UserAccountService;
-import com.openprice.domain.account.UserRoleType;
+import com.openprice.domain.account.user.UserAccountService;
+import com.openprice.domain.account.user.UserRoleType;
 import com.openprice.file.FileFolderSettings;
 import com.openprice.mail.EmailProperties;
 import com.openprice.parser.simple.SimpleParser;

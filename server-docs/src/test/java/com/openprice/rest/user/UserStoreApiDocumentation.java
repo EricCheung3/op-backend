@@ -22,7 +22,7 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 
 import com.jayway.jsonpath.JsonPath;
-import com.openprice.domain.account.UserAccount;
+import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.shopping.ShoppingItem;
 import com.openprice.domain.shopping.ShoppingItemRepository;
 import com.openprice.domain.store.Store;
