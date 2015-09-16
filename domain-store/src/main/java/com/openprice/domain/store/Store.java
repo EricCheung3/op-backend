@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 @SuppressWarnings("serial")
 @Entity
-@Table
+@Table( name="store" )
 public class Store extends BaseAuditableEntity {
 
     @Getter @Setter

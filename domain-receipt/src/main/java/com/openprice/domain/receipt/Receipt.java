@@ -30,7 +30,7 @@ import lombok.ToString;
 @ToString(callSuper=true, exclude={"user", "images"})
 @SuppressWarnings("serial")
 @Entity
-@Table
+@Table( name="receipt" )
 public class Receipt extends BaseAuditableEntity {
 
     @Getter @Setter
