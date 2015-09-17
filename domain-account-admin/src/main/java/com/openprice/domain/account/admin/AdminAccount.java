@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.account.AbstractAccount;
 
 import lombok.Getter;
@@ -64,6 +65,7 @@ public class AdminAccount extends AbstractAccount implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }

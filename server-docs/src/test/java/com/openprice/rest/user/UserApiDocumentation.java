@@ -47,7 +47,7 @@ public class UserApiDocumentation extends ApiDocumentationBase {
                 ),
                 responseFields(
                     fieldWithPath("id").description("Primary ID"),
-                    fieldWithPath("username").description("Unique login username"),
+                    fieldWithPath("username").description("Unique login username, same as user email"),
                     fieldWithPath("email").description("User email"),
                     fieldWithPath("roles").description("User security roles"),
                     fieldWithPath("accountLocked").description("Whether this user account is locked"),

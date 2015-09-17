@@ -1,0 +1,39 @@
+= OpenPrice RESTful API Guide for Admin API
+Yuan Ji;
+:doctype: book
+:toc:
+:sectanchors:
+:sectlinks:
+:toclevels: 4
+:source-highlighter: highlightjs
+
+[[overview]]
+= Overview
+
+This is the RESTful API documentation for OpenPrice Admin API, used by admin-ui application.
+
+[[resources-admin]]
+== Admin
+
+The Admin resource provides the entry point into the service
+of current logged in admin.
+
+
+[[resources-admin-access]]
+=== Accessing the `admin` resource
+
+A `GET` request is used to access the admin
+
+==== Response structure
+
+include::{snippets}/admin-example/response-fields.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-example/http-response.adoc[]
+
+
+[[resources-admin-links]]
+==== Links
+
+include::{snippets}/admin-example/links.adoc[]
