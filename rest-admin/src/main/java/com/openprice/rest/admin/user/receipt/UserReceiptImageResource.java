@@ -1,4 +1,4 @@
-package com.openprice.rest.admin.receipt;
+package com.openprice.rest.admin.user.receipt;
 
 import org.springframework.hateoas.Resource;
 

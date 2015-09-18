@@ -9,7 +9,7 @@ import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.response.Response;
 import com.openprice.rest.AbstractRestApiIntegrationTest;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.admin.user.UserProfileForm;
+import com.openprice.rest.admin.user.AdminUserProfileForm;
 
 @SpringApplicationConfiguration(classes = {AdminApiTestApplication.class})
 public abstract class AbstractAdminRestApiIntegrationTest extends AbstractRestApiIntegrationTest {
@@ -34,8 +34,8 @@ public abstract class AbstractAdminRestApiIntegrationTest extends AbstractRestAp
         return UriTemplate.fromTemplate(userLink).set("userId", userId).expand();
     }
 
-    protected UserProfileForm constructUserProfileFormByProfileResource(final Response response) {
-        final UserProfileForm form = new UserProfileForm();
+    protected AdminUserProfileForm constructUserProfileFormByProfileResource(final Response response) {
+        final AdminUserProfileForm form = new AdminUserProfileForm();
         form.setFirstName(response.then().extract().path("firstName"));
         form.setMiddleName(response.then().extract().path("middleName"));
         form.setLastName(response.then().extract().path("lastName"));

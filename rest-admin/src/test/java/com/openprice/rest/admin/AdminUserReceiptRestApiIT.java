@@ -12,7 +12,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 
-public class UserReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
+public class AdminUserReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
 
     @Value("classpath:/data/sample1.txt")
     private Resource sampleReceipt1;

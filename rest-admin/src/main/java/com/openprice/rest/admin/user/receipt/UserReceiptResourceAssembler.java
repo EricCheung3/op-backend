@@ -1,4 +1,4 @@
-package com.openprice.rest.admin.receipt;
+package com.openprice.rest.admin.user.receipt;
 
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;

@@ -30,17 +30,17 @@ import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.AbstractUserAdminRestController;
 import com.openprice.rest.admin.AdminApiUrls;
 
-@RestController("admin_UserAccountRestController")
-public class UserAccountRestController extends AbstractUserAdminRestController {
+@RestController
+public class AdminUserAccountRestController extends AbstractUserAdminRestController {
     private final UserProfileRepository userProfileRepository;
-    private final UserAccountResourceAssembler userResourceAssembler;
+    private final AdminUserAccountResourceAssembler userResourceAssembler;
 
     @Inject
-    public UserAccountRestController(final AdminAccountService adminAccountService,
+    public AdminUserAccountRestController(final AdminAccountService adminAccountService,
                                      final UserAccountService userAccountService,
                                      final UserAccountRepository userAccountRepository,
                                      final UserProfileRepository userProfileRepository,
-                                     final UserAccountResourceAssembler userResourceAssembler) {
+                                     final AdminUserAccountResourceAssembler userResourceAssembler) {
         super(adminAccountService, userAccountService, userAccountRepository);
         this.userProfileRepository = userProfileRepository;
         this.userResourceAssembler = userResourceAssembler;
@@ -48,7 +48,7 @@ public class UserAccountRestController extends AbstractUserAdminRestController {
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS)
     @Transactional(readOnly=true)
-    public HttpEntity<PagedResources<UserAccountResource>> getUserAccounts(
+    public HttpEntity<PagedResources<AdminUserAccountResource>> getUserAccounts(
             @PageableDefault(size = UtilConstants.DEFAULT_RETURN_RECORD_COUNT, page = 0,
                              sort="createdTime", direction=Direction.DESC) final Pageable pageable,
             final PagedResourcesAssembler<UserAccount> assembler) {
@@ -59,7 +59,7 @@ public class UserAccountRestController extends AbstractUserAdminRestController {
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER)
     @Transactional(readOnly=true)
-    public HttpEntity<UserAccountResource> getUserAccountByUserId(@PathVariable("userId") final String userId)
+    public HttpEntity<AdminUserAccountResource> getUserAccountByUserId(@PathVariable("userId") final String userId)
             throws ResourceNotFoundException {
         final UserAccount userAccount = getUserByUserId(userId);
         return ResponseEntity.ok(userResourceAssembler.toResource(userAccount));
@@ -83,17 +83,17 @@ public class UserAccountRestController extends AbstractUserAdminRestController {
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_PROFILE)
     @Transactional(readOnly=true)
-    public HttpEntity<UserProfileResource> getUserProfile(@PathVariable("userId") final String userId) {
+    public HttpEntity<AdminUserProfileResource> getUserProfile(@PathVariable("userId") final String userId) {
         final UserAccount user = getUserByUserId(userId);
         final UserProfile profile = user.getProfile();
 
-        return ResponseEntity.ok(new UserProfileResource(profile));
+        return ResponseEntity.ok(new AdminUserProfileResource(profile));
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = AdminApiUrls.URL_ADMIN_USERS_USER_PROFILE)
     @Transactional
     public HttpEntity<Void> updateUserProfile(@PathVariable("userId") final String userId,
-                                              @RequestBody final UserProfileForm profileForm) {
+                                              @RequestBody final AdminUserProfileForm profileForm) {
         final UserAccount user = getUserByUserId(userId);
         final UserProfile profile = user.getProfile();
         profileForm.updateProfile(profile);

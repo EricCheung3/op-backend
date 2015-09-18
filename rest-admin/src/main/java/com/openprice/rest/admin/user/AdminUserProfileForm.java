@@ -6,7 +6,7 @@ import com.openprice.domain.common.Address;
 import lombok.Getter;
 import lombok.Setter;
 
-public class UserProfileForm {
+public class AdminUserProfileForm {
 
     @Getter @Setter
     private String firstName;
@@ -38,11 +38,11 @@ public class UserProfileForm {
     @Getter @Setter
     private String country;
 
-    public UserProfileForm() {
+    public AdminUserProfileForm() {
 
     }
 
-    public UserProfileForm(UserProfile profile) {
+    public AdminUserProfileForm(UserProfile profile) {
         firstName = profile.getFirstName();
         middleName = profile.getMiddleName();
         lastName = profile.getLastName();

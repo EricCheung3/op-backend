@@ -15,10 +15,10 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
-import com.openprice.rest.admin.user.UserAccountResource;
-import com.openprice.rest.admin.user.UserProfileForm;
+import com.openprice.rest.admin.user.AdminUserAccountResource;
+import com.openprice.rest.admin.user.AdminUserProfileForm;
 
-public class UserRestApiIT extends AbstractAdminRestApiIntegrationTest {
+public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
 
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
@@ -66,9 +66,9 @@ public class UserRestApiIT extends AbstractAdminRestApiIntegrationTest {
             .body("profile.lastName", equalTo("Doe"))
             .body("profile.address.address1", equalTo("101 123 street"))
             .body("_links.self.href", equalTo(userUrl))
-            .body("_links.lockState.href", endsWith(UserAccountResource.LINK_NAME_LOCK_STATE))
-            .body("_links.profile.href", endsWith(UserAccountResource.LINK_NAME_PROFILE))
-            .body("_links.receipts.href", endsWith(UserAccountResource.LINK_NAME_RECEIPTS))
+            .body("_links.lockState.href", endsWith(AdminUserAccountResource.LINK_NAME_LOCK_STATE))
+            .body("_links.profile.href", endsWith(AdminUserAccountResource.LINK_NAME_PROFILE))
+            .body("_links.receipts.href", endsWith(AdminUserAccountResource.LINK_NAME_RECEIPTS))
         ;
     }
 
@@ -135,7 +135,7 @@ public class UserRestApiIT extends AbstractAdminRestApiIntegrationTest {
                 .body("address.city", equalTo("Edmonton"))
             ;
 
-        UserProfileForm form = constructUserProfileFormByProfileResource(response);
+        AdminUserProfileForm form = constructUserProfileFormByProfileResource(response);
         form.setAddress1("888 Broadway Ave");
         form.setCity("Calgary");
 

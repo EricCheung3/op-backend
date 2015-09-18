@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.openprice.domain.account.admin.AdminAccount;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.admin.user.UserAccountRestController;
+import com.openprice.rest.admin.user.AdminUserAccountRestController;
 
 @Component
 public class AdminAccountResourceAssembler implements ResourceAssembler<AdminAccount, AdminAccountResource> {
@@ -22,7 +22,7 @@ public class AdminAccountResourceAssembler implements ResourceAssembler<AdminAcc
 
         resource.add(linkTo(methodOn(AdminAccountRestController.class).getAdminAccount()).withSelfRel());
 
-        resource.add(linkTo(methodOn(UserAccountRestController.class).getUserAccounts(null, null))
+        resource.add(linkTo(methodOn(AdminUserAccountRestController.class).getUserAccounts(null, null))
                 .withRel(AdminAccountResource.LINK_NAME_USERS));
 
         // Hack solution to build template links.

@@ -4,9 +4,9 @@ import org.springframework.hateoas.Resource;
 
 import com.openprice.domain.account.user.UserProfile;
 
-public class UserProfileResource extends Resource<UserProfile> {
+public class AdminUserProfileResource extends Resource<UserProfile> {
 
-    public UserProfileResource(final UserProfile profile) {
+    public AdminUserProfileResource(final UserProfile profile) {
         super(profile);
     }
 }
