@@ -29,8 +29,8 @@ public class AdminUserReceiptRestApiIT extends AbstractAdminRestApiIntegrationTe
 
         // get receipts link
         String receiptsUrl = given().filter(sessionFilter)
-                                     .when().get(userUrl)
-                                     .then().extract().path("_links.receipts.href");
+                                    .when().get(userUrl)
+                                    .then().extract().path("_links.receipts.href");
 
         given()
             .filter(sessionFilter)

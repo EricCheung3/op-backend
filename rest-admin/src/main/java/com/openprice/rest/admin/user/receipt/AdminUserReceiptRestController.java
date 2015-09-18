@@ -35,24 +35,24 @@ import com.openprice.rest.admin.AdminApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
-@RestController("admin_UserReceiptRestController")
+@RestController
 @Slf4j
-public class UserReceiptRestController extends AbstractUserAdminRestController {
+public class AdminUserReceiptRestController extends AbstractUserAdminRestController {
     private final ReceiptRepository receiptRepository;
     private final ReceiptImageRepository receiptImageRepository;
     private final ReceiptService receiptService;
-    private final UserReceiptResourceAssembler receiptResourceAssembler;
-    private final UserReceiptImageResourceAssembler receiptImageResourceAssembler;
+    private final AdminUserReceiptResourceAssembler receiptResourceAssembler;
+    private final AdminUserReceiptImageResourceAssembler receiptImageResourceAssembler;
 
     @Inject
-    public UserReceiptRestController(final AdminAccountService adminAccountService,
+    public AdminUserReceiptRestController(final AdminAccountService adminAccountService,
                                      final UserAccountService userAccountService,
                                      final UserAccountRepository userAccountRepository,
                                      final ReceiptRepository receiptRepository,
                                      final ReceiptImageRepository receiptImageRepository,
                                      final ReceiptService receiptService,
-                                     final UserReceiptResourceAssembler receiptResourceAssembler,
-                                     final UserReceiptImageResourceAssembler receiptImageResourceAssembler) {
+                                     final AdminUserReceiptResourceAssembler receiptResourceAssembler,
+                                     final AdminUserReceiptImageResourceAssembler receiptImageResourceAssembler) {
         super(adminAccountService, userAccountService, userAccountRepository);
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
@@ -62,7 +62,7 @@ public class UserReceiptRestController extends AbstractUserAdminRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS)
-    public HttpEntity<PagedResources<UserReceiptResource>> getUserReceipts(
+    public HttpEntity<PagedResources<AdminUserReceiptResource>> getUserReceipts(
             @PathVariable("userId") final String userId,
             @PageableDefault(size = UtilConstants.DEFAULT_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<Receipt> assembler) {
@@ -74,7 +74,7 @@ public class UserReceiptRestController extends AbstractUserAdminRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT)
-    public HttpEntity<UserReceiptResource> getUserReceiptById(@PathVariable("userId") final String userId,
+    public HttpEntity<AdminUserReceiptResource> getUserReceiptById(@PathVariable("userId") final String userId,
                                                               @PathVariable("receiptId") final String receiptId)
             throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(userId, receiptId);
@@ -83,7 +83,7 @@ public class UserReceiptRestController extends AbstractUserAdminRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_IMAGES)
-    public HttpEntity<PagedResources<UserReceiptImageResource>> getUserReceiptImages(
+    public HttpEntity<PagedResources<AdminUserReceiptImageResource>> getUserReceiptImages(
             @PathVariable("userId") final String userId,
             @PathVariable("receiptId") final String receiptId,
             @PageableDefault(size = UtilConstants.MAX_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
@@ -94,7 +94,7 @@ public class UserReceiptRestController extends AbstractUserAdminRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE)
-    public HttpEntity<UserReceiptImageResource> getUserReceiptImageById(
+    public HttpEntity<AdminUserReceiptImageResource> getUserReceiptImageById(
             @PathVariable("userId") final String userId,
             @PathVariable("receiptId") final String receiptId,
             @PathVariable("imageId") final String imageId)

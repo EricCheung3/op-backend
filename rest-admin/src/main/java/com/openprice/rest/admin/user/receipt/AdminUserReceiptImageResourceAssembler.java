@@ -9,24 +9,24 @@ import org.springframework.stereotype.Component;
 
 import com.openprice.domain.receipt.ReceiptImage;
 
-@Component("admin_UserReceiptImageResourceAssembler")
-public class UserReceiptImageResourceAssembler implements ResourceAssembler<ReceiptImage, UserReceiptImageResource> {
+@Component
+public class AdminUserReceiptImageResourceAssembler implements ResourceAssembler<ReceiptImage, AdminUserReceiptImageResource> {
 
     @Override
-    public UserReceiptImageResource toResource(final ReceiptImage receiptImage) {
-        final UserReceiptImageResource resource = new UserReceiptImageResource(receiptImage);
+    public AdminUserReceiptImageResource toResource(final ReceiptImage receiptImage) {
+        final AdminUserReceiptImageResource resource = new AdminUserReceiptImageResource(receiptImage);
 
-        resource.add(linkTo(methodOn(UserReceiptRestController.class)
+        resource.add(linkTo(methodOn(AdminUserReceiptRestController.class)
                                     .getUserReceiptImageById(receiptImage.getReceipt().getUser().getId(),
                                                              receiptImage.getReceipt().getId(),
                                                              receiptImage.getId()))
                 .withSelfRel());
 
-        resource.add(linkTo(methodOn(UserReceiptRestController.class)
+        resource.add(linkTo(methodOn(AdminUserReceiptRestController.class)
                                     .downloadUserReceiptImage(receiptImage.getReceipt().getUser().getId(),
                                                               receiptImage.getReceipt().getId(),
                                                               receiptImage.getId()))
-                .withRel(UserReceiptImageResource.LINK_NAME_DOWNLOAD));
+                .withRel(AdminUserReceiptImageResource.LINK_NAME_DOWNLOAD));
 
         return resource;
     }

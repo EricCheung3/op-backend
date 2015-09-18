@@ -12,10 +12,6 @@ public class AdminUserAccountResource extends Resource<UserAccount> {
     public static final String LINK_NAME_PROFILE = "profile";
     public static final String LINK_NAME_RECEIPTS = "receipts";
     public static final String LINK_NAME_RECEIPT = "receipt";
-    //public static final String LINK_NAME_STORES = "stores";
-    //public static final String LINK_NAME_STORE = "store";
-    //public static final String LINK_NAME_UPLOAD = "upload";
-    //public static final String LINK_NAME_SHOPPING_LIST = "shoppingList";
 
     @Getter @Setter
     private AdminUserProfileResource profile;
