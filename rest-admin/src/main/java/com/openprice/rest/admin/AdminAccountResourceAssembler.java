@@ -25,8 +25,9 @@ public class AdminAccountResourceAssembler implements ResourceAssembler<AdminAcc
         resource.add(linkTo(methodOn(UserAccountRestController.class).getUserAccounts(null, null))
                 .withRel(AdminAccountResource.LINK_NAME_USERS));
 
+        // Hack solution to build template links.
+        // Monitor https://github.com/spring-projects/spring-hateoas/issues/169 for nice solution from Spring HATEOAS
         final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();
-
         final Link userLink = new Link(
                 new UriTemplate(baseUri + UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_USERS_USER),
                 AdminAccountResource.LINK_NAME_USER);

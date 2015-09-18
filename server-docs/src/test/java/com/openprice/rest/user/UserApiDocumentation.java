@@ -31,53 +31,53 @@ public class UserApiDocumentation extends ApiDocumentationBase {
     public void currentUserExample() throws Exception {
 
         mockMvc
-            .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER).with(user(USERNAME)))
-            .andExpect(status().isOk())
-            .andDo(document("user-example",
-                preprocessResponse(prettyPrint()),
-                links(
-                    linkWithRel("self").description("The self link"),
-                    linkWithRel("profile").description("The <<resources-user-profile,Profile resource>>"),
-                    linkWithRel("receipts").description("The <<resources-user-receipts,Receipts resource>>"),
-                    linkWithRel("receipt").description("The <<resources-user-receipt,Receipt resource>>"),
-                    linkWithRel("shoppingList").description("The <<resources-user-shoppinglist,ShoppingList resource>>"),
-                    linkWithRel("stores").description("The <<resources-user-stores,Stores resource>>"),
-                    linkWithRel("store").description("The <<resources-user-store,Store resource>>"),
-                    linkWithRel("upload").description("The <<resources-user-receipt-upload,Upload New Receipt resource>>")
-                ),
-                responseFields(
-                    fieldWithPath("id").description("Primary ID"),
-                    fieldWithPath("username").description("Unique login username, same as user email"),
-                    fieldWithPath("email").description("User email"),
-                    fieldWithPath("roles").description("User security roles"),
-                    fieldWithPath("accountLocked").description("Whether this user account is locked"),
-                    fieldWithPath("trustedAccount").description("Whether this user account is trusted"),
-                    fieldWithPath("activated").description("Whether this user account is activated"),
-                    fieldWithPath("profile").description("User profile data"),
-                    fieldWithPath("_links").description("<<resources-user-links,Links>> to other resources")
-                )
-            ));
+        .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER).with(user(USERNAME)))
+        .andExpect(status().isOk())
+        .andDo(document("user-example",
+            preprocessResponse(prettyPrint()),
+            links(
+                linkWithRel("self").description("The self link"),
+                linkWithRel("profile").description("The <<resources-user-profile,Profile resource>>"),
+                linkWithRel("receipts").description("The <<resources-user-receipts,Receipts resource>>"),
+                linkWithRel("receipt").description("The <<resources-user-receipt,Receipt resource>>"),
+                linkWithRel("shoppingList").description("The <<resources-user-shoppinglist,ShoppingList resource>>"),
+                linkWithRel("stores").description("The <<resources-user-stores,Stores resource>>"),
+                linkWithRel("store").description("The <<resources-user-store,Store resource>>"),
+                linkWithRel("upload").description("The <<resources-user-receipt-upload,Upload New Receipt resource>>")
+            ),
+            responseFields(
+                fieldWithPath("id").description("Primary ID"),
+                fieldWithPath("username").description("Unique login username, same as user email"),
+                fieldWithPath("email").description("User email"),
+                fieldWithPath("roles").description("User security roles"),
+                fieldWithPath("accountLocked").description("Whether this user account is locked"),
+                fieldWithPath("trustedAccount").description("Whether this user account is trusted"),
+                fieldWithPath("activated").description("Whether this user account is activated"),
+                fieldWithPath("profile").description("User profile data"),
+                fieldWithPath("_links").description("<<resources-user-links,Links>> to other resources")
+            )
+        ));
     }
 
     @Test
     public void profileExample() throws Exception {
 
         mockMvc
-            .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER_PROFILE).with(user(USERNAME)))
-            .andExpect(status().isOk())
-            .andDo(document("user-profile-retrieve-example",
-                preprocessResponse(prettyPrint()),
-                links(),
-                responseFields(
-                    fieldWithPath("id").description("Primary ID"),
-                    fieldWithPath("firstName").description("User first name"),
-                    fieldWithPath("middleName").description("User middle name"),
-                    fieldWithPath("lastName").description("User last name"),
-                    fieldWithPath("phone").description("User phone number"),
-                    fieldWithPath("address").description("User address"),
-                    fieldWithPath("displayName").description("User display name")
-                )
-            ));
+        .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER_PROFILE).with(user(USERNAME)))
+        .andExpect(status().isOk())
+        .andDo(document("user-profile-retrieve-example",
+            preprocessResponse(prettyPrint()),
+            links(),
+            responseFields(
+                fieldWithPath("id").description("Primary ID"),
+                fieldWithPath("firstName").description("User first name"),
+                fieldWithPath("middleName").description("User middle name"),
+                fieldWithPath("lastName").description("User last name"),
+                fieldWithPath("phone").description("User phone number"),
+                fieldWithPath("address").description("User address"),
+                fieldWithPath("displayName").description("User display name")
+            )
+        ));
     }
 
     @Test
@@ -88,29 +88,29 @@ public class UserApiDocumentation extends ApiDocumentationBase {
         form.setFirstName("Jonny");
 
         mockMvc
-            .perform(
-                put(UtilConstants.API_ROOT + UserApiUrls.URL_USER_PROFILE)
-                .with(user(USERNAME))
-                .with(csrf())
-                .contentType(MediaTypes.HAL_JSON)
-                .content(objectMapper.writeValueAsString(form))
+        .perform(
+            put(UtilConstants.API_ROOT + UserApiUrls.URL_USER_PROFILE)
+            .with(user(USERNAME))
+            .with(csrf())
+            .contentType(MediaTypes.HAL_JSON)
+            .content(objectMapper.writeValueAsString(form))
+        )
+        .andExpect(status().isNoContent())
+        .andDo(document("user-profile-update-example",
+            preprocessRequest(prettyPrint()),
+            requestFields(
+                fieldWithPath("firstName").description("User first name"),
+                fieldWithPath("middleName").description("User middle name"),
+                fieldWithPath("lastName").description("User last name"),
+                fieldWithPath("phone").description("User phone number"),
+                fieldWithPath("address1").description("User address line 1"),
+                fieldWithPath("address2").description("User address line 2"),
+                fieldWithPath("city").description("User address city"),
+                fieldWithPath("state").description("User address state"),
+                fieldWithPath("zip").description("User address zip code"),
+                fieldWithPath("country").description("User address country")
             )
-            .andExpect(status().isNoContent())
-            .andDo(document("user-profile-update-example",
-                preprocessRequest(prettyPrint()),
-                requestFields(
-                    fieldWithPath("firstName").description("User first name"),
-                    fieldWithPath("middleName").description("User middle name"),
-                    fieldWithPath("lastName").description("User last name"),
-                    fieldWithPath("phone").description("User phone number"),
-                    fieldWithPath("address1").description("User address line 1"),
-                    fieldWithPath("address2").description("User address line 2"),
-                    fieldWithPath("city").description("User address city"),
-                    fieldWithPath("state").description("User address state"),
-                    fieldWithPath("zip").description("User address zip code"),
-                    fieldWithPath("country").description("User address country")
-                )
-            ));
+        ));
     }
 
     @Override

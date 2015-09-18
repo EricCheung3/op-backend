@@ -42,52 +42,52 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
     public void storeExample() throws Exception {
         String responseContent =
             mockMvc
-                .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER).with(user(USERNAME)))
-                .andExpect(status().isOk())
-                .andReturn().getResponse()
-                .getContentAsString();
+            .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
         String storesLink = JsonPath.read(responseContent, "_links.stores.href");
 
         mockMvc
-            .perform(get(storesLink).with(user(USERNAME)))
-            .andExpect(status().isOk())
-            .andDo(document("user-store-list-example",
-                preprocessResponse(prettyPrint()),
-                links(
-                    linkWithRel("self").description("The self link")
-                ),
-                responseFields(
-                    fieldWithPath("_embedded.stores").description("An array of <<resources-user-store,Store resources>>"),
-                    fieldWithPath("page").description("Pagination data"),
-                    fieldWithPath("_links").description("<<resources-user-store-list-links,Links>> to other resources")
-                )
-            ));
+        .perform(get(storesLink).with(user(USERNAME)))
+        .andExpect(status().isOk())
+        .andDo(document("user-store-list-example",
+            preprocessResponse(prettyPrint()),
+            links(
+                linkWithRel("self").description("The self link")
+            ),
+            responseFields(
+                fieldWithPath("_embedded.stores").description("An array of <<resources-user-store,Store resources>>"),
+                fieldWithPath("page").description("Pagination data"),
+                fieldWithPath("_links").description("<<resources-user-store-list-links,Links>> to other resources")
+            )
+        ));
 
         responseContent =
             mockMvc
-                .perform(get(storesLink).with(user(USERNAME)))
-                .andExpect(status().isOk())
-                .andReturn().getResponse()
-                .getContentAsString();
+            .perform(get(storesLink).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
         String storeLink = JsonPath.read(responseContent, "_embedded.stores[0]._links.self.href");
 
         mockMvc
-            .perform(get(storeLink).with(user(USERNAME)))
-            .andExpect(status().isOk())
-            .andDo(document("user-store-retrieve-example",
-                preprocessResponse(prettyPrint()),
-                links(
-                    linkWithRel("self").description("The self link"),
-                    linkWithRel("user").description("The user link"),
-                    linkWithRel("items").description("The <<resources-user-store-items,Shopping Items>> link"),
-                    linkWithRel("item").description("The <<resources-user-store-item,Shopping Item>> link")
-                ),
-                responseFields(
-                    fieldWithPath("id").description("Primary ID"),
-                    fieldWithPath("name").description("Store name"),
-                    fieldWithPath("_links").description("<<resources-user-store-retrieve-links,Links>> to other resources")
-                )
-            ));
+        .perform(get(storeLink).with(user(USERNAME)))
+        .andExpect(status().isOk())
+        .andDo(document("user-store-retrieve-example",
+            preprocessResponse(prettyPrint()),
+            links(
+                linkWithRel("self").description("The self link"),
+                linkWithRel("user").description("The user link"),
+                linkWithRel("items").description("The <<resources-user-store-items,Shopping Items>> link"),
+                linkWithRel("item").description("The <<resources-user-store-item,Shopping Item>> link")
+            ),
+            responseFields(
+                fieldWithPath("id").description("Primary ID"),
+                fieldWithPath("name").description("Store name"),
+                fieldWithPath("_links").description("<<resources-user-store-retrieve-links,Links>> to other resources")
+            )
+        ));
 
     }
 
@@ -95,18 +95,18 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
     public void uploadShoppingListExample() throws Exception {
         String responseContent =
             mockMvc
-                .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER).with(user(USERNAME)))
-                .andExpect(status().isOk())
-                .andReturn().getResponse()
-                .getContentAsString();
+            .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
         String shoppinglistLink = JsonPath.read(responseContent, "_links.shoppingList.href");
         String storesLink = JsonPath.read(responseContent, "_links.stores.href");
         responseContent =
             mockMvc
-                .perform(get(storesLink).with(user(USERNAME)))
-                .andExpect(status().isOk())
-                .andReturn().getResponse()
-                .getContentAsString();
+            .perform(get(storesLink).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
         String storeId = JsonPath.read(responseContent, "_embedded.stores[0].id");
 
         ShoppingListForm form = new ShoppingListForm();
@@ -115,20 +115,20 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
         form.getItems().add(new ShoppingListForm.Item("eggs", "1.99"));
 
         mockMvc
-            .perform(
-                post(shoppinglistLink)
-                .with(user(USERNAME))
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(form))
+        .perform(
+            post(shoppinglistLink)
+            .with(user(USERNAME))
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(this.objectMapper.writeValueAsString(form))
+        )
+        .andExpect(status().isCreated())
+        .andDo(document("user-shoppinglist-upload-example",
+            preprocessRequest(prettyPrint()),
+            requestFields(
+                fieldWithPath("storeId").description("The id of the store for shopping list."),
+                fieldWithPath("items").description("The shopping list items array.")
             )
-            .andExpect(status().isCreated())
-            .andDo(document("user-shoppinglist-upload-example",
-                preprocessRequest(prettyPrint()),
-                requestFields(
-                    fieldWithPath("storeId").description("The id of the store for shopping list."),
-                    fieldWithPath("items").description("The shopping list items array.")
-                )
-            ));
+        ));
 
         deleteShoppingItems();
     }
@@ -139,65 +139,65 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
 
         String responseContent =
             mockMvc
-                .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER).with(user(USERNAME)))
-                .andExpect(status().isOk())
-                .andReturn().getResponse()
-                .getContentAsString();
+            .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
         String storesLink = JsonPath.read(responseContent, "_links.stores.href");
         responseContent =
             mockMvc
-                .perform(get(storesLink).with(user(USERNAME)))
-                .andExpect(status().isOk())
-                .andReturn().getResponse()
-                .getContentAsString();
+            .perform(get(storesLink).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
         String storeLink = JsonPath.read(responseContent, "_embedded.stores[0]._links.self.href");
         responseContent =
             mockMvc
-                .perform(get(storeLink).with(user(USERNAME)))
-                .andExpect(status().isOk())
-                .andReturn().getResponse()
-                .getContentAsString();
+            .perform(get(storeLink).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
         String itemsLink = JsonPath.read(responseContent, "_links.items.href");
         responseContent =
             mockMvc
-                .perform(get(itemsLink).with(user(USERNAME)))
-                .andExpect(status().isOk())
-                .andReturn().getResponse()
-                .getContentAsString();
+            .perform(get(itemsLink).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
         String itemLink = JsonPath.read(responseContent, "_embedded.shoppingItems[0]._links.self.href");
 
         mockMvc
-            .perform(get(itemsLink).with(user(USERNAME)))
-            .andExpect(status().isOk())
-            .andDo(document("user-store-item-list-example",
-                preprocessResponse(prettyPrint()),
-                links(
-                    linkWithRel("self").description("The self link")
-                ),
-                responseFields(
-                    fieldWithPath("_embedded.shoppingItems").description("An array of <<resources-user-store-item,Shopping Item resources>>"),
-                    fieldWithPath("page").description("Pagination data"),
-                    fieldWithPath("_links").description("<<resources-user-store-item-list-links,Links>> to other resources")
-                )
-            ));
+        .perform(get(itemsLink).with(user(USERNAME)))
+        .andExpect(status().isOk())
+        .andDo(document("user-store-item-list-example",
+            preprocessResponse(prettyPrint()),
+            links(
+                linkWithRel("self").description("The self link")
+            ),
+            responseFields(
+                fieldWithPath("_embedded.shoppingItems").description("An array of <<resources-user-store-item,Shopping Item resources>>"),
+                fieldWithPath("page").description("Pagination data"),
+                fieldWithPath("_links").description("<<resources-user-store-item-list-links,Links>> to other resources")
+            )
+        ));
 
         mockMvc
-            .perform(get(itemLink).with(user(USERNAME)))
-            .andExpect(status().isOk())
-            .andDo(document("user-store-item-retrieve-example",
-                preprocessResponse(prettyPrint()),
-                links(
-                    linkWithRel("self").description("The self link."),
-                    linkWithRel("user").description("<<resources-user,Link>> to shopping list item owner."),
-                    linkWithRel("store").description("<<resources-user-store, Link>> to the store this item belong to.")
-                ),
-                responseFields(
-                    fieldWithPath("id").description("Primary ID"),
-                    fieldWithPath("itemName").description("Shopping Item name"),
-                    fieldWithPath("itemPrice").description("Shopping Item price"),
-                    fieldWithPath("_links").description("<<resources-user-store-item-retrieve-links,Links>> to other resources")
-                )
-            ));
+        .perform(get(itemLink).with(user(USERNAME)))
+        .andExpect(status().isOk())
+        .andDo(document("user-store-item-retrieve-example",
+            preprocessResponse(prettyPrint()),
+            links(
+                linkWithRel("self").description("The self link."),
+                linkWithRel("user").description("<<resources-user,Link>> to shopping list item owner."),
+                linkWithRel("store").description("<<resources-user-store, Link>> to the store this item belong to.")
+            ),
+            responseFields(
+                fieldWithPath("id").description("Primary ID"),
+                fieldWithPath("itemName").description("Shopping Item name"),
+                fieldWithPath("itemPrice").description("Shopping Item price"),
+                fieldWithPath("_links").description("<<resources-user-store-item-retrieve-links,Links>> to other resources")
+            )
+        ));
 
         deleteShoppingItems();
     }

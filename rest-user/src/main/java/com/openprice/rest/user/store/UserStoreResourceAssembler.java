@@ -29,7 +29,7 @@ public class UserStoreResourceAssembler implements ResourceAssembler<Store, User
         resource.add(linkTo(methodOn(ShoppingItemRestController.class).getStoreShoppingItems(store.getId(), null, null))
                 .withRel(UserStoreResource.LINK_NAME_ITEMS));
 
-        // Hack solution to build template links for "item".
+        // Hack solution to build template links.
         // Monitor https://github.com/spring-projects/spring-hateoas/issues/169 for nice solution from Spring HATEOAS
         final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();
         final Link itemLink = new Link(
