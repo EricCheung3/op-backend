@@ -162,3 +162,137 @@ include::{snippets}/admin-user-profile-update-example/curl-request.adoc[]
 ==== Example response
 
 include::{snippets}/admin-user-profile-update-example/http-response.adoc[]
+
+
+
+[[resources-admin-user-receipts]]
+== Admin User Receipts Resource
+
+Admin User Receipts resource is used to list admin-managed user receipts.
+
+[[resources-admin-user-receipt-list]]
+=== Listing admin user receipts
+
+A `GET` request will list all of the admin-manged user's receipts.
+
+==== Response structure
+
+include::{snippets}/admin-user-receipt-list-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-user-receipt-list-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-user-receipt-list-example/http-response.adoc[]
+
+
+[[resources-user-receipt-list-links]]
+==== Links
+
+include::{snippets}/admin-user-receipt-list-example/links.adoc[]
+
+
+
+[[resources-admin-user-receipt]]
+== Admin User Receipt Resource
+
+Resource for a single admin-managed user uploaded receipt, may contain one or more images.
+
+[[resources-admin-user-receipt-retrieve]]
+=== Get admin-managed user receipt
+
+A `GET` request is used to retrieve user receipt
+
+==== Response structure
+
+include::{snippets}/admin-user-receipt-retrieve-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-user-receipt-retrieve-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-user-receipt-retrieve-example/http-response.adoc[]
+
+[[resources-admin-user-receipt-links]]
+==== Links
+
+include::{snippets}/admin-user-receipt-retrieve-example/links.adoc[]
+
+
+
+[[resources-admin-user-receipt-delete]]
+=== Delete admin-managed user receipt
+
+A `DELETE` request is used to delete admin-managed user receipt,
+it will delete all images with this receipt.
+
+==== Example request
+
+include::{snippets}/admin-user-receipt-delete-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-user-receipt-delete-example/http-response.adoc[]
+
+
+
+[[resources-admin-user-receipt-images]]
+== Admin User Receipt Images
+
+Admin User Receipt Images resource is used to manage list of images belonging to one receipt.
+
+
+[[resources-admin-user-receipt-image-list]]
+=== List Admin User Receipt Images
+
+A `GET` request will list all of the images from a specific receipt.
+
+==== Response structure
+
+include::{snippets}/admin-user-receipt-image-list-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-user-receipt-image-list-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-user-receipt-image-list-example/http-response.adoc[]
+
+[[resources-user-receipt-image-list-links]]
+==== Links
+
+include::{snippets}/admin-user-receipt-image-list-example/links.adoc[]
+
+
+
+[[resources-admin-user-receipt-image]]
+== Admin User Receipt Image
+
+Admin User Receipt Image resource is to manage one image of specific receipt.
+
+[[resources-admin-user-receipt-image-retrieve]]
+=== Get admin-managed user receipt image
+
+A `GET` request is used to retrieve a receipt image data for existing receipt
+
+==== Response structure
+
+include::{snippets}/admin-user-receipt-image-retrieve-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-user-receipt-image-retrieve-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-user-receipt-image-retrieve-example/http-response.adoc[]
+
+[[resources-user-receipt-image-links]]
+==== Links
+
+include::{snippets}/admin-user-receipt-image-retrieve-example/links.adoc[]

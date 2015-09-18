@@ -378,6 +378,7 @@ include::{snippets}/user-receipt-image-retrieve-example/http-response.adoc[]
 include::{snippets}/user-receipt-image-retrieve-example/links.adoc[]
 
 
+
 [[resources-user-receipt-items]]
 == User Receipt Items
 

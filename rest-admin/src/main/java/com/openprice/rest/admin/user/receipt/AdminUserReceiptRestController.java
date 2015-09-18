@@ -75,11 +75,19 @@ public class AdminUserReceiptRestController extends AbstractUserAdminRestControl
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT)
     public HttpEntity<AdminUserReceiptResource> getUserReceiptById(@PathVariable("userId") final String userId,
-                                                              @PathVariable("receiptId") final String receiptId)
+                                                                   @PathVariable("receiptId") final String receiptId)
             throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(userId, receiptId);
         return ResponseEntity.ok(receiptResourceAssembler.toResource(receipt));
+    }
 
+    @RequestMapping(method = RequestMethod.DELETE, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT)
+    public HttpEntity<Void> deleteReceiptById(@PathVariable("userId") final String userId,
+                                              @PathVariable("receiptId") final String receiptId)
+            throws ResourceNotFoundException {
+        final Receipt receipt = getReceiptByIdAndCheckUser(userId, receiptId);
+        receiptRepository.delete(receipt);
+        return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_IMAGES)

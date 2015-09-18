@@ -25,11 +25,10 @@ import org.springframework.http.MediaType;
 import com.jayway.jsonpath.JsonPath;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserProfile;
-import com.openprice.rest.ApiDocumentationBase;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.user.UserProfileForm;
 
-public class AdminUserApiDocumentation extends ApiDocumentationBase {
+public class AdminUserApiDocumentation extends AdminApiDocumentationBase {
 
     @Test
     public void adminUsersExample() throws Exception {

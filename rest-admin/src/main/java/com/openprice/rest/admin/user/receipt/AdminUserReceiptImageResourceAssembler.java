@@ -23,6 +23,11 @@ public class AdminUserReceiptImageResourceAssembler implements ResourceAssembler
                 .withSelfRel());
 
         resource.add(linkTo(methodOn(AdminUserReceiptRestController.class)
+                                    .getUserReceiptById(receiptImage.getReceipt().getUser().getId(),
+                                         receiptImage.getReceipt().getId()))
+                .withRel(AdminUserReceiptImageResource.LINK_NAME_RECEIPT));
+
+        resource.add(linkTo(methodOn(AdminUserReceiptRestController.class)
                                     .downloadUserReceiptImage(receiptImage.getReceipt().getUser().getId(),
                                                               receiptImage.getReceipt().getId(),
                                                               receiptImage.getId()))

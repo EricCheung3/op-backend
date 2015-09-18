@@ -19,9 +19,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openprice.OpenPriceAPIDocsApplication;
-import com.openprice.domain.account.admin.AdminAccount;
-import com.openprice.domain.account.admin.AdminAccountRepository;
-import com.openprice.domain.account.admin.AdminAccountService;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.domain.account.user.UserAccountService;
@@ -37,7 +34,6 @@ import com.openprice.domain.receipt.ReceiptService;
 @ActiveProfiles("dev")
 public abstract class ApiDocumentationBase {
 
-    public static final String ADMINNAME = "jdoe";
     public static final String USERNAME = "john.doe@email.com";
 
     @Rule
@@ -45,12 +41,6 @@ public abstract class ApiDocumentationBase {
 
     @Inject
     protected WebApplicationContext context;
-
-    @Inject
-    protected AdminAccountService adminAccountService;
-
-    @Inject
-    protected AdminAccountRepository adminAccountRepository;
 
     @Inject
     protected UserAccountService userAccountService;
@@ -82,16 +72,6 @@ public abstract class ApiDocumentationBase {
                                       .apply(SecurityMockMvcConfigurers.springSecurity())
                                       .apply(documentationConfiguration(restDocumentation))
                                       .build();
-    }
-
-    protected String createTestAdmin() throws Exception {
-        adminAccountService.createAdminAccount(ADMINNAME, "password", "John", "Doe", "john.doe@email.com", "VP Marketing");
-        return ADMINNAME;
-    }
-
-    protected void deleteTestAdmin() throws Exception {
-        AdminAccount account = adminAccountRepository.findByUsername(ADMINNAME);
-        adminAccountRepository.delete(account);
     }
 
     protected String createTestUser() throws Exception {

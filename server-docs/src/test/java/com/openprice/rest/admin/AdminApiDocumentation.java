@@ -15,10 +15,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.openprice.rest.ApiDocumentationBase;
 import com.openprice.rest.UtilConstants;
 
-public class AdminApiDocumentation extends ApiDocumentationBase {
+public class AdminApiDocumentation extends AdminApiDocumentationBase {
     @Test
     public void currentAdminExample() throws Exception {
 

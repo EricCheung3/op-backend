@@ -41,19 +41,19 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
     @Test
     public void receiptListExample() throws Exception {
         mockMvc
-            .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS).with(user(USERNAME)))
-            .andExpect(status().isOk())
-            .andDo(document("user-receipt-list-example",
-                preprocessResponse(prettyPrint()),
-                links(
-                    linkWithRel("self").description("The self link")
-                ),
-                responseFields(
-                    fieldWithPath("_embedded.receipts").description("An array of <<resources-user-receipt,Receipt resources>>"),
-                    fieldWithPath("page").description("Pagination data"),
-                    fieldWithPath("_links").description("<<resources-user-receipt-list-links,Links>> to other resources")
-                )
-            ));
+        .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS).with(user(USERNAME)))
+        .andExpect(status().isOk())
+        .andDo(document("user-receipt-list-example",
+            preprocessResponse(prettyPrint()),
+            links(
+                linkWithRel("self").description("The self link")
+            ),
+            responseFields(
+                fieldWithPath("_embedded.receipts").description("An array of <<resources-user-receipt,Receipt resources>>"),
+                fieldWithPath("page").description("Pagination data"),
+                fieldWithPath("_links").description("<<resources-user-receipt-list-links,Links>> to other resources")
+            )
+        ));
     }
 
     @Test
@@ -61,22 +61,22 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
         MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
 
         mockMvc
-            .perform(
-                fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
-                .file(file)
-                .param("filename", "test.jpg")
-                .with(user(USERNAME))
+        .perform(
+            fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
+            .file(file)
+            .param("filename", "test.jpg")
+            .with(user(USERNAME))
+        )
+        .andExpect(status().isCreated())
+        .andDo(document("user-receipt-upload-example",
+            requestParameters(
+                parameterWithName("filename").description("The uploaded image file name")
             )
-            .andExpect(status().isCreated())
-            .andDo(document("user-receipt-upload-example",
-                requestParameters(
-                    parameterWithName("filename").description("The uploaded image file name")
-                )
-            ));
+        ));
     }
 
     @Test
-    public void receiptExample() throws Exception {
+    public void receiptRetrieveExample() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
 
         String receiptLocation =
@@ -118,24 +118,24 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
         feedbackUpdate.put("rating", 1);
 
         mockMvc
-            .perform(
-                put(receiptLocation+"/feedback")
-                .with(user(USERNAME))
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(feedbackUpdate))
+        .perform(
+            put(receiptLocation+"/feedback")
+            .with(user(USERNAME))
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(this.objectMapper.writeValueAsString(feedbackUpdate))
+        )
+        .andExpect(status().isNoContent())
+        .andDo(document("user-receipt-feedback-update-example",
+            preprocessRequest(prettyPrint()),
+            requestFields(
+                fieldWithPath("rating").description("The user rating for the receipt, right now we only use 1 or 0 to indicate good or bad.")
             )
-            .andExpect(status().isNoContent())
-            .andDo(document("user-receipt-feedback-update-example",
-                preprocessRequest(prettyPrint()),
-                requestFields(
-                    fieldWithPath("rating").description("The user rating for the receipt, right now we only use 1 or 0 to indicate good or bad.")
-                )
-            ));
+        ));
 
         mockMvc
-            .perform(delete(receiptLocation).with(user(USERNAME)))
-            .andExpect(status().isNoContent())
-            .andDo(document("user-receipt-delete-example"));
+        .perform(delete(receiptLocation).with(user(USERNAME)))
+        .andExpect(status().isNoContent())
+        .andDo(document("user-receipt-delete-example"));
 
     }
 
@@ -258,11 +258,11 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
         String itemsLink = JsonPath.read(responseContent, "_links.items.href");
 
         mockMvc
-            .perform(get(itemsLink).with(user(USERNAME)))
-            .andExpect(status().isOk())
-            .andDo(document("user-receipt-item-list-example",
-                preprocessResponse(prettyPrint())
-            ));
+        .perform(get(itemsLink).with(user(USERNAME)))
+        .andExpect(status().isOk())
+        .andDo(document("user-receipt-item-list-example",
+            preprocessResponse(prettyPrint())
+        ));
 
     }
 
