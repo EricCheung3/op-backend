@@ -23,8 +23,11 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 
 import com.jayway.jsonpath.JsonPath;
+import com.openprice.domain.account.user.UserAccount;
+import com.openprice.domain.account.user.UserProfile;
 import com.openprice.rest.ApiDocumentationBase;
 import com.openprice.rest.UtilConstants;
+import com.openprice.rest.user.UserProfileForm;
 
 public class AdminUserApiDocumentation extends ApiDocumentationBase {
 
@@ -100,6 +103,75 @@ public class AdminUserApiDocumentation extends ApiDocumentationBase {
             )
         ));
 
+    }
+
+    @Test
+    public void adminUserProfileExample() throws Exception {
+        String responseContent =
+            mockMvc
+            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_USERS).with(user(ADMINNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        String profileLink = JsonPath.read(responseContent, "_embedded.userAccounts[0]._links.profile.href");
+
+        mockMvc
+        .perform(get(profileLink).with(user(ADMINNAME)))
+        .andExpect(status().isOk())
+        .andDo(document("admin-user-profile-retrieve-example",
+            preprocessResponse(prettyPrint()),
+            links(),
+            responseFields(
+                fieldWithPath("id").description("Primary ID"),
+                fieldWithPath("firstName").description("User first name"),
+                fieldWithPath("middleName").description("User middle name"),
+                fieldWithPath("lastName").description("User last name"),
+                fieldWithPath("phone").description("User phone number"),
+                fieldWithPath("address").description("User address"),
+                fieldWithPath("displayName").description("User display name")
+            )
+        ));
+    }
+
+    @Test
+    public void adminUserProfileUpdateExample() throws Exception {
+        String responseContent =
+            mockMvc
+            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_USERS).with(user(ADMINNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        String profileLink = JsonPath.read(responseContent, "_embedded.userAccounts[0]._links.profile.href");
+        String userId = JsonPath.read(responseContent, "_embedded.userAccounts[0].id");
+
+        UserAccount account = userAccountRepository.findOne(userId);
+        UserProfile profile = account.getProfile();
+        UserProfileForm form = new UserProfileForm(profile);
+        form.setFirstName("Jonny");
+
+        mockMvc
+        .perform(
+            put(profileLink)
+            .with(user(ADMINNAME))
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .content(objectMapper.writeValueAsString(form))
+        )
+        .andExpect(status().isNoContent())
+        .andDo(document("admin-user-profile-update-example",
+            preprocessRequest(prettyPrint()),
+            requestFields(
+                fieldWithPath("firstName").description("User first name"),
+                fieldWithPath("middleName").description("User middle name"),
+                fieldWithPath("lastName").description("User last name"),
+                fieldWithPath("phone").description("User phone number"),
+                fieldWithPath("address1").description("User address line 1"),
+                fieldWithPath("address2").description("User address line 2"),
+                fieldWithPath("city").description("User address city"),
+                fieldWithPath("state").description("User address state"),
+                fieldWithPath("zip").description("User address zip code"),
+                fieldWithPath("country").description("User address country")
+            )
+        ));
     }
 
     @Override

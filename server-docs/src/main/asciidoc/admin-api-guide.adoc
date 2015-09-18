@@ -20,7 +20,7 @@ of current logged in admin.
 
 
 [[resources-admin-access]]
-=== Accessing the `admin` resource
+=== Accessing the admin resource
 
 A `GET` request is used to access the admin
 
@@ -42,8 +42,8 @@ include::{snippets}/admin-example/links.adoc[]
 [[resources-admin-users]]
 == Admin Users Resource
 
-Admin Users resource is used to manage admin-managed Users
-for listing, adding end users.
+Admin Users resource is used to list admin-managed Users
+or add new user.
 
 [[resources-admin-user-list]]
 === Listing all end users
@@ -72,8 +72,7 @@ include::{snippets}/admin-user-list-example/links.adoc[]
 [[resources-admin-user]]
 == Admin User Resource
 
-Admin User resource is used to manage one admin-managed user
-for edit, delete.
+Admin User resource is used to retrieve, edit or delete one admin-managed user.
 
 [[resources-admin-user-retrieve]]
 === Retrieve one end user
@@ -107,8 +106,8 @@ Resource for admin-managed user lock state.
 [[resources-admin-user-lockState-update]]
 === Update admin user lock state
 
-A `PUT` request is used to update admin-managed user lock state, either lock the user
-or unlock the user.
+A `PUT` request is used to update admin-managed user lock state,
+either lock the user or unlock the user.
 
 ==== Request structure
 
@@ -121,3 +120,45 @@ include::{snippets}/admin-user-lockState-update-example/curl-request.adoc[]
 ==== Example response
 
 include::{snippets}/admin-user-lockState-update-example/http-response.adoc[]
+
+
+
+[[resources-admin-user-profile]]
+== Admin User Profile Resource
+
+Admin User Profile resource is used to retrieve or edit admin-managed user profile.
+
+[[resources-admin-user-profile-retrieve]]
+=== Retrieve admin-managed user profile
+
+A `GET` request will retrieve admin-managed user profile data.
+
+==== Response structure
+
+include::{snippets}/admin-user-profile-retrieve-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-user-profile-retrieve-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-user-profile-retrieve-example/http-response.adoc[]
+
+
+[[resources-admin-user-profile-update]]
+=== Update admin-managed user profile
+
+A `PUT` request is used to update admin managed user profile.
+
+==== Request structure
+
+include::{snippets}/admin-user-profile-update-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-user-profile-update-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-user-profile-update-example/http-response.adoc[]
