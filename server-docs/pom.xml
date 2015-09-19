@@ -22,11 +22,6 @@
         <!-- Rest API Modules -->
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-rest-site</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.openprice</groupId>
             <artifactId>openprice-rest-user</artifactId>
             <version>${project.version}</version>
         </dependency>

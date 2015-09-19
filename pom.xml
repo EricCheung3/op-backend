@@ -31,7 +31,6 @@
         <module>domain-shopping</module>
         <module>process</module>
         <module>rest-common</module>
-        <module>rest-site</module>
         <module>rest-user</module>
         <module>rest-admin</module>
 

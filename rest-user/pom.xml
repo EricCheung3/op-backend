@@ -31,11 +31,6 @@
             <artifactId>openprice-rest-common</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.openprice</groupId>
-            <artifactId>openprice-rest-site</artifactId> <!-- TODO: merge rest-site into rest-user -->
-            <version>${project.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>com.openprice</groupId>
