@@ -296,3 +296,31 @@ include::{snippets}/admin-user-receipt-image-retrieve-example/http-response.adoc
 ==== Links
 
 include::{snippets}/admin-user-receipt-image-retrieve-example/links.adoc[]
+
+
+
+[[resources-admin-user-receipt-items]]
+== Admin User Receipt Items
+
+Admin User Receipt Items is used to retrieve list of items from
+one receipt parsing result.
+
+
+[[resources-admin-user-receipt-item-list]]
+=== List Admin User Receipt Parsed Items
+
+A `GET` request will list all of the items from a specific receipt.
+
+==== Response structure
+
+TODO : fix receipt item resource
+
+/*include::{snippets}/admin-user-receipt-item-list-example/response-fields.adoc[]*/
+
+==== Example request
+
+include::{snippets}/admin-user-receipt-item-list-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-user-receipt-item-list-example/http-response.adoc[]

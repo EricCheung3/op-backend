@@ -1,5 +1,7 @@
 package com.openprice.rest.admin.user.receipt;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.core.io.PathResource;
@@ -26,6 +28,7 @@ import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
+import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.rest.ResourceNotFoundException;
@@ -46,13 +49,13 @@ public class AdminUserReceiptRestController extends AbstractUserAdminRestControl
 
     @Inject
     public AdminUserReceiptRestController(final AdminAccountService adminAccountService,
-                                     final UserAccountService userAccountService,
-                                     final UserAccountRepository userAccountRepository,
-                                     final ReceiptRepository receiptRepository,
-                                     final ReceiptImageRepository receiptImageRepository,
-                                     final ReceiptService receiptService,
-                                     final AdminUserReceiptResourceAssembler receiptResourceAssembler,
-                                     final AdminUserReceiptImageResourceAssembler receiptImageResourceAssembler) {
+                                          final UserAccountService userAccountService,
+                                          final UserAccountRepository userAccountRepository,
+                                          final ReceiptRepository receiptRepository,
+                                          final ReceiptImageRepository receiptImageRepository,
+                                          final ReceiptService receiptService,
+                                          final AdminUserReceiptResourceAssembler receiptResourceAssembler,
+                                          final AdminUserReceiptImageResourceAssembler receiptImageResourceAssembler) {
         super(adminAccountService, userAccountService, userAccountRepository);
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
@@ -67,9 +70,7 @@ public class AdminUserReceiptRestController extends AbstractUserAdminRestControl
             @PageableDefault(size = UtilConstants.DEFAULT_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<Receipt> assembler) {
         final UserAccount user = getUserByUserId(userId);
-        final Page<Receipt> receipts =
-                receiptRepository.findByUserOrderByCreatedTimeDesc(user, pageable);
-
+        final Page<Receipt> receipts = receiptRepository.findByUserOrderByCreatedTimeDesc(user, pageable);
         return ResponseEntity.ok(assembler.toResource(receipts, receiptResourceAssembler));
     }
 
@@ -109,9 +110,7 @@ public class AdminUserReceiptRestController extends AbstractUserAdminRestControl
                     throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(userId, receiptId);
         final ReceiptImage image = getReceiptImageByIdAndCheckReceipt(imageId, receipt);
-
         return ResponseEntity.ok(receiptImageResourceAssembler.toResource(image));
-
     }
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_DOWNLOAD,
@@ -124,11 +123,17 @@ public class AdminUserReceiptRestController extends AbstractUserAdminRestControl
                     throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(userId, receiptId);
         final ReceiptImage image = getReceiptImageByIdAndCheckReceipt(imageId, receipt);
-
-        Resource resource = new PathResource(receiptService.getImageFile(image));
-        return ResponseEntity.ok(resource);
+        return ResponseEntity.ok(new PathResource(receiptService.getImageFile(image)));
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_ITEMS)
+    public HttpEntity<List<ReceiptItem>> getUserReceiptItems(
+            @PathVariable("userId") final String userId,
+            @PathVariable("receiptId") final String receiptId) {
+        final Receipt receipt = getReceiptByIdAndCheckUser(userId, receiptId);
+        List<ReceiptItem> result = receiptService.getParsedReceiptItems(receipt);
+        return ResponseEntity.ok(result);
+    }
 
     private Receipt getReceiptByIdAndCheckUser(final String userId, final String receiptId) {
         final UserAccount currentUser = getUserByUserId(userId);

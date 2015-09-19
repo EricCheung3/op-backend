@@ -37,10 +37,10 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
 
     @Inject
     public AdminUserAccountRestController(final AdminAccountService adminAccountService,
-                                     final UserAccountService userAccountService,
-                                     final UserAccountRepository userAccountRepository,
-                                     final UserProfileRepository userProfileRepository,
-                                     final AdminUserAccountResourceAssembler userResourceAssembler) {
+                                          final UserAccountService userAccountService,
+                                          final UserAccountRepository userAccountRepository,
+                                          final UserProfileRepository userProfileRepository,
+                                          final AdminUserAccountResourceAssembler userResourceAssembler) {
         super(adminAccountService, userAccountService, userAccountRepository);
         this.userProfileRepository = userProfileRepository;
         this.userResourceAssembler = userResourceAssembler;
@@ -52,7 +52,6 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
             @PageableDefault(size = UtilConstants.DEFAULT_RETURN_RECORD_COUNT, page = 0,
                              sort="createdTime", direction=Direction.DESC) final Pageable pageable,
             final PagedResourcesAssembler<UserAccount> assembler) {
-
         final Page<UserAccount> userAccounts = userAccountRepository.findAll(pageable);
         return ResponseEntity.ok(assembler.toResource(userAccounts, userResourceAssembler));
     }
@@ -71,13 +70,11 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
             @PathVariable("userId") final String userId,
             @RequestBody final Map<String, Boolean> updateMap) throws ResourceNotFoundException {
         final UserAccount user = getUserByUserId(userId);
-
         final Boolean status = updateMap.get("locked");
         if (status != null) {
             user.setAccountLocked(status);
             userAccountRepository.save(user);
         }
-
         return ResponseEntity.noContent().build();
     }
 
@@ -86,7 +83,6 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
     public HttpEntity<AdminUserProfileResource> getUserProfile(@PathVariable("userId") final String userId) {
         final UserAccount user = getUserByUserId(userId);
         final UserProfile profile = user.getProfile();
-
         return ResponseEntity.ok(new AdminUserProfileResource(profile));
     }
 
@@ -98,7 +94,6 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
         final UserProfile profile = user.getProfile();
         profileForm.updateProfile(profile);
         userProfileRepository.save(profile);
-
         return ResponseEntity.noContent().build();
     }
 

@@ -49,6 +49,9 @@ public class AdminUserReceiptResourceAssembler implements ResourceAssembler<Rece
         resource.add(linkTo(methodOn(AdminUserReceiptRestController.class).getUserReceiptImages(receipt.getUser().getId(), receipt.getId(), null, null))
                 .withRel(AdminUserReceiptResource.LINK_NAME_IMAGES));
 
+        resource.add(linkTo(methodOn(AdminUserReceiptRestController.class).getUserReceiptItems(receipt.getUser().getId(), receipt.getId()))
+                .withRel(AdminUserReceiptResource.LINK_NAME_ITEMS));
+
         // Hack solution to build template links.
         // Monitor https://github.com/spring-projects/spring-hateoas/issues/169 for nice solution from Spring HATEOAS
         final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();

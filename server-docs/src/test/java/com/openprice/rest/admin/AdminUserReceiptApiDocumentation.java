@@ -73,7 +73,8 @@ public class AdminUserReceiptApiDocumentation extends AdminApiDocumentationBase 
                 linkWithRel("self").description("The self link"),
                 linkWithRel("user").description("The <<resources-admin-user, Admin User resource>>, owner of this receipt"),
                 linkWithRel("images").description("<<resources-admin-user-receipt-images, Link>> to receipt images"),
-                linkWithRel("image").description("<<resources-admin-user-receipt-image, Link>> to receipt image")
+                linkWithRel("image").description("<<resources-admin-user-receipt-image, Link>> to receipt image"),
+                linkWithRel("items").description("<<resources-admin-user-receipt-items, Link>> to receipt items")
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
@@ -166,6 +167,32 @@ public class AdminUserReceiptApiDocumentation extends AdminApiDocumentationBase 
                 fieldWithPath("_links").description("<<resources-admin-user-receipt-image-retrieve-links,Links>> to other resources")
             )
         ));
+    }
+
+    @Test
+    public void adminUserReceiptItemListExample() throws Exception {
+        String responseContent =
+            mockMvc
+            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_USERS).with(user(ADMINNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        String receiptsLink = JsonPath.read(responseContent, "_embedded.userAccounts[0]._links.receipts.href");
+        responseContent =
+            mockMvc
+            .perform(get(receiptsLink).with(user(ADMINNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        String itemsLink = JsonPath.read(responseContent, "_embedded.receipts[0]._links.items.href");
+
+        mockMvc
+        .perform(get(itemsLink).with(user(USERNAME)))
+        .andExpect(status().isOk())
+        .andDo(document("admin-user-receipt-item-list-example",
+            preprocessResponse(prettyPrint())
+        ));
+
     }
 
     @Override
