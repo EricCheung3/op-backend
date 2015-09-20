@@ -113,14 +113,12 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
     public HttpEntity<Void> uploadReceiptImage(@PathVariable("receiptId") final String receiptId,
                                                @RequestParam(value="file") final MultipartFile file) {
         if (!file.isEmpty()) {
-
             final ReceiptImage image = newReceiptImageWithFile(receiptId, file);
             processQueueService.addImage(image);
 
             URI location = linkTo(methodOn(UserReceiptImageRestController.class).getUserReceiptImageById(receiptId, image.getId())).toUri();
             return ResponseEntity.created(location).body(null);
-        }
-        else {
+        } else {
             log.error("No file uploaded!");
             return ResponseEntity.badRequest().build();
         }
@@ -128,10 +126,9 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
 
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_DOWNLOAD,
             produces = MediaType.IMAGE_JPEG_VALUE)
-    @ResponseBody
-    public ResponseEntity<Resource> downloadUserReceiptImage(@PathVariable("receiptId") final String receiptId,
-                                                 @PathVariable("imageId") final String imageId)
-                    throws ResourceNotFoundException {
+    public ResponseEntity<Resource> downloadUserReceiptImage(
+            @PathVariable("receiptId") final String receiptId,
+            @PathVariable("imageId") final String imageId) throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         final ReceiptImage image = getReceiptImageByIdAndCheckReceipt(imageId, receipt);
 
@@ -141,13 +138,11 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
 
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_BASE64,
             produces = MediaType.TEXT_PLAIN_VALUE)
-    @ResponseBody
-    public ResponseEntity<String> downloadUserReceiptImageAsBase64(@PathVariable("receiptId") final String receiptId,
-                                                 @PathVariable("imageId") final String imageId)
-                    throws ResourceNotFoundException {
+    public ResponseEntity<String> downloadUserReceiptImageAsBase64(
+            @PathVariable("receiptId") final String receiptId,
+            @PathVariable("imageId") final String imageId) throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         final ReceiptImage image = getReceiptImageByIdAndCheckReceipt(imageId, receipt);
-
         final Resource resource = new PathResource(receiptService.getImageFile(image));
 
         try {

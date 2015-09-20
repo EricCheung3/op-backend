@@ -40,9 +40,9 @@ public class RegistrationRestController extends AbstractRestController {
 
     @Inject
     public RegistrationRestController(final UserAccountService userAccountService,
-                                  final UserAccountRepository userAccountRepository,
-                                  final EmailProperties emailProperties,
-                                  final EmailService emailService) {
+                                      final UserAccountRepository userAccountRepository,
+                                      final EmailProperties emailProperties,
+                                      final EmailService emailService) {
         this.userAccountService = userAccountService;
         this.userAccountRepository = userAccountRepository;
         this.emailProperties = emailProperties;
@@ -52,7 +52,7 @@ public class RegistrationRestController extends AbstractRestController {
     @RequestMapping(method = RequestMethod.POST, value = SiteApiUrls.URL_PUBLIC_REGISTRATION)
     @Transactional
     public HttpEntity<Void> registerNewUser(@RequestBody final RegistrationForm registration)
-                                                    throws ResourceNotFoundException {
+                throws ResourceNotFoundException {
 
         log.info("A new user tried to register with email '{}'.", registration.getEmail());
 
@@ -107,8 +107,7 @@ public class RegistrationRestController extends AbstractRestController {
     @Transactional
     public HttpEntity<Void> resetPassword(
             @PathVariable("requestId") final String requestId,
-            @RequestBody final ResetPasswordForm form)
-                throws ResourceNotFoundException {
+            @RequestBody final ResetPasswordForm form) throws ResourceNotFoundException {
         final UserResetPasswordRequest request = userAccountService.getUserResetPasswordReqest(requestId);
         if (request == null) {
             throw new ResourceNotFoundException("No such reset password request.");
@@ -142,7 +141,6 @@ public class RegistrationRestController extends AbstractRestController {
         final String subject = "Reset Password in OpenPrice";
         final String message = String.format(FORGET_PASSWORD_TEMPLATE, user.getProfile().getDisplayName(), url, url);
         emailService.sendEmail(new EmailMessage(emailProperties, user.getEmail(), user.getProfile().getDisplayName(), subject, message, null));
-
     }
 
     private static final String WELCOME_MESSAGE_TEMPLATE = "Hi %s,\n"+

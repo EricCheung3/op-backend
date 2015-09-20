@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openprice.domain.account.user.UserAccount;
-import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.account.user.UserProfile;
 import com.openprice.domain.account.user.UserProfileRepository;
@@ -25,17 +24,14 @@ import com.openprice.domain.account.user.UserProfileRepository;
 @RestController
 public class UserAccountRestController extends AbstractUserRestController {
 
-    private final UserAccountRepository userAccountRepository;
     private final UserProfileRepository userProfileRepository;
     private final UserAccountResourceAssembler userAccountResourceAssembler;
 
     @Inject
     public UserAccountRestController(final UserAccountService userAccountService,
-                                     final UserAccountRepository userAccountRepository,
                                      final UserProfileRepository userProfileRepository,
                                      final UserAccountResourceAssembler userAccountResourceAssembler) {
         super(userAccountService);
-        this.userAccountRepository = userAccountRepository;
         this.userProfileRepository = userProfileRepository;
         this.userAccountResourceAssembler = userAccountResourceAssembler;
     }
@@ -54,7 +50,6 @@ public class UserAccountRestController extends AbstractUserRestController {
     @Transactional(readOnly=true)
     public HttpEntity<UserProfileResource> getCurrentUserProfile() {
         final UserAccount currentUserAccount = getCurrentAuthenticatedUser();
-
         return ResponseEntity.ok(new UserProfileResource(currentUserAccount.getProfile()));
     }
 
@@ -65,13 +60,6 @@ public class UserAccountRestController extends AbstractUserRestController {
         final UserProfile profile = currentUserAccount.getProfile();
         profileForm.updateProfile(profile);
         userProfileRepository.save(profile);
-
         return ResponseEntity.noContent().build();
     }
-
-    // TODO change password
-
-    // TODO change email?
-
-
 }
