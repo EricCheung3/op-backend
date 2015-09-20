@@ -16,6 +16,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.openprice.mail.EmailService;
+import com.openprice.mail.sendgrid.EmailServiceImpl;
+import com.openprice.mail.stub.DummyEmailService;
 import com.openprice.parser.simple.SimpleParser;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class AbstractApiApplication {
 
     @Inject
-    private Environment env;
+    private Environment environment;
 
     /**
      * Initializes application.
@@ -37,10 +40,10 @@ public abstract class AbstractApiApplication {
      */
     @PostConstruct
     public void initApplication() throws IOException {
-        if (env.getActiveProfiles().length == 0) {
+        if (environment.getActiveProfiles().length == 0) {
             log.warn("No Spring profile configured, running with default configuration");
         } else {
-            log.info("Running with Spring profile(s) : {}", Arrays.toString(env.getActiveProfiles()));
+            log.info("Running with Spring profile(s) : {}", Arrays.toString(environment.getActiveProfiles()));
         }
     }
 
@@ -63,6 +66,17 @@ public abstract class AbstractApiApplication {
     @Bean
     public SimpleParser simpleParser() {
         return new SimpleParser();
+    }
+
+    @Bean @Profile("sendgrid")
+    public EmailService sendgridEmailService() {
+        return new EmailServiceImpl(environment.getProperty("sendgrid.username"),
+                                    environment.getProperty("sendgrid.password"));
+    }
+
+    @Bean @Profile("noemail")
+    public EmailService dummyEmailService() {
+        return new DummyEmailService();
     }
 
     /**

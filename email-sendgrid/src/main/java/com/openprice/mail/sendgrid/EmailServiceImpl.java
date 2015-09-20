@@ -38,7 +38,12 @@ public class EmailServiceImpl implements EmailService {
         try {
             log.info("Try to send email to {}, message is: {}", message.getToEmail(), message.getBody());
             final SendGrid.Response response = sendgrid.send(email);
-            log.info("Sent email successfully, response from SendGrid is: {}", response.getMessage());
+            if (response.getStatus()) {
+                log.info("Sent email successfully, response from SendGrid is: {}", response.getMessage());
+            } else {
+                log.warn("Sent email error, response from SendGrid is: {}", response.getMessage());
+            }
+
         } catch (final Exception ex) {
             log.debug("Exception:", ex);
             log.error("Got exception when sending email through sendgrid: {}", ex.getMessage());
