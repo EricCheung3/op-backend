@@ -27,7 +27,7 @@ public class WebsiteResourceAssembler {
     public WebsiteResource toResource() {
         final UserAccount currentUser = this.userAccountService.getCurrentUser();
         final WebsiteResource resource = new WebsiteResource();
-        
+
         if (currentUser != null) {
             resource.setAuthenticated(true);
             resource.setCurrentUser(currentUser);
@@ -46,8 +46,17 @@ public class WebsiteResourceAssembler {
             resource.add(signinLink);
 
             final Link registerUserLink = new Link(
-                    new UriTemplate(baseUri + UtilConstants.API_ROOT + SiteApiUrls.URL_REGISTRATION_USERS), WebsiteResource.LINK_NAME_REGISTRATION);
+                    new UriTemplate(baseUri + UtilConstants.API_ROOT + SiteApiUrls.URL_PUBLIC_REGISTRATION), WebsiteResource.LINK_NAME_REGISTRATION);
             resource.add(registerUserLink);
+
+            final Link forgetPasswordLink = new Link(
+                    new UriTemplate(baseUri + UtilConstants.API_ROOT + SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS), WebsiteResource.LINK_NAME_FORGET_PASSWORD);
+            resource.add(forgetPasswordLink);
+
+            final Link resetPasswordLink = new Link(
+                    new UriTemplate(baseUri + UtilConstants.API_ROOT + SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS_REQUEST), WebsiteResource.LINK_NAME_RESET_PASSWORD);
+            resource.add(resetPasswordLink);
+
         } catch (ResourceNotFoundException ex) {
         }
 

@@ -8,22 +8,19 @@ import org.apache.http.HttpStatus;
 import org.junit.Test;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 
-import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.openprice.domain.account.user.UserRoleType;
 import com.openprice.rest.AbstractRestApiIntegrationTest;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.site.RegistrationForm;
 
 @SpringApplicationConfiguration(classes = {SiteApiTestApplication.class})
 public class RegisterRestApiIT extends AbstractRestApiIntegrationTest {
 
     @Test
     public void registerNewUser_ShouldAddUserAccount() {
-        String registrationLink = when().get(UtilConstants.API_ROOT).then().extract().path("_links.registration.href");
-        String registrationUrl =  UriTemplate.fromTemplate(registrationLink).set("username", "testuser").expand();
+        String registrationUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.registration.href");
 
         RegistrationForm registration = new RegistrationForm();
         registration.setFirstName("John");

@@ -7,6 +7,11 @@ import lombok.Setter;
 
 @ConfigurationProperties("application.email")
 public class EmailProperties {
+    /**
+     * OpenPrice Web UI Server url
+     */
+    @Getter @Setter
+    private String webServerUrl;
 
     /**
      * Name of administrator the notification or contact message will send to.

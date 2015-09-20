@@ -1,5 +1,6 @@
 application:
     email:
+        webServerUrl: http://localhost:8080
         systemName: GroundTruth Inc.
         systemEmail: no-reply@openprice.com
         adminName: Open Price

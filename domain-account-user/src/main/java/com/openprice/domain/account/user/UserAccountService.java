@@ -1,5 +1,7 @@
 package com.openprice.domain.account.user;
 
+import java.time.LocalDateTime;
+
 import javax.inject.Inject;
 
 import org.springframework.security.core.Authentication;
@@ -19,16 +21,20 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class UserAccountService implements UserDetailsService {
+    public static final int RESET_PASSWORD_REQUEST_EXPIRING_HOURS = 2;
 
-    private final UserAccountRepository accountRepository;
+    private final UserAccountRepository userAccountRepository;
     private final UserProfileRepository profileRepository;
+    private final UserResetPasswordRequestRepository userResetPasswordRequestRepository;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Inject
-    public UserAccountService(final UserAccountRepository accountRepository,
-                              final UserProfileRepository profileRepository) {
-        this.accountRepository = accountRepository;
+    public UserAccountService(final UserAccountRepository userAccountRepository,
+                              final UserProfileRepository profileRepository,
+                              final UserResetPasswordRequestRepository userResetPasswordRequestRepository) {
+        this.userAccountRepository = userAccountRepository;
         this.profileRepository = profileRepository;
+        this.userResetPasswordRequestRepository = userResetPasswordRequestRepository;
     }
 
     public UserAccount createUserAccountByRegistrationData(final String email,
@@ -37,21 +43,21 @@ public class UserAccountService implements UserDetailsService {
                                                            final String lastName) {
 
 
-        String hashedPassword = passwordEncoder.encode(password);
-        UserAccount account = new UserAccount();
-        account.setEmail(email);
-        account.setPassword(hashedPassword);
-        account.getRoles().add(UserRoleType.ROLE_USER);
-        account.setTrustedAccount(false);
-        account.setActivated(true);  // Temp solution. FIXME: add activation process
+        final String hashedPassword = passwordEncoder.encode(password);
+        UserAccount userAccount = new UserAccount();
+        userAccount.setEmail(email);
+        userAccount.setPassword(hashedPassword);
+        userAccount.getRoles().add(UserRoleType.ROLE_USER);
+        userAccount.setTrustedAccount(false);
+        userAccount.setActivated(true);  // Temp solution. FIXME: add activation process
 
         final UserProfile profile = new UserProfile();
-        profile.setUser(account);
+        profile.setUser(userAccount);
         profile.setFirstName(firstName);
         profile.setLastName(lastName);
 
-        account.setProfile(profile);
-        return accountRepository.save(account);
+        userAccount.setProfile(profile);
+        return userAccountRepository.save(userAccount);
     }
 
     /**
@@ -61,11 +67,11 @@ public class UserAccountService implements UserDetailsService {
      * @param role
      */
     public UserAccount addRole(final String userId, final UserRoleType role) {
-        final UserAccount account = accountRepository.findOne(userId);
-        if (!account.getRoles().contains(role)) {
-            account.getRoles().add(role);
+        final UserAccount userAccount = userAccountRepository.findOne(userId);
+        if (!userAccount.getRoles().contains(role)) {
+            userAccount.getRoles().add(role);
         }
-        return accountRepository.save(account);
+        return userAccountRepository.save(userAccount);
     }
 
     /**
@@ -75,17 +81,17 @@ public class UserAccountService implements UserDetailsService {
      * @param role
      */
     public UserAccount removeRole(final String userId, final UserRoleType role) {
-        final UserAccount account = accountRepository.findOne(userId);
-        if (account.getRoles().contains(role)) {
-            account.getRoles().remove(role);
+        final UserAccount userAccount = userAccountRepository.findOne(userId);
+        if (userAccount.getRoles().contains(role)) {
+            userAccount.getRoles().remove(role);
         }
-        return accountRepository.save(account);
+        return userAccountRepository.save(userAccount);
     }
 
     public UserAccount activateAccount(final String userId) {
-        final UserAccount account = accountRepository.findOne(userId);
-        account.setActivated(true);
-        return accountRepository.save(account);
+        final UserAccount userAccount = userAccountRepository.findOne(userId);
+        userAccount.setActivated(true);
+        return userAccountRepository.save(userAccount);
     }
 
     /**
@@ -95,7 +101,7 @@ public class UserAccountService implements UserDetailsService {
      */
     public UserAccount getCurrentUser() {
         try {
-            return accountRepository.findByEmail(getCurrentUsername());
+            return userAccountRepository.findByEmail(getCurrentUsername());
         } catch (IllegalStateException ex) {
             //no logged in user, return null
             return null;
@@ -106,11 +112,53 @@ public class UserAccountService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.debug("==>loadUserByUsername("+username+")");
 
-        final UserAccount account = accountRepository.findByEmail(username);
-        if (account == null) {
+        final UserAccount userAccount = userAccountRepository.findByEmail(username);
+        if (userAccount == null) {
             throw new UsernameNotFoundException("Cannot find user by username " + username);
         }
-        return account;
+        return userAccount;
+    }
+
+    /**
+     *
+     * @param email
+     * @return
+     */
+    public UserResetPasswordRequest createResetPasswordRequest(final String email) {
+        UserAccount userAccount = userAccountRepository.findByEmail(email);
+        if (userAccount == null) {
+            log.warn("User forget password request with non-registered email '{}'.", email);
+            return null;
+        }
+        // delete all old request from this user
+        for (final UserResetPasswordRequest request : userResetPasswordRequestRepository.findByEmail(email)) {
+            userResetPasswordRequestRepository.delete(request);
+        }
+        return userResetPasswordRequestRepository.save(UserResetPasswordRequest.createRequest(email));
+    }
+
+    public UserResetPasswordRequest getUserResetPasswordReqest(final String requestId) {
+        final UserResetPasswordRequest request = userResetPasswordRequestRepository.findOne(requestId);
+        if (request != null) {
+            LocalDateTime expiringTime = request.getRequestTime().plusHours(RESET_PASSWORD_REQUEST_EXPIRING_HOURS);
+            if (LocalDateTime.now().isBefore(expiringTime)) {
+                return request;
+            }
+            // delete expired request
+            log.warn("User reset password with expired request ID: ", requestId);
+            userResetPasswordRequestRepository.delete(request);
+        } else {
+            log.warn("User reset password with invalid request ID: ", requestId);
+        }
+
+        return null;
+    }
+
+    public void resetPassword(final String email, final String newPassword) {
+        UserAccount userAccount = userAccountRepository.findByEmail(email);
+        final String hashedPassword = passwordEncoder.encode(newPassword);
+        userAccount.setPassword(hashedPassword);
+        userAccountRepository.save(userAccount);
     }
 
     private String getCurrentUsername() {

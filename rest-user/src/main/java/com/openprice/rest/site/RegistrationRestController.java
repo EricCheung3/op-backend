@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,24 +16,27 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.domain.account.user.UserAccountService;
+import com.openprice.domain.account.user.UserResetPasswordRequest;
 import com.openprice.mail.EmailMessage;
 import com.openprice.mail.EmailProperties;
 import com.openprice.mail.EmailService;
 import com.openprice.rest.AbstractRestController;
 import com.openprice.rest.ResourceNotFoundException;
+import com.openprice.rest.user.UserAccountResource;
+import com.openprice.rest.user.UserApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-public class RegisterRestController extends AbstractRestController {
+public class RegistrationRestController extends AbstractRestController {
     private final UserAccountService userAccountService;
     private final UserAccountRepository userAccountRepository;
     private final EmailProperties emailProperties;
     private final EmailService emailService;
 
     @Inject
-    public RegisterRestController(final UserAccountService userAccountService,
+    public RegistrationRestController(final UserAccountService userAccountService,
                                   final UserAccountRepository userAccountRepository,
                                   final EmailProperties emailProperties,
                                   final EmailService emailService) {
@@ -42,7 +46,7 @@ public class RegisterRestController extends AbstractRestController {
         this.emailService = emailService;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = SiteApiUrls.URL_REGISTRATION_USERS)
+    @RequestMapping(method = RequestMethod.POST, value = SiteApiUrls.URL_PUBLIC_REGISTRATION)
     @Transactional
     public HttpEntity<Void> registerNewUser(@RequestBody final RegistrationForm registration)
                                                     throws ResourceNotFoundException {
@@ -68,6 +72,47 @@ public class RegisterRestController extends AbstractRestController {
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS)
+    @Transactional
+    public HttpEntity<Void> forgetPassword(@RequestBody final ResetPasswordForm form)
+                throws ResourceNotFoundException {
+        final String email = form.getEmail();
+        final UserResetPasswordRequest request = userAccountService.createResetPasswordRequest(email);
+
+        if (request == null) {
+            throw new ResourceNotFoundException("No registered user with email "+email);
+        }
+
+        sendResetPasswordLinkToUser(userAccountRepository.findByEmail(email), request);
+
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS_REQUEST)
+    @Transactional
+    public HttpEntity<UserResetPasswordRequest> getResetPasswordRequest(
+            @PathVariable("requestId") final String requestId) {
+        final UserResetPasswordRequest request = userAccountService.getUserResetPasswordReqest(requestId);
+        if (request == null) {
+            throw new ResourceNotFoundException("No such reset password request.");
+        }
+        return ResponseEntity.ok(request);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS_REQUEST)
+    @Transactional
+    public HttpEntity<Void> resetPassword(
+            @PathVariable("requestId") final String requestId,
+            @RequestBody final ResetPasswordForm form)
+                throws ResourceNotFoundException {
+        final UserResetPasswordRequest request = userAccountService.getUserResetPasswordReqest(requestId);
+        if (request == null) {
+            throw new ResourceNotFoundException("No such reset password request.");
+        }
+        userAccountService.resetPassword(request.getEmail(), form.getNewPassword());
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+
     /**
      * Send message to admin when a new user registered by self-register.
      * @param user
@@ -88,9 +133,22 @@ public class RegisterRestController extends AbstractRestController {
         emailService.sendEmail(new EmailMessage(emailProperties, user.getEmail(), user.getProfile().getDisplayName(), subject, message, null));
     }
 
+    private void sendResetPasswordLinkToUser(final UserAccount user, final UserResetPasswordRequest request) {
+        final String url = emailProperties.getWebServerUrl() + "/resetPassword/" + request.getId();
+        final String subject = "Reset Password in OpenPrice";
+        final String message = String.format(FORGET_PASSWORD_TEMPLATE, user.getProfile().getDisplayName(), url, url);
+        emailService.sendEmail(new EmailMessage(emailProperties, user.getEmail(), user.getProfile().getDisplayName(), subject, message, null));
+
+    }
+
     private static final String WELCOME_MESSAGE_TEMPLATE = "Hi %s,\n"+
             "Welcome to OpenPrice System. You have registered with this email '%s', " +
             "and enjoy the app! \n" +
             "Sincerely, \n OpenPrice Team\n";
 
+    private static final String FORGET_PASSWORD_TEMPLATE = "Hi %s, \n" +
+            "You have requested to reset your password. Please click following url to reset your password:\n" +
+            "<a href=\"%s\"> %s</a>\n This link will be expired after two hours.\n" +
+            "If you didn't request password reset, please ignore this email.\n" +
+            "Sincerely, \n OpenPrice Team\n";
 }

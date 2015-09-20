@@ -28,8 +28,10 @@ public class SiteApiDocumentation extends ApiDocumentationBase {
                 preprocessResponse(prettyPrint()),
                 links(
                     linkWithRel("self").description("The self link"),
-                    linkWithRel("signin").description("The <<resources-signin,Signin resource>>"),
-                    linkWithRel("registration").description("The <<resources-registration,Registration resource>>")
+                    linkWithRel("signin").description("The <<resources-signin, Signin resource>>"),
+                    linkWithRel("registration").description("The <<resources-registration, Registration resource>>"),
+                    linkWithRel("forgetPassword").description("The <<resources-forget-password, Forget Password resource>>"),
+                    linkWithRel("resetPassword").description("The <<resources-reset-password, Reset Password resource>>")
                 ),
                 responseFields(
                     fieldWithPath("authenticated").description("Whether the user is authenticated."),
