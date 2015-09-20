@@ -28,7 +28,7 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
     public void forgetPassword_ShouldReturn404_WithInvalidEmail() {
         String resetPasswordRequestsUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.forgetPassword.href");
 
-        ResetPasswordForm form = new ResetPasswordForm();
+        ForgetPasswordForm form = new ForgetPasswordForm();
         form.setEmail("non@email.com");
 
         Response response =
@@ -50,7 +50,7 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
     public void forgetPassword_ShouldAddForgetPasswordRequest() {
         String resetPasswordRequestsUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.forgetPassword.href");
 
-        ResetPasswordForm form = new ResetPasswordForm();
+        ForgetPasswordForm form = new ForgetPasswordForm();
         form.setEmail(TEST_USERNAME_JOHN_DOE);
 
         Response response =
@@ -77,7 +77,7 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
     public void getResetPasswordRequest_ShouldReturnPasswordRequest() {
         String resetPasswordRequestsUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.forgetPassword.href");
 
-        ResetPasswordForm form = new ResetPasswordForm();
+        ForgetPasswordForm form = new ForgetPasswordForm();
         form.setEmail(TEST_USERNAME_JOHN_DOE);
 
         Response response =
@@ -119,7 +119,7 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
     public void getResetPasswordRequest_ShouldReturn404_WhenRequestExpired() {
         String resetPasswordRequestsUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.forgetPassword.href");
 
-        ResetPasswordForm form = new ResetPasswordForm();
+        ForgetPasswordForm form = new ForgetPasswordForm();
         form.setEmail(TEST_USERNAME_JOHN_DOE);
 
         Response response =
@@ -156,7 +156,7 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
     public void resetPassword_ShouldResetPassword() {
         String resetPasswordRequestsUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.forgetPassword.href");
 
-        ResetPasswordForm form = new ResetPasswordForm();
+        ForgetPasswordForm form = new ForgetPasswordForm();
         form.setEmail(TEST_USERNAME_JOHN_DOE);
 
         Response response =
@@ -175,10 +175,11 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
         List<UserResetPasswordRequest> requests = userResetPasswordRequestRepository.findByEmail(TEST_USERNAME_JOHN_DOE);
         String requestId = requests.get(0).getId();
         String resetPasswordRequestUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.resetPassword.href");
-        form.setNewPassword("newpassword");
+        ResetPasswordForm resetForm = new ResetPasswordForm();
+        resetForm.setNewPassword("newpassword");
         given()
             .contentType(ContentType.JSON)
-            .body(form)
+            .body(resetForm)
         .when()
             .put(resetPasswordRequestUrl, requestId)
         .then()
@@ -192,7 +193,7 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
     public void resetPassword_ShouldReturn404_WhenRequestExpired() {
         String resetPasswordRequestsUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.forgetPassword.href");
 
-        ResetPasswordForm form = new ResetPasswordForm();
+        ForgetPasswordForm form = new ForgetPasswordForm();
         form.setEmail(TEST_USERNAME_JOHN_DOE);
 
         Response response =
@@ -215,10 +216,11 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
         userResetPasswordRequestRepository.save(request);
 
         String resetPasswordRequestUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.resetPassword.href");
-        form.setNewPassword("newpassword");
+        ResetPasswordForm resetForm = new ResetPasswordForm();
+        resetForm.setNewPassword("newpassword");
         given()
             .contentType(ContentType.JSON)
-            .body(form)
+            .body(resetForm)
         .when()
             .put(resetPasswordRequestUrl, requestId)
         .then()

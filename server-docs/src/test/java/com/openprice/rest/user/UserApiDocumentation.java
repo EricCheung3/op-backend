@@ -11,14 +11,13 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.pr
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.hateoas.MediaTypes;
+import org.springframework.http.MediaType;
 
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserProfile;
@@ -91,8 +90,7 @@ public class UserApiDocumentation extends ApiDocumentationBase {
         .perform(
             put(UtilConstants.API_ROOT + UserApiUrls.URL_USER_PROFILE)
             .with(user(USERNAME))
-            .with(csrf())
-            .contentType(MediaTypes.HAL_JSON)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content(objectMapper.writeValueAsString(form))
         )
         .andExpect(status().isNoContent())

@@ -14,8 +14,9 @@ import lombok.ToString;
 @AllArgsConstructor @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown=true)
 @SuppressWarnings("serial")
-public class ResetPasswordForm implements Serializable {
+public class ForgetPasswordForm implements Serializable {
 
     @Getter @Setter
-    private String newPassword;
+    private String email;
+
 }

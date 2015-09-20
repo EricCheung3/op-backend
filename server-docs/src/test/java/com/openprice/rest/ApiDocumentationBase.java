@@ -24,6 +24,7 @@ import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.account.user.UserProfile;
 import com.openprice.domain.account.user.UserProfileRepository;
+import com.openprice.domain.account.user.UserResetPasswordRequestRepository;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
@@ -60,6 +61,8 @@ public abstract class ApiDocumentationBase {
     @Inject
     protected ReceiptImageRepository receiptImageRepository;
 
+    @Inject
+    protected UserResetPasswordRequestRepository userResetPasswordRequestRepository;
 
     @Inject
     protected ObjectMapper objectMapper;

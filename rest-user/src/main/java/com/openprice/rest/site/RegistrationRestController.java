@@ -1,5 +1,10 @@
 package com.openprice.rest.site;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
+import java.net.URI;
+
 import javax.inject.Inject;
 
 import org.springframework.http.HttpEntity;
@@ -22,8 +27,6 @@ import com.openprice.mail.EmailProperties;
 import com.openprice.mail.EmailService;
 import com.openprice.rest.AbstractRestController;
 import com.openprice.rest.ResourceNotFoundException;
-import com.openprice.rest.user.UserAccountResource;
-import com.openprice.rest.user.UserApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -74,7 +77,7 @@ public class RegistrationRestController extends AbstractRestController {
 
     @RequestMapping(method = RequestMethod.POST, value = SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS)
     @Transactional
-    public HttpEntity<Void> forgetPassword(@RequestBody final ResetPasswordForm form)
+    public HttpEntity<Void> forgetPassword(@RequestBody final ForgetPasswordForm form)
                 throws ResourceNotFoundException {
         final String email = form.getEmail();
         final UserResetPasswordRequest request = userAccountService.createResetPasswordRequest(email);
@@ -85,7 +88,8 @@ public class RegistrationRestController extends AbstractRestController {
 
         sendResetPasswordLinkToUser(userAccountRepository.findByEmail(email), request);
 
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
+        URI location = linkTo(methodOn(RegistrationRestController.class).getResetPasswordRequest(request.getId())).toUri();
+        return ResponseEntity.created(location).body(null);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS_REQUEST)
