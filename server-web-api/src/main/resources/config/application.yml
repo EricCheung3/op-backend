@@ -30,6 +30,8 @@ spring:
         driver-class-name: com.mysql.jdbc.Driver
 
 application:
+    email:
+      webServerUrl: http://localhost:7000
     file:
         virtual: false
         imageRootFolder: /tmp/groundtruth/images
@@ -46,6 +48,8 @@ spring:
         driver-class-name: com.mysql.jdbc.Driver
 
 application:
+    email:
+      webServerUrl: http://104.197.47.140:8080
     file:
         virtual: false
         imageRootFolder: /groundtruth/images
