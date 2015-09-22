@@ -22,16 +22,16 @@ import com.openprice.rest.UtilConstants;
 public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
     @Test
     public void adminReceiptListExample() throws Exception {
-        String responseContent =
-            mockMvc
-            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String receiptsLink = JsonPath.read(responseContent, "_links.receipts.href");
+//        String responseContent =
+//            mockMvc
+//            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN).with(user(ADMINNAME)))
+//            .andExpect(status().isOk())
+//            .andReturn().getResponse()
+//            .getContentAsString();
+//        String receiptsLink = JsonPath.read(responseContent, "_links.receipts.href");
 
         mockMvc
-        .perform(get(receiptsLink).with(user(ADMINNAME)))
+        .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_RECEIPTS).with(user(ADMINNAME)))
         .andExpect(status().isOk())
         .andDo(document("admin-receipt-list-example",
             preprocessResponse(prettyPrint()),
@@ -48,16 +48,16 @@ public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
 
     @Test
     public void adminReceiptRetrieveExample() throws Exception {
+//        String responseContent =
+//            mockMvc
+//            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN).with(user(ADMINNAME)))
+//            .andExpect(status().isOk())
+//            .andReturn().getResponse()
+//            .getContentAsString();
+//        String receiptsLink = JsonPath.read(responseContent, "_links.receipts.href");
         String responseContent =
             mockMvc
-            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String receiptsLink = JsonPath.read(responseContent, "_links.receipts.href");
-        responseContent =
-            mockMvc
-            .perform(get(receiptsLink).with(user(ADMINNAME)))
+            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_RECEIPTS).with(user(ADMINNAME)))
             .andExpect(status().isOk())
             .andReturn().getResponse()
             .getContentAsString();
@@ -93,16 +93,16 @@ public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
 
     @Test
     public void adminReceiptImageListExample() throws Exception {
+//        String responseContent =
+//            mockMvc
+//            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN).with(user(ADMINNAME)))
+//            .andExpect(status().isOk())
+//            .andReturn().getResponse()
+//            .getContentAsString();
+//        String receiptsLink = JsonPath.read(responseContent, "_links.receipts.href");
         String responseContent =
             mockMvc
-            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String receiptsLink = JsonPath.read(responseContent, "_links.receipts.href");
-        responseContent =
-            mockMvc
-            .perform(get(receiptsLink).with(user(ADMINNAME)))
+            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_RECEIPTS).with(user(ADMINNAME)))
             .andExpect(status().isOk())
             .andReturn().getResponse()
             .getContentAsString();
@@ -127,16 +127,16 @@ public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
 
     @Test
     public void adminReceiptImageRetrieveExample() throws Exception {
+//        String responseContent =
+//            mockMvc
+//            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN).with(user(ADMINNAME)))
+//            .andExpect(status().isOk())
+//            .andReturn().getResponse()
+//            .getContentAsString();
+//        String receiptsLink = JsonPath.read(responseContent, "_links.receipts.href");
         String responseContent =
             mockMvc
-            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String receiptsLink = JsonPath.read(responseContent, "_links.receipts.href");
-        responseContent =
-            mockMvc
-            .perform(get(receiptsLink).with(user(ADMINNAME)))
+            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_RECEIPTS).with(user(ADMINNAME)))
             .andExpect(status().isOk())
             .andReturn().getResponse()
             .getContentAsString();
@@ -171,16 +171,16 @@ public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
 
     @Test
     public void adminReceiptItemListExample() throws Exception {
+//        String responseContent =
+//            mockMvc
+//            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN).with(user(ADMINNAME)))
+//            .andExpect(status().isOk())
+//            .andReturn().getResponse()
+//            .getContentAsString();
+//        String receiptsLink = JsonPath.read(responseContent, "_links.receipts.href");
         String responseContent =
             mockMvc
-            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String receiptsLink = JsonPath.read(responseContent, "_links.receipts.href");
-        responseContent =
-            mockMvc
-            .perform(get(receiptsLink).with(user(ADMINNAME)))
+            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_RECEIPTS).with(user(ADMINNAME)))
             .andExpect(status().isOk())
             .andReturn().getResponse()
             .getContentAsString();
