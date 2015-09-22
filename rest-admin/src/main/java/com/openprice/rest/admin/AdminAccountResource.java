@@ -10,6 +10,8 @@ import com.openprice.domain.account.admin.AdminAccount;
 public class AdminAccountResource extends Resource<AdminAccount> {
     public static final String LINK_NAME_USERS = "users";
     public static final String LINK_NAME_USER = "user";
+    public static final String LINK_NAME_RECEIPTS = "receipts";
+    public static final String LINK_NAME_RECEIPT = "receipt";
 
     public AdminAccountResource(final AdminAccount account) {
         super(account);

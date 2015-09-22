@@ -18,4 +18,12 @@ public interface AdminApiUrls {
     String URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE = "/admin/users/{userId}/receipts/{receiptId}/images/{imageId}";
     String URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_DOWNLOAD = "/admin/users/{userId}/receipts/{receiptId}/images/{imageId}/download";
     String URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_ITEMS = "/admin/users/{userId}/receipts/{receiptId}/items";
+
+    String URL_ADMIN_RECEIPTS = "/admin/receipts";
+    String URL_ADMIN_RECEIPTS_RECEIPT = "/admin/receipts/{receiptId}";
+    String URL_ADMIN_RECEIPTS_RECEIPT_IMAGES = "/admin/receipts/{receiptId}/images";
+    String URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE = "/admin/receipts/{receiptId}/images/{imageId}";
+    String URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE_DOWNLOAD = "/admin/receipts/{receiptId}/images/{imageId}/download";
+    String URL_ADMIN_RECEIPTS_RECEIPT_ITEMS = "/admin/receipts/{receiptId}/items";
+
 }

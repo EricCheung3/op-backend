@@ -28,8 +28,10 @@ public class AdminApiDocumentation extends AdminApiDocumentationBase {
             preprocessResponse(prettyPrint()),
             links(
                 linkWithRel("self").description("The self link"),
-                linkWithRel("users").description("The <<resources-admin-users,Admin Users resource>>"),
-                linkWithRel("user").description("The <<resources-admin-user,Admin User resource>>")
+                linkWithRel("users").description("The <<resources-admin-users, Admin Users resource>>"),
+                linkWithRel("user").description("The <<resources-admin-user, Admin User resource>>"),
+                linkWithRel("receipts").description("The <<resources-admin-receipts, Admin Receipts resource>>"),
+                linkWithRel("receipt").description("The <<resources-admin-receipt, Admin Receipt resource>>")
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),

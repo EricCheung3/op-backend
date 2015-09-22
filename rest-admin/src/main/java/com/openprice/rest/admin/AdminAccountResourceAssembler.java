@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.openprice.domain.account.admin.AdminAccount;
 import com.openprice.rest.UtilConstants;
+import com.openprice.rest.admin.receipt.AdminReceiptRestController;
 import com.openprice.rest.admin.user.AdminUserAccountRestController;
 
 @Component
@@ -25,6 +26,9 @@ public class AdminAccountResourceAssembler implements ResourceAssembler<AdminAcc
         resource.add(linkTo(methodOn(AdminUserAccountRestController.class).getUserAccounts(null, null))
                 .withRel(AdminAccountResource.LINK_NAME_USERS));
 
+        resource.add(linkTo(methodOn(AdminReceiptRestController.class).getAllReceipts(null, null))
+                .withRel(AdminAccountResource.LINK_NAME_RECEIPTS));
+
         // Hack solution to build template links.
         // Monitor https://github.com/spring-projects/spring-hateoas/issues/169 for nice solution from Spring HATEOAS
         final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();
@@ -32,6 +36,11 @@ public class AdminAccountResourceAssembler implements ResourceAssembler<AdminAcc
                 new UriTemplate(baseUri + UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_USERS_USER),
                 AdminAccountResource.LINK_NAME_USER);
         resource.add(userLink);
+
+        final Link receiptLink = new Link(
+                new UriTemplate(baseUri + UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT),
+                AdminAccountResource.LINK_NAME_RECEIPT);
+        resource.add(receiptLink);
 
         return resource;
     }
