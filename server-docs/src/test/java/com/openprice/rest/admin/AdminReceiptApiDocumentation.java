@@ -78,6 +78,8 @@ public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
                 fieldWithPath("id").description("Primary ID"),
                 fieldWithPath("images").description("Receipt image list"),
                 fieldWithPath("rating").description("User rating for the receipt quality (0 or 1 for bad/good), default is null."),
+                fieldWithPath("user").description("Receipt owner display name"),
+                fieldWithPath("uploadTimestamp").description("ISO 8601 formatted timestamp when user uploaded the receipt"),
                 fieldWithPath("_links").description("<<resources-admin-receipt-links,Links>> to other resources")
             )
         ));

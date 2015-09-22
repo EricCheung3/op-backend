@@ -4,6 +4,8 @@ package com.openprice.rest.admin.receipt;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +34,10 @@ public class AdminReceiptResourceAssembler implements ResourceAssembler<Receipt,
     @Override
     public AdminReceiptResource toResource(final Receipt receipt) {
         final AdminReceiptResource resource = new AdminReceiptResource(receipt);
+        resource.setUser(receipt.getUser().getProfile().getDisplayName());
+        // format uploaded timestamp
+        LocalDateTime createdTime = receipt.getCreatedTime();
+        resource.setUploadTimestamp(createdTime.format(DateTimeFormatter.ISO_DATE_TIME));
 
         // Temp solution for embedded resources
         // Monitor https://github.com/spring-projects/spring-hateoas/issues/270

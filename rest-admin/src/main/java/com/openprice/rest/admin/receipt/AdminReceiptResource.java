@@ -15,6 +15,13 @@ public class AdminReceiptResource extends Resource<Receipt> {
     public static final String LINK_NAME_ITEMS = "items";
 
     @Getter @Setter
+    private String user;
+
+    @Getter @Setter
+    private String uploadTimestamp;
+
+
+    @Getter @Setter
     private List<AdminReceiptImageResource> images;
 
     public AdminReceiptResource(final Receipt resource) {
