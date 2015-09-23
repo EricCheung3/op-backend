@@ -9,7 +9,9 @@ import javax.inject.Inject;
 import org.springframework.core.io.PathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
@@ -69,7 +71,7 @@ public class AdminReceiptRestController extends AbstractUserAdminRestController 
     public HttpEntity<PagedResources<AdminReceiptResource>> getAllReceipts(
             @PageableDefault(size = UtilConstants.DEFAULT_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<Receipt> assembler) {
-        final Page<Receipt> receipts = receiptRepository.findAll(pageable);
+        final Page<Receipt> receipts = receiptRepository.findAll(new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "createdTime"));
         return ResponseEntity.ok(assembler.toResource(receipts, receiptResourceAssembler));
     }
 
