@@ -157,7 +157,8 @@ public class AdminUserReceiptApiDocumentation extends AdminApiDocumentationBase 
             links(
                 linkWithRel("self").description("The self link"),
                 linkWithRel("receipt").description("<<resources-admin-user-receipt, Link>> to owner receipt resource"),
-                linkWithRel("download").description("URL for downloading image as jpg file")
+                linkWithRel("download").description("URL for downloading image as jpg file"),
+                linkWithRel("base64").description("URL for downloading image as base64 text string")
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),

@@ -28,6 +28,10 @@ public class AdminReceiptImageResourceAssembler implements ResourceAssembler<Rec
                                     .downloadReceiptImage(receiptImage.getReceipt().getId(), receiptImage.getId()))
                 .withRel(AdminReceiptImageResource.LINK_NAME_DOWNLOAD));
 
+        resource.add(linkTo(methodOn(AdminReceiptRestController.class)
+                                    .downloadUserReceiptImageAsBase64(receiptImage.getReceipt().getId(), receiptImage.getId()))
+                .withRel(AdminReceiptImageResource.LINK_NAME_BASE64));
+
         return resource;
     }
 

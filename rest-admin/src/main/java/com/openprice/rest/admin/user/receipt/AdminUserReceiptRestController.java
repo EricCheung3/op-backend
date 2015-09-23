@@ -1,5 +1,7 @@
 package com.openprice.rest.admin.user.receipt;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.common.io.ByteStreams;
 import com.openprice.domain.account.admin.AdminAccountService;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountRepository;
@@ -125,6 +128,27 @@ public class AdminUserReceiptRestController extends AbstractUserAdminRestControl
         final ReceiptImage image = getReceiptImageByIdAndCheckReceipt(imageId, receipt);
         return ResponseEntity.ok(new PathResource(receiptService.getImageFile(image)));
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_BASE64,
+            produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> downloadUserReceiptImageAsBase64(
+            @PathVariable("userId") final String userId,
+            @PathVariable("receiptId") final String receiptId,
+            @PathVariable("imageId") final String imageId) throws ResourceNotFoundException {
+        final Receipt receipt = getReceiptByIdAndCheckUser(userId, receiptId);
+        final ReceiptImage image = getReceiptImageByIdAndCheckReceipt(imageId, receipt);
+        final Resource resource = new PathResource(receiptService.getImageFile(image));
+
+        try {
+            final byte[] content = ByteStreams.toByteArray(resource.getInputStream());
+            final String base64String = new String(Base64.getEncoder().encode(content));
+            return ResponseEntity.ok(base64String);
+        } catch (IOException ex) {
+            log.error("Cannot load image file from {}, please check file system!", image.getFileName());
+            throw new ResourceNotFoundException("No image with the id: " + imageId);
+        }
+    }
+
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_ITEMS)
     public HttpEntity<List<ReceiptItem>> getUserReceiptItems(
