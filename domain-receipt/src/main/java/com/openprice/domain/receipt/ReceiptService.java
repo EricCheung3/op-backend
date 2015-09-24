@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.openprice.datastructure.Item;
+import com.openprice.datastructure.ReceiptDebug;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.file.FileSystemService;
-import com.openprice.parser.Item;
-import com.openprice.parser.ReceiptDebug;
 import com.openprice.parser.simple.SimpleParser;
 
 import lombok.extern.slf4j.Slf4j;
