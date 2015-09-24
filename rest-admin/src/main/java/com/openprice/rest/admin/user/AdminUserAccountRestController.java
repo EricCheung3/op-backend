@@ -92,8 +92,7 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
                                               @RequestBody final AdminUserProfileForm profileForm) {
         final UserAccount user = getUserByUserId(userId);
         final UserProfile profile = user.getProfile();
-        profileForm.updateProfile(profile);
-        userProfileRepository.save(profile);
+        userProfileRepository.save(profileForm.updateProfile(profile));
         return ResponseEntity.noContent().build();
     }
 

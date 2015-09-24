@@ -26,8 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.io.ByteStreams;
 import com.openprice.domain.account.admin.AdminAccountService;
-import com.openprice.domain.account.user.UserAccountRepository;
-import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
@@ -36,14 +34,14 @@ import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.admin.AbstractUserAdminRestController;
+import com.openprice.rest.admin.AbstractAdminRestController;
 import com.openprice.rest.admin.AdminApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-public class AdminReceiptRestController extends AbstractUserAdminRestController {
+public class AdminReceiptRestController extends AbstractAdminRestController {
     private final ReceiptRepository receiptRepository;
     private final ReceiptImageRepository receiptImageRepository;
     private final ReceiptService receiptService;
@@ -52,14 +50,12 @@ public class AdminReceiptRestController extends AbstractUserAdminRestController 
 
     @Inject
     public AdminReceiptRestController(final AdminAccountService adminAccountService,
-                                      final UserAccountService userAccountService,
-                                      final UserAccountRepository userAccountRepository,
                                       final ReceiptRepository receiptRepository,
                                       final ReceiptImageRepository receiptImageRepository,
                                       final ReceiptService receiptService,
                                       final AdminReceiptResourceAssembler receiptResourceAssembler,
                                       final AdminReceiptImageResourceAssembler receiptImageResourceAssembler) {
-        super(adminAccountService, userAccountService, userAccountRepository);
+        super(adminAccountService);
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
         this.receiptService = receiptService;

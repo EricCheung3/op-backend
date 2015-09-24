@@ -28,4 +28,8 @@ public interface AdminApiUrls {
     String URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE_BASE64 = "/admin/receipts/{receiptId}/images/{imageId}/base64";
     String URL_ADMIN_RECEIPTS_RECEIPT_ITEMS = "/admin/receipts/{receiptId}/items";
 
+    String URL_ADMIN_STORES = "/admin/stores";
+    String URL_ADMIN_STORES_STORE = "/admin/stores/{storeId}";
+    String URL_ADMIN_STORES_STORE_BRANCHES = "/admin/stores/{storeId}/branches";
+    String URL_ADMIN_STORES_STORE_BRANCHES_BRANCH = "/admin/stores/{storeId}/branches/{branchId}";
 }

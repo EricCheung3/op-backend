@@ -1,11 +1,13 @@
 package com.openprice.rest.admin.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.openprice.domain.account.user.UserProfile;
 import com.openprice.domain.common.Address;
 
 import lombok.Getter;
 import lombok.Setter;
 
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class AdminUserProfileForm {
 
     @Getter @Setter
@@ -55,11 +57,12 @@ public class AdminUserProfileForm {
         country = profile.getAddress().getCountry();
     }
 
-    public void updateProfile(final UserProfile profile) {
+    public UserProfile updateProfile(final UserProfile profile) {
         profile.setFirstName(firstName);
         profile.setLastName(lastName);
         profile.setMiddleName(middleName);
         profile.setPhone(phone);
         profile.setAddress(new Address(address1, address2, city, state, zip, country));
+        return profile;
     }
 }

@@ -17,7 +17,19 @@ import lombok.ToString;
 public class Store extends BaseAuditableEntity {
 
     @Getter @Setter
-    @Column(name="name")
+    @Column(name="code", unique=true, nullable=false)
+    private String code;
+
+    @Getter @Setter
+    @Column(name="name", nullable=false)
     private String name;
+
+    @Getter @Setter
+    @Column(name="categories", nullable=false)
+    private String categories;
+
+    @Getter @Setter
+    @Column(name="identify_field", nullable=false)
+    private String identifyField;
 
 }
