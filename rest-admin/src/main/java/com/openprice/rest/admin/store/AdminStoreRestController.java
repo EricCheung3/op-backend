@@ -8,7 +8,9 @@ import java.net.URI;
 import javax.inject.Inject;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
@@ -63,13 +65,14 @@ public class AdminStoreRestController extends AbstractAdminRestController {
     public HttpEntity<PagedResources<AdminStoreResource>> getAllStores(
             @PageableDefault(size = UtilConstants.DEFAULT_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<Store> assembler) {
-        final Page<Store> stores = storeRepository.findAll(pageable);
+        final Page<Store> stores = storeRepository.findAll(new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.ASC, "code"));
         return ResponseEntity.ok(assembler.toResource(stores, storeResourceAssembler));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = AdminApiUrls.URL_ADMIN_STORES)
     public HttpEntity<Void> createStore(@RequestBody final AdminStoreForm form) {
-        // TODO verify user input?
+        // TODO verify user input
+
         Store store = newStore(form);
         URI location = linkTo(methodOn(AdminStoreRestController.class).getStoreById(store.getId())).toUri();
         return ResponseEntity.created(location).body(null);
@@ -93,7 +96,7 @@ public class AdminStoreRestController extends AbstractAdminRestController {
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT)
+    @RequestMapping(method = RequestMethod.DELETE, value = AdminApiUrls.URL_ADMIN_STORES_STORE)
     public HttpEntity<Void> deleteStoreById(@PathVariable("storeId") final String storeId)
             throws ResourceNotFoundException {
         final Store store = loadStoreById(storeId);
@@ -102,7 +105,7 @@ public class AdminStoreRestController extends AbstractAdminRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_STORES_STORE_BRANCHES)
-    public HttpEntity<PagedResources<AdminStoreBranchResource>> getStoreBranchess(
+    public HttpEntity<PagedResources<AdminStoreBranchResource>> getStoreBranches(
             @PathVariable("storeId") final String storeId,
             @PageableDefault(size = UtilConstants.DEFAULT_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<StoreBranch> assembler) throws ResourceNotFoundException {

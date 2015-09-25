@@ -44,6 +44,16 @@ public class AdminAccountResourceAssembler implements ResourceAssembler<AdminAcc
                 AdminAccountResource.LINK_NAME_RECEIPT);
         resource.add(receiptLink);
 
+        final Link storesLink = new Link(
+                new UriTemplate(baseUri + UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_STORES + UtilConstants.PAGINATION_TEMPLATES),
+                AdminAccountResource.LINK_NAME_STORES);
+        resource.add(storesLink);
+
+        final Link storeLink = new Link(
+                new UriTemplate(baseUri + UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_STORES_STORE),
+                AdminAccountResource.LINK_NAME_STORE);
+        resource.add(storeLink);
+
         return resource;
     }
 }

@@ -33,15 +33,15 @@ public class StoreBranch extends BaseAuditableEntity {
     private String name;
 
     @Getter @Setter
-    @Column(name="phone", nullable=false)
+    @Column(name="phone")
     private String phone;
 
     @Getter @Setter
-    @Column(name="gst_number", nullable=false)
+    @Column(name="gst_number")
     private String gstNumber;
 
     @Getter @Setter
-    @Column(name="slogan", nullable=false)
+    @Column(name="slogan")
     private String slogan;
 
     @Setter
