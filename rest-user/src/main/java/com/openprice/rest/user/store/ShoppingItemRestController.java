@@ -27,8 +27,8 @@ import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.shopping.ShoppingItem;
 import com.openprice.domain.shopping.ShoppingItemRepository;
-import com.openprice.domain.store.Store;
-import com.openprice.domain.store.StoreRepository;
+import com.openprice.domain.store.StoreChain;
+import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.user.AbstractUserRestController;
 import com.openprice.rest.user.UserApiUrls;
@@ -38,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class ShoppingItemRestController extends AbstractUserRestController {
-    private final StoreRepository storeRepository;
+    private final StoreChainRepository storeRepository;
     private final ShoppingItemRepository shoppingItemRepository;
     private final ShoppingItemResourceAssembler shoppingItemResourceAssembler;
 
@@ -46,7 +46,7 @@ public class ShoppingItemRestController extends AbstractUserRestController {
     public ShoppingItemRestController(final UserAccountService userAccountService,
                                       final ShoppingItemRepository shoppingItemRepository,
                                       final ShoppingItemResourceAssembler shoppingItemResourceAssembler,
-                                      final StoreRepository storeRepository) {
+                                      final StoreChainRepository storeRepository) {
         super(userAccountService);
         this.shoppingItemRepository = shoppingItemRepository;
         this.shoppingItemResourceAssembler = shoppingItemResourceAssembler;
@@ -72,7 +72,7 @@ public class ShoppingItemRestController extends AbstractUserRestController {
             @PageableDefault(size = 10, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<ShoppingItem> assembler) {
         final UserAccount currentUserAccount = getCurrentAuthenticatedUser();
-        final Store store = getStoreByIdAndCheckOwner(storeId);
+        final StoreChain store = getStoreByIdAndCheckOwner(storeId);
         final Page<ShoppingItem> items = shoppingItemRepository.findByUserAndStoreOrderByItemName(currentUserAccount, store, pageable);
         return ResponseEntity.ok(assembler.toResource(items, shoppingItemResourceAssembler));
     }
@@ -94,8 +94,8 @@ public class ShoppingItemRestController extends AbstractUserRestController {
         return ResponseEntity.noContent().build();
     }
 
-    private Store getStoreByIdAndCheckOwner(final String storeId) {
-        final Store store = storeRepository.findOne(storeId);
+    private StoreChain getStoreByIdAndCheckOwner(final String storeId) {
+        final StoreChain store = storeRepository.findOne(storeId);
         if (store == null) {
             log.warn("ILLEGAL STORE ACCESS! No such store Id: {}.", storeId);
             throw new ResourceNotFoundException("No store with the id: " + storeId);
@@ -107,7 +107,7 @@ public class ShoppingItemRestController extends AbstractUserRestController {
     }
 
     private ShoppingItem getShoppingItemByIdAndCheckStore(final String storeId, final String itemId) {
-        final Store store = storeRepository.findOne(storeId);
+        final StoreChain store = storeRepository.findOne(storeId);
         if (store == null) {
             log.warn("ILLEGAL STORE ACCESS! No such store Id: {}.", storeId);
             throw new ResourceNotFoundException("No store with the id: " + storeId);
@@ -128,7 +128,7 @@ public class ShoppingItemRestController extends AbstractUserRestController {
     @Transactional
     private void saveShoppingList(final ShoppingListForm form) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
-        final Store store = getStoreByIdAndCheckOwner(form.getStoreId());
+        final StoreChain store = getStoreByIdAndCheckOwner(form.getStoreId());
         final List<ShoppingItem> shoppingItems = new ArrayList<>();
         for (final ShoppingListForm.Item item : form.getItems()) {
             final ShoppingItem shoppingItem = new ShoppingItem();

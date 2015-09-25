@@ -16,7 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@ToString
+@ToString(callSuper=true, exclude={"chain"})
 @SuppressWarnings("serial")
 @Entity
 @Table( name="store_branch" )
@@ -25,8 +25,8 @@ public class StoreBranch extends BaseAuditableEntity {
     @Getter @Setter
     @JsonIgnore
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="store_id")
-    private Store store;
+    @JoinColumn(name="chain_id")
+    private StoreChain chain;
 
     @Getter @Setter
     @Column(name="name", nullable=false)

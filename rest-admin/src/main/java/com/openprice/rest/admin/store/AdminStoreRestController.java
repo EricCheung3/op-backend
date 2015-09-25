@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.openprice.domain.account.admin.AdminAccount;
 import com.openprice.domain.account.admin.AdminAccountService;
-import com.openprice.domain.store.Store;
+import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreBranch;
 import com.openprice.domain.store.StoreBranchRepository;
-import com.openprice.domain.store.StoreRepository;
+import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.domain.store.StoreService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
@@ -40,139 +40,139 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class AdminStoreRestController extends AbstractAdminRestController {
-    private final StoreRepository storeRepository;
+    private final StoreChainRepository storeChainRepository;
     private final StoreBranchRepository storeBranchRepository;
     private final StoreService storeService;
-    private final AdminStoreResourceAssembler storeResourceAssembler;
+    private final AdminStoreChainResourceAssembler storeChainResourceAssembler;
     private final AdminStoreBranchResourceAssembler storeBranchResourceAssembler;
 
     @Inject
     public AdminStoreRestController(final AdminAccountService adminAccountService,
-                                    final StoreRepository storeRepository,
+                                    final StoreChainRepository storeChainRepository,
                                     final StoreBranchRepository storeBranchRepository,
                                     final StoreService storeService,
-                                    final AdminStoreResourceAssembler storeResourceAssembler,
+                                    final AdminStoreChainResourceAssembler storeResourceAssembler,
                                     final AdminStoreBranchResourceAssembler storeBranchResourceAssembler) {
         super(adminAccountService);
-        this.storeRepository = storeRepository;
+        this.storeChainRepository = storeChainRepository;
         this.storeBranchRepository = storeBranchRepository;
         this.storeService = storeService;
-        this.storeResourceAssembler = storeResourceAssembler;
+        this.storeChainResourceAssembler = storeResourceAssembler;
         this.storeBranchResourceAssembler = storeBranchResourceAssembler;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_STORES)
-    public HttpEntity<PagedResources<AdminStoreResource>> getAllStores(
+    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_CHAINS)
+    public HttpEntity<PagedResources<AdminStoreChainResource>> getAllStoreChains(
             @PageableDefault(size = UtilConstants.DEFAULT_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
-            final PagedResourcesAssembler<Store> assembler) {
-        final Page<Store> stores = storeRepository.findAll(new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.ASC, "code"));
-        return ResponseEntity.ok(assembler.toResource(stores, storeResourceAssembler));
+            final PagedResourcesAssembler<StoreChain> assembler) {
+        final Page<StoreChain> stores = storeChainRepository.findAll(new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.ASC, "code"));
+        return ResponseEntity.ok(assembler.toResource(stores, storeChainResourceAssembler));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = AdminApiUrls.URL_ADMIN_STORES)
-    public HttpEntity<Void> createStore(@RequestBody final AdminStoreForm form) {
+    @RequestMapping(method = RequestMethod.POST, value = AdminApiUrls.URL_ADMIN_CHAINS)
+    public HttpEntity<Void> createStoreChain(@RequestBody final AdminStoreChainForm form) {
         // TODO verify user input
 
-        Store store = newStore(form);
-        URI location = linkTo(methodOn(AdminStoreRestController.class).getStoreById(store.getId())).toUri();
+        StoreChain chain = newStoreChain(form);
+        URI location = linkTo(methodOn(AdminStoreRestController.class).getStoreChainById(chain.getId())).toUri();
         return ResponseEntity.created(location).body(null);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_STORES_STORE)
-    public HttpEntity<AdminStoreResource> getStoreById(@PathVariable("storeId") final String storeId)
+    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN)
+    public HttpEntity<AdminStoreChainResource> getStoreChainById(@PathVariable("chainId") final String chainId)
             throws ResourceNotFoundException {
-        final Store store = loadStoreById(storeId);
-        return ResponseEntity.ok(storeResourceAssembler.toResource(store));
+        final StoreChain chain = loadStoreChainById(chainId);
+        return ResponseEntity.ok(storeChainResourceAssembler.toResource(chain));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = AdminApiUrls.URL_ADMIN_STORES_STORE)
-    public HttpEntity<Void> updateStore(@PathVariable("storeId") final String storeId,
-                                        @RequestBody final AdminStoreForm form)
-            throws ResourceNotFoundException {
+    @RequestMapping(method = RequestMethod.PUT, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN)
+    public HttpEntity<Void> updateStoreChain(
+            @PathVariable("chainId") final String chainId,
+            @RequestBody final AdminStoreChainForm form) throws ResourceNotFoundException {
         // TODO verify user input?
 
-        final Store store = loadStoreById(storeId);
-        storeRepository.save(form.updateStore(store));
+        final StoreChain store = loadStoreChainById(chainId);
+        storeChainRepository.save(form.updateStore(store));
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = AdminApiUrls.URL_ADMIN_STORES_STORE)
-    public HttpEntity<Void> deleteStoreById(@PathVariable("storeId") final String storeId)
+    @RequestMapping(method = RequestMethod.DELETE, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN)
+    public HttpEntity<Void> deleteStoreChainById(@PathVariable("chainId") final String chainId)
             throws ResourceNotFoundException {
-        final Store store = loadStoreById(storeId);
-        storeRepository.delete(store);
+        final StoreChain chain = loadStoreChainById(chainId);
+        storeChainRepository.delete(chain);
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_STORES_STORE_BRANCHES)
+    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN_BRANCHES)
     public HttpEntity<PagedResources<AdminStoreBranchResource>> getStoreBranches(
-            @PathVariable("storeId") final String storeId,
+            @PathVariable("chainId") final String chainId,
             @PageableDefault(size = UtilConstants.DEFAULT_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<StoreBranch> assembler) throws ResourceNotFoundException {
-        final Store store = loadStoreById(storeId);
-        final Page<StoreBranch> branches = storeBranchRepository.findByStore(store, pageable);
+        final StoreChain chain = loadStoreChainById(chainId);
+        final Page<StoreBranch> branches = storeBranchRepository.findByChain(chain, pageable);
         return ResponseEntity.ok(assembler.toResource(branches, storeBranchResourceAssembler));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = AdminApiUrls.URL_ADMIN_STORES_STORE_BRANCHES)
+    @RequestMapping(method = RequestMethod.POST, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN_BRANCHES)
     public HttpEntity<Void> createStoreBranch(
-            @PathVariable("storeId") final String storeId,
+            @PathVariable("chainId") final String chainId,
             @RequestBody final AdminStoreBranchForm form) throws ResourceNotFoundException {
         // TODO verify user input?
 
-        final Store store = loadStoreById(storeId);
+        final StoreChain store = loadStoreChainById(chainId);
         final StoreBranch branch = newStoreBranch(form, store);
-        final URI location = linkTo(methodOn(AdminStoreRestController.class).getStoreBranchById(storeId, branch.getId())).toUri();
+        final URI location = linkTo(methodOn(AdminStoreRestController.class).getStoreBranchById(chainId, branch.getId())).toUri();
         return ResponseEntity.created(location).body(null);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_STORES_STORE_BRANCHES_BRANCH)
+    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN_BRANCHES_BRANCH)
     public HttpEntity<AdminStoreBranchResource> getStoreBranchById(
-            @PathVariable("storeId") final String storeId,
+            @PathVariable("chainId") final String chainId,
             @PathVariable("branchId") final String branchId) throws ResourceNotFoundException {
-        final Store store = loadStoreById(storeId);
+        final StoreChain store = loadStoreChainById(chainId);
         final StoreBranch branch = loadStoreBranchByIdAndCheckStore(branchId, store);
         return ResponseEntity.ok(storeBranchResourceAssembler.toResource(branch));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = AdminApiUrls.URL_ADMIN_STORES_STORE_BRANCHES_BRANCH)
+    @RequestMapping(method = RequestMethod.PUT, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN_BRANCHES_BRANCH)
     public HttpEntity<Void> updateStoreBranch(
-            @PathVariable("storeId") final String storeId,
+            @PathVariable("chainId") final String chainId,
             @PathVariable("branchId") final String branchId,
             @RequestBody final AdminStoreBranchForm form) throws ResourceNotFoundException {
         // TODO verify user input?
 
-        final Store store = loadStoreById(storeId);
+        final StoreChain store = loadStoreChainById(chainId);
         final StoreBranch branch = loadStoreBranchByIdAndCheckStore(branchId, store);
         storeBranchRepository.save(form.updateStoreBranch(branch));
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = AdminApiUrls.URL_ADMIN_STORES_STORE_BRANCHES_BRANCH)
+    @RequestMapping(method = RequestMethod.DELETE, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN_BRANCHES_BRANCH)
     public HttpEntity<Void> deleteStoreBranchById(
-            @PathVariable("storeId") final String storeId,
+            @PathVariable("chainId") final String chainId,
             @PathVariable("branchId") final String branchId) throws ResourceNotFoundException {
-        final Store store = loadStoreById(storeId);
+        final StoreChain store = loadStoreChainById(chainId);
         final StoreBranch branch = loadStoreBranchByIdAndCheckStore(branchId, store);
         storeBranchRepository.delete(branch);
         return ResponseEntity.noContent().build();
     }
 
     @Transactional
-    protected Store newStore(final AdminStoreForm form) {
+    protected StoreChain newStoreChain(final AdminStoreChainForm form) {
         final AdminAccount currentAdmin = getCurrentAuthenticatedAdmin();
-        log.debug("Admin {} created a new store {}", currentAdmin.getUsername(), form.getName());
-        return storeService.createStore(form.getCode(),
-                                        form.getName(),
-                                        form.getCategories(),
-                                        form.getIdentifyFields());
+        log.debug("Admin {} created a new store chain {}", currentAdmin.getUsername(), form.getName());
+        return storeService.createStoreChain(form.getCode(),
+                                             form.getName(),
+                                             form.getCategories(),
+                                             form.getIdentifyFields());
     }
 
     @Transactional
-    protected StoreBranch newStoreBranch(final AdminStoreBranchForm form, final Store store) {
+    protected StoreBranch newStoreBranch(final AdminStoreBranchForm form, final StoreChain chain) {
         final AdminAccount currentAdmin = getCurrentAuthenticatedAdmin();
-        log.debug("Admin {} created a new branch {}", currentAdmin.getUsername(), form.getName());
-        return storeService.createStoreBranch(store,
+        log.debug("Admin {} created a new store branch {} for chain {}", currentAdmin.getUsername(), form.getName(), chain.getName());
+        return storeService.createStoreBranch(chain,
                                               form.getName(),
                                               form.getPhone(),
                                               form.getGstNumber(),
@@ -184,23 +184,23 @@ public class AdminStoreRestController extends AbstractAdminRestController {
                                               form.getCountry());
     }
 
-    private Store loadStoreById(final String storeId) {
-        final Store store = storeRepository.findOne(storeId);
-        if (store == null) {
-            log.warn("ILLEGAL STORE ACCESS! No such store Id: {}.", storeId);
-            throw new ResourceNotFoundException("No store with the id: " + storeId);
+    private StoreChain loadStoreChainById(final String chainId) {
+        final StoreChain chain = storeChainRepository.findOne(chainId);
+        if (chain == null) {
+            log.warn("ILLEGAL STORE CHAIN ACCESS! No such chian Id: {}.", chainId);
+            throw new ResourceNotFoundException("No store chain with the id: " + chainId);
         }
-        return store;
+        return chain;
     }
 
-    private StoreBranch loadStoreBranchByIdAndCheckStore(final String branchId, final Store store) {
+    private StoreBranch loadStoreBranchByIdAndCheckStore(final String branchId, final StoreChain chain) {
         final StoreBranch branch = storeBranchRepository.findOne(branchId);
         if (branch == null) {
             log.warn("ILLEGAL STORE BRANCH ACCESS! No such store branch Id: {}.", branchId);
             throw new ResourceNotFoundException("No store branch with the id: " + branchId);
         }
-        if (!store.equals(branch.getStore())) {
-            log.warn("ILLEGAL STORE BRANCH ACCESS! Branch '{}' not belong to Store '{}'.", branchId, store.getId());
+        if (!chain.equals(branch.getChain())) {
+            log.warn("ILLEGAL STORE BRANCH ACCESS! Branch '{}' not belong to store chain '{}'.", branchId, chain.getId());
             throw new ResourceNotFoundException("No store branch with the id: " + branchId);
         }
         return branch;

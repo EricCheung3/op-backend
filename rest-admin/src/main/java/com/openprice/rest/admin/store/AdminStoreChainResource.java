@@ -2,14 +2,14 @@ package com.openprice.rest.admin.store;
 
 import org.springframework.hateoas.Resource;
 
-import com.openprice.domain.store.Store;
+import com.openprice.domain.store.StoreChain;
 
-public class AdminStoreResource extends Resource<Store> {
+public class AdminStoreChainResource extends Resource<StoreChain> {
     public static final String LINK_NAME_BRANCHES = "branches";
     public static final String LINK_NAME_BRANCH = "branch";
 
-    public AdminStoreResource(final Store store) {
-        super(store);
+    public AdminStoreChainResource(final StoreChain chain) {
+        super(chain);
     }
 
 }

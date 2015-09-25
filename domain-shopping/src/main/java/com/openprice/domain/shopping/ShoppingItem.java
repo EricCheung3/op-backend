@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
 import com.openprice.domain.account.user.UserAccount;
-import com.openprice.domain.store.Store;
+import com.openprice.domain.store.StoreChain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -31,7 +31,7 @@ public class ShoppingItem extends BaseAuditableEntity {
     @JsonIgnore
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="store_id")
-    private Store store;
+    private StoreChain store;
 
     @Getter @Setter
     @Column(name="item_name")

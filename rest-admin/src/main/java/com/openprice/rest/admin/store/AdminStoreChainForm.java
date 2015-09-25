@@ -1,7 +1,7 @@
 package com.openprice.rest.admin.store;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.openprice.domain.store.Store;
+import com.openprice.domain.store.StoreChain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor @AllArgsConstructor
 @Data
-public class AdminStoreForm {
+public class AdminStoreChainForm {
     private String code;
 
     private String name;
@@ -21,14 +21,14 @@ public class AdminStoreForm {
 
     private String identifyFields;
 
-    public AdminStoreForm(final Store store) {
+    public AdminStoreChainForm(final StoreChain store) {
         this.code = store.getCode();
         this.name = store.getName();
         this.categories = store.getCategories();
         this.identifyFields = store.getIdentifyFields();
     }
 
-    public Store updateStore(final Store store) {
+    public StoreChain updateStore(final StoreChain store) {
         store.setCode(code);
         store.setName(name);
         store.setCategories(categories);

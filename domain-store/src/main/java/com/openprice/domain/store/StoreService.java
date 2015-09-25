@@ -8,12 +8,13 @@ import com.openprice.domain.common.Address;
 
 @Service
 public class StoreService {
-    private final StoreRepository storeRepository;
+    private final StoreChainRepository storeChainRepository;
     private final StoreBranchRepository storeBranchRepository;
 
     @Inject
-    public StoreService(final StoreRepository storeRepository, final StoreBranchRepository storeBranchRepository) {
-        this.storeRepository = storeRepository;
+    public StoreService(final StoreChainRepository storeChainRepository,
+                        final StoreBranchRepository storeBranchRepository) {
+        this.storeChainRepository = storeChainRepository;
         this.storeBranchRepository = storeBranchRepository;
     }
 
@@ -25,19 +26,19 @@ public class StoreService {
      * @param identifyField
      * @return
      */
-    public Store createStore(final String code,
-                             final String name,
-                             final String categories,
-                             final String identifyField) {
-        Store store = new Store();
-        store.setCode(code);
-        store.setName(name);
-        store.setCategories(categories);
-        store.setIdentifyFields(identifyField);
-        return storeRepository.save(store);
+    public StoreChain createStoreChain(final String code,
+                                       final String name,
+                                       final String categories,
+                                       final String identifyFields) {
+        StoreChain chain = new StoreChain();
+        chain.setCode(code);
+        chain.setName(name);
+        chain.setCategories(categories);
+        chain.setIdentifyFields(identifyFields);
+        return storeChainRepository.save(chain);
     }
 
-    public StoreBranch createStoreBranch(final Store store,
+    public StoreBranch createStoreBranch(final StoreChain chain,
                                          final String name,
                                          final String phone,
                                          final String gstNumber,
@@ -48,7 +49,7 @@ public class StoreService {
                                          final String zip,
                                          final String country) {
         StoreBranch branch = new StoreBranch();
-        branch.setStore(store);
+        branch.setChain(chain);
         branch.setName(name);
         branch.setPhone(phone);
         branch.setGstNumber(gstNumber);

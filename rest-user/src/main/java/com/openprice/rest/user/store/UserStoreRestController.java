@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.shopping.ShoppingItemRepository;
-import com.openprice.domain.store.Store;
-import com.openprice.domain.store.StoreRepository;
+import com.openprice.domain.store.StoreChain;
+import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.user.AbstractUserRestController;
 import com.openprice.rest.user.UserApiUrls;
@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class UserStoreRestController extends AbstractUserRestController {
-    private final StoreRepository storeRepository;
+    private final StoreChainRepository storeRepository;
     private final UserStoreResourceAssembler userStoreResourceAssembler;
     private final ShoppingItemRepository shoppingItemRepository;
     private final ShoppingItemResourceAssembler shoppingItemResourceAssembler;
@@ -37,7 +37,7 @@ public class UserStoreRestController extends AbstractUserRestController {
     public UserStoreRestController(final UserAccountService userAccountService,
                                    final ShoppingItemRepository shoppingItemRepository,
                                    final ShoppingItemResourceAssembler shoppingItemResourceAssembler,
-                                   final StoreRepository storeRepository,
+                                   final StoreChainRepository storeRepository,
                                    final UserStoreResourceAssembler userStoreResourceAssembler) {
         super(userAccountService);
         this.shoppingItemRepository = shoppingItemRepository;
@@ -49,20 +49,20 @@ public class UserStoreRestController extends AbstractUserRestController {
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_SHOPPING_STORES)
     public HttpEntity<PagedResources<UserStoreResource>> getCurrentUserStores(
             @PageableDefault(size = 10, page = 0) final Pageable pageable,
-            final PagedResourcesAssembler<Store> assembler) {
+            final PagedResourcesAssembler<StoreChain> assembler) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
 
         // FIXME get stores that current user has shopping list with
         // temp solution to get all sores
 
-        final Page<Store> stores = storeRepository.findAll(pageable);
+        final Page<StoreChain> stores = storeRepository.findAll(pageable);
         return ResponseEntity.ok(assembler.toResource(stores, userStoreResourceAssembler));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_SHOPPING_STORES_STORE)
     public HttpEntity<UserStoreResource> getUserStoreById(@PathVariable("storeId") final String storeId)
             throws ResourceNotFoundException {
-        final Store store = storeRepository.findOne(storeId);
+        final StoreChain store = storeRepository.findOne(storeId);
         if (store == null) {
             log.warn("ILLEGAL STORE ACCESS! No such store Id: {}.", storeId);
             throw new ResourceNotFoundException("No store with the id: " + storeId);

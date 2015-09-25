@@ -25,15 +25,15 @@ import com.jayway.jsonpath.JsonPath;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.shopping.ShoppingItem;
 import com.openprice.domain.shopping.ShoppingItemRepository;
-import com.openprice.domain.store.Store;
-import com.openprice.domain.store.StoreRepository;
+import com.openprice.domain.store.StoreChain;
+import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.rest.ApiDocumentationBase;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.user.store.ShoppingListForm;
 
 public class UserStoreApiDocumentation extends ApiDocumentationBase {
     @Inject
-    protected StoreRepository storeRepository;
+    protected StoreChainRepository storeRepository;
 
     @Inject
     protected ShoppingItemRepository shoppingItemRepository;
@@ -218,11 +218,11 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
     }
 
     protected void createStores() throws Exception {
-        Store store = new Store();
+        StoreChain store = new StoreChain();
         store.setName("Safeway");
         store = storeRepository.save(store);
 
-        store = new Store();
+        store = new StoreChain();
         store.setName("SuperStore");
         store = storeRepository.save(store);
     }
@@ -233,7 +233,7 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
 
     protected void createShoppingItems() throws Exception {
         final UserAccount user = userAccountRepository.findByEmail(USERNAME);
-        final Store store = storeRepository.findByName("Safeway");
+        final StoreChain store = storeRepository.findByName("Safeway");
 
         ShoppingItem item = new ShoppingItem();
         item.setUser(user);

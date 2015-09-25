@@ -9,15 +9,15 @@ import org.springframework.hateoas.UriTemplate;
 import org.springframework.hateoas.mvc.BasicLinkBuilder;
 import org.springframework.stereotype.Component;
 
-import com.openprice.domain.store.Store;
+import com.openprice.domain.store.StoreChain;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.user.UserAccountRestController;
 
 @Component
-public class UserStoreResourceAssembler implements ResourceAssembler<Store, UserStoreResource> {
+public class UserStoreResourceAssembler implements ResourceAssembler<StoreChain, UserStoreResource> {
 
     @Override
-    public UserStoreResource toResource(final Store store) {
+    public UserStoreResource toResource(final StoreChain store) {
         final UserStoreResource resource = new UserStoreResource(store);
 
         resource.add(linkTo(methodOn(UserStoreRestController.class).getUserStoreById(store.getId()))

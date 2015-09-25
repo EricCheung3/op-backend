@@ -7,7 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StoreBranchRepository extends JpaRepository<StoreBranch, String> {
-    List<StoreBranch> findByStore(Store store);
 
-    Page<StoreBranch> findByStore(Store store, Pageable pageable);
+    List<StoreBranch> findByChain(StoreChain chain);
+
+    Page<StoreBranch> findByChain(StoreChain chain, Pageable pageable);
 }

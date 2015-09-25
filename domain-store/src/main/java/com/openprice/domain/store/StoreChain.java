@@ -19,8 +19,8 @@ import lombok.ToString;
 @ToString(callSuper=true, exclude={"branches"})
 @SuppressWarnings("serial")
 @Entity
-@Table( name="store" )
-public class Store extends BaseAuditableEntity {
+@Table( name="store_chain" )
+public class StoreChain extends BaseAuditableEntity {
 
     @Getter @Setter
     @Column(name="code", unique=true, nullable=false)
@@ -40,7 +40,7 @@ public class Store extends BaseAuditableEntity {
 
     @Getter @Setter
     @JsonIgnore
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="store")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="chain")
     private List<StoreBranch> branches = new ArrayList<>();
 
 }
