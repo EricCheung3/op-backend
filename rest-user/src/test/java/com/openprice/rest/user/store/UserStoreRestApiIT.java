@@ -50,9 +50,9 @@ public class UserStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("page.totalElements", equalTo(3))
             .body("page.totalPages", equalTo(1))
             .body("page.number", equalTo(0))
-            .body("_embedded.stores[0].id", equalTo("store001"))
-            .body("_embedded.stores[1].id", equalTo("store002"))
-            .body("_embedded.stores[2].id", equalTo("store003"))
+            .body("_embedded.storeChains[0].id", equalTo("store001"))
+            .body("_embedded.storeChains[1].id", equalTo("store002"))
+            .body("_embedded.storeChains[2].id", equalTo("store003"))
         ;
     }
 
@@ -83,7 +83,7 @@ public class UserStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("id", equalTo("store001"))
-            .body("name", equalTo("SuperStore"))
+            .body("name", equalTo("Real Canadian Superstore"))
             .body("_links.self.href", endsWith(storeUrl))
             .body("_links.user.href", endsWith("/user"))
             .body("_links.items.href", endsWith(storeUrl + "/items"))

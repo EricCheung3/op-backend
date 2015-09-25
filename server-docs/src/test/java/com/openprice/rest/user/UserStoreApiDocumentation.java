@@ -57,7 +57,7 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
                 linkWithRel("self").description("The self link")
             ),
             responseFields(
-                fieldWithPath("_embedded.stores").description("An array of <<resources-user-store,Store resources>>"),
+                fieldWithPath("_embedded.storeChains").description("An array of <<resources-user-store,Store resources>>"),
                 fieldWithPath("page").description("Pagination data"),
                 fieldWithPath("_links").description("<<resources-user-store-list-links,Links>> to other resources")
             )
@@ -69,7 +69,7 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
             .andExpect(status().isOk())
             .andReturn().getResponse()
             .getContentAsString();
-        String storeLink = JsonPath.read(responseContent, "_embedded.stores[0]._links.self.href");
+        String storeLink = JsonPath.read(responseContent, "_embedded.storeChains[0]._links.self.href");
 
         mockMvc
         .perform(get(storeLink).with(user(USERNAME)))
@@ -84,7 +84,10 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
+                fieldWithPath("code").description("Store code"),
                 fieldWithPath("name").description("Store name"),
+                fieldWithPath("categories").description("Store categories"),
+                fieldWithPath("identifyFields").description("Store identify fields"),
                 fieldWithPath("_links").description("<<resources-user-store-retrieve-links,Links>> to other resources")
             )
         ));
@@ -107,7 +110,7 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
             .andExpect(status().isOk())
             .andReturn().getResponse()
             .getContentAsString();
-        String storeId = JsonPath.read(responseContent, "_embedded.stores[0].id");
+        String storeId = JsonPath.read(responseContent, "_embedded.storeChains[0].id");
 
         ShoppingListForm form = new ShoppingListForm();
         form.setStoreId(storeId);
@@ -150,7 +153,7 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
             .andExpect(status().isOk())
             .andReturn().getResponse()
             .getContentAsString();
-        String storeLink = JsonPath.read(responseContent, "_embedded.stores[0]._links.self.href");
+        String storeLink = JsonPath.read(responseContent, "_embedded.storeChains[0]._links.self.href");
         responseContent =
             mockMvc
             .perform(get(storeLink).with(user(USERNAME)))
@@ -219,11 +222,15 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
 
     protected void createStores() throws Exception {
         StoreChain store = new StoreChain();
+        store.setCode("Safeway");
         store.setName("Safeway");
+        store.setCategories("Grocery");
         store = storeRepository.save(store);
 
         store = new StoreChain();
+        store.setCode("RCSS");
         store.setName("SuperStore");
+        store.setCategories("Grocery");
         store = storeRepository.save(store);
     }
 
@@ -233,7 +240,7 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
 
     protected void createShoppingItems() throws Exception {
         final UserAccount user = userAccountRepository.findByEmail(USERNAME);
-        final StoreChain store = storeRepository.findByName("Safeway");
+        final StoreChain store = storeRepository.findByCode("Safeway");
 
         ShoppingItem item = new ShoppingItem();
         item.setUser(user);

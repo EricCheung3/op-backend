@@ -31,7 +31,9 @@ public class AdminApiDocumentation extends AdminApiDocumentationBase {
                 linkWithRel("users").description("The <<resources-admin-users, Admin Users resource>>"),
                 linkWithRel("user").description("The <<resources-admin-user, Admin User resource>>"),
                 linkWithRel("receipts").description("The <<resources-admin-receipts, Admin Receipts resource>>"),
-                linkWithRel("receipt").description("The <<resources-admin-receipt, Admin Receipt resource>>")
+                linkWithRel("receipt").description("The <<resources-admin-receipt, Admin Receipt resource>>"),
+                linkWithRel("chains").description("The <<resources-admin-chains, Admin Store Chains resource>>"),
+                linkWithRel("chain").description("The <<resources-admin-chain, Admin Store Chain resource>>")
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
