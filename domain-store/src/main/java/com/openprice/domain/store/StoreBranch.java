@@ -40,10 +40,6 @@ public class StoreBranch extends BaseAuditableEntity {
     @Column(name="gst_number")
     private String gstNumber;
 
-    @Getter @Setter
-    @Column(name="slogan")
-    private String slogan;
-
     @Setter
     @Embedded
     private Address address;

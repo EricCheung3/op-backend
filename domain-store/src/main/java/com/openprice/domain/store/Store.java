@@ -35,8 +35,8 @@ public class Store extends BaseAuditableEntity {
     private String categories;
 
     @Getter @Setter
-    @Column(name="identify_field")
-    private String identifyField;
+    @Column(name="identify_fields")
+    private String identifyFields;
 
     @Getter @Setter
     @JsonIgnore

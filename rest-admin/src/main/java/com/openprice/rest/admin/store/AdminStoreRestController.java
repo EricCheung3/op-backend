@@ -165,7 +165,7 @@ public class AdminStoreRestController extends AbstractAdminRestController {
         return storeService.createStore(form.getCode(),
                                         form.getName(),
                                         form.getCategories(),
-                                        form.getIdentifyField());
+                                        form.getIdentifyFields());
     }
 
     @Transactional
@@ -176,7 +176,6 @@ public class AdminStoreRestController extends AbstractAdminRestController {
                                               form.getName(),
                                               form.getPhone(),
                                               form.getGstNumber(),
-                                              form.getSlogan(),
                                               form.getAddress1(),
                                               form.getAddress2(),
                                               form.getCity(),

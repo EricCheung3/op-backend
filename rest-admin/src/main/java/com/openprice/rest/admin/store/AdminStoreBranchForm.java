@@ -4,47 +4,48 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.openprice.domain.common.Address;
 import com.openprice.domain.store.StoreBranch;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-@ToString
+@Builder
+@NoArgsConstructor @AllArgsConstructor
+@Data
 public class AdminStoreBranchForm {
-    @Getter @Setter
     private String name;
 
-    @Getter @Setter
     private String gstNumber;
 
-    @Getter @Setter
-    private String slogan;
-
-    @Getter @Setter
     private String phone;
 
-    @Getter @Setter
     private String address1;
 
-    @Getter @Setter
     private String address2;
 
-    @Getter @Setter
     private String city;
 
-    @Getter @Setter
     private String state;
 
-    @Getter @Setter
     private String zip;
 
-    @Getter @Setter
     private String country;
 
+    public AdminStoreBranchForm(final StoreBranch branch) {
+        this.name = branch.getName();
+        this.gstNumber = branch.getGstNumber();
+        this.phone = branch.getPhone();
+        this.address1 = branch.getAddress().getAddress1();
+        this.address2 = branch.getAddress().getAddress2();
+        this.city = branch.getAddress().getCity();
+        this.state = branch.getAddress().getState();
+        this.zip = branch.getAddress().getZip();
+        this.country = branch.getAddress().getCountry();
+    }
     public StoreBranch updateStoreBranch(final StoreBranch branch) {
         branch.setName(name);
         branch.setGstNumber(gstNumber);
-        branch.setSlogan(slogan);
         branch.setPhone(phone);
         branch.setAddress(new Address(address1, address2, city, state, zip, country));
         return branch;

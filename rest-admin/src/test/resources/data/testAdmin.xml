@@ -38,6 +38,10 @@
     <store id="store001" version="1" code="RCSS" name="Real Canadian Superstore" categories="Grocery" created_time="2009-01-02 10:00:01.0000"/>
     <store_branch id="branch101" version="1" store_id="store001" name="RCSS" phone="780-430-2769" 
         address1="4821 Calgary Trail" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
+    <store_branch id="branch102" version="1" store_id="store001" name="RCSS" phone="780-490-3918" 
+        address1="1549 9711, 23 AVE NW" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
+    <store_branch id="branch103" version="1" store_id="store001" name="RCSS" phone="780-450-8328" 
+        address1="4410, 17 St NW" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
 
     <store id="store002" version="1" code="Safeway" name="Safeway" categories="Grocery,Health" created_time="2009-01-02 10:00:01.0000"/>
     <store_branch id="branch201" version="1" store_id="store002" name="SAFEWAY" phone="780-436-185" 

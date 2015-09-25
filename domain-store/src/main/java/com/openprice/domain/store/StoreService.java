@@ -33,7 +33,7 @@ public class StoreService {
         store.setCode(code);
         store.setName(name);
         store.setCategories(categories);
-        store.setIdentifyField(identifyField);
+        store.setIdentifyFields(identifyField);
         return storeRepository.save(store);
     }
 
@@ -41,7 +41,6 @@ public class StoreService {
                                          final String name,
                                          final String phone,
                                          final String gstNumber,
-                                         final String slogan,
                                          final String address1,
                                          final String address2,
                                          final String city,
@@ -53,7 +52,6 @@ public class StoreService {
         branch.setName(name);
         branch.setPhone(phone);
         branch.setGstNumber(gstNumber);
-        branch.setSlogan(slogan);
         branch.setAddress(new Address(address1, address2, city, state, zip, country));
         return storeBranchRepository.save(branch);
     }
