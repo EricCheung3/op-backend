@@ -16,9 +16,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
-import com.openprice.domain.store.StoreChain;
-import com.openprice.domain.store.StoreBranch;
 import com.openprice.domain.store.StoreBranchRepository;
+import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.store.AdminStoreBranchForm;
@@ -40,7 +39,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
             given()
                 .filter(sessionFilter)
             .when()
-                .get(getStoreChainsUrl(sessionFilter))
+                .get(storeChainsUrl(sessionFilter))
             ;
         //response.prettyPrint();
         response
@@ -68,7 +67,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
             given()
                 .filter(sessionFilter)
             .when()
-                .get(getStoreChainUrl(sessionFilter, "chain001"))
+                .get(storeChainUrl(sessionFilter, "chain001"))
             ;
         //response.prettyPrint();
         response
@@ -93,7 +92,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
         given()
             .filter(sessionFilter)
         .when()
-            .get(getStoreChainUrl(sessionFilter, "invalid"))
+            .get(storeChainUrl(sessionFilter, "invalid"))
         .then()
             .statusCode(HttpStatus.SC_NOT_FOUND)
         ;
@@ -117,7 +116,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
                 .contentType(ContentType.JSON)
                 .body(form)
             .when()
-                .post(getStoreChainsUrl(sessionFilter))
+                .post(storeChainsUrl(sessionFilter))
             ;
 
         response
@@ -144,12 +143,14 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void updateStoreChain_ShouldUpdate() throws Exception {
-        final StoreChain chain001 = storeRepository.findOne("chain001");
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
-        final String chainUrl = getStoreChainUrl(sessionFilter, "chain001");
-        final AdminStoreChainForm form = new AdminStoreChainForm(chain001);
-        form.setName("Superstore");
-        form.setCategories("Grocery,Fashion,Pharmacy");
+        final String chainUrl = storeChainUrl(sessionFilter, "chain001");
+        final AdminStoreChainForm form =
+            AdminStoreChainForm.builder()
+                               .code("RCSS")
+                               .name("Superstore")
+                               .categories("Grocery,Fashion,Pharmacy")
+                               .build();
 
         given()
             .filter(sessionFilter)
@@ -179,9 +180,10 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
     }
 
     @Test
+    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void deleteStoreChainById_ShouldDeleteChainAndBranches() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
-        final String chainUrl = getStoreChainUrl(sessionFilter, "chain001");
+        final String chainUrl = storeChainUrl(sessionFilter, "chain001");
 
         given()
             .filter(sessionFilter)
@@ -210,7 +212,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getStoreBranches_ShouldReturnAllBranchesOfStore() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
-        final String branchesUrl = getStoreBranchesUrl(sessionFilter, "chain001");
+        final String branchesUrl = storeBranchesUrl(sessionFilter, "chain001");
 
         given()
             .filter(sessionFilter)
@@ -237,7 +239,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getStoreBranchById_ShouldReturnCorrectStoreBranch() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
-        final String storeBranchUrl = getStoreBranchUrl(sessionFilter, "chain001", "branch101");
+        final String storeBranchUrl = storeBranchUrl(sessionFilter, "chain001", "branch101");
 
         given()
             .filter(sessionFilter)
@@ -258,7 +260,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getStoreBranchById_ShouldReturn404_WithInvalidId() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
-        final String storeBranchUrl = getStoreBranchUrl(sessionFilter, "chain001", "invalid");
+        final String storeBranchUrl = storeBranchUrl(sessionFilter, "chain001", "invalid");
 
         given()
             .filter(sessionFilter)
@@ -282,7 +284,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void createStoreBranch_ShouldCreateNewBranchForStore() throws Exception {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
-        final String branchesUrl = getStoreBranchesUrl(sessionFilter, "chain001");
+        final String branchesUrl = storeBranchesUrl(sessionFilter, "chain001");
 
         final AdminStoreBranchForm form =
             AdminStoreBranchForm.builder()
@@ -331,12 +333,17 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void updateStoreBranch_ShouldUpdate() throws Exception {
-        final StoreBranch branch101 = storeBranchRepository.findOne("branch101");
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
-        final String branchUrl = getStoreBranchUrl(sessionFilter, "chain001", "branch101");
-        final AdminStoreBranchForm form = new AdminStoreBranchForm(branch101);
-        form.setName("Superstore");
-        form.setPhone("555-123-4567");
+        final String branchUrl = storeBranchUrl(sessionFilter, "chain001", "branch101");
+        final AdminStoreBranchForm form =
+            AdminStoreBranchForm.builder()
+                                .name("New RCSS")
+                                .phone("555-123-4567")
+                                .address1("101 456 Street")
+                                .city("Edmonton")
+                                .state("AB")
+                                .country("Canada")
+                                .build();
 
         given()
             .filter(sessionFilter)
@@ -356,7 +363,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("id", equalTo("branch101"))
-            .body("name", equalTo("Superstore"))
+            .body("name", equalTo("New RCSS"))
             .body("phone", equalTo("555-123-4567"))
             .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS+"/chain001/branches/branch101"))
             .body("_links.chain.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS + "/chain001"))
@@ -364,9 +371,10 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
     }
 
     @Test
+    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void deleteStoreBranchById_ShouldDeleteBranch() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
-        final String branchUrl = getStoreBranchUrl(sessionFilter, "chain001", "branch101");
+        final String branchUrl = storeBranchUrl(sessionFilter, "chain001", "branch101");
 
         given()
             .filter(sessionFilter)
@@ -390,7 +398,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
         assertEquals(2, storeBranchRepository.findByChain(store).size());
     }
 
-    private String getStoreChainsUrl(final SessionFilter sessionFilter) {
+    private String storeChainsUrl(final SessionFilter sessionFilter) {
         final String chainsLink =
             given().filter(sessionFilter)
                    .when().get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN)
@@ -398,7 +406,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
         return UriTemplate.fromTemplate(chainsLink).set("page", null).set("size", null).set("sort", null).expand();
     }
 
-    private String getStoreChainUrl(final SessionFilter sessionFilter, final String chainId) {
+    private String storeChainUrl(final SessionFilter sessionFilter, final String chainId) {
         final String chainLink =
             given().filter(sessionFilter)
                    .when().get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN)
@@ -406,20 +414,18 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
         return UriTemplate.fromTemplate(chainLink).set("chainId", chainId).expand();
     }
 
-    private String getStoreBranchesUrl(final SessionFilter sessionFilter, final String chainId) {
-        final String chainUrl = getStoreChainUrl(sessionFilter, chainId);
+    private String storeBranchesUrl(final SessionFilter sessionFilter, final String chainId) {
         final String branchesLink =
             given().filter(sessionFilter)
-                   .when().get(chainUrl)
+                   .when().get(storeChainUrl(sessionFilter, chainId))
                    .then().extract().path("_links.branches.href");
         return UriTemplate.fromTemplate(branchesLink).set("page", null).set("size", null).set("sort", null).expand();
     }
 
-    private String getStoreBranchUrl(final SessionFilter sessionFilter, final String chainId, final String branchId) {
-        final String storeUrl = getStoreChainUrl(sessionFilter, chainId);
+    private String storeBranchUrl(final SessionFilter sessionFilter, final String chainId, final String branchId) {
         final String branchLink =
             given().filter(sessionFilter)
-                   .when().get(storeUrl)
+                   .when().get(storeChainUrl(sessionFilter, chainId))
                    .then().extract().path("_links.branch.href");
         return UriTemplate.fromTemplate(branchLink).set("branchId", branchId).expand();
     }

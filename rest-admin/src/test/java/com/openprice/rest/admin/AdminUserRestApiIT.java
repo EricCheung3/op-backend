@@ -10,11 +10,11 @@ import java.util.Map;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.damnhandy.uri.template.UriTemplate;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
+import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.user.AdminUserAccountResource;
 import com.openprice.rest.admin.user.AdminUserProfileForm;
 
@@ -25,13 +25,10 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
     public void getUserAccounts_ShouldReturnAllUserAccounts() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
 
-        String usersLink = getAdminAccountUsersLink(sessionFilter);
-        String usersUrl =  UriTemplate.fromTemplate(usersLink).set("page", 0).set("size", 10).set("sort", null).expand();
-
         given()
             .filter(sessionFilter)
         .when()
-            .get(usersUrl)
+            .get(usersUrl(sessionFilter))
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
@@ -49,8 +46,7 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getUserAccount_ShouldReturnSpecificUserAccount() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
-
-        final String userUrl =  getUserLinkUrl(sessionFilter, TEST_USERID_JANE_DOE);
+        final String userUrl =  userUrl(sessionFilter, TEST_USERID_JANE_DOE);
 
         given()
             .filter(sessionFilter)
@@ -68,7 +64,7 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
             .body("_links.self.href", equalTo(userUrl))
             .body("_links.lockState.href", endsWith(AdminUserAccountResource.LINK_NAME_LOCK_STATE))
             .body("_links.profile.href", endsWith(AdminUserAccountResource.LINK_NAME_PROFILE))
-            .body("_links.receipts.href", endsWith(AdminUserAccountResource.LINK_NAME_RECEIPTS))
+            .body("_links.receipts.href", endsWith(AdminUserAccountResource.LINK_NAME_RECEIPTS + UtilConstants.PAGINATION_TEMPLATES))
         ;
     }
 
@@ -76,10 +72,7 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void changeUserLockState_ShouldLockUserAccount() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
-
-        final String userUrl =  getUserLinkUrl(sessionFilter, TEST_USERID_JANE_DOE);
-
-        // get lockState link
+        final String userUrl =  userUrl(sessionFilter, TEST_USERID_JANE_DOE);
         final String lockStateLink = given().filter(sessionFilter).when().get(userUrl).then().extract().path("_links.lockState.href");
 
         // lock user
@@ -113,8 +106,7 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void updateUserProfile_ShouldChangeProfileAddress() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
-
-        final String userUrl =  getUserLinkUrl(sessionFilter, TEST_USERID_JANE_DOE);
+        final String userUrl =  userUrl(sessionFilter, TEST_USERID_JANE_DOE);
         final String profileLink = given().filter(sessionFilter).when().get(userUrl).then().extract().path("_links.profile.href");
 
         Response response =
@@ -127,17 +119,19 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
         //response.prettyPrint();
 
         response
-            .then()
-                .statusCode(HttpStatus.SC_OK)
-                .contentType(ContentType.JSON)
-                .body("id", equalTo("profile002"))
-                .body("address.address1", equalTo("101 123 street"))
-                .body("address.city", equalTo("Edmonton"))
-            ;
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("id", equalTo("profile002"))
+            .body("address.address1", equalTo("101 123 street"))
+            .body("address.city", equalTo("Edmonton"))
+        ;
 
-        AdminUserProfileForm form = constructUserProfileFormByProfileResource(response);
-        form.setAddress1("888 Broadway Ave");
-        form.setCity("Calgary");
+        AdminUserProfileForm form =
+            AdminUserProfileForm.builder()
+                                .address1("888 Broadway Ave")
+                                .city("Calgary")
+                                .build();
 
         given()
             .filter(sessionFilter)
@@ -158,12 +152,13 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
         //response.prettyPrint();
 
         response
-            .then()
-                .statusCode(HttpStatus.SC_OK)
-                .contentType(ContentType.JSON)
-                .body("id", equalTo("profile002"))
-                .body("address.address1", equalTo("888 Broadway Ave"))
-                .body("address.city", equalTo("Calgary"))
-            ;
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("id", equalTo("profile002"))
+            .body("address.address1", equalTo("888 Broadway Ave"))
+            .body("address.city", equalTo("Calgary"))
+        ;
     }
+
 }

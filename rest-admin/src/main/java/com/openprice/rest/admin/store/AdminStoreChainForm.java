@@ -21,13 +21,6 @@ public class AdminStoreChainForm {
 
     private String identifyFields;
 
-    public AdminStoreChainForm(final StoreChain store) {
-        this.code = store.getCode();
-        this.name = store.getName();
-        this.categories = store.getCategories();
-        this.identifyFields = store.getIdentifyFields();
-    }
-
     public StoreChain updateStore(final StoreChain store) {
         store.setCode(code);
         store.setName(name);

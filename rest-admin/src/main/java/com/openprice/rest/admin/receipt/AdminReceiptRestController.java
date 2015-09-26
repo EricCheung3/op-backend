@@ -99,11 +99,20 @@ public class AdminReceiptRestController extends AbstractAdminRestController {
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE)
     public HttpEntity<AdminReceiptImageResource> getReceiptImageById(
             @PathVariable("receiptId") final String receiptId,
-            @PathVariable("imageId") final String imageId)
-                    throws ResourceNotFoundException {
+            @PathVariable("imageId") final String imageId) throws ResourceNotFoundException {
         final Receipt receipt = loadReceiptById(receiptId);
         final ReceiptImage image = loadReceiptImageByIdAndCheckReceipt(imageId, receipt);
         return ResponseEntity.ok(receiptImageResourceAssembler.toResource(image));
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE)
+    public HttpEntity<Void> deleteReceiptImageById(
+            @PathVariable("receiptId") final String receiptId,
+            @PathVariable("imageId") final String imageId) throws ResourceNotFoundException {
+        final Receipt receipt = loadReceiptById(receiptId);
+        final ReceiptImage image = loadReceiptImageByIdAndCheckReceipt(imageId, receipt);
+        receiptImageRepository.delete(image);
+        return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE_DOWNLOAD,

@@ -46,20 +46,26 @@ public class AdminUserReceiptResourceAssembler implements ResourceAssembler<Rece
         resource.add(linkTo(methodOn(AdminUserReceiptRestController.class).getUserReceiptById(receipt.getUser().getId(), receipt.getId()))
                 .withSelfRel());
 
-        resource.add(linkTo(methodOn(AdminUserReceiptRestController.class).getUserReceiptImages(receipt.getUser().getId(), receipt.getId(), null, null))
-                .withRel(AdminUserReceiptResource.LINK_NAME_IMAGES));
-
-        resource.add(linkTo(methodOn(AdminUserReceiptRestController.class).getUserReceiptItems(receipt.getUser().getId(), receipt.getId()))
-                .withRel(AdminUserReceiptResource.LINK_NAME_ITEMS));
-
         // Hack solution to build template links.
         // Monitor https://github.com/spring-projects/spring-hateoas/issues/169 for nice solution from Spring HATEOAS
         final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();
+        final Link imagesLink = new Link(
+                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/admin/users/" + receipt.getUser().getId()
+                        + "/receipts/" + receipt.getId() + "/images" + UtilConstants.PAGINATION_TEMPLATES),
+                AdminUserReceiptResource.LINK_NAME_IMAGES);
+        resource.add(imagesLink);
+
         final Link imageLink = new Link(
                 new UriTemplate(baseUri + UtilConstants.API_ROOT + "/admin/users/" + receipt.getUser().getId()
                         + "/receipts/" + receipt.getId() + "/images/{imageId}"),
                 AdminUserReceiptResource.LINK_NAME_IMAGE);
         resource.add(imageLink);
+
+        final Link itemsLink = new Link(
+                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/admin/users/" + receipt.getUser().getId()
+                        + "/receipts/" + receipt.getId() + "/items" + UtilConstants.PAGINATION_TEMPLATES),
+                AdminUserReceiptResource.LINK_NAME_ITEMS);
+        resource.add(itemsLink);
 
         final Link userLink = new Link(
                 new UriTemplate(baseUri + UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_USERS_USER),

@@ -1,7 +1,13 @@
 package com.openprice.rest.admin;
 
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import javax.inject.Inject;
 
+import com.damnhandy.uri.template.UriTemplate;
+import com.jayway.jsonpath.JsonPath;
 import com.openprice.domain.account.admin.AdminAccount;
 import com.openprice.domain.account.admin.AdminAccountRepository;
 import com.openprice.domain.account.admin.AdminAccountService;
@@ -12,6 +18,7 @@ import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreService;
 import com.openprice.rest.ApiDocumentationBase;
+import com.openprice.rest.UtilConstants;
 
 public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
     public static final String ADMINNAME = "jdoe";
@@ -77,4 +84,26 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
     protected void deleteStores() throws Exception {
         storeService.deleteAllStores();
     }
+
+    protected String usersUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN).with(user(ADMINNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        final String receiptsLink = JsonPath.read(responseContent, "_links.users.href");
+        return UriTemplate.fromTemplate(receiptsLink).set("page", null).set("size", null).set("sort", null).expand();
+    }
+
+    protected String testUserUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(usersUrl()).with(user(ADMINNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        return JsonPath.read(responseContent, "_embedded.userAccounts[0]._links.self.href");
+    }
+
 }

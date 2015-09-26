@@ -5,6 +5,7 @@ import java.util.Base64;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import org.springframework.core.io.PathResource;
 import org.springframework.core.io.Resource;
@@ -86,6 +87,7 @@ public class AdminUserReceiptRestController extends AbstractUserAdminRestControl
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT)
+    @Transactional
     public HttpEntity<Void> deleteReceiptById(@PathVariable("userId") final String userId,
                                               @PathVariable("receiptId") final String receiptId)
             throws ResourceNotFoundException {
@@ -109,11 +111,22 @@ public class AdminUserReceiptRestController extends AbstractUserAdminRestControl
     public HttpEntity<AdminUserReceiptImageResource> getUserReceiptImageById(
             @PathVariable("userId") final String userId,
             @PathVariable("receiptId") final String receiptId,
-            @PathVariable("imageId") final String imageId)
-                    throws ResourceNotFoundException {
+            @PathVariable("imageId") final String imageId) throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(userId, receiptId);
         final ReceiptImage image = getReceiptImageByIdAndCheckReceipt(imageId, receipt);
         return ResponseEntity.ok(receiptImageResourceAssembler.toResource(image));
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE)
+    @Transactional
+    public HttpEntity<Void> deleteReceiptImageById(
+            @PathVariable("userId") final String userId,
+            @PathVariable("receiptId") final String receiptId,
+            @PathVariable("imageId") final String imageId) throws ResourceNotFoundException {
+        final Receipt receipt = getReceiptByIdAndCheckUser(userId, receiptId);
+        final ReceiptImage image = getReceiptImageByIdAndCheckReceipt(imageId, receipt);
+        receiptImageRepository.delete(image);
+        return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_DOWNLOAD,
@@ -148,7 +161,6 @@ public class AdminUserReceiptRestController extends AbstractUserAdminRestControl
             throw new ResourceNotFoundException("No image with the id: " + imageId);
         }
     }
-
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_ITEMS)
     public HttpEntity<List<ReceiptItem>> getUserReceiptItems(

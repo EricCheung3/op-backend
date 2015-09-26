@@ -23,17 +23,14 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 
 import com.jayway.jsonpath.JsonPath;
-import com.openprice.domain.account.user.UserAccount;
-import com.openprice.domain.account.user.UserProfile;
-import com.openprice.rest.UtilConstants;
 import com.openprice.rest.user.UserProfileForm;
 
 public class AdminUserApiDocumentation extends AdminApiDocumentationBase {
 
     @Test
-    public void adminUsersExample() throws Exception {
+    public void adminUserListExample() throws Exception {
         mockMvc
-        .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_USERS).with(user(ADMINNAME)))
+        .perform(get(usersUrl()).with(user(ADMINNAME)))
         .andExpect(status().isOk())
         .andDo(document("admin-user-list-example",
             preprocessResponse(prettyPrint()),
@@ -49,17 +46,9 @@ public class AdminUserApiDocumentation extends AdminApiDocumentationBase {
     }
 
     @Test
-    public void adminUserExample() throws Exception {
-        String responseContent =
-            mockMvc
-            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_USERS).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String userLink = JsonPath.read(responseContent, "_embedded.userAccounts[0]._links.self.href");
-
+    public void adminUserRetrieveExample() throws Exception {
         mockMvc
-        .perform(get(userLink).with(user(ADMINNAME)))
+        .perform(get(testUserUrl()).with(user(ADMINNAME)))
         .andExpect(status().isOk())
         .andDo(document("admin-user-retrieve-example",
             preprocessResponse(prettyPrint()),
@@ -82,14 +71,15 @@ public class AdminUserApiDocumentation extends AdminApiDocumentationBase {
                 fieldWithPath("_links").description("<<resources-admin-user-links, Links>> to other resources")
             )
         ));
+    }
 
+    @Test
+    public void adminUserLockStateUpdateExample() throws Exception {
         final Map<String, Boolean> lockState = new HashMap<>();
         lockState.put("locked", true);
-
-        String userLockStateLink = JsonPath.read(responseContent, "_embedded.userAccounts[0]._links.lockState.href");
         mockMvc
         .perform(
-            put(userLockStateLink)
+            put(testUserLockStateUrl())
             .with(user(ADMINNAME))
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content(objectMapper.writeValueAsString(lockState))
@@ -101,21 +91,12 @@ public class AdminUserApiDocumentation extends AdminApiDocumentationBase {
                 fieldWithPath("locked").description("User locked state, can be true or false")
             )
         ));
-
     }
 
     @Test
     public void adminUserProfileExample() throws Exception {
-        String responseContent =
-            mockMvc
-            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_USERS).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String profileLink = JsonPath.read(responseContent, "_embedded.userAccounts[0]._links.profile.href");
-
         mockMvc
-        .perform(get(profileLink).with(user(ADMINNAME)))
+        .perform(get(testUserProfileUrl()).with(user(ADMINNAME)))
         .andExpect(status().isOk())
         .andDo(document("admin-user-profile-retrieve-example",
             preprocessResponse(prettyPrint()),
@@ -134,23 +115,22 @@ public class AdminUserApiDocumentation extends AdminApiDocumentationBase {
 
     @Test
     public void adminUserProfileUpdateExample() throws Exception {
-        String responseContent =
-            mockMvc
-            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_USERS).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String profileLink = JsonPath.read(responseContent, "_embedded.userAccounts[0]._links.profile.href");
-        String userId = JsonPath.read(responseContent, "_embedded.userAccounts[0].id");
-
-        UserAccount account = userAccountRepository.findOne(userId);
-        UserProfile profile = account.getProfile();
-        UserProfileForm form = new UserProfileForm(profile);
-        form.setFirstName("Jonny");
-
+        UserProfileForm form =
+            UserProfileForm.builder()
+                           .firstName("Jonny")
+                           .lastName("Doe")
+                           .middleName("")
+                           .phone("780-888-1234")
+                           .address1("GroundTruth Inc.")
+                           .address2("123 Street")
+                           .city("Edmonton")
+                           .state("AB")
+                           .zip("")
+                           .country("Canada")
+                           .build();
         mockMvc
         .perform(
-            put(profileLink)
+            put(testUserProfileUrl())
             .with(user(ADMINNAME))
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content(objectMapper.writeValueAsString(form))
@@ -179,13 +159,32 @@ public class AdminUserApiDocumentation extends AdminApiDocumentationBase {
         super.setUp();
         createTestAdmin();
         createTestUser();
-
     }
 
     @After
     public void teardown() throws Exception {
         deleteTestAdmin();
         deleteTestUser();
+    }
+
+    private String testUserLockStateUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(usersUrl()).with(user(ADMINNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        return JsonPath.read(responseContent, "_embedded.userAccounts[0]._links.lockState.href");
+    }
+
+    private String testUserProfileUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(usersUrl()).with(user(ADMINNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        return JsonPath.read(responseContent, "_embedded.userAccounts[0]._links.profile.href");
     }
 
 }

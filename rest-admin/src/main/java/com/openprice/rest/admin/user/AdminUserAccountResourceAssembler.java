@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.admin.user.receipt.AdminUserReceiptRestController;
 
 @Component
 public class AdminUserAccountResourceAssembler implements ResourceAssembler<UserAccount, AdminUserAccountResource> {
@@ -29,12 +28,14 @@ public class AdminUserAccountResourceAssembler implements ResourceAssembler<User
         resource.add(linkTo(methodOn(AdminUserAccountRestController.class).getUserProfile(userAccount.getId()))
                 .withRel(AdminUserAccountResource.LINK_NAME_PROFILE));
 
-        resource.add(linkTo(methodOn(AdminUserReceiptRestController.class).getUserReceipts(userAccount.getId(), null, null))
-                .withRel(AdminUserAccountResource.LINK_NAME_RECEIPTS));
-
         // Hack solution to build template links.
         // Monitor https://github.com/spring-projects/spring-hateoas/issues/169 for nice solution from Spring HATEOAS
         final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();
+        final Link receiptsLink = new Link(
+                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/admin/users/" + userAccount.getId() + "/receipts" + UtilConstants.PAGINATION_TEMPLATES),
+                AdminUserAccountResource.LINK_NAME_RECEIPTS);
+        resource.add(receiptsLink);
+
         final Link receiptLink = new Link(
                 new UriTemplate(baseUri + UtilConstants.API_ROOT + "/admin/users/" + userAccount.getId() + "/receipts/{receiptId}"),
                 AdminUserAccountResource.LINK_NAME_RECEIPT);

@@ -4,58 +4,35 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.openprice.domain.account.user.UserProfile;
 import com.openprice.domain.common.Address;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
+@Builder
+@NoArgsConstructor @AllArgsConstructor
+@Data
 public class AdminUserProfileForm {
-
-    @Getter @Setter
     private String firstName;
 
-    @Getter @Setter
     private String middleName;
 
-    @Getter @Setter
     private String lastName;
 
-    @Getter @Setter
     private String phone;
 
-    @Getter @Setter
     private String address1;
 
-    @Getter @Setter
     private String address2;
 
-    @Getter @Setter
     private String city;
 
-    @Getter @Setter
     private String state;
 
-    @Getter @Setter
     private String zip;
 
-    @Getter @Setter
     private String country;
-
-    public AdminUserProfileForm() {
-
-    }
-
-    public AdminUserProfileForm(UserProfile profile) {
-        firstName = profile.getFirstName();
-        middleName = profile.getMiddleName();
-        lastName = profile.getLastName();
-        phone = profile.getPhone();
-        address1 = profile.getAddress().getAddress1();
-        address2 = profile.getAddress().getAddress2();
-        city = profile.getAddress().getCity();
-        state = profile.getAddress().getState();
-        zip = profile.getAddress().getZip();
-        country = profile.getAddress().getCountry();
-    }
 
     public UserProfile updateProfile(final UserProfile profile) {
         profile.setFirstName(firstName);

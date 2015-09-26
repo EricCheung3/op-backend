@@ -16,23 +16,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.jsonpath.JsonPath;
-import com.openprice.rest.UtilConstants;
 
 public class AdminUserReceiptApiDocumentation extends AdminApiDocumentationBase {
 
     @Test
     public void adminUserReceiptListExample() throws Exception {
-        String responseContent =
-            mockMvc
-            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_USERS).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String receiptsLink = JsonPath.read(responseContent, "_embedded.userAccounts[0]._links.receipts.href");
-
         mockMvc
-        .perform(get(receiptsLink).with(user(ADMINNAME)))
+        .perform(get(userReceiptsUrl()).with(user(ADMINNAME)))
         .andExpect(status().isOk())
         .andDo(document("admin-user-receipt-list-example",
             preprocessResponse(prettyPrint()),
@@ -49,23 +41,8 @@ public class AdminUserReceiptApiDocumentation extends AdminApiDocumentationBase 
 
     @Test
     public void adminUserReceiptRetrieveExample() throws Exception {
-        String responseContent =
-            mockMvc
-            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_USERS).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String receiptsLink = JsonPath.read(responseContent, "_embedded.userAccounts[0]._links.receipts.href");
-        responseContent =
-            mockMvc
-            .perform(get(receiptsLink).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String receiptLink = JsonPath.read(responseContent, "_embedded.receipts[0]._links.self.href");
-
         mockMvc
-        .perform(get(receiptLink).with(user(ADMINNAME)))
+        .perform(get(testUserReceiptUrl()).with(user(ADMINNAME)))
         .andExpect(status().isOk())
         .andDo(document("admin-user-receipt-retrieve-example",
             preprocessResponse(prettyPrint()),
@@ -83,9 +60,12 @@ public class AdminUserReceiptApiDocumentation extends AdminApiDocumentationBase 
                 fieldWithPath("_links").description("<<resources-admin-user-receipt-links,Links>> to other resources")
             )
         ));
+    }
 
+    @Test
+    public void adminUserReceiptDeleteExample() throws Exception {
         mockMvc
-        .perform(delete(receiptLink).with(user(ADMINNAME)))
+        .perform(delete(testUserReceiptUrl()).with(user(ADMINNAME)))
         .andExpect(status().isNoContent())
         .andDo(document("admin-user-receipt-delete-example"));
 
@@ -93,23 +73,8 @@ public class AdminUserReceiptApiDocumentation extends AdminApiDocumentationBase 
 
     @Test
     public void adminUserReceiptImageListExample() throws Exception {
-        String responseContent =
-            mockMvc
-            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_USERS).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String receiptsLink = JsonPath.read(responseContent, "_embedded.userAccounts[0]._links.receipts.href");
-        responseContent =
-            mockMvc
-            .perform(get(receiptsLink).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String imagesLink = JsonPath.read(responseContent, "_embedded.receipts[0]._links.images.href");
-
         mockMvc
-        .perform(get(imagesLink).with(user(ADMINNAME)))
+        .perform(get(testUserReceiptImagesUrl()).with(user(ADMINNAME)))
         .andExpect(status().isOk())
         .andDo(document("admin-user-receipt-image-list-example",
             preprocessResponse(prettyPrint()),
@@ -127,30 +92,8 @@ public class AdminUserReceiptApiDocumentation extends AdminApiDocumentationBase 
 
     @Test
     public void adminUserReceiptImageRetrieveExample() throws Exception {
-        String responseContent =
-            mockMvc
-            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_USERS).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String receiptsLink = JsonPath.read(responseContent, "_embedded.userAccounts[0]._links.receipts.href");
-        responseContent =
-            mockMvc
-            .perform(get(receiptsLink).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String imagesLink = JsonPath.read(responseContent, "_embedded.receipts[0]._links.images.href");
-        responseContent =
-            mockMvc
-            .perform(get(imagesLink).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String imageLink = JsonPath.read(responseContent, "_embedded.receiptImages[0]._links.self.href");
-
         mockMvc
-        .perform(get(imageLink).with(user(ADMINNAME)))
+        .perform(get(getTestUserReceiptImageUrl()).with(user(ADMINNAME)))
         .andExpect(status().isOk())
         .andDo(document("admin-user-receipt-image-retrieve-example",
             preprocessResponse(prettyPrint()),
@@ -172,28 +115,12 @@ public class AdminUserReceiptApiDocumentation extends AdminApiDocumentationBase 
 
     @Test
     public void adminUserReceiptItemListExample() throws Exception {
-        String responseContent =
-            mockMvc
-            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_USERS).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String receiptsLink = JsonPath.read(responseContent, "_embedded.userAccounts[0]._links.receipts.href");
-        responseContent =
-            mockMvc
-            .perform(get(receiptsLink).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String itemsLink = JsonPath.read(responseContent, "_embedded.receipts[0]._links.items.href");
-
         mockMvc
-        .perform(get(itemsLink).with(user(USERNAME)))
+        .perform(get(testUserReceiptItemsUrl()).with(user(USERNAME)))
         .andExpect(status().isOk())
         .andDo(document("admin-user-receipt-item-list-example",
             preprocessResponse(prettyPrint())
         ));
-
     }
 
     @Override
@@ -210,6 +137,59 @@ public class AdminUserReceiptApiDocumentation extends AdminApiDocumentationBase 
         deleteReceipts();
         deleteTestAdmin();
         deleteTestUser();
+    }
+
+    private String userReceiptsUrl() throws Exception {
+        final String responseContent =
+                mockMvc
+                .perform(get(usersUrl()).with(user(ADMINNAME)))
+                .andExpect(status().isOk())
+                .andReturn().getResponse()
+                .getContentAsString();
+        final String receiptsLink = JsonPath.read(responseContent, "_embedded.userAccounts[0]._links.receipts.href");
+        return UriTemplate.fromTemplate(receiptsLink).set("page", null).set("size", null).set("sort", null).expand();
+    }
+
+    private String testUserReceiptUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(userReceiptsUrl()).with(user(ADMINNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        return JsonPath.read(responseContent, "_embedded.receipts[0]._links.self.href");
+    }
+
+    private String testUserReceiptImagesUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(testUserReceiptUrl()).with(user(ADMINNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        final String imagesLink = JsonPath.read(responseContent, "_links.images.href");
+        return UriTemplate.fromTemplate(imagesLink).set("page", null).set("size", null).set("sort", null).expand();
+    }
+
+    private String getTestUserReceiptImageUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(testUserReceiptImagesUrl()).with(user(ADMINNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        return JsonPath.read(responseContent, "_embedded.receiptImages[0]._links.self.href");
+    }
+
+    private String testUserReceiptItemsUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(testUserReceiptUrl()).with(user(ADMINNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        final String imagesLink = JsonPath.read(responseContent, "_links.items.href");
+        return UriTemplate.fromTemplate(imagesLink).set("page", null).set("size", null).set("sort", null).expand();
     }
 
 }

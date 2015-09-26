@@ -3,6 +3,7 @@ package com.openprice.rest.admin;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import javax.inject.Inject;
@@ -15,16 +16,12 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
+import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.rest.UtilConstants;
 
 public class AdminReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
-    //@Value("classpath:/data/sample1.txt")
-    //private Resource sampleReceipt1;
-
-    //@Value("classpath:/data/sample2.txt")
-    //private Resource sampleReceipt2;
 
     @Inject
     private ReceiptRepository receiptRepository;
@@ -40,7 +37,7 @@ public class AdminReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
         given()
             .filter(sessionFilter)
         .when()
-            .get(getReceiptsUrl(sessionFilter))
+            .get(receiptsUrl(sessionFilter))
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
@@ -64,7 +61,7 @@ public class AdminReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
             given()
                 .filter(sessionFilter)
             .when()
-                .get(getReceiptUrl(sessionFilter, "receipt001"))
+                .get(receiptUrl(sessionFilter, "receipt001"))
             ;
         //response.prettyPrint();
         response
@@ -77,7 +74,7 @@ public class AdminReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
             .body("_links.images.href", endsWith(AdminApiUrls.URL_ADMIN_RECEIPTS + "/receipt001/images" + UtilConstants.PAGINATION_TEMPLATES))
             .body("_links.image.href", endsWith(AdminApiUrls.URL_ADMIN_RECEIPTS + "/receipt001/images/{imageId}"))
         ;
-        //TODO test feedback
+        //TODO test images, feedback
     }
 
     @Test
@@ -88,16 +85,17 @@ public class AdminReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
         given()
             .filter(sessionFilter)
         .when()
-            .get(getReceiptUrl(sessionFilter, "invalid"))
+            .get(receiptUrl(sessionFilter, "invalid"))
         .then()
             .statusCode(HttpStatus.SC_NOT_FOUND)
         ;
     }
 
     @Test
+    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void deleteReceiptById_ShouldDeleteReceiptAndImages() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
-        final String receiptUrl = getReceiptUrl(sessionFilter, "receipt001");
+        final String receiptUrl = receiptUrl(sessionFilter, "receipt001");
 
         given()
             .filter(sessionFilter)
@@ -120,7 +118,76 @@ public class AdminReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
         assertNull(receiptImageRepository.findOne("image001"));
     }
 
-    private String getReceiptsUrl(final SessionFilter sessionFilter) {
+    @Test
+    @DatabaseSetup("classpath:/data/testAdmin.xml")
+    public void getReceiptImages_ShouldReturnAllImagesOfReceipt() {
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(receiptImagesUrl(sessionFilter, "receipt001"))
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("page.size", equalTo(100))
+            .body("page.totalElements", equalTo(1))
+            .body("page.totalPages", equalTo(1))
+            .body("page.number", equalTo(0))
+            .body("_embedded.receiptImages[0].id", equalTo("image001"))
+            .body("_embedded.receiptImages[0].status", equalTo("UPLOADED"))
+            .body("_links.self.href", endsWith("/admin/receipts/receipt001/images"))
+        ;
+    }
+
+    @Test
+    @DatabaseSetup("classpath:/data/testAdmin.xml")
+    public void getReceiptImageById_ShouldReturnCorrectReceiptImage() {
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(receiptImageUrl(sessionFilter, "receipt001", "image001"))
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("id", equalTo("image001"))
+            .body("status", equalTo("UPLOADED"))
+            .body("_links.self.href", endsWith("/admin/receipts/receipt001/images/image001"))
+            .body("_links.receipt.href", endsWith("/admin/receipts/receipt001"))
+        ;
+    }
+
+    @Test
+    @DatabaseSetup("classpath:/data/testAdmin.xml")
+    public void deleteReceiptImageById_ShouldDeleteImage() {
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final String imageUrl = receiptImageUrl(sessionFilter, "receipt001", "image001");
+
+        given()
+            .filter(sessionFilter)
+        .when()
+            .delete(imageUrl)
+        .then()
+            .statusCode(HttpStatus.SC_NO_CONTENT)
+        ;
+
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(imageUrl)
+        .then()
+            .statusCode(HttpStatus.SC_NOT_FOUND)
+        ;
+
+        // check branch record
+        assertNull(receiptImageRepository.findOne("image001"));
+        final Receipt receipt = receiptRepository.findOne("receipt001");
+        assertEquals(0, receiptImageRepository.findByReceiptOrderByCreatedTime(receipt).size());
+    }
+
+    private String receiptsUrl(final SessionFilter sessionFilter) {
         final String receiptsLink =
             given().filter(sessionFilter)
                    .when().get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN)
@@ -128,7 +195,7 @@ public class AdminReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
         return UriTemplate.fromTemplate(receiptsLink).set("page", null).set("size", null).set("sort", null).expand();
     }
 
-    private String getReceiptUrl(final SessionFilter sessionFilter, final String receiptId) {
+    private String receiptUrl(final SessionFilter sessionFilter, final String receiptId) {
         final String receiptLink =
             given().filter(sessionFilter)
                    .when().get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN)
@@ -136,4 +203,19 @@ public class AdminReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
         return UriTemplate.fromTemplate(receiptLink).set("receiptId", receiptId).expand();
     }
 
+    private String receiptImagesUrl(final SessionFilter sessionFilter, final String receiptId) {
+        final String imagesLink =
+            given().filter(sessionFilter)
+                   .when().get(receiptUrl(sessionFilter, receiptId))
+                   .then().extract().path("_links.images.href");
+        return UriTemplate.fromTemplate(imagesLink).set("page", null).set("size", null).set("sort", null).expand();
+    }
+
+    private String receiptImageUrl(final SessionFilter sessionFilter, final String receiptId, final String imageId) {
+        final String imageLink =
+            given().filter(sessionFilter)
+                   .when().get(receiptUrl(sessionFilter, receiptId))
+                   .then().extract().path("_links.image.href");
+        return UriTemplate.fromTemplate(imageLink).set("imageId", imageId).expand();
+    }
 }

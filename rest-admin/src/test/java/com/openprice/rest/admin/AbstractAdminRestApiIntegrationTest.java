@@ -6,10 +6,8 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 
 import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.restassured.filter.session.SessionFilter;
-import com.jayway.restassured.response.Response;
 import com.openprice.rest.AbstractRestApiIntegrationTest;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.admin.user.AdminUserProfileForm;
 
 @SpringApplicationConfiguration(classes = {AdminApiTestApplication.class})
 public abstract class AbstractAdminRestApiIntegrationTest extends AbstractRestApiIntegrationTest {
@@ -21,32 +19,19 @@ public abstract class AbstractAdminRestApiIntegrationTest extends AbstractRestAp
     public static final String TEST_ADMIN_USERID_JUNIOR_DOE = "admin003";
     public static final String TEST_ADMIN_USERNAME_JUNIOR_DOE = "junior.doe";
 
-    protected String getAdminAccountUsersLink(final SessionFilter sessionFilter) {
-        return given().filter(sessionFilter)
-                      .when().get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN)
-                      .then().extract().path("_links.users.href");
+    protected String usersUrl(final SessionFilter sessionFilter) {
+        final String usersLink =
+            given().filter(sessionFilter)
+                   .when().get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN)
+                   .then().extract().path("_links.users.href");
+        return UriTemplate.fromTemplate(usersLink).set("page", null).set("size", null).set("sort", null).expand();
     }
 
-    protected String getUserLinkUrl(final SessionFilter sessionFilter, final String userId) {
-        String userLink = given().filter(sessionFilter)
-                                 .when().get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN)
-                                 .then().extract().path("_links.user.href");
-        return UriTemplate.fromTemplate(userLink).set("userId", userId).expand();
+    protected String userUrl(final SessionFilter sessionFilter, final String userId) {
+        final String chainLink =
+            given().filter(sessionFilter)
+                   .when().get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN)
+                   .then().extract().path("_links.user.href");
+        return UriTemplate.fromTemplate(chainLink).set("userId", userId).expand();
     }
-
-    protected AdminUserProfileForm constructUserProfileFormByProfileResource(final Response response) {
-        final AdminUserProfileForm form = new AdminUserProfileForm();
-        form.setFirstName(response.then().extract().path("firstName"));
-        form.setMiddleName(response.then().extract().path("middleName"));
-        form.setLastName(response.then().extract().path("lastName"));
-        form.setPhone(response.then().extract().path("phone"));
-        form.setAddress1(response.then().extract().path("address.address1"));
-        form.setAddress2(response.then().extract().path("address.address2"));
-        form.setCity(response.then().extract().path("address.city"));
-        form.setState(response.then().extract().path("address.state"));
-        form.setZip(response.then().extract().path("address.zip"));
-        form.setCountry(response.then().extract().path("address.country"));
-        return form;
-    }
-
 }
