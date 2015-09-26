@@ -18,7 +18,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 
-import com.damnhandy.uri.template.UriTemplate;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
@@ -26,7 +25,6 @@ import com.jayway.restassured.response.Response;
 import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
-import com.openprice.rest.UtilConstants;
 
 @DatabaseSetup("classpath:/data/testData.xml")
 public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTest {
@@ -43,25 +41,11 @@ public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTes
     public void getUserReceiptImages_ShouldReturnUserReceiptImages() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
-        final String receiptLink =
-                given().filter(sessionFilter)
-                       .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
-                       .then().extract().path("_links.receipt.href");
-        final String receiptUrl =
-                UriTemplate.fromTemplate(receiptLink)
-                           .set("receiptId", "receipt001")
-                           .expand();
-
-        final String imagesUrl =
-                given().filter(sessionFilter)
-                       .when().get(receiptUrl)
-                       .then().extract().path("_links.images.href");
-
         Response response =
             given()
                 .filter(sessionFilter)
             .when()
-                .get(imagesUrl)
+                .get(userReceiptImagesUrl(sessionFilter, "receipt001"))
             ;
 
         //response.prettyPrint();
@@ -85,11 +69,7 @@ public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTes
     @Test
     public void uploadReceiptImage_ShouldAddReceiptImage_AndSaveImageFile() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-
-        String uploadUrl =
-                given().filter(sessionFilter)
-                       .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
-                       .then().extract().path("_links.upload.href");
+        String uploadUrl = userReceiptUploadUrl(sessionFilter);
 
         Response response =
             given()
@@ -170,23 +150,7 @@ public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTes
     @Test
     public void deleteUserReceiptImageById_ShouldDeleteReceiptImage() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-
-        String receiptLink =
-                given().filter(sessionFilter)
-                       .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
-                       .then().extract().path("_links.receipt.href");
-        String receiptUrl =
-                UriTemplate.fromTemplate(receiptLink)
-                           .set("receiptId", "receipt001")
-                           .expand();
-        String imageLink =
-                given().filter(sessionFilter)
-                       .when().get(receiptUrl)
-                       .then().extract().path("_links.image.href");
-        String imageUrl =
-                UriTemplate.fromTemplate(imageLink)
-                           .set("imageId", "image001")
-                           .expand();
+        final String imageUrl = userReceiptImageUrl(sessionFilter, "receipt001", "image001");
 
         given()
             .filter(sessionFilter)

@@ -22,7 +22,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 
-import com.damnhandy.uri.template.UriTemplate;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
@@ -33,6 +32,7 @@ import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.rest.UtilConstants;
+import com.openprice.rest.user.receipt.ImageDataForm;
 
 @DatabaseSetup("classpath:/data/testData.xml")
 public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
@@ -52,22 +52,11 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
     public void getCurrentUserReceipts_ShouldReturnAllUserReceipts() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
-        // get receipts link
-        String receiptsLink =
-                given().filter(sessionFilter)
-                       .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
-                       .then().extract().path("_links.receipts.href");
-        String receiptsUrl =  UriTemplate.fromTemplate(receiptsLink)
-                                         .set("page", 0)
-                                         .set("size", 10)
-                                         .set("sort", null)
-                                         .expand();
-
         Response response =
             given()
                 .filter(sessionFilter)
             .when()
-                .get(receiptsUrl)
+                .get(userReceiptsUrl(sessionFilter))
             ;
         //response.prettyPrint();
 
@@ -98,18 +87,10 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
     public void getUserReceiptById_ShouldReturnUserReceipt() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
-        String receiptLink =
-                given().filter(sessionFilter)
-                       .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
-                       .then().extract().path("_links.receipt.href");
-        String receiptUrl =  UriTemplate.fromTemplate(receiptLink)
-                                        .set("receiptId", "receipt001")
-                                        .expand();
-
         given()
             .filter(sessionFilter)
         .when()
-            .get(receiptUrl)
+            .get(userReceiptUrl(sessionFilter, "receipt001"))
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
@@ -119,9 +100,9 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("images[1].id", equalTo("image003"))
             .body("images[2].id", equalTo("image002"))
             .body("images[3].id", equalTo("image004"))
-            .body("_links.images.href", endsWith(receiptUrl + "/images"))
-            .body("_links.image.href", endsWith(receiptUrl + "/images/{imageId}"))
-            .body("_links.items.href", endsWith(receiptUrl + "/items"))
+            .body("_links.images.href", endsWith("/images" + UtilConstants.PAGINATION_TEMPLATES))
+            .body("_links.image.href", endsWith("/images/{imageId}"))
+            .body("_links.items.href", endsWith("/items"))
         ;
     }
 
@@ -129,16 +110,6 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
     @Test
     public void createNewReceipt_ShouldCreateReceipt_AndSaveImage_FromBase64String() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-
-        String receiptsLink =
-                given().filter(sessionFilter)
-                       .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
-                       .then().extract().path("_links.receipts.href");
-        String receiptsUrl =  UriTemplate.fromTemplate(receiptsLink)
-                                         .set("page", null)
-                                         .set("size", null)
-                                         .set("sort", null)
-                                         .expand();
 
         // add new image as base64 encoded string
         final String base64String = Base64.getEncoder().encodeToString("test".getBytes());
@@ -150,7 +121,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
                 .contentType(ContentType.JSON)
                 .body(form)
             .when()
-                .post(receiptsUrl)
+                .post(userReceiptsUrl(sessionFilter))
             ;
 
         response
@@ -173,7 +144,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name())) TODO should be UPLOADED without process thread
-            .body("_links.images.href", endsWith(UserApiUrls.URL_USER_RECEIPTS + "/" + receiptId + "/images"))
+            .body("_links.images.href", endsWith(UserApiUrls.URL_USER_RECEIPTS + "/" + receiptId + "/images" + UtilConstants.PAGINATION_TEMPLATES))
         ;
 
         //response.prettyPrint();
@@ -200,18 +171,13 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
     public void uploadNewReceipt_ShouldCreateReceipt_AndSaveImageFile() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
-        String uploadUrl =
-            given().filter(sessionFilter)
-                   .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
-                   .then().extract().path("_links.upload.href");
-
         // add new image as base64 encoded string
         Response response =
             given()
                 .filter(sessionFilter)
                 .multiPart("file", sampleReceipt1.getFile())
             .when()
-                .post(uploadUrl)
+                .post(userReceiptUploadUrl(sessionFilter))
             ;
 
         response
@@ -259,15 +225,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
     @Test
     public void deleteUserReceiptById_ShouldDeleteReceiptAndImages() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-
-        String receiptLink =
-                given().filter(sessionFilter)
-                       .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
-                       .then().extract().path("_links.receipt.href");
-        String receiptUrl =
-                UriTemplate.fromTemplate(receiptLink)
-                           .set("receiptId", "receipt001")
-                           .expand();
+        final String receiptUrl = userReceiptUrl(sessionFilter, "receipt001");
 
         given()
             .filter(sessionFilter)
@@ -295,15 +253,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
     @Test
     public void setUserReceiptFeedback_ShouldChangeReceiptRating() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-
-        String receiptLink =
-                given().filter(sessionFilter)
-                       .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
-                       .then().extract().path("_links.receipt.href");
-        String receiptUrl =
-                UriTemplate.fromTemplate(receiptLink)
-                           .set("receiptId", "receipt001")
-                           .expand();
+        final String receiptUrl = userReceiptUrl(sessionFilter, "receipt001");
         final String feedbackUrl =
                 given().filter(sessionFilter)
                        .when().get(receiptUrl)
@@ -347,7 +297,6 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("id", equalTo("receipt001"))
             .body("rating", equalTo(1))
         ;
-
     }
 
 }

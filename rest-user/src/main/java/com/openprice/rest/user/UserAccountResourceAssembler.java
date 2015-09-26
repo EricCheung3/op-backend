@@ -13,7 +13,6 @@ import com.openprice.domain.account.user.UserAccount;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.user.receipt.UserReceiptRestController;
 import com.openprice.rest.user.store.ShoppingItemRestController;
-import com.openprice.rest.user.store.UserStoreRestController;
 
 @Component
 public class UserAccountResourceAssembler implements ResourceAssembler<UserAccount, UserAccountResource> {
@@ -28,14 +27,8 @@ public class UserAccountResourceAssembler implements ResourceAssembler<UserAccou
         resource.add(linkTo(methodOn(UserAccountRestController.class).getCurrentUserProfile())
                 .withRel(UserAccountResource.LINK_NAME_PROFILE));
 
-        resource.add(linkTo(methodOn(UserReceiptRestController.class).getCurrentUserReceipts(null, null))
-                .withRel(UserAccountResource.LINK_NAME_RECEIPTS));
-
         resource.add(linkTo(methodOn(UserReceiptRestController.class).getUploadNewReceiptPath())
                 .withRel(UserAccountResource.LINK_NAME_UPLOAD));
-
-        resource.add(linkTo(methodOn(UserStoreRestController.class).getCurrentUserStores(null, null))
-                .withRel(UserAccountResource.LINK_NAME_STORES));
 
         resource.add(linkTo(methodOn(ShoppingItemRestController.class).getUploadShoppingListPath())
                 .withRel(UserAccountResource.LINK_NAME_SHOPPING_LIST));
@@ -43,10 +36,20 @@ public class UserAccountResourceAssembler implements ResourceAssembler<UserAccou
         // Hack solution to build template links for "receipt", "store".
         // Monitor https://github.com/spring-projects/spring-hateoas/issues/169 for nice solution from Spring HATEOAS
         final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();
+        final Link receiptsLink = new Link(
+                new UriTemplate(baseUri + UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS + UtilConstants.PAGINATION_TEMPLATES),
+                UserAccountResource.LINK_NAME_RECEIPTS);
+        resource.add(receiptsLink);
+
         final Link receiptLink = new Link(
                 new UriTemplate(baseUri + UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_RECEIPT),
                 UserAccountResource.LINK_NAME_RECEIPT);
         resource.add(receiptLink);
+
+        final Link storesLink = new Link(
+                new UriTemplate(baseUri + UtilConstants.API_ROOT + UserApiUrls.URL_USER_SHOPPING_STORES + UtilConstants.PAGINATION_TEMPLATES),
+                UserAccountResource.LINK_NAME_STORES);
+        resource.add(storesLink);
 
         final Link storeLink = new Link(
                 new UriTemplate(baseUri + UtilConstants.API_ROOT + UserApiUrls.URL_USER_SHOPPING_STORES_STORE),

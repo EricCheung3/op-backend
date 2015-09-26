@@ -28,20 +28,18 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 
+import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.jsonpath.JsonPath;
 import com.openprice.domain.account.user.UserAccount;
-import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.Receipt;
-import com.openprice.domain.receipt.ReceiptImage;
-import com.openprice.rest.ApiDocumentationBase;
 import com.openprice.rest.UtilConstants;
 
-public class UserReceiptApiDocumentation extends ApiDocumentationBase {
+public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
 
     @Test
     public void receiptListExample() throws Exception {
         mockMvc
-        .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS).with(user(USERNAME)))
+        .perform(get(userReceiptsUrl()).with(user(USERNAME)))
         .andExpect(status().isOk())
         .andDo(document("user-receipt-list-example",
             preprocessResponse(prettyPrint()),
@@ -62,7 +60,7 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
 
         mockMvc
         .perform(
-            fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
+            fileUpload(userReceiptUploadUrl())
             .file(file)
             .param("filename", "test.jpg")
             .with(user(USERNAME))
@@ -77,24 +75,8 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
 
     @Test
     public void receiptRetrieveExample() throws Exception {
-        MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
-
-        String receiptLocation =
-            mockMvc
-            .perform(
-                fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
-                .file(file)
-                .with(user(USERNAME))
-                .with(csrf())
-
-            )
-            .andExpect(status().isCreated())
-            .andReturn()
-            .getResponse()
-            .getHeader("Location");
-
         mockMvc
-        .perform(get(receiptLocation).with(user(USERNAME)))
+        .perform(get(userReceiptUrl()).with(user(USERNAME)))
         .andExpect(status().isOk())
         .andDo(document("user-receipt-retrieve-example",
             preprocessResponse(prettyPrint()),
@@ -113,13 +95,16 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                 fieldWithPath("_links").description("<<resources-user-receipt-links,Links>> to other resources")
             )
         ));
+    }
 
+    @Test
+    public void receiptFeedbackUpdateExample() throws Exception {
         final Map<String, Integer> feedbackUpdate = new HashMap<>();
         feedbackUpdate.put("rating", 1);
 
         mockMvc
         .perform(
-            put(receiptLocation+"/feedback")
+            put(userReceiptFeedbackUrl())
             .with(user(USERNAME))
             .contentType(MediaType.APPLICATION_JSON)
             .content(this.objectMapper.writeValueAsString(feedbackUpdate))
@@ -131,57 +116,38 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                 fieldWithPath("rating").description("The user rating for the receipt, right now we only use 1 or 0 to indicate good or bad.")
             )
         ));
-
-        mockMvc
-        .perform(delete(receiptLocation).with(user(USERNAME)))
-        .andExpect(status().isNoContent())
-        .andDo(document("user-receipt-delete-example"));
-
     }
 
     @Test
-    public void receiptImageExample() throws Exception {
-        MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
-
-        String receiptLocation =
-            mockMvc
-            .perform(
-                fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
-                .file(file)
-                .with(user(USERNAME))
-                .with(csrf())
-            )
-            .andExpect(status().isCreated())
-            .andReturn()
-            .getResponse()
-            .getHeader("Location");
-
-        String responseContent =
-            mockMvc
-            .perform(get(receiptLocation).with(user(USERNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String uploadLink = JsonPath.read(responseContent, "_links.upload.href");
-        String imagesLink = JsonPath.read(responseContent, "_links.images.href");
-
-        file = new MockMultipartFile("file", "image2.jpg", "image/jpeg", "base64codedimg".getBytes());
-
-        String receiptImageLocation =
-            mockMvc
-            .perform(
-                fileUpload(uploadLink)
-                .file(file)
-                .with(user(USERNAME))
-                .with(csrf())
-            )
-            .andExpect(status().isCreated())
-            .andReturn()
-            .getResponse()
-            .getHeader("Location");
-
+    public void receiptDeleteExample() throws Exception {
         mockMvc
-        .perform(get(receiptImageLocation).with(user(USERNAME)))
+        .perform(delete(userReceiptUrl()).with(user(USERNAME)))
+        .andExpect(status().isNoContent())
+        .andDo(document("user-receipt-delete-example"));
+    }
+
+    @Test
+    public void receiptImageListExample() throws Exception {
+        mockMvc
+        .perform(get(userReceiptImagesUrl()).with(user(USERNAME)))
+        .andExpect(status().isOk())
+        .andDo(document("user-receipt-image-list-example",
+            preprocessResponse(prettyPrint()),
+            links(
+                linkWithRel("self").description("The self link")
+            ),
+            responseFields(
+                fieldWithPath("_embedded.receiptImages").description("An array of <<resources-user-receipt-image, ReceiptImage resources>>"),
+                fieldWithPath("page").description("Pagination data"),
+                fieldWithPath("_links").description("<<resources-user-receipt-image-list-links,Links>> to other resources")
+            )
+        ));
+    }
+
+    @Test
+    public void imageRetrieveExample() throws Exception {
+        mockMvc
+        .perform(get(userReceiptImageUrl()).with(user(USERNAME)))
         .andExpect(status().isOk())
         .andDo(document("user-receipt-image-retrieve-example",
             preprocessResponse(prettyPrint()),
@@ -196,13 +162,18 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                 fieldWithPath("status").description("Receipt image process status"),
                 fieldWithPath("ocrResult").description("Receipt image ocr process result"),
                 fieldWithPath("fileName").description("Receipt image file name"),
-                fieldWithPath("_links").description("<<resources-user-receipt-image-links,Links>> to other resources")
+                fieldWithPath("_links").description("<<resources-user-receipt-image-links, Links>> to other resources")
             )
         ));
 
+    }
+
+    @Test
+    public void receiptImageUploadExample() throws Exception {
+        final MockMultipartFile file = new MockMultipartFile("file", "image2.jpg", "image/jpeg", "base64codedimg".getBytes());
         mockMvc
         .perform(
-            fileUpload(uploadLink)
+            fileUpload(userReceiptImageUploadUrl())
             .file(file)
             .param("filename", "test.jpg")
             .with(user(USERNAME))
@@ -213,52 +184,12 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
                 parameterWithName("filename").description("The uploaded image file name")
             )
         ));
-
-        mockMvc
-        .perform(get(imagesLink).with(user(USERNAME)))
-        .andExpect(status().isOk())
-        .andDo(document("user-receipt-image-list-example",
-            preprocessResponse(prettyPrint()),
-            links(
-                linkWithRel("self").description("The self link")
-            ),
-            responseFields(
-                fieldWithPath("_embedded.receiptImages").description("An array of <<resources-user-receipt-image, ReceiptImage resources>>"),
-                fieldWithPath("page").description("Pagination data"),
-                fieldWithPath("_links").description("<<resources-user-receipt-image-list-links,Links>> to other resources")
-            )
-        ));
-
     }
 
     @Test
     public void receiptItemExample() throws Exception {
-        MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
-
-        String receiptLocation =
-            mockMvc
-            .perform(
-                fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
-                .file(file)
-                .with(user(USERNAME))
-                .with(csrf())
-
-            )
-            .andExpect(status().isCreated())
-            .andReturn()
-            .getResponse()
-            .getHeader("Location");
-
-        String responseContent =
-            mockMvc
-            .perform(get(receiptLocation).with(user(USERNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String itemsLink = JsonPath.read(responseContent, "_links.items.href");
-
         mockMvc
-        .perform(get(itemsLink).with(user(USERNAME)))
+        .perform(get(userReceiptItemsUrl()).with(user(USERNAME)))
         .andExpect(status().isOk())
         .andDo(document("user-receipt-item-list-example",
             preprocessResponse(prettyPrint())
@@ -281,28 +212,38 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
     }
 
     protected void createReceipts() throws Exception {
-        final UserAccount user = userAccountRepository.findByEmail(USERNAME);
-        Receipt receipt = new Receipt();
-        receipt.setUser(user);
-        receipt = receiptRepository.save(receipt);
+        MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
 
-        // add two images to the receipt
-        final ReceiptImage image1 = receipt.createImage();
-        image1.setStatus(ProcessStatusType.UPLOADED);
-        receipt.getImages().add(image1);
-        receiptImageRepository.save(image1);
-        final ReceiptImage image2 = receipt.createImage();
-        image2.setStatus(ProcessStatusType.UPLOADED);
-        receipt.getImages().add(image2);
-        receiptImageRepository.save(image2);
+        String receiptLocation =
+            mockMvc
+            .perform(
+                fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
+                .file(file)
+                .with(user(USERNAME))
+                .with(csrf())
+            )
+            .andExpect(status().isCreated())
+            .andReturn()
+            .getResponse()
+            .getHeader("Location");
 
-        receipt = new Receipt();
-        receipt.setUser(user);
-        receipt = receiptRepository.save(receipt);
-        final ReceiptImage image = receipt.createImage();
-        image.setStatus(ProcessStatusType.UPLOADED);
-        receipt.getImages().add(image);
-        receiptImageRepository.save(image);
+        String responseContent =
+            mockMvc
+            .perform(get(receiptLocation).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        String uploadLink = JsonPath.read(responseContent, "_links.upload.href");
+
+        file = new MockMultipartFile("file", "image2.jpg", "image/jpeg", "base64codedimg".getBytes());
+
+        mockMvc
+        .perform(
+            fileUpload(uploadLink)
+            .file(file)
+            .with(user(USERNAME))
+            .with(csrf())
+        );
 
     }
 
@@ -311,6 +252,88 @@ public class UserReceiptApiDocumentation extends ApiDocumentationBase {
         for (Receipt receipt : receiptRepository.findByUser(user)) {
             receiptRepository.delete(receipt);
         }
+    }
+
+    private String userReceiptsUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(userUrl()).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        final String receiptsLink = JsonPath.read(responseContent, "_links.receipts.href");
+        return UriTemplate.fromTemplate(receiptsLink).set("page", null).set("size", null).set("sort", null).expand();
+    }
+
+    private String userReceiptUploadUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(userUrl()).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        return JsonPath.read(responseContent, "_links.upload.href");
+    }
+
+    private String userReceiptUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(userReceiptsUrl()).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        return JsonPath.read(responseContent, "_embedded.receipts[0]._links.self.href");
+    }
+
+    private String userReceiptFeedbackUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(userReceiptsUrl()).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        return JsonPath.read(responseContent, "_embedded.receipts[0]._links.feedback.href");
+    }
+
+    private String userReceiptImageUploadUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(userReceiptsUrl()).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        return JsonPath.read(responseContent, "_embedded.receipts[0]._links.upload.href");
+    }
+
+    private String userReceiptItemsUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(userReceiptsUrl()).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        return JsonPath.read(responseContent, "_embedded.receipts[0]._links.items.href");
+    }
+
+    private String userReceiptImagesUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(userReceiptsUrl()).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        final String imagesLink = JsonPath.read(responseContent, "_embedded.receipts[0]._links.images.href");
+        return UriTemplate.fromTemplate(imagesLink).set("page", null).set("size", null).set("sort", null).expand();
+    }
+
+    private String userReceiptImageUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(userReceiptImagesUrl()).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        return JsonPath.read(responseContent, "_embedded.receiptImages[0]._links.self.href");
     }
 
 }

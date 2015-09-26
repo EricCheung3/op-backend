@@ -35,16 +35,19 @@ public class UserReceiptResourceAssembler implements ResourceAssembler<Receipt, 
         resource.add(linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId()))
                 .withSelfRel());
 
-        resource.add(linkTo(methodOn(UserReceiptImageRestController.class).getUserReceiptImages(receipt.getId(), null, null))
-                .withRel(UserReceiptResource.LINK_NAME_IMAGES));
-
         // Hack solution to build template links for "image" and "rating".
         // Monitor https://github.com/spring-projects/spring-hateoas/issues/169 for nice solution from Spring HATEOAS
         final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();
+        final Link imagesLink = new Link(
+                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/images" + UtilConstants.PAGINATION_TEMPLATES),
+                UserReceiptResource.LINK_NAME_IMAGES);
+        resource.add(imagesLink);
+
         final Link imageLink = new Link(
                 new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/images/{imageId}"),
                 UserReceiptResource.LINK_NAME_IMAGE);
         resource.add(imageLink);
+
         final Link ratingLink = new Link(
                 new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/feedback"),
                 UserReceiptResource.LINK_NAME_FEEDBACK);

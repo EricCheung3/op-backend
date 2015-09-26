@@ -7,40 +7,31 @@ import java.util.Base64;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.damnhandy.uri.template.UriTemplate;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
-import com.openprice.rest.UtilConstants;
+import com.openprice.rest.user.receipt.ImageDataForm;
 
 @DatabaseSetup("classpath:/data/testData.xml")
 public class UserReceiptItemRestApiIT extends AbstractUserRestApiIntegrationTest {
     @Test
     public void getUserReceiptItems_ShouldReturnCorrectReceiptItems() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-
-        String receiptsLink =
-                given().filter(sessionFilter)
-                       .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
-                       .then().extract().path("_links.receipts.href");
-        String receiptsUrl =  UriTemplate.fromTemplate(receiptsLink)
-                                         .set("page", null)
-                                         .set("size", null)
-                                         .set("sort", null)
-                                         .expand();
-
         // add new image as base64 encoded string
         final String base64String = Base64.getEncoder().encodeToString("test".getBytes());
-        ImageDataForm form = new ImageDataForm();
-        form.setBase64String(base64String);
+        final ImageDataForm form =
+            ImageDataForm.builder()
+                         .base64String(base64String)
+                         .build();
+
         Response response =
             given()
                 .filter(sessionFilter)
                 .contentType(ContentType.JSON)
                 .body(form)
             .when()
-                .post(receiptsUrl)
+                .post(userReceiptsUrl(sessionFilter))
             ;
 
         response

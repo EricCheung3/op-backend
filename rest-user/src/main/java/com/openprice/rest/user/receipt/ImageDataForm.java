@@ -1,16 +1,19 @@
-package com.openprice.rest.user;
+package com.openprice.rest.user.receipt;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
+@Builder
+@NoArgsConstructor @AllArgsConstructor
+@Data
 @ToString(callSuper=true, exclude={"base64String"})
 public class ImageDataForm {
-
-    @Getter @Setter
     private String base64String;
 
 }

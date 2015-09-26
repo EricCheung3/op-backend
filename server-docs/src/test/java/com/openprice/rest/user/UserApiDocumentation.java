@@ -19,18 +19,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
-import com.openprice.domain.account.user.UserAccount;
-import com.openprice.domain.account.user.UserProfile;
-import com.openprice.rest.ApiDocumentationBase;
-import com.openprice.rest.UtilConstants;
-
-public class UserApiDocumentation extends ApiDocumentationBase {
+public class UserApiDocumentation extends UserApiDocumentationBase {
 
     @Test
     public void currentUserExample() throws Exception {
 
         mockMvc
-        .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER).with(user(USERNAME)))
+        .perform(get(userUrl()).with(user(USERNAME)))
         .andExpect(status().isOk())
         .andDo(document("user-example",
             preprocessResponse(prettyPrint()),
@@ -62,7 +57,7 @@ public class UserApiDocumentation extends ApiDocumentationBase {
     public void profileExample() throws Exception {
 
         mockMvc
-        .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER_PROFILE).with(user(USERNAME)))
+        .perform(get(userProfileUrl()).with(user(USERNAME)))
         .andExpect(status().isOk())
         .andDo(document("user-profile-retrieve-example",
             preprocessResponse(prettyPrint()),
@@ -81,14 +76,14 @@ public class UserApiDocumentation extends ApiDocumentationBase {
 
     @Test
     public void profileUpdateExample() throws Exception {
-        UserAccount account = userAccountRepository.findByEmail(USERNAME);
-        UserProfile profile = account.getProfile();
-        UserProfileForm form = new UserProfileForm(profile);
-        form.setFirstName("Jonny");
+        UserProfileForm form =
+            UserProfileForm.builder()
+                           .firstName("Jonny")
+                           .build();
 
         mockMvc
         .perform(
-            put(UtilConstants.API_ROOT + UserApiUrls.URL_USER_PROFILE)
+            put(userProfileUrl())
             .with(user(USERNAME))
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content(objectMapper.writeValueAsString(form))

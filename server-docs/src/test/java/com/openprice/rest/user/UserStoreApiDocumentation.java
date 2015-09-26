@@ -21,17 +21,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
+import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.jsonpath.JsonPath;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.shopping.ShoppingItem;
 import com.openprice.domain.shopping.ShoppingItemRepository;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
-import com.openprice.rest.ApiDocumentationBase;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.user.store.ShoppingListForm;
 
-public class UserStoreApiDocumentation extends ApiDocumentationBase {
+public class UserStoreApiDocumentation extends UserApiDocumentationBase {
     @Inject
     protected StoreChainRepository storeRepository;
 
@@ -39,17 +39,9 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
     protected ShoppingItemRepository shoppingItemRepository;
 
     @Test
-    public void storeExample() throws Exception {
-        String responseContent =
-            mockMvc
-            .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER).with(user(USERNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String storesLink = JsonPath.read(responseContent, "_links.stores.href");
-
+    public void storeListExample() throws Exception {
         mockMvc
-        .perform(get(storesLink).with(user(USERNAME)))
+        .perform(get(userStoresUrl()).with(user(USERNAME)))
         .andExpect(status().isOk())
         .andDo(document("user-store-list-example",
             preprocessResponse(prettyPrint()),
@@ -62,17 +54,12 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
                 fieldWithPath("_links").description("<<resources-user-store-list-links,Links>> to other resources")
             )
         ));
+    }
 
-        responseContent =
-            mockMvc
-            .perform(get(storesLink).with(user(USERNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String storeLink = JsonPath.read(responseContent, "_embedded.storeChains[0]._links.self.href");
-
+    @Test
+    public void storeRetrieveExample() throws Exception {
         mockMvc
-        .perform(get(storeLink).with(user(USERNAME)))
+        .perform(get(userStoreUrl()).with(user(USERNAME)))
         .andExpect(status().isOk())
         .andDo(document("user-store-retrieve-example",
             preprocessResponse(prettyPrint()),
@@ -106,7 +93,7 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
         String storesLink = JsonPath.read(responseContent, "_links.stores.href");
         responseContent =
             mockMvc
-            .perform(get(storesLink).with(user(USERNAME)))
+            .perform(get(userStoresUrl()).with(user(USERNAME)))
             .andExpect(status().isOk())
             .andReturn().getResponse()
             .getContentAsString();
@@ -142,14 +129,7 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
 
         String responseContent =
             mockMvc
-            .perform(get(UtilConstants.API_ROOT + UserApiUrls.URL_USER).with(user(USERNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        String storesLink = JsonPath.read(responseContent, "_links.stores.href");
-        responseContent =
-            mockMvc
-            .perform(get(storesLink).with(user(USERNAME)))
+            .perform(get(userStoresUrl()).with(user(USERNAME)))
             .andExpect(status().isOk())
             .andReturn().getResponse()
             .getContentAsString();
@@ -259,6 +239,27 @@ public class UserStoreApiDocumentation extends ApiDocumentationBase {
 
     protected void deleteShoppingItems() throws Exception {
         shoppingItemRepository.deleteAll();
+    }
+
+    private String userStoresUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(userUrl()).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        final String storesLink = JsonPath.read(responseContent, "_links.stores.href");
+        return UriTemplate.fromTemplate(storesLink).set("page", null).set("size", null).set("sort", null).expand();
+    }
+
+    private String userStoreUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(userStoresUrl()).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        return JsonPath.read(responseContent, "_embedded.storeChains[0]._links.self.href");
     }
 
 }

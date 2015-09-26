@@ -34,7 +34,6 @@ import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.process.ProcessQueueService;
 import com.openprice.rest.ResourceNotFoundException;
-import com.openprice.rest.user.ImageDataForm;
 import com.openprice.rest.user.UserApiUrls;
 
 import lombok.extern.slf4j.Slf4j;

@@ -25,7 +25,7 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
             given()
                 .filter(sessionFilter)
             .when()
-                .get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
+                .get(userUrl())
             ;
 
         //response.prettyPrint();
@@ -45,7 +45,7 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
                 .body("profile.lastName", equalTo("Doe"))
                 .body("_links.self.href", endsWith(UserApiUrls.URL_USER))
                 .body("_links.profile.href", endsWith(UserApiUrls.URL_USER_PROFILE))
-                .body("_links.receipts.href", endsWith(UserApiUrls.URL_USER_RECEIPTS))
+                .body("_links.receipts.href", endsWith(UserApiUrls.URL_USER_RECEIPTS + UtilConstants.PAGINATION_TEMPLATES))
                 .body("_links.receipt.href", endsWith(UserApiUrls.URL_USER_RECEIPTS_RECEIPT))
                 .body("_links.upload.href", endsWith(UserApiUrls.URL_USER_RECEIPTS_UPLOAD))
             ;
@@ -59,7 +59,7 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
             given()
                 .filter(sessionFilter)
             .when()
-                .get(UtilConstants.API_ROOT + UserApiUrls.URL_USER_PROFILE)
+                .get(userProfileUrl())
             ;
 
         //response.prettyPrint();
@@ -83,7 +83,7 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
             given()
                 .filter(sessionFilter)
             .when()
-                .get(UtilConstants.API_ROOT + UserApiUrls.URL_USER_PROFILE)
+                .get(userProfileUrl())
             ;
 
         //response.prettyPrint();
@@ -106,7 +106,7 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
             .contentType(ContentType.JSON)
             .body(form)
         .when()
-            .put(UtilConstants.API_ROOT + UserApiUrls.URL_USER_PROFILE)
+            .put(userProfileUrl())
         .then()
             .statusCode(HttpStatus.SC_NO_CONTENT)
         ;
@@ -115,7 +115,7 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
             given()
                 .filter(sessionFilter)
             .when()
-                .get(UtilConstants.API_ROOT + UserApiUrls.URL_USER_PROFILE)
+                .get(userProfileUrl())
             ;
 
         //response.prettyPrint();
