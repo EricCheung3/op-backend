@@ -1,7 +1,6 @@
 package com.openprice.ocr;
 
 import static com.jayway.restassured.RestAssured.given;
-import static com.jayway.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
 
 import java.io.BufferedOutputStream;

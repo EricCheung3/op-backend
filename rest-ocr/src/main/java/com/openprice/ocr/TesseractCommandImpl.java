@@ -11,7 +11,7 @@ public class TesseractCommandImpl implements Tesseract {
 
     @Override
     public String scan(final String filePath) {
-        final String command = "./OP_OCR -i " + filePath;
+        final String command = "./OP_OCR -g sup -i " + filePath;
         log.info("call tesseract: '{}'.", command);
         final long start = System.currentTimeMillis();
 
