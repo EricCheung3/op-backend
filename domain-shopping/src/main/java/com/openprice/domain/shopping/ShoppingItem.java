@@ -30,7 +30,7 @@ public class ShoppingItem extends BaseAuditableEntity {
     @Getter @Setter
     @JsonIgnore
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="store_id")
+    @JoinColumn(name="chain_id")
     private StoreChain store;
 
     @Getter @Setter
