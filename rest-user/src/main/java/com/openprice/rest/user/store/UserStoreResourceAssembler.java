@@ -26,17 +26,18 @@ public class UserStoreResourceAssembler implements ResourceAssembler<StoreChain,
         resource.add(linkTo(methodOn(UserAccountRestController.class).getCurrentUserAccount())
                 .withRel(UserStoreResource.LINK_NAME_USER));
 
-        resource.add(linkTo(methodOn(ShoppingItemRestController.class).getStoreShoppingItems(store.getId(), null, null))
-                .withRel(UserStoreResource.LINK_NAME_ITEMS));
-
         // Hack solution to build template links.
         // Monitor https://github.com/spring-projects/spring-hateoas/issues/169 for nice solution from Spring HATEOAS
         final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();
+        final Link itemsLink = new Link(
+                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/stores/"+ store.getId()+ "/items" + UtilConstants.PAGINATION_TEMPLATES),
+                UserStoreResource.LINK_NAME_ITEMS);
+        resource.add(itemsLink);
+
         final Link itemLink = new Link(
                 new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/stores/"+ store.getId()+ "/items/{itemId}"),
                 UserStoreResource.LINK_NAME_ITEM);
         resource.add(itemLink);
-
         return resource;
     }
 

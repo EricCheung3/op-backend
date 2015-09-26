@@ -6,27 +6,11 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 
 import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.restassured.filter.session.SessionFilter;
-import com.jayway.restassured.response.Response;
 import com.openprice.rest.AbstractRestApiIntegrationTest;
 import com.openprice.rest.UtilConstants;
 
 @SpringApplicationConfiguration(classes = {UserApiTestApplication.class})
 public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApiIntegrationTest {
-
-    protected UserProfileForm constructUserProfileFormByProfileResource(final Response response) {
-        final UserProfileForm form = new UserProfileForm();
-        form.setFirstName(response.then().extract().path("firstName"));
-        form.setMiddleName(response.then().extract().path("middleName"));
-        form.setLastName(response.then().extract().path("lastName"));
-        form.setPhone(response.then().extract().path("phone"));
-        form.setAddress1(response.then().extract().path("address.address1"));
-        form.setAddress2(response.then().extract().path("address.address2"));
-        form.setCity(response.then().extract().path("address.city"));
-        form.setState(response.then().extract().path("address.state"));
-        form.setZip(response.then().extract().path("address.zip"));
-        form.setCountry(response.then().extract().path("address.country"));
-        return form;
-    }
 
     protected String userUrl() {
         return UtilConstants.API_ROOT + UserApiUrls.URL_USER;
@@ -38,7 +22,7 @@ public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApi
 
     protected String userReceiptUploadUrl(final SessionFilter sessionFilter) {
         return given().filter(sessionFilter)
-                      .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
+                      .when().get(userUrl())
                       .then().extract().path("_links.upload.href");
     }
 
@@ -72,6 +56,44 @@ public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApi
                    .when().get(userReceiptUrl(sessionFilter, receiptId))
                    .then().extract().path("_links.image.href");
         return UriTemplate.fromTemplate(imageLink).set("imageId", imageId).expand();
+    }
+
+    protected String userStoresUrl(final SessionFilter sessionFilter) {
+        final String storesLink =
+            given().filter(sessionFilter)
+                   .when().get(userUrl())
+                   .then().extract().path("_links.stores.href");
+        return UriTemplate.fromTemplate(storesLink).set("page", null).set("size", null).set("sort", null).expand();
+    }
+
+    protected String userStoreUrl(final SessionFilter sessionFilter, final String storeId) {
+        final String storeLink =
+            given().filter(sessionFilter)
+                   .when().get(userUrl())
+                   .then().extract().path("_links.store.href");
+        return UriTemplate.fromTemplate(storeLink).set("storeId", storeId).expand();
+    }
+
+    protected String userStoreItemsUrl(final SessionFilter sessionFilter, final String storeId) {
+        final String itemsLink =
+            given().filter(sessionFilter)
+                   .when().get(userStoreUrl(sessionFilter, storeId))
+                   .then().extract().path("_links.items.href");
+        return UriTemplate.fromTemplate(itemsLink).set("page", null).set("size", null).set("sort", null).expand();
+    }
+
+    protected String userStoreItemUrl(final SessionFilter sessionFilter, final String storeId, final String itemId) {
+        final String storeLink =
+            given().filter(sessionFilter)
+                   .when().get(userStoreUrl(sessionFilter, storeId))
+                   .then().extract().path("_links.item.href");
+        return UriTemplate.fromTemplate(storeLink).set("itemId", itemId).expand();
+    }
+
+    protected String userShoppingListUploadUrl(final SessionFilter sessionFilter) {
+        return given().filter(sessionFilter)
+                      .when().get(userUrl())
+                      .then().extract().path("_links.shoppingList.href");
     }
 
 }

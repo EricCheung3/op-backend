@@ -7,14 +7,12 @@ import static org.hamcrest.Matchers.equalTo;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.damnhandy.uri.template.UriTemplate;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
-import com.openprice.rest.user.UserApiUrls;
 
 @DatabaseSetup("classpath:/data/testData.xml")
 public class UserStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
@@ -22,26 +20,13 @@ public class UserStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
     @Test
     public void getCurrentUserStores_ShouldReturnAllStores() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-
-        // get stores link
-        String storesLink =
-                given().filter(sessionFilter)
-                       .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
-                       .then().extract().path("_links.stores.href");
-        String receiptsUrl =  UriTemplate.fromTemplate(storesLink)
-                                         .set("page", 0)
-                                         .set("size", 10)
-                                         .set("sort", null)
-                                         .expand();
-
         Response response =
             given()
                 .filter(sessionFilter)
             .when()
-                .get(receiptsUrl)
+                .get(userStoresUrl(sessionFilter))
             ;
         //response.prettyPrint();
-
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
@@ -59,35 +44,23 @@ public class UserStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
     @Test
     public void getUserStoreById_ShouldReturnStore() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-
-        final String storeLink =
-                given().filter(sessionFilter)
-                       .when().get(UtilConstants.API_ROOT + UserApiUrls.URL_USER)
-                       .then().extract().path("_links.store.href");
-        final String storeUrl =
-                UriTemplate.fromTemplate(storeLink)
-                           .set("storeId", "store001")
-                           .expand();
-
         final Response response =
             given()
                 .filter(sessionFilter)
             .when()
-                .get(storeUrl)
+                .get(userStoreUrl(sessionFilter, "store001"))
             ;
-
         //response.prettyPrint();
-
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("id", equalTo("store001"))
             .body("name", equalTo("Real Canadian Superstore"))
-            .body("_links.self.href", endsWith(storeUrl))
+            .body("_links.self.href", endsWith("/user/stores/store001"))
             .body("_links.user.href", endsWith("/user"))
-            .body("_links.items.href", endsWith(storeUrl + "/items"))
-            .body("_links.item.href", endsWith(storeUrl + "/items/{itemId}"))
+            .body("_links.items.href", endsWith("/user/stores/store001/items" + UtilConstants.PAGINATION_TEMPLATES))
+            .body("_links.item.href", endsWith("/user/stores/store001/items/{itemId}"))
         ;
     }
 

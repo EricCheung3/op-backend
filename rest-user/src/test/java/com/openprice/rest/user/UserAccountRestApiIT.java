@@ -27,9 +27,7 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
             .when()
                 .get(userUrl())
             ;
-
         //response.prettyPrint();
-
         response
             .then()
                 .statusCode(HttpStatus.SC_OK)
@@ -61,9 +59,7 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
             .when()
                 .get(userProfileUrl())
             ;
-
         //response.prettyPrint();
-
         response
             .then()
                 .statusCode(HttpStatus.SC_OK)
@@ -85,9 +81,7 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
             .when()
                 .get(userProfileUrl())
             ;
-
         //response.prettyPrint();
-
         response
             .then()
                 .statusCode(HttpStatus.SC_OK)
@@ -97,9 +91,11 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
                 .body("address.city", equalTo("Edmonton"))
             ;
 
-        UserProfileForm form = constructUserProfileFormByProfileResource(response);
-        form.setAddress1("888 Broadway Ave");
-        form.setCity("Calgary");
+        UserProfileForm form =
+            UserProfileForm.builder()
+                           .address1("888 Broadway Ave")
+                           .city("Calgary")
+                           .build();
 
         given()
             .filter(sessionFilter)
@@ -117,9 +113,7 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
             .when()
                 .get(userProfileUrl())
             ;
-
         //response.prettyPrint();
-
         response
             .then()
                 .statusCode(HttpStatus.SC_OK)

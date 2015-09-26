@@ -34,19 +34,6 @@ public class UserProfileForm {
 
     private String country;
 
-    public UserProfileForm(final UserProfile profile) {
-        firstName = profile.getFirstName();
-        middleName = profile.getMiddleName();
-        lastName = profile.getLastName();
-        phone = profile.getPhone();
-        address1 = profile.getAddress().getAddress1();
-        address2 = profile.getAddress().getAddress2();
-        city = profile.getAddress().getCity();
-        state = profile.getAddress().getState();
-        zip = profile.getAddress().getZip();
-        country = profile.getAddress().getCountry();
-    }
-
     public void updateProfile(final UserProfile profile) {
         profile.setFirstName(firstName);
         profile.setLastName(lastName);

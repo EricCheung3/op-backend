@@ -3,26 +3,30 @@ package com.openprice.rest.user.store;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Singular;
 
+@JsonIgnoreProperties(ignoreUnknown=true)
+@Builder
+@NoArgsConstructor @AllArgsConstructor
+@Data
 public class ShoppingListForm {
-
-    @Getter @Setter
     private String storeId;
 
-    @Getter @Setter
-    private List<Item> items = new ArrayList<>();
+    @Singular private List<Item> items = new ArrayList<>();
 
-    @AllArgsConstructor
-    @NoArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown=true)
+    @Builder
+    @NoArgsConstructor  @AllArgsConstructor
+    @Data
     public static class Item {
-        @Getter @Setter
         private String name;
 
-        @Getter @Setter
         private String price;
     }
 }
