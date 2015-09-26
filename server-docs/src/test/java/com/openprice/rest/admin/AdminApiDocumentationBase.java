@@ -9,6 +9,8 @@ import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
+import com.openprice.domain.store.StoreChain;
+import com.openprice.domain.store.StoreService;
 import com.openprice.rest.ApiDocumentationBase;
 
 public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
@@ -19,6 +21,9 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
 
     @Inject
     protected AdminAccountRepository adminAccountRepository;
+
+    @Inject
+    protected StoreService storeService;
 
     protected String createTestAdmin() throws Exception {
         adminAccountService.createAdminAccount(ADMINNAME, "password", "John", "Doe", "john.doe@email.com", "VP Marketing");
@@ -63,4 +68,13 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
         }
     }
 
+    protected void createStores() throws Exception {
+        StoreChain chain = storeService.createStoreChain("RCSS", "Real Canadian Superstore", "Grocery", "Superstore, RCSS");
+        storeService.createStoreBranch(chain, "Calgary Trail RCSS", "780-430-2769", "", "4821, Calgary Trail", "", "Edmonton", "AB", "", "Canada");
+        storeService.createStoreBranch(chain, "South Common RCSS", "780-490-3918", "", "1549 9711, 23 AVE NW", "", "Edmonton", "AB", "", "Canada");
+    }
+
+    protected void deleteStores() throws Exception {
+        storeService.deleteAllStores();
+    }
 }

@@ -230,11 +230,11 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
             .body("page.totalPages", equalTo(1))
             .body("page.number", equalTo(0))
             .body("_embedded.storeBranches[0].id", equalTo("branch101"))
-            .body("_embedded.storeBranches[0].name", equalTo("RCSS"))
+            .body("_embedded.storeBranches[0].name", equalTo("Calgary Trail RCSS"))
             .body("_embedded.storeBranches[1].id", equalTo("branch102"))
-            .body("_embedded.storeBranches[1].name", equalTo("RCSS"))
+            .body("_embedded.storeBranches[1].name", equalTo("South Common RCSS"))
             .body("_embedded.storeBranches[2].id", equalTo("branch103"))
-            .body("_embedded.storeBranches[2].name", equalTo("RCSS"))
+            .body("_embedded.storeBranches[2].name", equalTo("Whitemud RCSS"))
             .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS+"/chain001/branches"))
         ;
     }
@@ -253,7 +253,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("id", equalTo("branch101"))
-            .body("name", equalTo("RCSS"))
+            .body("name", equalTo("Calgary Trail RCSS"))
             .body("phone", equalTo("780-430-2769"))
             .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS+"/chain001/branches/branch101"))
             .body("_links.chain.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS + "/chain001"))

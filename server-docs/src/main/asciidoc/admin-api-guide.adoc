@@ -350,7 +350,7 @@ include::{snippets}/admin-receipt-list-example/curl-request.adoc[]
 include::{snippets}/admin-receipt-list-example/http-response.adoc[]
 
 
-[[resources-receipt-list-links]]
+[[resources-admin-receipt-list-links]]
 ==== Links
 
 include::{snippets}/admin-receipt-list-example/links.adoc[]
@@ -486,3 +486,223 @@ include::{snippets}/admin-receipt-item-list-example/curl-request.adoc[]
 ==== Example response
 
 include::{snippets}/admin-receipt-item-list-example/http-response.adoc[]
+
+
+
+[[resources-admin-store-chains]]
+== Admin Store Chains Resource
+
+Admin Store Chains resource is used to list admin-managed store chains.
+
+[[resources-admin-store-chain-list]]
+=== List admin chains
+
+A `GET` request will list all of the admin-manged chains.
+
+==== Response structure
+
+include::{snippets}/admin-store-chain-list-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-store-chain-list-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-store-chain-list-example/http-response.adoc[]
+
+
+[[resources-admin-store-chain-list-links]]
+==== Links
+
+include::{snippets}/admin-store-chain-list-example/links.adoc[]
+
+
+[[resources-admin-store-chain-create]]
+=== Create Store Chain
+
+A `POST` request is used to create a new store chain.
+
+==== Request structure
+
+include::{snippets}/admin-store-chain-create-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-store-chain-create-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-store-chain-create-example/http-response.adoc[]
+
+
+[[resources-admin-store-chain]]
+== Admin Store Chain Resource
+
+Resource for a single admin-managed store chain, may contain one or more branches.
+
+[[resources-admin-store-chain-retrieve]]
+=== Get admin-managed chain
+
+A `GET` request is used to retrieve store chain
+
+==== Response structure
+
+include::{snippets}/admin-store-chain-retrieve-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-store-chain-retrieve-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-store-chain-retrieve-example/http-response.adoc[]
+
+[[resources-admin-store-chain-links]]
+==== Links
+Hyperlinks to other resources.
+include::{snippets}/admin-store-chain-retrieve-example/links.adoc[]
+
+
+[[resources-admin-store-chain-update]]
+=== Update Store Chain
+
+A `PUT` request is used to update an existing store chain.
+
+==== Request structure
+
+include::{snippets}/admin-store-chain-update-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-store-chain-update-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-store-chain-update-example/http-response.adoc[]
+
+
+[[resources-admin-store-chain-delete]]
+=== Delete admin-managed store chain
+
+A `DELETE` request is used to delete admin-managed chain,
+it will delete all branches with this chain.
+
+==== Example request
+
+include::{snippets}/admin-store-chain-delete-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-store-chain-delete-example/http-response.adoc[]
+
+
+
+[[resources-admin-store-branches]]
+== Admin Store Branches Resource
+
+Admin Store Branches resource is used to list admin-managed store branches.
+
+[[resources-admin-store-branch-list]]
+=== List admin branches
+
+A `GET` request will list all of the admin-manged store branches.
+
+return 404 if store chain id is invalid.
+
+==== Response structure
+
+include::{snippets}/admin-store-branch-list-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-store-branch-list-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-store-branch-list-example/http-response.adoc[]
+
+
+[[resources-admin-store-branch-list-links]]
+==== Links
+
+include::{snippets}/admin-store-branch-list-example/links.adoc[]
+
+
+[[resources-admin-store-branch-create]]
+=== Create Store Branch
+
+A `POST` request is used to create a new store branch.
+
+==== Request structure
+
+include::{snippets}/admin-store-branch-create-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-store-branch-create-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-store-branch-create-example/http-response.adoc[]
+
+
+[[resources-admin-store-branch]]
+== Admin Store Branch Resource
+
+Resource for a single admin-managed store branch.
+
+[[resources-admin-store-branch-retrieve]]
+=== Get admin-managed branch
+
+A `GET` request is used to retrieve store branch of a particular store chain.
+
+==== Response structure
+
+include::{snippets}/admin-store-branch-retrieve-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-store-branch-retrieve-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-store-branch-retrieve-example/http-response.adoc[]
+
+[[resources-admin-store-branch-links]]
+==== Links
+Hyperlinks to other resources.
+include::{snippets}/admin-store-branch-retrieve-example/links.adoc[]
+
+
+
+[[resources-admin-store-branch-update]]
+=== Update Store Branch
+
+A `PUT` request is used to update an existing store branch.
+
+==== Request structure
+
+include::{snippets}/admin-store-branch-update-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-store-branch-update-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-store-branch-update-example/http-response.adoc[]
+
+
+[[resources-admin-store-branch-delete]]
+=== Delete admin-managed store branch
+
+A `DELETE` request is used to delete admin-managed store branch,
+
+==== Example request
+
+include::{snippets}/admin-store-branch-delete-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-store-branch-delete-example/http-response.adoc[]

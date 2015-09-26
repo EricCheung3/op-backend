@@ -56,4 +56,8 @@ public class StoreService {
         branch.setAddress(new Address(address1, address2, city, state, zip, country));
         return storeBranchRepository.save(branch);
     }
+
+    public void deleteAllStores() {
+        storeChainRepository.deleteAll();
+    }
 }
