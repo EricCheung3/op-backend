@@ -35,13 +35,12 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getStoreChains_ShouldReturnAllStoreChains() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
-        final String chainsUrl = getStoreChainsUrl(sessionFilter);
 
         Response response =
             given()
                 .filter(sessionFilter)
             .when()
-                .get(chainsUrl)
+                .get(getStoreChainsUrl(sessionFilter))
             ;
         //response.prettyPrint();
         response
@@ -64,13 +63,12 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getStoreChainById_ShouldReturnCorrectChain() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
-        final String chainUrl = getStoreChainUrl(sessionFilter, "chain001");
 
         Response response =
             given()
                 .filter(sessionFilter)
             .when()
-                .get(chainUrl)
+                .get(getStoreChainUrl(sessionFilter, "chain001"))
             ;
         //response.prettyPrint();
         response
@@ -91,12 +89,11 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getStoreChainById_ShouldReturn404_WithInvalidId() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
-        final String chainUrl = getStoreChainUrl(sessionFilter, "invalid");
 
         given()
             .filter(sessionFilter)
         .when()
-            .get(chainUrl)
+            .get(getStoreChainUrl(sessionFilter, "invalid"))
         .then()
             .statusCode(HttpStatus.SC_NOT_FOUND)
         ;
@@ -106,7 +103,6 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void createStoreChain_ShouldCreateNewChain() throws Exception {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
-        final String chainsUrl = getStoreChainsUrl(sessionFilter);
 
         final AdminStoreChainForm form =
             AdminStoreChainForm.builder()
@@ -121,7 +117,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
                 .contentType(ContentType.JSON)
                 .body(form)
             .when()
-                .post(chainsUrl)
+                .post(getStoreChainsUrl(sessionFilter))
             ;
 
         response
@@ -130,13 +126,11 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
         ;
 
         // verify new store chain
-        final String chainUrl = response.getHeader("Location");
-
         response =
             given()
                 .filter(sessionFilter)
             .when()
-                .get(chainUrl)
+                .get(response.getHeader("Location"))
             ;
         //response.prettyPrint();
         response
