@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.openprice</groupId>
         <artifactId>openprice-project</artifactId>
-        <version>0.0.3</version>
+        <version>0.0.4</version>
     </parent>
 
     <artifactId>openprice-rest-user</artifactId>
@@ -25,7 +25,7 @@
             <artifactId>openprice-process</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>com.openprice</groupId>
             <artifactId>openprice-rest-common</artifactId>

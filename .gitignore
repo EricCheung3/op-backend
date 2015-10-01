@@ -4,7 +4,7 @@
 .factorypath
 .springBeans
 target
-/.apt_generated/
+.apt_generated
 .DS_Store
 Thumbs.db
 LOGGING_FILE_FOLDER_IS_UNDEFINED

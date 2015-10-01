@@ -24,11 +24,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.openprice.datastructure.Item;
-import com.openprice.datastructure.ReceiptDebug;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.file.FileFolderSettings;
 import com.openprice.file.FileSystemService;
+import com.openprice.parser.data.Item;
+import com.openprice.parser.data.ReceiptDebug;
 import com.openprice.parser.simple.SimpleParser;
 
 @RunWith(MockitoJUnitRunner.class)

@@ -8,10 +8,10 @@
         <version>0.0.4</version>
     </parent>
 
-    <artifactId>openprice-api-ocr</artifactId>
+    <artifactId>openprice-parser-core</artifactId>
     <packaging>jar</packaging>
 
-    <name>OCR Public API Module</name>
-    <description>OpenPrice OCR Service public API code for outside usage.</description>
+    <name>Parser Core Module</name>
+    <description>OpenPrice parser core module of common parser code.</description>
 
 </project>
