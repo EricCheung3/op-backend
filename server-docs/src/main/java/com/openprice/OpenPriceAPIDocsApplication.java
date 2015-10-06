@@ -27,7 +27,6 @@ import com.openprice.file.FileSystemService;
 import com.openprice.mail.EmailProperties;
 import com.openprice.mail.EmailService;
 import com.openprice.mail.stub.DummyEmailService;
-import com.openprice.parser.simple.SimpleParser;
 import com.openprice.process.ProcessSettings;
 
 import lombok.extern.slf4j.Slf4j;
@@ -68,6 +67,7 @@ public class OpenPriceAPIDocsApplication {
     @Bean
     public AuditorAware<String> auditorAware() {
         return new AuditorAware<String>() {
+            @Override
             public String getCurrentAuditor() {
                 final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -79,7 +79,7 @@ public class OpenPriceAPIDocsApplication {
             }
         };
     }
-    
+
     @Bean
     public EmailService dummyEmailService() {
         return new DummyEmailService();
@@ -88,11 +88,6 @@ public class OpenPriceAPIDocsApplication {
     @Bean
     public FileSystemService fileSystemService() {
         return new FileSystemService(new FileFolderSettings());
-    }
-
-    @Bean
-    public SimpleParser simpleParser() {
-        return new SimpleParser();
     }
 
     @EnableWebSecurity

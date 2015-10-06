@@ -22,8 +22,8 @@
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>parser-simple</artifactId>
-            <version>0.0.1</version>
+            <artifactId>openprice-parser-core</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>

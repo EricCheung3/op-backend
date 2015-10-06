@@ -19,7 +19,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.openprice.mail.EmailService;
 import com.openprice.mail.sendgrid.EmailServiceImpl;
 import com.openprice.mail.stub.DummyEmailService;
-import com.openprice.parser.simple.SimpleParser;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -61,11 +60,6 @@ public abstract class AbstractApiApplication {
                 return authentication.getName();
             }
         };
-    }
-
-    @Bean
-    public SimpleParser simpleParser() {
-        return new SimpleParser();
     }
 
     @Bean @Profile("sendgrid")

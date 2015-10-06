@@ -34,9 +34,9 @@ public class ReceiptService {
 
     @Inject
     public ReceiptService(final ReceiptRepository receiptRepository,
-                          final ReceiptImageRepository receiptImageRepository,
-                          final FileSystemService fileSystemService,
-                          final SimpleParser simpleParser) {
+            final ReceiptImageRepository receiptImageRepository,
+            final FileSystemService fileSystemService,
+            final SimpleParser simpleParser) {
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
         this.fileSystemService = fileSystemService;
@@ -172,13 +172,13 @@ public class ReceiptService {
                 ReceiptDebug parserResult = simpleParser.parse(ocrTextList);
                 for (final Item item : parserResult.items()) {
                     final ReceiptItem receiptItem = new ReceiptItem();
-                    receiptItem.setName(item.name());
-                    receiptItem.setBuyPrice(item.buyPrice());
-                    receiptItem.setCategory(item.category());
-                    receiptItem.setRegPrice(item.regPrice());
-                    receiptItem.setSaving(item.saving());
-                    receiptItem.setUnitPrice(item.unitPrice());
-                    receiptItem.setWeight(item.weight());
+                    receiptItem.setName(item.getName());
+                    receiptItem.setBuyPrice(item.getBuyPrice());
+                    receiptItem.setCategory(item.getCategory());
+                    receiptItem.setRegPrice(item.getRegPrice());
+                    receiptItem.setSaving(item.getSaving());
+                    receiptItem.setUnitPrice(item.getUnitPrice());
+                    receiptItem.setWeight(item.getWeight());
                     result.add(receiptItem);
                 }
                 log.debug("SimpleParser returns {} items.", result.size());

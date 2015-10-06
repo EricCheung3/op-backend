@@ -14,4 +14,10 @@
     <name>Parser Core Module</name>
     <description>OpenPrice parser core module of common parser code.</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+    </dependencies>
 </project>

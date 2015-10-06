@@ -1,0 +1,142 @@
+package com.openprice.parser.store;
+
+import java.util.List;
+
+import com.openprice.parser.common.Levenshtein;
+import com.openprice.parser.common.StringCommon;
+import com.openprice.parser.exception.ChainNotFoundException;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class ChainRecognizer {
+    private final static String SECONDLEVEL_SPLITTER = ",";// the splitter used
+    // inside a field
+    // between :
+
+    // use a large values to search all lines from the end
+    private static final int MaxSearchedLinesEnd = 6;
+    private static final int MaxSearchedLinesBegin = 6;
+
+    private final ChainRegistry chainRegistry;
+
+    public ChainRecognizer(final ChainRegistry chainRegistry) {
+        this.chainRegistry = chainRegistry;
+    }
+
+    public MatchedChain findChain(final List<String> lines) throws ChainNotFoundException {
+        if (lines == null || lines.isEmpty())
+            return null;
+        // find the meaningful lines in the beginning and end
+        int begin = -1;
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i).trim();
+            int[] counts = StringCommon.countDigitAndChars(line);
+            if (counts[1] > 2) {
+                begin = i;
+                break;
+            }
+        }
+
+        // fast mode: searching a few number of lines from beginning.
+        MatchedChain chainBegin = chainNameSearch(lines, begin, begin + MaxSearchedLinesBegin);
+        if (chainBegin.getMatchedScore() > 0.75)
+            return chainBegin;
+
+        int end = -1;
+        for (int i = lines.size() - 1; i >= 0; i--) {
+            String line = lines.get(i).trim();
+            int[] counts = StringCommon.countDigitAndChars(line);
+            if (counts[1] > 2) {
+                end = i;
+                break;
+            }
+        }
+        MatchedChain chainEnd = chainNameSearch(lines, end - MaxSearchedLinesEnd, end);
+        log.debug("#####searching from head: chain=" + chainBegin.getChain().getCode() + ", score=" + chainBegin.getMatchedScore());
+        log.debug("#####searching from End: chain=" + chainEnd.getChain().getCode() + ", score=" + chainEnd.getMatchedScore());
+        if (chainEnd.getMatchedScore() > chainBegin.getMatchedScore())
+            return chainEnd;
+        else
+            return chainBegin;
+    }
+
+    /*
+     * detect which chain the store between begin and end
+     *
+     * @param begin the begin line number
+     *
+     * @param end the end line number
+     *
+     * @return a Chain object, the first is matched chain name, the second is
+     * the score, the third is the line number matched.
+     */
+    MatchedChain chainNameSearch(final List<String> lines, final int begin, final int end) throws ChainNotFoundException {
+        double maxScore = -1;
+        int matchedID = -1;
+        String matchedIdentityName = "";
+        String matchedLine = "";
+        String chainName = "";
+        int found = -1;
+        StoreChain matchedStoreChain = null;
+        for (int i = Math.max(0, begin); i <= Math.min(lines.size() - 1, end); i++) {
+            final String line = lines.get(i).trim();
+            int[] counts = StringCommon.countDigitAndChars(line);
+            if (counts[1] < 2)
+                continue;
+
+            for (StoreChain storeChain : chainRegistry.getStoreChains()) {
+                double score = matchChainScore(storeChain, line);
+                if (score > maxScore) {
+                    maxScore = score;
+                    matchedStoreChain = storeChain;
+                    matchedIdentityName = storeChain.getIdentifyFields();
+                    found = i;
+                    //matchedIdentityNameLine = chainLine;
+                    matchedLine = line;
+                    chainName = storeChain.getCode();
+                }
+                if (Math.abs(1.0 - score) < 0.02) {
+                    final MatchedChain chain = MatchedChain.builder().chain(storeChain).matchedScore(score).matchedOnLine(i).build();
+                    return chain;
+                }
+            }
+        }
+        if (matchedStoreChain == null)
+            throw new ChainNotFoundException("no chain found between line " + begin + " and line " + end);
+        final MatchedChain chain = MatchedChain.builder().chain(matchedStoreChain).matchedScore(maxScore).matchedOnLine(found).build();
+        return chain;
+    }
+
+    /**
+     * find the matched "name" from a line of format chainID(int): name1(chain
+     * Name),name2,...:category:parserName 97: RCSS,RCSS Superstore:Grocery:RCSS
+     *
+     *TODO: use StoreChain.identifyFields String list to do the match
+     * @param chainLine
+     *            raw chain line string
+     * @param receiptLine
+     *            raw receiptLine
+     * @return a ChainLine object
+     */
+    public double matchChainScore(final StoreChain storeChain, final String receiptLine) {
+        String[] names = storeChain.getIdentifyFields().trim().split(SECONDLEVEL_SPLITTER);
+        double maxScore = -1, score = 0;
+        for (int i = 0; i < names.length; i++) {
+            String rLine = receiptLine.toLowerCase();
+            String cName = names[i].toLowerCase();
+            if (rLine.contains(cName)) {
+                score = 1.0;
+                maxScore = 1.0;
+                break;
+            } else
+                score = Levenshtein.compare(rLine, cName);
+            if (score > maxScore) {
+                maxScore = score;
+            }
+        }
+        return maxScore;
+    }
+
+
+}
