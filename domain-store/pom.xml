@@ -20,10 +20,5 @@
             <artifactId>openprice-domain-common</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.openprice</groupId>
-            <artifactId>parser-simple</artifactId>
-            <version>0.0.1</version>
-        </dependency>
     </dependencies>
 </project>
