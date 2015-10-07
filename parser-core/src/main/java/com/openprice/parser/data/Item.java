@@ -47,10 +47,10 @@ public class Item {
 
         //if(!unitPrice().isEmpty()){
         if(unitPrice!=null){
-            unitPrice=StringCommon.formatPrice(unitPrice)+"";
+            unitPrice=StringCommon.formatPrice(unitPrice);
             if(weight==null)
                 throw new Exception("unitPrice="+unitPrice+", but weigth is null. name()=" + name);
-            weight=StringCommon.formatPrice(weight)+"";
+            weight=StringCommon.formatPrice(weight);
         }
     }
 

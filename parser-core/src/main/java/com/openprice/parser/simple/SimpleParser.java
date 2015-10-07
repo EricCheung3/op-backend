@@ -1,5 +1,6 @@
 package com.openprice.parser.simple;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,6 +12,7 @@ import com.openprice.parser.Parser;
 import com.openprice.parser.cheapParser.CheapParser;
 import com.openprice.parser.data.FieldSet;
 import com.openprice.parser.data.ReceiptDebug;
+import com.openprice.parser.data.Skip;
 import com.openprice.parser.match.MatchToBranch;
 import com.openprice.parser.match.MatchToHeader;
 import com.openprice.parser.match.MatchedRecord;
@@ -58,12 +60,11 @@ public class SimpleParser {
         MatchedRecord matchFromHeader = matchToHeader.getMatchRecord();
 
         FieldSet fields = FieldSet.addPrefer(fSetFromBranch, fSetFromHeader);
-        MatchedRecord matchRecord = MatchedRecord.add(matchFromBranch, matchFromHeader);
+        MatchedRecord matchedRecord = MatchedRecord.add(matchFromBranch, matchFromHeader);
 
-        Parser receiptParser = new CheapParser(lineFinder);
+        Skip skip = new Skip(new ArrayList<>(), new ArrayList<>()); // FIXME get skip from config
+        Parser receiptParser = new CheapParser(lineFinder, fields, matchedRecord, skip);
         return receiptParser.parseGeneral();
-
-        // TODO add more cheap parser
     }
 
     public StoreBranch matchBranchByScoreSum(final List<String> lines, final List<StoreBranch> branches) {

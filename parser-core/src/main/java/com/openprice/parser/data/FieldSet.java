@@ -324,4 +324,20 @@ public class FieldSet {
         hash = 53 * hash + fieldNameToValueLine().hashCode();
         return hash;
     }
+
+
+    // added by Yuan
+    // copied from AbstractFieldParser
+    public int itemStopLine() {
+        int stopLine =
+                Math.max(gstAmount().getLine(),
+                        Math.max(
+                                total().getLine(),
+                                subTotal().getLine()
+                                )
+                        );
+        if(stopLine<0) stopLine=Integer.MAX_VALUE;
+        return stopLine;
+
+    }
 }

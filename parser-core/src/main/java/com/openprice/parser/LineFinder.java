@@ -3,6 +3,7 @@ package com.openprice.parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
 import com.openprice.parser.common.Levenshtein;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.exception.HeaderOfLineNotFoundException;
@@ -26,7 +27,7 @@ public class LineFinder {
     private final List<String> lines;
 
     private LineFinder(final List<String> lines) {
-        this.lines = lines;
+        this.lines = ImmutableList.copyOf(lines);
     }
 
     public static LineFinder fromContentLines(final List<String> lines) throws Exception {
@@ -201,9 +202,6 @@ public class LineFinder {
         }
         if (max >= LEVENSHTEIN_THRESHOLD)
             log.debug("######found " + s + " line at line: " + lines.get(found));
-        else
-            found = Integer.MIN_VALUE;
-        // log.debug("found "+ s+" line at line: "+lines.get(found));
         return found;
     }
 
@@ -236,9 +234,6 @@ public class LineFinder {
         // log.debug("found "+ s+" line at line: "+lines.get(found));
         if (max >= LEVENSHTEIN_THRESHOLD)
             log.debug("######found " + s + " line at line: " + lines.get(found));
-        else
-            found = Integer.MIN_VALUE;
-        ;
         return found;
     }
 

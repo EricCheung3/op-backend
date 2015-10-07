@@ -58,21 +58,10 @@ public class StoreMap {
     public List<DoubleFieldPair> allFieldMatchScores(final String lineStr, final double threshold)
             throws FieldNameNotExistException{
         final List<DoubleFieldPair> list=new ArrayList<DoubleFieldPair>();
-        String lowerStr=lineStr.toLowerCase();
-        //		logger.debug("lowercased line is "+lowerStr);
-        final StoreMap addMap=StoreMap.fromStore(store());
-        for(FieldName fName:fieldToValue().keySet()){
-            //			logger.debug("\n@fieldLine().get(" + fName+ ")="+fieldLine().get(fName));
-            double score=-1;
-            //			if(fName.isAddressField())
-            //				if(fName.equals(FieldNameAddressLines.AddressProv))
-            //					score=addM.match(lineStr, addMap.value(fName));
-            //				else
-            score=StringCommon.bestSliceMatching(lowerStr, addMap.value(fName).toLowerCase());
-            //			else
-            //				score=Levenshtein.compare(lowerStr, fieldLine().get(fName).toLowerCase());
-            //			logger.debug("@score="+score);
-            if(score>threshold){
+        String lowerStr = lineStr.toLowerCase();
+        for (FieldName fName : fieldToValue.keySet()) {
+            double score=StringCommon.bestSliceMatching(lowerStr, value(fName).toLowerCase());
+            if (score > threshold) {
                 list.add(new DoubleFieldPair(score, fName));
             }
         }
