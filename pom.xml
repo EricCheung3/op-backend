@@ -24,6 +24,8 @@
         <module>security</module>
 
         <module>parser-core</module>
+        <module>parser-stores</module>
+
         <module>domain-common</module>
         <module>domain-account-user</module>
         <module>domain-account-admin</module>
