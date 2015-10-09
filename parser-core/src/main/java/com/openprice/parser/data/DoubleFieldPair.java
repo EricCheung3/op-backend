@@ -1,7 +1,5 @@
 package com.openprice.parser.data;
 
-import com.openprice.parser.ReceiptField;
-
 import lombok.Data;
 
 /**

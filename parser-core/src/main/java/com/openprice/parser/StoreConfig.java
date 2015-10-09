@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import com.openprice.parser.data.ReceiptField;
+
 import lombok.Getter;
 
 public class StoreConfig {

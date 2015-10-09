@@ -7,13 +7,13 @@ import java.util.Map;
 import java.util.Set;
 
 import com.openprice.parser.ReceiptData;
-import com.openprice.parser.ReceiptField;
 import com.openprice.parser.StoreBranch;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.common.ParserUtils;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.DoubleFieldPair;
+import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
 
 /**

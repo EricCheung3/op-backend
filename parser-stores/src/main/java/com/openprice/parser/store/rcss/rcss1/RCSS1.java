@@ -1,8 +1,8 @@
 package com.openprice.parser.store.rcss.rcss1;
 
 import com.openprice.parser.ReceiptData;
-import com.openprice.parser.ReceiptField;
 import com.openprice.parser.StoreConfig;
+import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.store.AbstractStoreParser;
 
 public class RCSS1 extends AbstractStoreParser {

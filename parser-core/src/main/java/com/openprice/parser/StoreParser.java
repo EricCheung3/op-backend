@@ -1,5 +1,7 @@
 package com.openprice.parser;
 
+import com.openprice.parser.data.ReceiptField;
+
 public interface StoreParser {
 
     /**

@@ -9,6 +9,7 @@ import com.openprice.parser.common.ParserUtils;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Address;
 import com.openprice.parser.data.DoubleFieldPair;
+import com.openprice.parser.data.ReceiptField;
 
 import lombok.Builder;
 import lombok.Data;

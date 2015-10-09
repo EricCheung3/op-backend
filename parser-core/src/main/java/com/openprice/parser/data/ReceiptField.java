@@ -1,5 +1,4 @@
-package com.openprice.parser;
-
+package com.openprice.parser.data;
 
 /**
  * All fields in receipts we can recognize by string matching.
