@@ -1,9 +1,9 @@
 package com.openprice.parser;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
+import org.springframework.util.StringUtils;
 
 import com.openprice.parser.common.ParserUtils;
 import com.openprice.parser.common.StringCommon;
@@ -109,115 +109,37 @@ public class StoreBranch {
     }
 
     /**
-     * compute the match score of this store to the given receipt
+     * compute the match score of this store branch to the given receipt
      *
      * @param receipt
      * @return
      */
     public double matchScore(final ReceiptData receipt) {
-        double sum = 0.0;
-        for (int i = 0; i < receipt.getLines().size(); i++) {
-            double score = matchToALineByFieldScoreSum(receipt.getLine(i), i);
-            sum += score;
-        }
+        double sum = receipt.lines()
+                            .map(line -> matchBranchFieldScoreSum(line))
+                            .reduce(0.0, (acc, element) -> acc + element);
         return sum;
     }
 
+    private double matchBranchFieldScoreSum(final String lineString) {
+        double sum = 0.0;
+        sum += matchFieldScore(ReceiptField.AddressLine1, lineString);
+        sum += matchFieldScore(ReceiptField.AddressLine2, lineString);
+        sum += matchFieldScore(ReceiptField.AddressCity, lineString);
+        sum += matchFieldScore(ReceiptField.AddressPost, lineString);
+        sum += matchFieldScore(ReceiptField.GstNumber, lineString);
+        sum += matchFieldScore(ReceiptField.Phone, lineString);
+        sum += matchFieldScore(ReceiptField.StoreBranch, lineString);
+        return sum;
+    }
 
-    // match this store's fields to the given string
-    // TODO: should use max match like AddressMatching?
-    private double matchToALineByFieldScoreSum(final String s, final int lineNumber) {
-        if (s.isEmpty())
+    private double matchFieldScore(final ReceiptField field, final String lineString) {
+        final String fieldValue = fieldToValue.get(field);
+        if (StringUtils.isEmpty(fieldValue) || StringUtils.isEmpty(lineString)) {
             return 0.0;
-        double sum = 0.0;
-        double tmp = 0.0;
-        if (!getAddress().getLine1().isEmpty()) {
-            ;
-            tmp = StringCommon.bestSliceMatchingWithNumberPenalized(s, getAddress().getLine1());
-            if (tmp > THRESHOLD) {
-                sum += tmp;
-                log.debug("matching line1=" + getAddress().getLine1() + " to string '" + s + "' at line " + lineNumber + ", score="
-                        + tmp);
-            }
         }
-
-        if (!getAddress().getLine2().isEmpty()) {
-            tmp = StringCommon.bestSliceMatchingWithNumberPenalized(s, getAddress().getLine2());
-            if (tmp > THRESHOLD) {
-                sum += tmp;
-                log.debug("matching line2=" + getAddress().getLine2() + " to string '" + s + "' at line " + lineNumber + ", score="
-                        + tmp);
-            }
-        }
-
-        if (!getAddress().getCity().isEmpty()) {
-            tmp = StringCommon.bestSliceMatchingWithNumberPenalized(s, getAddress().getCity());
-            if (tmp > THRESHOLD) {
-                sum += tmp;
-                log.debug(
-                        "matching city=" + getAddress().getCity() + " to string '" + s + "' at line " + lineNumber + ", score=" + tmp);
-            }
-        }
-
-        if (!getAddress().getPost().isEmpty()) {
-            tmp = StringCommon.bestSliceMatchingWithNumberPenalized(s, getAddress().getPost());
-            if (tmp > THRESHOLD) {
-                sum += tmp;
-                log.debug(
-                        "matching post=" + getAddress().getPost() + " to string '" + s + "' at line " + lineNumber + ", score=" + tmp);
-            }
-        }
-
-        if (!getGstNumber().isEmpty()) {
-            tmp = StringCommon.bestSliceMatchingWithNumberPenalized(s, getGstNumber());
-            if (tmp > THRESHOLD) {
-                sum += tmp;
-                log.debug("matching gstNumber=" + getGstNumber() + " to string '" + s + "' at line " + lineNumber
-                        + ", score=" + tmp);
-            }
-        }
-
-        if (!getPhone().isEmpty()) {
-            tmp = StringCommon.bestSliceMatchingWithNumberPenalized(s, getPhone());
-            if (tmp > THRESHOLD) {
-                sum += tmp;
-                log.debug("matching phone=" + getPhone() + " to string '" + s + "' at line " + lineNumber + ", score="
-                        + tmp);
-            }
-        }
-
-        if (!getBranchName().isEmpty()) {
-            tmp = StringCommon.bestSliceMatchingWithNumberPenalized(s, getBranchName());
-            if (tmp > THRESHOLD) {
-                sum += tmp;
-                log.debug("matching branchName=" + getBranchName() + " to string '" + s + "' at line " + lineNumber
-                        + ", score=" + tmp);
-            }
-        }
-
-        return sum;
-    }
-
-    /**
-     * Compare the input text line, return all fields with a match score bigger than the given threshold.
-     *
-     * YUAN : copied from legacy code StoreMap.allFieldMatchScores()
-     *
-     * @param lineStr
-     * @param threshold
-     * @return
-     */
-    public List<DoubleFieldPair> allFieldMatchScores(final String lineStr, final double threshold) {
-        final List<DoubleFieldPair> list=new ArrayList<DoubleFieldPair>();
-        final String lowerStr = lineStr.toLowerCase();
-        for (ReceiptField fName : fieldToValue.keySet()) {
-            final String value = fieldToValue.get(fName);
-            final double score = StringCommon.bestSliceMatching(lowerStr, value);
-            if (score > threshold) {
-                list.add(new DoubleFieldPair(score, fName, value));
-            }
-        }
-        return list;
+        final double score = StringCommon.bestSliceMatchingWithNumberPenalized(lineString, fieldValue);
+        return (score > THRESHOLD) ? score : 0.0;
     }
 
     /**
@@ -228,12 +150,12 @@ public class StoreBranch {
      * @param  lineStr given string
      * @return         [description]
      */
-    public DoubleFieldPair maxFieldMatchScore(final String lineStr){
+    public DoubleFieldPair maxFieldMatchScore(final String lineStr) {
         double scoreMax=-1;
         ReceiptField matchedField=null;
         final String lowerStr=lineStr.toLowerCase();
         for(ReceiptField fName : fieldToValue.keySet()) {
-            double score= StringCommon.bestSliceMatching(lowerStr, fieldToValue.get(fName)); //Levenshtein.compare(lowerStr, fieldToValue.get(fName));
+            double score= StringCommon.bestSliceMatching(lowerStr, fieldToValue.get(fName));
             if(score>scoreMax){
                 scoreMax=score;
                 matchedField=fName;

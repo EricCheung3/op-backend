@@ -1,6 +1,7 @@
 package com.openprice.parser;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import com.google.common.collect.ImmutableList;
 
@@ -36,5 +37,9 @@ public class ReceiptData {
 
     public String getLine(final int lineNumber) {
         return lines.get(lineNumber);
+    }
+
+    public Stream<String> lines() {
+        return lines.stream();
     }
 }
