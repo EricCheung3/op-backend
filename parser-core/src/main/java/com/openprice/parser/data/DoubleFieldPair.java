@@ -1,6 +1,6 @@
 package com.openprice.parser.data;
 
-import com.openprice.parser.FieldName;
+import com.openprice.parser.ReceiptField;
 
 import lombok.Data;
 
@@ -10,6 +10,6 @@ import lombok.Data;
 @Data
 public class DoubleFieldPair {
     private final double score;
-    private final FieldName fieldName;
+    private final ReceiptField fieldName;
     private final String value;
 }

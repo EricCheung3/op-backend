@@ -2,9 +2,10 @@ package com.openprice.parser;
 
 
 /**
- * similar to FieldName but with Address info detailed.
+ * All fields in receipts we can recognize by string matching.
+ *
  */
-public enum FieldName {
+public enum ReceiptField {
     Account,
     AddressLine1, AddressLine2, AddressCity, AddressProv, AddressPost,
     Approved, Author,

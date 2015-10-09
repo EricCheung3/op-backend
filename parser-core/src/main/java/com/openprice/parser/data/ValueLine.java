@@ -3,8 +3,9 @@ package com.openprice.parser.data;
 import lombok.Builder;
 import lombok.Data;
 
-/*
-A String-int class
+/**
+ * TODO remove it??
+ * A String-int class
  */
 @Data
 @Builder

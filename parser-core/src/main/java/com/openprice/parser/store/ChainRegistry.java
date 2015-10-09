@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 
 import lombok.Getter;
 
+/**
+ * Service to store all store chains in the system as registry. Each StoreParserSelector service will register
+ * a StoreChain to this registry.
+ *
+ */
 @Service
 public class ChainRegistry {
     @Getter

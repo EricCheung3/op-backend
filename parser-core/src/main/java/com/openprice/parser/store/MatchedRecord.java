@@ -2,16 +2,15 @@ package com.openprice.parser.store;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.openprice.parser.FieldName;
-import com.openprice.parser.LineFinder;
+import com.openprice.parser.ParserUtils;
+import com.openprice.parser.ReceiptData;
+import com.openprice.parser.ReceiptField;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.DoubleFieldPair;
-import com.openprice.parser.data.FileNameIntPair;
 import com.openprice.parser.data.ValueLine;
 
 /**
@@ -22,27 +21,14 @@ import com.openprice.parser.data.ValueLine;
  */
 public class MatchedRecord {
     // mapping line number to FieldNameAddressLines that is matched by the line
-    private final Map<Integer, Set<FieldName>> lineToField = new HashMap<Integer, Set<FieldName>>();
+    private final Map<Integer, Set<ReceiptField>> lineToField = new HashMap<Integer, Set<ReceiptField>>();
 
     // reverse mapping of the Map<Integer, FieldNameAddressLines>
-    private final Map<FieldName, Set<Integer>> fieldToLine = new HashMap<FieldName, Set<Integer>>();
+    private final Map<ReceiptField, Set<Integer>> fieldToLine = new HashMap<ReceiptField, Set<Integer>>();
 
     //save the many field members in a map
-    private final Map<FieldName, ValueLine> fieldToValueLine = new HashMap<FieldName, ValueLine>();
+    private final Map<ReceiptField, ValueLine> fieldToValueLine = new HashMap<ReceiptField, ValueLine>();
 
-    /**
-     * generate set of pairs
-     *
-     * @return
-     */
-    public Set<FileNameIntPair> setOfPairs() {
-        final Set<FileNameIntPair> set = new HashSet<FileNameIntPair>();
-        for (int line : lineToField.keySet()) {
-            for (FieldName field : lineToField.get(line))
-                set.add(FileNameIntPair.builder().intV(line).field(field).build());
-        }
-        return set;
-    }
 
     // whether a line is matched
     public boolean isFieldLine(int line) {
@@ -50,40 +36,40 @@ public class MatchedRecord {
     }
 
     // whether a field is matched
-    public boolean fieldNameIsMatched(final FieldName f) {
+    public boolean fieldNameIsMatched(final ReceiptField f) {
         return fieldToLine.containsKey(f);
     }
 
-    public boolean fieldIsMatched(final FieldName f) {
+    public boolean fieldIsMatched(final ReceiptField f) {
         return fieldNameIsMatched(f);
     }
 
-    // the smallest valid Line number
-    public int firstMatchedLine(final FieldName f) {
-        int minLine = Integer.MAX_VALUE;
-        Iterator<Integer> it = fieldToLine.get(f).iterator();
-        while (it.hasNext()) {
-            int line = it.next();
-            if (line >= 0 && line < minLine) {
-                minLine = line;
-            }
-        }
-        return minLine;
-    }
+//    // the smallest valid Line number
+//    public int firstMatchedLine(final ReceiptField f) {
+//        int minLine = Integer.MAX_VALUE;
+//        Iterator<Integer> it = fieldToLine.get(f).iterator();
+//        while (it.hasNext()) {
+//            int line = it.next();
+//            if (line >= 0 && line < minLine) {
+//                minLine = line;
+//            }
+//        }
+//        return minLine;
+//    }
 
-    public Set<FieldName> matchedFields(final int line) {
+    public Set<ReceiptField> matchedFields(final int line) {
         return lineToField.get(line);
     }
 
     // maintain
-    public void putFieldLine(final FieldName fName, final int lineNumber) {
+    public void putFieldLine(final ReceiptField fName, final int lineNumber) {
         if (!fieldToLine.containsKey(fName)) {
             fieldToLine.put(fName, new HashSet<Integer>());
         }
         fieldToLine.get(fName).add(lineNumber);
 
         if (!lineToField.containsKey(lineNumber)) {
-            lineToField.put(lineNumber, new HashSet<FieldName>());
+            lineToField.put(lineNumber, new HashSet<ReceiptField>());
         }
         lineToField.get(lineNumber).add(fName);
 
@@ -127,14 +113,14 @@ public class MatchedRecord {
     //------------------- added by YUAN
 
     public int itemStopLine() {
-        int stopLine = Math.max(gstFieldValueLineNumber(FieldName.GstAmount),
-                Math.max(gstFieldValueLineNumber(FieldName.Total), gstFieldValueLineNumber(FieldName.SubTotal)));
+        int stopLine = Math.max(getFieldValueLineNumber(ReceiptField.GstAmount),
+                Math.max(getFieldValueLineNumber(ReceiptField.Total), getFieldValueLineNumber(ReceiptField.SubTotal)));
         if(stopLine<0) stopLine=Integer.MAX_VALUE;
         return stopLine;
 
     }
 
-    int gstFieldValueLineNumber(FieldName fieldName) {
+    int getFieldValueLineNumber(ReceiptField fieldName) {
         ValueLine valueLine = fieldToValueLine.get(fieldName);
         if (valueLine == null) {
             return -1;
@@ -152,24 +138,24 @@ public class MatchedRecord {
      * @param lineNumber
      * @param value
      */
-    public void putFieldLine(final FieldName fName, final int lineNumber, final String value) {
+    public void putFieldLine(final ReceiptField fName, final int lineNumber, final String value) {
         if (!fieldToLine.containsKey(fName)) {
             fieldToLine.put(fName, new HashSet<Integer>());
         }
         fieldToLine.get(fName).add(lineNumber);
 
         if (!lineToField.containsKey(lineNumber)) {
-            lineToField.put(lineNumber, new HashSet<FieldName>());
+            lineToField.put(lineNumber, new HashSet<ReceiptField>());
         }
         lineToField.get(lineNumber).add(fName);
 
         fieldToValueLine.put(fName,  ValueLine.builder().line(lineNumber).value(value).build());
     }
 
-    public void matchToBranch(final LineFinder lineFinder, final StoreBranch storeBranch) {
+    public void matchToBranch(final ReceiptData lineFinder, final StoreBranch storeBranch) {
         for (int i = 0; i < lineFinder.getLines().size(); i++) {
             final String lineStr = lineFinder.getLines().get(i).trim();
-            if (lineFinder.ignoreLine(i))
+            if (ParserUtils.ignoreLine(lineStr))
                 continue;
             DoubleFieldPair pair = storeBranch.maxFieldMatchScore(lineStr);
             if (pair.getScore() > 0.5) {
@@ -178,10 +164,10 @@ public class MatchedRecord {
         }
     }
 
-    public void matchToHeader(final LineFinder lineFinder, final StoreConfig config, final StoreParser parser) {
+    public void matchToHeader(final ReceiptData lineFinder, final StoreConfig config, final StoreParser parser) {
         for (int i = 0; i < lineFinder.getLines().size(); i++) {
             if (!isFieldLine(i)) {
-                for (FieldName fieldName : FieldName.values()) {
+                for (ReceiptField fieldName : ReceiptField.values()) {
                     if (!fieldNameIsMatched(fieldName)) {
                         double maxScore =  findBiggestMatch(lineFinder.getLine(i), config.getFieldHeaderMatchStrings(fieldName));
                         if (maxScore > config.similarityThresholdOfTwoStrings()) {

@@ -2,9 +2,6 @@ package com.openprice.parser.common;
 
 import java.util.List;
 
-
-
-
 public class ListCommon{
 
     //merge to one string using the splitter

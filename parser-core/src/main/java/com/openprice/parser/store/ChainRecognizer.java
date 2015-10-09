@@ -24,7 +24,7 @@ public class ChainRecognizer {
         this.chainRegistry = chainRegistry;
     }
 
-    public MatchedChain findChain(final List<String> lines) throws ChainNotFoundException {
+    public StoreChain findChain(final List<String> lines) throws ChainNotFoundException {
         if (lines == null || lines.isEmpty())
             return null;
         // find the meaningful lines in the beginning and end
@@ -41,7 +41,7 @@ public class ChainRecognizer {
         // fast mode: searching a few number of lines from beginning.
         MatchedChain chainBegin = chainNameSearch(lines, begin, begin + MaxSearchedLinesBegin);
         if (chainBegin.getMatchedScore() > 0.75)
-            return chainBegin;
+            return chainBegin.getChain();
 
         int end = -1;
         for (int i = lines.size() - 1; i >= 0; i--) {
@@ -56,9 +56,9 @@ public class ChainRecognizer {
         log.debug("#####searching from head: chain=" + chainBegin.getChain().getCode() + ", score=" + chainBegin.getMatchedScore());
         log.debug("#####searching from End: chain=" + chainEnd.getChain().getCode() + ", score=" + chainEnd.getMatchedScore());
         if (chainEnd.getMatchedScore() > chainBegin.getMatchedScore())
-            return chainEnd;
+            return chainEnd.getChain();
         else
-            return chainBegin;
+            return chainBegin.getChain();
     }
 
     /*
@@ -100,23 +100,15 @@ public class ChainRecognizer {
         return chain;
     }
 
-    /**
-     * find the matched "name" from a line of format chainID(int): name1(chain
-     * Name),name2,...:category:parserName 97: RCSS,RCSS Superstore:Grocery:RCSS
-     *
-     *TODO: use StoreChain.identifyFields String list to do the match
-     * @param chainLine
-     *            raw chain line string
-     * @param receiptLine
-     *            raw receiptLine
-     * @return a ChainLine object
+    /*
+     * For one line of receipt data, calculate matching score for specific store chain, by matching the chain
+     * identify fields string array.
      */
-    public double matchChainScore(final StoreChain storeChain, final String receiptLine) {
-        String[] names = storeChain.getIdentifyFields().trim().split(SECONDLEVEL_SPLITTER);
+    private double matchChainScore(final StoreChain storeChain, final String receiptLine) {
         double maxScore = -1, score = 0;
-        for (int i = 0; i < names.length; i++) {
+        for (final String identify : storeChain.getIdentifyFields()) {
             String rLine = receiptLine.toLowerCase();
-            String cName = names[i].toLowerCase();
+            String cName = identify.trim().toLowerCase();
             if (rLine.contains(cName)) {
                 score = 1.0;
                 maxScore = 1.0;

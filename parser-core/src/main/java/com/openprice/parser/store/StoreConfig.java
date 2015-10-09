@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import com.openprice.parser.FieldName;
+import com.openprice.parser.ReceiptField;
 import com.openprice.parser.data.Skip;
 
 public class StoreConfig {
@@ -111,7 +111,7 @@ public class StoreConfig {
         return result;
     }
 
-    public List<String> getFieldHeaderMatchStrings(final FieldName fieldName) {
+    public List<String> getFieldHeaderMatchStrings(final ReceiptField fieldName) {
         return splitLine(fieldName.name()+"Header");
     }
 

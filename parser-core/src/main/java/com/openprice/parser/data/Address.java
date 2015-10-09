@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class Address{
+public class Address {
     private final String line1;//address line1
     private final String line2;//address line2
     private final String city;

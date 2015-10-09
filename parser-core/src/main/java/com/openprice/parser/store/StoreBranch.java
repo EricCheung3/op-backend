@@ -5,8 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.openprice.parser.FieldName;
 import com.openprice.parser.ParserUtils;
+import com.openprice.parser.ReceiptData;
+import com.openprice.parser.ReceiptField;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Address;
 import com.openprice.parser.data.DoubleFieldPair;
@@ -23,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Builder
 public class StoreBranch {
     private static final double THRESHOLD = 0.5;
-    public static final int NUMFIELDS = 11; // why public?
+    private static final int NUMFIELDS = 11;
     private static final String SPLITTER = ",";
 
     private final Address address;
@@ -33,10 +34,12 @@ public class StoreBranch {
     private final String gstNumber;
     private final String slogan;
 
-    private final Map<FieldName, String> fieldToValue = new HashMap<FieldName, String>();
+    private final Map<ReceiptField, String> fieldToValue = new HashMap<ReceiptField, String>();
 
-
-    public StoreBranch(final Address address, final String branchName,
+    /*
+     * Private constructor, so can only get StoreBranch from builder or static builder method.
+     */
+    private StoreBranch(final Address address, final String branchName,
             final String phone, final String ID, final String gstNumber, final String slogan) {
         this.address = address;
         this.branchName = ParserUtils.cleanField(branchName);
@@ -48,18 +51,18 @@ public class StoreBranch {
 
     private void init() {
         // save store branch ground truth data into a map
-        addGroundTruthValue(FieldName.AddressLine1, address.getLine1());
-        addGroundTruthValue(FieldName.AddressLine2, address.getLine2());
-        addGroundTruthValue(FieldName.AddressCity, address.getCity());
-        addGroundTruthValue(FieldName.AddressProv, address.getProv());
-        addGroundTruthValue(FieldName.AddressPost, address.getPost());
-        addGroundTruthValue(FieldName.StoreBranch, branchName);
-        addGroundTruthValue(FieldName.GstNumber, gstNumber);
-        addGroundTruthValue(FieldName.Phone, phone);
-        addGroundTruthValue(FieldName.Slogan, slogan);
-
+        addGroundTruthValue(ReceiptField.AddressLine1, address.getLine1());
+        addGroundTruthValue(ReceiptField.AddressLine2, address.getLine2());
+        addGroundTruthValue(ReceiptField.AddressCity, address.getCity());
+        addGroundTruthValue(ReceiptField.AddressProv, address.getProv());
+        addGroundTruthValue(ReceiptField.AddressPost, address.getPost());
+        addGroundTruthValue(ReceiptField.StoreBranch, branchName);
+        addGroundTruthValue(ReceiptField.GstNumber, gstNumber);
+        addGroundTruthValue(ReceiptField.Phone, phone);
+        addGroundTruthValue(ReceiptField.Slogan, slogan);
     }
-    private void addGroundTruthValue(final FieldName fieldName, final String value) {
+
+    private void addGroundTruthValue(final ReceiptField fieldName, final String value) {
         if (value != null) {
             final String cleanedValue = value.trim();
             if (cleanedValue.length() > 0) {
@@ -107,15 +110,15 @@ public class StoreBranch {
     }
 
     /**
-     * compute the match score of this store to the given lines
+     * compute the match score of this store to the given receipt
      *
-     * @param lines
+     * @param receipt
      * @return
      */
-    public double matchScore(final List<String> lines) {
+    public double matchScore(final ReceiptData receipt) {
         double sum = 0.0;
-        for (int i = 0; i < lines.size(); i++) {
-            double score = matchToALineByFieldScoreSum(lines.get(i), i);
+        for (int i = 0; i < receipt.getLines().size(); i++) {
+            double score = matchToALineByFieldScoreSum(receipt.getLine(i), i);
             sum += score;
         }
         return sum;
@@ -124,7 +127,7 @@ public class StoreBranch {
 
     // match this store's fields to the given string
     // TODO: should use max match like AddressMatching?
-    public double matchToALineByFieldScoreSum(final String s, final int lineNumber) {
+    private double matchToALineByFieldScoreSum(final String s, final int lineNumber) {
         if (s.isEmpty())
             return 0.0;
         double sum = 0.0;
@@ -196,82 +199,6 @@ public class StoreBranch {
         return sum;
     }
 
-    // match this store's fields to the given string by max matching of field
-    // FIXME NO USAGE???
-//    public double matchToALineByFieldScoreMax(final String s, final int lineNumber) {
-//        if (s.isEmpty())
-//            return 0.0;
-//        double tmp = 0.0;
-//        List<Double> scores = new ArrayList<Double>();
-//
-//        if (!getAddress().getLine1().isEmpty()) {
-//            ;
-//            tmp = StringCommon.bestSliceMatching(s, getAddress().getLine1());
-//            if (tmp > THRESHOLD) {
-//                scores.add(tmp);
-//                log.debug("matching line1=" + getAddress().getLine1() + " to string '" + s + "' at line " + lineNumber + ", score="
-//                        + tmp);
-//            }
-//        }
-//
-//        if (!getAddress().getLine2().isEmpty()) {
-//            tmp = StringCommon.bestSliceMatching(s, getAddress().getLine2());
-//            if (tmp > THRESHOLD) {
-//                scores.add(tmp);
-//                log.debug("matching line2=" + getAddress().getLine2() + " to string '" + s + "' at line " + lineNumber + ", score="
-//                        + tmp);
-//            }
-//        }
-//
-//        if (!getAddress().getCity().isEmpty()) {
-//            // sum+=Levenshtein.compare(getAddress().getCity(), s);
-//            tmp = StringCommon.bestSliceMatching(s, getAddress().getCity());
-//
-//            if (tmp > THRESHOLD) {
-//                scores.add(tmp);
-//                log.debug(
-//                        "matching city=" + getAddress().getCity() + " to string '" + s + "' at line " + lineNumber + ", score=" + tmp);
-//            }
-//        }
-//
-//        if (!getAddress().getPost().isEmpty()) {
-//            tmp = StringCommon.bestSliceMatching(s, getAddress().getPost());
-//
-//            if (tmp > THRESHOLD) {
-//                scores.add(tmp);
-//                log.debug(
-//                        "matching post=" + getAddress().getPost() + " to string '" + s + "' at line " + lineNumber + ", score=" + tmp);
-//            }
-//        }
-//
-//        if (!getGstNumber().isEmpty()) {
-//            tmp = StringCommon.bestSliceMatching(s, getGstNumber());
-//
-//            if (tmp > THRESHOLD) {
-//                scores.add(tmp);
-//                log.debug("matching gstNumber=" + getGstNumber() + " to string '" + s + "' at line " + lineNumber
-//                        + ", score=" + tmp);
-//            }
-//        }
-//
-//        if (!getPhone().isEmpty()) {
-//            tmp = StringCommon.bestSliceMatching(s, getPhone());
-//
-//            if (tmp > THRESHOLD) {
-//                scores.add(tmp);
-//                log.debug("matching phone=" + getPhone() + " to string '" + s + "' at line " + lineNumber + ", score="
-//                        + tmp);
-//            }
-//        }
-//
-//        if (scores.isEmpty())
-//            return 0;
-//
-//        final double scoreMax = Collections.max(scores);
-//        log.debug(">>>>>>max field matching score is " + scoreMax);
-//        return scoreMax;
-//    }
-
     /**
      * Compare the input text line, return all fields with a match score bigger than the given threshold.
      *
@@ -284,7 +211,7 @@ public class StoreBranch {
     public List<DoubleFieldPair> allFieldMatchScores(final String lineStr, final double threshold) {
         final List<DoubleFieldPair> list=new ArrayList<DoubleFieldPair>();
         final String lowerStr = lineStr.toLowerCase();
-        for (FieldName fName : fieldToValue.keySet()) {
+        for (ReceiptField fName : fieldToValue.keySet()) {
             final String value = fieldToValue.get(fName);
             final double score = StringCommon.bestSliceMatching(lowerStr, value);
             if (score > threshold) {
@@ -304,9 +231,9 @@ public class StoreBranch {
      */
     public DoubleFieldPair maxFieldMatchScore(final String lineStr){
         double scoreMax=-1;
-        FieldName matchedField=null;
+        ReceiptField matchedField=null;
         final String lowerStr=lineStr.toLowerCase();
-        for(FieldName fName : fieldToValue.keySet()) {
+        for(ReceiptField fName : fieldToValue.keySet()) {
             double score= StringCommon.bestSliceMatching(lowerStr, fieldToValue.get(fName)); //Levenshtein.compare(lowerStr, fieldToValue.get(fName));
             if(score>scoreMax){
                 scoreMax=score;

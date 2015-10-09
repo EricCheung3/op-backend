@@ -3,8 +3,9 @@ package com.openprice.parser.data;
 import lombok.Builder;
 import lombok.Data;
 
-/*
- warning message and suggestion
+/**
+ * TODO add parser warning to database process log??
+ * warning message and suggestion
  */
 @Data
 @Builder

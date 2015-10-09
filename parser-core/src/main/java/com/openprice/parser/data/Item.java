@@ -30,42 +30,5 @@ public class Item {
         this.weight = weight;
         this.category = category;
     }
-
-//    public Item(final String n, final int startLine, final String b, final String u, final String w, final String c) throws Exception{
-//        name=n;
-//        this.startLine=startLine;
-//        buyPrice=b;
-//        unitPrice=u;
-//        weight=w;
-//        makePricesNumeric();
-//        /*      if ((unitPrice.isEmpty() && !weight.isEmpty() ) ||
-//             !unitPrice.isEmpty() && weight.isEmpty())
-//         throw new Exception("unit price and weight price must be empty at the same time. unitPrice="+unitPrice+"; weight="+weight);
-//         */
-//
-//        category=c;
-//    }
-//
-//    /*
-//    check whether prices are numeric, and apply formatter if necessary
-//     */
-//    public void makePricesNumeric() throws Exception{
-//        /*
-//        if(buyPrice()==null || buyPrice().isEmpty()){
-//            throw new Exception("buy price cannot be empty");
-//        }
-//         */
-//        if(buyPrice==null) return;
-//        buyPrice=StringCommon.formatPrice(buyPrice)+"";
-//
-//        //if(!unitPrice().isEmpty()){
-//        if(unitPrice!=null){
-//            unitPrice=StringCommon.formatPrice(unitPrice);
-//            if(weight==null)
-//                throw new Exception("unitPrice="+unitPrice+", but weigth is null. name()=" + name);
-//            weight=StringCommon.formatPrice(weight);
-//        }
-//    }
-//
 }
 

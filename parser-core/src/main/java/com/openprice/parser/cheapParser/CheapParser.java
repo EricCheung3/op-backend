@@ -3,7 +3,7 @@ package com.openprice.parser.cheapParser;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.openprice.parser.LineFinder;
+import com.openprice.parser.ReceiptData;
 import com.openprice.parser.ParserUtils;
 import com.openprice.parser.common.ListCommon;
 import com.openprice.parser.common.StringCommon;
@@ -19,13 +19,13 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class CheapParser {
-    private final LineFinder lineFinder;
+    private final ReceiptData lineFinder;
     private final MatchedRecord matchedRecord;
     private final Skip skip;
 
     private static final double similarityThresholdOfTwoStrings = 0.65; // FIXME get from config
 
-    public CheapParser(final LineFinder lineFinder,
+    public CheapParser(final ReceiptData lineFinder,
                        final MatchedRecord matchedRecord,
                        final Skip skip) {
         this.lineFinder = lineFinder;
