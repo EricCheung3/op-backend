@@ -1,18 +1,17 @@
 package com.openprice.parser.store;
 
+import com.openprice.parser.StoreConfig;
+import com.openprice.parser.StoreParser;
+
 public abstract class AbstractStoreParser implements StoreParser {
     private final StoreConfig config;
-    private final StoreChain chain;
 
-    public AbstractStoreParser(final StoreConfig config,
-                               final StoreChain chain) {
+    public AbstractStoreParser(final StoreConfig config) {
         this.config = config;
-        this.chain = chain;
     }
 
     @Override
     public StoreConfig getStoreConfig() {
-        // TODO Auto-generated method stub
         return config;
     }
 

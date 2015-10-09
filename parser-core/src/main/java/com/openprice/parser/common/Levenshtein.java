@@ -1,5 +1,8 @@
 package com.openprice.parser.common;
-//http://www.codeproject.com/Articles/162790/Fuzzy-String-Matching-with-Edit-Distance
+
+/**
+ * //http://www.codeproject.com/Articles/162790/Fuzzy-String-Matching-with-Edit-Distance
+ */
 public class Levenshtein
 {
     public static double compare(final String s1, final String s2)
@@ -26,7 +29,7 @@ public class Levenshtein
         return retval;
     }
 
-    public static double compare(final String s1, final int n, 
+    public static double compare(final String s1, final int n,
                            final String s2, final int m)
     {
         int matrix[][] = new int[n + 1][m + 1];
@@ -46,8 +49,8 @@ public class Levenshtein
             {
                 int s2j = s2.codePointAt(j - 1);
                 final int cost = s1i == s2j ? 0 : 1;
-                matrix[i][j] = min3(matrix[i - 1][j] + 1, 
-                                    matrix[i][j - 1] + 1, 
+                matrix[i][j] = min3(matrix[i - 1][j] + 1,
+                                    matrix[i][j - 1] + 1,
                                     matrix[i - 1][j - 1] + cost);
             }
         }

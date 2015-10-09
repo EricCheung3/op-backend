@@ -1,19 +1,20 @@
-package com.openprice.parser.store;
+package com.openprice.parser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import com.openprice.parser.ReceiptField;
-import com.openprice.parser.data.Skip;
+import lombok.Getter;
 
 public class StoreConfig {
     private static final String SPLITTER=",";//splitter in the lines of the config.properties file
     private final Properties prop;
 
     private final List<String> category;
+    @Getter
     private final List<String> skipBefore;
+    @Getter
     private final List<String> skipAfter;
 
     public StoreConfig(final Properties prop,
@@ -113,9 +114,5 @@ public class StoreConfig {
 
     public List<String> getFieldHeaderMatchStrings(final ReceiptField fieldName) {
         return splitLine(fieldName.name()+"Header");
-    }
-
-    public Skip getSkip() {
-        return new Skip(skipBefore, skipAfter);
     }
 }

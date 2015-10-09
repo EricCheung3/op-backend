@@ -18,9 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.file.FileSystemService;
+import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.simple.SimpleParser;
-import com.openprice.parser.store.ParsedReceipt;
 
 import lombok.extern.slf4j.Slf4j;
 

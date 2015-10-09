@@ -1,6 +1,9 @@
-package com.openprice.parser.store;
+package com.openprice.parser;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
 
 import com.openprice.parser.common.Levenshtein;
 import com.openprice.parser.common.StringCommon;
@@ -8,24 +11,34 @@ import com.openprice.parser.exception.ChainNotFoundException;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Service to store all store chains in the system as registry. Each StoreParserSelector service will register
+ * a StoreChain to this registry.
+ *
+ */
+@Service
 @Slf4j
-public class ChainRecognizer {
+public class ChainRegistry {
+    @Getter
+    private final List<StoreChain> storeChains = new ArrayList<>();
+
+    public synchronized void addChain(StoreChain chain) {
+        storeChains.add(chain);
+    }
+
     // use a large values to search all lines from the end
     private static final int MaxSearchedLinesEnd = 6;
     private static final int MaxSearchedLinesBegin = 6;
 
-    private final ChainRegistry chainRegistry;
-
-    public ChainRecognizer(final ChainRegistry chainRegistry) {
-        this.chainRegistry = chainRegistry;
-    }
-
-    public StoreChain findChain(final List<String> lines) throws ChainNotFoundException {
+    public StoreChain findChain(final ReceiptData receipt) throws ChainNotFoundException {
+        final List<String> lines = receipt.getLines();
         if (lines == null || lines.isEmpty())
             return null;
-        // find the meaningful lines in the beginning and end
+
+        // find the meaningful lines in the beginning
         int begin = -1;
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i).trim();
@@ -38,8 +51,10 @@ public class ChainRecognizer {
 
         // fast mode: searching a few number of lines from beginning.
         MatchedChain chainBegin = chainNameSearch(lines, begin, begin + MaxSearchedLinesBegin);
-        if (chainBegin.getMatchedScore() > 0.75)
+        log.debug("Searching from head: chain=" + chainBegin.getChain().getCode() + ", score=" + chainBegin.getMatchedScore());
+        if (chainBegin.getMatchedScore() > 0.75) {
             return chainBegin.getChain();
+        }
 
         int end = -1;
         for (int i = lines.size() - 1; i >= 0; i--) {
@@ -51,8 +66,8 @@ public class ChainRecognizer {
             }
         }
         MatchedChain chainEnd = chainNameSearch(lines, end - MaxSearchedLinesEnd, end);
-        log.debug("#####searching from head: chain=" + chainBegin.getChain().getCode() + ", score=" + chainBegin.getMatchedScore());
-        log.debug("#####searching from End: chain=" + chainEnd.getChain().getCode() + ", score=" + chainEnd.getMatchedScore());
+        log.debug("Searching from End: chain=" + chainEnd.getChain().getCode() + ", score=" + chainEnd.getMatchedScore());
+
         if (chainEnd.getMatchedScore() > chainBegin.getMatchedScore())
             return chainEnd.getChain();
         else
@@ -79,7 +94,7 @@ public class ChainRecognizer {
             if (counts[1] < 2)
                 continue;
 
-            for (StoreChain storeChain : chainRegistry.getStoreChains()) {
+            for (StoreChain storeChain : getStoreChains()) {
                 double score = matchChainScore(storeChain, line);
                 if (score > maxScore) {
                     maxScore = score;
@@ -130,4 +145,5 @@ public class ChainRecognizer {
         private final double matchedScore;
         private final int matchedOnLine;
     }
+
 }

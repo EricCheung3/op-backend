@@ -1,8 +1,6 @@
-package com.openprice.parser;
+package com.openprice.parser.common;
 
 import java.util.List;
-
-import com.openprice.parser.common.StringCommon;
 
 public class ParserUtils {
 

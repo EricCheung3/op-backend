@@ -4,11 +4,11 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.ReceiptData;
+import com.openprice.parser.StoreConfig;
+import com.openprice.parser.StoreParser;
 import com.openprice.parser.store.AbstractStoreParserSelector;
-import com.openprice.parser.store.ChainRegistry;
-import com.openprice.parser.store.StoreConfig;
-import com.openprice.parser.store.StoreParser;
 import com.openprice.parser.store.rcss.rcss1.RCSS1;
 
 @Service
@@ -34,6 +34,6 @@ public class RCSSSelector extends AbstractStoreParserSelector {
     @Override
     protected void generateParser() {
         StoreConfig config = loadParserConfig("RCSS1");
-        rcss1 = new RCSS1(config, chain);
+        rcss1 = new RCSS1(config);
     }
 }

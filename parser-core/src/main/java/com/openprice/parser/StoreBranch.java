@@ -1,13 +1,11 @@
-package com.openprice.parser.store;
+package com.openprice.parser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.openprice.parser.ParserUtils;
-import com.openprice.parser.ReceiptData;
-import com.openprice.parser.ReceiptField;
+import com.openprice.parser.common.ParserUtils;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Address;
 import com.openprice.parser.data.DoubleFieldPair;

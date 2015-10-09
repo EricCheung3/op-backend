@@ -1,4 +1,4 @@
-package com.openprice.parser.store;
+package com.openprice.parser.simple;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.openprice.parser.ParserUtils;
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.ReceiptField;
+import com.openprice.parser.StoreBranch;
+import com.openprice.parser.StoreConfig;
+import com.openprice.parser.StoreParser;
+import com.openprice.parser.common.ParserUtils;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.DoubleFieldPair;
 import com.openprice.parser.data.ValueLine;
@@ -44,19 +47,6 @@ public class MatchedRecord {
         return fieldNameIsMatched(f);
     }
 
-//    // the smallest valid Line number
-//    public int firstMatchedLine(final ReceiptField f) {
-//        int minLine = Integer.MAX_VALUE;
-//        Iterator<Integer> it = fieldToLine.get(f).iterator();
-//        while (it.hasNext()) {
-//            int line = it.next();
-//            if (line >= 0 && line < minLine) {
-//                minLine = line;
-//            }
-//        }
-//        return minLine;
-//    }
-
     public Set<ReceiptField> matchedFields(final int line) {
         return lineToField.get(line);
     }
@@ -90,27 +80,6 @@ public class MatchedRecord {
         }
         return max;
     }
-
-//    /**
-//     * add(merge) two records together to get the "union" in the two key sets.
-//     *
-//     * @param primary
-//     *            primary operand
-//     * @param r2
-//     *            operand 2
-//     * @return the result of adding two operations; it will prefer primary if
-//     *         there are intersection between the two key sets of the operands.
-//     *         Note it will throw a key conflict exception if the two operands
-//     *         have a same fieldName no exception will be thrown if the two
-//     *         operands have a same line
-//     */
-//    public static MatchedRecord add(final MatchedRecord primary, final MatchedRecord r2) throws Exception {
-//        Set<FileNameIntPair> set = primary.setOfPairs();
-//        set.addAll(r2.setOfPairs());
-//        return MatchedRecord.fromPairs(set);
-//    }
-
-    //------------------- added by YUAN
 
     public int itemStopLine() {
         int stopLine = Math.max(getFieldValueLineNumber(ReceiptField.GstAmount),

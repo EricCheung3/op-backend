@@ -10,6 +10,11 @@ import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
+import com.openprice.parser.ChainRegistry;
+import com.openprice.parser.StoreBranch;
+import com.openprice.parser.StoreChain;
+import com.openprice.parser.StoreConfig;
+import com.openprice.parser.StoreParserSelector;
 import com.openprice.parser.common.TextResourceUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +35,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
 
     private final ChainRegistry chainRegistry;
     private ResourceLoader resourceLoader;
+
     protected Properties baseConfig = new Properties();
     protected StoreChain chain;
 

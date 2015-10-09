@@ -1,4 +1,4 @@
-package com.openprice.parser.store;
+package com.openprice.parser;
 
 import java.util.List;
 

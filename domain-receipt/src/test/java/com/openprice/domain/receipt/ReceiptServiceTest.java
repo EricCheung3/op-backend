@@ -27,9 +27,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.file.FileFolderSettings;
 import com.openprice.file.FileSystemService;
+import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.simple.SimpleParser;
-import com.openprice.parser.store.ParsedReceipt;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReceiptServiceTest {
