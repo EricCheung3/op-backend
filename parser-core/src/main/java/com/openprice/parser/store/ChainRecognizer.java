@@ -6,14 +6,12 @@ import com.openprice.parser.common.Levenshtein;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.exception.ChainNotFoundException;
 
+import lombok.Builder;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ChainRecognizer {
-    private final static String SECONDLEVEL_SPLITTER = ",";// the splitter used
-    // inside a field
-    // between :
-
     // use a large values to search all lines from the end
     private static final int MaxSearchedLinesEnd = 6;
     private static final int MaxSearchedLinesBegin = 6;
@@ -122,5 +120,14 @@ public class ChainRecognizer {
         return maxScore;
     }
 
+    @Data
+    @Builder
+    public static class MatchedChain {
 
+        // matched StoreChain
+        private final StoreChain chain;
+        private final String matchedField;
+        private final double matchedScore;
+        private final int matchedOnLine;
+    }
 }

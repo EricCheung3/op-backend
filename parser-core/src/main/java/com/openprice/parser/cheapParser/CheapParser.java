@@ -3,8 +3,8 @@ package com.openprice.parser.cheapParser;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.openprice.parser.ReceiptData;
 import com.openprice.parser.ParserUtils;
+import com.openprice.parser.ReceiptData;
 import com.openprice.parser.common.ListCommon;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Item;
@@ -37,7 +37,7 @@ public class CheapParser {
         final List<Item> items = new ArrayList<Item>();
         final int stopLine = matchedRecord.itemStopLine();
         if (stopLine >= 0 && stopLine < lineFinder.getLines().size())
-            log.debug("\n@@@@@last field line is " + stopLine + ", content is " + lineFinder.getLine(stopLine) );
+            log.debug("\n@@@@@  last field line is " + stopLine + ", content is " + lineFinder.getLine(stopLine) );
 
         for (int i = 0; i < lineFinder.getLines().size(); i++) {
             if (matchedRecord.isFieldLine(i))
