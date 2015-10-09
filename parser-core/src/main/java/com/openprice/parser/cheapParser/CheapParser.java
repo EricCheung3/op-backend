@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.openprice.parser.LineFinder;
-import com.openprice.parser.Parser;
 import com.openprice.parser.ParserUtils;
 import com.openprice.parser.common.ListCommon;
 import com.openprice.parser.common.StringCommon;
-import com.openprice.parser.data.FieldSet;
 import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ReceiptDebug;
 import com.openprice.parser.data.Skip;
-import com.openprice.parser.match.MatchedRecord;
+import com.openprice.parser.store.MatchedRecord;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,28 +18,24 @@ import lombok.extern.slf4j.Slf4j;
  * parser yet.
  */
 @Slf4j
-public class CheapParser implements Parser {
+public class CheapParser {
     private final LineFinder lineFinder;
-    private final FieldSet fields;
     private final MatchedRecord matchedRecord;
     private final Skip skip;
 
     private static final double similarityThresholdOfTwoStrings = 0.65; // FIXME get from config
 
     public CheapParser(final LineFinder lineFinder,
-                       final FieldSet fields,
                        final MatchedRecord matchedRecord,
                        final Skip skip) {
         this.lineFinder = lineFinder;
-        this.fields = fields;
         this.matchedRecord = matchedRecord;
         this.skip = skip;
     }
 
-    @Override
-    public ReceiptDebug parseGeneral() throws Exception {
+    public List<Item> parseGeneral() throws Exception {
         final List<Item> items = new ArrayList<Item>();
-        final int stopLine = fields.itemStopLine();
+        final int stopLine = matchedRecord.itemStopLine();
         if (stopLine >= 0 && stopLine < lineFinder.getLines().size())
             log.debug("\n@@@@@last field line is " + stopLine + ", content is " + lineFinder.getLine(stopLine) );
 
@@ -81,8 +74,8 @@ public class CheapParser implements Parser {
             }
 
             if (ParserUtils.isItem(name))
-                items.add(new Item(name, -1, "", "", "", ""));
+                items.add(new Item(name, i));
         }
-        return new ReceiptDebug(fields, items, null); //warningLogger().warning());
+        return items;
     }
 }

@@ -1,0 +1,51 @@
+SUPERSTORE
+RCSS 1570 - 4821 CALGARY TRAIL
+780-430-2769
+         Big on Fresh , Low on Price
+42-ENTERTAINMENT
+   05870325083 CORD TRIM JUNGL GMRJ         4.00
+SUBTOTAL                               4.00
+    G=GST 5%      4.00 ® 5.000%             0.20
+TOTAL                                  4.20
+---------TRANSACTION RECORD----------:---
+GLOBAL PAYMENTS MERCHANT # 0955971
+Superstore
+4821 Calgary Trail N.W.
+Edmonton AB
+STORE 01570              TERM Z01570L!6C
+SLIP # 302800        - -BfB--26
+RETAIN THIS COPY FOR YOUR RECORDS ---
+~~ Purchase               ~~  Chip
+CARD # ~~~~~~~~~~*~8017       EXP ~~~*~
+Visa Credit
+REF #          AUTH #      RESP 001
+300001001050 07432I        ISO 00
+AID: A0000000031010
+TSI F800    TVR 0080001000
+DATE          TIME     AMOUNT
+12/24/2014    15:42:45 $      4.20
+             APPROVED
+No Signature Required
+
+    CREDIT   T~                             4.20
+          You could have earned 40
+     PC points with President's Choice
+     Financial MasterCard. Apply Today
+            Visit pcfinancial .ca
+~~~~~~~~~~~~~~~~***~******~~~**~***~~~
+
+                GST # 12223-5922 RT0001
+THANK YOU FOR SHOPPING SUPERSTORE
+AILEEN JONES
+Thank You, Come Again !
+*~USE YOUR PCF CARD~~
+TO COLLECT POINTS!!
+~~REDEEM HERE FOR FREE GROCERIEs~~
+2014/12/24                              15:42
+U-SCAN 6 9996                        26 3023
+~~~~~~~~~~~~~~~~~~*** ~~*~~*~~***~**~
+
+       TELL US HOW WE DID TODAY!
+     MONTHLY CHANCES TO WIN $5000
+       VISIT WWW. T
+

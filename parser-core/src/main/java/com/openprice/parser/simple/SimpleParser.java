@@ -1,6 +1,5 @@
 package com.openprice.parser.simple;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,17 +7,13 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.openprice.parser.LineFinder;
-import com.openprice.parser.Parser;
 import com.openprice.parser.cheapParser.CheapParser;
-import com.openprice.parser.data.FieldSet;
-import com.openprice.parser.data.ReceiptDebug;
-import com.openprice.parser.data.Skip;
-import com.openprice.parser.match.MatchToBranch;
-import com.openprice.parser.match.MatchToHeader;
-import com.openprice.parser.match.MatchedRecord;
+import com.openprice.parser.data.Item;
 import com.openprice.parser.store.ChainRecognizer;
 import com.openprice.parser.store.ChainRegistry;
 import com.openprice.parser.store.MatchedChain;
+import com.openprice.parser.store.MatchedRecord;
+import com.openprice.parser.store.ParsedReceipt;
 import com.openprice.parser.store.StoreBranch;
 import com.openprice.parser.store.StoreParser;
 import com.openprice.parser.store.StoreParserSelector;
@@ -35,7 +30,7 @@ public class SimpleParser {
         this.chainRegistry = chainRegistry;
     }
 
-    public ReceiptDebug parse(final List<String> lines) throws Exception {
+    public ParsedReceipt parse(final List<String> lines) throws Exception {
         LineFinder lineFinder = LineFinder.fromContentLines(lines);
 
         // find chain first
@@ -48,23 +43,14 @@ public class SimpleParser {
         // get store parser
         StoreParserSelector selector = matchedChain.getChain().getSelector();
         StoreParser parser = selector.selectParser();
+        MatchedRecord matchedRecord = new MatchedRecord();
+        matchedRecord.matchToBranch(lineFinder, branch);
+        matchedRecord.matchToHeader(lineFinder, parser.getStoreConfig(), parser);
 
-        MatchToBranch matchToBranch = new MatchToBranch(lineFinder, branch, matchedChain);
-        matchToBranch.allMatchingFields(0.5);
+        CheapParser receiptParser = new CheapParser(lineFinder, matchedRecord, parser.getStoreConfig().getSkip());
+        List<Item> items = receiptParser.parseGeneral();
 
-        FieldSet fSetFromBranch = matchToBranch.getFields();
-        MatchedRecord matchFromBranch = matchToBranch.getMatchRecord();
-
-        MatchToHeader matchToHeader = new MatchToHeader(parser.storeConfig(), lineFinder, matchFromBranch);
-        FieldSet fSetFromHeader = matchToHeader.getFields();
-        MatchedRecord matchFromHeader = matchToHeader.getMatchRecord();
-
-        FieldSet fields = FieldSet.addPrefer(fSetFromBranch, fSetFromHeader);
-        MatchedRecord matchedRecord = MatchedRecord.add(matchFromBranch, matchFromHeader);
-
-        Skip skip = new Skip(new ArrayList<>(), new ArrayList<>()); // FIXME get skip from config
-        Parser receiptParser = new CheapParser(lineFinder, fields, matchedRecord, skip);
-        return receiptParser.parseGeneral();
+        return ParsedReceipt.builder().branch(branch).items(items).build();
     }
 
     public StoreBranch matchBranchByScoreSum(final List<String> lines, final List<StoreBranch> branches) {
@@ -80,5 +66,4 @@ public class SimpleParser {
         }
         return matchBranch;
     }
-
 }

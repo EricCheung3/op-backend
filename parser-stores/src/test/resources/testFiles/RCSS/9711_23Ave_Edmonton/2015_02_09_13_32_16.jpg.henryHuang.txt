@@ -1,0 +1,52 @@
+SUPERSTORE
+RCSS - 1549      9711-23AVE
+780-490-3918
+          Big on Fresh, Lou on Price
+
+Refunds/Voids
+R 06563345804     VAN BTRCRM MX                  MRJ     -3.50
+R 06563345804     VAN BTRCRM MX                  MRJ     -3.50
+SUBTOTAL                                               -7.00
+TOTAL                                                  -7.00
+----- -- --TRANSACTION RECORD --- --- ----- --
+GLOBAL P  AYMENTS MERCHANT # 5394549
+Superstore
+9711 23 Ave tHJ
+EdRanton AB
+STORE 01549               TERH Z0154930C
+SL IP # 870100            REG 30
+RETAIN THIS COPV FOR Y  OUR REC ORDS
+** Refund                  ~ ~ ChiP
+CARD # **~*x******"*'*''~**· EXP **f**
+Vi sa Credit
+REF #            AUTH#       RESP 000
+372001001084 18000R          ISO 00
+AID : A0000000031010
+TSI E800 TVR 0080001000
+DATE           TIME          AMOUNT
+08/16/2014     18:00:02      $    7.00
+           APPROUEO
+No Signature Required
+
+    CREDIT TN                                            -7. 00
+~***'*******·*****~***************~***
+                          GST # 12223-5922 RT0001
+THANK YOU F  ORSHOPPING R    CSS
+MANAGER NAHE: TONY
+Thank V ou , Com e Agai n !
+**USE YOUR P  C F CARD**
+TO COLLECT POINTS!!
+**REDEEM HER  E FOR FREE GRO   C ERIES**
+DATE: 2014/08/16                                                 TIME: 18:00
+Sunan       408                                          30 8701
+********************~************ * ****
+        TELL US H  OIJ lJE DID TODAV!
+      MONTHL V CHANCES TO m $5000
+        VISIT WYU .STOREOPINION.CA
+           OR CALL 1-877-234-2322
+   SEE CUSTOMER SERU ICE DESK FOR FULL
+  CONTEST RULES OR IJW    U.STOREOPINION.CA
+                   STORE : 01549
+  CODE : 081614 180030 8701 01549
+**************************************
+

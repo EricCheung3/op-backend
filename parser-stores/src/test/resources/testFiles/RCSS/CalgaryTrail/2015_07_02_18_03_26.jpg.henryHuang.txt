@@ -1,0 +1,65 @@
+SUPERSTORE
+RCSS 1570 - 4821 CALGARY TRAIL
+780-430-2769
+         Big on FrE!Sh , Low on Price
+21-GROCERY
+   05770001013 TRIDENT WTRMLN              GMRJ          1.79
+   08978200269 GARDEN WAFER               MRJ            1.48
+37-PHARMACY
+ "'2234 BTC TAXABLE                         GQ           5.09
+38-HOME HEALTH
+   62527303621 WNAT MLTI PRENAT                 GMRJ    31.96
+     $7.99 lmt 4. $15.99 ea
+     4 @ $7.99 1mt 4                                
+
+SUBTOTAL                                          40.32
+
+
+     G=GST 5%           38.34   lj)   5.000%             1.94
+TOTAL                                             42.26
+------- --TRANSACTION RECORD------ --- --- -
+GLOBAL PAYMENTS MERCHANT U 0955971
+Superstore
+4821 Calgary Trail N.W           .
+Edmonton AB
+STORE 01570                        TERM Z0157024C
+SLIP # 342500                      REG 24
+RETAIN THIS COPY FOR YOUR RECORDS
+"'"' Purchase                       ·"' Chip
+CARD # "'"'"'"'"'"'"'"'"'"'"'·8017      EXP "'"'/ "'"'
+Visa Credit
+REF #                 AUTH #         RESP 001
+271001001052 011EiOI                 ISO 00
+AID : A0000000031010
+TSI F800        TVR 00fl0001000
+DATE           TIME       AMOUNT
+11/18/2014     17:27:04   $      42.26
+              APPROVED
+No      Signa~ur~                      Required
+
+     CREDIT TN                                           42.26
+           You could have earned 420
+       PC points with President 's Cho ice
+       Financial ~laster-Card . Apply Today
+              Vi s i t pd i nanc i a1. ca
+
+                GST # 12223-5922 RT0001
+THANK YOU FOR SHOPPING SUPERSTORE
+AILEEN JONES
+Thank You, Come Agcti n !
+uUSE YOUR PCF CARDu
+TO COLLECT POINTS!!
+nREDEEM HERE FOR FREE GROCERIESu
+DATE: 2014/11/18                        TIME: 17:27
+U-SCAN 4 9994                        24 3425
+      TELL US HOW WE DID TODAY!
+    MONTHLY CHP,NCES TO W      IN $5000
+      VISIT WW~1 · STOI~EOPINION . CA
+        OR CALL 1-877-234-2322
+  SEE CUSTOMER SERVICE DESK FOR FULL
+ CONTEST RULES OR W   'riW . STOREOPINION .CA
+                STORE: 01!570
+_£ODE: 111814 172724 342!5 01570
+~*********~****W**~*~*WWWWWWWWWWWWW XX W
+ 
+ 

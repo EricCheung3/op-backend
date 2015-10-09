@@ -1,0 +1,75 @@
+SUPERSTORE
+RCSS - 1549    9711-23AVE
+780-490-3918
+         Big on Fresh, Low on Price
+21-GROCERY
+   05719777953 ROOSTER RICE        MRJ          25.78
+     $25.78 lmt 4. $31.99 ea
+               VAN BIRCRM MX       MRJ           3.50
+               CM DIS PRNCS CND   GMRJ           2.99
+               CM SCRIBBLERS HA    MRJ           4.49
+               DH FC STARTER       MRJ           2.79
+38-HOME HEALTH
+               AFTER BITE KIDS    GMRJ           4.99
+39-BEAUTY PRODUCTS
+               C&C ASTRINGENT     GMRJ           6.49
+               ACNE WASH          GMRJ           8.49
+               ST IVES VANILLA    GMRJ           2.98
+               SHOWER CREME SOF   GMRJ           3.93
+41-HOME
+               WLIN CPCK DCRTNG   GMRJ           5.04
+               HP JAR SCRAPER     GMRJ           5.00
+               MEASURE CUP        GMRJ           4.29
+
+SUBTOTAL                                80.76
+    G=GST 5%       44 .20 Iii 5.000%             2.21
+TOTAL                                   82.97
+-- -------TRANSACTION RECORD-------------
+GLOBAL PAYMENTS MERCHANT # 5394549
+Superstore
+9711 23 Ave NW
+Edmonton AB
+STORE 01549             TERM Z0154922C
+SLIP # 349600           REG 22
+RETAIN THIS COPY FOR YOUR RECORDS
+~~ Purchase              ~~ Chip
+CARD # ~~~~·~~~~~~~8017       EXP ~~~~~
+Visa Credit
+REF #          AUTH #      RESP 001
+104001001026 04676I        ISO 00
+AID: A0000000031010
+            TVR 0080001000
+DATE              TIME     AMOUNT
+08/16/2014        12:41:54 $    82.97
+             PPROVED
+
+
+
+    CREDIT TN                                   82.97
+         You could have earned 820
+     PC points with President's Choice
+     Financial MasterCard. Apply Today
+            Visit pcfinancial .ca
+~~~·~·~-~~~~~~~~~~~·~~~~~~~~~~~·~~~-~·
+
+                GST # 12223-5922 RT0001
+THANK YOU FOR SHOPPING RCSS
+MANAGER NAME: TONY
+Thank You, Come Again I
+~·USE YOUR PCF CARD~~
+TO COLLECT POINTS!!
+·~REDEEM HERE FOR FREE GROCERIEs~~
+DATE: 2014/08/16                     TIME: 12:42
+U-SCAN 2 9992                        22 3496
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-~~
+
+       TELL US HOW WE DID TODAY!
+     MONTHLY CHANCES TO WIN $5000
+       VISIT WWW.STOREOPINION.CA
+         OR CALL 1-877-234-2322
+   SEE CUSTOMER SERVICE DESK FOR FULL
+  CONTEST RULES OR WWW . STOREOPINIOI~. CA
+                STORE : 01549
+  CODE: 081614 124222 3496 01549
+~~-~~~~~~~~~~~~~~~~~~~~~~-~~~~~~·~~-~~
+

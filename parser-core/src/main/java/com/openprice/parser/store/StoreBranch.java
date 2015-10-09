@@ -1,13 +1,15 @@
 package com.openprice.parser.store;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.openprice.parser.FieldName;
 import com.openprice.parser.ParserUtils;
-import com.openprice.parser.common.FileCommonT;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Address;
+import com.openprice.parser.data.DoubleFieldPair;
 
 import lombok.Builder;
 import lombok.Data;
@@ -26,59 +28,82 @@ public class StoreBranch {
 
     private final Address address;
     private final String branchName;// store branch name
-    // private final String chainName;//like "Safeway
-    private final StoreChain chain;
     private final String phone;
     private final String ID;// store number
     private final String gstNumber;
     private final String slogan;
 
-    public StoreBranch(final Address address, final String branchName, final StoreChain chain,
+    private final Map<FieldName, String> fieldToValue = new HashMap<FieldName, String>();
+
+
+    public StoreBranch(final Address address, final String branchName,
             final String phone, final String ID, final String gstNumber, final String slogan) {
         this.address = address;
         this.branchName = ParserUtils.cleanField(branchName);
-        this.chain = chain;
         this.phone = ParserUtils.cleanField(phone);
         this.ID = ParserUtils.cleanField(ID);
         this.gstNumber = ParserUtils.cleanField(gstNumber);
         this.slogan = slogan;
     }
 
-    /*
-     * @param line is usually a line from file
+    private void init() {
+        // save store branch ground truth data into a map
+        addGroundTruthValue(FieldName.AddressLine1, address.getLine1());
+        addGroundTruthValue(FieldName.AddressLine2, address.getLine2());
+        addGroundTruthValue(FieldName.AddressCity, address.getCity());
+        addGroundTruthValue(FieldName.AddressProv, address.getProv());
+        addGroundTruthValue(FieldName.AddressPost, address.getPost());
+        addGroundTruthValue(FieldName.StoreBranch, branchName);
+        addGroundTruthValue(FieldName.GstNumber, gstNumber);
+        addGroundTruthValue(FieldName.Phone, phone);
+        addGroundTruthValue(FieldName.Slogan, slogan);
+
+    }
+    private void addGroundTruthValue(final FieldName fieldName, final String value) {
+        if (value != null) {
+            final String cleanedValue = value.trim();
+            if (cleanedValue.length() > 0) {
+                fieldToValue.put(fieldName, value.toLowerCase());
+            }
+        }
+    }
+
+    /**
+     * Create a StoreBranch object from a text string. Usually it is from branch.csv file
      */
-    public static StoreBranch fromString(String line, final String slogan) throws Exception {
+    public static StoreBranch fromString(String line, final String slogan) {
         line = line + " ";// handle the last char being comma
         final String[] w = line.split(SPLITTER);
         if (w.length != NUMFIELDS) {
             for (int i = 0; i < w.length; i++) {
                 System.out.println(w[i]);
             }
-            throw new Exception("this line is expected to have " + NUMFIELDS + " fields separated by " + SPLITTER
+            throw new RuntimeException("this line is expected to have " + NUMFIELDS + " fields separated by " + SPLITTER
                     + ", but w.length=" + w.length + ", line is " + line);
         }
-        Address add = Address.builder().line1(w[5].trim()).line2(w[6].trim()).city(w[7].trim()).prov(w[8].trim())
-                .country(w[9].trim()).post(w[10].trim()).build();
-        // System.out.println("add="+add);
-        StoreBranch st =
+        Address add =
+                Address
+                .builder()
+                .line1(w[5].trim())
+                .line2(w[6].trim())
+                .city(w[7].trim())
+                .prov(w[8].trim())
+                .country(w[9].trim())
+                .post(w[10].trim())
+                .build();
+
+        StoreBranch storeBranch =
                 StoreBranch
                 .builder()
                 .address(add)
-                // .chainName(w[0].trim())
-                .phone(w[1].trim()).ID(w[2].trim()).gstNumber(w[3].trim()).branchName(w[4].trim()).slogan(slogan)
+                .phone(w[1].trim())
+                .ID(w[2].trim())
+                .gstNumber(w[3].trim())
+                .branchName(w[4].trim())
+                .slogan(slogan)
                 .build();
-        return st;
-    }
-
-    public static List<StoreBranch> fromFile(final String dir, final String fileName, final String slogan)
-            throws Exception {
-        List<String> lines = FileCommonT.readLinesFromResourceSkipEmpty(dir, fileName);
-        List<StoreBranch> list = new ArrayList<StoreBranch>();
-        for (int i = 0; i < lines.size(); i++) {
-            if (!lines.get(i).isEmpty() && !lines.get(i).startsWith("#"))
-                list.add(StoreBranch.fromString(lines.get(i), slogan));
-        }
-        return list;
+        storeBranch.init();
+        return storeBranch;
     }
 
     /**
@@ -89,17 +114,9 @@ public class StoreBranch {
      */
     public double matchScore(final List<String> lines) {
         double sum = 0.0;
-        // int count=0;
         for (int i = 0; i < lines.size(); i++) {
             double score = matchToALineByFieldScoreSum(lines.get(i), i);
-            // double score=matchToALineByFieldScoreMax(lines.get(i), i);
-            // if(score>0.3)
-            // log.debug("\n big score. ---for line "+s+" score is "+score);
             sum += score;
-            // count++;
-
-            // if(count>=4)
-            // break;
         }
         return sum;
     }
@@ -114,80 +131,64 @@ public class StoreBranch {
         double tmp = 0.0;
         if (!getAddress().getLine1().isEmpty()) {
             ;
-            // sum+=Levenshtein.compare(getAddress().getLine1(), s);
-            // tmp=StringCommon.bestSliceMatching(s, getAddress().getLine1());
             tmp = StringCommon.bestSliceMatchingWithNumberPenalized(s, getAddress().getLine1());
             if (tmp > THRESHOLD) {
                 sum += tmp;
-                log.debug("matching line1=" + getAddress().getLine1() + " to string s=" + s + " at line " + lineNumber + ", score="
+                log.debug("matching line1=" + getAddress().getLine1() + " to string '" + s + "' at line " + lineNumber + ", score="
                         + tmp);
             }
         }
 
         if (!getAddress().getLine2().isEmpty()) {
-            // sum+=Levenshtein.compare(getAddress().getLine2(), s);
-            // tmp=StringCommon.bestSliceMatching(s, getAddress().getLine2());
             tmp = StringCommon.bestSliceMatchingWithNumberPenalized(s, getAddress().getLine2());
             if (tmp > THRESHOLD) {
                 sum += tmp;
-                log.debug("matching line2=" + getAddress().getLine2() + " to string s=" + s + " at line " + lineNumber + ", score="
+                log.debug("matching line2=" + getAddress().getLine2() + " to string '" + s + "' at line " + lineNumber + ", score="
                         + tmp);
             }
         }
 
         if (!getAddress().getCity().isEmpty()) {
-            // sum+=Levenshtein.compare(getAddress().getCity(), s);
-            // tmp=StringCommon.bestSliceMatching(s, getAddress().getCity());
             tmp = StringCommon.bestSliceMatchingWithNumberPenalized(s, getAddress().getCity());
             if (tmp > THRESHOLD) {
                 sum += tmp;
                 log.debug(
-                        "matching city=" + getAddress().getCity() + " to string s=" + s + " at line " + lineNumber + ", score=" + tmp);
+                        "matching city=" + getAddress().getCity() + " to string '" + s + "' at line " + lineNumber + ", score=" + tmp);
             }
         }
 
         if (!getAddress().getPost().isEmpty()) {
-            // tmp=StringCommon.bestSliceMatching(s, getAddress().getPost());
             tmp = StringCommon.bestSliceMatchingWithNumberPenalized(s, getAddress().getPost());
             if (tmp > THRESHOLD) {
                 sum += tmp;
                 log.debug(
-                        "matching post=" + getAddress().getPost() + " to string s=" + s + " at line " + lineNumber + ", score=" + tmp);
+                        "matching post=" + getAddress().getPost() + " to string '" + s + "' at line " + lineNumber + ", score=" + tmp);
             }
         }
-        // if(!prov().isEmpty())
-        // sum+=Levenshtein.compare(getAddress().getCity(), s);
 
         if (!getGstNumber().isEmpty()) {
-            // sum+=Levenshtein.compare(getGstNumber(), s);
-            // tmp=StringCommon.bestSliceMatching(s, getGstNumber());
             tmp = StringCommon.bestSliceMatchingWithNumberPenalized(s, getGstNumber());
             if (tmp > THRESHOLD) {
                 sum += tmp;
-                log.debug("matching gstNumber=" + getGstNumber() + " to string s=" + s + " at line " + lineNumber
+                log.debug("matching gstNumber=" + getGstNumber() + " to string '" + s + "' at line " + lineNumber
                         + ", score=" + tmp);
             }
         }
 
         if (!getPhone().isEmpty()) {
-            // sum+=Levenshtein.compare(getPhone(), s);
-            // tmp=StringCommon.bestSliceMatching(s, getPhone());
             tmp = StringCommon.bestSliceMatchingWithNumberPenalized(s, getPhone());
             if (tmp > THRESHOLD) {
                 sum += tmp;
-                log.debug("matching phone=" + getPhone() + " to string s=" + s + " at line " + lineNumber + ", score="
+                log.debug("matching phone=" + getPhone() + " to string '" + s + "' at line " + lineNumber + ", score="
                         + tmp);
             }
         }
 
         if (!getBranchName().isEmpty()) {
-            // sum+=Levenshtein.compare(getPhone(), s);
-            // tmp=StringCommon.bestSliceMatching(s, branchName());
             tmp = StringCommon.bestSliceMatchingWithNumberPenalized(s, getBranchName());
-            log.debug("\n\nbranchName is " + getBranchName() + "\ns=" + s + ", score=" + tmp);
             if (tmp > THRESHOLD) {
                 sum += tmp;
-                log.debug("matching branchName=" + getBranchName() + " to string s=" + s + " at line " + lineNumber
+                log.debug("matching branchName=" + getBranchName() + " to string '" + s + "' at line " + lineNumber
                         + ", score=" + tmp);
             }
         }
@@ -196,83 +197,123 @@ public class StoreBranch {
     }
 
     // match this store's fields to the given string by max matching of field
-    public double matchToALineByFieldScoreMax(final String s, final int lineNumber) {
-        if (s.isEmpty())
-            return 0.0;
-        double tmp = 0.0;
-        List<Double> scores = new ArrayList<Double>();
+    // FIXME NO USAGE???
+//    public double matchToALineByFieldScoreMax(final String s, final int lineNumber) {
+//        if (s.isEmpty())
+//            return 0.0;
+//        double tmp = 0.0;
+//        List<Double> scores = new ArrayList<Double>();
+//
+//        if (!getAddress().getLine1().isEmpty()) {
+//            ;
+//            tmp = StringCommon.bestSliceMatching(s, getAddress().getLine1());
+//            if (tmp > THRESHOLD) {
+//                scores.add(tmp);
+//                log.debug("matching line1=" + getAddress().getLine1() + " to string '" + s + "' at line " + lineNumber + ", score="
+//                        + tmp);
+//            }
+//        }
+//
+//        if (!getAddress().getLine2().isEmpty()) {
+//            tmp = StringCommon.bestSliceMatching(s, getAddress().getLine2());
+//            if (tmp > THRESHOLD) {
+//                scores.add(tmp);
+//                log.debug("matching line2=" + getAddress().getLine2() + " to string '" + s + "' at line " + lineNumber + ", score="
+//                        + tmp);
+//            }
+//        }
+//
+//        if (!getAddress().getCity().isEmpty()) {
+//            // sum+=Levenshtein.compare(getAddress().getCity(), s);
+//            tmp = StringCommon.bestSliceMatching(s, getAddress().getCity());
+//
+//            if (tmp > THRESHOLD) {
+//                scores.add(tmp);
+//                log.debug(
+//                        "matching city=" + getAddress().getCity() + " to string '" + s + "' at line " + lineNumber + ", score=" + tmp);
+//            }
+//        }
+//
+//        if (!getAddress().getPost().isEmpty()) {
+//            tmp = StringCommon.bestSliceMatching(s, getAddress().getPost());
+//
+//            if (tmp > THRESHOLD) {
+//                scores.add(tmp);
+//                log.debug(
+//                        "matching post=" + getAddress().getPost() + " to string '" + s + "' at line " + lineNumber + ", score=" + tmp);
+//            }
+//        }
+//
+//        if (!getGstNumber().isEmpty()) {
+//            tmp = StringCommon.bestSliceMatching(s, getGstNumber());
+//
+//            if (tmp > THRESHOLD) {
+//                scores.add(tmp);
+//                log.debug("matching gstNumber=" + getGstNumber() + " to string '" + s + "' at line " + lineNumber
+//                        + ", score=" + tmp);
+//            }
+//        }
+//
+//        if (!getPhone().isEmpty()) {
+//            tmp = StringCommon.bestSliceMatching(s, getPhone());
+//
+//            if (tmp > THRESHOLD) {
+//                scores.add(tmp);
+//                log.debug("matching phone=" + getPhone() + " to string '" + s + "' at line " + lineNumber + ", score="
+//                        + tmp);
+//            }
+//        }
+//
+//        if (scores.isEmpty())
+//            return 0;
+//
+//        final double scoreMax = Collections.max(scores);
+//        log.debug(">>>>>>max field matching score is " + scoreMax);
+//        return scoreMax;
+//    }
 
-        if (!getAddress().getLine1().isEmpty()) {
-            ;
-            // sum+=Levenshtein.compare(getAddress().getLine1(), s);
-            tmp = StringCommon.bestSliceMatching(s, getAddress().getLine1());
-            if (tmp > THRESHOLD) {
-                scores.add(tmp);
-                log.debug("matching line1=" + getAddress().getLine1() + " to string s=" + s + " at line " + lineNumber + ", score="
-                        + tmp);
+    /**
+     * Compare the input text line, return all fields with a match score bigger than the given threshold.
+     *
+     * YUAN : copied from legacy code StoreMap.allFieldMatchScores()
+     *
+     * @param lineStr
+     * @param threshold
+     * @return
+     */
+    public List<DoubleFieldPair> allFieldMatchScores(final String lineStr, final double threshold) {
+        final List<DoubleFieldPair> list=new ArrayList<DoubleFieldPair>();
+        final String lowerStr = lineStr.toLowerCase();
+        for (FieldName fName : fieldToValue.keySet()) {
+            final String value = fieldToValue.get(fName);
+            final double score = StringCommon.bestSliceMatching(lowerStr, value);
+            if (score > threshold) {
+                list.add(new DoubleFieldPair(score, fName, value));
             }
         }
-
-        if (!getAddress().getLine2().isEmpty()) {
-            // sum+=Levenshtein.compare(getAddress().getLine2(), s);
-            tmp = StringCommon.bestSliceMatching(s, getAddress().getLine2());
-            if (tmp > THRESHOLD) {
-                scores.add(tmp);
-                log.debug("matching line2=" + getAddress().getLine2() + " to string s=" + s + " at line " + lineNumber + ", score="
-                        + tmp);
-            }
-        }
-
-        if (!getAddress().getCity().isEmpty()) {
-            // sum+=Levenshtein.compare(getAddress().getCity(), s);
-            tmp = StringCommon.bestSliceMatching(s, getAddress().getCity());
-
-            if (tmp > THRESHOLD) {
-                scores.add(tmp);
-                log.debug(
-                        "matching city=" + getAddress().getCity() + " to string s=" + s + " at line " + lineNumber + ", score=" + tmp);
-            }
-        }
-
-        if (!getAddress().getPost().isEmpty()) {
-            tmp = StringCommon.bestSliceMatching(s, getAddress().getPost());
-
-            if (tmp > THRESHOLD) {
-                scores.add(tmp);
-                log.debug(
-                        "matching post=" + getAddress().getPost() + " to string s=" + s + " at line " + lineNumber + ", score=" + tmp);
-            }
-        }
-        // if(!prov().isEmpty())
-        // sum+=Levenshtein.compare(getAddress().getCity(), s);
-
-        if (!getGstNumber().isEmpty()) {
-            // sum+=Levenshtein.compare(getGstNumber(), s);
-            tmp = StringCommon.bestSliceMatching(s, getGstNumber());
-
-            if (tmp > THRESHOLD) {
-                scores.add(tmp);
-                log.debug("matching gstNumber=" + getGstNumber() + " to string s=" + s + " at line " + lineNumber
-                        + ", score=" + tmp);
-            }
-        }
-
-        if (!getPhone().isEmpty()) {
-            // sum+=Levenshtein.compare(getPhone(), s);
-            tmp = StringCommon.bestSliceMatching(s, getPhone());
-
-            if (tmp > THRESHOLD) {
-                scores.add(tmp);
-                log.debug("matching phone=" + getPhone() + " to string s=" + s + " at line " + lineNumber + ", score="
-                        + tmp);
-            }
-        }
-
-        if (scores.isEmpty())
-            return 0;
-
-        final double scoreMax = Collections.max(scores);
-        log.debug(">>>>>>max field matching score is " + scoreMax);
-        return scoreMax;
+        return list;
     }
+
+    /**
+     * get the max score that matches the given string across all the fields
+     *
+     * YUAN : copied from legacy code StoreMap.maxFieldMatchScore()
+     *
+     * @param  lineStr given string
+     * @return         [description]
+     */
+    public DoubleFieldPair maxFieldMatchScore(final String lineStr){
+        double scoreMax=-1;
+        FieldName matchedField=null;
+        final String lowerStr=lineStr.toLowerCase();
+        for(FieldName fName : fieldToValue.keySet()) {
+            double score= StringCommon.bestSliceMatching(lowerStr, fieldToValue.get(fName)); //Levenshtein.compare(lowerStr, fieldToValue.get(fName));
+            if(score>scoreMax){
+                scoreMax=score;
+                matchedField=fName;
+            }
+        }
+        return new DoubleFieldPair(scoreMax, matchedField, fieldToValue.get(matchedField));
+    }
+
 }

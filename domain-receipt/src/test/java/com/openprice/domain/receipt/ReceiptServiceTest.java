@@ -28,8 +28,8 @@ import com.openprice.domain.account.user.UserAccount;
 import com.openprice.file.FileFolderSettings;
 import com.openprice.file.FileSystemService;
 import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ReceiptDebug;
 import com.openprice.parser.simple.SimpleParser;
+import com.openprice.parser.store.ParsedReceipt;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReceiptServiceTest {
@@ -260,7 +260,7 @@ public class ReceiptServiceTest {
         final List<Item> items = new ArrayList<>();
         items.add(new Item("milk", 1, "10.99", "1.99", "4.00", "food"));
         items.add(new Item("eggs", 2, "4.99", "4.99", "12", "food"));
-        ReceiptDebug receiptDebug = new ReceiptDebug(null, items, null);
+        ParsedReceipt receiptDebug = ParsedReceipt.builder().branch(null).items(items).build();
 
         when(receiptImageRepositoryMock.findByReceiptOrderByCreatedTime(eq(receipt))).thenReturn(images);
         when(simpleParser.parse(eq(ocrTextList))).thenReturn(receiptDebug);

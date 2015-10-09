@@ -14,9 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Category {
     private final LineFinder lineFinder;
-    private final Config config;
+    private final StoreConfig config;
 
-    public Category(final LineFinder lineFinder, final Config config) {
+    public Category(final LineFinder lineFinder, final StoreConfig config) {
         this.lineFinder = lineFinder;
         this.config = config;
     }

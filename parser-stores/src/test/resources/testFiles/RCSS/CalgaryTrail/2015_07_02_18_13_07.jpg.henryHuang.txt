@@ -1,0 +1,62 @@
+SUPERSTORE 
+RCSS 1570 - 4821 CALGARY TRAIL
+780-430-2769
+         Big on Fresh, Low on Price
+21-GROCERY
+   05900001484 R H BR FLOUH      MRJ             3.39
+   06563307781 BC DX FRS WP VAN  MRJ             2 .20
+   06620000867 PKA DOT CNDL      GMRJ            1.59
+22-DAIRY
+   06038302200 PC CREAM CHEESE MRJ              5. 39
+   06038373902 NN CHS SLICE LGT MRJ              3. 39
+27-PRODUCE
+   750301951901 STRAWBERRIES 2LB MRJ             5.96
+SUBTOTAL                                        23.10
+    G=GST 5%        1.59   lj   !5. 000%       0.08
+
+TOTAL                                           23.10
+---------TRANSACTION RECORD--- -- --- -- -- -
+GLOBAL PAYMENTS MEHCHANT # 0955971
+Superstore
+4821 Calgary Trail N.W.
+Edmonton AB
+STORE 01570             TERM Z0157024C
+SLIP # 496100           REG 24
+RETAIN THIS COPY FOR YOUR RECORDS
+~~Purchase               ·~   Chip
+CARD # ~~~~~~~~-~~·8017       EXP ~~~~~
+Visa Credit
+REF #          AUTH #      RESP 001
+338001001005 04002!        ISO 00
+AID: A0000000031010
+TSI F800    TVR 0080001000
+DATE           TIME      AMOUNT
+01/25/2015     11:01:32 $      23.10
+               APPROVED
+No Signature Required
+
+    CREDIT TN                                   23.10
+           You caul d h<3ve earned 230
+      PC points with President's Cho ice
+      Fi nanci a1 ~lastei'Card . App 1y Today
+               Visit pcfinancial .ca
+
+                GST # 122:23-5922 RT0001
+THANK YOU FOR SHOPPING SUPERSTORE
+AILEEN JONES
+Thank You, Come Again I
+~~usE YOUR PCF CARDn
+TO COLLECT POINTS!!
+~~REDEEM HERE FOR FREE GROCERIEs~~
+DATE: 2015/01/25                             TIME: 11:01
+U-SCAN 4 9994                         24 4931
+       TELL US HOW WE DID TODAY!
+     MONTHLY CHANCES TO W    IN $5000
+       VISIT WWW .STOREOPINION.CA
+         OR CALL 1-· 877-234-2322
+   SEE CUSTOMER SEF!VICE DESK FOR FULL
+  CONTEST RULES OR Wlr/W . STOREOPINION. CA
+                STORE: 01!570
+  CODE: 012515 110124 4961 01570
+
+

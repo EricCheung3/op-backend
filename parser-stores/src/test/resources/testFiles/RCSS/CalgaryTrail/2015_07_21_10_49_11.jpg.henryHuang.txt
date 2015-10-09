@@ -1,0 +1,71 @@
+SUPERSTORE 
+ RCSS 15 70 - 4821 CALGARY TRAIL
+ 780-430-2769
+           Big on Fresh. Lou on Price
+ 21-GROCERY
+   069000061 18 AQUAFINA                         HRJ       3.49
+     ECOLOGY FEE                                           0.24
+     DEPOSIT 1                                              1.20
+ 27-PRODUCE
+   4032           WMELON RED SDLS               HRJ        4.98
+35-DELI
+  06148304020 FOREST HAM                      HRJ      5.00
+  06 148304021 FLAV HAM                       HRJ       5.00
+38-HOME HEALTH
+ 03600040679 HUG SNUG DRY ST5                     GMRJ    21.99
+    $21.99 l~t 2. s29.97 ea
+     1 @ s2 1.99 1nt 2                                
+41-HOME
+  76379593735 BAG MED                            GHRJ      3.29
+SUBTOTAL                                                45.19
+
+    G:GST 5%       25.28 @ 5.000%                          1.26
+TOTAL                                                   46.45
+---- -----TRANSACTIONRECORD------- ------
+G  LOBA L PAYHENfS MfRCHAtlT D0955971
+Superstore
+4821 Calgary Tra il N  .U.
+Ednonton AB
+STO  RE 01 570              TERM Z015 7016C
+SLIP ~ 334600               REG 16
+REfAIN T ~IS COPYF   ORY OUR REC ORDS
+** Purchase                  ~* Ch iP
+C  ARD~ *~*'x*'*****8017         EXP **f**
+\l isa C redit
+R  EF #           AUTH #      RESP 001
+747001001108 050361           ISO 00
+AID : A0000000031 010
+T SI F800 fU     R 0080001000
+DATE        TIME                  AMOUNT
+06/21/2015  15:28:59             $       46.45
+           APPROVED
+No S ig natur e                   Required
+
+    CREDIT TN                                             46.45
+                Y ou cou ld have earned 460
+            PC po ints uith President's C  hoice
+            Financial MasterCard. APPlY Today
+                    Uisit pcfinanc ia l.ca
+* ******'·~**···*** ***' '**'* ''*********
+                          GST ~ 12223-5922 RTOOO1
+THANK YOUFOR SH     OPPING SUPER STORE
+AILEEN JONES
+Thank You . Cone Again !
+·~USE Y O UR PC FC  ARD**
+fOC OLL E CT PO INTS !!
+HRE DEE M HERE FOR FREE G    ROCERIES·*
+DATE:2015/06/21                                         TIME: 15:29
+Fathi na 206                                              16 3346
+"*******' ' . *****"'*'**'******"''**' ***
+        TELL U  S HOW UE OIO TODAY!
+      HotHHL  YC HMlCES TO 1/IN $5000
+        UISIT IIIJli.STOREOPINIOtLCA
+          OR CALL 1-877-234-2322
+   SE EC USTO  HER SERVICE DESK FOR FULL
+  CONTEST RULES O    RW WW.STOREOPINION .CA
+
+.....,...,,.,,,,,.....................
+                   STORE: 01570
+  CODE: 062115 152916 3346 01570
+ 
+ 

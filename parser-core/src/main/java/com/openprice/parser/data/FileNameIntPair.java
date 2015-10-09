@@ -1,5 +1,7 @@
 package com.openprice.parser.data;
 
+import com.openprice.parser.FieldName;
+
 import lombok.Builder;
 import lombok.Data;
 

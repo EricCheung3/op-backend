@@ -1,0 +1,62 @@
+SUPERSTORE
+RCSS 1570 - 4821 CALGARY TRAIL
+780-430-2769
+         Big on Fresh, Low on Price
+27-PRODUCE
+  3141         OPO SQUASH                  MRJ    2.80
+    0.860 kg @$3.26/kg                        
+  4552         CHINESE CABBAGE             MRJ    1.43
+    0.830 kg@ $1.72/kg                        
+33-BAKERY INSTORE
+  06038387812   MUFFIN LEMN CRAN           HRJ    4.87
+41-HOME
+                PLASTIC BAGS               GRO    0.05
+SUBTOTAL                                         9.15
+     'l~ 5% - 0.05    @   5.000%                  0.00
+TOTAL                                            9.15
+---------TRANSACTION RECORD-------------
+GLOBAL PAYMENTS MERCHANT # 0955971
+Superstore
+4821 Calgary Trail N.U.
+Ednonton AB
+STORE 01570             TERH Z0157013C
+SLIP # 790600           REG 13
+RETAIN THIS COPY FOR YOUR RECORDS
+** Purchase              '* ProximitY
+CARD # ****'*****~*8017      EXP **I**
+Vi sa Credit
+REF #            AUTH #   RESP 001
+277001001106 04836I       ISO 00
+AID: A0000000031010
+TSI 0000 TVR 0000000000
+DATE           TIME       AMOUNT
+12/03/2014     16:08:26   $     9.15
+            APPROUED
+No Signature Required
+
+    CREDIT TN                                     9.15
+                You could have earned 90
+           PC points with President's Choice
+           Financial MasterCard. APPlY Today
+                  Visit pcfinancial.ca
+***'*****~************~*'******·~h****
+                      GST # 12223-5922 RT0001
+THANK YOU FOR SHOPPING SUPERSTORE
+AILEEN JONES
+Thank You, Come Again !
+**USE YOUR PCF CARD*~
+TO COLLECT POINTS!!
+**REDEEM HERE FOR FREE GROCERIES**
+2014/12/03                                         16:08
+Lavleen 253                                      13 7906
+*******~*********'***'****************
+        TELL US HOW WE DID TODAY!
+      MONTHLY CHANCES TO UIN $5000
+        VISIT WUW.STOREOPINION.CA
+          OR CALL 1-877-234-2322
+   SEE CUSTOMER SERVICE DESK FOR FULL
+  CONTEST RULES OR UtiW.STOREOP IN ION. CA
+                 STORE: 01570
+  CODE: 120314 160813 7906 01570
+*******~**~*************'********~****
+

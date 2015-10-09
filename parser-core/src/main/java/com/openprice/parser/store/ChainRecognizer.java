@@ -73,10 +73,6 @@ public class ChainRecognizer {
      */
     MatchedChain chainNameSearch(final List<String> lines, final int begin, final int end) throws ChainNotFoundException {
         double maxScore = -1;
-        int matchedID = -1;
-        String matchedIdentityName = "";
-        String matchedLine = "";
-        String chainName = "";
         int found = -1;
         StoreChain matchedStoreChain = null;
         for (int i = Math.max(0, begin); i <= Math.min(lines.size() - 1, end); i++) {
@@ -90,11 +86,7 @@ public class ChainRecognizer {
                 if (score > maxScore) {
                     maxScore = score;
                     matchedStoreChain = storeChain;
-                    matchedIdentityName = storeChain.getIdentifyFields();
                     found = i;
-                    //matchedIdentityNameLine = chainLine;
-                    matchedLine = line;
-                    chainName = storeChain.getCode();
                 }
                 if (Math.abs(1.0 - score) < 0.02) {
                     final MatchedChain chain = MatchedChain.builder().chain(storeChain).matchedScore(score).matchedOnLine(i).build();

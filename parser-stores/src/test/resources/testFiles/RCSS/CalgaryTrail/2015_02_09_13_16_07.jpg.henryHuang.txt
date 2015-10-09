@@ -1,0 +1,58 @@
+SUPERSTORE
+RCSS 1570 - 4821 CALGARY TRAIL
+780-430-2769
+         Big on Fresh, Low on Price
+41-HOME
+   <2)05870328668 ACTIVITY BAG GMRJ         2.00
+     2 ~ $1.00                     
+42-ENTERTAINMENT
+   05956251623 NINJA TUR PUZZLE GMRJ        5.99
+   09256710218 MAGAZINE         GMRJ       14.95
+SUBTOTAL                            22.94
+    G=GST 5%                                 1.15
+TOTAL                               24.09
+---------TRANSACTION RECORD--- --- -------
+GLOBAL PAYMENTS MERCHANT # 0955971
+Superstore
+4821 Calgary Trail N.W.
+Edmonton AB
+STORE 01570             TERM Z0157023C
+SLIP # 636800           REG 23
+RETAIN THIS COPY FOR YOUR RECORDS
+~~ Purchase              ~*   Chip
+CARD # *~***~~**~**8017       EXP ~*~~~
+Visa Credit
+REF #          AUTH #      RESP 001
+311001001035~  02282I      ISO 00
+AID: A0000000031010
+TSI F800    TVR 0080001000
+DATE            TIME       AMOUNT
+12/24/2014      15:34:07   $      24.09
+             APPROVED
+- No Signature Required
+
+    CREDIT TN                              24.09
+          You could have earned 240
+      PC points with President's Choice
+      Financial MasterCard . Apply Today
+             Visit pcfinancial .ca
+~*~~****~**~~***~~~**~~~*~~***********
+                GST # 12223-5922 RT0001
+THANK YOU FOR SHOPPING SUPERSTORE
+AILEEN JONES
+Thank You, Come Again !
+**USE YOUR PCF CARD**
+TO COLLECT POINTS!!
+*~REDEEM HERE FOR FREE GROCERIES**
+DATE: 2014/12/24                     TIME: 15:34
+U-SCAN 3 9993                        23 6368
+        TEll US HOW WE DID TODAY!
+     MONT.HLV CHANCES TO WIN $5000
+        VISIT WWW.STOREOPINION.CA
+          OR CALL 1-877-234-2322
+   SEE fUSTOMER SERVICE DESK FOR FULL
+  CONTJCST RULES OR WWW.STOREOPINION.CA
+    J            STORE: 01570
+  ~DE: 122414 153423 6368 01570
+-~ X~XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+

@@ -19,8 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.file.FileSystemService;
 import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ReceiptDebug;
 import com.openprice.parser.simple.SimpleParser;
+import com.openprice.parser.store.ParsedReceipt;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -169,8 +169,8 @@ public class ReceiptService {
         if (ocrReady) {
             log.debug("After checking {} times, get ocr result for receipt.", counter);
             try {
-                ReceiptDebug parserResult = simpleParser.parse(ocrTextList);
-                for (final Item item : parserResult.items()) {
+                ParsedReceipt parserResult = simpleParser.parse(ocrTextList);
+                for (final Item item : parserResult.getItems()) {
                     final ReceiptItem receiptItem = new ReceiptItem();
                     receiptItem.setName(item.getName());
                     receiptItem.setBuyPrice(item.getBuyPrice());

@@ -1,0 +1,64 @@
+SUPERSTORE 
+RCSS - 1549    9711-23AVE
+780-490-3918
+         Big on Fresh. LmJ on Price
+21-GROCERY
+  05700006308 HEINZ KET SQZ                     HRJ     4.87
+    14.87 l~t 4, $5 .27 ea
+    i @ $4.87 l~t 4                                
+23-FROZEN
+  061163601187      STKY RICE DMPLNG            MRJ     6.99
+  690761966243      WFZ DMP RED BN              MRJ     2.99
+  690761966247      WFZ DMP RD RICE             HRJ     2.99
+  690761966252      WFZ DMP MIXED               MRJ     2.99
+27-PROOUCE
+  09163622023       RD SDLS GRAPES              HRJ     3.96
+SUBTOTAL                                              24.79
+TOTAL                                                 24.79
+----· ----TRANSACTION RECORD------ ------ -
+GLOBfiL PAYMENTS MERCHANT # 5394549
+Superstore
+971 1 23 Ave NW
+Edmonton AB
+STORE 01549              TERM Z0154909C
+SLIP M945700             REG 9
+RETAIN THIS COPY FOR YOUR REC ORDS
+**  Purchase              ¥x ProxiMib
+CARD # *******~**** 1833      EXP **f**
+MasterCard
+REF II          AUTH n     RESP 001
+4270(J1001121 023169       ISO 00
+AID: A0000000041 010
+TSI r.soo    TVR oooooo8ooo
+DATE            TIME          AMOUNT
+11/23/2014      17:21:40      $        24.79
+           APPRO UED
+No Signature Required
+
+     CREDIT TN                                         24 .79
+                   You could have earned 240
+               PC points uith President's Choice
+               Financial MasterCard. APPl YT  oday
+                      lJisit pcf inancial. ca
+~*~~ **x***~·****~*******~ x* *********n
+                         GST W12223-5922 RT0001
+THANK Y  OU FOR SHO PPING RCSS
+MANAGER NAHE: FUAD
+Thank You , C  one Again !
+**USE YOUR PC   F CARD**
+TOC  O LLECT PO JNTS ! !
+**REDEEM HERE FOR FREE GROC    ERIES**
+DATE: 2014/11/23                                         TIME: 17:21
+Joel la      215                                       09 9457
+****''****************x**********x**x**
+         TELL ITS Hmt WE DID T ODAY !
+       HONTHLY CHANCES TO UIN $5000
+         VISIT UUW.STOREOPINION.CA
+           OR CALL 1-877-234-2322
+    Sfi CUST  OMER SERV ICE DESK FOR FULL
+  C ONT EST RULES OR WWU.ST  OREOPINION. CA
+                   STORE : 01549
+  CODE: 112314 172109 9457 01549
+*************~************************
+ 
+ 

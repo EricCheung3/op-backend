@@ -1,0 +1,72 @@
+SUPERSTORE
+RCSS 1570 - 4821 CALGARY TRAIL
+780-430-2769
+         Big on Fresh. Low on Price
+21 -GROCERY
+  05719775555 RSTR INSTNT NDLE                 HRJ     0.98
+  06601007023 TABLE SALT                       MRJ     1.99
+    $1 .99 ea or 2/S3 .58
+    1 @ $1.99 ea                                   
+  08978200269 GARDEN WAFER                     MRJ      2.56
+    $1.28 lnt 6, $1.48 ea
+    2@ $1.28 lnt 6                               
+  693491804007 RICE STICK                      HRJ      1.08
+22-DAIRY
+  06570010028 BEATRICE 1% MILK                  RO      4.46
+    ECOLOGY FEE                                         0.07
+    DEPOSIT 1                                           0.25
+34-BAKERV COMMERCIAL
+  06340004440    CNTRY HVST BRD                MRJ     2.98
+41-HOME
+  (2)9               PLASTIC BAGS              GRO     0.10
+    2 @ $0.05                                     
+SUBTOTAL                                             14.47
+    G=GST 5%      0. 10 @ 5. 000%                      0.01
+
+TOTAL                                                14.48
+--- --- ---TRANSACTION RECORD-- -------- ---
+GLOBAL PAYHENTS MERCHANT # 0955971
+Superstore
+4821 Calgary Trai 1 ti.U.
+Ednonton AB
+STORE 01570               TERH Z0157015C
+SLIP # 679600             REG 15
+RETAIN THIS COPY FOR YOUR REC   ORDS
+~~ Purchase                *~ ChiP
+CARD # ************8017         EXP **f**
+Vi sa Credit
+REF ~            AUTH #     RESP 001
+592001001127 08732I         ISO 00
+AID: A0000000031010
+TSI F800 TVR 0080001000
+DATE           TIME         AMOUNT
+01/18/2015     17:26:22     $    14.48
+           APPROVED
+No Signature Required
+
+    CREDIT TN                                         14.48
+                You could have earned 140
+            PC POints with President's Choice
+            Financial MasterCard. APPlY Today
+                   Visit pcfinancial .ca
+*~****~***¥~**~*****~*~********~~*****
+                         GST # 12223-5922 RT0001
+THANK YOU FOR SHOPPitlG SUPERSTORE
+AILEEN JONES
+Thank You. Come Again !
+·*USE YOUR PCF CARD**
+TOCOLLECT POINTS!!
+~* REDEEM HERE FOR FREE G   ROCER IES·*
+DATE: 2015/01/18            TIME: 17:26
+Khushbu 215                                           15 6796
+~*~~*~********~******~*~*******"******
+        TELL US HOW UE DID TODAY!
+      MONTHLY CHANCES TO 1JIN S5000
+        VISIT ~I~IW. STOREOPINION. CA
+          OR CALL 1-877-234-2322
+    SEE CUSTOMER SERVICE DESK FOR FULL
+  CONTEST RULES OR UWW.STOREOPINION.CA
+                   STORE: 01570
+  CODE: 011815 172615 6796 01570
+**********'*****~*********'***~*******
+
