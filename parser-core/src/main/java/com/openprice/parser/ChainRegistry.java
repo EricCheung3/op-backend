@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.openprice.parser.common.Levenshtein;
 import com.openprice.parser.common.StringCommon;
-import com.openprice.parser.exception.ChainNotFoundException;
 
 import lombok.Builder;
 import lombok.Data;
@@ -33,7 +32,7 @@ public class ChainRegistry {
     private static final int MaxSearchedLinesEnd = 6;
     private static final int MaxSearchedLinesBegin = 6;
 
-    public StoreChain findChain(final ReceiptData receipt) throws ChainNotFoundException {
+    public StoreChain findChain(final ReceiptData receipt) {
         final List<String> lines = receipt.getLines();
         if (lines == null || lines.isEmpty())
             return null;
@@ -51,9 +50,13 @@ public class ChainRegistry {
 
         // fast mode: searching a few number of lines from beginning.
         MatchedChain chainBegin = chainNameSearch(lines, begin, begin + MaxSearchedLinesBegin);
-        log.debug("Searching from head: chain=" + chainBegin.getChain().getCode() + ", score=" + chainBegin.getMatchedScore());
-        if (chainBegin.getMatchedScore() > 0.75) {
-            return chainBegin.getChain();
+        if (chainBegin == null) {
+            log.warn("Cannot recognize chain from begnning!!");
+        } else {
+            log.debug("Searching from head: chain=" + chainBegin.getChain().getCode() + ", score=" + chainBegin.getMatchedScore());
+            if (chainBegin.getMatchedScore() > 0.75) {
+                return chainBegin.getChain();
+            }
         }
 
         int end = -1;
@@ -66,8 +69,18 @@ public class ChainRegistry {
             }
         }
         MatchedChain chainEnd = chainNameSearch(lines, end - MaxSearchedLinesEnd, end);
-        log.debug("Searching from End: chain=" + chainEnd.getChain().getCode() + ", score=" + chainEnd.getMatchedScore());
+        if (chainEnd == null) {
+            log.warn("Cannot recognize chain from end!!");
+        } else {
+            log.debug("Searching from End: chain=" + chainEnd.getChain().getCode() + ", score=" + chainEnd.getMatchedScore());
+        }
 
+        if (chainBegin != null && chainEnd == null) {
+            return chainBegin.getChain();
+        }
+        if (chainBegin == null && chainEnd != null) {
+            return chainEnd.getChain();
+        }
         if (chainEnd.getMatchedScore() > chainBegin.getMatchedScore())
             return chainEnd.getChain();
         else
@@ -84,7 +97,7 @@ public class ChainRegistry {
      * @return a Chain object, the first is matched chain name, the second is
      * the score, the third is the line number matched.
      */
-    MatchedChain chainNameSearch(final List<String> lines, final int begin, final int end) throws ChainNotFoundException {
+    MatchedChain chainNameSearch(final List<String> lines, final int begin, final int end) {
         double maxScore = -1;
         int found = -1;
         StoreChain matchedStoreChain = null;
@@ -102,15 +115,15 @@ public class ChainRegistry {
                     found = i;
                 }
                 if (Math.abs(1.0 - score) < 0.02) {
-                    final MatchedChain chain = MatchedChain.builder().chain(storeChain).matchedScore(score).matchedOnLine(i).build();
-                    return chain;
+                    return MatchedChain.builder().chain(storeChain).matchedScore(score).matchedOnLine(i).build();
                 }
             }
         }
-        if (matchedStoreChain == null)
-            throw new ChainNotFoundException("no chain found between line " + begin + " and line " + end);
-        final MatchedChain chain = MatchedChain.builder().chain(matchedStoreChain).matchedScore(maxScore).matchedOnLine(found).build();
-        return chain;
+        if (matchedStoreChain == null) {
+            return null;
+        }
+
+        return MatchedChain.builder().chain(matchedStoreChain).matchedScore(maxScore).matchedOnLine(found).build();
     }
 
     /*

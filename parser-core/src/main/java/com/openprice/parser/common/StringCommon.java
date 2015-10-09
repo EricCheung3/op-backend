@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.openprice.parser.exception.NoSlashException;
-
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -67,28 +65,6 @@ public class StringCommon {
         if (ratio > 1)
             return 1.0;
         return ratio;
-    }
-
-    /**
-     *
-     * @param line
-     * @param slash
-     *            the position of slash '/'
-     * @return at most two digits that are before the slash position
-     */
-    public static String twoDigitsBeforeSlash(final String line, final int slash) throws Exception {
-        if (line.charAt(slash) != '/') {
-            throw new NoSlashException("line " + line + " does not have the slash sign at position " + slash);
-        }
-        StringBuilder twoDigits = new StringBuilder();
-        int count = 0;
-        for (int i = slash; i >= 0 && count < 2; i--) {
-            if (Character.isDigit(line.charAt(i))) {
-                twoDigits.append(line.charAt(i) + "");
-                count++;
-            }
-        }
-        return twoDigits.reverse().toString();
     }
 
     /**

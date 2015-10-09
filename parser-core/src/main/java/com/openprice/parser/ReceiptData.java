@@ -3,7 +3,6 @@ package com.openprice.parser;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
-import com.openprice.parser.exception.ReceiptTooShortException;
 
 import lombok.Getter;
 
@@ -25,7 +24,7 @@ public class ReceiptData {
     public static ReceiptData fromContentLines(final List<String> lines) throws Exception {
         ReceiptData f = new ReceiptData(lines);
         if (lines.size() < MIN_NUMBER_LINES) {
-            throw new ReceiptTooShortException("Receipt is too short, only has " + lines.size() + " lines.");
+            throw new RuntimeException("Receipt is too short, only has " + lines.size() + " lines.");
         }
         return f;
     }
