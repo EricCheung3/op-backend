@@ -33,14 +33,14 @@ public class ChainRegistry {
     private static final int MaxSearchedLinesBegin = 6;
 
     public StoreChain findChain(final ReceiptData receipt) {
-        final List<String> lines = receipt.getLines();
+        final List<ReceiptLine> lines = receipt.getReceiptLines();
         if (lines == null || lines.isEmpty())
             return null;
 
         // find the meaningful lines in the beginning
         int begin = -1;
         for (int i = 0; i < lines.size(); i++) {
-            String line = lines.get(i).trim();
+            String line = lines.get(i).getCleanText();
             int[] counts = StringCommon.countDigitAndChars(line);
             if (counts[1] > 2) {
                 begin = i;
@@ -61,7 +61,7 @@ public class ChainRegistry {
 
         int end = -1;
         for (int i = lines.size() - 1; i >= 0; i--) {
-            String line = lines.get(i).trim();
+            String line = lines.get(i).getCleanText();
             int[] counts = StringCommon.countDigitAndChars(line);
             if (counts[1] > 2) {
                 end = i;
@@ -97,12 +97,12 @@ public class ChainRegistry {
      * @return a Chain object, the first is matched chain name, the second is
      * the score, the third is the line number matched.
      */
-    MatchedChain chainNameSearch(final List<String> lines, final int begin, final int end) {
+    MatchedChain chainNameSearch(final List<ReceiptLine> lines, final int begin, final int end) {
         double maxScore = -1;
         int found = -1;
         StoreChain matchedStoreChain = null;
         for (int i = Math.max(0, begin); i <= Math.min(lines.size() - 1, end); i++) {
-            final String line = lines.get(i).trim();
+            final String line = lines.get(i).getCleanText();
             int[] counts = StringCommon.countDigitAndChars(line);
             if (counts[1] < 2)
                 continue;

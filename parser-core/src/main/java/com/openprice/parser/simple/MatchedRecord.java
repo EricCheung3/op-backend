@@ -1,18 +1,18 @@
 package com.openprice.parser.simple;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.StoreBranch;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
-import com.openprice.parser.common.ParserUtils;
 import com.openprice.parser.common.StringCommon;
-import com.openprice.parser.data.DoubleFieldPair;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
 
@@ -121,47 +121,39 @@ public class MatchedRecord {
         fieldToValueLine.put(fName,  ValueLine.builder().line(lineNumber).value(value).build());
     }
 
-    public void matchToBranch(final ReceiptData lineFinder, final StoreBranch storeBranch) {
-        for (int i = 0; i < lineFinder.getLines().size(); i++) {
-            final String lineStr = lineFinder.getLines().get(i).trim();
-            if (ParserUtils.ignoreLine(lineStr))
+    public void matchToBranch(final ReceiptData receipt, final StoreBranch storeBranch) {
+        receipt.lines()
+               .filter( line -> line.getCleanText().length() > 2 )
+               .map( line -> storeBranch.maxFieldMatchScore(line) )
+               .filter( lineScore -> lineScore.getScore() > 0.5)
+               .forEach( lineScore -> putFieldLine(lineScore.getField(), lineScore.getReceiptLine().getNumber(), lineScore.getValue()));
+               ;
+    }
+
+    public void matchToHeader(final ReceiptData receipt, final StoreConfig config, final StoreParser parser) {
+        for (ReceiptField field : ReceiptField.values()) {
+            if (fieldNameIsMatched(field)) {
                 continue;
-            DoubleFieldPair pair = storeBranch.maxFieldMatchScore(lineStr);
-            if (pair.getScore() > 0.5) {
-                putFieldLine(pair.getFieldName(), i, pair.getValue());
             }
-        }
-    }
-
-    public void matchToHeader(final ReceiptData lineFinder, final StoreConfig config, final StoreParser parser) {
-        for (int i = 0; i < lineFinder.getLines().size(); i++) {
-            if (!isFieldLine(i)) {
-                for (ReceiptField fieldName : ReceiptField.values()) {
-                    if (!fieldNameIsMatched(fieldName)) {
-                        double maxScore =  findBiggestMatch(lineFinder.getLine(i), config.getFieldHeaderMatchStrings(fieldName));
-                        if (maxScore > config.similarityThresholdOfTwoStrings()) {
-                            putFieldLine(fieldName, i, parser.parseField(fieldName, lineFinder, i));
-                        }
-                    }
-                }
+            final List<String> headerPatterns = config.getFieldHeaderMatchStrings(field);
+            if (headerPatterns == null || headerPatterns.isEmpty()) {
+                continue;
             }
-        }
-    }
 
-    private double findBiggestMatch(final String lineStr, final List<String> headers) {
-        if (headers == null)
-            return -1.0;
-        if (headers.isEmpty() || lineStr.isEmpty())
-            return -1.0;
+            receipt.lines()
+                   .filter( line -> line.getCleanText().length() > 1 )
+                   .filter( line -> !isFieldLine(line.getNumber()) )
+                   .filter( line -> {
+                       Optional<Double> maxScore =
+                               headerPatterns.stream()
+                                             .map( header -> StringCommon.matchHeadScore(line.getCleanText(), header) )
+                                             .max( Comparator.comparing(score -> score) );
+                       return maxScore.isPresent() && maxScore.get() > config.similarityThresholdOfTwoStrings();
+                   })
+                   .forEach( line -> putFieldLine(field, line.getNumber(), parser.parseField(field, receipt, line.getNumber())))
+                   ;
 
-        double scoreMax = -1;
-        for (int i = 0; i < headers.size(); i++) {
-            double score = StringCommon.matchHeadScore(lineStr, headers.get(i));
-            if (score > scoreMax) {
-                scoreMax = score;
-            }
         }
-        return scoreMax;
     }
 
 }

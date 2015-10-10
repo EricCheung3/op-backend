@@ -8,17 +8,16 @@ import org.springframework.util.StringUtils;
 import com.openprice.parser.common.ParserUtils;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Address;
-import com.openprice.parser.data.DoubleFieldPair;
 import com.openprice.parser.data.ReceiptField;
+import com.openprice.parser.data.ReceiptLineWithScore;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 
 /**
- * this combines StoreNoAddress and Store2
+ * Contains store branch ground truth info.
+ *
  */
-@Slf4j
 @Data
 @Builder
 public class StoreBranch {
@@ -46,9 +45,7 @@ public class StoreBranch {
         this.ID = ParserUtils.cleanField(ID);
         this.gstNumber = ParserUtils.cleanField(gstNumber);
         this.slogan = slogan;
-    }
 
-    private void init() {
         // save store branch ground truth data into a map
         addGroundTruthValue(ReceiptField.AddressLine1, address.getLine1());
         addGroundTruthValue(ReceiptField.AddressLine2, address.getLine2());
@@ -104,7 +101,6 @@ public class StoreBranch {
                 .branchName(w[4].trim())
                 .slogan(slogan)
                 .build();
-        storeBranch.init();
         return storeBranch;
     }
 
@@ -116,7 +112,7 @@ public class StoreBranch {
      */
     public double matchScore(final ReceiptData receipt) {
         double sum = receipt.lines()
-                            .map(line -> matchBranchFieldScoreSum(line))
+                            .map(line -> matchBranchFieldScoreSum(line.getCleanText()))
                             .reduce(0.0, (acc, element) -> acc + element);
         return sum;
     }
@@ -150,10 +146,10 @@ public class StoreBranch {
      * @param  lineStr given string
      * @return         [description]
      */
-    public DoubleFieldPair maxFieldMatchScore(final String lineStr) {
+    public ReceiptLineWithScore maxFieldMatchScore(final ReceiptLine line) {
         double scoreMax=-1;
         ReceiptField matchedField=null;
-        final String lowerStr=lineStr.toLowerCase();
+        final String lowerStr=line.getCleanText().toLowerCase();
         for(ReceiptField fName : fieldToValue.keySet()) {
             double score= StringCommon.bestSliceMatching(lowerStr, fieldToValue.get(fName));
             if(score>scoreMax){
@@ -161,7 +157,7 @@ public class StoreBranch {
                 matchedField=fName;
             }
         }
-        return new DoubleFieldPair(scoreMax, matchedField, fieldToValue.get(matchedField));
+        return new ReceiptLineWithScore(scoreMax, matchedField, line, fieldToValue.get(matchedField));
     }
 
 }

@@ -1,9 +1,8 @@
 package com.openprice.parser;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
-
-import com.google.common.collect.ImmutableList;
 
 import lombok.Getter;
 
@@ -16,10 +15,15 @@ public class ReceiptData {
     public static final int MIN_NUMBER_LINES = 5;
 
     @Getter
-    private final List<String> lines;
+    private final List<ReceiptLine> receiptLines;
 
     private ReceiptData(final List<String> lines) {
-        this.lines = ImmutableList.copyOf(lines);
+        receiptLines = new ArrayList<>();
+        int lineNumber = 0;
+        for (final String line : lines) {
+            receiptLines.add(new ReceiptLine(line, line.trim(), lineNumber));
+            lineNumber++;
+        }
     }
 
     public static ReceiptData fromContentLines(final List<String> lines) throws Exception {
@@ -35,11 +39,11 @@ public class ReceiptData {
         return fromContentLines(java.util.Arrays.asList(lines));
     }
 
-    public String getLine(final int lineNumber) {
-        return lines.get(lineNumber);
+    public ReceiptLine getLine(final int lineNumber) {
+        return receiptLines.get(lineNumber);
     }
 
-    public Stream<String> lines() {
-        return lines.stream();
+    public Stream<ReceiptLine> lines() {
+        return receiptLines.stream();
     }
 }

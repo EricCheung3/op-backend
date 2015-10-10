@@ -14,7 +14,7 @@ public class RCSS1 extends AbstractStoreParser {
     @Override
     public String parseField(ReceiptField field, ReceiptData receipt, int line) {
         // TODO Auto-generated method stub
-        return receipt.getLine(line);
+        return receipt.getLine(line).getCleanText();
     }
 
 }

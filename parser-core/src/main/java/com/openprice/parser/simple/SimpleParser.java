@@ -37,6 +37,10 @@ public class SimpleParser {
 
         // find chain first
         final StoreChain chain = chainRegistry.findChain(receipt);
+        if (chain == null) {
+            log.warn("Cannot find matching store chain!");
+            return null;
+        }
 
         // get store branch
         final StoreBranch branch = chain.matchBranchByScoreSum(receipt);
@@ -59,10 +63,10 @@ public class SimpleParser {
     private List<Item> parseItem(final MatchedRecord matchedRecord, final ReceiptData receipt, final StoreConfig config) throws Exception {
         final List<Item> items = new ArrayList<Item>();
         final int stopLine = matchedRecord.itemStopLine();
-        if (stopLine >= 0 && stopLine < receipt.getLines().size())
+        if (stopLine >= 0 && stopLine < receipt.getReceiptLines().size())
             log.debug("\n@@@@@  last field line is " + stopLine + ", content is " + receipt.getLine(stopLine) );
 
-        for (int i = 0; i < receipt.getLines().size(); i++) {
+        for (int i = 0; i < receipt.getReceiptLines().size(); i++) {
             if (matchedRecord.isFieldLine(i))
                 continue;
 
@@ -70,7 +74,7 @@ public class SimpleParser {
             if (stopLine >= 0 && i >= stopLine)
                 break;
 
-            String name = receipt.getLine(i).trim();
+            String name = receipt.getLine(i).getCleanText();
             String lower = name.toLowerCase();
 
             if (ListCommon.matchList(config.getSkipBefore(), name, config.similarityThresholdOfTwoStrings())) {
