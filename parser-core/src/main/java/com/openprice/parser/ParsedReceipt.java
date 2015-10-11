@@ -1,15 +1,19 @@
 package com.openprice.parser;
 
 import java.util.List;
+import java.util.Map;
 
 import com.openprice.parser.data.Item;
+import com.openprice.parser.data.ReceiptField;
+import com.openprice.parser.data.ValueLine;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Value;
 
-@Data
+@Value
 @Builder
 public class ParsedReceipt {
-    private final StoreBranch branch;
-    private final List<Item> items;
+    StoreBranch branch;
+    List<Item> items;
+    Map<ReceiptField, ValueLine> fieldToValueMap;
 }

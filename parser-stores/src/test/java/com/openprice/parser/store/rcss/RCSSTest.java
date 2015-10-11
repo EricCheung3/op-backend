@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.common.TextResourceUtils;
 import com.openprice.parser.data.Item;
+import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.simple.SimpleParser;
 import com.openprice.parser.store.StoreParserTestApplication;
 
@@ -38,8 +39,14 @@ public class RCSSTest {
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        System.out.println("Items parsed:");
         for (Item item : receipt.getItems()) {
             System.out.println(item.getName());
         }
+        System.out.println("\n*******\nFields parsed:");
+        for (ReceiptField field : receipt.getFieldToValueMap().keySet()) {
+            System.out.println(field.name() + " : " + receipt.getFieldToValueMap().get(field).getValue());
+        }
+
     }
 }

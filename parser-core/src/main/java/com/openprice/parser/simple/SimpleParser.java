@@ -57,7 +57,7 @@ public class SimpleParser {
         // parse items
         List<Item> items = parseItem(matchedRecord, receipt, parser.getStoreConfig());
 
-        return ParsedReceipt.builder().branch(branch).items(items).build();
+        return ParsedReceipt.builder().branch(branch).items(items).fieldToValueMap(matchedRecord.getFieldToValueLine()).build();
     }
 
     private List<Item> parseItem(final MatchedRecord matchedRecord, final ReceiptData receipt, final StoreConfig config) throws Exception {

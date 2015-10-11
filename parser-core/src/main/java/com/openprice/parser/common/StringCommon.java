@@ -242,7 +242,7 @@ public class StringCommon {
     }
 
     /*
-     * new; find the last non-digit char until position "until"
+     * new; find the last letter char from position "until" backward
      */
     public static int lastLetter2(final String str, final int until) {
         int last = -1;
@@ -444,7 +444,7 @@ public class StringCommon {
      * given string str, remove the first Non-space characters from string
      * strNoSpace for str="A BC D E", strNoSpace="ABC", should retain "D E".
      */
-    public static String removeFirstNonSpaceChars(final String str, final String strNoSpace) throws Exception {
+    public static String removeFirstNonSpaceChars(final String str, final String strNoSpace) {
         String s1 = str.replaceAll("\\s+", "");
         String s2 = strNoSpace.replaceAll("\\s+", "");
         /*
@@ -501,7 +501,7 @@ public class StringCommon {
     }
 
     // format price into close-to numeric format
-    public static String formatPrice(String priceStr) throws Exception {
+    public static String formatPrice(String priceStr) {
         // logger.debug("priceStr="+priceStr);
         priceStr = priceStr.trim();
         if (priceStr.isEmpty())

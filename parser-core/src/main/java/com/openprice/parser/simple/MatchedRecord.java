@@ -16,6 +16,8 @@ import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
 
+import lombok.Getter;
+
 /**
  * quick look up fieldName and line matching relationships. it's actually like
  * pair, (1, field1), (1, field2). So may be you can construct MatchRecord using
@@ -30,6 +32,7 @@ public class MatchedRecord {
     private final Map<ReceiptField, Set<Integer>> fieldToLine = new HashMap<ReceiptField, Set<Integer>>();
 
     //save the many field members in a map
+    @Getter
     private final Map<ReceiptField, ValueLine> fieldToValueLine = new HashMap<ReceiptField, ValueLine>();
 
 
@@ -128,6 +131,12 @@ public class MatchedRecord {
                .filter( lineScore -> lineScore.getScore() > 0.5)
                .forEach( lineScore -> putFieldLine(lineScore.getField(), lineScore.getReceiptLine().getNumber(), lineScore.getValue()));
                ;
+//
+//        System.out.println("After matchToBranch, parsed fields are :");
+//        for (ReceiptField field : fieldToValueLine.keySet()) {
+//            System.out.println(field.name() + " at line "+fieldToValueLine.get(field).getLine() + " : " + fieldToValueLine.get(field).getValue() );
+//        }
+
     }
 
     public void matchToHeader(final ReceiptData receipt, final StoreConfig config, final StoreParser parser) {
