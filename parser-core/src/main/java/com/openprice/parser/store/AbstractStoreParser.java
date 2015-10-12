@@ -43,8 +43,55 @@ public abstract class AbstractStoreParser implements StoreParser {
         return tail;
     }
 
-    public String getTailOnlyDigitsDots(final String lineString, final String header)throws Exception{
+    protected String getTailOnlyDigitsDots(final String lineString, final String header)throws Exception{
         return StringCommon.getOnlyDigitsDots(getValueAtTail(lineString, header));
     }
+
+    protected String parseItemPrice(final String lineString, final String priceTail) {
+
+        int lastDot = lineString.lastIndexOf(".");
+        if (lastDot < 0) {
+            lastDot = lineString.lastIndexOf("'");
+            if (lastDot < 0) {
+                lastDot = lineString.lastIndexOf("-");
+                if (lastDot < 0) {
+                    lastDot = lineString.lastIndexOf("~");
+                    if (lastDot < 0) {
+                        lastDot = lineString.length();
+                        // throw new ItemPriceLineException("No '.' found on
+                        // line "+line);
+                    }
+                }
+            }
+        }
+        final int lastLet = StringCommon.lastLetter2(lineString, lastDot - 1);
+        // System.out.println("lastLet="+lastLet+", lastDot="+lastDot);
+        assert lastDot - 1 >= lastLet;
+        if (lastLet < 0) {
+            return StringCommon
+                    .formatPrice(StringCommon.removeTrailingChars(lineString.substring(lastLet + 1), priceTail));
+        }
+
+        //String name = lineString.substring(0, lastLet + 1);
+        String price = "";
+        try {
+            price = StringCommon.formatPrice(StringCommon.removeTrailingChars(lineString.substring(lastLet + 1), priceTail));
+        } catch (Exception e) {
+            System.out.println(
+                    "lastLet=" + lastLet + ", lastDot=" + lastDot + ", line=" + lineString + ", priceTail=" + priceTail);
+        }
+        return price;
+    }
+
+    protected String parseTotal(final String lineString) {
+        int last = StringCommon.lastLetter(lineString);
+        if (last == -1) {
+            log.warn("line '{}' did not find a letter?", lineString);
+            return "";
+
+        }
+        return StringCommon.formatPrice(lineString.substring(last + 1));
+    }
+
 
 }

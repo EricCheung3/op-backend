@@ -1,16 +1,13 @@
-package com.openprice.parser.store.rcss;
+package com.openprice.parser.store.safeway;
 
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.store.AbstractStoreParser;
 
-import lombok.extern.slf4j.Slf4j;
+public class Safeway1 extends AbstractStoreParser {
 
-@Slf4j
-public class RCSS1 extends AbstractStoreParser {
-
-    public RCSS1(final StoreConfig config) {
+    public Safeway1(final StoreConfig config) {
         super(config);
     }
 
@@ -34,6 +31,5 @@ public class RCSS1 extends AbstractStoreParser {
             return receipt.getLine(lineNumber).getCleanText();
         }
     }
-
 
 }
