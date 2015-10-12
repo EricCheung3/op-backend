@@ -9,7 +9,6 @@ import com.openprice.parser.ReceiptData;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.store.AbstractStoreParserSelector;
-import com.openprice.parser.store.rcss.rcss1.RCSS1;
 
 @Service
 public class RCSSSelector extends AbstractStoreParserSelector {

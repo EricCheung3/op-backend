@@ -1,4 +1,4 @@
-package com.openprice.parser.store.rcss.rcss1;
+package com.openprice.parser.store.rcss;
 
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.StoreConfig;
