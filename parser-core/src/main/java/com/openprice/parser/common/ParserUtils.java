@@ -15,6 +15,7 @@ public class ParserUtils {
         return false;
     }
 
+    // TODO remove after price parser
     public static boolean isItem(final String name) {
         final String noSpace = name.replaceAll("\\s+", "");
         if (noSpace.length() <= 1)

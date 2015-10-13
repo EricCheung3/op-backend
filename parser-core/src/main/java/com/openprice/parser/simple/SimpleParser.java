@@ -12,13 +12,12 @@ import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.StoreBranch;
 import com.openprice.parser.StoreChain;
-import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.StoreParserSelector;
 import com.openprice.parser.common.ListCommon;
-import com.openprice.parser.common.ParserUtils;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Item;
+import com.openprice.parser.data.ReceiptField;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,12 +35,13 @@ public class SimpleParser {
         final ReceiptData receipt = ReceiptData.fromContentLines(lines);
 
         // find chain first
-        final StoreChain chain = chainRegistry.findChain(receipt);
-        if (chain == null) {
+        final ChainRegistry.MatchedChain matchedChain = chainRegistry.findChain(receipt);
+        if (matchedChain == null) {
             log.warn("Cannot find matching store chain!");
             return null;
         }
 
+        final StoreChain chain = matchedChain.getChain();
         // get store branch
         final StoreBranch branch = chain.matchBranchByScoreSum(receipt);
 
@@ -51,20 +51,23 @@ public class SimpleParser {
 
         // match fields
         final MatchedRecord matchedRecord = new MatchedRecord();
+        matchedRecord.putFieldLine(ReceiptField.Chain, matchedChain.getMatchedOnLine(), chain.getCode());
         matchedRecord.matchToBranch(receipt, branch);
         matchedRecord.matchToHeader(receipt, parser.getStoreConfig(), parser);
 
         // parse items
-        List<Item> items = parseItem(matchedRecord, receipt, parser.getStoreConfig());
+        List<Item> items = parseItem(matchedRecord, receipt, parser);
 
         return ParsedReceipt.builder().branch(branch).items(items).fieldToValueMap(matchedRecord.getFieldToValueLine()).build();
     }
 
-    private List<Item> parseItem(final MatchedRecord matchedRecord, final ReceiptData receipt, final StoreConfig config) throws Exception {
+    private List<Item> parseItem(final MatchedRecord matchedRecord, final ReceiptData receipt, final StoreParser parser) throws Exception {
         final List<Item> items = new ArrayList<Item>();
         final int stopLine = matchedRecord.itemStopLine();
         if (stopLine >= 0 && stopLine < receipt.getReceiptLines().size())
             log.debug("\n@@@@@  last field line is " + stopLine + ", content is " + receipt.getLine(stopLine) );
+
+        System.out.println(matchedRecord);
 
         for (int i = 0; i < receipt.getReceiptLines().size(); i++) {
             if (matchedRecord.isFieldLine(i))
@@ -77,7 +80,7 @@ public class SimpleParser {
             String name = receipt.getLine(i).getCleanText();
             String lower = name.toLowerCase();
 
-            if (ListCommon.matchList(config.getSkipBefore(), name, config.similarityThresholdOfTwoStrings())) {
+            if (ListCommon.matchList(parser.getStoreConfig().getSkipBefore(), name, parser.getStoreConfig().similarityThresholdOfTwoStrings())) {
                 log.debug("skipping " + name + ", becasue it is in skipBefore");
                 continue;
             }
@@ -85,7 +88,7 @@ public class SimpleParser {
 //            if (ParserUtils.containsSubString(config.getSkipSubstring(), name))
 //                continue;
 
-            if (ListCommon.matchList(config.getSkipAfter(), name, config.similarityThresholdOfTwoStrings())) {
+            if (ListCommon.matchList(parser.getStoreConfig().getSkipAfter(), name, parser.getStoreConfig().similarityThresholdOfTwoStrings())) {
                 log.debug("skipping " + name + " becasue it is in skipAfter");
                 log.debug("!!!!!!!itemsFinished=true!!! matched skip After");
                 break;
@@ -100,8 +103,10 @@ public class SimpleParser {
                 break;
             }
 
-            if (ParserUtils.isItem(name))
-                items.add(new Item(name, i));
+            Item item = parser.parseItemLine(receipt.getLine(i).getCleanText());
+            if (item != null) {
+                items.add(item);
+            }
         }
         return items;
     }

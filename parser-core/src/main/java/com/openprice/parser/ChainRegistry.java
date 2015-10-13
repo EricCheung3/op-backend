@@ -1,12 +1,15 @@
 package com.openprice.parser;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.openprice.parser.common.Levenshtein;
 import com.openprice.parser.common.StringCommon;
+import com.openprice.parser.data.ScoreWithMatchPair;
 
 import lombok.Builder;
 import lombok.Data;
@@ -30,9 +33,9 @@ public class ChainRegistry {
 
     // use a large values to search all lines from the end
     private static final int MaxSearchedLinesEnd = 6;
-    private static final int MaxSearchedLinesBegin = 6;
+    private static final int MaxSearchedLinesBegin = 10;
 
-    public StoreChain findChain(final ReceiptData receipt) {
+    public MatchedChain findChain(final ReceiptData receipt) {
         final List<ReceiptLine> lines = receipt.getReceiptLines();
         if (lines == null || lines.isEmpty())
             return null;
@@ -55,7 +58,7 @@ public class ChainRegistry {
         } else {
             log.debug("Searching from head: chain=" + chainBegin.getChain().getCode() + ", score=" + chainBegin.getMatchedScore());
             if (chainBegin.getMatchedScore() > 0.75) {
-                return chainBegin.getChain();
+                return chainBegin;
             }
         }
 
@@ -75,16 +78,54 @@ public class ChainRegistry {
             log.debug("Searching from End: chain=" + chainEnd.getChain().getCode() + ", score=" + chainEnd.getMatchedScore());
         }
 
+        if (chainBegin == null && chainEnd == null) {
+            return null;
+        }
         if (chainBegin != null && chainEnd == null) {
-            return chainBegin.getChain();
+            return chainBegin;
         }
         if (chainBegin == null && chainEnd != null) {
-            return chainEnd.getChain();
+            return chainEnd;
         }
         if (chainEnd.getMatchedScore() > chainBegin.getMatchedScore())
-            return chainEnd.getChain();
+            return chainEnd;
         else
-            return chainBegin.getChain();
+            return chainBegin;
+    }
+
+//    MatchedChain chainNameSearch(final List<ReceiptLine> lines) {
+//        Optional<ScoreWithMatchPair<StoreChain>> chainMatch =
+//            lines.stream()
+//                 .filter( line -> StringCommon.countDigitAndChars(line.getCleanText())[1] >= 2 )
+//                 .map( line -> {
+//                     Optional<ScoreWithMatchPair<StoreChain>> score =
+//                         storeChains.stream()
+//                                    .map( chain -> {
+//                                        Optional<ScoreWithMatchPair<String>> identifyMatch = chain.matchChainScore(line);
+//                                        return identifyMatch.isPresent()?
+//                                                new ScoreWithMatchPair<StoreChain>(identifyMatch.get().getScore(), identifyMatch.get().getLineNumber(), chain)
+//                                                : new ScoreWithMatchPair<StoreChain>(-1.0, -1, chain);
+//                                    })
+//                                    .max(Comparator.comparing(score -> score.getScore()))
+//                                    ;
+//
+//                 })
+//                 .max( Comparator.comparing(score -> score.getScore()))
+//                 ;
+//         return chainMatch.isPresent()? new MatchedChain(chainMatch.get().getMatch(), chainMatch.get().getScore(), chainMatch.get().getLineNumber())
+//                 : null;
+//
+//    }
+
+    Optional<MatchedChain> matchReceiptLineWithRegisteredChain(final ReceiptLine line) {
+        Optional<ScoreWithMatchPair<StoreChain>> chainMatch =
+                storeChains.stream()
+                           .map( chain -> chain.matchChainScore(line))
+                           .max(Comparator.comparing(score -> score.getScore()))
+                           ;
+      return chainMatch.isPresent()?
+              Optional.of(new MatchedChain(chainMatch.get().getMatch(), chainMatch.get().getScore(), chainMatch.get().getLineNumber()))
+              : Optional.empty();
     }
 
     /*
@@ -154,7 +195,6 @@ public class ChainRegistry {
 
         // matched StoreChain
         private final StoreChain chain;
-        private final String matchedField;
         private final double matchedScore;
         private final int matchedOnLine;
     }

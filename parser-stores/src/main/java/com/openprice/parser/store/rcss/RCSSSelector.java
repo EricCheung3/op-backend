@@ -8,6 +8,7 @@ import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
+import com.openprice.parser.price.PriceParser;
 import com.openprice.parser.store.AbstractStoreParserSelector;
 
 @Service
@@ -30,9 +31,18 @@ public class RCSSSelector extends AbstractStoreParserSelector {
        return "RCSS";
     }
 
+
+
+    @Override
+    protected PriceParser getStorePriceParser() {
+        return new RCSSPriceParser();
+    }
+
     @Override
     protected void generateParser() {
         StoreConfig config = loadParserConfig("RCSS1");
-        rcss1 = new RCSS1(config);
+        rcss1 = new RCSS1(config, loadPriceParserWithCatalog());
     }
+
+
 }

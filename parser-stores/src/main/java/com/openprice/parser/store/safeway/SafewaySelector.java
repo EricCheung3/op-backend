@@ -8,6 +8,7 @@ import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
+import com.openprice.parser.price.PriceParser;
 import com.openprice.parser.store.AbstractStoreParserSelector;
 
 @Service
@@ -31,9 +32,15 @@ public class SafewaySelector extends AbstractStoreParserSelector {
     }
 
     @Override
+    protected PriceParser getStorePriceParser() {
+        // TODO Add Safeway price parser
+        return null;
+    }
+
+    @Override
     protected void generateParser() {
         StoreConfig config = loadParserConfig("Safeway1");
-        safeway1 = new Safeway1(config);
+        safeway1 = new Safeway1(config, loadPriceParserWithCatalog());
     }
 
 }

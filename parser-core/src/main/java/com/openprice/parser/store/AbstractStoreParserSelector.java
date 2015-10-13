@@ -9,6 +9,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.util.StringUtils;
 
 import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.StoreBranch;
@@ -16,6 +17,9 @@ import com.openprice.parser.StoreChain;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParserSelector;
 import com.openprice.parser.common.TextResourceUtils;
+import com.openprice.parser.data.Product;
+import com.openprice.parser.price.PriceParser;
+import com.openprice.parser.price.PriceParserWithCatalog;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,6 +30,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     static final String BRANCH_FILE_NAME = "branch.csv";
     static final String CATEGORY_FILE_NAME = "category.txt";
     static final String IDENTIFY_FIELD_FILE_NAME = "identify.txt";
+    static final String CATALOG_FILE_NAME = "catalog.txt";
 
     static final String SKIP_BEFORE_FILE_NAME = "skipBeforeItemsFinish.txt";
     static final String SKIP_AFTER_FILE_NAME = "skipAfterItemsFinish.txt";
@@ -109,6 +114,20 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
             .branches(branches)
             .selector(this)
             .build();
-
     }
+
+    protected PriceParserWithCatalog loadPriceParserWithCatalog() {
+        PriceParser priceParser = getStorePriceParser();
+        if (priceParser == null) {
+            log.error("No PriceParser for {} yet!", getParserBaseCode());
+            return null; // No price parser yet!
+        }
+        // load catalog from file
+        final List<Product> catalog=new ArrayList<Product>();
+        TextResourceUtils.loadFromTextResource(getStoreConfigResource(CATALOG_FILE_NAME),
+                line -> {if (!StringUtils.isEmpty(line)) {catalog.add(Product.fromString(line));}});
+        return PriceParserWithCatalog.builder().catalog(catalog).priceParser(getStorePriceParser()).build();
+    }
+
+    protected abstract PriceParser getStorePriceParser();
 }

@@ -41,7 +41,7 @@ public class RCSSTest {
         ParsedReceipt receipt = simpleParser.parse(receiptLines);
         System.out.println("Items parsed:");
         for (Item item : receipt.getItems()) {
-            System.out.println(item.getName());
+            System.out.println(item.getName() + " price:"+ item.getBuyPrice());
         }
         System.out.println("\n*******\nFields parsed:");
         for (ReceiptField field : receipt.getFieldToValueMap().keySet()) {

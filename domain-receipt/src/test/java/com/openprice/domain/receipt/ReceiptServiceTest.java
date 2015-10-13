@@ -258,8 +258,8 @@ public class ReceiptServiceTest {
         final List<String> ocrTextList = Arrays.asList("ocr result1","ocr result2");
 
         final List<Item> items = new ArrayList<>();
-        items.add(new Item("milk", 1, "10.99", "1.99", "4.00", "food"));
-        items.add(new Item("eggs", 2, "4.99", "4.99", "12", "food"));
+        items.add(new Item("milk", "10.99", "1.99", "4.00", "food"));
+        items.add(new Item("eggs", "4.99", "4.99", "12", "food"));
         ParsedReceipt receiptDebug = ParsedReceipt.builder().branch(null).items(items).build();
 
         when(receiptImageRepositoryMock.findByReceiptOrderByCreatedTime(eq(receipt))).thenReturn(images);

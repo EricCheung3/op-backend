@@ -9,7 +9,6 @@ import lombok.Data;
 @Data
 public class Item {
     private String name;//item name
-    private int startLine;//start line number of this item
     private String buyPrice;//price spent on the item; can be a unit price or the price of several units (kg)
     private String unitPrice;//unit price of the item (usually in kilogram)
     private String weight;//weight of the item bought
@@ -17,14 +16,17 @@ public class Item {
     private String regPrice;//regular price
     private String saving;//savings
 
-    public Item(final String name, final int startLine) {
+    public Item(final String name) {
         this.name = name;
-        this.startLine = startLine;
     }
 
-    public Item(final String name, final int startLine, final String buyPrice, final String unitPrice, final String weight, final String category) {
+    public Item(final String name, final String buyPrice) {
         this.name = name;
-        this.startLine = startLine;
+        this.buyPrice = buyPrice;
+    }
+
+    public Item(final String name, final String buyPrice, final String unitPrice, final String weight, final String category) {
+        this.name = name;
         this.buyPrice = buyPrice;
         this.unitPrice = unitPrice;
         this.weight = weight;

@@ -16,7 +16,7 @@ import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
 
-import lombok.Getter;
+import lombok.Data;
 
 /**
  * quick look up fieldName and line matching relationships. it's actually like
@@ -24,6 +24,7 @@ import lombok.Getter;
  * a list of pairs. two fields can also be mapped to the same line; two lines
  * Can be mapped to the same field --- a field can appear in multiple lines.
  */
+@Data
 public class MatchedRecord {
     // mapping line number to FieldNameAddressLines that is matched by the line
     private final Map<Integer, Set<ReceiptField>> lineToField = new HashMap<Integer, Set<ReceiptField>>();
@@ -32,7 +33,6 @@ public class MatchedRecord {
     private final Map<ReceiptField, Set<Integer>> fieldToLine = new HashMap<ReceiptField, Set<Integer>>();
 
     //save the many field members in a map
-    @Getter
     private final Map<ReceiptField, ValueLine> fieldToValueLine = new HashMap<ReceiptField, ValueLine>();
 
 

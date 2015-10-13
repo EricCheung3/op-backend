@@ -3,6 +3,7 @@ package com.openprice.parser.store.rcss;
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.data.ReceiptField;
+import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.parser.store.AbstractStoreParser;
 
 import lombok.extern.slf4j.Slf4j;
@@ -10,8 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RCSS1 extends AbstractStoreParser {
 
-    public RCSS1(final StoreConfig config) {
-        super(config);
+    public RCSS1(final StoreConfig config,
+                 final PriceParserWithCatalog priceParserWithCatalog) {
+        super(config, priceParserWithCatalog);
     }
 
     @Override

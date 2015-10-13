@@ -6,15 +6,21 @@ import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.common.Levenshtein;
 import com.openprice.parser.common.StringCommon;
+import com.openprice.parser.data.Item;
+import com.openprice.parser.data.ProductPrice;
+import com.openprice.parser.price.PriceParserWithCatalog;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public abstract class AbstractStoreParser implements StoreParser {
     protected final StoreConfig config;
+    protected final PriceParserWithCatalog priceParserWithCatalog;
 
-    public AbstractStoreParser(final StoreConfig config) {
+    public AbstractStoreParser(final StoreConfig config,
+                               final PriceParserWithCatalog priceParserWithCatalog) {
         this.config = config;
+        this.priceParserWithCatalog = priceParserWithCatalog;
     }
 
     @Override
@@ -91,6 +97,15 @@ public abstract class AbstractStoreParser implements StoreParser {
 
         }
         return StringCommon.formatPrice(lineString.substring(last + 1));
+    }
+
+    @Override
+    public Item parseItemLine(String lineString) {
+        ProductPrice price = priceParserWithCatalog.parsePriceLine(lineString);
+        if (price.isEmpty()) {
+            return null; // new Item(lineString);
+        }
+        return new Item(price.getProduct().getName(), price.getPrice());
     }
 
 

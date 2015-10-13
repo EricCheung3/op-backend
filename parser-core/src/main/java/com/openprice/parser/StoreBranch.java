@@ -50,7 +50,7 @@ public class StoreBranch {
         addGroundTruthValue(ReceiptField.AddressLine1, address.getLine1());
         addGroundTruthValue(ReceiptField.AddressLine2, address.getLine2());
         addGroundTruthValue(ReceiptField.AddressCity, address.getCity());
-        addGroundTruthValue(ReceiptField.AddressProv, address.getProv());
+        //addGroundTruthValue(ReceiptField.AddressProv, address.getProv());
         addGroundTruthValue(ReceiptField.AddressPost, address.getPost());
         addGroundTruthValue(ReceiptField.StoreBranch, branchName);
         addGroundTruthValue(ReceiptField.GstNumber, gstNumber);
