@@ -129,5 +129,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         return PriceParserWithCatalog.builder().catalog(catalog).priceParser(getStorePriceParser()).build();
     }
 
-    protected abstract PriceParser getStorePriceParser();
+    protected PriceParser getStorePriceParser() {
+        return new DefaultPriceParser();
+    }
 }

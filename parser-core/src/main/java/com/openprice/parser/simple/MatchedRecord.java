@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.StoreBranch;
@@ -84,21 +85,13 @@ public class MatchedRecord {
         return max;
     }
 
-    public int itemStopLine() {
-        int stopLine = Math.max(getFieldValueLineNumber(ReceiptField.GstAmount),
-                Math.max(getFieldValueLineNumber(ReceiptField.Total), getFieldValueLineNumber(ReceiptField.SubTotal)));
-        if(stopLine<0) stopLine=Integer.MAX_VALUE;
-        return stopLine;
-
-    }
-
-    int getFieldValueLineNumber(ReceiptField fieldName) {
-        ValueLine valueLine = fieldToValueLine.get(fieldName);
-        if (valueLine == null) {
-            return -1;
-        } else {
-            return valueLine.getLine();
-        }
+    public int itemStopLineNumber() {
+        Optional<ValueLine> stopLine =
+            Stream.of(ReceiptField.GstAmount, ReceiptField.Total, ReceiptField.SubTotal)
+                  .map( field -> fieldToValueLine.get(field))
+                  .filter( value -> value != null)
+                  .min( Comparator.comparing(ValueLine::getLine) );
+        return stopLine.isPresent()? stopLine.get().getLine() : Integer.MAX_VALUE;
     }
 
 

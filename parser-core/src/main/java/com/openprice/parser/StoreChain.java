@@ -40,7 +40,7 @@ public class StoreChain {
                                                               receiptLine.getNumber(),
                                                               identify);
                           })
-                          .max(Comparator.comparing(score -> score.getScore()))
+                          .max(Comparator.comparing(ScoreWithMatchPair<String>::getScore))
                           ;
         return identifyMatch.isPresent()?
                 new ScoreWithMatchPair<StoreChain>(identifyMatch.get().getScore(), identifyMatch.get().getLineNumber(), this)

@@ -1,7 +1,7 @@
 package com.openprice.parser.simple;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -15,7 +15,6 @@ import com.openprice.parser.StoreChain;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.StoreParserSelector;
 import com.openprice.parser.common.ListCommon;
-import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ReceiptField;
 
@@ -62,53 +61,19 @@ public class SimpleParser {
     }
 
     private List<Item> parseItem(final MatchedRecord matchedRecord, final ReceiptData receipt, final StoreParser parser) throws Exception {
-        final List<Item> items = new ArrayList<Item>();
-        final int stopLine = matchedRecord.itemStopLine();
-        if (stopLine >= 0 && stopLine < receipt.getReceiptLines().size())
-            log.debug("\n@@@@@  last field line is " + stopLine + ", content is " + receipt.getLine(stopLine) );
-
-        System.out.println(matchedRecord);
-
-        for (int i = 0; i < receipt.getReceiptLines().size(); i++) {
-            if (matchedRecord.isFieldLine(i))
-                continue;
-
-            // stop if this is the last field line
-            if (stopLine >= 0 && i >= stopLine)
-                break;
-
-            String name = receipt.getLine(i).getCleanText();
-            String lower = name.toLowerCase();
-
-            if (ListCommon.matchList(parser.getStoreConfig().getSkipBefore(), name, parser.getStoreConfig().similarityThresholdOfTwoStrings())) {
-                log.debug("skipping " + name + ", becasue it is in skipBefore");
-                continue;
-            }
-//
-//            if (ParserUtils.containsSubString(config.getSkipSubstring(), name))
-//                continue;
-
-            if (ListCommon.matchList(parser.getStoreConfig().getSkipAfter(), name, parser.getStoreConfig().similarityThresholdOfTwoStrings())) {
-                log.debug("skipping " + name + " becasue it is in skipAfter");
-                log.debug("!!!!!!!itemsFinished=true!!! matched skip After");
-                break;
-            }
-
-            // stop items when reaching the total line
-            if (StringCommon.stringMatchesHead(lower, "total", 0.6)) {
-                break;
-            }
-
-            if (StringCommon.stringMatchesHead(lower, "subtotal", 0.6)) {
-                break;
-            }
-
-            Item item = parser.parseItemLine(receipt.getLine(i).getCleanText());
-            if (item != null) {
-                items.add(item);
-            }
-        }
-        return items;
+        final int stopLine = Math.min(matchedRecord.itemStopLineNumber(), receipt.getReceiptLines().size());
+        return
+            receipt.lines()
+                   .filter( line -> !matchedRecord.isFieldLine(line.getNumber()))
+                   .filter( line -> line.getNumber() < stopLine)
+                   .filter( line ->
+                       !ListCommon.matchList(parser.getStoreConfig().getSkipBefore(), line.getCleanText(), parser.getStoreConfig().similarityThresholdOfTwoStrings())
+                   )
+                   .map( line -> parser.parseItemLine(line.getCleanText()))
+                   .filter( item -> item != null)
+                   .collect(Collectors.toList())
+                   ;
+        // TODO stop if match skipAfter strings
     }
 
 }

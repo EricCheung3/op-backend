@@ -21,7 +21,7 @@ public class ListCommon{
     }
 
     public static boolean matchList(final List<String> skip,
-            final String str, final double similarityScore) throws Exception{
+            final String str, final double similarityScore) {
         for(int i=0;i<skip.size();i++){
             if(StringCommon.stringMatchesHead(str, skip.get(i),
                     similarityScore)) {

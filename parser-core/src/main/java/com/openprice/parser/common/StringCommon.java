@@ -368,7 +368,7 @@ public class StringCommon {
     }
 
     // the header of String str matches head
-    public static boolean stringMatchesHead(String str, String head, final double threshold) throws Exception {
+    public static boolean stringMatchesHead(String str, String head, final double threshold) {
         if (threshold == 0.0)
             return true;
         return matchHeadScore(str, head) >= threshold;
