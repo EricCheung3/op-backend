@@ -17,5 +17,5 @@ spring:
 application:
     file:
         virtual: false
-        imageRootFolder: /groundtruth/images/
+        imageRootFolder: /home/yuan_ji/groundtruth/images/
     
