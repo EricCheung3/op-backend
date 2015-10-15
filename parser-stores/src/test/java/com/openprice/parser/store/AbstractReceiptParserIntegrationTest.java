@@ -24,7 +24,7 @@ public class AbstractReceiptParserIntegrationTest {
 
     protected void printResult(ParsedReceipt receipt) {
         for (Item item : receipt.getItems()) {
-            System.out.println("verifyItemParsedValue(iterator.next(), \""+item.getName() + "\",\""+ item.getBuyPrice() + "\");");
+            System.out.println("verifyItemParsedValue(iterator.next(), \""+item.getName() + "\", \""+ item.getBuyPrice() + "\");");
         }
         System.out.println("\n=====================\nFields parsed:");
         for (ReceiptField field : receipt.getFieldToValueMap().keySet()) {

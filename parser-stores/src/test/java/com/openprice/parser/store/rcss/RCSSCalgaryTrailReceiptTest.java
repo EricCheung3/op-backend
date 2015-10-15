@@ -36,18 +36,17 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parse(receiptLines);
-
-        //printResult(receipt);
+        // printResult(receipt);
 
         // verify result of items
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "RSTR INSTNT NDLE","0.98");
-        verifyItemParsedValue(iterator.next(), "TABLE SALT","1.99");
-        verifyItemParsedValue(iterator.next(), "GARDEN WAFER","2.56");
-        verifyItemParsedValue(iterator.next(), "RICE STICK","1.08");
-        verifyItemParsedValue(iterator.next(), "DEPOSIT 1","0.25");
-        verifyItemParsedValue(iterator.next(), "CNTRY HVST BRD","2.98");
-        verifyItemParsedValue(iterator.next(), "PLASTIC BAGS","0.10");
+        verifyItemParsedValue(iterator.next(), "RSTR INSTNT NDLE", "0.98");
+        verifyItemParsedValue(iterator.next(), "TABLE SALT", "1.99");
+        verifyItemParsedValue(iterator.next(), "GARDEN WAFER", "2.56");
+        verifyItemParsedValue(iterator.next(), "RICE STICK", "1.08");
+        verifyItemParsedValue(iterator.next(), "DEPOSIT 1", "0.25");
+        verifyItemParsedValue(iterator.next(), "CNTRY HVST BRD", "2.98");
+        verifyItemParsedValue(iterator.next(), "PLASTIC BAGS", "0.10");
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
@@ -79,10 +78,10 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
 
         // verify result of items
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "OPO SQUASH","2.80");
-        verifyItemParsedValue(iterator.next(), "CHINESE CABBAGE","1.43");
-        verifyItemParsedValue(iterator.next(), "MUFFIN LEMN CRAN","4.87");
-        verifyItemParsedValue(iterator.next(), "PLASTIC BAGS","0.05");
+        verifyItemParsedValue(iterator.next(), "OPO SQUASH", "2.80");
+        verifyItemParsedValue(iterator.next(), "CHINESE CABBAGE", "1.43");
+        verifyItemParsedValue(iterator.next(), "MUFFIN LEMN CRAN", "4.87");
+        verifyItemParsedValue(iterator.next(), "PLASTIC BAGS", "0.05");
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
@@ -113,21 +112,21 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
 
         // verify result of items
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "ORANGE JUICE","3.98");
-        verifyItemParsedValue(iterator.next(), "DEPOSIT 1","0.25");
-        verifyItemParsedValue(iterator.next(), "DEPOSIT 1","0.25");
-        verifyItemParsedValue(iterator.next(), "CORN BICOLOR 4CT","7.94");
-        verifyItemParsedValue(iterator.next(), "PEP GRN SWT 4CT","2.98");
-        verifyItemParsedValue(iterator.next(), "POTATO M XD MINI","5.98");
-        verifyItemParsedValue(iterator.next(), "ROOSTER GARLIC","2.48");
-        verifyItemParsedValue(iterator.next(), "WMELON MINI SDLS","3.97");
-        verifyItemParsedValue(iterator.next(), "PEPPER GREEN SWT","2.02");
-        verifyItemParsedValue(iterator.next(), "MUSH CREM BULK","1.64");
-        verifyItemParsedValue(iterator.next(), "SPLIT CHKN WING","17.58");
-        verifyItemParsedValue(iterator.next(), "SPLIT CHKN WING","16.65");
-        verifyItemParsedValue(iterator.next(), "LAMB BONLESS LEG","24.50");
-        verifyItemParsedValue(iterator.next(), "SQ BASA FLTS","7.98");
-        verifyItemParsedValue(iterator.next(), "CROISSANT CP","5.00");
+        verifyItemParsedValue(iterator.next(), "ORANGE JUICE", "3.98");
+        verifyItemParsedValue(iterator.next(), "DEPOSIT 1", "0.25");
+        verifyItemParsedValue(iterator.next(), "DEPOSIT 1", "0.25");
+        verifyItemParsedValue(iterator.next(), "CORN BICOLOR 4CT", "7.94");
+        verifyItemParsedValue(iterator.next(), "PEP GRN SWT 4CT", "2.98");
+        verifyItemParsedValue(iterator.next(), "POTATO M XD MINI", "5.98");
+        verifyItemParsedValue(iterator.next(), "ROOSTER GARLIC", "2.48");
+        verifyItemParsedValue(iterator.next(), "WMELON MINI SDLS", "3.97");
+        verifyItemParsedValue(iterator.next(), "PEPPER GREEN SWT", "2.02");
+        verifyItemParsedValue(iterator.next(), "MUSH CREM BULK", "1.64");
+        verifyItemParsedValue(iterator.next(), "SPLIT CHKN WING", "17.58");
+        verifyItemParsedValue(iterator.next(), "SPLIT CHKN WING", "16.65");
+        verifyItemParsedValue(iterator.next(), "LAMB BONLESS LEG", "24.50");
+        verifyItemParsedValue(iterator.next(), "SQ BASA FLTS", "7.98");
+        verifyItemParsedValue(iterator.next(), "CROISSANT CP", "5.00");
 
 
         // verify parsed fields
