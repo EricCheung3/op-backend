@@ -11,7 +11,7 @@ public interface StoreParser {
      */
     StoreConfig getStoreConfig();
 
-    String parseField(ReceiptField field, ReceiptData receipt, int lineNumber);
+    String parseField(ReceiptField field, ReceiptLine receiptLine);
 
     Item parseItemLine(String lineString);
 }

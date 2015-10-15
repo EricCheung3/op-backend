@@ -23,6 +23,12 @@ import com.openprice.parser.price.PriceParserWithCatalog;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Super class for all StoreParserSelector implementation classes.
+ * During initialization (afterPropertiesSet()), it will load config for the store chain and register store chain to
+ * chain registry. It will also create store parsers under the chain.
+ *
+ */
 @Slf4j
 public abstract class AbstractStoreParserSelector implements StoreParserSelector, InitializingBean, ResourceLoaderAware {
     static final String CONFIG_PATH_PREFIX = "classpath:config/";
@@ -41,7 +47,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     private final ChainRegistry chainRegistry;
     private ResourceLoader resourceLoader;
 
-    protected Properties baseConfig = new Properties();
+    protected final Properties baseConfig = new Properties();
     protected StoreChain chain;
 
     public AbstractStoreParserSelector(final ChainRegistry chainRegistry) {
@@ -62,10 +68,26 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
             log.warn("Cannot load config.properties for RCSS store chain!");
         }
 
-        chain = loadStoreConfig();
-        chainRegistry.addChain(chain);
-
+        registerStoreChainFromStoreConfig();
         generateParser();
+    }
+
+    private void registerStoreChainFromStoreConfig() {
+        // load branch
+        List<StoreBranch> branches = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(getStoreConfigResource(BRANCH_FILE_NAME),
+                (line)-> branches.add(StoreBranch.fromString(line, baseConfig.getProperty("Slogan")))); // FIXME why slogan?
+
+        chain =
+            StoreChain
+            .builder()
+            .code(getParserBaseCode())
+            .categories(TextResourceUtils.loadStringArray(getStoreConfigResource(CATEGORY_FILE_NAME)))
+            .identifyFields(TextResourceUtils.loadStringArray(getStoreConfigResource(IDENTIFY_FIELD_FILE_NAME)))
+            .branches(branches)
+            .selector(this)
+            .build();
+        chainRegistry.addChain(chain);
     }
 
     /**
@@ -74,6 +96,9 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
      */
     protected abstract String getParserBaseCode();
 
+    /**
+     * Subclass will create specific store parsers for different type if receipt format.
+     */
     protected abstract void generateParser();
 
     protected Resource getParserConfigResource(final String parserName, final String filename) {
@@ -99,23 +124,6 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         return resourceLoader.getResource(CONFIG_PATH_PREFIX + getParserBaseCode() + "/" + filename);
     }
 
-    private StoreChain loadStoreConfig() {
-        // load branch
-        List<StoreBranch> branches = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(getStoreConfigResource(BRANCH_FILE_NAME),
-                (line)-> branches.add(StoreBranch.fromString(line, baseConfig.getProperty("Slogan")))); // FIXME why slogan?
-
-        return
-            StoreChain
-            .builder()
-            .code(getParserBaseCode())
-            .categories(TextResourceUtils.loadStringArray(getStoreConfigResource(CATEGORY_FILE_NAME)))
-            .identifyFields(TextResourceUtils.loadStringArray(getStoreConfigResource(IDENTIFY_FIELD_FILE_NAME)))
-            .branches(branches)
-            .selector(this)
-            .build();
-    }
-
     protected PriceParserWithCatalog loadPriceParserWithCatalog() {
         PriceParser priceParser = getStorePriceParser();
         if (priceParser == null) {
@@ -129,6 +137,11 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         return PriceParserWithCatalog.builder().catalog(catalog).priceParser(getStorePriceParser()).build();
     }
 
+    /**
+     * Subclass can override it to provide store specific price parser.
+     *
+     * @return default store price parser to parse price from item line.
+     */
     protected PriceParser getStorePriceParser() {
         return new DefaultPriceParser();
     }

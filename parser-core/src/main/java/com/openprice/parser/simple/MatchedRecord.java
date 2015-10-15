@@ -152,7 +152,7 @@ public class MatchedRecord {
                                              .max( Comparator.comparing(score -> score) );
                        return maxScore.isPresent() && maxScore.get() > config.similarityThresholdOfTwoStrings();
                    })
-                   .forEach( line -> putFieldLine(field, line.getNumber(), parser.parseField(field, receipt, line.getNumber())))
+                   .forEach( line -> putFieldLine(field, line.getNumber(), parser.parseField(field, line)))
                    ;
 
         }

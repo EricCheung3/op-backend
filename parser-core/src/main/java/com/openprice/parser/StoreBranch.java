@@ -28,7 +28,7 @@ public class StoreBranch {
     private final Address address;
     private final String branchName;// store branch name
     private final String phone;
-    private final String ID;// store number
+    private final String storeId;// store number
     private final String gstNumber;
     private final String slogan;
 
@@ -38,11 +38,11 @@ public class StoreBranch {
      * Private constructor, so can only get StoreBranch from builder or static builder method.
      */
     private StoreBranch(final Address address, final String branchName,
-            final String phone, final String ID, final String gstNumber, final String slogan) {
+            final String phone, final String storeId, final String gstNumber, final String slogan) {
         this.address = address;
         this.branchName = ParserUtils.cleanField(branchName);
         this.phone = ParserUtils.cleanField(phone);
-        this.ID = ParserUtils.cleanField(ID);
+        this.storeId = ParserUtils.cleanField(storeId);
         this.gstNumber = ParserUtils.cleanField(gstNumber);
         this.slogan = slogan;
 
@@ -52,7 +52,7 @@ public class StoreBranch {
         addGroundTruthValue(ReceiptField.AddressCity, address.getCity());
         //addGroundTruthValue(ReceiptField.AddressProv, address.getProv());
         addGroundTruthValue(ReceiptField.AddressPost, address.getPost());
-        addGroundTruthValue(ReceiptField.StoreBranch, branchName);
+        addGroundTruthValue(ReceiptField.StoreID, storeId);
         addGroundTruthValue(ReceiptField.GstNumber, gstNumber);
         addGroundTruthValue(ReceiptField.Phone, phone);
         addGroundTruthValue(ReceiptField.Slogan, slogan);
@@ -61,7 +61,7 @@ public class StoreBranch {
     private void addGroundTruthValue(final ReceiptField fieldName, final String value) {
         if (value != null) {
             final String cleanedValue = value.trim();
-            if (cleanedValue.length() > 0) {
+            if (cleanedValue.length() > 2) {
                 fieldToValue.put(fieldName, value.toLowerCase());
             }
         }
@@ -69,6 +69,17 @@ public class StoreBranch {
 
     /**
      * Create a StoreBranch object from a text string. Usually it is from branch.csv file
+     * 0 - Chain Code
+     * 1 - Phone
+     * 2 - Store ID
+     * 3 - GST Number
+     * 4 - Branch name
+     * 5 - Address Line 1
+     * 6 - Address Line 2
+     * 7 - Address City
+     * 8 - Address Province
+     * 9 - Address Country
+     * 10 - Address Postal Code
      */
     public static StoreBranch fromString(String line, final String slogan) {
         line = line + " ";// handle the last char being comma
@@ -96,7 +107,7 @@ public class StoreBranch {
                 .builder()
                 .address(add)
                 .phone(w[1].trim())
-                .ID(w[2].trim())
+                .storeId(w[2].trim())
                 .gstNumber(w[3].trim())
                 .branchName(w[4].trim())
                 .slogan(slogan)

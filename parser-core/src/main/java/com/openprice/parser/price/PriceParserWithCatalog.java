@@ -94,10 +94,4 @@ public class PriceParserWithCatalog {
         return ProductPrice.emptyValue();
     }
 
-    //    get the price at the tail with the help from matched Product at this line;
-    //    right now didn't use the product
-    //    public static String getPriceAtTail(final String line, final Product matched){
-    //
-    //    }
-
 }
