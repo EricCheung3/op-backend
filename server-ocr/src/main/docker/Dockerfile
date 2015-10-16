@@ -1,4 +1,4 @@
-FROM openprice/ocr
+FROM openprice/abbyy
 MAINTAINER Yuan Ji
 RUN apt-get update
 RUN apt-get install -y wget curl git
@@ -21,6 +21,6 @@ VOLUME [ "/groundtruth/images" ]
 WORKDIR /groundtruth
 
 ADD ocr-server.jar ocr-server.jar
-ADD OP_OCR OP_OCR
+ADD aby.sh aby.sh
 
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","ocr-server.jar"]
