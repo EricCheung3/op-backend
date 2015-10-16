@@ -49,12 +49,12 @@ spring:
 
 application:
     email:
-      webServerUrl: http://104.197.47.140:8080
+      webServerUrl: http://104.197.105.245:8080
     file:
         virtual: false
         imageRootFolder: /groundtruth/images
     
     process:
-        servers:
-            - 146.148.55.8
+        serverPrefix: openprice-server-ocr-
+        numberOfServers: 1
 
