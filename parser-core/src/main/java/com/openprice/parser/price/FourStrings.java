@@ -18,19 +18,19 @@ public class FourStrings {
             throw new Exception("words length should be 4, but it's "+words.length);
         }
         return FourStrings.builder()
-                .first(words[0])
-                .second(words[1])
-                .third(words[2])
-                .fourth(words[3]).build();
+                          .first(words[0])
+                          .second(words[1])
+                          .third(words[2])
+                          .fourth(words[3]).build();
     }
 
     public static FourStrings emptyValue(){
         return FourStrings.builder()
-                .first(StringCommon.EMPTY)
-                .second(StringCommon.EMPTY)
-                .third(StringCommon.EMPTY)
-                .fourth(StringCommon.EMPTY)
-                .build();
+                          .first(StringCommon.EMPTY)
+                          .second(StringCommon.EMPTY)
+                          .third(StringCommon.EMPTY)
+                          .fourth(StringCommon.EMPTY)
+                          .build();
     }
 
     public boolean isEmpty(){

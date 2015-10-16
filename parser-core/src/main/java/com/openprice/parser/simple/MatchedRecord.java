@@ -88,8 +88,8 @@ public class MatchedRecord {
     public int itemStopLineNumber() {
         Optional<ValueLine> stopLine =
             Stream.of(ReceiptField.GstAmount, ReceiptField.Total, ReceiptField.SubTotal)
-                  .map( field -> fieldToValueLine.get(field))
-                  .filter( value -> value != null)
+                  .map( field -> fieldToValueLine.get(field) )
+                  .filter( value -> value != null )
                   .min( Comparator.comparing(ValueLine::getLine) );
         return stopLine.isPresent()? stopLine.get().getLine() : Integer.MAX_VALUE;
     }

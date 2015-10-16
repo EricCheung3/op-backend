@@ -17,17 +17,17 @@ public class ThreeStrings {
             throw new Exception("words length should be 3, but it's "+words.length);
         }
         return ThreeStrings.builder()
-                .first(words[0])
-                .second(words[1])
-                .third(words[2]).build();
+                           .first(words[0])
+                           .second(words[1])
+                           .third(words[2]).build();
     }
 
     public static ThreeStrings emptyValue(){
         return ThreeStrings.builder()
-                .first(StringCommon.EMPTY)
-                .second(StringCommon.EMPTY)
-                .third(StringCommon.EMPTY)
-                .build();
+                           .first(StringCommon.EMPTY)
+                           .second(StringCommon.EMPTY)
+                           .third(StringCommon.EMPTY)
+                           .build();
     }
 
     public boolean isEmpty(){
