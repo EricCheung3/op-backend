@@ -24,15 +24,15 @@ import com.openprice.parser.store.StoreParserTestApplication;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {StoreParserTestApplication.class})
 public class SafewayTest {
-    @Value("classpath:/testFiles/Safeway/MGRKELSEYCOLE/2014_12_06_22_36_54.txt")
-    //@Value("classpath:/testFiles/Safeway/Southgate/2015_02_27_20_04_24.jpg.dongcui.txt")
+    //@Value("classpath:/testFiles/Safeway/MGRKELSEYCOLE/2014_12_06_22_36_54.txt")
+    @Value("classpath:/testFiles/Safeway/Southgate/2015_02_27_20_04_24.jpg.dongcui.txt")
     private Resource sampleReceipt;
 
     @Inject
     SimpleParser simpleParser;
 
     @Test
-    public void testRCSS() throws Exception {
+    public void testReceipt1() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
         TextResourceUtils.loadFromTextResource(sampleReceipt, (line)-> receiptLines.add(line));
 

@@ -1,6 +1,10 @@
 package com.openprice.parser;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+
+import com.openprice.parser.data.ScoreWithMatchPair;
 
 import lombok.Builder;
 import lombok.Data;
@@ -19,16 +23,12 @@ public class StoreChain {
     private final StoreParserSelector selector;
 
     public StoreBranch matchBranchByScoreSum(final ReceiptData receipt) {
-        double scoreMax=0;
-        StoreBranch matchBranch=null;
-        for(StoreBranch branch : branches){
-            double score=branch.matchScore(receipt);
-            if(score>scoreMax){
-                scoreMax=score;
-                matchBranch=branch;
-            }
-        }
-        return matchBranch;
+        Optional<ScoreWithMatchPair<StoreBranch>> maxBranchMatch =
+            branches.stream()
+                    .map( branch -> new ScoreWithMatchPair<StoreBranch>(branch.matchScore(receipt), -1, branch) )
+                    .max( Comparator.comparing(score -> score.getScore()) )
+                    ;
+        return maxBranchMatch.isPresent()? maxBranchMatch.get().getMatch() : null;
     }
 
 }
