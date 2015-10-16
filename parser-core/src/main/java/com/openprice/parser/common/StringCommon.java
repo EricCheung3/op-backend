@@ -18,6 +18,17 @@ public class StringCommon {
         return str.replaceAll("[^A-Za-z0-9]", EMPTY);
     }
 
+    public static int countChars(final String str) {
+        int count = 0;
+        for (int i = 0; i < str.length(); i++)
+            if (Character.isAlphabetic(str.charAt(i)))
+                count++;
+        return count;
+    }
+
+    // -------------
+    // Untested
+
     /**
      * it is assumed that line is always longer than subStr
      *

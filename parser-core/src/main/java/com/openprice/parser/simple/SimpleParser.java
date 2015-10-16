@@ -16,7 +16,6 @@ import com.openprice.parser.StoreParser;
 import com.openprice.parser.StoreParserSelector;
 import com.openprice.parser.common.ListCommon;
 import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ReceiptField;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,13 +33,13 @@ public class SimpleParser {
         final ReceiptData receipt = ReceiptData.fromContentLines(lines);
 
         // find chain first
-        final ChainRegistry.MatchedChain matchedChain = chainRegistry.findChain(receipt);
-        if (matchedChain == null) {
+        final StoreChain chain = chainRegistry.findBestMatchedChain(receipt);
+        if (chain == null) {
             log.warn("Cannot find matching store chain!");
+            //TODO call default parser to parse
             return null;
         }
 
-        final StoreChain chain = matchedChain.getChain();
         // get store branch
         final StoreBranch branch = chain.matchBranchByScoreSum(receipt);
 
@@ -50,7 +49,7 @@ public class SimpleParser {
 
         // match fields
         final MatchedRecord matchedRecord = new MatchedRecord();
-        matchedRecord.putFieldLine(ReceiptField.Chain, matchedChain.getMatchedOnLine(), chain.getCode());
+        //matchedRecord.putFieldLine(ReceiptField.Chain, matchedChain.getMatchedOnLine(), chain.getCode());
         matchedRecord.matchToBranch(receipt, branch);
         matchedRecord.matchToHeader(receipt, parser.getStoreConfig(), parser);
 

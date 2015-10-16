@@ -50,7 +50,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptField.Chain).getValue(), "RCSS");
+        assertEquals(fieldValues.get(ReceiptField.Chain).getValue(), "Superstore");
         assertEquals(fieldValues.get(ReceiptField.Slogan).getValue(), "big on fresh, low on price");
         assertEquals(fieldValues.get(ReceiptField.StoreID).getValue(), "01570");
         assertEquals(fieldValues.get(ReceiptField.AddressLine1).getValue(), "4821 calgary trail");
@@ -85,7 +85,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptField.Chain).getValue(), "RCSS");
+        assertEquals(fieldValues.get(ReceiptField.Chain).getValue(), "Superstore");
         assertEquals(fieldValues.get(ReceiptField.Slogan).getValue(), "big on fresh, low on price");
         assertEquals(fieldValues.get(ReceiptField.StoreID).getValue(), "01570");
         assertEquals(fieldValues.get(ReceiptField.AddressLine1).getValue(), "4821 calgary trail");
@@ -131,7 +131,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptField.Chain).getValue(), "RCSS");
+        assertEquals(fieldValues.get(ReceiptField.Chain).getValue(), "Superstore");
         assertEquals(fieldValues.get(ReceiptField.Slogan).getValue(), "big on fresh, low on price");
         assertEquals(fieldValues.get(ReceiptField.StoreID).getValue(), "01570");
         assertEquals(fieldValues.get(ReceiptField.AddressLine1).getValue(), "4821 calgary trail");

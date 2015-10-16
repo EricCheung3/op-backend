@@ -13,6 +13,7 @@ import lombok.Getter;
 public class ReceiptData {
     // minimum number of lines in a receipt
     public static final int MIN_NUMBER_LINES = 5;
+    public static final int CHAIN_SEARCH_NUMBER_LINES = 10;
 
     @Getter
     private final List<ReceiptLine> receiptLines;
@@ -46,4 +47,17 @@ public class ReceiptData {
     public Stream<ReceiptLine> lines() {
         return receiptLines.stream();
     }
+
+    public List<ReceiptLine> getTopBottomChainMatchingLines() {
+        final List<ReceiptLine> lines = new ArrayList<>();
+        final int size = receiptLines.size();
+        final int topEndLineNumber = Math.min(size, CHAIN_SEARCH_NUMBER_LINES);
+        lines.addAll(receiptLines.subList(0, topEndLineNumber));
+        if (topEndLineNumber < size) {
+            final int bottomBeginLineNumber = Math.max(topEndLineNumber, size - CHAIN_SEARCH_NUMBER_LINES);
+            lines.addAll(receiptLines.subList(bottomBeginLineNumber, size));
+        }
+        return lines;
+    }
+
 }
