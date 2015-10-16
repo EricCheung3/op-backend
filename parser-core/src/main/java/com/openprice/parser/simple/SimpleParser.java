@@ -36,8 +36,8 @@ public class SimpleParser {
         final StoreChain chain = chainRegistry.findBestMatchedChain(receipt);
         if (chain == null) {
             log.warn("Cannot find matching store chain!");
-            //TODO call default parser to parse
-            return null;
+            final GenericParser parser = new GenericParser();
+            return parser.parse(lines);
         }
 
         // get store branch
