@@ -169,7 +169,7 @@ public class ReceiptService {
         if (ocrReady) {
             log.debug("After checking {} times, get ocr result for receipt.", counter);
             try {
-                ParsedReceipt parserResult = simpleParser.parse(ocrTextList);
+                ParsedReceipt parserResult = simpleParser.parseOCRResults(ocrTextList);
                 for (final Item item : parserResult.getItems()) {
                     final ReceiptItem receiptItem = new ReceiptItem();
                     receiptItem.setName(item.getName());

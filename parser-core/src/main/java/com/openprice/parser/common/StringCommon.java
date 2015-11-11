@@ -119,6 +119,17 @@ public class StringCommon {
         return path;
     }
 
+    public static int[] countDigitAndLetters(final String str){
+        int[] count=new int[2];
+        for(int i=0; i<str.length();i++)
+            if(Character.isDigit(str.charAt(i)))
+                count[0]++;
+            else if(Character.isLetter(str.charAt(i)))
+                count[1]++;
+        return count;
+    }
+
+
     public static int[] countDigitAndAlphabets(final String str) {
         int[] count = new int[2];
         for (int i = 0; i < str.length(); i++)

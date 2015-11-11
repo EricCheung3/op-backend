@@ -143,6 +143,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
      * @return default store price parser to parse price from item line.
      */
     protected PriceParser getStorePriceParser() {
+        //return new UniversalPriceParser();
         return new DefaultPriceParser();
     }
 }

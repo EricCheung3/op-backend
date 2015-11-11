@@ -29,15 +29,22 @@ public class SimpleParser {
         this.chainRegistry = chainRegistry;
     }
 
+    public ParsedReceipt parseOCRResults(final List<String> ocrTextList) throws Exception {
+        final ReceiptData receipt = ReceiptData.fromString(ocrTextList.get(0));
+        return parseReceiptData(receipt);
+    }
     public ParsedReceipt parse(final List<String> lines) throws Exception {
         final ReceiptData receipt = ReceiptData.fromContentLines(lines);
+        return parseReceiptData(receipt);
+    }
 
+    private ParsedReceipt parseReceiptData(final ReceiptData receipt) throws Exception {
         // find chain first
         final StoreChain chain = chainRegistry.findBestMatchedChain(receipt);
         if (chain == null) {
             log.warn("Cannot find matching store chain!");
             final GenericParser parser = new GenericParser();
-            return parser.parse(lines);
+            return parser.parse(receipt.getOriginalLines());
         }
 
         // get store branch

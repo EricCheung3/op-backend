@@ -16,9 +16,13 @@ public class ReceiptData {
     public static final int CHAIN_SEARCH_NUMBER_LINES = 10;
 
     @Getter
+    private final List<String> originalLines;
+
+    @Getter
     private final List<ReceiptLine> receiptLines;
 
     private ReceiptData(final List<String> lines) {
+        originalLines = lines;
         receiptLines = new ArrayList<>();
         int lineNumber = 0;
         for (final String line : lines) {

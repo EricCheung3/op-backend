@@ -263,7 +263,7 @@ public class ReceiptServiceTest {
         ParsedReceipt receiptDebug = ParsedReceipt.builder().branch(null).items(items).build();
 
         when(receiptImageRepositoryMock.findByReceiptOrderByCreatedTime(eq(receipt))).thenReturn(images);
-        when(simpleParser.parse(eq(ocrTextList))).thenReturn(receiptDebug);
+        when(simpleParser.parseOCRResults(eq(ocrTextList))).thenReturn(receiptDebug);
 
         final List<ReceiptItem> receiptItems = serviceToTest.getParsedReceiptItems(receipt);
         assertEquals(2, receiptItems.size());

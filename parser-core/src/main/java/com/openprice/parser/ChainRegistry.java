@@ -65,7 +65,7 @@ public class ChainRegistry {
                         return -1.0;
                     })
                     .filter( score -> score > CHAIN_IDENTIFY_MATCH_THRESHOLD)
-                    .reduce(0.0, (acc, score) -> acc + score)
+                    .reduce(0.0, Double::sum)
                     ;
                 return new ScoreWithMatchPair<StoreChain>(matchingScoreSum, -1, chain);
             })
