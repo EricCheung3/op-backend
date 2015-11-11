@@ -47,6 +47,7 @@ public class ReceiptData {
     }
 
     public static ReceiptData fromOCRResults(final List<String> ocrTextList) throws Exception {
+        log.debug("get {} ocr Text.", ocrTextList.size());
         final List<String> lines = new ArrayList<>();
         for (final String ocrText : ocrTextList) {
             log.debug("ocr result:\n" + ocrText);
