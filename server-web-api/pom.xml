@@ -30,6 +30,11 @@
             <artifactId>openprice-server-common</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-parser-stores</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
