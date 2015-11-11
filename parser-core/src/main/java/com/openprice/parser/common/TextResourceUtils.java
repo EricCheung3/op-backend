@@ -9,12 +9,22 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import org.springframework.core.io.Resource;
+import org.springframework.util.FileCopyUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TextResourceUtils {
 
+    public static String loadTextResource(final Resource resource) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(resource.getInputStream()), 1024)) {
+            return FileCopyUtils.copyToString(br);
+        } catch (IOException e) {
+            log.error("Load resource error", e);
+            throw new RuntimeException("Cannot load resource from "+resource.getFilename());
+        }
+
+    }
     public static void loadFromTextResource(Resource resource, Consumer<String> lineConsumer) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(resource.getInputStream()), 1024)) {
             String line;

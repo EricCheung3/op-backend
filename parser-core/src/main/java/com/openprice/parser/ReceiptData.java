@@ -50,7 +50,7 @@ public class ReceiptData {
         log.debug("get {} ocr Text.", ocrTextList.size());
         final List<String> lines = new ArrayList<>();
         for (final String ocrText : ocrTextList) {
-            log.debug("ocr result:\n" + ocrText);
+            //log.debug("ocr result:\n" + ocrText);
             lines.addAll(java.util.Arrays.asList(ocrText.split("\n")));
         }
         log.debug("get {} lines of text from ocr result.", lines.size());

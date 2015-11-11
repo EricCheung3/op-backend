@@ -13,6 +13,7 @@ import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.ScoreWithMatchPair;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Service to store all store chains in the system as registry. Each StoreParserSelector service will register
@@ -20,6 +21,7 @@ import lombok.Getter;
  *
  */
 @Service
+@Slf4j
 public class ChainRegistry {
     private static final double CHAIN_IDENTIFY_MATCH_THRESHOLD = 0.8;
 
@@ -32,6 +34,7 @@ public class ChainRegistry {
 
     public StoreChain findBestMatchedChain(final ReceiptData receipt) {
         final List<ReceiptLine> lines = receipt.getTopBottomChainMatchingLines();
+        log.debug("TopBottom matching lines:\n"+lines);
 
         final Optional<ScoreWithMatchPair<StoreChain>> maxChainMatch =
             storeChains

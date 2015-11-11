@@ -1,11 +1,8 @@
 package com.openprice.parser.store.rcss;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -28,12 +25,9 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
 
     @Test
     public void testRCSS_2015_02_01_14_17_01() throws Exception {
-        final List<String> receiptLines = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(sampleRCSS_2015_11_11_calgarytrail, (line)-> receiptLines.add(line));
+        final String ocrResult = TextResourceUtils.loadTextResource(sampleRCSS_2015_11_11_calgarytrail);
 
-        assertTrue(receiptLines.size() > 0);
-
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        ParsedReceipt receipt = simpleParser.parseOCRResults(java.util.Arrays.asList(ocrResult));
         printResult(receipt);
 
         // verify result of items
