@@ -30,9 +30,10 @@ public class SimpleParser {
     }
 
     public ParsedReceipt parseOCRResults(final List<String> ocrTextList) throws Exception {
-        final ReceiptData receipt = ReceiptData.fromString(ocrTextList.get(0));
+        final ReceiptData receipt = ReceiptData.fromOCRResults(ocrTextList);
         return parseReceiptData(receipt);
     }
+
     public ParsedReceipt parse(final List<String> lines) throws Exception {
         final ReceiptData receipt = ReceiptData.fromContentLines(lines);
         return parseReceiptData(receipt);

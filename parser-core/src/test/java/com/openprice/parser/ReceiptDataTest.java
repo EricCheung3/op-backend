@@ -10,6 +10,32 @@ import org.junit.Test;
 public class ReceiptDataTest {
 
     @Test
+    public void fromContentLines_ShouldCreateReceiptData() throws Exception {
+        final List<String> testData = new ArrayList<>();
+        for (int i=0; i<10; i++) {
+            testData.add("test receipt line " + i);
+        }
+        ReceiptData receipt = ReceiptData.fromContentLines(testData);
+        assertEquals(10, receipt.getOriginalLines().size());
+    }
+
+    @Test
+    public void fromOCRResults_ShouldCreateReceiptData() throws Exception {
+        final List<String> testData = new ArrayList<>();
+        final StringBuilder ocrText = new StringBuilder();
+        for (int i=0; i<10; i++) {
+            ocrText.append("test receipt line ");
+            ocrText.append(i);
+            ocrText.append("\n");
+        }
+        testData.add(ocrText.toString());
+
+        ReceiptData receipt = ReceiptData.fromOCRResults(testData);
+        assertEquals(10, receipt.getOriginalLines().size());
+
+    }
+
+    @Test
     public void getTopBottomChainMatchingLines_ShouldReturn20Lines_When50Lines() throws Exception {
         final List<String> testData = new ArrayList<>();
         for (int i=0; i<50; i++) {

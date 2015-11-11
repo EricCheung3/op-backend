@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * List of strings to represent receipt data from OCR.
  *
  */
+@Slf4j
 public class ReceiptData {
     // minimum number of lines in a receipt
     public static final int MIN_NUMBER_LINES = 5;
@@ -42,6 +44,15 @@ public class ReceiptData {
     public static ReceiptData fromString(final String allLines) throws Exception {
         String[] lines = allLines.split("\n");
         return fromContentLines(java.util.Arrays.asList(lines));
+    }
+
+    public static ReceiptData fromOCRResults(final List<String> ocrTextList) throws Exception {
+        final List<String> lines = new ArrayList<>();
+        for (final String ocrText : ocrTextList) {
+            lines.addAll(java.util.Arrays.asList(ocrText.split("\n")));
+        }
+        log.debug("get {} lines of text from ocr result.", lines.size());
+        return fromContentLines(lines);
     }
 
     public ReceiptLine getLine(final int lineNumber) {
