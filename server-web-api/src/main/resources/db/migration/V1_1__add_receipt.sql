@@ -45,3 +45,27 @@ ALTER TABLE receipt_image
     FOREIGN KEY (receipt_id)
     REFERENCES receipt(id)
     ON DELETE CASCADE;
+
+CREATE TABLE receipt_feedback (
+    id VARCHAR(50),
+    version BIGINT NOT NULL DEFAULT 1,
+    created_by VARCHAR(50) NOT NULL,
+    created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_modified_by VARCHAR(50),
+    last_modified_time TIMESTAMP,
+
+    receipt_id VARCHAR(50) NOT NULL,
+    rating INTEGER,
+    comment VARCHAR(2048),
+
+    PRIMARY KEY (id)
+) ENGINE=InnoDB;
+
+CREATE INDEX idx_receipt_feedback_1
+    ON receipt_feedback(receipt_id ASC);
+    
+ALTER TABLE receipt_feedback
+    ADD CONSTRAINT fk_receipt_feedback_receipt
+    FOREIGN KEY (receipt_id)
+    REFERENCES receipt(id)
+    ON DELETE CASCADE;
