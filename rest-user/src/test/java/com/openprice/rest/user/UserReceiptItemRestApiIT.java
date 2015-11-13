@@ -5,6 +5,7 @@ import static com.jayway.restassured.RestAssured.given;
 import java.util.Base64;
 
 import org.apache.http.HttpStatus;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -14,6 +15,7 @@ import com.jayway.restassured.response.Response;
 import com.openprice.rest.user.receipt.ImageDataForm;
 
 @DatabaseSetup("classpath:/data/testData.xml")
+@Ignore
 public class UserReceiptItemRestApiIT extends AbstractUserRestApiIntegrationTest {
     @Test
     public void getUserReceiptItems_ShouldReturnCorrectReceiptItems() throws Exception {

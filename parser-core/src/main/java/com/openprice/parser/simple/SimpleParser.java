@@ -64,7 +64,7 @@ public class SimpleParser {
         // parse items
         List<Item> items = parseItem(matchedRecord, receipt, parser);
 
-        return ParsedReceipt.builder().branch(branch).items(items).fieldToValueMap(matchedRecord.getFieldToValueLine()).build();
+        return ParsedReceipt.builder().chain(chain).branch(branch).items(items).fieldToValueMap(matchedRecord.getFieldToValueLine()).build();
     }
 
     private List<Item> parseItem(final MatchedRecord matchedRecord, final ReceiptData receipt, final StoreParser parser) throws Exception {

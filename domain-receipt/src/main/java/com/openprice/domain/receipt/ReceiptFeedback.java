@@ -14,35 +14,24 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-/**
- * Parser parsed receipt items.
- *
- */
-@ToString(callSuper=true, exclude={"result"})
+@ToString(callSuper=true, exclude={"receipt"})
 @SuppressWarnings("serial")
 @Entity
-@Table( name="receipt_item" )
-public class ReceiptItem extends BaseAuditableEntity {
+@Table( name="receipt_feedback" )
+public class ReceiptFeedback extends BaseAuditableEntity {
 
     @Getter @Setter
     @JsonIgnore
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="result_id")
-    private ParserResult result;
+    @JoinColumn(name="receipt_id")
+    private Receipt receipt;
 
     @Getter @Setter
-    @Column(name="parsed_name")
-    private String parsedName;
+    @Column(name="rating")
+    private Integer rating;
 
     @Getter @Setter
-    @Column(name="display_name")
-    private String displayName;
+    @Column(name="comment")
+    private String comment;
 
-    @Getter @Setter
-    @Column(name="parsed_price")
-    private String parsedPrice;
-
-    @Getter @Setter
-    @Column(name="display_price")
-    private String displayPrice;
 }

@@ -9,36 +9,29 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
-import com.openprice.domain.account.user.UserAccount;
-import com.openprice.domain.store.StoreChain;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@ToString(callSuper=true, exclude={"user", "store"})
+@ToString(callSuper=true, exclude={"store"})
 @SuppressWarnings("serial")
 @Entity
 @Table( name="shopping_item" )
 public class ShoppingItem extends BaseAuditableEntity {
-    @Getter @Setter
-    @JsonIgnore
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="user_account_id")
-    private UserAccount user;
 
     @Getter @Setter
     @JsonIgnore
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="chain_id")
-    private StoreChain store;
+    @JoinColumn(name="store_id")
+    private ShoppingStore store;
 
     @Getter @Setter
-    @Column(name="item_name")
-    private String itemName;
+    @Column(name="catalog_code")
+    private String catalogCode;
 
     @Getter @Setter
-    @Column(name="item_price")
-    private String itemPrice;
+    @Column(name="name")
+    private String name;
 
 }

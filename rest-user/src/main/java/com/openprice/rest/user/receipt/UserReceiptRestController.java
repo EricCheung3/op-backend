@@ -4,7 +4,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -29,7 +28,6 @@ import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImageRepository;
-import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.process.ProcessQueueService;
@@ -103,21 +101,13 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
             final Receipt receipt = newReceiptWithFile(file);
             processQueueService.addImage(receipt.getImages().get(0));
 
-            URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId())).toUri();
+            final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId())).toUri();
             return ResponseEntity.created(location).body(null);
         }
         else {
             log.error("No file uploaded!");
             return ResponseEntity.badRequest().build();
         }
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_ITEMS)
-    public HttpEntity<List<ReceiptItem>> getUserReceiptItems(
-            @PathVariable("receiptId") final String receiptId) {
-        final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
-        List<ReceiptItem> result = receiptService.getParsedReceiptItems(receipt);
-        return ResponseEntity.ok(result);
     }
 
     // TODO add comment feedback

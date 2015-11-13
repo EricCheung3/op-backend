@@ -46,8 +46,7 @@ ALTER TABLE store_branch
     FOREIGN KEY (chain_id)
     REFERENCES store_chain(id);
 
-
-CREATE TABLE shopping_item (
+CREATE TABLE catalog (
     id VARCHAR(50),
     version BIGINT NOT NULL DEFAULT 1,
     created_by VARCHAR(50) NOT NULL,
@@ -55,27 +54,15 @@ CREATE TABLE shopping_item (
     last_modified_by VARCHAR(50),
     last_modified_time TIMESTAMP,
 
-    user_account_id VARCHAR(50) NOT NULL,
-    chain_id VARCHAR(50) NOT NULL,
-    item_name VARCHAR(255) NOT NULL,
-    item_price VARCHAR(50),
+    code VARCHAR(255) NOT NULL,
+    display_name VARCHAR(255) NOT NULL,
+    price VARCHAR(50),
+    natural_name VARCHAR(255),
+    label_codes VARCHAR(2048),
 
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
-CREATE INDEX idx_shopping_item_1
-    ON shopping_item(user_account_id, chain_id);
-    
-ALTER TABLE shopping_item
-    ADD CONSTRAINT fk_shopping_item_user_account
-    FOREIGN KEY (user_account_id)
-    REFERENCES user_account(id);
-
-CREATE INDEX idx_shopping_item_2
-    ON shopping_item(chain_id ASC);
-    
-ALTER TABLE shopping_item
-    ADD CONSTRAINT fk_shopping_item_store
-    FOREIGN KEY (chain_id)
-    REFERENCES store_chain(id);
+CREATE INDEX idx_catalog_1
+    ON catalog(code);
 

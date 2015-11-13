@@ -84,7 +84,9 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
                 linkWithRel("self").description("The self link"),
                 linkWithRel("images").description("<<resources-user-receipt-images, Link>> to receipt images"),
                 linkWithRel("image").description("<<resources-user-receipt-image, Link>> to receipt image"),
-                linkWithRel("items").description("<<resources-user-receipt-items, Link>> to receipt items"),
+                linkWithRel("result").description("<<resources-user-receipt-result, Link>> to receipt parser result"),
+                //linkWithRel("items").description("<<resources-user-receipt-items, Link>> to receipt parser result items"),
+                //linkWithRel("item").description("<<resources-user-receipt-item, Link>> to receipt parser result item"),
                 linkWithRel("upload").description("<<resources-user-receipt-image-upload, Link>> to upload more image for this receipt"),
                 linkWithRel("feedback").description("<<resources-user-receipt-feedback, Link>> to receipt feedback")
             ),
@@ -186,16 +188,16 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
         ));
     }
 
-    @Test
-    public void receiptItemExample() throws Exception {
-        mockMvc
-        .perform(get(userReceiptItemsUrl()).with(user(USERNAME)))
-        .andExpect(status().isOk())
-        .andDo(document("user-receipt-item-list-example",
-            preprocessResponse(prettyPrint())
-        ));
-
-    }
+//    @Test
+//    public void receiptItemExample() throws Exception {
+//        mockMvc
+//        .perform(get(userReceiptItemsUrl()).with(user(USERNAME)))
+//        .andExpect(status().isOk())
+//        .andDo(document("user-receipt-item-list-example",
+//            preprocessResponse(prettyPrint())
+//        ));
+//
+//    }
 
     @Override
     @Before

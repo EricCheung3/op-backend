@@ -33,14 +33,20 @@
     <receipt_image id="image003" version="1" receipt_id="receipt001" status="UPLOADED" created_time="2009-01-01 10:01:01.0000"/>
     <receipt_image id="image004" version="1" receipt_id="receipt001" status="UPLOADED" created_time="2009-01-01 10:03:01.0000"/>
 
-    <store_chain id="store001" version="1" code="RCSS" name="Real Canadian Superstore" categories="Grocery" created_time="2009-01-02 10:00:01.0000"/>
-    <store_chain id="store002" version="1" code="Safeway" name="Safeway" categories="Grocery"  created_time="2009-01-01 10:00:01.0000"/>
-    <store_chain id="store003" version="1" code="AmericanEagle" name="American Eagle" categories="Clothes" created_time="2009-01-01 10:00:01.0000"/>
+    <store_chain id="store001" version="1" code="rcss" name="Real Canadian Superstore" categories="Grocery" created_time="2009-01-02 10:00:01.0000"/>
+    <store_chain id="store002" version="1" code="safeway" name="Safeway" categories="Grocery"  created_time="2009-01-01 10:00:01.0000"/>
+    <store_chain id="store003" version="1" code="americaneagle" name="American Eagle" categories="Clothes" created_time="2009-01-01 10:00:01.0000"/>
 
-    <shopping_item id="item001" version="1" user_account_id="user001" chain_id="store001" item_name="milk" item_price="4.99" created_time="2009-01-01 10:00:01.0000"/>
+    <parser_result id="result001" version="1" receipt_id="receipt001" chain_code="rcss" branch_name="Calgary Trail" parsed_total="10.45" parsed_date="2015/11/11" />
+    <receipt_item id="recItem001" version="1" result_id="result001" parsed_name="eggs" display_name="eggs" parsed_price="1.99" display_price="1.99" />
+    <receipt_item id="recItem002" version="1" result_id="result001" parsed_name="milk" display_name="milk" parsed_price="4.99" display_price="4.99" />
+    
+<!--     <shopping_item id="item001" version="1" user_account_id="user001" chain_id="store001" item_name="milk" item_price="4.99" created_time="2009-01-01 10:00:01.0000"/>
     <shopping_item id="item002" version="1" user_account_id="user001" chain_id="store001" item_name="eggs" item_price="2.99" created_time="2009-01-01 10:01:01.0000"/>
     <shopping_item id="item003" version="1" user_account_id="user001" chain_id="store001" item_name="bread" item_price="1.99" created_time="2009-01-01 10:02:01.0000"/>
 
     <shopping_item id="item011" version="1" user_account_id="user001" chain_id="store002" item_name="beef" item_price="10.99" created_time="2009-01-01 10:00:01.0000"/>
     <shopping_item id="item012" version="1" user_account_id="user001" chain_id="store002" item_name="port" item_price="7.99" created_time="2009-01-01 10:01:01.0000"/>
+-->
+
 </dataset>

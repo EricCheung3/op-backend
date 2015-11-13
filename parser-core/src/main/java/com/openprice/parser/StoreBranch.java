@@ -47,11 +47,13 @@ public class StoreBranch {
         this.slogan = slogan;
 
         // save store branch ground truth data into a map
-        addGroundTruthValue(ReceiptField.AddressLine1, address.getLine1());
-        addGroundTruthValue(ReceiptField.AddressLine2, address.getLine2());
-        addGroundTruthValue(ReceiptField.AddressCity, address.getCity());
-        //addGroundTruthValue(ReceiptField.AddressProv, address.getProv());
-        addGroundTruthValue(ReceiptField.AddressPost, address.getPost());
+        if (address != null) {
+            addGroundTruthValue(ReceiptField.AddressLine1, address.getLine1());
+            addGroundTruthValue(ReceiptField.AddressLine2, address.getLine2());
+            addGroundTruthValue(ReceiptField.AddressCity, address.getCity());
+            //addGroundTruthValue(ReceiptField.AddressProv, address.getProv()); // province code is too short, may cause parsing error
+            addGroundTruthValue(ReceiptField.AddressPost, address.getPost());
+        }
         addGroundTruthValue(ReceiptField.StoreID, storeId);
         addGroundTruthValue(ReceiptField.GstNumber, gstNumber);
         addGroundTruthValue(ReceiptField.Phone, phone);

@@ -31,7 +31,7 @@ public class StoreChain extends BaseAuditableEntity {
     private String name;
 
     @Getter @Setter
-    @Column(name="categories", nullable=false)
+    @Column(name="categories")
     private String categories;
 
     @Getter @Setter

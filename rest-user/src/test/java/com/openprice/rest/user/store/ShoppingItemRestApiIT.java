@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
 
 import org.apache.http.HttpStatus;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -14,6 +15,7 @@ import com.jayway.restassured.response.Response;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
 @DatabaseSetup("classpath:/data/testData.xml")
+@Ignore
 public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test

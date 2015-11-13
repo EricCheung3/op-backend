@@ -73,7 +73,7 @@ public class ShoppingItemRestController extends AbstractUserRestController {
             final PagedResourcesAssembler<ShoppingItem> assembler) {
         final UserAccount currentUserAccount = getCurrentAuthenticatedUser();
         final StoreChain store = getStoreByIdAndCheckOwner(storeId);
-        final Page<ShoppingItem> items = shoppingItemRepository.findByUserAndStoreOrderByItemName(currentUserAccount, store, pageable);
+        final Page<ShoppingItem> items = null; //shoppingItemRepository.findByUserAndStoreOrderByItemName(currentUserAccount, store, pageable);
         return ResponseEntity.ok(assembler.toResource(items, shoppingItemResourceAssembler));
     }
 
@@ -132,10 +132,11 @@ public class ShoppingItemRestController extends AbstractUserRestController {
         final List<ShoppingItem> shoppingItems = new ArrayList<>();
         for (final ShoppingListForm.Item item : form.getItems()) {
             final ShoppingItem shoppingItem = new ShoppingItem();
-            shoppingItem.setItemName(item.getName());
-            shoppingItem.setItemPrice(item.getPrice());
-            shoppingItem.setUser(currentUser);
-            shoppingItem.setStore(store);
+            // FIXME
+//            shoppingItem.setItemName(item.getName());
+//            shoppingItem.setItemPrice(item.getPrice());
+//            shoppingItem.setUser(currentUser);
+//            shoppingItem.setStore(store);
             shoppingItems.add(shoppingItem);
         }
         shoppingItemRepository.save(shoppingItems);

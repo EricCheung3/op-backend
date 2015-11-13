@@ -13,7 +13,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +30,11 @@ import com.openprice.domain.account.user.UserAccount;
 import com.openprice.file.FileFolderSettings;
 import com.openprice.file.FileSystemService;
 import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.StoreBranch;
+import com.openprice.parser.StoreChain;
 import com.openprice.parser.data.Item;
+import com.openprice.parser.data.ReceiptField;
+import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.simple.SimpleParser;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -38,6 +44,9 @@ public class ReceiptServiceTest {
 
     @Mock
     ReceiptImageRepository receiptImageRepositoryMock;
+
+    @Mock
+    ParserResultRepository parserResultRepositoryMock;
 
     @Mock
     MultipartFile fileMock;
@@ -54,7 +63,11 @@ public class ReceiptServiceTest {
     @Before
     public void setup() throws Exception {
         fileSystemService = new FileSystemService(new FileFolderSettings());
-        serviceToTest = new ReceiptService(receiptRepositoryMock, receiptImageRepositoryMock, fileSystemService, simpleParser);
+        serviceToTest = new ReceiptService(receiptRepositoryMock,
+                                           receiptImageRepositoryMock,
+                                           parserResultRepositoryMock,
+                                           fileSystemService,
+                                           simpleParser);
     }
 
     @Test
@@ -238,6 +251,59 @@ public class ReceiptServiceTest {
     }
 
     @Test
+    public void getReceiptParserResult_ShouldGenerateParserResult_IfNotInDatabase() throws Exception {
+        final UserAccount testUser = getTestUser();
+        final Receipt receipt = new Receipt();
+        receipt.setId("receipt123");
+        receipt.setUser(testUser);
+
+        final ReceiptImage image1 = new ReceiptImage();
+        image1.setReceipt(receipt);
+        image1.setFileName("test1");
+        image1.setOcrResult("ocr result1");
+        final ReceiptImage image2 = new ReceiptImage();
+        image2.setReceipt(receipt);
+        image2.setFileName("test2");
+        image2.setOcrResult("ocr result2");
+        final List<ReceiptImage> images = Arrays.asList(image1, image2);
+        receipt.setImages(images);
+
+        final List<String> ocrTextList = Arrays.asList("ocr result1","ocr result2");
+
+        final List<Item> items = new ArrayList<>();
+        items.add(new Item("milk", "10.99", "1.99", "4.00", "food"));
+        items.add(new Item("eggs", "4.99", "4.99", "12", "food"));
+
+        final StoreChain chain = StoreChain.builder().code("rcss").build();
+        final StoreBranch branch = StoreBranch.builder().branchName("Calgary Trail").build();
+        final Map<ReceiptField, ValueLine> fieldToValueLine = new HashMap<ReceiptField, ValueLine>();
+        fieldToValueLine.put(ReceiptField.Total, ValueLine.builder().line(-1).value("15.00").build());
+        final ParsedReceipt receiptDebug = ParsedReceipt.builder().chain(chain).branch(branch).fieldToValueMap(fieldToValueLine).items(items).build();
+
+        when(parserResultRepositoryMock.findFirstByReceiptOrderByCreatedTimeDesc(eq(receipt))).thenReturn(null);
+        when(receiptImageRepositoryMock.findByReceiptOrderByCreatedTime(eq(receipt))).thenReturn(images);
+        when(simpleParser.parseOCRResults(eq(ocrTextList))).thenReturn(receiptDebug);
+        when(parserResultRepositoryMock.save(isA(ParserResult.class))).thenAnswer( new Answer<ParserResult>() {
+            @Override
+            public ParserResult answer(InvocationOnMock invocation) throws Throwable {
+                return (ParserResult)invocation.getArguments()[0];
+            }
+        });
+
+        final ParserResult result = serviceToTest.getLatestReceiptParserResult(receipt);
+        assertEquals("rcss", result.getChainCode());
+        assertEquals("Calgary Trail", result.getBranchName());
+        assertEquals(2, result.getItems().size());
+        assertEquals("milk", result.getItems().get(0).getParsedName());
+        assertEquals("10.99", result.getItems().get(0).getParsedPrice());
+        assertEquals("eggs", result.getItems().get(1).getParsedName());
+        assertEquals("4.99", result.getItems().get(1).getParsedPrice());
+
+    }
+
+
+    // TODO remove after clean up
+    @Test
     public void getParsedReceiptItems_ShouldReturnReceiptItems() throws Exception {
         final UserAccount testUser = getTestUser();
         final Receipt receipt = new Receipt();
@@ -267,10 +333,10 @@ public class ReceiptServiceTest {
 
         final List<ReceiptItem> receiptItems = serviceToTest.getParsedReceiptItems(receipt);
         assertEquals(2, receiptItems.size());
-        assertEquals("milk", receiptItems.get(0).getName());
-        assertEquals("10.99", receiptItems.get(0).getBuyPrice());
-        assertEquals("eggs", receiptItems.get(1).getName());
-        assertEquals("4.99", receiptItems.get(1).getBuyPrice());
+        assertEquals("milk", receiptItems.get(0).getParsedName());
+        assertEquals("10.99", receiptItems.get(0).getParsedPrice());
+        assertEquals("eggs", receiptItems.get(1).getParsedName());
+        assertEquals("4.99", receiptItems.get(1).getParsedPrice());
     }
 
     private UserAccount getTestUser() {

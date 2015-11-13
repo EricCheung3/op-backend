@@ -27,7 +27,7 @@ import lombok.ToString;
  * Receipt uploaded by user in the server side.
  *
  */
-@ToString(callSuper=true, exclude={"user", "images"})
+@ToString(callSuper=true, exclude={"user", "images", "results"})
 @SuppressWarnings("serial")
 @Entity
 @Table( name="receipt" )
@@ -48,6 +48,12 @@ public class Receipt extends BaseAuditableEntity {
     @Getter @Setter
     @Column(name="rating")
     private Integer rating;
+
+    @Getter @Setter
+    @JsonIgnore
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="receipt")
+    @OrderBy("createdTime")
+    private List<ParserResult> results = new ArrayList<>();
 
     /**
      * Builder method to create a new receipt.

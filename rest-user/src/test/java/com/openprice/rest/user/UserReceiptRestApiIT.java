@@ -102,7 +102,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("images[3].id", equalTo("image004"))
             .body("_links.images.href", endsWith("/images" + UtilConstants.PAGINATION_TEMPLATES))
             .body("_links.image.href", endsWith("/images/{imageId}"))
-            .body("_links.items.href", endsWith("/items"))
+            //.body("_links.items.href", endsWith("/items"))
         ;
     }
 

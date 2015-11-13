@@ -13,6 +13,7 @@ import lombok.Value;
 @Value
 @Builder
 public class ParsedReceipt {
+    StoreChain chain;
     StoreBranch branch;
     List<Item> items;
     Map<ReceiptField, ValueLine> fieldToValueMap;
