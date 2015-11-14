@@ -1,5 +1,8 @@
 package com.openprice.rest.user.receipt;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
 
@@ -12,8 +15,8 @@ public class UserReceiptItemResourceAssembler implements ResourceAssembler<Recei
     public UserReceiptItemResource toResource(final ReceiptItem receiptItem) {
         final UserReceiptItemResource resource = new UserReceiptItemResource(receiptItem);
 
-//        resource.add(linkTo(methodOn(UserReceiptImageRestController.class).getUserReceiptImageById(receiptItem.getResult().getId(), receiptItem.getId()))
-//                .withSelfRel());
+        resource.add(linkTo(methodOn(UserReceiptParserResultRestController.class).getUserReceiptParserResultItemById(receiptItem.getResult().getReceipt().getId(), receiptItem.getId()))
+                .withSelfRel());
 //
 //        resource.add(linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receiptImage.getReceipt().getId()))
 //                .withRel(UserReceiptImageResource.LINK_NAME_RECEIPT));

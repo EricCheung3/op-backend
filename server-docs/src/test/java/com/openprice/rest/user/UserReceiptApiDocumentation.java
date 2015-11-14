@@ -33,6 +33,7 @@ import com.jayway.jsonpath.JsonPath;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.rest.UtilConstants;
+import com.openprice.rest.user.receipt.UserReceiptItemForm;
 
 public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
 
@@ -84,9 +85,9 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
                 linkWithRel("self").description("The self link"),
                 linkWithRel("images").description("<<resources-user-receipt-images, Link>> to receipt images"),
                 linkWithRel("image").description("<<resources-user-receipt-image, Link>> to receipt image"),
-                linkWithRel("result").description("<<resources-user-receipt-result, Link>> to receipt parser result"),
-                //linkWithRel("items").description("<<resources-user-receipt-items, Link>> to receipt parser result items"),
-                //linkWithRel("item").description("<<resources-user-receipt-item, Link>> to receipt parser result item"),
+                linkWithRel("result").description("<<resources-user-receipt-result, Link>> to receipt latest parser result"),
+                linkWithRel("items").description("<<resources-user-receipt-items, Link>> to receipt latest parser result items"),
+                linkWithRel("item").description("<<resources-user-receipt-item, Link>> to receipt parser result item"),
                 linkWithRel("upload").description("<<resources-user-receipt-image-upload, Link>> to upload more image for this receipt"),
                 linkWithRel("feedback").description("<<resources-user-receipt-feedback, Link>> to receipt feedback")
             ),
@@ -189,14 +190,90 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
     }
 
     @Test
-    public void receiptParserResultExample() throws Exception {
+    public void receiptParserResultRetrieveExample() throws Exception {
         mockMvc
         .perform(get(userReceiptParserResultUrl()).with(user(USERNAME)))
         .andExpect(status().isOk())
         .andDo(document("user-receipt-parser-result-retrieve-example",
-            preprocessResponse(prettyPrint())
-        ));
+            preprocessResponse(prettyPrint()),
+            links(
+                linkWithRel("self").description("The self link"),
+                linkWithRel("items").description("<<resources-user-receipt-parser-result-item-list, Link>> to Receipt Parser Result Items list resource"),
+                linkWithRel("item").description("<<resources-user-receipt-parser-result-item, Link>> to Receipt Parser Result Items resource")
+            ),
+            responseFields(
+                fieldWithPath("id").description("Primary ID"),
+                fieldWithPath("chainCode").description("Recognized store chain code, maybe null"),
+                fieldWithPath("branchName").description("Recognized store branch name, maybe null"),
+                fieldWithPath("parsedTotal").description("parsed field value for Total"),
+                fieldWithPath("parsedDate").description("parsed field value for Date"),
+                fieldWithPath("items").description("parsed receipt items"),
+                fieldWithPath("_links").description("<<resources-user-receipt-parser-result-item-links, Links>> to other resources")
+            )
+       ));
+    }
 
+    @Test
+    public void receiptParserResultItemListExample() throws Exception {
+        mockMvc
+        .perform(get(userReceiptParserResultItemsUrl()).with(user(USERNAME)))
+        .andExpect(status().isOk())
+        .andDo(document("user-receipt-parser-result-item-list-example",
+            preprocessResponse(prettyPrint()),
+            links(
+                linkWithRel("self").description("The self link")
+            ),
+            responseFields(
+                fieldWithPath("_embedded.receiptItems").description("An array of <<resources-user-receipt-parser-result-item, Parser Result Receipt Item resources>>"),
+                fieldWithPath("page").description("Pagination data"),
+                fieldWithPath("_links").description("<<resources-user-receipt-parser-result-item-list-links,Links>> to other resources")
+            )
+        ));
+    }
+
+    @Test
+    public void receiptParserResultItemRetrieveExample() throws Exception {
+        mockMvc
+        .perform(get(userReceiptParserResultItemUrl()).with(user(USERNAME)))
+        .andExpect(status().isOk())
+        .andDo(document("user-receipt-parser-result-item-retrieve-example",
+            preprocessResponse(prettyPrint()),
+            links(
+                linkWithRel("self").description("The self link")
+            ),
+            responseFields(
+                fieldWithPath("id").description("Primary ID"),
+                fieldWithPath("parsedName").description("Parser parsed item name"),
+                fieldWithPath("displayName").description("User editable item name"),
+                fieldWithPath("parsedPrice").description("Parser parsed item price"),
+                fieldWithPath("displayPrice").description("User editable item price"),
+                fieldWithPath("_links").description("<<resources-user-receipt-parser-result-item-retrieve-links,Links>> to other resources")
+            )
+        ));
+    }
+
+    @Test
+    public void receiptParserResultItemUpdateExample() throws Exception {
+        final UserReceiptItemForm form =
+                UserReceiptItemForm.builder()
+                                   .name("eggs")
+                                   .price("3.99")
+                                   .build();
+        mockMvc
+        .perform(
+            put(userReceiptParserResultItemUrl())
+            .with(user(USERNAME))
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(this.objectMapper.writeValueAsString(form))
+        )
+        .andExpect(status().isNoContent())
+        .andDo(document("user-receipt-parser-result-item-update-example",
+            preprocessRequest(prettyPrint()),
+            requestFields(
+                fieldWithPath("name").description("User edited item name."),
+                fieldWithPath("price").description("User edited item price.")
+            )
+        ));
     }
 
     @Override
@@ -317,16 +394,26 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
         return JsonPath.read(responseContent, "_embedded.receipts[0]._links.result.href");
     }
 
-//
-//    private String userReceiptItemsUrl() throws Exception {
-//        final String responseContent =
-//            mockMvc
-//            .perform(get(userReceiptsUrl()).with(user(USERNAME)))
-//            .andExpect(status().isOk())
-//            .andReturn().getResponse()
-//            .getContentAsString();
-//        return JsonPath.read(responseContent, "_embedded.receipts[0]._links.items.href");
-//    }
+    private String userReceiptParserResultItemsUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(userReceiptsUrl()).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        final String itemsLink = JsonPath.read(responseContent, "_embedded.receipts[0]._links.items.href");
+        return UriTemplate.fromTemplate(itemsLink).set("page", null).set("size", null).set("sort", null).expand();
+    }
+
+    private String userReceiptParserResultItemUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(userReceiptParserResultItemsUrl()).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        return JsonPath.read(responseContent, "_embedded.receiptItems[0]._links.self.href");
+    }
 
     private String userReceiptImagesUrl() throws Exception {
         final String responseContent =

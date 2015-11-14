@@ -311,30 +311,28 @@ include::{snippets}/user-receipt-parser-result-retrieve-example/http-response.ad
 include::{snippets}/user-receipt-parser-result-retrieve-example/links.adoc[]
 
  
-[[resources-user-receipt-items]]
-== User Receipt Items
+[[resources-user-receipt-parser-result-items]]
+== User Receipt Parser Result Items
 
-User Receipt Items is used to retrieve list of items from one receipt parsing result.
+User Receipt Parser Result Items for particular receipt of user.
 
 
-[[resources-user-receipt-item-list]]
-=== List User Receipt Parsed Items
+[[resources-user-receipt-parser-result-item-list]]
+=== List User Receipt Parser Result Items
 
-A `GET` request will list all of the items from a specific receipt.
+A `GET` request will list all of the items from a specific receipt latest parser result.
 
 ==== Response structure
 
-TODO : fix receipt item resource
-
-/*include::{snippets}/user-receipt-item-list-example/response-fields.adoc[]*/
+include::{snippets}/user-receipt-parser-result-item-list-example/response-fields.adoc[]
 
 ==== Example request
 
-include::{snippets}/user-receipt-item-list-example/curl-request.adoc[]
+include::{snippets}/user-receipt-parser-result-item-list-example/curl-request.adoc[]
 
 ==== Example response
 
-include::{snippets}/user-receipt-item-list-example/http-response.adoc[]
+include::{snippets}/user-receipt-parser-result-item-list-example/http-response.adoc[]
 
 
 

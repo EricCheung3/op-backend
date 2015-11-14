@@ -65,6 +65,22 @@ public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApi
                    .then().extract().path("_links.result.href");
     }
 
+    protected String userReceiptParserResultItemsUrl(final SessionFilter sessionFilter, final String receiptId) {
+        final String itemsLink =
+            given().filter(sessionFilter)
+                   .when().get(userReceiptUrl(sessionFilter, receiptId))
+                   .then().extract().path("_links.items.href");
+        return UriTemplate.fromTemplate(itemsLink).set("page", null).set("size", null).set("sort", null).expand();
+    }
+
+    protected String userReceiptParserResultItemUrl(final SessionFilter sessionFilter, final String receiptId, final String itemId) {
+        final String itemLink =
+            given().filter(sessionFilter)
+                   .when().get(userReceiptUrl(sessionFilter, receiptId))
+                   .then().extract().path("_links.item.href");
+        return UriTemplate.fromTemplate(itemLink).set("itemId", itemId).expand();
+    }
+
     protected String userStoresUrl(final SessionFilter sessionFilter) {
         final String storesLink =
             given().filter(sessionFilter)

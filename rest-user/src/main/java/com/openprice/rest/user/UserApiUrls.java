@@ -15,6 +15,8 @@ public interface UserApiUrls {
     String URL_USER_RECEIPTS_RECEIPT_IMAGES = "/user/receipts/{receiptId}/images";
     String URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE = "/user/receipts/{receiptId}/images/{imageId}";
     String URL_USER_RECEIPTS_RECEIPT_RESULT = "/user/receipts/{receiptId}/result";
+    String URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS = "/user/receipts/{receiptId}/result/items";
+    String URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS_ITEM = "/user/receipts/{receiptId}/result/items/{itemId}";
 
     String URL_USER_RECEIPTS_UPLOAD = "/user/receipts/upload";
     String URL_USER_RECEIPTS_RECEIPT_IMAGES_UPLOAD = "/user/receipts/{receiptId}/images/upload";
