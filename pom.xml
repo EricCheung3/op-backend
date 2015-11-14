@@ -54,7 +54,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <docker.image.prefix>openprice</docker.image.prefix>
 
-        <spring-restdocs.version>1.0.0.RELEASE</spring-restdocs.version>
         <hibernate.version>5.0.3.Final</hibernate.version>
         <handy-uri-templates.version>2.1.0</handy-uri-templates.version>
         <jjwt.version>0.6.0</jjwt.version>

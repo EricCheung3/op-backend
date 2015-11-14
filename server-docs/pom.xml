@@ -19,7 +19,11 @@
     </properties>
 
     <dependencies>
-        <!-- Rest API Modules -->
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-parser-stores</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
             <artifactId>openprice-rest-user</artifactId>
@@ -55,7 +59,6 @@
         <dependency>
             <groupId>org.springframework.restdocs</groupId>
             <artifactId>spring-restdocs-mockmvc</artifactId>
-            <version>${spring-restdocs.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- Use JsonPath -->

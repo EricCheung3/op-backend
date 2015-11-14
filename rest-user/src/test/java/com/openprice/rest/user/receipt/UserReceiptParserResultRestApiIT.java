@@ -1,4 +1,4 @@
-package com.openprice.rest.user;
+package com.openprice.rest.user.receipt;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -10,6 +10,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
+import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
 @DatabaseSetup("classpath:/data/testData.xml")
 public class UserReceiptParserResultRestApiIT extends AbstractUserRestApiIntegrationTest {

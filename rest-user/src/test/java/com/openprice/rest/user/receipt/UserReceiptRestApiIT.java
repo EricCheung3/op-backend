@@ -1,4 +1,4 @@
-package com.openprice.rest.user;
+package com.openprice.rest.user.receipt;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
@@ -32,6 +32,8 @@ import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.rest.UtilConstants;
+import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
+import com.openprice.rest.user.UserApiUrls;
 import com.openprice.rest.user.receipt.ImageDataForm;
 
 @DatabaseSetup("classpath:/data/testData.xml")

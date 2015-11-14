@@ -188,16 +188,16 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
         ));
     }
 
-//    @Test
-//    public void receiptItemExample() throws Exception {
-//        mockMvc
-//        .perform(get(userReceiptItemsUrl()).with(user(USERNAME)))
-//        .andExpect(status().isOk())
-//        .andDo(document("user-receipt-item-list-example",
-//            preprocessResponse(prettyPrint())
-//        ));
-//
-//    }
+    @Test
+    public void receiptParserResultExample() throws Exception {
+        mockMvc
+        .perform(get(userReceiptParserResultUrl()).with(user(USERNAME)))
+        .andExpect(status().isOk())
+        .andDo(document("user-receipt-parser-result-retrieve-example",
+            preprocessResponse(prettyPrint())
+        ));
+
+    }
 
     @Override
     @Before
@@ -307,15 +307,26 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
         return JsonPath.read(responseContent, "_embedded.receipts[0]._links.upload.href");
     }
 
-    private String userReceiptItemsUrl() throws Exception {
+    private String userReceiptParserResultUrl() throws Exception {
         final String responseContent =
             mockMvc
             .perform(get(userReceiptsUrl()).with(user(USERNAME)))
             .andExpect(status().isOk())
             .andReturn().getResponse()
             .getContentAsString();
-        return JsonPath.read(responseContent, "_embedded.receipts[0]._links.items.href");
+        return JsonPath.read(responseContent, "_embedded.receipts[0]._links.result.href");
     }
+
+//
+//    private String userReceiptItemsUrl() throws Exception {
+//        final String responseContent =
+//            mockMvc
+//            .perform(get(userReceiptsUrl()).with(user(USERNAME)))
+//            .andExpect(status().isOk())
+//            .andReturn().getResponse()
+//            .getContentAsString();
+//        return JsonPath.read(responseContent, "_embedded.receipts[0]._links.items.href");
+//    }
 
     private String userReceiptImagesUrl() throws Exception {
         final String responseContent =

@@ -280,7 +280,37 @@ include::{snippets}/user-receipt-image-retrieve-example/http-response.adoc[]
 include::{snippets}/user-receipt-image-retrieve-example/links.adoc[]
 
 
+[[resources-user-receipt-parser-result]]
+== User Receipt Parser Result
 
+User Receipt Parser Result is the most recent (or accurate) receipt parsing result from OCR and Parser.
+One receipt may have one or more parser results in different time, either by system automatically or
+by admin manually. But user can only see one parser result from here, and user can edit the display name
+and display price. The user updated name/price will be used as feedback to OCR and Parser.
+
+[[resources-user-receipt-parser-result-retrieve]]
+=== Retrieve Receipt Parser Result by Receipt Id
+
+A `GET` request will get parser result by receipt Id
+
+==== Response structure
+
+include::{snippets}/user-receipt-parser-result-retrieve-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/user-receipt-parser-result-retrieve-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/user-receipt-parser-result-retrieve-example/http-response.adoc[]
+
+[[resources-user-receipt-parser-result-retrieve-links]]
+==== Links
+
+include::{snippets}/user-receipt-parser-result-retrieve-example/links.adoc[]
+
+ 
 [[resources-user-receipt-items]]
 == User Receipt Items
 
@@ -305,6 +335,7 @@ include::{snippets}/user-receipt-item-list-example/curl-request.adoc[]
 ==== Example response
 
 include::{snippets}/user-receipt-item-list-example/http-response.adoc[]
+
 
 
 [[resources-user-stores]]

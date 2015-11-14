@@ -1,4 +1,4 @@
-package com.openprice.rest.user;
+package com.openprice.rest.user.receipt;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -25,6 +25,7 @@ import com.jayway.restassured.response.Response;
 import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
+import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
 @DatabaseSetup("classpath:/data/testData.xml")
 public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTest {
