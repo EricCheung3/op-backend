@@ -312,10 +312,9 @@ include::{snippets}/user-receipt-parser-result-retrieve-example/links.adoc[]
 
  
 [[resources-user-receipt-parser-result-items]]
-== User Receipt Parser Result Items
+== User Receipt Parser Result Items Resource
 
 User Receipt Parser Result Items for particular receipt of user.
-
 
 [[resources-user-receipt-parser-result-item-list]]
 === List User Receipt Parser Result Items
@@ -333,6 +332,68 @@ include::{snippets}/user-receipt-parser-result-item-list-example/curl-request.ad
 ==== Example response
 
 include::{snippets}/user-receipt-parser-result-item-list-example/http-response.adoc[]
+
+
+
+[[resources-user-receipt-parser-result-item]]
+== User Receipt Parser Result Item Resource
+
+Resource for a single receipt parser result item.
+
+[[resources-user-receipt-parser-result-item-retrieve]]
+=== Get one receipt parser result item
+
+A `GET` request is used to retrieve receipt parser result item.
+
+==== Response structure
+
+include::{snippets}/user-receipt-parser-result-item-retrieve-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/user-receipt-parser-result-item-retrieve-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/user-receipt-parser-result-item-retrieve-example/http-response.adoc[]
+
+[[resources-user-receipt-parser-result-item-retrieve-links]]
+==== Links
+Hyperlinks to other resources.
+include::{snippets}/user-receipt-parser-result-item-retrieve-example/links.adoc[]
+
+
+[[resources-user-receipt-parser-result-item-update]]
+=== Update Receipt Parser Result Item
+
+A `PUT` request is used to update an existing receipt parser result item.
+
+==== Request structure
+
+include::{snippets}/user-receipt-parser-result-item-update-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/user-receipt-parser-result-item-update-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/user-receipt-parser-result-item-update-example/http-response.adoc[]
+
+
+[[resources-user-receipt-parser-result-item-delete]]
+=== Delete existing recept parser result item
+
+A `DELETE` request is used to delete one receipt parser result item.
+TODO: it will just set ignore flag of the item, so user won't see it in the UI.
+
+==== Example request
+
+include::{snippets}/user-receipt-parser-result-item-delete-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/user-receipt-parser-result-item-delete-example/http-response.adoc[]
 
 
 

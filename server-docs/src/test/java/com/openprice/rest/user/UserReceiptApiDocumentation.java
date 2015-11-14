@@ -276,6 +276,14 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
         ));
     }
 
+    @Test
+    public void receiptParserResultItemDeleteExample() throws Exception {
+        mockMvc
+        .perform(delete(userReceiptParserResultItemUrl()).with(user(USERNAME)))
+        .andExpect(status().isNoContent())
+        .andDo(document("user-receipt-parser-result-item-delete-example"));
+    }
+
     @Override
     @Before
     public void setUp() throws Exception {
