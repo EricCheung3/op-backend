@@ -3,6 +3,9 @@ package com.openprice.rest.user.receipt;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertNull;
+
+import javax.inject.Inject;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
@@ -11,10 +14,15 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
+import com.openprice.domain.receipt.ReceiptItem;
+import com.openprice.domain.receipt.ReceiptItemRepository;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
 @DatabaseSetup("classpath:/data/testData.xml")
 public class UserReceiptParserResultRestApiIT extends AbstractUserRestApiIntegrationTest {
+
+    @Inject
+    private ReceiptItemRepository receiptItemRepository;
 
     @Test
     public void getUserReceiptParserResult_ShouldReturnParserResultFromDatabase() throws Exception {
@@ -26,7 +34,7 @@ public class UserReceiptParserResultRestApiIT extends AbstractUserRestApiIntegra
                 .when()
                     .get(userReceiptParserResultUrl(sessionFilter, "receipt001"))
                 ;
-        response.prettyPrint();
+        //response.prettyPrint();
 
         response
         .then()
@@ -54,7 +62,7 @@ public class UserReceiptParserResultRestApiIT extends AbstractUserRestApiIntegra
                 .when()
                     .get(userReceiptParserResultItemsUrl(sessionFilter, "receipt001"))
                 ;
-        response.prettyPrint();
+        //response.prettyPrint();
 
         response
         .then()
@@ -84,7 +92,7 @@ public class UserReceiptParserResultRestApiIT extends AbstractUserRestApiIntegra
                 .when()
                     .get(userReceiptParserResultItemUrl(sessionFilter, "receipt001", "recItem001"))
                 ;
-        response.prettyPrint();
+        //response.prettyPrint();
 
         response
         .then()
@@ -129,5 +137,32 @@ public class UserReceiptParserResultRestApiIT extends AbstractUserRestApiIntegra
         ;
 
     }
+
+    @Test
+    public void deleteUserReceiptParserResultItemById_ShouldDeleteReceiptItem() {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+        final String itemUrl = userReceiptParserResultItemUrl(sessionFilter, "receipt001", "recItem001");
+
+        given()
+            .filter(sessionFilter)
+        .when()
+            .delete(itemUrl)
+        .then()
+            .statusCode(HttpStatus.SC_NO_CONTENT)
+        ;
+
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(itemUrl)
+        .then()
+            .statusCode(HttpStatus.SC_NOT_FOUND)
+        ;
+
+        // check image record
+        ReceiptItem item = receiptItemRepository.findOne("recItem001");
+        assertNull(item);
+    }
+
 
 }

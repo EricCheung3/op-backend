@@ -49,7 +49,7 @@ public class ParserResult extends BaseAuditableEntity {
 
     @Getter @Setter
     @JsonIgnore
-    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="result")
+    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="result")
     //@OrderBy("createdTime")
     private List<ReceiptItem> items = new ArrayList<>();
 }
