@@ -40,6 +40,7 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
+            .body("id", equalTo("recData001"))
             .body("chainCode", equalTo("rcss"))
             .body("branchName", equalTo("Calgary Trail"))
             .body("parsedTotal", equalTo("10.45"))
@@ -52,7 +53,39 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
         ;
     }
 
-    //TODO getUserReceiptData_ShouldGenerateReceiptDataThroughParser_IfNotExist
+    @Test
+    public void getUserReceiptData_ShouldGenerateReceiptDataThroughParser_IfNotExist() throws Exception {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+
+        Response response =
+                given()
+                    .filter(sessionFilter)
+                .when()
+                    .get(userReceiptDatatUrl(sessionFilter, "receipt002"))
+                ;
+        //response.prettyPrint();
+
+        response
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("chainCode", equalTo("rcss"))
+            .body("branchName", equalTo("Calgary Trail"))
+            .body("parsedTotal", equalTo("104.73"))
+            .body("items[0].catalogCode", equalTo(null))
+            .body("items[0].parsedName", equalTo("WINE"))
+            .body("items[0].parsedPrice", equalTo("2.69"))
+            .body("items[1].catalogCode", equalTo(null))
+            .body("items[1].parsedName", equalTo("ROOSTER GARLIC"))
+            .body("items[1].parsedPrice", equalTo("0.68"))
+            .body("items[2].catalogCode", equalTo(null))
+            .body("items[2].parsedName", equalTo("DUCKS FR7N"))
+            .body("items[2].parsedPrice", equalTo("15.23"))
+            .body("items[3].catalogCode", equalTo(null))
+            .body("items[3].parsedName", equalTo("HAIRTAIL"))
+            .body("items[3].parsedPrice", equalTo("7.36"))
+        ;
+    }
 
     @Test
     public void getUserReceiptItems_ShouldReturnReceiptItems() throws Exception {

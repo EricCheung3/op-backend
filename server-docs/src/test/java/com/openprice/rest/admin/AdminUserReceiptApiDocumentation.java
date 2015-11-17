@@ -113,16 +113,6 @@ public class AdminUserReceiptApiDocumentation extends AdminApiDocumentationBase 
         ));
     }
 
-//    @Test
-//    public void adminUserReceiptItemListExample() throws Exception {
-//        mockMvc
-//        .perform(get(testUserReceiptItemsUrl()).with(user(USERNAME)))
-//        .andExpect(status().isOk())
-//        .andDo(document("admin-user-receipt-item-list-example",
-//            preprocessResponse(prettyPrint())
-//        ));
-//    }
-
     @Override
     @Before
     public void setUp() throws Exception {
@@ -179,17 +169,6 @@ public class AdminUserReceiptApiDocumentation extends AdminApiDocumentationBase 
             .andReturn().getResponse()
             .getContentAsString();
         return JsonPath.read(responseContent, "_embedded.receiptImages[0]._links.self.href");
-    }
-
-    private String testUserReceiptItemsUrl() throws Exception {
-        final String responseContent =
-            mockMvc
-            .perform(get(testUserReceiptUrl()).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        final String imagesLink = JsonPath.read(responseContent, "_links.items.href");
-        return UriTemplate.fromTemplate(imagesLink).set("page", null).set("size", null).set("sort", null).expand();
     }
 
 }

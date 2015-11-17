@@ -147,6 +147,7 @@ public class ReceiptService {
         final ReceiptData result = parserResultRepository.findFirstByReceiptOrderByCreatedTimeDesc(receipt);
 
         if (result == null) {
+            log.debug("No receipt data yet for receipt {}, call parser to generate...", receipt.getId());
             return generateParsedReceiptData(receipt);
         }
         return result;

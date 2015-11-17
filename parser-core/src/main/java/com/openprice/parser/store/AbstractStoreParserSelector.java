@@ -81,7 +81,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         chain =
             StoreChain
             .builder()
-            .code(getParserBaseCode())
+            .code(getParserBaseCode().toLowerCase()) // TODO maybe use lower case in all places?
             .categories(TextResourceUtils.loadStringArray(getStoreConfigResource(CATEGORY_FILE_NAME)))
             .identifyFields(TextResourceUtils.loadStringArray(getStoreConfigResource(IDENTIFY_FIELD_FILE_NAME)))
             .branches(branches)
