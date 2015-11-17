@@ -35,6 +35,16 @@
             <artifactId>openprice-domain-store</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-domain-shopping</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-parser-stores</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.openprice</groupId>

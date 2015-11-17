@@ -25,19 +25,19 @@
     <user_role user_account_id="user002" role="ROLE_USER"/>
     <user_role user_account_id="user003" role="ROLE_USER"/>
 
-    <receipt id="receipt001" version="1" user_account_id="user001" created_time="2009-01-01 10:00:01.0000"/>
+    <receipt id="receipt001" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 10:00:01.0000"/>
     <receipt_image id="image001" version="1" receipt_id="receipt001" status="UPLOADED" created_time="2009-01-01 10:00:01.0000"/>
 
-    <receipt id="receipt002" version="1" user_account_id="user001" created_time="2009-01-01 11:00:01.0000"/>
+    <receipt id="receipt002" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 11:00:01.0000"/>
     <receipt_image id="image002" version="1" receipt_id="receipt002" status="UPLOADED" created_time="2009-01-01 11:00:01.0000"/>
 
-    <receipt id="receipt101" version="1" user_account_id="user002" created_time="2009-01-02 10:00:01.0000"/>
+    <receipt id="receipt101" version="1" user_account_id="user002" need_feedback="1" created_time="2009-01-02 10:00:01.0000"/>
     <receipt_image id="image101" version="1" receipt_id="receipt101" status="UPLOADED" created_time="2009-01-02 10:00:01.0000"/>
 
-    <receipt id="receipt102" version="1" user_account_id="user002" created_time="2009-01-02 11:00:01.0000"/>
+    <receipt id="receipt102" version="1" user_account_id="user002" need_feedback="1" created_time="2009-01-02 11:00:01.0000"/>
     <receipt_image id="image102" version="1" receipt_id="receipt102" status="UPLOADED" created_time="2009-01-02 11:00:01.0000"/>
 
-    <store_chain id="chain001" version="1" code="RCSS" name="Real Canadian Superstore" categories="Grocery" created_time="2009-01-02 10:00:01.0000"/>
+    <store_chain id="chain001" version="1" code="rcss" name="Real Canadian Superstore" categories="Grocery" created_time="2009-01-02 10:00:01.0000"/>
     <store_branch id="branch101" version="1" chain_id="chain001" name="Calgary Trail RCSS" phone="780-430-2769" 
         address1="4821 Calgary Trail" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
     <store_branch id="branch102" version="1" chain_id="chain001" name="South Common RCSS" phone="780-490-3918" 
@@ -45,8 +45,16 @@
     <store_branch id="branch103" version="1" chain_id="chain001" name="Whitemud RCSS" phone="780-450-8328" 
         address1="4410, 17 St NW" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
 
-    <store_chain id="chain002" version="1" code="Safeway" name="Safeway" categories="Grocery,Health" created_time="2009-01-02 10:00:01.0000"/>
+    <store_chain id="chain002" version="1" code="safeway" name="Safeway" categories="Grocery,Health" created_time="2009-01-02 10:00:01.0000"/>
     <store_branch id="branch201" version="1" chain_id="chain002" name="SAFEWAY" phone="780-436-185" 
         address1="5110 Windermere Blvd" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
 
+    <shopping_store id="shoppingStore101" version="1" user_account_id="user001" chain_code="rcss" display_name="Superstore" created_time="2009-01-02 10:00:01.0000"/>
+    <shopping_store id="shoppingStore102" version="1" user_account_id="user001" chain_code="safeway" display_name="Safeway" created_time="2009-01-02 10:00:01.0000"/>
+    
+    <shopping_item id="item101" version="1" store_id="shoppingStore101" catalog_code="MILK" name="milk" created_time="2009-01-01 10:00:01.0000"/>
+    <shopping_item id="item102" version="1" store_id="shoppingStore101" catalog_code="EGG" name="eggs" created_time="2009-01-01 10:01:01.0000"/>
+    <shopping_item id="item103" version="1" store_id="shoppingStore101" catalog_code="BREAD" name="bread" created_time="2009-01-01 10:02:01.0000"/>
+
+    <receipt_feedback id="receipt001feedback001" version="1" receipt_id="receipt001" rating="5" comment="Excellent!" created_time="2009-01-01 10:00:01.0000"/>
 </dataset>

@@ -51,9 +51,9 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
             .body("page.totalPages", equalTo(1))
             .body("page.number", equalTo(0))
             .body("_embedded.storeChains[0].id", equalTo("chain001"))
-            .body("_embedded.storeChains[0].code", equalTo("RCSS"))
+            .body("_embedded.storeChains[0].code", equalTo("rcss"))
             .body("_embedded.storeChains[1].id", equalTo("chain002"))
-            .body("_embedded.storeChains[1].code", equalTo("Safeway"))
+            .body("_embedded.storeChains[1].code", equalTo("safeway"))
             .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS))
         ;
     }
@@ -75,7 +75,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("id", equalTo("chain001"))
-            .body("code", equalTo("RCSS"))
+            .body("code", equalTo("rcss"))
             .body("name", equalTo("Real Canadian Superstore"))
             .body("categories", equalTo("Grocery"))
             .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS+"/chain001"))
@@ -147,7 +147,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
         final String chainUrl = storeChainUrl(sessionFilter, "chain001");
         final AdminStoreChainForm form =
             AdminStoreChainForm.builder()
-                               .code("RCSS")
+                               .code("rcss")
                                .name("Superstore")
                                .categories("Grocery,Fashion,Pharmacy")
                                .build();
@@ -170,7 +170,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("id", equalTo("chain001"))
-            .body("code", equalTo("RCSS"))
+            .body("code", equalTo("rcss"))
             .body("name", equalTo("Superstore"))
             .body("categories", equalTo("Grocery,Fashion,Pharmacy"))
             .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS+"/chain001"))
@@ -288,7 +288,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
 
         final AdminStoreBranchForm form =
             AdminStoreBranchForm.builder()
-                                .name("RCSS")
+                                .name("rcss")
                                 .phone("780-123-4567")
                                 .address1("101 456 Street")
                                 .city("Edmonton")
@@ -324,7 +324,7 @@ public class AdminStoreRestApiIT extends AbstractAdminRestApiIntegrationTest {
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            .body("name", equalTo("RCSS"))
+            .body("name", equalTo("rcss"))
             .body("address.address1", equalTo("101 456 Street"))
             .body("address.city", equalTo("Edmonton"))
         ;

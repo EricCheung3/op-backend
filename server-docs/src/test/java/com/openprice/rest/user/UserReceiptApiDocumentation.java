@@ -19,9 +19,6 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -94,32 +91,32 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
                 fieldWithPath("images").description("Receipt image list"),
-                fieldWithPath("rating").description("User rating for the receipt quality (0 or 1 for bad/good), default is null."),
+                fieldWithPath("needFeedback").description("Whether user can give feedback"),
                 fieldWithPath("_links").description("<<resources-user-receipt-links,Links>> to other resources")
             )
         ));
     }
 
-    @Test
-    public void receiptFeedbackUpdateExample() throws Exception {
-        final Map<String, Integer> feedbackUpdate = new HashMap<>();
-        feedbackUpdate.put("rating", 1);
-
-        mockMvc
-        .perform(
-            put(userReceiptFeedbackUrl())
-            .with(user(USERNAME))
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(this.objectMapper.writeValueAsString(feedbackUpdate))
-        )
-        .andExpect(status().isNoContent())
-        .andDo(document("user-receipt-feedback-update-example",
-            preprocessRequest(prettyPrint()),
-            requestFields(
-                fieldWithPath("rating").description("The user rating for the receipt, right now we only use 1 or 0 to indicate good or bad.")
-            )
-        ));
-    }
+//    @Test
+//    public void receiptFeedbackUpdateExample() throws Exception {
+//        final Map<String, Integer> feedbackUpdate = new HashMap<>();
+//        feedbackUpdate.put("rating", 1);
+//
+//        mockMvc
+//        .perform(
+//            put(userReceiptFeedbackUrl())
+//            .with(user(USERNAME))
+//            .contentType(MediaType.APPLICATION_JSON)
+//            .content(this.objectMapper.writeValueAsString(feedbackUpdate))
+//        )
+//        .andExpect(status().isNoContent())
+//        .andDo(document("user-receipt-feedback-update-example",
+//            preprocessRequest(prettyPrint()),
+//            requestFields(
+//                fieldWithPath("rating").description("The user rating for the receipt, right now we only use 1 or 0 to indicate good or bad.")
+//            )
+//        ));
+//    }
 
     @Test
     public void receiptDeleteExample() throws Exception {
