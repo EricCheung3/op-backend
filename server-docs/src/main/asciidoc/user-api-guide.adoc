@@ -382,7 +382,7 @@ include::{snippets}/user-receipt-parser-result-item-update-example/http-response
 
 
 [[resources-user-receipt-parser-result-item-delete]]
-=== Delete existing recept parser result item
+=== Delete existing receipt parser result item
 
 A `DELETE` request is used to delete one receipt parser result item.
 TODO: it will just set ignore flag of the item, so user won't see it in the UI.
@@ -397,59 +397,60 @@ include::{snippets}/user-receipt-parser-result-item-delete-example/http-response
 
 
 
-[[resources-user-stores]]
-== User Stores
+[[resources-user-shopping-stores]]
+== User Shopping Stores
 
 User Stores to manage all store shopping list.
 
-[[resources-user-store-list]]
-=== List all stores in user shoppinglist
+[[resources-user-shopping-store-list]]
+=== List all user shoppinglist for different stores
 
-A `GET` request will list all of the stores for current logged in user.
-
-==== Response structure
-
-include::{snippets}/user-store-list-example/response-fields.adoc[]
-
-==== Example request
-
-include::{snippets}/user-store-list-example/curl-request.adoc[]
-
-==== Example response
-
-include::{snippets}/user-store-list-example/http-response.adoc[]
-
-[[resources-user-store-list-links]]
-==== Links
-
-include::{snippets}/user-store-list-example/links.adoc[]
-
-[[resources-user-store]]
-== User Store
-
-User Store resource for a specific store.
-
-[[resources-user-store-retrieve]]
-=== Retrieve Store with Id
-
-A `GET` request will get store data by Id
+A `GET` request will list all of the stores for current logged in user, ordered by display name.
 
 ==== Response structure
 
-include::{snippets}/user-store-retrieve-example/response-fields.adoc[]
+include::{snippets}/user-shopping-store-list-example/response-fields.adoc[]
 
 ==== Example request
 
-include::{snippets}/user-store-retrieve-example/curl-request.adoc[]
+include::{snippets}/user-shopping-store-list-example/curl-request.adoc[]
 
 ==== Example response
 
-include::{snippets}/user-store-retrieve-example/http-response.adoc[]
+include::{snippets}/user-shopping-store-list-example/http-response.adoc[]
 
-[[resources-user-store-retrieve-links]]
+[[resources-user-shopping-store-list-links]]
 ==== Links
 
-include::{snippets}/user-store-retrieve-example/links.adoc[]
+include::{snippets}/user-shopping-store-list-example/links.adoc[]
+
+
+[[resources-user-shopping-store]]
+== User Shopping Store
+
+User Shopping Store resource is the shopping list for a specific store chain.
+
+[[resources-user-shopping-store-retrieve]]
+=== Retrieve Shopping Store with Id
+
+A `GET` request will get shopping store data by Id
+
+==== Response structure
+
+include::{snippets}/user-shopping-store-retrieve-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/user-shopping-store-retrieve-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/user-shopping-store-retrieve-example/http-response.adoc[]
+
+[[resources-user-shopping-store-retrieve-links]]
+==== Links
+
+include::{snippets}/user-shopping-store-retrieve-example/links.adoc[]
 
 
 [[resources-user-shoppinglist]]
@@ -476,58 +477,58 @@ include::{snippets}/user-shoppinglist-upload-example/http-response.adoc[]
 
 
 
-[[resources-user-store-items]]
+[[resources-user-shopping-items]]
 == User Shopping List Items
 
 User Shopping List Items to manage user's shopping list items for specific store
 
-[[resources-user-store-item-list]]
+[[resources-user-shopping-item-list]]
 === List all shopping items in user shoppinglist for a store
 
 A `GET` request will list all of the items for a shopping list of store.
 
 ==== Response structure
 
-include::{snippets}/user-store-item-list-example/response-fields.adoc[]
+include::{snippets}/user-shopping-item-list-example/response-fields.adoc[]
 
 ==== Example request
 
-include::{snippets}/user-store-item-list-example/curl-request.adoc[]
+include::{snippets}/user-shopping-item-list-example/curl-request.adoc[]
 
 ==== Example response
 
-include::{snippets}/user-store-item-list-example/http-response.adoc[]
+include::{snippets}/user-shopping-item-list-example/http-response.adoc[]
 
-[[resources-user-store-item-list-links]]
+[[resources-user-shopping-item-list-links]]
 ==== Links
 
-include::{snippets}/user-store-item-list-example/links.adoc[]
+include::{snippets}/user-shopping-item-list-example/links.adoc[]
 
 
 
-[[resources-user-store-item]]
+[[resources-user-shopping-item]]
 == User Shopping List Item
 
 User Shopping List Item Resource is for the item in one of user shopping list for a store.
 
-[[resources-user-store-item-retrieve]]
+[[resources-user-shopping-item-retrieve]]
 === Retrieve Shopping Item with Id
 
 A `GET` request will get shopping list item data by Id
 
 ==== Response structure
 
-include::{snippets}/user-store-item-retrieve-example/response-fields.adoc[]
+include::{snippets}/user-shopping-item-retrieve-example/response-fields.adoc[]
 
 ==== Example request
 
-include::{snippets}/user-store-item-retrieve-example/curl-request.adoc[]
+include::{snippets}/user-shopping-item-retrieve-example/curl-request.adoc[]
 
 ==== Example response
 
-include::{snippets}/user-store-item-retrieve-example/http-response.adoc[]
+include::{snippets}/user-shopping-item-retrieve-example/http-response.adoc[]
 
-[[resources-user-store-item-retrieve-links]]
+[[resources-user-shopping-item-retrieve-links]]
 ==== Links
 
-include::{snippets}/user-store-item-retrieve-example/links.adoc[]
+include::{snippets}/user-shopping-item-retrieve-example/links.adoc[]

@@ -4,8 +4,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,30 +25,29 @@ import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.shopping.ShoppingItem;
 import com.openprice.domain.shopping.ShoppingItemRepository;
-import com.openprice.domain.store.StoreChain;
-import com.openprice.domain.store.StoreChainRepository;
+import com.openprice.domain.shopping.ShoppingService;
+import com.openprice.domain.shopping.ShoppingStore;
+import com.openprice.domain.shopping.ShoppingStoreRepository;
 import com.openprice.rest.ResourceNotFoundException;
-import com.openprice.rest.user.AbstractUserRestController;
 import com.openprice.rest.user.UserApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-public class ShoppingItemRestController extends AbstractUserRestController {
-    private final StoreChainRepository storeRepository;
+public class ShoppingItemRestController extends AbstractUserStoreRestController {
     private final ShoppingItemRepository shoppingItemRepository;
     private final ShoppingItemResourceAssembler shoppingItemResourceAssembler;
 
     @Inject
     public ShoppingItemRestController(final UserAccountService userAccountService,
+                                      final ShoppingService shoppingService,
+                                      final ShoppingStoreRepository shoppingStoreRepository,
                                       final ShoppingItemRepository shoppingItemRepository,
-                                      final ShoppingItemResourceAssembler shoppingItemResourceAssembler,
-                                      final StoreChainRepository storeRepository) {
-        super(userAccountService);
+                                      final ShoppingItemResourceAssembler shoppingItemResourceAssembler) {
+        super(userAccountService, shoppingService, shoppingStoreRepository);
         this.shoppingItemRepository = shoppingItemRepository;
         this.shoppingItemResourceAssembler = shoppingItemResourceAssembler;
-        this.storeRepository = storeRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_SHOPPINGLIST)
@@ -60,20 +57,18 @@ public class ShoppingItemRestController extends AbstractUserRestController {
 
     @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_SHOPPINGLIST)
     public HttpEntity<Void> uploadShoppingList(@RequestBody final ShoppingListForm form) {
-        saveShoppingList(form);
-
-        URI location = linkTo(methodOn(ShoppingItemRestController.class).getStoreShoppingItems(form.getStoreId(), null, null)).toUri();
+        final ShoppingStore store = saveShoppingList(form);
+        final URI location = linkTo(methodOn(ShoppingStoreRestController.class).getUserShoppingStoreById(store.getId())).toUri();
         return ResponseEntity.created(location).body(null);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_SHOPPING_STORES_STORE_ITEMS)
-    public HttpEntity<PagedResources<ShoppingItemResource>> getStoreShoppingItems(
+    public HttpEntity<PagedResources<ShoppingItemResource>> getShoppingItems(
             @PathVariable("storeId") final String storeId,
             @PageableDefault(size = 10, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<ShoppingItem> assembler) {
-        final UserAccount currentUserAccount = getCurrentAuthenticatedUser();
-        final StoreChain store = getStoreByIdAndCheckOwner(storeId);
-        final Page<ShoppingItem> items = null; //shoppingItemRepository.findByUserAndStoreOrderByItemName(currentUserAccount, store, pageable);
+        final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
+        final Page<ShoppingItem> items = shoppingItemRepository.findByStoreOrderByName(store, pageable);
         return ResponseEntity.ok(assembler.toResource(items, shoppingItemResourceAssembler));
     }
 
@@ -94,24 +89,8 @@ public class ShoppingItemRestController extends AbstractUserRestController {
         return ResponseEntity.noContent().build();
     }
 
-    private StoreChain getStoreByIdAndCheckOwner(final String storeId) {
-        final StoreChain store = storeRepository.findOne(storeId);
-        if (store == null) {
-            log.warn("ILLEGAL STORE ACCESS! No such store Id: {}.", storeId);
-            throw new ResourceNotFoundException("No store with the id: " + storeId);
-        }
-
-        // TODO? May need to check if current user has the store
-
-        return store;
-    }
-
     private ShoppingItem getShoppingItemByIdAndCheckStore(final String storeId, final String itemId) {
-        final StoreChain store = storeRepository.findOne(storeId);
-        if (store == null) {
-            log.warn("ILLEGAL STORE ACCESS! No such store Id: {}.", storeId);
-            throw new ResourceNotFoundException("No store with the id: " + storeId);
-        }
+        final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
 
         final ShoppingItem item = shoppingItemRepository.findOne(itemId);
         if (item == null) {
@@ -126,19 +105,14 @@ public class ShoppingItemRestController extends AbstractUserRestController {
     }
 
     @Transactional
-    private void saveShoppingList(final ShoppingListForm form) {
+    private ShoppingStore saveShoppingList(final ShoppingListForm form) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
-        final StoreChain store = getStoreByIdAndCheckOwner(form.getStoreId());
-        final List<ShoppingItem> shoppingItems = new ArrayList<>();
-        for (final ShoppingListForm.Item item : form.getItems()) {
-            final ShoppingItem shoppingItem = new ShoppingItem();
-            // FIXME
-//            shoppingItem.setItemName(item.getName());
-//            shoppingItem.setItemPrice(item.getPrice());
-//            shoppingItem.setUser(currentUser);
-//            shoppingItem.setStore(store);
-            shoppingItems.add(shoppingItem);
-        }
-        shoppingItemRepository.save(shoppingItems);
+        final String chainCode = form.getChainCode();
+
+        //TODO get generic shopping list for store if chain code not provided
+        final ShoppingStore store = shoppingService.getShoppingStoreForStoreChain(currentUser, chainCode);
+        form.addShoppingItems(store);
+
+        return shoppingStoreRepository.save(store);
     }
 }

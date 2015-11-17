@@ -22,7 +22,7 @@ public class ShoppingItemResourceAssembler implements ResourceAssembler<Shopping
         resource.add(linkTo(methodOn(UserAccountRestController.class).getCurrentUserAccount())
                 .withRel(ShoppingItemResource.LINK_NAME_USER));
 
-        resource.add(linkTo(methodOn(UserStoreRestController.class).getUserStoreById(shoppingItem.getStore().getId()))
+        resource.add(linkTo(methodOn(ShoppingStoreRestController.class).getUserShoppingStoreById(shoppingItem.getStore().getId()))
                 .withRel(ShoppingItemResource.LINK_NAME_STORE));
 
         return resource;

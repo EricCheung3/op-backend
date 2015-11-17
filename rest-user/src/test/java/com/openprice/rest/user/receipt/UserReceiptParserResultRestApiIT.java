@@ -79,7 +79,6 @@ public class UserReceiptParserResultRestApiIT extends AbstractUserRestApiIntegra
             .body("_embedded.receiptItems[1].parsedName", equalTo("milk"))
             .body("_embedded.receiptItems[1].parsedPrice", equalTo("4.99"))
         ;
-
     }
 
     @Test
@@ -135,7 +134,6 @@ public class UserReceiptParserResultRestApiIT extends AbstractUserRestApiIntegra
             .body("displayPrice", equalTo("4.49"))
             .body("_links.self.href", endsWith(itemUrl))
         ;
-
     }
 
     @Test
@@ -163,6 +161,4 @@ public class UserReceiptParserResultRestApiIT extends AbstractUserRestApiIntegra
         ReceiptItem item = receiptItemRepository.findOne("recItem001");
         assertNull(item);
     }
-
-
 }

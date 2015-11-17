@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 
 import org.apache.http.HttpStatus;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -15,17 +14,16 @@ import com.jayway.restassured.response.Response;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
 @DatabaseSetup("classpath:/data/testData.xml")
-@Ignore
 public class ShoppingListRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test
-    public void postShoppingList_ShouldAddShoppingItemsForUserStore() {
+    public void postShoppingList_ShouldAddShoppingItemsForExistingShoppingStore() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
         Response response =
             given()
                 .filter(sessionFilter)
             .when()
-                .get(userStoreItemsUrl(sessionFilter, "store003"))
+                .get(userShoppingItemsUrl(sessionFilter, "shoppingStore101"))
             ;
         //response.prettyPrint();
         response
@@ -33,18 +31,18 @@ public class ShoppingListRestApiIT extends AbstractUserRestApiIntegrationTest {
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("page.size", equalTo(10))
-            .body("page.totalElements", equalTo(0))
-            .body("page.totalPages", equalTo(0))
+            .body("page.totalElements", equalTo(3))
+            .body("page.totalPages", equalTo(1))
             .body("page.number", equalTo(0))
         ;
 
         // add shoppinglist
         final ShoppingListForm form =
             ShoppingListForm.builder()
-                            .storeId("store003")
-                            .item(ShoppingListForm.Item.builder().name("t-shirt").price("10.99").build())
-                            .item(ShoppingListForm.Item.builder().name("jean").price("20.99").build())
-                            .item(ShoppingListForm.Item.builder().name("shoes").price("100.99").build())
+                            .chainCode("rcss")
+                            .item(ShoppingListForm.Item.builder().name("t-shirt").catalogCode("T SHIRT").build())
+                            .item(ShoppingListForm.Item.builder().name("jean").catalogCode("JEAN").build())
+                            .item(ShoppingListForm.Item.builder().name("shoes").catalogCode("SHOE").build())
                             .build();
 
         response =
@@ -61,30 +59,29 @@ public class ShoppingListRestApiIT extends AbstractUserRestApiIntegrationTest {
         ;
 
         // verify new items
-        String updatedItemsUrl = response.getHeader("Location");
-        assertEquals(userStoreItemsUrl(sessionFilter, "store003"), updatedItemsUrl);
+        String updatedStoreUrl = response.getHeader("Location");
+        assertEquals(userShoppingStoreUrl(sessionFilter, "shoppingStore101"), updatedStoreUrl);
 
         response =
             given()
                 .filter(sessionFilter)
             .when()
-                .get(updatedItemsUrl)
+                .get(updatedStoreUrl)
             ;
-        //response.prettyPrint();
+        response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            .body("page.size", equalTo(10))
-            .body("page.totalElements", equalTo(3))
-            .body("page.totalPages", equalTo(1))
-            .body("page.number", equalTo(0))
-            .body("_embedded.shoppingItems[0].itemName", equalTo("jean"))
-            .body("_embedded.shoppingItems[0].itemPrice", equalTo("20.99"))
-            .body("_embedded.shoppingItems[1].itemName", equalTo("shoes"))
-            .body("_embedded.shoppingItems[1].itemPrice", equalTo("100.99"))
-            .body("_embedded.shoppingItems[2].itemName", equalTo("t-shirt"))
-            .body("_embedded.shoppingItems[2].itemPrice", equalTo("10.99"))
+            .body("id", equalTo("shoppingStore101"))
+            .body("chainCode", equalTo("rcss"))
+            .body("displayName", equalTo("Superstore"))
+            .body("items[0].name", equalTo("bread"))
+            .body("items[1].name", equalTo("eggs"))
+            .body("items[2].name", equalTo("jean"))
+//            .body("items[3].name", equalTo("milk"))
+//            .body("items[4].name", equalTo("shoes"))
+//            .body("items[5].name", equalTo("t-shirt"))
         ;
     }
 }

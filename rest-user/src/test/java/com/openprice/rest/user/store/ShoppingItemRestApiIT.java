@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
 
 import org.apache.http.HttpStatus;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -15,7 +14,6 @@ import com.jayway.restassured.response.Response;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
 @DatabaseSetup("classpath:/data/testData.xml")
-@Ignore
 public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test
@@ -25,7 +23,7 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
             given()
                 .filter(sessionFilter)
             .when()
-                .get(userStoreItemsUrl(sessionFilter, "store001"))
+                .get(userShoppingItemsUrl(sessionFilter, "shoppingStore101"))
             ;
         //response.prettyPrint();
         response
@@ -36,15 +34,12 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("page.totalElements", equalTo(3))
             .body("page.totalPages", equalTo(1))
             .body("page.number", equalTo(0))
-            .body("_embedded.shoppingItems[0].id", equalTo("item003"))
-            .body("_embedded.shoppingItems[0].itemName", equalTo("bread"))
-            .body("_embedded.shoppingItems[0].itemPrice", equalTo("1.99"))
-            .body("_embedded.shoppingItems[1].id", equalTo("item002"))
-            .body("_embedded.shoppingItems[1].itemName", equalTo("eggs"))
-            .body("_embedded.shoppingItems[1].itemPrice", equalTo("2.99"))
-            .body("_embedded.shoppingItems[2].id", equalTo("item001"))
-            .body("_embedded.shoppingItems[2].itemName", equalTo("milk"))
-            .body("_embedded.shoppingItems[2].itemPrice", equalTo("4.99"))
+            .body("_embedded.shoppingItems[0].id", equalTo("item103"))
+            .body("_embedded.shoppingItems[0].name", equalTo("bread"))
+            .body("_embedded.shoppingItems[1].id", equalTo("item102"))
+            .body("_embedded.shoppingItems[1].name", equalTo("eggs"))
+            .body("_embedded.shoppingItems[2].id", equalTo("item101"))
+            .body("_embedded.shoppingItems[2].name", equalTo("milk"))
         ;
     }
 
@@ -55,26 +50,25 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
         given()
             .filter(sessionFilter)
         .when()
-            .get(userStoreItemUrl(sessionFilter, "store001", "item001"))
+            .get(userShoppingItemUrl(sessionFilter, "shoppingStore101", "item101"))
         ;
         //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            .body("id", equalTo("item001"))
-            .body("itemName", equalTo("milk"))
-            .body("itemPrice", equalTo("4.99"))
-            .body("_links.self.href", endsWith("/user/stores/store001/items/item001"))
+            .body("id", equalTo("item101"))
+            .body("name", equalTo("milk"))
+            .body("_links.self.href", endsWith("/user/stores/shoppingStore101/items/item101"))
             .body("_links.user.href", endsWith("/user"))
-            .body("_links.store.href", endsWith("/user/stores/store001"))
+            .body("_links.store.href", endsWith("/user/stores/shoppingStore101"))
         ;
     }
 
     @Test
     public void deleteShoppingListItemById_ShouldDeleteShoppingListItem() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-        final String itemUrl = userStoreItemUrl(sessionFilter, "store001", "item001");
+        final String itemUrl = userShoppingItemUrl(sessionFilter, "shoppingStore101", "item101");
 
         // first, should get item ok
         given()

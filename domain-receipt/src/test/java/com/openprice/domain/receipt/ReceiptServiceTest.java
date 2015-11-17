@@ -343,7 +343,6 @@ public class ReceiptServiceTest {
         final UserAccount testUser = new UserAccount();
         testUser.setId("user123");
         testUser.setEmail("user123@email.com");
-
         return testUser;
     }
 }

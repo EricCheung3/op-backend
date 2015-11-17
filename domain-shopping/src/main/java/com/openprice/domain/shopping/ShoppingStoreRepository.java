@@ -8,5 +8,7 @@ import com.openprice.domain.account.user.UserAccount;
 
 public interface ShoppingStoreRepository extends JpaRepository<ShoppingStore, String> {
 
-    Page<ShoppingStore> findByUserOrderByCreatedTime(UserAccount user, Pageable pageable);
+    ShoppingStore findByUserAndChainCode(UserAccount user, String chainCode);
+
+    Page<ShoppingStore> findByUserOrderByDisplayName(UserAccount user, Pageable pageable);
 }

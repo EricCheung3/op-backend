@@ -30,7 +30,7 @@ public class StoreService {
                                        final String name,
                                        final String categories,
                                        final String identifyFields) {
-        StoreChain chain = new StoreChain();
+        final StoreChain chain = new StoreChain();
         chain.setCode(code);
         chain.setName(name);
         chain.setCategories(categories);

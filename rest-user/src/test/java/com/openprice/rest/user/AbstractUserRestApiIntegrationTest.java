@@ -81,7 +81,7 @@ public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApi
         return UriTemplate.fromTemplate(itemLink).set("itemId", itemId).expand();
     }
 
-    protected String userStoresUrl(final SessionFilter sessionFilter) {
+    protected String userShoppingStoresUrl(final SessionFilter sessionFilter) {
         final String storesLink =
             given().filter(sessionFilter)
                    .when().get(userUrl())
@@ -89,7 +89,7 @@ public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApi
         return UriTemplate.fromTemplate(storesLink).set("page", null).set("size", null).set("sort", null).expand();
     }
 
-    protected String userStoreUrl(final SessionFilter sessionFilter, final String storeId) {
+    protected String userShoppingStoreUrl(final SessionFilter sessionFilter, final String storeId) {
         final String storeLink =
             given().filter(sessionFilter)
                    .when().get(userUrl())
@@ -97,18 +97,18 @@ public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApi
         return UriTemplate.fromTemplate(storeLink).set("storeId", storeId).expand();
     }
 
-    protected String userStoreItemsUrl(final SessionFilter sessionFilter, final String storeId) {
+    protected String userShoppingItemsUrl(final SessionFilter sessionFilter, final String storeId) {
         final String itemsLink =
             given().filter(sessionFilter)
-                   .when().get(userStoreUrl(sessionFilter, storeId))
+                   .when().get(userShoppingStoreUrl(sessionFilter, storeId))
                    .then().extract().path("_links.items.href");
         return UriTemplate.fromTemplate(itemsLink).set("page", null).set("size", null).set("sort", null).expand();
     }
 
-    protected String userStoreItemUrl(final SessionFilter sessionFilter, final String storeId, final String itemId) {
+    protected String userShoppingItemUrl(final SessionFilter sessionFilter, final String storeId, final String itemId) {
         final String storeLink =
             given().filter(sessionFilter)
-                   .when().get(userStoreUrl(sessionFilter, storeId))
+                   .when().get(userShoppingStoreUrl(sessionFilter, storeId))
                    .then().extract().path("_links.item.href");
         return UriTemplate.fromTemplate(storeLink).set("itemId", itemId).expand();
     }

@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
 
 import org.apache.http.HttpStatus;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -16,53 +15,55 @@ import com.openprice.rest.UtilConstants;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
 @DatabaseSetup("classpath:/data/testData.xml")
-@Ignore
-public class UserStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
+public class ShoppingStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test
-    public void getCurrentUserStores_ShouldReturnAllStores() {
+    public void getCurrentUserShoppingStores_ShouldReturnAllUserShoppingStores() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
         Response response =
             given()
                 .filter(sessionFilter)
             .when()
-                .get(userStoresUrl(sessionFilter))
+                .get(userShoppingStoresUrl(sessionFilter))
             ;
-        //response.prettyPrint();
+        response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("page.size", equalTo(10))
-            .body("page.totalElements", equalTo(3))
+            .body("page.totalElements", equalTo(2))
             .body("page.totalPages", equalTo(1))
             .body("page.number", equalTo(0))
-            .body("_embedded.storeChains[0].id", equalTo("store001"))
-            .body("_embedded.storeChains[1].id", equalTo("store002"))
-            .body("_embedded.storeChains[2].id", equalTo("store003"))
+            .body("_embedded.shoppingStores[0].id", equalTo("shoppingStore102"))
+            .body("_embedded.shoppingStores[0].chainCode", equalTo("safeway"))
+            .body("_embedded.shoppingStores[0].displayName", equalTo("Safeway"))
+            .body("_embedded.shoppingStores[1].id", equalTo("shoppingStore101"))
+            .body("_embedded.shoppingStores[1].chainCode", equalTo("rcss"))
         ;
     }
 
     @Test
-    public void getUserStoreById_ShouldReturnStore() {
+    public void getUserShoppingStoreById_ShouldReturnStore() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
         final Response response =
             given()
                 .filter(sessionFilter)
             .when()
-                .get(userStoreUrl(sessionFilter, "store001"))
+                .get(userShoppingStoreUrl(sessionFilter, "shoppingStore101"))
             ;
         //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            .body("id", equalTo("store001"))
-            .body("name", equalTo("Real Canadian Superstore"))
-            .body("_links.self.href", endsWith("/user/stores/store001"))
+            .body("id", equalTo("shoppingStore101"))
+            .body("chainCode", equalTo("rcss"))
+            .body("displayName", equalTo("Superstore"))
+            .body("_links.self.href", endsWith("/user/stores/shoppingStore101"))
             .body("_links.user.href", endsWith("/user"))
-            .body("_links.items.href", endsWith("/user/stores/store001/items" + UtilConstants.PAGINATION_TEMPLATES))
-            .body("_links.item.href", endsWith("/user/stores/store001/items/{itemId}"))
+            .body("_links.items.href", endsWith("/user/stores/shoppingStore101/items" + UtilConstants.PAGINATION_TEMPLATES))
+            .body("_links.item.href", endsWith("/user/stores/shoppingStore101/items/{itemId}"))
         ;
     }
 
