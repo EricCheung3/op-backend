@@ -15,7 +15,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Parser parsed receipt items.
+ * Parser parsed receipt items. User can edit display name and display price to fix parser result,
+ * or user can delete the item, which will be set <code>ignore=true</code>, and won't show up in receipt item list
+ * to user.
  *
  */
 @ToString(callSuper=true, exclude={"receiptData"})
@@ -49,4 +51,8 @@ public class ReceiptItem extends BaseAuditableEntity {
     @Getter @Setter
     @Column(name="display_price")
     private String displayPrice;
+
+    @Getter @Setter
+    @Column(name="ignore")
+    private boolean ignore;
 }

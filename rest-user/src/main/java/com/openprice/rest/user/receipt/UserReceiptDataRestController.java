@@ -56,6 +56,14 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
         return ResponseEntity.ok(receiptDataResourceAssembler.toResource(result));
     }
 
+    /**
+     * Return paginated receipt item list, filtered out user deleted items.
+     *
+     * @param receiptId
+     * @param pageable
+     * @param assembler
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS)
     public HttpEntity<PagedResources<UserReceiptItemResource>> getUserReceiptItems(
             @PathVariable("receiptId") final String receiptId,
@@ -63,7 +71,7 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
             final PagedResourcesAssembler<ReceiptItem> assembler) {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         final ReceiptData result = receiptService.getLatestReceiptParserResult(receipt);
-        final Page<ReceiptItem> items = receiptItemRepository.findByReceiptData(result, pageable);
+        final Page<ReceiptItem> items = receiptItemRepository.findByReceiptDataAndIgnoreIsFalse(result, pageable);
         return ResponseEntity.ok(assembler.toResource(items, receiptItemResourceAssembler));
     }
 
@@ -87,6 +95,13 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Set item ignore property to true, so user cannot see it.
+     * @param receiptId
+     * @param itemId
+     * @return
+     * @throws ResourceNotFoundException
+     */
     @RequestMapping(method = RequestMethod.DELETE, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS_ITEM)
     public HttpEntity<Void> deleteReceiptItemById(
             @PathVariable("receiptId") final String receiptId,
@@ -94,7 +109,8 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
                     throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         final ReceiptItem item = getReceiptItemByIdAndCheckReceipt(itemId, receipt);
-        receiptItemRepository.delete(item); // FIXME set ignore item to TRUE
+        item.setIgnore(true);
+        receiptItemRepository.save(item);
         return ResponseEntity.noContent().build();
     }
 
@@ -102,6 +118,10 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
         final ReceiptItem item = receiptItemRepository.findOne(itemId);
         if (item == null) {
             log.warn("ILLEGAL RECEIPT ITEM ACCESS! No such receipt item Id: {}.", itemId);
+            throw new ResourceNotFoundException("No receipt item with the id: " + itemId);
+        }
+        if (item.isIgnore()) {
+            log.warn("ILLEGAL RECEIPT ITEM ACCESS! Receipt item Id: {} was ignored by user.", itemId);
             throw new ResourceNotFoundException("No receipt item with the id: " + itemId);
         }
         if (!receipt.equals(item.getReceiptData().getReceipt())) {

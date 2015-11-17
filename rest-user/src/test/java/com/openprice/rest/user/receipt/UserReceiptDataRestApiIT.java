@@ -3,7 +3,7 @@ package com.openprice.rest.user.receipt;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import javax.inject.Inject;
 
@@ -47,9 +47,9 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
             .body("items[0].id", equalTo("recItem001"))
             .body("items[0].parsedName", equalTo("eggs"))
             .body("items[0].parsedPrice", equalTo("1.99"))
-            .body("items[1].id", equalTo("recItem002"))
-            .body("items[1].parsedName", equalTo("milk"))
-            .body("items[1].parsedPrice", equalTo("4.99"))
+            .body("items[1].id", equalTo("recItem003"))
+            .body("items[1].parsedName", equalTo("pork"))
+            .body("items[1].parsedPrice", equalTo("5.99"))
         ;
     }
 
@@ -110,9 +110,9 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
             .body("_embedded.receiptItems[0].id", equalTo("recItem001"))
             .body("_embedded.receiptItems[0].parsedName", equalTo("eggs"))
             .body("_embedded.receiptItems[0].parsedPrice", equalTo("1.99"))
-            .body("_embedded.receiptItems[1].id", equalTo("recItem002"))
-            .body("_embedded.receiptItems[1].parsedName", equalTo("milk"))
-            .body("_embedded.receiptItems[1].parsedPrice", equalTo("4.99"))
+            .body("_embedded.receiptItems[1].id", equalTo("recItem003"))
+            .body("_embedded.receiptItems[1].parsedName", equalTo("pork"))
+            .body("_embedded.receiptItems[1].parsedPrice", equalTo("5.99"))
         ;
     }
 
@@ -136,6 +136,18 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
             .body("displayName", equalTo("eggs"))
             .body("parsedPrice", equalTo("1.99"))
             .body("displayPrice", equalTo("1.99"))
+        ;
+    }
+
+    @Test
+    public void getUserReceiptItemById_ShouldReturn404_IfItemWasIgnored() throws Exception {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(userReceiptItemUrl(sessionFilter, "receipt001", "recItem002"))
+        .then()
+            .statusCode(HttpStatus.SC_NOT_FOUND)
         ;
     }
 
@@ -194,6 +206,6 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
 
         // check image record
         ReceiptItem item = receiptItemRepository.findOne("recItem001");
-        assertNull(item);
+        assertTrue(item.isIgnore());
     }
 }
