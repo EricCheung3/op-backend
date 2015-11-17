@@ -19,11 +19,17 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * Parsed receipt data by parser. Parser will recognize store chain first, and saved as <code>chainCode</code>.
+ * Then specific store parser will parse receipt items. If chain is not recognized, a generic parser will try to
+ * get item list as best effort.
+ *
+ */
 @ToString(callSuper=true, exclude={"receipt", "items"})
 @SuppressWarnings("serial")
 @Entity
-@Table( name="parser_result" )
-public class ParserResult extends BaseAuditableEntity {
+@Table( name="receipt_data" )
+public class ReceiptData extends BaseAuditableEntity {
 
     @Getter @Setter
     @JsonIgnore
@@ -49,7 +55,7 @@ public class ParserResult extends BaseAuditableEntity {
 
     @Getter @Setter
     @JsonIgnore
-    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="result")
+    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="receiptData")
     //@OrderBy("createdTime")
     private List<ReceiptItem> items = new ArrayList<>();
 }

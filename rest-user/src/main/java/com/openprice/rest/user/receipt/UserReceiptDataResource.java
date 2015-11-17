@@ -4,17 +4,17 @@ import java.util.List;
 
 import org.springframework.hateoas.Resource;
 
-import com.openprice.domain.receipt.ParserResult;
+import com.openprice.domain.receipt.ReceiptData;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class UserReceiptParserResultResource extends Resource<ParserResult> {
+public class UserReceiptDataResource extends Resource<ReceiptData> {
 
     @Getter @Setter
     private List<UserReceiptItemResource> items;
 
-    UserReceiptParserResultResource(final ParserResult resource) {
+    UserReceiptDataResource(final ReceiptData resource) {
         super(resource);
     }
 

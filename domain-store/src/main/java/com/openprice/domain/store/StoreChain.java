@@ -16,6 +16,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * <p>Basic data for franchising stores, like Safeway or Superstore.
+ *
+ * <p><b>Notes:</b> Parser will have store chain and branch config data as text files. The chain and branch data
+ * in database is mostly for user shopping list usage right now.
+ *
+ */
 @ToString(callSuper=true, exclude={"branches"})
 @SuppressWarnings("serial")
 @Entity

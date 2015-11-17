@@ -53,7 +53,7 @@ public class Receipt extends BaseAuditableEntity {
     @JsonIgnore
     @OneToMany(cascade=CascadeType.ALL, mappedBy="receipt")
     @OrderBy("createdTime")
-    private List<ParserResult> results = new ArrayList<>();
+    private List<ReceiptData> results = new ArrayList<>();
 
     /**
      * Builder method to create a new receipt.

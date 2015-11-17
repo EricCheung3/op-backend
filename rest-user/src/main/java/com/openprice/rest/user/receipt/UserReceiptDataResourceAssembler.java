@@ -14,27 +14,27 @@ import org.springframework.hateoas.UriTemplate;
 import org.springframework.hateoas.mvc.BasicLinkBuilder;
 import org.springframework.stereotype.Component;
 
-import com.openprice.domain.receipt.ParserResult;
 import com.openprice.domain.receipt.Receipt;
+import com.openprice.domain.receipt.ReceiptData;
 import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.rest.UtilConstants;
 
 @Component
-public class UserReceiptParserResultResourceAssembler implements ResourceAssembler<ParserResult, UserReceiptParserResultResource> {
+public class UserReceiptDataResourceAssembler implements ResourceAssembler<ReceiptData, UserReceiptDataResource> {
 
     private final UserReceiptItemResourceAssembler itemResourceAssembler;
 
     @Inject
-    public UserReceiptParserResultResourceAssembler(final UserReceiptItemResourceAssembler itemResourceAssembler) {
+    public UserReceiptDataResourceAssembler(final UserReceiptItemResourceAssembler itemResourceAssembler) {
         this.itemResourceAssembler = itemResourceAssembler;
     }
 
     @Override
-    public UserReceiptParserResultResource toResource(final ParserResult parserResult) {
-        final UserReceiptParserResultResource resource = new UserReceiptParserResultResource(parserResult);
-        final Receipt receipt = parserResult.getReceipt();
+    public UserReceiptDataResource toResource(final ReceiptData receiptData) {
+        final UserReceiptDataResource resource = new UserReceiptDataResource(receiptData);
+        final Receipt receipt = receiptData.getReceipt();
 
-        resource.add(linkTo(methodOn(UserReceiptParserResultRestController.class).getUserReceiptParserResult(receipt.getId()))
+        resource.add(linkTo(methodOn(UserReceiptDataRestController.class).getUserReceiptData(receipt.getId()))
                 .withSelfRel());
 
         // Hack solution to build template links for "item"
@@ -52,7 +52,7 @@ public class UserReceiptParserResultResourceAssembler implements ResourceAssembl
 
         // TODO fix _embedded issue
         List<UserReceiptItemResource> items = new ArrayList<>();
-        for (ReceiptItem item : parserResult.getItems()) {
+        for (ReceiptItem item : receiptData.getItems()) {
             items.add(itemResourceAssembler.toResource(item));
         }
         resource.setItems(items);

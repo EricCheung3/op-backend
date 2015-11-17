@@ -115,16 +115,16 @@ public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
         ));
     }
 
-    @Test
-    public void adminReceiptItemListExample() throws Exception {
-        mockMvc
-        .perform(get(getTestReceiptItemsUrl()).with(user(USERNAME)))
-        .andExpect(status().isOk())
-        .andDo(document("admin-receipt-item-list-example",
-            preprocessResponse(prettyPrint())
-        ));
-
-    }
+//    @Test
+//    public void adminReceiptItemListExample() throws Exception {
+//        mockMvc
+//        .perform(get(getTestReceiptItemsUrl()).with(user(USERNAME)))
+//        .andExpect(status().isOk())
+//        .andDo(document("admin-receipt-item-list-example",
+//            preprocessResponse(prettyPrint())
+//        ));
+//
+//    }
 
     @Override
     @Before

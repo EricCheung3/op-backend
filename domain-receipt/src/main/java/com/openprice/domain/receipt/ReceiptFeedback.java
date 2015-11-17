@@ -14,6 +14,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * User feedback for receipt parser result.
+ */
 @ToString(callSuper=true, exclude={"receipt"})
 @SuppressWarnings("serial")
 @Entity

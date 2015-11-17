@@ -14,6 +14,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * <p>One item in user shopping list.
+ *
+ * <p>The <code>catalogCode</code> is copied from <code>Catalog</code> when user add items from receipt parser result
+ * or from auto complete catalog search.
+ *
+ */
 @ToString(callSuper=true, exclude={"store"})
 @SuppressWarnings("serial")
 @Entity

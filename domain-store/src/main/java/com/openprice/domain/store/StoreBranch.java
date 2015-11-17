@@ -16,6 +16,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * <p>Ground truth data for store branch, like name, address, phone number, GST number, etc.
+ *
+ */
 @ToString(callSuper=true, exclude={"chain"})
 @SuppressWarnings("serial")
 @Entity

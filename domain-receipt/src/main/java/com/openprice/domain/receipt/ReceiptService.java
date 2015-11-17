@@ -11,7 +11,6 @@ import java.util.Base64;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -32,14 +31,14 @@ import lombok.extern.slf4j.Slf4j;
 public class ReceiptService {
     private final ReceiptRepository receiptRepository;
     private final ReceiptImageRepository receiptImageRepository;
-    private final ParserResultRepository parserResultRepository;
+    private final ReceiptDataRepository parserResultRepository;
     private final FileSystemService fileSystemService;
     private final SimpleParser simpleParser;
 
     @Inject
     public ReceiptService(final ReceiptRepository receiptRepository,
                           final ReceiptImageRepository receiptImageRepository,
-                          final ParserResultRepository parserResultRepository,
+                          final ReceiptDataRepository parserResultRepository,
                           final FileSystemService fileSystemService,
                           final SimpleParser simpleParser) {
         this.receiptRepository = receiptRepository;
@@ -138,42 +137,44 @@ public class ReceiptService {
     }
 
     /**
-     * Return latest parser result for the receipt in the database.
+     * Return latest parser result of ReceiptData object for the receipt in the database.
      * If no parser result yet, try to query ocr result for all receipt images and call Simple Parser.
      *
      * @param receipt
      * @return
      */
-    public ParserResult getLatestReceiptParserResult(final Receipt receipt) {
-        final ParserResult result = parserResultRepository.findFirstByReceiptOrderByCreatedTimeDesc(receipt);
+    public ReceiptData getLatestReceiptParserResult(final Receipt receipt) {
+        final ReceiptData result = parserResultRepository.findFirstByReceiptOrderByCreatedTimeDesc(receipt);
 
         if (result == null) {
-            return generateParserResult(receipt);
+            return generateParsedReceiptData(receipt);
         }
         return result;
     }
 
-    @Transactional
-    private ParserResult generateParserResult(final Receipt receipt) {
-        final ParserResult result = new ParserResult();
+    /*
+     * Call parser to generate ReceiptData from receipt image OCR result if new uploaded receipt was not parsed yet.
+     */
+    private ReceiptData generateParsedReceiptData(final Receipt receipt) {
+        final ReceiptData data = new ReceiptData();
         final List<String> ocrTextList = loadOcrResults(receipt);
         try {
             ParsedReceipt parsedReceipt = simpleParser.parseOCRResults(ocrTextList);
             // simple parser can parse the receipt, try to set result properties
-            result.setReceipt(receipt);
+            data.setReceipt(receipt);
             if (parsedReceipt.getChain() != null) {
-                result.setChainCode(parsedReceipt.getChain().getCode());
+                data.setChainCode(parsedReceipt.getChain().getCode());
             }
             if (parsedReceipt.getBranch() != null) {
-                result.setBranchName(parsedReceipt.getBranch().getBranchName());
+                data.setBranchName(parsedReceipt.getBranch().getBranchName());
             }
             final ValueLine parsedTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Total);
             if (parsedTotalValue != null) {
-                result.setParsedTotal(parsedTotalValue.getValue());
+                data.setParsedTotal(parsedTotalValue.getValue());
             }
             final ValueLine parsedDateValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Date);
             if (parsedDateValue != null) {
-                result.setParsedDate(parsedDateValue.getValue());
+                data.setParsedDate(parsedDateValue.getValue());
             }
 
             for (final Item item : parsedReceipt.getItems()) {
@@ -182,13 +183,13 @@ public class ReceiptService {
                 receiptItem.setParsedPrice(item.getBuyPrice());
                 receiptItem.setDisplayName(item.getName());
                 receiptItem.setDisplayPrice(item.getBuyPrice());
-                receiptItem.setResult(result);
-                result.getItems().add(receiptItem);
+                receiptItem.setReceiptData(data);
+                data.getItems().add(receiptItem);
             }
-            log.debug("SimpleParser returns {} items.", result.getItems().size());
+            log.debug("SimpleParser returns {} items.", data.getItems().size());
 
             // save result to database, should save items as well.
-            return parserResultRepository.save(result);
+            return parserResultRepository.save(data);
         } catch (Exception ex) {
             log.error("SEVERE: Got exception during parsing ocr text.", ex);
         }
@@ -224,38 +225,5 @@ public class ReceiptService {
             }
         }
         return ocrTextList;
-    }
-
-    /**
-     * First, check if all receipt images are processed with OCR. If not, wait and check again.
-     * If timeout, return empty item list.
-     * If OCR finished for all images, get OCR result from database, and call parser to get receipt items.
-     *
-     * FIXME: remove it after we have parser result in database.
-     *
-     * @param receipt
-     * @return
-     */
-    public List<ReceiptItem> getParsedReceiptItems(Receipt receipt) {
-        final List<ReceiptItem> result = new ArrayList<>();
-        final List<String> ocrTextList = loadOcrResults(receipt);
-
-        if (ocrTextList != null && ocrTextList.size() > 0) {
-            try {
-                ParsedReceipt parserResult = simpleParser.parseOCRResults(ocrTextList);
-                for (final Item item : parserResult.getItems()) {
-                    final ReceiptItem receiptItem = new ReceiptItem();
-                    receiptItem.setParsedName(item.getName());
-                    receiptItem.setParsedPrice(item.getBuyPrice());
-                    receiptItem.setDisplayName(item.getName());
-                    receiptItem.setDisplayPrice(item.getBuyPrice());
-                    result.add(receiptItem);
-                }
-                log.debug("SimpleParser returns {} items.", result.size());
-            } catch (Exception ex) {
-                log.error("SEVERE: Got exception during parsing ocr text.", ex);
-            }
-        }
-        return result;
     }
 }

@@ -19,20 +19,20 @@ import com.openprice.domain.receipt.ReceiptItemRepository;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
 @DatabaseSetup("classpath:/data/testData.xml")
-public class UserReceiptParserResultRestApiIT extends AbstractUserRestApiIntegrationTest {
+public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Inject
     private ReceiptItemRepository receiptItemRepository;
 
     @Test
-    public void getUserReceiptParserResult_ShouldReturnParserResultFromDatabase() throws Exception {
+    public void getUserReceiptData_ShouldReturnParserResultReceiptDataFromDatabase() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         Response response =
                 given()
                     .filter(sessionFilter)
                 .when()
-                    .get(userReceiptParserResultUrl(sessionFilter, "receipt001"))
+                    .get(userReceiptDatatUrl(sessionFilter, "receipt001"))
                 ;
         //response.prettyPrint();
 
@@ -52,15 +52,17 @@ public class UserReceiptParserResultRestApiIT extends AbstractUserRestApiIntegra
         ;
     }
 
+    //TODO getUserReceiptData_ShouldGenerateReceiptDataThroughParser_IfNotExist
+
     @Test
-    public void getUserReceiptParserResultItems_ShouldReturnParserResultItems() throws Exception {
+    public void getUserReceiptItems_ShouldReturnReceiptItems() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         Response response =
                 given()
                     .filter(sessionFilter)
                 .when()
-                    .get(userReceiptParserResultItemsUrl(sessionFilter, "receipt001"))
+                    .get(userReceiptItemsUrl(sessionFilter, "receipt001"))
                 ;
         //response.prettyPrint();
 
@@ -82,14 +84,14 @@ public class UserReceiptParserResultRestApiIT extends AbstractUserRestApiIntegra
     }
 
     @Test
-    public void getUserReceiptParserResultItemById_ShouldReturnParserResultItem() throws Exception {
+    public void getUserReceiptItemById_ShouldReturnItem() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         Response response =
                 given()
                     .filter(sessionFilter)
                 .when()
-                    .get(userReceiptParserResultItemUrl(sessionFilter, "receipt001", "recItem001"))
+                    .get(userReceiptItemUrl(sessionFilter, "receipt001", "recItem001"))
                 ;
         //response.prettyPrint();
 
@@ -105,9 +107,9 @@ public class UserReceiptParserResultRestApiIT extends AbstractUserRestApiIntegra
     }
 
     @Test
-    public void updateUserReceiptParserResultItem_ShouldUpdateNameAndPrice() throws Exception {
+    public void updateUserReceiptItem_ShouldUpdateNameAndPrice() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-        final String itemUrl = userReceiptParserResultItemUrl(sessionFilter, "receipt001", "recItem001");
+        final String itemUrl = userReceiptItemUrl(sessionFilter, "receipt001", "recItem001");
         final UserReceiptItemForm form = UserReceiptItemForm.builder().name("organic eggs").price("4.49").build();
 
         given()
@@ -137,9 +139,9 @@ public class UserReceiptParserResultRestApiIT extends AbstractUserRestApiIntegra
     }
 
     @Test
-    public void deleteUserReceiptParserResultItemById_ShouldDeleteReceiptItem() {
+    public void deleteUserReceiptItemById_ShouldDeleteReceiptItem() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-        final String itemUrl = userReceiptParserResultItemUrl(sessionFilter, "receipt001", "recItem001");
+        final String itemUrl = userReceiptItemUrl(sessionFilter, "receipt001", "recItem001");
 
         given()
             .filter(sessionFilter)

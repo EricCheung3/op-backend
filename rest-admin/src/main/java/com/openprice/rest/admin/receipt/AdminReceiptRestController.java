@@ -2,7 +2,6 @@ package com.openprice.rest.admin.receipt;
 
 import java.io.IOException;
 import java.util.Base64;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -29,7 +28,6 @@ import com.openprice.domain.account.admin.AdminAccountService;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
-import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.rest.ResourceNotFoundException;
@@ -146,13 +144,14 @@ public class AdminReceiptRestController extends AbstractAdminRestController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT_ITEMS)
-    public HttpEntity<List<ReceiptItem>> getReceiptItems(
-            @PathVariable("receiptId") final String receiptId) {
-        final Receipt receipt = loadReceiptById(receiptId);
-        List<ReceiptItem> result = receiptService.getParsedReceiptItems(receipt);
-        return ResponseEntity.ok(result);
-    }
+    // FIXME add API for ReceiptData
+//    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT_ITEMS)
+//    public HttpEntity<List<ReceiptItem>> getReceiptItems(
+//            @PathVariable("receiptId") final String receiptId) {
+//        final Receipt receipt = loadReceiptById(receiptId);
+//        List<ReceiptItem> result = receiptService.getLatestReceiptParserResult(receipt);
+//        return ResponseEntity.ok(result);
+//    }
 
     private Receipt loadReceiptById(final String receiptId) {
         final Receipt receipt = receiptRepository.findOne(receiptId);

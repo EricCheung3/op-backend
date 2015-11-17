@@ -58,14 +58,14 @@ public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApi
         return UriTemplate.fromTemplate(imageLink).set("imageId", imageId).expand();
     }
 
-    protected String userReceiptParserResultUrl(final SessionFilter sessionFilter, final String receiptId) {
+    protected String userReceiptDatatUrl(final SessionFilter sessionFilter, final String receiptId) {
         return
             given().filter(sessionFilter)
                    .when().get(userReceiptUrl(sessionFilter, receiptId))
                    .then().extract().path("_links.result.href");
     }
 
-    protected String userReceiptParserResultItemsUrl(final SessionFilter sessionFilter, final String receiptId) {
+    protected String userReceiptItemsUrl(final SessionFilter sessionFilter, final String receiptId) {
         final String itemsLink =
             given().filter(sessionFilter)
                    .when().get(userReceiptUrl(sessionFilter, receiptId))
@@ -73,7 +73,7 @@ public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApi
         return UriTemplate.fromTemplate(itemsLink).set("page", null).set("size", null).set("sort", null).expand();
     }
 
-    protected String userReceiptParserResultItemUrl(final SessionFilter sessionFilter, final String receiptId, final String itemId) {
+    protected String userReceiptItemUrl(final SessionFilter sessionFilter, final String receiptId, final String itemId) {
         final String itemLink =
             given().filter(sessionFilter)
                    .when().get(userReceiptUrl(sessionFilter, receiptId))

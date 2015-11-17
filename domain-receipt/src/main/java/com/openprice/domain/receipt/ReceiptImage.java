@@ -17,6 +17,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * User uploaded receipt images through mobile device or Web UI. It will be scanned by OCR service
+ * and store OCR result in database.
+ *
+ */
 @ToString(callSuper=true, exclude={"receipt", "ocrResult"})
 @SuppressWarnings("serial")
 @Entity

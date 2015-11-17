@@ -15,7 +15,7 @@ public class UserReceiptItemResourceAssembler implements ResourceAssembler<Recei
     public UserReceiptItemResource toResource(final ReceiptItem receiptItem) {
         final UserReceiptItemResource resource = new UserReceiptItemResource(receiptItem);
 
-        resource.add(linkTo(methodOn(UserReceiptParserResultRestController.class).getUserReceiptParserResultItemById(receiptItem.getResult().getReceipt().getId(), receiptItem.getId()))
+        resource.add(linkTo(methodOn(UserReceiptDataRestController.class).getUserReceiptItemById(receiptItem.getReceiptData().getReceipt().getId(), receiptItem.getId()))
                 .withSelfRel());
 //
 //        resource.add(linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receiptImage.getReceipt().getId()))

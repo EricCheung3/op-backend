@@ -21,6 +21,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * <p>User shopping list associated with a store.
+ *
+ * <p><b>Notes:</b> TODO: It may not have store associated, so it is a generic shopping list with a name.
+ */
 @ToString(callSuper=true, exclude={"user", "items"})
 @SuppressWarnings("serial")
 @Entity

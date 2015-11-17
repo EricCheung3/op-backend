@@ -18,7 +18,7 @@ import lombok.ToString;
  * Parser parsed receipt items.
  *
  */
-@ToString(callSuper=true, exclude={"result"})
+@ToString(callSuper=true, exclude={"receiptData"})
 @SuppressWarnings("serial")
 @Entity
 @Table( name="receipt_item" )
@@ -27,8 +27,12 @@ public class ReceiptItem extends BaseAuditableEntity {
     @Getter @Setter
     @JsonIgnore
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="result_id")
-    private ParserResult result;
+    @JoinColumn(name="receipt_data_id")
+    private ReceiptData receiptData;
+
+    @Getter @Setter
+    @Column(name="catalog_code")
+    private String catalogCode;
 
     @Getter @Setter
     @Column(name="parsed_name")

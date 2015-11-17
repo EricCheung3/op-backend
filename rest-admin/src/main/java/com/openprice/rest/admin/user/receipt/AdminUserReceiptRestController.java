@@ -2,7 +2,6 @@ package com.openprice.rest.admin.user.receipt;
 
 import java.io.IOException;
 import java.util.Base64;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -32,7 +31,6 @@ import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
-import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.rest.ResourceNotFoundException;
@@ -162,14 +160,14 @@ public class AdminUserReceiptRestController extends AbstractUserAdminRestControl
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_ITEMS)
-    public HttpEntity<List<ReceiptItem>> getUserReceiptItems(
-            @PathVariable("userId") final String userId,
-            @PathVariable("receiptId") final String receiptId) {
-        final Receipt receipt = getReceiptByIdAndCheckUser(userId, receiptId);
-        List<ReceiptItem> result = receiptService.getParsedReceiptItems(receipt);
-        return ResponseEntity.ok(result);
-    }
+//    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_ITEMS)
+//    public HttpEntity<List<ReceiptItem>> getUserReceiptItems(
+//            @PathVariable("userId") final String userId,
+//            @PathVariable("receiptId") final String receiptId) {
+//        final Receipt receipt = getReceiptByIdAndCheckUser(userId, receiptId);
+//        List<ReceiptItem> result = receiptService.getParsedReceiptItems(receipt);
+//        return ResponseEntity.ok(result);
+//    }
 
     private Receipt getReceiptByIdAndCheckUser(final String userId, final String receiptId) {
         final UserAccount currentUser = getUserByUserId(userId);

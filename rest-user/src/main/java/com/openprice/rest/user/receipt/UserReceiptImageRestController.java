@@ -50,9 +50,9 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
 
     @Inject
     public UserReceiptImageRestController(final UserAccountService userAccountService,
+                                          final ReceiptService receiptService,
                                           final ReceiptRepository receiptRepository,
                                           final ReceiptImageRepository receiptImageRepository,
-                                          final ReceiptService receiptService,
                                           final UserReceiptImageResourceAssembler receiptImageResourceAssembler,
                                           final ProcessQueueService processQueueService) {
         super(userAccountService, receiptRepository, receiptService);

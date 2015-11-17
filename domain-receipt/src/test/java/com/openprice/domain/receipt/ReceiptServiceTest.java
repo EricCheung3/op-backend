@@ -46,7 +46,7 @@ public class ReceiptServiceTest {
     ReceiptImageRepository receiptImageRepositoryMock;
 
     @Mock
-    ParserResultRepository parserResultRepositoryMock;
+    ReceiptDataRepository parserResultRepositoryMock;
 
     @Mock
     MultipartFile fileMock;
@@ -283,60 +283,22 @@ public class ReceiptServiceTest {
         when(parserResultRepositoryMock.findFirstByReceiptOrderByCreatedTimeDesc(eq(receipt))).thenReturn(null);
         when(receiptImageRepositoryMock.findByReceiptOrderByCreatedTime(eq(receipt))).thenReturn(images);
         when(simpleParser.parseOCRResults(eq(ocrTextList))).thenReturn(receiptDebug);
-        when(parserResultRepositoryMock.save(isA(ParserResult.class))).thenAnswer( new Answer<ParserResult>() {
+        when(parserResultRepositoryMock.save(isA(ReceiptData.class))).thenAnswer( new Answer<ReceiptData>() {
             @Override
-            public ParserResult answer(InvocationOnMock invocation) throws Throwable {
-                return (ParserResult)invocation.getArguments()[0];
+            public ReceiptData answer(InvocationOnMock invocation) throws Throwable {
+                return (ReceiptData)invocation.getArguments()[0];
             }
         });
 
-        final ParserResult result = serviceToTest.getLatestReceiptParserResult(receipt);
-        assertEquals("rcss", result.getChainCode());
-        assertEquals("Calgary Trail", result.getBranchName());
-        assertEquals(2, result.getItems().size());
-        assertEquals("milk", result.getItems().get(0).getParsedName());
-        assertEquals("10.99", result.getItems().get(0).getParsedPrice());
-        assertEquals("eggs", result.getItems().get(1).getParsedName());
-        assertEquals("4.99", result.getItems().get(1).getParsedPrice());
+        final ReceiptData data = serviceToTest.getLatestReceiptParserResult(receipt);
+        assertEquals("rcss", data.getChainCode());
+        assertEquals("Calgary Trail", data.getBranchName());
+        assertEquals(2, data.getItems().size());
+        assertEquals("milk", data.getItems().get(0).getParsedName());
+        assertEquals("10.99", data.getItems().get(0).getParsedPrice());
+        assertEquals("eggs", data.getItems().get(1).getParsedName());
+        assertEquals("4.99", data.getItems().get(1).getParsedPrice());
 
-    }
-
-
-    // TODO remove after clean up
-    @Test
-    public void getParsedReceiptItems_ShouldReturnReceiptItems() throws Exception {
-        final UserAccount testUser = getTestUser();
-        final Receipt receipt = new Receipt();
-        receipt.setId("receipt123");
-        receipt.setUser(testUser);
-
-        final ReceiptImage image1 = new ReceiptImage();
-        image1.setReceipt(receipt);
-        image1.setFileName("test1");
-        image1.setOcrResult("ocr result1");
-        final ReceiptImage image2 = new ReceiptImage();
-        image2.setReceipt(receipt);
-        image2.setFileName("test2");
-        image2.setOcrResult("ocr result2");
-        final List<ReceiptImage> images = Arrays.asList(image1, image2);
-        receipt.setImages(images);
-
-        final List<String> ocrTextList = Arrays.asList("ocr result1","ocr result2");
-
-        final List<Item> items = new ArrayList<>();
-        items.add(new Item("milk", "10.99", "1.99", "4.00", "food"));
-        items.add(new Item("eggs", "4.99", "4.99", "12", "food"));
-        ParsedReceipt receiptDebug = ParsedReceipt.builder().branch(null).items(items).build();
-
-        when(receiptImageRepositoryMock.findByReceiptOrderByCreatedTime(eq(receipt))).thenReturn(images);
-        when(simpleParser.parseOCRResults(eq(ocrTextList))).thenReturn(receiptDebug);
-
-        final List<ReceiptItem> receiptItems = serviceToTest.getParsedReceiptItems(receipt);
-        assertEquals(2, receiptItems.size());
-        assertEquals("milk", receiptItems.get(0).getParsedName());
-        assertEquals("10.99", receiptItems.get(0).getParsedPrice());
-        assertEquals("eggs", receiptItems.get(1).getParsedName());
-        assertEquals("4.99", receiptItems.get(1).getParsedPrice());
     }
 
     private UserAccount getTestUser() {

@@ -10,6 +10,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * <p>Aggregated receipt catalog data from collected receipt data.
+ *
+ * <p><b>Notes:</b> Parser will have catalog data in config files. Catalog in database
+ * is mostly for user shopping list usage, to display detail shopping item info, like name and price.
+ *
+ */
 @ToString(callSuper=true)
 @SuppressWarnings("serial")
 @Entity
