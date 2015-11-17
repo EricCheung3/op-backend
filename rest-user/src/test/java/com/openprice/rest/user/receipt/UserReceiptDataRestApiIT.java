@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
@@ -17,7 +18,9 @@ import com.jayway.restassured.response.Response;
 import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptItemRepository;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
+import com.openprice.rest.user.UserApiTestApplication;
 
+@SpringApplicationConfiguration(classes = {UserApiTestApplication.class})
 @DatabaseSetup("classpath:/data/testData.xml")
 public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest {
 

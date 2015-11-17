@@ -6,13 +6,16 @@ import static org.junit.Assert.assertEquals;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
+import com.openprice.rest.user.UserApiTestApplication;
 
+@SpringApplicationConfiguration(classes = {UserApiTestApplication.class})
 @DatabaseSetup("classpath:/data/testData.xml")
 public class ShoppingListRestApiIT extends AbstractUserRestApiIntegrationTest {
 
@@ -79,9 +82,9 @@ public class ShoppingListRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("items[0].name", equalTo("bread"))
             .body("items[1].name", equalTo("eggs"))
             .body("items[2].name", equalTo("jean"))
-//            .body("items[3].name", equalTo("milk"))
-//            .body("items[4].name", equalTo("shoes"))
-//            .body("items[5].name", equalTo("t-shirt"))
+            .body("items[3].name", equalTo("milk"))
+            .body("items[4].name", equalTo("shoes"))
+            .body("items[5].name", equalTo("t-shirt"))
         ;
     }
 }

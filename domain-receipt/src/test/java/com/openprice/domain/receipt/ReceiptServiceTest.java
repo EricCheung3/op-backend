@@ -46,7 +46,13 @@ public class ReceiptServiceTest {
     ReceiptImageRepository receiptImageRepositoryMock;
 
     @Mock
-    ReceiptDataRepository parserResultRepositoryMock;
+    ReceiptDataRepository receiptDataRepositoryMock;
+
+    @Mock
+    ReceiptItemRepository receiptItemRepositoryMock;
+
+    @Mock
+    ReceiptFeedbackRepository receiptFeedbackRepositoryMock;
 
     @Mock
     MultipartFile fileMock;
@@ -65,7 +71,9 @@ public class ReceiptServiceTest {
         fileSystemService = new FileSystemService(new FileFolderSettings());
         serviceToTest = new ReceiptService(receiptRepositoryMock,
                                            receiptImageRepositoryMock,
-                                           parserResultRepositoryMock,
+                                           receiptDataRepositoryMock,
+                                           receiptItemRepositoryMock,
+                                           receiptFeedbackRepositoryMock,
                                            fileSystemService,
                                            simpleParser);
     }
@@ -251,7 +259,7 @@ public class ReceiptServiceTest {
     }
 
     @Test
-    public void getReceiptParserResult_ShouldGenerateParserResult_IfNotInDatabase() throws Exception {
+    public void getLatestReceiptParserResult_ShouldGenerateParserResult_IfNotInDatabase() throws Exception {
         final UserAccount testUser = getTestUser();
         final Receipt receipt = new Receipt();
         receipt.setId("receipt123");
@@ -280,10 +288,10 @@ public class ReceiptServiceTest {
         fieldToValueLine.put(ReceiptField.Total, ValueLine.builder().line(-1).value("15.00").build());
         final ParsedReceipt receiptDebug = ParsedReceipt.builder().chain(chain).branch(branch).fieldToValueMap(fieldToValueLine).items(items).build();
 
-        when(parserResultRepositoryMock.findFirstByReceiptOrderByCreatedTimeDesc(eq(receipt))).thenReturn(null);
+        when(receiptDataRepositoryMock.findFirstByReceiptOrderByCreatedTimeDesc(eq(receipt))).thenReturn(null);
         when(receiptImageRepositoryMock.findByReceiptOrderByCreatedTime(eq(receipt))).thenReturn(images);
         when(simpleParser.parseOCRResults(eq(ocrTextList))).thenReturn(receiptDebug);
-        when(parserResultRepositoryMock.save(isA(ReceiptData.class))).thenAnswer( new Answer<ReceiptData>() {
+        when(receiptDataRepositoryMock.save(isA(ReceiptData.class))).thenAnswer( new Answer<ReceiptData>() {
             @Override
             public ReceiptData answer(InvocationOnMock invocation) throws Throwable {
                 return (ReceiptData)invocation.getArguments()[0];

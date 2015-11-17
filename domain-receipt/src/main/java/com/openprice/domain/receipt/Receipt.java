@@ -40,20 +40,26 @@ public class Receipt extends BaseAuditableEntity {
     private UserAccount user;
 
     @Getter @Setter
+    @Column(name="need_feedback")
+    private boolean needFeedback = true;
+
+    @Getter @Setter
     @JsonIgnore
     @OneToMany(cascade=CascadeType.ALL, mappedBy="receipt")
     @OrderBy("createdTime")
     private List<ReceiptImage> images = new ArrayList<>();
 
     @Getter @Setter
-    @Column(name="rating")
-    private Integer rating;
+    @JsonIgnore
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="receipt")
+    @OrderBy("createdTime")
+    private List<ReceiptData> results = new ArrayList<>();
 
     @Getter @Setter
     @JsonIgnore
     @OneToMany(cascade=CascadeType.ALL, mappedBy="receipt")
     @OrderBy("createdTime")
-    private List<ReceiptData> results = new ArrayList<>();
+    private List<ReceiptFeedback> feedbacks = new ArrayList<>();
 
     /**
      * Builder method to create a new receipt.

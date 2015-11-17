@@ -13,20 +13,20 @@
     <user_role user_account_id="user002" role="ROLE_USER"/>
     <user_role user_account_id="user003" role="ROLE_USER"/>
 
-    <receipt id="receipt001" version="1" user_account_id="user001" created_time="2009-01-01 10:00:01.0000"/>
-    <receipt id="receipt002" version="1" user_account_id="user001" created_time="2009-01-01 11:00:01.0000"/>
-    <receipt id="receipt003" version="1" user_account_id="user001" created_time="2009-01-01 12:00:01.0000"/>
-    <receipt id="receipt004" version="1" user_account_id="user001" created_time="2009-01-01 13:00:01.0000"/>
-    <receipt id="receipt005" version="1" user_account_id="user001" created_time="2009-01-01 14:00:01.0000"/>
-    <receipt id="receipt006" version="1" user_account_id="user001" created_time="2009-01-01 15:00:01.0000"/>
-    <receipt id="receipt007" version="1" user_account_id="user001" created_time="2009-01-01 16:00:01.0000"/>
-    <receipt id="receipt008" version="1" user_account_id="user001" created_time="2009-01-01 17:00:01.0000"/>
-    <receipt id="receipt009" version="1" user_account_id="user001" created_time="2009-01-01 18:00:01.0000"/>
-    <receipt id="receipt010" version="1" user_account_id="user001" created_time="2009-01-01 19:00:01.0000"/>
-    <receipt id="receipt011" version="1" user_account_id="user001" created_time="2009-01-01 20:00:01.0000"/>
-    <receipt id="receipt012" version="1" user_account_id="user001" created_time="2009-01-01 21:00:01.0000"/>
-    <receipt id="receipt013" version="1" user_account_id="user001" created_time="2009-01-01 22:00:01.0000"/>
-    <receipt id="receipt014" version="1" user_account_id="user001" created_time="2009-01-01 23:00:01.0000"/>
+    <receipt id="receipt001" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 10:00:01.0000"/>
+    <receipt id="receipt002" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 11:00:01.0000"/>
+    <receipt id="receipt003" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 12:00:01.0000"/>
+    <receipt id="receipt004" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 13:00:01.0000"/>
+    <receipt id="receipt005" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 14:00:01.0000"/>
+    <receipt id="receipt006" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 15:00:01.0000"/>
+    <receipt id="receipt007" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 16:00:01.0000"/>
+    <receipt id="receipt008" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 17:00:01.0000"/>
+    <receipt id="receipt009" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 18:00:01.0000"/>
+    <receipt id="receipt010" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 19:00:01.0000"/>
+    <receipt id="receipt011" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 20:00:01.0000"/>
+    <receipt id="receipt012" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 21:00:01.0000"/>
+    <receipt id="receipt013" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 22:00:01.0000"/>
+    <receipt id="receipt014" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 23:00:01.0000"/>
 
     <receipt_image id="image001" version="1" receipt_id="receipt001" status="UPLOADED" created_time="2009-01-01 10:00:01.0000"/>
     <receipt_image id="image002" version="1" receipt_id="receipt001" status="UPLOADED" created_time="2009-01-01 10:02:01.0000"/>
@@ -72,4 +72,5 @@ SUBTOTAL                                           104.73&#10;
 TOTAL                                              104.73&#10;
 "/>
     
+    <receipt_feedback id="receipt001feedback001" version="1" receipt_id="receipt001" rating="5" comment="Excellent!" created_time="2009-01-01 10:00:01.0000"/>
 </dataset>

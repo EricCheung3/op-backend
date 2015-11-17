@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
@@ -14,6 +15,7 @@ import com.jayway.restassured.response.Response;
 import com.openprice.domain.account.user.UserRoleType;
 import com.openprice.rest.UtilConstants;
 
+@SpringApplicationConfiguration(classes = {UserApiTestApplication.class})
 @DatabaseSetup("classpath:/data/testData.xml")
 public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
 

@@ -2,14 +2,11 @@ package com.openprice.rest.user;
 
 import static com.jayway.restassured.RestAssured.given;
 
-import org.springframework.boot.test.SpringApplicationConfiguration;
-
 import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.openprice.rest.AbstractRestApiIntegrationTest;
 import com.openprice.rest.UtilConstants;
 
-@SpringApplicationConfiguration(classes = {UserApiTestApplication.class})
 public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApiIntegrationTest {
 
     protected String userUrl() {
@@ -79,6 +76,13 @@ public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApi
                    .when().get(userReceiptUrl(sessionFilter, receiptId))
                    .then().extract().path("_links.item.href");
         return UriTemplate.fromTemplate(itemLink).set("itemId", itemId).expand();
+    }
+
+    protected String userReceiptFeedbackUrl(final SessionFilter sessionFilter, final String receiptId) {
+        return
+            given().filter(sessionFilter)
+                   .when().get(userReceiptUrl(sessionFilter, receiptId))
+                   .then().extract().path("_links.feedback.href");
     }
 
     protected String userShoppingStoresUrl(final SessionFilter sessionFilter) {

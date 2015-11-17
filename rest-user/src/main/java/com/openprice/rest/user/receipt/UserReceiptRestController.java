@@ -4,7 +4,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -15,7 +14,6 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,8 +58,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
             @PageableDefault(size = 3, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<Receipt> assembler) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
-        final Page<Receipt> receipts =
-                receiptRepository.findByUserOrderByCreatedTimeDesc(currentUser, pageable);
+        final Page<Receipt> receipts = receiptRepository.findByUserOrderByCreatedTimeDesc(currentUser, pageable);
         return ResponseEntity.ok(assembler.toResource(receipts, receiptResourceAssembler));
     }
 
@@ -110,23 +107,13 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
         }
     }
 
-    // TODO add comment feedback
-    @RequestMapping(method = RequestMethod.PUT, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_FEEDBACK)
-    public HttpEntity<Void> setReceiptFeedbackById(
+    @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_FEEDBACK)
+    public HttpEntity<Void> addReceiptFeedback(
             @PathVariable("receiptId") final String receiptId,
-            @RequestBody final Map<String, Integer> updateMap) throws ResourceNotFoundException {
+            @RequestBody final FeedbackForm form) throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
-        final Integer rating = updateMap.get("rating");
-        if (rating != null) {
-            setReceiptRating(receipt, rating);
-        }
+        receiptService.addFeedback(receipt, form.getRating(), form.getComment());
         return ResponseEntity.noContent().build();
-    }
-
-    @Transactional
-    private void setReceiptRating(Receipt receipt, Integer rating) {
-        receipt.setRating(rating);
-        receiptRepository.save(receipt);
     }
 
 }

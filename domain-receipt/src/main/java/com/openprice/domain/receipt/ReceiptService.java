@@ -31,19 +31,25 @@ import lombok.extern.slf4j.Slf4j;
 public class ReceiptService {
     private final ReceiptRepository receiptRepository;
     private final ReceiptImageRepository receiptImageRepository;
-    private final ReceiptDataRepository parserResultRepository;
+    private final ReceiptDataRepository receiptDataRepository;
+    private final ReceiptItemRepository receiptItemRepository;
+    private final ReceiptFeedbackRepository receiptFeedbackRepository;
     private final FileSystemService fileSystemService;
     private final SimpleParser simpleParser;
 
     @Inject
     public ReceiptService(final ReceiptRepository receiptRepository,
                           final ReceiptImageRepository receiptImageRepository,
-                          final ReceiptDataRepository parserResultRepository,
+                          final ReceiptDataRepository receiptDataRepository,
+                          final ReceiptItemRepository receiptItemRepository,
+                          final ReceiptFeedbackRepository receiptFeedbackRepository,
                           final FileSystemService fileSystemService,
                           final SimpleParser simpleParser) {
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
-        this.parserResultRepository = parserResultRepository;
+        this.receiptDataRepository = receiptDataRepository;
+        this.receiptItemRepository = receiptItemRepository;
+        this.receiptFeedbackRepository = receiptFeedbackRepository;
         this.fileSystemService = fileSystemService;
         this.simpleParser = simpleParser;
     }
@@ -144,7 +150,7 @@ public class ReceiptService {
      * @return
      */
     public ReceiptData getLatestReceiptParserResult(final Receipt receipt) {
-        final ReceiptData result = parserResultRepository.findFirstByReceiptOrderByCreatedTimeDesc(receipt);
+        final ReceiptData result = receiptDataRepository.findFirstByReceiptOrderByCreatedTimeDesc(receipt);
 
         if (result == null) {
             log.debug("No receipt data yet for receipt {}, call parser to generate...", receipt.getId());
@@ -157,7 +163,7 @@ public class ReceiptService {
      * Call parser to generate ReceiptData from receipt image OCR result if new uploaded receipt was not parsed yet.
      */
     private ReceiptData generateParsedReceiptData(final Receipt receipt) {
-        final ReceiptData data = new ReceiptData();
+        ReceiptData data = new ReceiptData();
         final List<String> ocrTextList = loadOcrResults(receipt);
         try {
             ParsedReceipt parsedReceipt = simpleParser.parseOCRResults(ocrTextList);
@@ -177,6 +183,7 @@ public class ReceiptService {
             if (parsedDateValue != null) {
                 data.setParsedDate(parsedDateValue.getValue());
             }
+            data = receiptDataRepository.save(data);
 
             for (final Item item : parsedReceipt.getItems()) {
                 final ReceiptItem receiptItem = new ReceiptItem();
@@ -185,12 +192,13 @@ public class ReceiptService {
                 receiptItem.setDisplayName(item.getName());
                 receiptItem.setDisplayPrice(item.getBuyPrice());
                 receiptItem.setReceiptData(data);
+                receiptItemRepository.save(receiptItem);
                 data.getItems().add(receiptItem);
             }
             log.debug("SimpleParser returns {} items.", data.getItems().size());
 
             // save result to database, should save items as well.
-            return parserResultRepository.save(data);
+            return receiptDataRepository.save(data);
         } catch (Exception ex) {
             log.error("SEVERE: Got exception during parsing ocr text.", ex);
         }
@@ -226,5 +234,26 @@ public class ReceiptService {
             }
         }
         return ocrTextList;
+    }
+
+    /**
+     * Add feedback from user for receipt, and set receipt <code>needFeedback</code> to false.
+     * @param receipt
+     * @param rating
+     * @param comment
+     * @return
+     */
+    public ReceiptFeedback addFeedback(final Receipt receipt, final Integer rating, final String comment) {
+        ReceiptFeedback feedback = new ReceiptFeedback();
+        feedback.setReceipt(receipt);
+        feedback.setRating(rating);
+        feedback.setComment(comment);
+        receiptFeedbackRepository.save(feedback);
+
+        receipt.getFeedbacks().add(feedback);
+        receipt.setNeedFeedback(false);
+        receiptRepository.save(receipt);
+
+        return feedback;
     }
 }

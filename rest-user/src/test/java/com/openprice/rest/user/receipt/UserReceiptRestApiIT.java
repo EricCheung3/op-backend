@@ -12,14 +12,13 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.core.io.Resource;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -33,9 +32,10 @@ import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
+import com.openprice.rest.user.UserApiTestApplication;
 import com.openprice.rest.user.UserApiUrls;
-import com.openprice.rest.user.receipt.ImageDataForm;
 
+@SpringApplicationConfiguration(classes = {UserApiTestApplication.class})
 @DatabaseSetup("classpath:/data/testData.xml")
 public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
     @Value("classpath:/data/sample1.txt")
@@ -251,54 +251,4 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
         ReceiptImage image = receiptImageRepository.findOne("image001");
         assertNull(image);
     }
-
-    @Test
-    public void setUserReceiptFeedback_ShouldChangeReceiptRating() {
-        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-        final String receiptUrl = userReceiptUrl(sessionFilter, "receipt001");
-        final String feedbackUrl =
-                given().filter(sessionFilter)
-                       .when().get(receiptUrl)
-                       .then().extract().path("_links.feedback.href");
-
-        given()
-            .filter(sessionFilter)
-        .when()
-            .get(receiptUrl)
-        .then()
-            .statusCode(HttpStatus.SC_OK)
-            .contentType(ContentType.JSON)
-            .body("id", equalTo("receipt001"))
-            .body("rating", equalTo(null))
-        ;
-
-        final Map<String, Integer> ratingUpdate = new HashMap<>();
-        ratingUpdate.put("rating", 1);
-
-        Response response =
-            given()
-                .filter(sessionFilter)
-                .contentType(ContentType.JSON)
-                .body(ratingUpdate)
-            .when()
-                .put(feedbackUrl)
-            ;
-
-        response
-        .then()
-            .statusCode(HttpStatus.SC_NO_CONTENT)
-        ;
-
-        given()
-            .filter(sessionFilter)
-        .when()
-            .get(receiptUrl)
-        .then()
-            .statusCode(HttpStatus.SC_OK)
-            .contentType(ContentType.JSON)
-            .body("id", equalTo("receipt001"))
-            .body("rating", equalTo(1))
-        ;
-    }
-
 }
