@@ -54,8 +54,7 @@ public class RegistrationApiDocumentation extends ApiDocumentationBase {
     public void userForgetPasswordExample() throws Exception {
         createTestUser();
 
-        ForgetPasswordForm form = new ForgetPasswordForm();
-        form.setEmail(USERNAME);
+        ForgetPasswordForm form = new ForgetPasswordForm(USERNAME);
 
         mockMvc
         .perform(
@@ -78,8 +77,7 @@ public class RegistrationApiDocumentation extends ApiDocumentationBase {
     public void resetPasswordRetrieveExample() throws Exception {
         createTestUser();
 
-        ForgetPasswordForm form = new ForgetPasswordForm();
-        form.setEmail(USERNAME);
+        ForgetPasswordForm form = new ForgetPasswordForm(USERNAME);
 
         String requestLocation =
             mockMvc
@@ -105,8 +103,7 @@ public class RegistrationApiDocumentation extends ApiDocumentationBase {
             )
         ));
 
-        ResetPasswordForm resetForm = new ResetPasswordForm();
-        resetForm.setNewPassword("newpassword");
+        ResetPasswordForm resetForm = new ResetPasswordForm("newpassword");
 
         mockMvc
         .perform(

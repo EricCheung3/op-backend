@@ -158,7 +158,7 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
     public void updateUserReceiptItem_ShouldUpdateNameAndPrice() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
         final String itemUrl = userReceiptItemUrl(sessionFilter, "receipt001", "recItem001");
-        final UserReceiptItemForm form = UserReceiptItemForm.builder().name("organic eggs").price("4.49").build();
+        final UserReceiptItemForm form = new UserReceiptItemForm("organic eggs", "4.49");
 
         given()
             .filter(sessionFilter)

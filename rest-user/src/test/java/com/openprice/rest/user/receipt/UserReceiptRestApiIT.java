@@ -115,8 +115,8 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
 
         // add new image as base64 encoded string
         final String base64String = Base64.getEncoder().encodeToString("test".getBytes());
-        ImageDataForm form = new ImageDataForm();
-        form.setBase64String(base64String);
+        final ImageDataForm form = new ImageDataForm(base64String);
+
         Response response =
             given()
                 .filter(sessionFilter)

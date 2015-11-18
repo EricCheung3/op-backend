@@ -9,10 +9,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
 @Builder
-@NoArgsConstructor @AllArgsConstructor
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class UserProfileForm {
     private String firstName;
 

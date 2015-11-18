@@ -11,19 +11,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Singular;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
 @Builder
-@NoArgsConstructor @AllArgsConstructor
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class ShoppingListForm {
     private String chainCode;
 
     @Singular private List<Item> items = new ArrayList<>();
 
-    @JsonIgnoreProperties(ignoreUnknown=true)
     @Builder
-    @NoArgsConstructor  @AllArgsConstructor
     @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown=true)
     public static class Item {
         private String name;
         private String catalogCode;

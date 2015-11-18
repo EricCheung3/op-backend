@@ -9,11 +9,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
 @Builder
-@NoArgsConstructor @AllArgsConstructor
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class AdminStoreBranchForm {
+
     private String name;
 
     private String gstNumber;

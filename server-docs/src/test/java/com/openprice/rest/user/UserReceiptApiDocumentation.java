@@ -253,11 +253,8 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
 
     @Test
     public void receiptParserResultItemUpdateExample() throws Exception {
-        final UserReceiptItemForm form =
-                UserReceiptItemForm.builder()
-                                   .name("eggs")
-                                   .price("3.99")
-                                   .build();
+        final UserReceiptItemForm form = new UserReceiptItemForm("eggs", "3.99");
+
         mockMvc
         .perform(
             put(userReceiptParserResultItemUrl())

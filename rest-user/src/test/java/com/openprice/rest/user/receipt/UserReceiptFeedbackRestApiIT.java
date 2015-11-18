@@ -52,7 +52,7 @@ public class UserReceiptFeedbackRestApiIT extends AbstractUserRestApiIntegration
             .body("needFeedback", equalTo(true))
         ;
 
-        final FeedbackForm form = FeedbackForm.builder().rating(4).comment("Very good!").build();
+        final FeedbackForm form = new FeedbackForm(4,"Very good!");
 
         given()
             .filter(sessionFilter)
