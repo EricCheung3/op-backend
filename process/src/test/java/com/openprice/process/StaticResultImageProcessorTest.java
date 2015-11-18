@@ -1,32 +1,23 @@
 package com.openprice.process;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.openprice.domain.receipt.ProcessLog;
-import com.openprice.domain.receipt.ProcessLogRepository;
 import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.ReceiptImage;
-import com.openprice.domain.receipt.ReceiptImageRepository;
 
 @RunWith(MockitoJUnitRunner.class)
-public class StaticResultImageProcessorTest {
-
-    @Mock
-    ProcessLogRepository processLogRepositoryMock;
-
-    @Mock
-    ReceiptImageRepository receiptImageRepositoryMock;
+public class StaticResultImageProcessorTest extends AbstractProcessorTest {
 
     StaticResultImageProcessor processorToTest;
 
@@ -37,10 +28,7 @@ public class StaticResultImageProcessorTest {
 
     @Test
     public void processImage_ShouldSaveProcessLog_ReceiptImage_WithStaticResult() {
-        final String IMAGE_ID = "image001";
-        final ReceiptImage image = new ReceiptImage();
-        image.setId(IMAGE_ID);
-
+        final ReceiptImage image = getTestReceiptImage();
         final ProcessItem item = new ProcessItem();
         item.setImage(image);
         item.setUsername("tester");

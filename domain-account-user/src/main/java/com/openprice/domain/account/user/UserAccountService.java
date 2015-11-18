@@ -15,12 +15,13 @@ import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Domain Service for user administration. It also implements UserDetailsService.
+ * Domain Service for user management. It also implements UserDetailsService.
  *
  */
 @Service
 @Slf4j
 public class UserAccountService implements UserDetailsService {
+
     public static final int RESET_PASSWORD_REQUEST_EXPIRING_HOURS = 2;
 
     private final UserAccountRepository userAccountRepository;
@@ -41,8 +42,6 @@ public class UserAccountService implements UserDetailsService {
                                                            final String password,
                                                            final String firstName,
                                                            final String lastName) {
-
-
         final String hashedPassword = passwordEncoder.encode(password);
         UserAccount userAccount = new UserAccount();
         userAccount.setEmail(email);
@@ -119,13 +118,8 @@ public class UserAccountService implements UserDetailsService {
         return userAccount;
     }
 
-    /**
-     *
-     * @param email
-     * @return
-     */
     public UserResetPasswordRequest createResetPasswordRequest(final String email) {
-        UserAccount userAccount = userAccountRepository.findByEmail(email);
+        final UserAccount userAccount = userAccountRepository.findByEmail(email);
         if (userAccount == null) {
             log.warn("User forget password request with non-registered email '{}'.", email);
             return null;

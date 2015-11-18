@@ -38,10 +38,7 @@ public class ShoppingService {
         if (store != null) {
             return store;
         }
-        store = new ShoppingStore();
-        store.setChainCode(chainCode);
-        store.setUser(user);
-        store.setDisplayName(chain.getName());
+        store = ShoppingStore.createShoppingStore(user, chain);
         return shoppingStoreRepository.save(store);
     }
 

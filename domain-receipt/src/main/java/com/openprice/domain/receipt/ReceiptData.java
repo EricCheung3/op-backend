@@ -56,6 +56,28 @@ public class ReceiptData extends BaseAuditableEntity {
     @Getter @Setter
     @JsonIgnore
     @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="receiptData")
-    //@OrderBy("createdTime")
+    //@OrderBy("createdTime") TODO how to keep the order?
     private List<ReceiptItem> items = new ArrayList<>();
+
+    ReceiptData() {}
+
+    /**
+     * Builder method to create a ReceiptItem from parser result data, and add to item list.
+     *
+     * @param catalogCode
+     * @param parsedName
+     * @param parsedPrice
+     * @return
+     */
+    public ReceiptItem addItem(final String catalogCode, final String parsedName, final String parsedPrice) {
+        final ReceiptItem item = new ReceiptItem();
+        item.setReceiptData(this);
+        item.setCatalogCode(catalogCode);
+        item.setParsedName(parsedName);
+        item.setDisplayName(parsedName);
+        item.setParsedPrice(parsedPrice);
+        item.setDisplayPrice(parsedPrice);
+        items.add(item);
+        return item;
+    }
 }

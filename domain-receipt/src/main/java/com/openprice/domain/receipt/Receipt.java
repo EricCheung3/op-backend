@@ -18,6 +18,9 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
 import com.openprice.domain.account.user.UserAccount;
+import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.data.ReceiptField;
+import com.openprice.parser.data.ValueLine;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -61,6 +64,8 @@ public class Receipt extends BaseAuditableEntity {
     @OrderBy("createdTime")
     private List<ReceiptFeedback> feedbacks = new ArrayList<>();
 
+    Receipt() {}
+
     /**
      * Builder method to create a new receipt.
      *
@@ -74,7 +79,7 @@ public class Receipt extends BaseAuditableEntity {
     }
 
     /**
-     * Builder method to create a new receipt image for this receipt.
+     * Builder method to create a new receipt image for this receipt with system generated jpg file name.
      *
      * @return
      */
@@ -89,5 +94,31 @@ public class Receipt extends BaseAuditableEntity {
         image.setStatus(ProcessStatusType.CREATED);
 
         return image;
+    }
+
+    /**
+     * Builder method to create a new <code>ReceiptData</code> object from parser result <code>ParsedReceipt</code>.
+     *
+     * @param parsedReceipt
+     * @return
+     */
+    public ReceiptData createReceiptDataFromParserResult(final ParsedReceipt parsedReceipt) {
+        final ReceiptData data = new ReceiptData();
+        data.setReceipt(this);
+        if (parsedReceipt.getChain() != null) {
+            data.setChainCode(parsedReceipt.getChain().getCode());
+        }
+        if (parsedReceipt.getBranch() != null) {
+            data.setBranchName(parsedReceipt.getBranch().getBranchName());
+        }
+        final ValueLine parsedTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Total);
+        if (parsedTotalValue != null) {
+            data.setParsedTotal(parsedTotalValue.getValue());
+        }
+        final ValueLine parsedDateValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Date);
+        if (parsedDateValue != null) {
+            data.setParsedDate(parsedDateValue.getValue());
+        }
+        return data;
     }
 }

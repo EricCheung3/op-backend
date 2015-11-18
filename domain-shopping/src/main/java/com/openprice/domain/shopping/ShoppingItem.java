@@ -41,4 +41,5 @@ public class ShoppingItem extends BaseAuditableEntity {
     @Column(name="name")
     private String name;
 
+    ShoppingItem() {}
 }

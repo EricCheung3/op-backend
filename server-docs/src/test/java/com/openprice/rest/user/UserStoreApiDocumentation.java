@@ -24,7 +24,6 @@ import org.springframework.http.MediaType;
 import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.jsonpath.JsonPath;
 import com.openprice.domain.account.user.UserAccount;
-import com.openprice.domain.shopping.ShoppingItem;
 import com.openprice.domain.shopping.ShoppingItemRepository;
 import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.domain.shopping.ShoppingStoreRepository;
@@ -165,17 +164,8 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
     }
 
     protected void createStores() throws Exception {
-        StoreChain store = new StoreChain();
-        store.setCode("safeway");
-        store.setName("Safeway");
-        store.setCategories("Grocery");
-        store = storeRepository.save(store);
-
-        store = new StoreChain();
-        store.setCode("rcss");
-        store.setName("SuperStore");
-        store.setCategories("Grocery");
-        store = storeRepository.save(store);
+        storeRepository.save(StoreChain.createStoreChain("safeway", "Safeway"));
+        storeRepository.save(StoreChain.createStoreChain("rcss", "SuperStore"));
     }
 
     protected void deleteStores() throws Exception {
@@ -183,25 +173,11 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
     }
 
     protected void createShoppingLists() throws Exception {
-
         final UserAccount user = userAccountRepository.findByEmail(USERNAME);
-
-        ShoppingStore store = new ShoppingStore();
-        store.setUser(user);
-        store.setChainCode("rcss");
-
-        ShoppingItem item = new ShoppingItem();
-        item.setStore(store);
-        item.setCatalogCode("MILK");
-        item.setName("Milk");
-        store.getItems().add(item);
-
-        item = new ShoppingItem();
-        item.setStore(store);
-        item.setCatalogCode("EGG");
-        item.setName("egg");
-        store.getItems().add(item);
-
+        final StoreChain chain = storeRepository.findByCode("rcss");
+        final ShoppingStore store = shoppingStoreRepository.save(ShoppingStore.createShoppingStore(user, chain));
+        shoppingItemRepository.save(store.addItem("MILK", "milk"));
+        shoppingItemRepository.save(store.addItem("Egg", "egg"));
         shoppingStoreRepository.save(store);
     }
 

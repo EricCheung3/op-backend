@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  */
 public interface AdminAccountRepository extends JpaRepository<AdminAccount, String> {
+
     AdminAccount findByUsername(String username);
 
 }

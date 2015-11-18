@@ -44,8 +44,7 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
 
     protected void createReceipts() throws Exception {
         final UserAccount user = userAccountRepository.findByEmail(USERNAME);
-        Receipt receipt = new Receipt();
-        receipt.setUser(user);
+        Receipt receipt = Receipt.createReceipt(user);
         receipt = receiptRepository.save(receipt);
 
         // add two images to the receipt
@@ -58,8 +57,7 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
         receipt.getImages().add(image2);
         receiptImageRepository.save(image2);
 
-        receipt = new Receipt();
-        receipt.setUser(user);
+        receipt = Receipt.createReceipt(user);
         receipt = receiptRepository.save(receipt);
         final ReceiptImage image = receipt.createImage();
         image.setStatus(ProcessStatusType.UPLOADED);

@@ -13,6 +13,21 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * <p>Database entity to save user password reset request.
+ * <p>The reset password process is:
+ * <ul>
+ *   <li>User ask for reset password. In Web UI or Mobile App, user can click the button "Forget Password"</li>
+ *   <li>Web UI or Mobile App ask user to input email address.</li>
+ *   <li>System save a record of <code>UserResetPasswordRequest</code>, and send email to user for reset password link,
+ *   with request ID in the link.</li>
+ *   <li>User click link in the email to open Reset Password Web page.</li>
+ *   <li>Web App call backend API to GET the request with ID. If request expired, return 404. </li>
+ *   <li>If request exists, user enter new password.</li>
+ *   <li>Web App call backend API to PUT the request with new password, and system reset the password for user. </li>
+ * </ul>
+ *
+ */
 @ToString(callSuper=true)
 @SuppressWarnings("serial")
 @Entity

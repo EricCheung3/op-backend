@@ -40,7 +40,7 @@ public class UserAccount extends AbstractAccount implements UserDetails {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name="user_role", joinColumns=@JoinColumn(name="user_account_id"))
     @Column(name="role")
-    private Collection<UserRoleType> roles;
+    private Collection<UserRoleType> roles = new ArrayList<>();
 
     @Getter @Setter
     @Column(name="email")
@@ -56,15 +56,13 @@ public class UserAccount extends AbstractAccount implements UserDetails {
     @JsonIgnore
     private UserProfile profile;
 
-    public UserAccount() {
-        this.roles = new ArrayList<>();
-    }
-
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
+
+    UserAccount() {}
 
     /**
      * We are using email as unique username.
@@ -74,4 +72,17 @@ public class UserAccount extends AbstractAccount implements UserDetails {
         return email;
     }
 
+    /**
+     * Static builder method to create a UserAccount object for test purpose.
+     *
+     * @param id
+     * @param email
+     * @return
+     */
+    public static UserAccount createTestUser(final String id, final String email) {
+        final UserAccount user = new UserAccount();
+        user.setId(id);
+        user.setEmail(email);
+        return user;
+    }
 }

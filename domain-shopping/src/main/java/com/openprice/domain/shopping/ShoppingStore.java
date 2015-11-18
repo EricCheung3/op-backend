@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
 import com.openprice.domain.account.user.UserAccount;
+import com.openprice.domain.store.StoreChain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -60,4 +61,47 @@ public class ShoppingStore extends BaseAuditableEntity {
     @OrderBy("name")
     private List<ShoppingItem> items = new ArrayList<>();
 
+    ShoppingStore() {}
+
+    /**
+     * Builder method to create <code>ShoppingStore</code> object from a specific <code>StoreChain</code> object.
+     *
+     * @param chain
+     * @return
+     */
+    public static ShoppingStore createShoppingStore(final UserAccount user, final StoreChain chain) {
+        final ShoppingStore store = new ShoppingStore();
+        store.setUser(user);
+        store.setChainCode(chain.getCode());
+        store.setDisplayName(chain.getName());
+        return store;
+    }
+
+    /**
+     * Builder method to create generic <code>ShoppingStore</code> object with a display name.
+     *
+     * @param name
+     * @return
+     */
+    public static ShoppingStore createGenericShoppingStore(final UserAccount user, final String name) {
+        final ShoppingStore store = new ShoppingStore();
+        store.setUser(user);
+        store.setDisplayName(name);
+        return store;
+    }
+
+    /**
+     * Builder method to create a <code>ShoppingItem</code> object and add to item list.
+     * @param catalogCode
+     * @param name
+     * @return
+     */
+    public ShoppingItem addItem(final String catalogCode, final String name) {
+        ShoppingItem item = new ShoppingItem();
+        item.setStore(this);
+        item.setCatalogCode(catalogCode);
+        item.setName(name);
+        items.add(item);
+        return item;
+    }
 }

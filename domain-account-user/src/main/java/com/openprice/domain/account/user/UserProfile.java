@@ -14,6 +14,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * User profile data.
+ */
 @ToString(callSuper=true, exclude={"user"})
 @SuppressWarnings("serial")
 @Entity

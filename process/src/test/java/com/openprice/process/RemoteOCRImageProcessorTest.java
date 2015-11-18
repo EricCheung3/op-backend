@@ -18,19 +18,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.client.RestTemplate;
 
 import com.openprice.domain.receipt.ProcessLog;
-import com.openprice.domain.receipt.ProcessLogRepository;
 import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.ReceiptImage;
-import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.ocr.api.ImageProcessResult;
 
 @RunWith(MockitoJUnitRunner.class)
-public class RemoteOCRImageProcessorTest {
-    @Mock
-    ProcessLogRepository processLogRepositoryMock;
-
-    @Mock
-    ReceiptImageRepository receiptImageRepositoryMock;
+public class RemoteOCRImageProcessorTest extends AbstractProcessorTest {
 
     @Mock
     RestTemplate restTemplateMock;
@@ -45,16 +38,7 @@ public class RemoteOCRImageProcessorTest {
 
     @Test
     public void processImage_ShouldSaveProcessLog_ReceiptImage_WithSuccessResult() {
-        final String IMAGE_ID = "image001";
-        final String TEST_USERNAME = "tester@openprice,com";
-        final String TEST_USERID = "user001";
-        final String TEST_FILENAME = "2015_09_09_12_30_10_001.jpg";
-        final String TEST_OCR_RESULT = "SuperStore items";
-
-        final ReceiptImage image = new ReceiptImage();
-        image.setId(IMAGE_ID);
-        image.setFileName(TEST_FILENAME);
-
+        final ReceiptImage image = getTestReceiptImage();
         final ProcessItem item = new ProcessItem();
         item.setImage(image);
         item.setUserId(TEST_USERID);
@@ -94,17 +78,7 @@ public class RemoteOCRImageProcessorTest {
 
     @Test
     public void processImage_ShouldSaveProcessLog_ReceiptImage_WithErrorResult() {
-        final String IMAGE_ID = "image001";
-        final String TEST_USERNAME = "tester@openprice,com";
-        final String TEST_USERID = "user001";
-        final String TEST_FILENAME = "2015_09_09_12_30_10_001.jpg";
-        final String TEST_OCR_RESULT = "SuperStore items";
-        final String TEST_OCR_ERROR = "OCR Error";
-
-        final ReceiptImage image = new ReceiptImage();
-        image.setId(IMAGE_ID);
-        image.setFileName(TEST_FILENAME);
-
+        final ReceiptImage image = getTestReceiptImage();
         final ProcessItem item = new ProcessItem();
         item.setImage(image);
         item.setUserId(TEST_USERID);
@@ -141,5 +115,4 @@ public class RemoteOCRImageProcessorTest {
             assertNull(imageRecord.getOcrResult());
         }
     }
-
 }

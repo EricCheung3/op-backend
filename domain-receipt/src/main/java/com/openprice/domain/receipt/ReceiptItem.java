@@ -55,4 +55,6 @@ public class ReceiptItem extends BaseAuditableEntity {
     @Getter @Setter
     @Column(name="ignore")
     private boolean ignore;
+
+    ReceiptItem() {}
 }

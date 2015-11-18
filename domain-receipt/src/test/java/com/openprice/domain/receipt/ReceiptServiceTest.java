@@ -82,7 +82,7 @@ public class ReceiptServiceTest {
     public void uploadImageForNewReceipt_ShouldSaveImageBase64String_andCreateReceipt() throws Exception {
         final byte[] content = TEST_CONTENT.getBytes();
         final String base64String = Base64.getEncoder().encodeToString(content);
-        final UserAccount testUser = getTestUser();
+        final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
 
         when(receiptImageRepositoryMock.save(isA(ReceiptImage.class))).thenAnswer( new Answer<ReceiptImage>() {
             @Override
@@ -126,7 +126,7 @@ public class ReceiptServiceTest {
     @Test
     public void uploadImageForNewReceipt_ShouldSaveImageFile_andCreateReceipt() throws Exception {
         final byte[] content = TEST_CONTENT.getBytes();
-        final UserAccount testUser = getTestUser();
+        final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
 
         when(receiptImageRepositoryMock.save(isA(ReceiptImage.class))).thenAnswer( new Answer<ReceiptImage>() {
             @Override
@@ -172,10 +172,9 @@ public class ReceiptServiceTest {
     @Test
     public void appendImageToReceipt_ShouldSaveImageFile_andUpdateReceipt() throws Exception {
         final byte[] content = TEST_CONTENT.getBytes();
-        final UserAccount testUser = getTestUser();
-        final Receipt receipt = new Receipt();
+        final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
+        final Receipt receipt = Receipt.createReceipt(testUser);
         receipt.setId("receipt123");
-        receipt.setUser(testUser);
         receipt.getImages().add(new ReceiptImage()); //first image
 
         when(receiptImageRepositoryMock.save(isA(ReceiptImage.class))).thenAnswer( new Answer<ReceiptImage>() {
@@ -218,10 +217,9 @@ public class ReceiptServiceTest {
     public void appendImageToReceipt_ShouldSaveImageBase64String_andUpdateReceipt() throws Exception {
         final byte[] content = TEST_CONTENT.getBytes();
         final String base64String = Base64.getEncoder().encodeToString(content);
-        final UserAccount testUser = getTestUser();
-        final Receipt receipt = new Receipt();
+        final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
+        final Receipt receipt = Receipt.createReceipt(testUser);
         receipt.setId("receipt123");
-        receipt.setUser(testUser);
         receipt.getImages().add(new ReceiptImage()); //first image
 
         when(receiptImageRepositoryMock.save(isA(ReceiptImage.class))).thenAnswer( new Answer<ReceiptImage>() {
@@ -260,10 +258,9 @@ public class ReceiptServiceTest {
 
     @Test
     public void getLatestReceiptParserResult_ShouldGenerateParserResult_IfNotInDatabase() throws Exception {
-        final UserAccount testUser = getTestUser();
-        final Receipt receipt = new Receipt();
+        final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
+        final Receipt receipt = Receipt.createReceipt(testUser);
         receipt.setId("receipt123");
-        receipt.setUser(testUser);
 
         final ReceiptImage image1 = new ReceiptImage();
         image1.setReceipt(receipt);
@@ -307,12 +304,5 @@ public class ReceiptServiceTest {
         assertEquals("eggs", data.getItems().get(1).getParsedName());
         assertEquals("4.99", data.getItems().get(1).getParsedPrice());
 
-    }
-
-    private UserAccount getTestUser() {
-        final UserAccount testUser = new UserAccount();
-        testUser.setId("user123");
-        testUser.setEmail("user123@email.com");
-        return testUser;
     }
 }

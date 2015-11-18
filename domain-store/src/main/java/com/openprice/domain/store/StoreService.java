@@ -18,21 +18,11 @@ public class StoreService {
         this.storeBranchRepository = storeBranchRepository;
     }
 
-    /**
-     * Builder method to create a new store
-     * @param code
-     * @param name
-     * @param categories
-     * @param identifyField
-     * @return
-     */
     public StoreChain createStoreChain(final String code,
                                        final String name,
                                        final String categories,
                                        final String identifyFields) {
-        final StoreChain chain = new StoreChain();
-        chain.setCode(code);
-        chain.setName(name);
+        final StoreChain chain = StoreChain.createStoreChain(code, name);
         chain.setCategories(categories);
         chain.setIdentifyFields(identifyFields);
         return storeChainRepository.save(chain);
@@ -48,12 +38,11 @@ public class StoreService {
                                          final String state,
                                          final String zip,
                                          final String country) {
-        StoreBranch branch = new StoreBranch();
-        branch.setChain(chain);
-        branch.setName(name);
+        final StoreBranch branch = chain.addBranch(name);
         branch.setPhone(phone);
         branch.setGstNumber(gstNumber);
         branch.setAddress(new Address(address1, address2, city, state, zip, country));
+        storeChainRepository.save(chain);
         return storeBranchRepository.save(branch);
     }
 

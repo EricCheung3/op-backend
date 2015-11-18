@@ -36,8 +36,8 @@ public class ShoppingServiceTest {
 
     @Test
     public void getShoppingStoreForStoreChain_ShouldReturnExistingShoppingStore() throws Exception {
-        final UserAccount testUser = getTestUser();
-        final StoreChain rcssChain = new StoreChain();
+        final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
+        final StoreChain rcssChain = StoreChain.createStoreChain("rcss", "Superstore");
         final ShoppingStore store = new ShoppingStore();
         store.setId("testShopping");
         when(storeChainRepositoryMock.findByCode(eq(TEST_CHAIN_CODE))).thenReturn(rcssChain);
@@ -49,8 +49,8 @@ public class ShoppingServiceTest {
 
     @Test
     public void getShoppingStoreForStoreChain_ShouldReturnNewShoppingStore_IfNotExist() throws Exception {
-        final UserAccount testUser = getTestUser();
-        final StoreChain rcssChain = new StoreChain();
+        final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
+        final StoreChain rcssChain = StoreChain.createStoreChain("rcss", "Superstore");
 
         when(storeChainRepositoryMock.findByCode(eq(TEST_CHAIN_CODE))).thenReturn(rcssChain);
         when(shoppingStoreRepositoryMock.findByUserAndChainCode(eq(testUser), eq(TEST_CHAIN_CODE))).thenReturn(null);
@@ -70,18 +70,10 @@ public class ShoppingServiceTest {
 
     @Test(expected=IllegalArgumentException.class)
     public void getShoppingStoreForStoreChain_ShouldThrowException_IfInvalidChainCode() throws Exception {
-        final UserAccount testUser = getTestUser();
+        final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
 
         when(storeChainRepositoryMock.findByCode(eq(TEST_CHAIN_CODE))).thenReturn(null);
 
         serviceToTest.getShoppingStoreForStoreChain(testUser, TEST_CHAIN_CODE);
     }
-
-    private UserAccount getTestUser() {
-        final UserAccount testUser = new UserAccount();
-        testUser.setId("user123");
-        testUser.setEmail("user123@email.com");
-        return testUser;
-    }
-
 }

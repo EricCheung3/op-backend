@@ -20,8 +20,6 @@ import com.openprice.domain.account.user.UserAccount;
 import com.openprice.file.FileSystemService;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ReceiptField;
-import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.simple.SimpleParser;
 
 import lombok.extern.slf4j.Slf4j;
@@ -163,41 +161,18 @@ public class ReceiptService {
      * Call parser to generate ReceiptData from receipt image OCR result if new uploaded receipt was not parsed yet.
      */
     private ReceiptData generateParsedReceiptData(final Receipt receipt) {
-        ReceiptData data = new ReceiptData();
+
         final List<String> ocrTextList = loadOcrResults(receipt);
         try {
-            ParsedReceipt parsedReceipt = simpleParser.parseOCRResults(ocrTextList);
-            // simple parser can parse the receipt, try to set result properties
-            data.setReceipt(receipt);
-            if (parsedReceipt.getChain() != null) {
-                data.setChainCode(parsedReceipt.getChain().getCode());
-            }
-            if (parsedReceipt.getBranch() != null) {
-                data.setBranchName(parsedReceipt.getBranch().getBranchName());
-            }
-            final ValueLine parsedTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Total);
-            if (parsedTotalValue != null) {
-                data.setParsedTotal(parsedTotalValue.getValue());
-            }
-            final ValueLine parsedDateValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Date);
-            if (parsedDateValue != null) {
-                data.setParsedDate(parsedDateValue.getValue());
-            }
-            data = receiptDataRepository.save(data);
+            final ParsedReceipt parsedReceipt = simpleParser.parseOCRResults(ocrTextList);
+            ReceiptData data = receipt.createReceiptDataFromParserResult(parsedReceipt);
+            data = receiptDataRepository.save(data); // has to save ReceiptData first before saving ReceiptItem
 
             for (final Item item : parsedReceipt.getItems()) {
-                final ReceiptItem receiptItem = new ReceiptItem();
-                receiptItem.setParsedName(item.getName());
-                receiptItem.setParsedPrice(item.getBuyPrice());
-                receiptItem.setDisplayName(item.getName());
-                receiptItem.setDisplayPrice(item.getBuyPrice());
-                receiptItem.setReceiptData(data);
+                final ReceiptItem receiptItem = data.addItem(null, item.getName(), item.getBuyPrice()); //TODO add catalogCode from parser
                 receiptItemRepository.save(receiptItem);
-                data.getItems().add(receiptItem);
             }
             log.debug("SimpleParser returns {} items.", data.getItems().size());
-
-            // save result to database, should save items as well.
             return receiptDataRepository.save(data);
         } catch (Exception ex) {
             log.error("SEVERE: Got exception during parsing ocr text.", ex);

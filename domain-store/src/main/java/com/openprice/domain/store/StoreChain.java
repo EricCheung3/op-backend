@@ -50,4 +50,33 @@ public class StoreChain extends BaseAuditableEntity {
     @OneToMany(cascade=CascadeType.ALL, mappedBy="chain")
     private List<StoreBranch> branches = new ArrayList<>();
 
+    StoreChain() {}
+
+    /**
+     * Builder method to create a StoreChain with code and name.
+     *
+     * @param code
+     * @param name
+     * @return
+     */
+    public static StoreChain createStoreChain(final String code, final String name) {
+        final StoreChain chain = new StoreChain();
+        chain.setCode(code);
+        chain.setName(name);
+        return chain;
+    }
+
+    /**
+     * Builder method to create a StoreBranch and add to branches.
+     *
+     * @param name
+     * @return
+     */
+    public StoreBranch addBranch(final String name) {
+        final StoreBranch branch = new StoreBranch();
+        branch.setChain(this);
+        branch.setName(name);
+        branches.add(branch);
+        return branch;
+    }
 }

@@ -60,4 +60,5 @@ public class StoreBranch extends BaseAuditableEntity {
         return address;
     }
 
+    StoreBranch() {}
 }

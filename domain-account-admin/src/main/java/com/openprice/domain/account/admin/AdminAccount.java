@@ -38,7 +38,7 @@ public class AdminAccount extends AbstractAccount implements UserDetails {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name="admin_role", joinColumns=@JoinColumn(name="admin_account_id"))
     @Column(name="role")
-    private Collection<AdminRoleType> roles;
+    private Collection<AdminRoleType> roles = new ArrayList<>();
 
     @Getter @Setter
     @Column(name="username")
@@ -60,9 +60,7 @@ public class AdminAccount extends AbstractAccount implements UserDetails {
     @Column(name="title")
     private String title;
 
-    public AdminAccount() {
-        this.roles = new ArrayList<>();
-    }
+    AdminAccount() {}
 
     @Override
     @JsonIgnore

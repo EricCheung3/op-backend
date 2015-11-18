@@ -48,4 +48,5 @@ public class ReceiptImage extends BaseAuditableEntity {
     @Lob
     private String ocrResult;
 
+    ReceiptImage() {}
 }
