@@ -17,9 +17,6 @@ import com.openprice.rest.user.UserApiUrls;
 @Component
 public class UserReceiptDataResourceAssembler implements ResourceAssembler<ReceiptData, UserReceiptDataResource>, UserApiUrls {
 
-    public static final String LINK_NAME_ITEMS = "items";
-    public static final String LINK_NAME_ITEM = "item";
-
     private final UserReceiptItemResourceAssembler itemResourceAssembler;
 
     @Inject
@@ -33,8 +30,8 @@ public class UserReceiptDataResourceAssembler implements ResourceAssembler<Recei
         final UserReceiptDataResource resource = new UserReceiptDataResource(receiptData);
         final LinkBuilder linkBuilder = new LinkBuilder(resource);
         linkBuilder.addLink(Link.REL_SELF, URL_USER_RECEIPTS_RECEIPT_RESULT, false, pairs)
-                   .addLink(LINK_NAME_ITEMS, URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS, true, pairs)
-                   .addLink(LINK_NAME_ITEM, URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS_ITEM, false, pairs)
+                   .addLink("items", URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS, true, pairs)
+                   .addLink("item", URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS_ITEM, false, pairs)
                    ;
 
         // TODO fix _embedded issue

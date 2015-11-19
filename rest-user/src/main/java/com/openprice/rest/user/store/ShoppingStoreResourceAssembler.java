@@ -17,11 +17,6 @@ import com.openprice.rest.user.UserApiUrls;
 @Component
 public class ShoppingStoreResourceAssembler implements ResourceAssembler<ShoppingStore, ShoppingStoreResource>, UserApiUrls {
 
-    public static final String LINK_NAME_USER = "user";
-    public static final String LINK_NAME_STORE = "store";
-    public static final String LINK_NAME_ITEMS = "items";
-    public static final String LINK_NAME_ITEM = "item";
-
     private final ShoppingItemResourceAssembler itemResourceAssembler;
 
     @Inject
@@ -35,9 +30,9 @@ public class ShoppingStoreResourceAssembler implements ResourceAssembler<Shoppin
         final ShoppingStoreResource resource = new ShoppingStoreResource(store);
         final LinkBuilder linkBuilder = new LinkBuilder(resource);
         linkBuilder.addLink(Link.REL_SELF, URL_USER_SHOPPING_STORES_STORE, false, pairs)
-                   .addLink(LINK_NAME_USER, URL_USER, false, pairs)
-                   .addLink(LINK_NAME_ITEMS, URL_USER_SHOPPING_STORES_STORE_ITEMS, true, pairs)
-                   .addLink(LINK_NAME_ITEM, URL_USER_SHOPPING_STORES_STORE_ITEMS_ITEM, false, pairs)
+                   .addLink("user", URL_USER, false, pairs)
+                   .addLink("items", URL_USER_SHOPPING_STORES_STORE_ITEMS, true, pairs)
+                   .addLink("item", URL_USER_SHOPPING_STORES_STORE_ITEMS_ITEM, false, pairs)
                    ;
 
         // TODO fix _embedded issue

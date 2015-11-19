@@ -5,9 +5,6 @@ import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.UriTemplate;
 import org.springframework.hateoas.mvc.BasicLinkBuilder;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
 public class LinkBuilder {
 
     private final String baseUri;
@@ -41,12 +38,5 @@ public class LinkBuilder {
             }
         }
         return url;
-    }
-
-    @Data
-    @AllArgsConstructor
-    public class TemplatePair {
-        String name;
-        String value;
     }
 }

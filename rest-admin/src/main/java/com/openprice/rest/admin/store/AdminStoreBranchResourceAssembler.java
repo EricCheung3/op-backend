@@ -19,7 +19,7 @@ public class AdminStoreBranchResourceAssembler implements ResourceAssembler<Stor
         final String[] pairs = {"chainId", storeBranch.getChain().getId(), "branchId", storeBranch.getId()};
         final LinkBuilder linkBuilder = new LinkBuilder(resource);
         linkBuilder.addLink(Link.REL_SELF, URL_ADMIN_CHAINS_CHAIN_BRANCHES_BRANCH, false, pairs)
-                   .addLink(LINK_NAME_CHAIN, URL_ADMIN_CHAINS_CHAIN, false, pairs)
+                   .addLink("chain", URL_ADMIN_CHAINS_CHAIN, false, pairs)
                    ;
         return resource;
     }
