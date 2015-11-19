@@ -11,11 +11,6 @@ import lombok.Setter;
 
 public class AdminUserReceiptResource extends Resource<Receipt> {
 
-    public static final String LINK_NAME_USER = "user";
-    public static final String LINK_NAME_IMAGES = "images";
-    public static final String LINK_NAME_IMAGE = "image";
-    public static final String LINK_NAME_ITEMS = "items";
-
     @Getter @Setter
     private List<AdminUserReceiptImageResource> images;
 

@@ -2,38 +2,27 @@ package com.openprice.rest.admin.store;
 
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceAssembler;
-import org.springframework.hateoas.UriTemplate;
-import org.springframework.hateoas.mvc.BasicLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import com.openprice.domain.store.StoreChain;
-import com.openprice.rest.UtilConstants;
+import com.openprice.rest.LinkBuilder;
+import com.openprice.rest.admin.AdminApiUrls;
 
 @Component
-public class AdminStoreChainResourceAssembler implements ResourceAssembler<StoreChain, AdminStoreChainResource> {
+public class AdminStoreChainResourceAssembler implements ResourceAssembler<StoreChain, AdminStoreChainResource>, AdminApiUrls {
+
+    public static final String LINK_NAME_BRANCHES = "branches";
+    public static final String LINK_NAME_BRANCH = "branch";
 
     @Override
     public AdminStoreChainResource toResource(StoreChain chain) {
         final AdminStoreChainResource resource = new AdminStoreChainResource(chain);
-
-        // Hack solution to build template links.
-        // Monitor https://github.com/spring-projects/spring-hateoas/issues/169 for nice solution from Spring HATEOAS
-        final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();
-
-        final Link selfLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/admin/chains/" + chain.getId()), Link.REL_SELF);
-        resource.add(selfLink);
-
-        final Link branchesLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/admin/chains/" + chain.getId() + "/branches" + UtilConstants.PAGINATION_TEMPLATES),
-                AdminStoreChainResource.LINK_NAME_BRANCHES);
-        resource.add(branchesLink);
-
-        final Link branchLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/admin/chains/" + chain.getId() + "/branches/{branchId}"),
-                AdminStoreChainResource.LINK_NAME_BRANCH);
-        resource.add(branchLink);
-
+        final String[] pairs = {"chainId", chain.getId()};
+        final LinkBuilder linkBuilder = new LinkBuilder(resource);
+        linkBuilder.addLink(Link.REL_SELF, URL_ADMIN_CHAINS_CHAIN, false, pairs)
+                   .addLink(LINK_NAME_BRANCHES, URL_ADMIN_CHAINS_CHAIN_BRANCHES, true, pairs)
+                   .addLink(LINK_NAME_BRANCH, URL_ADMIN_CHAINS_CHAIN_BRANCHES_BRANCH, false, pairs)
+                   ;
         return resource;
     }
 

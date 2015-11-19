@@ -1,8 +1,5 @@
 package com.openprice.rest.user.store;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,17 +7,20 @@ import javax.inject.Inject;
 
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceAssembler;
-import org.springframework.hateoas.UriTemplate;
-import org.springframework.hateoas.mvc.BasicLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import com.openprice.domain.shopping.ShoppingItem;
 import com.openprice.domain.shopping.ShoppingStore;
-import com.openprice.rest.UtilConstants;
-import com.openprice.rest.user.UserAccountRestController;
+import com.openprice.rest.LinkBuilder;
+import com.openprice.rest.user.UserApiUrls;
 
 @Component
-public class ShoppingStoreResourceAssembler implements ResourceAssembler<ShoppingStore, ShoppingStoreResource> {
+public class ShoppingStoreResourceAssembler implements ResourceAssembler<ShoppingStore, ShoppingStoreResource>, UserApiUrls {
+
+    public static final String LINK_NAME_USER = "user";
+    public static final String LINK_NAME_STORE = "store";
+    public static final String LINK_NAME_ITEMS = "items";
+    public static final String LINK_NAME_ITEM = "item";
 
     private final ShoppingItemResourceAssembler itemResourceAssembler;
 
@@ -31,26 +31,14 @@ public class ShoppingStoreResourceAssembler implements ResourceAssembler<Shoppin
 
     @Override
     public ShoppingStoreResource toResource(final ShoppingStore store) {
+        final String[] pairs = {"storeId", store.getId()};
         final ShoppingStoreResource resource = new ShoppingStoreResource(store);
-
-        resource.add(linkTo(methodOn(ShoppingStoreRestController.class).getUserShoppingStoreById(store.getId()))
-                .withSelfRel());
-
-        resource.add(linkTo(methodOn(UserAccountRestController.class).getCurrentUserAccount())
-                .withRel(ShoppingStoreResource.LINK_NAME_USER));
-
-        // Hack solution to build template links.
-        // Monitor https://github.com/spring-projects/spring-hateoas/issues/169 for nice solution from Spring HATEOAS
-        final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();
-        final Link itemsLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/stores/"+ store.getId()+ "/items" + UtilConstants.PAGINATION_TEMPLATES),
-                ShoppingStoreResource.LINK_NAME_ITEMS);
-        resource.add(itemsLink);
-
-        final Link itemLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/stores/"+ store.getId()+ "/items/{itemId}"),
-                ShoppingStoreResource.LINK_NAME_ITEM);
-        resource.add(itemLink);
+        final LinkBuilder linkBuilder = new LinkBuilder(resource);
+        linkBuilder.addLink(Link.REL_SELF, URL_USER_SHOPPING_STORES_STORE, false, pairs)
+                   .addLink(LINK_NAME_USER, URL_USER, false, pairs)
+                   .addLink(LINK_NAME_ITEMS, URL_USER_SHOPPING_STORES_STORE_ITEMS, true, pairs)
+                   .addLink(LINK_NAME_ITEM, URL_USER_SHOPPING_STORES_STORE_ITEMS_ITEM, false, pairs)
+                   ;
 
         // TODO fix _embedded issue
         List<ShoppingItemResource> items = new ArrayList<>();

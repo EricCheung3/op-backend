@@ -236,7 +236,9 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
         .andDo(document("user-receipt-parser-result-item-retrieve-example",
             preprocessResponse(prettyPrint()),
             links(
-                linkWithRel("self").description("The self link")
+                linkWithRel("self").description("The self link"),
+                linkWithRel("result").description("<<resources-user-receipt-result, Link>> to receipt latest parser result"),
+                linkWithRel("items").description("<<resources-user-receipt-items, Link>> to receipt latest parser result items")
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),

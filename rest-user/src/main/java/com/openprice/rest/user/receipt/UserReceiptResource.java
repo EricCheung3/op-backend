@@ -13,14 +13,6 @@ import lombok.Setter;
 @Relation(value = "receipt") // TODO why doing this?
 public class UserReceiptResource extends Resource<Receipt> {
 
-    public static final String LINK_NAME_IMAGES = "images";
-    public static final String LINK_NAME_IMAGE = "image";
-    public static final String LINK_NAME_PARSER_RESULT = "result";
-    public static final String LINK_NAME_ITEMS = "items";
-    public static final String LINK_NAME_ITEM = "item";
-    public static final String LINK_NAME_UPLOAD = "upload";
-    public static final String LINK_NAME_FEEDBACK = "feedback";
-
     @Getter @Setter
     private List<UserReceiptImageResource> images;
 

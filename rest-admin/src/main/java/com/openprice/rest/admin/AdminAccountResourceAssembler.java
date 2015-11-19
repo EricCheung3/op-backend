@@ -2,58 +2,33 @@ package com.openprice.rest.admin;
 
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceAssembler;
-import org.springframework.hateoas.UriTemplate;
-import org.springframework.hateoas.mvc.BasicLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import com.openprice.domain.account.admin.AdminAccount;
-import com.openprice.rest.UtilConstants;
+import com.openprice.rest.LinkBuilder;
 
 @Component
-public class AdminAccountResourceAssembler implements ResourceAssembler<AdminAccount, AdminAccountResource> {
+public class AdminAccountResourceAssembler implements ResourceAssembler<AdminAccount, AdminAccountResource>, AdminApiUrls {
+
+    public static final String LINK_NAME_USERS = "users";
+    public static final String LINK_NAME_USER = "user";
+    public static final String LINK_NAME_RECEIPTS = "receipts";
+    public static final String LINK_NAME_RECEIPT = "receipt";
+    public static final String LINK_NAME_CHAINS = "chains";
+    public static final String LINK_NAME_CHAIN = "chain";
 
     @Override
     public AdminAccountResource toResource(final AdminAccount adminAccount) {
         final AdminAccountResource resource = new AdminAccountResource(adminAccount);
-
-        // Hack solution to build template links.
-        // Monitor https://github.com/spring-projects/spring-hateoas/issues/169 for nice solution from Spring HATEOAS
-        final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();
-
-        final Link selfLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN), Link.REL_SELF);
-        resource.add(selfLink);
-
-        final Link usersLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_USERS + UtilConstants.PAGINATION_TEMPLATES),
-                AdminAccountResource.LINK_NAME_USERS);
-        resource.add(usersLink);
-
-        final Link userLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_USERS_USER),
-                AdminAccountResource.LINK_NAME_USER);
-        resource.add(userLink);
-
-        final Link receiptsLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_RECEIPTS + UtilConstants.PAGINATION_TEMPLATES),
-                AdminAccountResource.LINK_NAME_RECEIPTS);
-        resource.add(receiptsLink);
-
-        final Link receiptLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT),
-                AdminAccountResource.LINK_NAME_RECEIPT);
-        resource.add(receiptLink);
-
-        final Link chainsLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_CHAINS + UtilConstants.PAGINATION_TEMPLATES),
-                AdminAccountResource.LINK_NAME_CHAINS);
-        resource.add(chainsLink);
-
-        final Link chainLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_CHAINS_CHAIN),
-                AdminAccountResource.LINK_NAME_CHAIN);
-        resource.add(chainLink);
-
+        final LinkBuilder linkBuilder = new LinkBuilder(resource);
+        linkBuilder.addLink(Link.REL_SELF, URL_ADMIN, false, null)
+                   .addLink(LINK_NAME_USERS, URL_ADMIN_USERS, true, null)
+                   .addLink(LINK_NAME_USER, URL_ADMIN_USERS_USER, false, null)
+                   .addLink(LINK_NAME_RECEIPTS, URL_ADMIN_RECEIPTS, true, null)
+                   .addLink(LINK_NAME_RECEIPT, URL_ADMIN_RECEIPTS_RECEIPT, false, null)
+                   .addLink(LINK_NAME_CHAINS, URL_ADMIN_CHAINS, true, null)
+                   .addLink(LINK_NAME_CHAIN, URL_ADMIN_CHAINS_CHAIN, false, null)
+                   ;
         return resource;
     }
 }

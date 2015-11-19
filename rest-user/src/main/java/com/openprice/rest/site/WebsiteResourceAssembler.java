@@ -3,16 +3,19 @@ package com.openprice.rest.site;
 import javax.inject.Inject;
 
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.UriTemplate;
-import org.springframework.hateoas.mvc.BasicLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountService;
-import com.openprice.rest.UtilConstants;
+import com.openprice.rest.LinkBuilder;
 
 @Component
-public class WebsiteResourceAssembler {
+public class WebsiteResourceAssembler implements SiteApiUrls {
+
+    public static final String LINK_NAME_SIGNIN = "signin";
+    public static final String LINK_NAME_REGISTRATION = "registration";
+    public static final String LINK_NAME_FORGET_PASSWORD = "forgetPassword";
+    public static final String LINK_NAME_RESET_PASSWORD = "resetPassword";
 
     private final UserAccountService userAccountService;
 
@@ -32,27 +35,12 @@ public class WebsiteResourceAssembler {
             resource.setAuthenticated(false);
         }
 
-        final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();
-
-        final Link selfLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT), Link.REL_SELF);
-        resource.add(selfLink);
-
-        final Link signinLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.URL_SIGNIN), WebsiteResource.LINK_NAME_SIGNIN);
-        resource.add(signinLink);
-
-        final Link registerUserLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + SiteApiUrls.URL_PUBLIC_REGISTRATION), WebsiteResource.LINK_NAME_REGISTRATION);
-        resource.add(registerUserLink);
-
-        final Link forgetPasswordLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS), WebsiteResource.LINK_NAME_FORGET_PASSWORD);
-        resource.add(forgetPasswordLink);
-
-        final Link resetPasswordLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS_REQUEST), WebsiteResource.LINK_NAME_RESET_PASSWORD);
-        resource.add(resetPasswordLink);
+        LinkBuilder linkBuilder = new LinkBuilder(resource);
+        linkBuilder.addLink(Link.REL_SELF, "", false, null)
+                   .addLink(LINK_NAME_SIGNIN, "/signin", false, null)
+                   .addLink(LINK_NAME_REGISTRATION, URL_PUBLIC_REGISTRATION, false, null)
+                   .addLink(LINK_NAME_FORGET_PASSWORD, URL_PUBLIC_RESET_PASSWORD_REQUESTS, false, null)
+                   .addLink(LINK_NAME_RESET_PASSWORD, URL_PUBLIC_RESET_PASSWORD_REQUESTS_REQUEST, false, null);
 
         return resource;
     }

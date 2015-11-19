@@ -2,33 +2,25 @@ package com.openprice.rest.admin.store;
 
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceAssembler;
-import org.springframework.hateoas.UriTemplate;
-import org.springframework.hateoas.mvc.BasicLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import com.openprice.domain.store.StoreBranch;
-import com.openprice.rest.UtilConstants;
+import com.openprice.rest.LinkBuilder;
+import com.openprice.rest.admin.AdminApiUrls;
 
 @Component
-public class AdminStoreBranchResourceAssembler implements ResourceAssembler<StoreBranch, AdminStoreBranchResource> {
+public class AdminStoreBranchResourceAssembler implements ResourceAssembler<StoreBranch, AdminStoreBranchResource>, AdminApiUrls {
+
+    public static final String LINK_NAME_CHAIN = "chain";
 
     @Override
     public AdminStoreBranchResource toResource(StoreBranch storeBranch) {
         final AdminStoreBranchResource resource = new AdminStoreBranchResource(storeBranch);
-
-        // Hack solution to build template links.
-        // Monitor https://github.com/spring-projects/spring-hateoas/issues/169 for nice solution from Spring HATEOAS
-        final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();
-
-        final Link selfLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/admin/chains/" + storeBranch.getChain().getId() + "/branches/" + storeBranch.getId()), Link.REL_SELF);
-        resource.add(selfLink);
-
-        final Link chainLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/admin/chains/" + storeBranch.getChain().getId()),
-                AdminStoreBranchResource.LINK_NAME_CHAIN);
-        resource.add(chainLink);
-
+        final String[] pairs = {"chainId", storeBranch.getChain().getId(), "branchId", storeBranch.getId()};
+        final LinkBuilder linkBuilder = new LinkBuilder(resource);
+        linkBuilder.addLink(Link.REL_SELF, URL_ADMIN_CHAINS_CHAIN_BRANCHES_BRANCH, false, pairs)
+                   .addLink(LINK_NAME_CHAIN, URL_ADMIN_CHAINS_CHAIN, false, pairs)
+                   ;
         return resource;
     }
 

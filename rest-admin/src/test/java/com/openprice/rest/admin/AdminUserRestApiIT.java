@@ -15,7 +15,6 @@ import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.admin.user.AdminUserAccountResource;
 import com.openprice.rest.admin.user.AdminUserProfileForm;
 
 public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
@@ -62,9 +61,9 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
             .body("profile.lastName", equalTo("Doe"))
             .body("profile.address.address1", equalTo("101 123 street"))
             .body("_links.self.href", equalTo(userUrl))
-            .body("_links.lockState.href", endsWith(AdminUserAccountResource.LINK_NAME_LOCK_STATE))
-            .body("_links.profile.href", endsWith(AdminUserAccountResource.LINK_NAME_PROFILE))
-            .body("_links.receipts.href", endsWith(AdminUserAccountResource.LINK_NAME_RECEIPTS + UtilConstants.PAGINATION_TEMPLATES))
+            .body("_links.lockState.href", endsWith("/admin/users/user002/lockState"))
+            .body("_links.profile.href", endsWith("/admin/users/user002/profile"))
+            .body("_links.receipts.href", endsWith("/admin/users/user002/receipts" + UtilConstants.PAGINATION_TEMPLATES))
         ;
     }
 

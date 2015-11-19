@@ -50,8 +50,8 @@ public class AdminUserReceiptApiDocumentation extends AdminApiDocumentationBase 
                 linkWithRel("self").description("The self link"),
                 linkWithRel("user").description("The <<resources-admin-user, Admin User resource>>, owner of this receipt"),
                 linkWithRel("images").description("<<resources-admin-user-receipt-images, Link>> to receipt images"),
-                linkWithRel("image").description("<<resources-admin-user-receipt-image, Link>> to receipt image"),
-                linkWithRel("items").description("<<resources-admin-user-receipt-items, Link>> to receipt items")
+                linkWithRel("image").description("<<resources-admin-user-receipt-image, Link>> to receipt image")
+                //linkWithRel("items").description("<<resources-admin-user-receipt-items, Link>> to receipt items")
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),

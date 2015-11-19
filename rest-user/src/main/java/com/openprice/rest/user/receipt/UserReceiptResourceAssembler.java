@@ -7,16 +7,23 @@ import javax.inject.Inject;
 
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceAssembler;
-import org.springframework.hateoas.UriTemplate;
-import org.springframework.hateoas.mvc.BasicLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
-import com.openprice.rest.UtilConstants;
+import com.openprice.rest.LinkBuilder;
+import com.openprice.rest.user.UserApiUrls;
 
 @Component
-public class UserReceiptResourceAssembler implements ResourceAssembler<Receipt, UserReceiptResource> {
+public class UserReceiptResourceAssembler implements ResourceAssembler<Receipt, UserReceiptResource>, UserApiUrls {
+
+    public static final String LINK_NAME_IMAGES = "images";
+    public static final String LINK_NAME_IMAGE = "image";
+    public static final String LINK_NAME_UPLOAD = "upload";
+    public static final String LINK_NAME_PARSER_RESULT = "result";
+    public static final String LINK_NAME_ITEMS = "items";
+    public static final String LINK_NAME_ITEM = "item";
+    public static final String LINK_NAME_FEEDBACK = "feedback";
 
     private final UserReceiptImageResourceAssembler imageResourceAssembler;
 
@@ -27,50 +34,18 @@ public class UserReceiptResourceAssembler implements ResourceAssembler<Receipt, 
 
     @Override
     public UserReceiptResource toResource(final Receipt receipt) {
+        final String[] pairs = {"receiptId", receipt.getId()};
         final UserReceiptResource resource = new UserReceiptResource(receipt);
-
-        // Hack solution to build template links.
-        // Monitor https://github.com/spring-projects/spring-hateoas/issues/169 for nice solution from Spring HATEOAS
-        final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();
-
-        final Link selfLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId()), Link.REL_SELF);
-        resource.add(selfLink);
-
-        final Link imagesLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/images" + UtilConstants.PAGINATION_TEMPLATES),
-                UserReceiptResource.LINK_NAME_IMAGES);
-        resource.add(imagesLink);
-
-        final Link imageLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/images/{imageId}"),
-                UserReceiptResource.LINK_NAME_IMAGE);
-        resource.add(imageLink);
-
-        final Link resultLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/result"),
-                UserReceiptResource.LINK_NAME_PARSER_RESULT);
-        resource.add(resultLink);
-
-        final Link itemsLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/result/items" + UtilConstants.PAGINATION_TEMPLATES),
-                UserReceiptResource.LINK_NAME_ITEMS);
-        resource.add(itemsLink);
-
-        final Link itemLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/result/items/{itemId}"),
-                UserReceiptResource.LINK_NAME_ITEM);
-        resource.add(itemLink);
-
-        final Link feedbackLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/feedback"),
-                UserReceiptResource.LINK_NAME_FEEDBACK);
-        resource.add(feedbackLink);
-
-        final Link uploadLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/images/upload"),
-                UserReceiptResource.LINK_NAME_UPLOAD);
-        resource.add(uploadLink);
+        final LinkBuilder linkBuilder = new LinkBuilder(resource);
+        linkBuilder.addLink(Link.REL_SELF, URL_USER_RECEIPTS_RECEIPT, false, pairs)
+                   .addLink(LINK_NAME_IMAGES,URL_USER_RECEIPTS_RECEIPT_IMAGES,  true, pairs)
+                   .addLink(LINK_NAME_IMAGE, URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE, false, pairs)
+                   .addLink(LINK_NAME_PARSER_RESULT, URL_USER_RECEIPTS_RECEIPT_RESULT, false, pairs)
+                   .addLink(LINK_NAME_ITEMS, URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS, true, pairs)
+                   .addLink(LINK_NAME_ITEM, URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS_ITEM, false, pairs)
+                   .addLink(LINK_NAME_FEEDBACK, URL_USER_RECEIPTS_RECEIPT_FEEDBACK, false, pairs)
+                   .addLink(LINK_NAME_UPLOAD, URL_USER_RECEIPTS_RECEIPT_IMAGES_UPLOAD, false, pairs)
+                   ;
 
         // TODO fix _embedded issue
         List<UserReceiptImageResource> images = new ArrayList<>();
