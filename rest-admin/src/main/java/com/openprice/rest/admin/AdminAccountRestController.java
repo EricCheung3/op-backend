@@ -13,7 +13,8 @@ import com.openprice.domain.account.admin.AdminAccount;
 import com.openprice.domain.account.admin.AdminAccountService;
 
 /**
- * RESTful API for AdminAccountResource.
+ * REST API Controller for current logged in admin account.
+ *
  */
 @RestController
 public class AdminAccountRestController extends AbstractAdminRestController {
@@ -27,10 +28,6 @@ public class AdminAccountRestController extends AbstractAdminRestController {
         this.adminAccountResourceAssembler = adminAccountResourceAssembler;
     }
 
-    /**
-     * Get admin info, which contains role, links to other api.
-     * @return
-     */
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN)
     @Transactional(readOnly=true)
     public HttpEntity<AdminAccountResource> getAdminAccount() {

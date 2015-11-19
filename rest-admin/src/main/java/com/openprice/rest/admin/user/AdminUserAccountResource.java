@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class AdminUserAccountResource extends Resource<UserAccount> {
+
     public static final String LINK_NAME_LOCK_STATE = "lockState";
     public static final String LINK_NAME_PROFILE = "profile";
     public static final String LINK_NAME_RECEIPTS = "receipts";

@@ -22,8 +22,13 @@ import com.openprice.domain.shopping.ShoppingStoreRepository;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.user.UserApiUrls;
 
+/**
+ * REST API Controller for current user shopping list store management.
+ *
+ */
 @RestController
 public class ShoppingStoreRestController extends AbstractUserStoreRestController {
+
     private final ShoppingStoreResourceAssembler shoppingStoreResourceAssembler;
 
     @Inject
@@ -45,8 +50,8 @@ public class ShoppingStoreRestController extends AbstractUserStoreRestController
     }
 
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_SHOPPING_STORES_STORE)
-    public HttpEntity<ShoppingStoreResource> getUserShoppingStoreById(@PathVariable("storeId") final String storeId)
-            throws ResourceNotFoundException {
+    public HttpEntity<ShoppingStoreResource> getUserShoppingStoreById(
+            @PathVariable("storeId") final String storeId) throws ResourceNotFoundException {
         final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
         return ResponseEntity.ok(shoppingStoreResourceAssembler.toResource(store));
     }

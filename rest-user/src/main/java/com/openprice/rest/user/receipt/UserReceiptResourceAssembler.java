@@ -1,8 +1,5 @@
 package com.openprice.rest.user.receipt;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +29,14 @@ public class UserReceiptResourceAssembler implements ResourceAssembler<Receipt, 
     public UserReceiptResource toResource(final Receipt receipt) {
         final UserReceiptResource resource = new UserReceiptResource(receipt);
 
-        resource.add(linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId()))
-                .withSelfRel());
-
-        // Hack solution to build template links for "image" and "rating".
+        // Hack solution to build template links.
         // Monitor https://github.com/spring-projects/spring-hateoas/issues/169 for nice solution from Spring HATEOAS
         final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();
+
+        final Link selfLink = new Link(
+                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId()), Link.REL_SELF);
+        resource.add(selfLink);
+
         final Link imagesLink = new Link(
                 new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/images" + UtilConstants.PAGINATION_TEMPLATES),
                 UserReceiptResource.LINK_NAME_IMAGES);
@@ -47,11 +46,6 @@ public class UserReceiptResourceAssembler implements ResourceAssembler<Receipt, 
                 new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/images/{imageId}"),
                 UserReceiptResource.LINK_NAME_IMAGE);
         resource.add(imageLink);
-
-        final Link ratingLink = new Link(
-                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/feedback"),
-                UserReceiptResource.LINK_NAME_FEEDBACK);
-        resource.add(ratingLink);
 
         final Link resultLink = new Link(
                 new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/result"),
@@ -68,8 +62,15 @@ public class UserReceiptResourceAssembler implements ResourceAssembler<Receipt, 
                 UserReceiptResource.LINK_NAME_ITEM);
         resource.add(itemLink);
 
-        resource.add(linkTo(methodOn(UserReceiptImageRestController.class).getUploadReceiptImagePath(receipt.getId()))
-                .withRel(UserReceiptResource.LINK_NAME_UPLOAD));
+        final Link feedbackLink = new Link(
+                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/feedback"),
+                UserReceiptResource.LINK_NAME_FEEDBACK);
+        resource.add(feedbackLink);
+
+        final Link uploadLink = new Link(
+                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/user/receipts/"+ receipt.getId() + "/images/upload"),
+                UserReceiptResource.LINK_NAME_UPLOAD);
+        resource.add(uploadLink);
 
         // TODO fix _embedded issue
         List<UserReceiptImageResource> images = new ArrayList<>();

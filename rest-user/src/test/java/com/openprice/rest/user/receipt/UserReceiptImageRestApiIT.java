@@ -96,15 +96,13 @@ public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTes
             .when()
                 .get(receiptUrl)
             ;
-
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name()))
+            .body("images[0].status", equalTo(ProcessStatusType.SCANNED.name()))
         ;
-
-        //response.prettyPrint();
 
         // upload second image
         uploadUrl = response.then().extract().path("_links.upload.href");

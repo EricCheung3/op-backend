@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.openprice.rest.AbstractRestController;
 
+/**
+ * REST API Controller for public website.
+ *
+ */
 @RestController
 public class WebsiteRestController extends AbstractRestController {
+
     private final WebsiteResourceAssembler websiteResourceAssembler;
 
     @Inject
@@ -26,8 +31,7 @@ public class WebsiteRestController extends AbstractRestController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public HttpEntity<WebsiteResource> getPublicWebsiteResource() {
-        WebsiteResource resource = websiteResourceAssembler.toResource();
-        return new ResponseEntity<>(resource, HttpStatus.OK);
+        return new ResponseEntity<>(websiteResourceAssembler.toResource(), HttpStatus.OK);
     }
 
 }

@@ -37,26 +37,31 @@ import com.openprice.rest.admin.AdminApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * REST API Controller for global receipt management by admin.
+ *
+ */
 @RestController
 @Slf4j
 public class AdminReceiptRestController extends AbstractAdminRestController {
+
+    private final ReceiptService receiptService;
     private final ReceiptRepository receiptRepository;
     private final ReceiptImageRepository receiptImageRepository;
-    private final ReceiptService receiptService;
     private final AdminReceiptResourceAssembler receiptResourceAssembler;
     private final AdminReceiptImageResourceAssembler receiptImageResourceAssembler;
 
     @Inject
     public AdminReceiptRestController(final AdminAccountService adminAccountService,
+                                      final ReceiptService receiptService,
                                       final ReceiptRepository receiptRepository,
                                       final ReceiptImageRepository receiptImageRepository,
-                                      final ReceiptService receiptService,
                                       final AdminReceiptResourceAssembler receiptResourceAssembler,
                                       final AdminReceiptImageResourceAssembler receiptImageResourceAssembler) {
         super(adminAccountService);
+        this.receiptService = receiptService;
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
-        this.receiptService = receiptService;
         this.receiptResourceAssembler = receiptResourceAssembler;
         this.receiptImageResourceAssembler = receiptImageResourceAssembler;
     }
@@ -65,20 +70,21 @@ public class AdminReceiptRestController extends AbstractAdminRestController {
     public HttpEntity<PagedResources<AdminReceiptResource>> getAllReceipts(
             @PageableDefault(size = UtilConstants.DEFAULT_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<Receipt> assembler) {
-        final Page<Receipt> receipts = receiptRepository.findAll(new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "createdTime"));
+        final Page<Receipt> receipts = receiptRepository.findAll(
+                new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "createdTime"));
         return ResponseEntity.ok(assembler.toResource(receipts, receiptResourceAssembler));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT)
-    public HttpEntity<AdminReceiptResource> getReceiptById(@PathVariable("receiptId") final String receiptId)
-            throws ResourceNotFoundException {
+    public HttpEntity<AdminReceiptResource> getReceiptById(
+            @PathVariable("receiptId") final String receiptId) throws ResourceNotFoundException {
         final Receipt receipt = loadReceiptById(receiptId);
         return ResponseEntity.ok(receiptResourceAssembler.toResource(receipt));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT)
-    public HttpEntity<Void> deleteReceiptById(@PathVariable("receiptId") final String receiptId)
-            throws ResourceNotFoundException {
+    public HttpEntity<Void> deleteReceiptById(
+            @PathVariable("receiptId") final String receiptId) throws ResourceNotFoundException {
         final Receipt receipt = loadReceiptById(receiptId);
         receiptRepository.delete(receipt);
         return ResponseEntity.noContent().build();
@@ -118,8 +124,7 @@ public class AdminReceiptRestController extends AbstractAdminRestController {
     @ResponseBody
     public ResponseEntity<Resource> downloadReceiptImage(
             @PathVariable("receiptId") final String receiptId,
-            @PathVariable("imageId") final String imageId)
-                    throws ResourceNotFoundException {
+            @PathVariable("imageId") final String imageId) throws ResourceNotFoundException {
         final Receipt receipt = loadReceiptById(receiptId);
         final ReceiptImage image = loadReceiptImageByIdAndCheckReceipt(imageId, receipt);
         return ResponseEntity.ok(new PathResource(receiptService.getImageFile(image)));

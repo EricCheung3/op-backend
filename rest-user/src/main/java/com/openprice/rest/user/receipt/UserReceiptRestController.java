@@ -25,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.receipt.Receipt;
-import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.process.ProcessQueueService;
@@ -42,13 +41,11 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
 
     @Inject
     public UserReceiptRestController(final UserAccountService userAccountService,
-                                     final ReceiptRepository receiptRepository,
-                                     final ReceiptImageRepository receiptImageRepository,
                                      final ReceiptService receiptService,
+                                     final ReceiptRepository receiptRepository,
                                      final UserReceiptResourceAssembler receiptResourceAssembler,
-                                     final UserReceiptImageResourceAssembler receiptImageResourceAssembler,
                                      final ProcessQueueService processQueueService) {
-        super(userAccountService, receiptRepository, receiptService);
+        super(userAccountService, receiptService, receiptRepository);
         this.receiptResourceAssembler = receiptResourceAssembler;
         this.processQueueService = processQueueService;
     }
@@ -82,7 +79,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
         final Receipt receipt = newReceiptWithBase64ImageData(imageDataForm.getBase64String());
         processQueueService.addImage(receipt.getImages().get(0));
 
-        URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId())).toUri();
+        final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId())).toUri();
         return ResponseEntity.created(location).body(null);
     }
 

@@ -25,9 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.openprice.domain.account.admin.AdminAccount;
 import com.openprice.domain.account.admin.AdminAccountService;
-import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreBranch;
 import com.openprice.domain.store.StoreBranchRepository;
+import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.domain.store.StoreService;
 import com.openprice.rest.ResourceNotFoundException;
@@ -37,26 +37,31 @@ import com.openprice.rest.admin.AdminApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * REST API Controller for store chain and branch management.
+ *
+ */
 @RestController
 @Slf4j
 public class AdminStoreRestController extends AbstractAdminRestController {
+
+    private final StoreService storeService;
     private final StoreChainRepository storeChainRepository;
     private final StoreBranchRepository storeBranchRepository;
-    private final StoreService storeService;
     private final AdminStoreChainResourceAssembler storeChainResourceAssembler;
     private final AdminStoreBranchResourceAssembler storeBranchResourceAssembler;
 
     @Inject
     public AdminStoreRestController(final AdminAccountService adminAccountService,
+                                    final StoreService storeService,
                                     final StoreChainRepository storeChainRepository,
                                     final StoreBranchRepository storeBranchRepository,
-                                    final StoreService storeService,
                                     final AdminStoreChainResourceAssembler storeResourceAssembler,
                                     final AdminStoreBranchResourceAssembler storeBranchResourceAssembler) {
         super(adminAccountService);
+        this.storeService = storeService;
         this.storeChainRepository = storeChainRepository;
         this.storeBranchRepository = storeBranchRepository;
-        this.storeService = storeService;
         this.storeChainResourceAssembler = storeResourceAssembler;
         this.storeBranchResourceAssembler = storeBranchResourceAssembler;
     }
@@ -65,7 +70,8 @@ public class AdminStoreRestController extends AbstractAdminRestController {
     public HttpEntity<PagedResources<AdminStoreChainResource>> getAllStoreChains(
             @PageableDefault(size = UtilConstants.DEFAULT_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<StoreChain> assembler) {
-        final Page<StoreChain> stores = storeChainRepository.findAll(new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.ASC, "code"));
+        final Page<StoreChain> stores = storeChainRepository.findAll(
+                new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.ASC, "code"));
         return ResponseEntity.ok(assembler.toResource(stores, storeChainResourceAssembler));
     }
 

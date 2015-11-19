@@ -28,9 +28,14 @@ import com.openprice.rest.user.UserApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * REST API Controller for current user receipt parsed data management.
+ *
+ */
 @RestController
 @Slf4j
 public class UserReceiptDataRestController extends AbstractUserReceiptRestController {
+
     private final ReceiptItemRepository receiptItemRepository;
     private final UserReceiptDataResourceAssembler receiptDataResourceAssembler;
     private final UserReceiptItemResourceAssembler receiptItemResourceAssembler;
@@ -42,7 +47,7 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
                                          final ReceiptItemRepository receiptItemRepository,
                                          final UserReceiptDataResourceAssembler receiptDataResourceAssembler,
                                          final UserReceiptItemResourceAssembler receiptItemResourceAssembler) {
-        super(userAccountService, receiptRepository, receiptService);
+        super(userAccountService, receiptService, receiptRepository);
         this.receiptItemRepository = receiptItemRepository;
         this.receiptDataResourceAssembler = receiptDataResourceAssembler;
         this.receiptItemResourceAssembler = receiptItemResourceAssembler;
@@ -105,8 +110,7 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
     @RequestMapping(method = RequestMethod.DELETE, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS_ITEM)
     public HttpEntity<Void> deleteReceiptItemById(
             @PathVariable("receiptId") final String receiptId,
-            @PathVariable("itemId") final String itemId)
-                    throws ResourceNotFoundException {
+            @PathVariable("itemId") final String itemId) throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         final ReceiptItem item = getReceiptItemByIdAndCheckReceipt(itemId, receipt);
         item.setIgnore(true);

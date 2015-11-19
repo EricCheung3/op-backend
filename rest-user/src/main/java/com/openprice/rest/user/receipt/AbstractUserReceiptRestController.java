@@ -18,15 +18,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class AbstractUserReceiptRestController extends AbstractUserRestController {
 
-    protected final ReceiptRepository receiptRepository;
     protected final ReceiptService receiptService;
+    protected final ReceiptRepository receiptRepository;
 
     public AbstractUserReceiptRestController(final UserAccountService userAccountService,
-                                             final ReceiptRepository receiptRepository,
-                                             final ReceiptService receiptService) {
+                                             final ReceiptService receiptService,
+                                             final ReceiptRepository receiptRepository) {
         super(userAccountService);
-        this.receiptRepository = receiptRepository;
         this.receiptService = receiptService;
+        this.receiptRepository = receiptRepository;
     }
 
     protected Receipt getReceiptByIdAndCheckUser(final String receiptId)

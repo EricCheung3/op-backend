@@ -40,12 +40,17 @@ import com.openprice.rest.admin.AdminApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * REST API Controller for user receipt management.
+ *
+ */
 @RestController
 @Slf4j
 public class AdminUserReceiptRestController extends AbstractUserAdminRestController {
+
+    private final ReceiptService receiptService;
     private final ReceiptRepository receiptRepository;
     private final ReceiptImageRepository receiptImageRepository;
-    private final ReceiptService receiptService;
     private final AdminUserReceiptResourceAssembler receiptResourceAssembler;
     private final AdminUserReceiptImageResourceAssembler receiptImageResourceAssembler;
 
@@ -53,15 +58,15 @@ public class AdminUserReceiptRestController extends AbstractUserAdminRestControl
     public AdminUserReceiptRestController(final AdminAccountService adminAccountService,
                                           final UserAccountService userAccountService,
                                           final UserAccountRepository userAccountRepository,
+                                          final ReceiptService receiptService,
                                           final ReceiptRepository receiptRepository,
                                           final ReceiptImageRepository receiptImageRepository,
-                                          final ReceiptService receiptService,
                                           final AdminUserReceiptResourceAssembler receiptResourceAssembler,
                                           final AdminUserReceiptImageResourceAssembler receiptImageResourceAssembler) {
         super(adminAccountService, userAccountService, userAccountRepository);
+        this.receiptService = receiptService;
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
-        this.receiptService = receiptService;
         this.receiptResourceAssembler = receiptResourceAssembler;
         this.receiptImageResourceAssembler = receiptImageResourceAssembler;
     }
@@ -77,18 +82,18 @@ public class AdminUserReceiptRestController extends AbstractUserAdminRestControl
     }
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT)
-    public HttpEntity<AdminUserReceiptResource> getUserReceiptById(@PathVariable("userId") final String userId,
-                                                                   @PathVariable("receiptId") final String receiptId)
-            throws ResourceNotFoundException {
+    public HttpEntity<AdminUserReceiptResource> getUserReceiptById(
+            @PathVariable("userId") final String userId,
+            @PathVariable("receiptId") final String receiptId) throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(userId, receiptId);
         return ResponseEntity.ok(receiptResourceAssembler.toResource(receipt));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = AdminApiUrls.URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT)
     @Transactional
-    public HttpEntity<Void> deleteReceiptById(@PathVariable("userId") final String userId,
-                                              @PathVariable("receiptId") final String receiptId)
-            throws ResourceNotFoundException {
+    public HttpEntity<Void> deleteReceiptById(
+            @PathVariable("userId") final String userId,
+            @PathVariable("receiptId") final String receiptId) throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(userId, receiptId);
         receiptRepository.delete(receipt);
         return ResponseEntity.noContent().build();

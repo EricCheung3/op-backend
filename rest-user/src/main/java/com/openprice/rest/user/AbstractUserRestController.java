@@ -14,12 +14,8 @@ public class AbstractUserRestController extends AbstractRestController {
         this.userAccountService = userAccountService;
     }
 
-    protected UserAccount getCurrentUser() {
-        return userAccountService.getCurrentUser();
-    }
-
     protected UserAccount getCurrentAuthenticatedUser() {
-        final UserAccount currentUser = getCurrentUser();
+        final UserAccount currentUser = userAccountService.getCurrentUser();
         if (currentUser == null) {
             throw new AuthenticationCredentialsNotFoundException("User not logged in.");
         }

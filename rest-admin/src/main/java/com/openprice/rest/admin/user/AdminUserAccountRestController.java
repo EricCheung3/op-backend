@@ -30,8 +30,13 @@ import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.AbstractUserAdminRestController;
 import com.openprice.rest.admin.AdminApiUrls;
 
+/**
+ * REST API Controller for user account management.
+ *
+ */
 @RestController
 public class AdminUserAccountRestController extends AbstractUserAdminRestController {
+
     private final UserProfileRepository userProfileRepository;
     private final AdminUserAccountResourceAssembler userResourceAssembler;
 
@@ -58,8 +63,8 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER)
     @Transactional(readOnly=true)
-    public HttpEntity<AdminUserAccountResource> getUserAccountByUserId(@PathVariable("userId") final String userId)
-            throws ResourceNotFoundException {
+    public HttpEntity<AdminUserAccountResource> getUserAccountByUserId(
+            @PathVariable("userId") final String userId) throws ResourceNotFoundException {
         final UserAccount userAccount = getUserByUserId(userId);
         return ResponseEntity.ok(userResourceAssembler.toResource(userAccount));
     }
@@ -80,7 +85,8 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_PROFILE)
     @Transactional(readOnly=true)
-    public HttpEntity<AdminUserProfileResource> getUserProfile(@PathVariable("userId") final String userId) {
+    public HttpEntity<AdminUserProfileResource> getUserProfile(
+            @PathVariable("userId") final String userId) {
         final UserAccount user = getUserByUserId(userId);
         final UserProfile profile = user.getProfile();
         return ResponseEntity.ok(new AdminUserProfileResource(profile));
@@ -88,8 +94,9 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
 
     @RequestMapping(method = RequestMethod.PUT, value = AdminApiUrls.URL_ADMIN_USERS_USER_PROFILE)
     @Transactional
-    public HttpEntity<Void> updateUserProfile(@PathVariable("userId") final String userId,
-                                              @RequestBody final AdminUserProfileForm profileForm) {
+    public HttpEntity<Void> updateUserProfile(
+            @PathVariable("userId") final String userId,
+            @RequestBody final AdminUserProfileForm profileForm) {
         final UserAccount user = getUserByUserId(userId);
         final UserProfile profile = user.getProfile();
         userProfileRepository.save(profileForm.updateProfile(profile));

@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class WebsiteResource extends ResourceSupport {
+
     public static final String LINK_NAME_SIGNIN = "signin";
     public static final String LINK_NAME_REGISTRATION = "registration";
     public static final String LINK_NAME_FORGET_PASSWORD = "forgetPassword";

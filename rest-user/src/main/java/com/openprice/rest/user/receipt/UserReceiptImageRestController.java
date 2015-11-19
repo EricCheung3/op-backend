@@ -41,9 +41,14 @@ import com.openprice.rest.user.UserApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * REST API Controller for current user receipt image management.
+ *
+ */
 @RestController
 @Slf4j
 public class UserReceiptImageRestController extends AbstractUserReceiptRestController {
+
     private final ReceiptImageRepository receiptImageRepository;
     private final UserReceiptImageResourceAssembler receiptImageResourceAssembler;
     private final ProcessQueueService processQueueService;
@@ -55,7 +60,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
                                           final ReceiptImageRepository receiptImageRepository,
                                           final UserReceiptImageResourceAssembler receiptImageResourceAssembler,
                                           final ProcessQueueService processQueueService) {
-        super(userAccountService, receiptRepository, receiptService);
+        super(userAccountService, receiptService, receiptRepository);
         this.receiptImageRepository = receiptImageRepository;
         this.receiptImageResourceAssembler = receiptImageResourceAssembler;
         this.processQueueService = processQueueService;
@@ -98,7 +103,8 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
         final ReceiptImage image = newReceiptImageWithBase64ImageData(receiptId, imageDataForm.getBase64String());
         processQueueService.addImage(image);
 
-        URI location = linkTo(methodOn(UserReceiptImageRestController.class).getUserReceiptImageById(receiptId, image.getId())).toUri();
+        final URI location =
+            linkTo(methodOn(UserReceiptImageRestController.class).getUserReceiptImageById(receiptId, image.getId())).toUri();
         return ResponseEntity.created(location).body(null);
     }
 
@@ -108,13 +114,15 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
     }
 
     @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_IMAGES_UPLOAD)
-    public HttpEntity<Void> uploadReceiptImage(@PathVariable("receiptId") final String receiptId,
-                                               @RequestParam(value="file") final MultipartFile file) {
+    public HttpEntity<Void> uploadReceiptImage(
+            @PathVariable("receiptId") final String receiptId,
+            @RequestParam(value="file") final MultipartFile file) {
         if (!file.isEmpty()) {
             final ReceiptImage image = newReceiptImageWithFile(receiptId, file);
             processQueueService.addImage(image);
 
-            URI location = linkTo(methodOn(UserReceiptImageRestController.class).getUserReceiptImageById(receiptId, image.getId())).toUri();
+            final URI location =
+                linkTo(methodOn(UserReceiptImageRestController.class).getUserReceiptImageById(receiptId, image.getId())).toUri();
             return ResponseEntity.created(location).body(null);
         } else {
             log.error("No file uploaded!");
@@ -129,9 +137,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
             @PathVariable("imageId") final String imageId) throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         final ReceiptImage image = getReceiptImageByIdAndCheckReceipt(imageId, receipt);
-
-        Resource resource = new PathResource(receiptService.getImageFile(image));
-        return ResponseEntity.ok(resource);
+        return ResponseEntity.ok(new PathResource(receiptService.getImageFile(image)));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_BASE64,

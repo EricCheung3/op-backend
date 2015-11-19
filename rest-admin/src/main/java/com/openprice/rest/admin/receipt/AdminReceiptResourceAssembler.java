@@ -1,9 +1,6 @@
 package com.openprice.rest.admin.receipt;
 
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -47,12 +44,14 @@ public class AdminReceiptResourceAssembler implements ResourceAssembler<Receipt,
         }
         resource.setImages(images);
 
-        resource.add(linkTo(methodOn(AdminReceiptRestController.class).getReceiptById(receipt.getId()))
-                .withSelfRel());
-
         // Hack solution to build template links.
         // Monitor https://github.com/spring-projects/spring-hateoas/issues/169 for nice solution from Spring HATEOAS
         final String baseUri = BasicLinkBuilder.linkToCurrentMapping().toString();
+
+        final Link selfLink = new Link(
+                new UriTemplate(baseUri + UtilConstants.API_ROOT + "/admin/receipts/" + receipt.getId()), Link.REL_SELF);
+        resource.add(selfLink);
+
         final Link imagesLink = new Link(
                 new UriTemplate(baseUri + UtilConstants.API_ROOT + "/admin/receipts/" + receipt.getId() + "/images" + UtilConstants.PAGINATION_TEMPLATES),
                 AdminReceiptResource.LINK_NAME_IMAGES);

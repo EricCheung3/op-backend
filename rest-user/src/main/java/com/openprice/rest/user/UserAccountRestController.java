@@ -15,8 +15,6 @@ import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.account.user.UserProfile;
 import com.openprice.domain.account.user.UserProfileRepository;
 
-
-
 /**
  * REST API Controller for current user account management.
  *

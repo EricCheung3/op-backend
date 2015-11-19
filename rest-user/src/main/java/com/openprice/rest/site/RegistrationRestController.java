@@ -30,9 +30,14 @@ import com.openprice.rest.ResourceNotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * REST API Controller for user registration related tasks.
+ *
+ */
 @RestController
 @Slf4j
 public class RegistrationRestController extends AbstractRestController {
+
     private final UserAccountService userAccountService;
     private final UserAccountRepository userAccountRepository;
     private final EmailProperties emailProperties;
@@ -88,7 +93,7 @@ public class RegistrationRestController extends AbstractRestController {
 
         sendResetPasswordLinkToUser(userAccountRepository.findByEmail(email), request);
 
-        URI location = linkTo(methodOn(RegistrationRestController.class).getResetPasswordRequest(request.getId())).toUri();
+        final URI location = linkTo(methodOn(RegistrationRestController.class).getResetPasswordRequest(request.getId())).toUri();
         return ResponseEntity.created(location).body(null);
     }
 

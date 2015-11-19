@@ -33,9 +33,14 @@ import com.openprice.rest.user.UserApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * REST API Controller for current user shopping list item management.
+ *
+ */
 @RestController
 @Slf4j
 public class ShoppingItemRestController extends AbstractUserStoreRestController {
+
     private final ShoppingItemRepository shoppingItemRepository;
     private final ShoppingItemResourceAssembler shoppingItemResourceAssembler;
 
