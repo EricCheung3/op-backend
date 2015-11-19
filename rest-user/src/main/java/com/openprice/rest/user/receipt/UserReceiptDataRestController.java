@@ -76,7 +76,7 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
             final PagedResourcesAssembler<ReceiptItem> assembler) {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         final ReceiptData result = receiptService.getLatestReceiptParserResult(receipt);
-        final Page<ReceiptItem> items = receiptItemRepository.findByReceiptDataAndIgnoreIsFalse(result, pageable);
+        final Page<ReceiptItem> items = receiptItemRepository.findByReceiptDataAndIgnoredIsFalse(result, pageable);
         return ResponseEntity.ok(assembler.toResource(items, receiptItemResourceAssembler));
     }
 
@@ -113,7 +113,7 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
             @PathVariable("itemId") final String itemId) throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         final ReceiptItem item = getReceiptItemByIdAndCheckReceipt(itemId, receipt);
-        item.setIgnore(true);
+        item.setIgnored(true);
         receiptItemRepository.save(item);
         return ResponseEntity.noContent().build();
     }
@@ -124,7 +124,7 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
             log.warn("ILLEGAL RECEIPT ITEM ACCESS! No such receipt item Id: {}.", itemId);
             throw new ResourceNotFoundException("No receipt item with the id: " + itemId);
         }
-        if (item.isIgnore()) {
+        if (item.isIgnored()) {
             log.warn("ILLEGAL RECEIPT ITEM ACCESS! Receipt item Id: {} was ignored by user.", itemId);
             throw new ResourceNotFoundException("No receipt item with the id: " + itemId);
         }

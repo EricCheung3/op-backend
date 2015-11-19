@@ -37,7 +37,7 @@ public class UserReceiptDataResourceAssembler implements ResourceAssembler<Recei
         // TODO fix _embedded issue
         List<UserReceiptItemResource> items = new ArrayList<>();
         for (ReceiptItem item : receiptData.getItems()) {
-            if (!item.isIgnore()) {
+            if (!item.isIgnored()) {
                 items.add(itemResourceAssembler.toResource(item));
             }
         }

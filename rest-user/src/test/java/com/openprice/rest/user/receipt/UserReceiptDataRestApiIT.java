@@ -209,6 +209,6 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
 
         // check image record
         ReceiptItem item = receiptItemRepository.findOne("recItem001");
-        assertTrue(item.isIgnore());
+        assertTrue(item.isIgnored());
     }
 }

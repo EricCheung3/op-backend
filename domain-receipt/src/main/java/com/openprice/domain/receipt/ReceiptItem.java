@@ -53,8 +53,8 @@ public class ReceiptItem extends BaseAuditableEntity {
     private String displayPrice;
 
     @Getter @Setter
-    @Column(name="ignore")
-    private boolean ignore;
+    @Column(name="user_ignored")
+    private boolean ignored;
 
     ReceiptItem() {}
 }

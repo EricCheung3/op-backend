@@ -38,7 +38,7 @@ CREATE TABLE receipt_item (
     display_name VARCHAR(255),
     parsed_price VARCHAR(255),
     display_price VARCHAR(255),
-    ignore BOOLEAN,
+    user_ignored BOOLEAN,
     
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
