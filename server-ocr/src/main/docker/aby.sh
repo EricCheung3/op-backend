@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 # first parameter is fast, slow, medium
 # second parameter is image path
 abbyy=/opt/ABBYY/FREngine11/Samples/CommandLineInterface/CommandLineInterface
