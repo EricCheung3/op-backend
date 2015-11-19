@@ -1,10 +1,10 @@
-cd ~/openprice-admin-ui
+cd ~/openprice/openprice-admin-ui
 git pull
 npm install
 bower install
 gulp build
 
-cd ~/openprice-admin-ui/docker
+cd ~/openprice/openprice-admin-ui/docker
 docker build -t openprice/openprice-server-admin-ui .
 
 docker stop openprice-server-admin-ui
