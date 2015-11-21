@@ -1,10 +1,5 @@
 package com.openprice.rest.user.store;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
-import java.net.URI;
-
 import javax.inject.Inject;
 
 import org.springframework.data.domain.Page;
@@ -14,14 +9,11 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.shopping.ShoppingItem;
 import com.openprice.domain.shopping.ShoppingItemRepository;
@@ -53,18 +45,6 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
         super(userAccountService, shoppingService, shoppingStoreRepository);
         this.shoppingItemRepository = shoppingItemRepository;
         this.shoppingItemResourceAssembler = shoppingItemResourceAssembler;
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_SHOPPINGLIST)
-    public HttpEntity<Void> getUploadShoppingListPath() {
-        return ResponseEntity.notFound().build();
-    }
-
-    @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_SHOPPINGLIST)
-    public HttpEntity<Void> uploadShoppingList(@RequestBody final ShoppingListForm form) {
-        final ShoppingStore store = saveShoppingList(form);
-        final URI location = linkTo(methodOn(ShoppingStoreRestController.class).getUserShoppingStoreById(store.getId())).toUri();
-        return ResponseEntity.created(location).body(null);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_SHOPPING_STORES_STORE_ITEMS)
@@ -107,18 +87,5 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
             throw new ResourceNotFoundException("No item with the id: " + itemId); // we treat it as 404
         }
         return item;
-    }
-
-    @Transactional
-    private ShoppingStore saveShoppingList(final ShoppingListForm form) {
-        final UserAccount currentUser = getCurrentAuthenticatedUser();
-        final String chainCode = form.getChainCode();
-
-        final ShoppingStore store = shoppingService.getShoppingStoreForStoreChain(currentUser, chainCode);
-        for (final ShoppingListForm.Item item : form.getItems()) {
-            final ShoppingItem shoppingItem = store.addItem(item.getCatalogCode(), item.getName());
-            shoppingItemRepository.save(shoppingItem);
-        }
-        return shoppingStoreRepository.save(store);
     }
 }
