@@ -19,6 +19,7 @@ import com.openprice.parser.StoreParserSelector;
 import com.openprice.parser.common.TextResourceUtils;
 import com.openprice.parser.data.Product;
 import com.openprice.parser.price.PriceParser;
+import com.openprice.parser.price.PriceParserFromStringTuple;
 import com.openprice.parser.price.PriceParserWithCatalog;
 
 import lombok.extern.slf4j.Slf4j;
@@ -144,6 +145,6 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
      */
     protected PriceParser getStorePriceParser() {
         //return new UniversalPriceParser();
-        return new DefaultPriceParser();
+        return new PriceParserFromStringTuple();
     }
 }

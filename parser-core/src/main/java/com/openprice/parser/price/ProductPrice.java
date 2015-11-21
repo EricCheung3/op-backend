@@ -1,7 +1,7 @@
-package com.openprice.parser.data;
+package com.openprice.parser.price;
 
 import com.openprice.parser.common.StringCommon;
-import com.openprice.parser.store.UniversalPriceParser;
+import com.openprice.parser.data.Product;
 
 import lombok.Builder;
 import lombok.Value;
@@ -14,7 +14,7 @@ public class ProductPrice {
 
     Product product;
     String price;
-    boolean productIsInCatalog;//from a matched product in catalog or not
+    boolean productIsInCatalog; //from a matched product in catalog or not
 
     public static ProductPrice fromNameCut(String itemName,
             String itemNumber, final String price){
@@ -66,7 +66,7 @@ public class ProductPrice {
         if(digitEnd>0){
             final String number=trim.substring(0, digitEnd);
             int counts[] = StringCommon.countDigitAndChars(number);
-            if(counts[0]>=UniversalPriceParser.MIN_ITEM_NUMBER_LENGTH){
+            if(counts[0]>=PriceParserConstant.MIN_ITEM_NUMBER_LENGTH){
                 final String name=trim.substring(digitEnd);
                 return new String[]{number.trim(), name.trim()};
             }
@@ -91,7 +91,7 @@ public class ProductPrice {
         if(digitBegin>=0){
             final String number=trim.substring(digitBegin+1);
             int counts[] = StringCommon.countDigitAndChars(number);
-            if(counts[0]>=UniversalPriceParser.MIN_ITEM_NUMBER_LENGTH){
+            if(counts[0]>=PriceParserConstant.MIN_ITEM_NUMBER_LENGTH){
                 final String name=trim.substring(0, digitBegin+1);
                 return new String[]{name.trim(), number.trim()};
             }

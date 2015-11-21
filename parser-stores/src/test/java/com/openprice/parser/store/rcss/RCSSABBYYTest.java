@@ -28,21 +28,22 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
         final String ocrResult = TextResourceUtils.loadTextResource(sampleRCSS_2015_11_11_calgarytrail);
 
         ParsedReceipt receipt = simpleParser.parseOCRResults(java.util.Arrays.asList(ocrResult));
-        printResult(receipt);
+        //printResult(receipt);
 
         // verify result of items
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "YELW CALROS", "MR-.i");
-        verifyItemParsedValue(iterator.next(), "$24.88 list 4", "49.76");
-        verifyItemParsedValue(iterator.next(), "WINE", "2.69");
+
+        verifyItemParsedValue(iterator.next(), "YELW CALROS", "RICE");
+        verifyItemParsedValue(iterator.next(), "2 8 $24.88 list 4", "49.76");
+        verifyItemParsedValue(iterator.next(), "K DGON COOK    WINE    MRJ", "2.69");
         verifyItemParsedValue(iterator.next(), "DEPOSII 1", "0.25");
-        verifyItemParsedValue(iterator.next(), "ROOSTER GARLIC", "0.68");
-        verifyItemParsedValue(iterator.next(), "BANANA", "MftJ");
-        verifyItemParsedValue(iterator.next(), "kg 8 $1.73/kg", "1.60");
-        verifyItemParsedValue(iterator.next(), "ONION GREEN", "0,67");
-        verifyItemParsedValue(iterator.next(), "DUCKS FR7N", "15.23");
-        verifyItemParsedValue(iterator.next(), "DUCKS FRZH", "16.81");
-        verifyItemParsedValue(iterator.next(), "HAIRTAIL", "7.36");
+        verifyItemParsedValue(iterator.next(), "rooster garlic", "0.68");
+        verifyItemParsedValue(iterator.next(), "banana", "MftJ");
+        verifyItemParsedValue(iterator.next(), "0.940 kg 8 $1.73/kg", "1.60");
+        verifyItemParsedValue(iterator.next(), "onion green", "0,67");
+        verifyItemParsedValue(iterator.next(), "DUCKS FR7N    MRJ", "15.23");
+        verifyItemParsedValue(iterator.next(), "DUCKS FRZH    MRJ", "16.81");
+        verifyItemParsedValue(iterator.next(), "hairtail", "7.36");
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();

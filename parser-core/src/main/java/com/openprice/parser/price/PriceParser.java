@@ -1,7 +1,5 @@
 package com.openprice.parser.price;
 
-import com.openprice.parser.data.ProductPrice;
-
 public interface PriceParser {
     ProductPrice fromTwoStrings(final TwoStrings four) throws Exception;
 

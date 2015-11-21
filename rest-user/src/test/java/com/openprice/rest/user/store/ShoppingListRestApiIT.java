@@ -71,7 +71,7 @@ public class ShoppingListRestApiIT extends AbstractUserRestApiIntegrationTest {
             .when()
                 .get(updatedStoreUrl)
             ;
-        response.prettyPrint();
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)

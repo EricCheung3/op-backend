@@ -12,7 +12,9 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class StringCommon {
+
     public static final String EMPTY = "";
+    public static final String WIDE_SPACES="    ";
 
     public static String getOnlyNumbersAndLetters(String str) {
         return str.replaceAll("[^A-Za-z0-9]", EMPTY);
@@ -755,6 +757,10 @@ public class StringCommon {
         double score = similarityRatioOfMatch(s1, s2);
         // logger.debug(s1+":"+s2+", score is "+score);
         return score > 0.9;
+    }
+
+    public static String removeAllSpaces(final String str){
+        return str.replaceAll("\\s+", StringCommon.EMPTY);
     }
 
 }

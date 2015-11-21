@@ -18,18 +18,14 @@ public class Product {
     private final String name;
     private final String number;
 
-    private static final int NUM_FIELDS = 4;
+    private static final int NUM_FIELDS = 2;
     private static final String SPLITTER = ",";
-
-    //    private Consumer<String> consumer=Product::fromString;
 
     public static Product emptyProduct()
     {
         return Product.builder()
                 .name(StringCommon.EMPTY)
-                //                .frequencyOfName(0)
                 .number(StringCommon.EMPTY)
-                //                .frequencyOfItemNumber(0)
                 .build();
     }
 
@@ -49,16 +45,14 @@ public class Product {
     }
 
     public static Product fromString(final String line) {
-        final String[] words=line.split(SPLITTER);
+        final String[] words=line.split(SPLITTER, -1);
         if(words.length!=NUM_FIELDS){
             throw new RuntimeException("should have "+NUM_FIELDS +" fields at this line: "+line);
         }
         try{
             final Product catLine = Product.builder()
                     .name(words[0])
-                    //                    .frequencyOfName(Integer.valueOf(words[1]))
-                    .number(words[2])
-                    //                    .frequencyOfItemNumber(Integer.valueOf(words[3]))
+                    .number(words[1])
                     .build();
             return catLine;
         }catch(Exception e){
@@ -78,5 +72,10 @@ public class Product {
         return number+SPLITTER_IN_RECEIPT+ name;
     }
 
+    public String toStringForCatalog(){
+        final String name=getName().replaceAll(SPLITTER, StringCommon.EMPTY);
+        final String number=getNumber().replaceAll(SPLITTER, StringCommon.EMPTY);
+        return name + SPLITTER + number;
+    }
 
 }

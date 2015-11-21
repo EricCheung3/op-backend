@@ -3,7 +3,6 @@ package com.openprice.parser.price;
 import java.util.List;
 
 import com.openprice.parser.data.Product;
-import com.openprice.parser.data.ProductPrice;
 
 import lombok.Builder;
 import lombok.Value;

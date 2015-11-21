@@ -1,30 +1,20 @@
-package com.openprice.parser.store;
+package com.openprice.parser.price;
 
 import com.openprice.parser.common.StringCommon;
-import com.openprice.parser.data.ProductPrice;
-import com.openprice.parser.price.FourStrings;
-import com.openprice.parser.price.PriceParser;
-import com.openprice.parser.price.ThreeStrings;
-import com.openprice.parser.price.TwoStrings;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * a universal price parser that aims to work for every store receipt line.
+ * a price parser that aims to work for every store receipt line.
  * The idea is simple. There are only a few variations of receipt line formats.
+ * All the formats is a based on a line containing one, two, three, four, five strings in a receipt line.
+ * So this price parser basically generate the product name, number, price from these string tuples.
  * see wiki
  * https://bitbucket.org/groundtruthinc/openprice-parser/issues/65/universal-price-parser
  *
  */
 @Slf4j
-public class UniversalPriceParser implements PriceParser{
-
-    public static final int MIN_ITEM_NUMBER_LENGTH=4;
-    private static final double MIN_ITEM_NUMBER_PERCENT=0.7;
-
-    private static final int MIN_ITEM_NAME_LETTERS=2;
-    private static final double MIN_ITEM_NAME_LETTERS_PERCENT=0.5;
-    public static final String WIDE_SPACES="    ";
+public class PriceParserFromStringTuple implements PriceParser {
 
     //product and price from four strings
     @Override
@@ -42,7 +32,7 @@ public class UniversalPriceParser implements PriceParser{
         }
 
         if(firstIsNumber && secondIsNumber){
-            log.debug("both first and second are item numbers");
+            //            log.debug("both first and second are item numbers");
             itemName=four.getThird();
             price=four.getFourth();
             itemNumber= four.getFirst()+" "+ four.getSecond();
@@ -50,7 +40,7 @@ public class UniversalPriceParser implements PriceParser{
         }
 
         if(secondIsNumber){
-            log.debug("second is item numbers");
+            //            log.debug("second is item numbers");
             itemName=four.getFirst();
             itemNumber=four.getSecond();
             price=priceFromTwoSuccesiveStrings(four.getThird(), four.getFourth());
@@ -58,10 +48,10 @@ public class UniversalPriceParser implements PriceParser{
         }
 
         if(firstIsNumber){//second is not item number
-            log.debug("first is item numbers");
+            //            log.debug("first is item numbers");
             itemNumber=four.getFirst();
             if(isItemName(four.getThird())){
-                itemName=four.getSecond()+WIDE_SPACES+four.getThird();
+                itemName=four.getSecond()+StringCommon.WIDE_SPACES+four.getThird();
                 price=four.getFourth();
             }else{
                 itemName=four.getSecond();
@@ -70,14 +60,14 @@ public class UniversalPriceParser implements PriceParser{
             return ProductPrice.fromNameCut(itemName, itemNumber, price);
         }
 
-        log.debug("assumed to be no item numbers");
+        //        log.debug("assumed to be no item numbers");
         //TODO: put item number splitting detection
         if(isItemName(four.getThird())){
-            itemName=four.getFirst()+WIDE_SPACES+
-                    four.getSecond()+WIDE_SPACES+four.getThird();
+            itemName=four.getFirst()+StringCommon.WIDE_SPACES+
+                    four.getSecond()+StringCommon.WIDE_SPACES+four.getThird();
             price=four.getFourth();
         }else{
-            itemName=four.getFirst()+WIDE_SPACES+four.getSecond();
+            itemName=four.getFirst()+StringCommon.WIDE_SPACES+four.getSecond();
             price=priceFromTwoSuccesiveStrings(four.getThird(), four.getFourth());
         }
         return ProductPrice.fromNameCut(itemName, itemNumber, price);
@@ -86,14 +76,14 @@ public class UniversalPriceParser implements PriceParser{
     private static String priceFromTwoSuccesiveStrings(final String s1, final String s2){
         String price="";
         if(isNotPrice(s1)){
-            log.debug("s1="+s1+" is not price, s2="+s2+" is assumed to be price.");
+            //            log.debug("s1="+s1+" is not price, s2="+s2+" is assumed to be price.");
             price=s2;
         }else{
             if(isNotPrice(s2)){
-                log.debug("s2="+s1+" is not price, s1="+s1+" is assumed to be price.");
+                //                log.debug("s2="+s1+" is not price, s1="+s1+" is assumed to be price.");
                 price=s1;
             }else
-                price=s1+WIDE_SPACES+s2;
+                price=s1+StringCommon.WIDE_SPACES+s2;
         }
         return price;
     }
@@ -113,7 +103,7 @@ public class UniversalPriceParser implements PriceParser{
         String itemNumber="";
         String price="";
         if(firstIsNumber && secondIsNumber){
-            itemNumber=three.getFirst()+WIDE_SPACES+three.getSecond();
+            itemNumber=three.getFirst()+StringCommon.WIDE_SPACES+three.getSecond();
             if(isNotPrice(three.getThird())){
                 itemName=three.getThird();
             }else{
@@ -141,7 +131,7 @@ public class UniversalPriceParser implements PriceParser{
             //TODO: throw exception if not a name?
             itemName=three.getFirst();
             if(thirdIsNumber){
-                itemNumber=three.getSecond()+WIDE_SPACES+three.getThird();
+                itemNumber=three.getSecond()+StringCommon.WIDE_SPACES+three.getThird();
             }else{
                 itemNumber=three.getSecond();
                 if(isNotPrice(three.getThird())){
@@ -154,7 +144,7 @@ public class UniversalPriceParser implements PriceParser{
 
         if(thirdIsNumber){
             log.debug("Third is an item number");
-            itemName=three.getFirst()+WIDE_SPACES+three.getSecond();
+            itemName=three.getFirst()+StringCommon.WIDE_SPACES+three.getSecond();
             itemNumber=three.getThird();
             price="";
         }
@@ -165,12 +155,14 @@ public class UniversalPriceParser implements PriceParser{
             itemName=three.getFirst();
         }else{
             if(isNotPrice(three.getSecond())){
+                log.debug("the second is not a price");
                 price=three.getThird();
-                itemName=three.getFirst()+WIDE_SPACES+three.getSecond();
+                itemName=three.getFirst()+StringCommon.WIDE_SPACES+three.getSecond();
             }else{
+                log.debug("the second is also a price");
                 //second is price and third is also price; prefer the third, the second is ignored
-                //TODO: good or bad?
-                price=price=three.getThird();
+                //TODO: good or bad? maybe bad
+                price=three.getThird();
                 itemName=three.getFirst();
             }
         }
@@ -186,7 +178,7 @@ public class UniversalPriceParser implements PriceParser{
         String itemNumber="";
         String price="";
         if(firstIsNumber && secondIsNumber){//all numbers
-            itemNumber=two.getFirst() + WIDE_SPACES+two.getSecond();
+            itemNumber=two.getFirst() + StringCommon.WIDE_SPACES+two.getSecond();
             return ProductPrice.fromNameCut(itemName, itemNumber, price);
         }
 
@@ -206,10 +198,10 @@ public class UniversalPriceParser implements PriceParser{
             return ProductPrice.fromNameCut(itemName, itemNumber, price);
         }
 
-        log.debug("No item number.");
+        //        log.debug("No item number.");
         itemNumber="";
         if(isNotPrice(two.getSecond())){
-            itemName=two.getFirst()+WIDE_SPACES+two.getSecond();
+            itemName=two.getFirst()+StringCommon.WIDE_SPACES+two.getSecond();
             price="";
         }else{
             itemName=two.getFirst();
@@ -218,30 +210,49 @@ public class UniversalPriceParser implements PriceParser{
         return ProductPrice.fromNameCut(itemName, itemNumber, price);
     }
 
+
     //The string is an item number
     public static boolean isItemNumber(final String str){
         int[] counts=StringCommon.countDigitAndLetters(str);
-        if(counts[0]<MIN_ITEM_NUMBER_LENGTH)
+        if(counts[0]<PriceParserConstant.MIN_ITEM_NUMBER_LENGTH)
             return false;
+        if(isVeryLikelyPrice(str)){
+            return false;
+        }
         final double score=(double)counts[0]/(counts[0]+counts[1]);
         //        log.debug("score="+score);
-        return score>=MIN_ITEM_NUMBER_PERCENT;
+        return score>=PriceParserConstant.MIN_ITEM_NUMBER_PERCENT;
     }
 
     public static boolean isItemName(final String str){
-        int[] counts=StringCommon.countDigitAndLetters(str);
-        if(counts[1]<MIN_ITEM_NAME_LETTERS)
+        final String noSpace=str.replaceAll("\\s+", "");
+        int[] counts=StringCommon.countDigitAndLetters(noSpace);
+        if(counts[1]<PriceParserConstant.MIN_ITEM_NAME_LETTERS)
             return false;
         final double score=(double)counts[1]/(counts[0]+counts[1]);
         //        log.debug("score="+score);
-        return score>=MIN_ITEM_NAME_LETTERS_PERCENT;
+        return score>=PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT;
     }
 
 
     public static boolean isNotPrice(final String str){
         int[] counts=StringCommon.countDigitAndLetters(str);
-        if(counts[0]<=0) return true;
+        if(counts[0]<=0 || counts[1]>=PriceParserConstant.MIN_ITEM_NAME_LETTERS+2 ) return true;
 
         return false;
+    }
+
+    //
+    public static boolean isVeryLikelyPrice(final String str){
+        int[] counts=StringCommon.countDigitAndLetters(str);
+        //        log.debug("digits="+counts[0]);
+        //        log.debug("letters="+counts[1]);
+        //        log.debug(str.contains(".")+"");
+        //        log.debug(str.contains("$")+"");
+        final boolean result= counts[0]<=5 && counts[0]>0
+                &&  ( str.contains(".") || str.contains("$") );
+        //        if(result)
+        //            log.debug(str+" is a very likely a price");
+        return result;
     }
 }

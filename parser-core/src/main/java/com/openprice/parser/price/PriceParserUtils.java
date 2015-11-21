@@ -2,6 +2,7 @@ package com.openprice.parser.price;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.NumberName;
@@ -67,4 +68,57 @@ public class PriceParserUtils {
 
         return Product.emptyProduct();
     }
+
+    /**
+     * match a line to products from the catalog. it will automatically decides to use name or number first format
+     * it is important to put lineNoSpacesLower in the second parameter of matchHeadScore because we don't want
+     * a line "pepsi 591ml ..." to match a product "pepsi" (without 519ml)
+     * we want to know the edit distance to change the line to the product
+     * @return
+     */
+    //TODO count the number of times name is first so that you can decide spam or not
+    public static Product matchLineToCatalog(final String originalLine, final Set<Product> catalog){
+        if(catalog.isEmpty()) return Product.emptyProduct();
+        final String lineNoSpacesLower = StringCommon.removeAllSpaces(originalLine.toLowerCase());
+
+        final Comparator<Product> compNumberFirst = (p1, p2)->
+        {
+            return Double.compare(
+                    StringCommon.matchHeadScore(StringCommon.removeAllSpaces(p1.toStringNumberFirst()), lineNoSpacesLower),
+                    StringCommon.matchHeadScore(StringCommon.removeAllSpaces(p2.toStringNumberFirst()), lineNoSpacesLower)
+                    );
+        };
+
+        //        catalog.stream().forEach(p->System.out.println(p.toStringForCatalog()+", score="
+        //                +StringCommon.matchHeadScore(lineNoSpacesLower,
+        //                        CatalogBase.removeAllSpaces(p.toStringNumberFirst()))));
+
+        final Product matchedNumberFirst=catalog.stream().max(compNumberFirst).get();
+        final double scoreNumberFirst=StringCommon.matchHeadScore(
+                StringCommon.removeAllSpaces(matchedNumberFirst.toStringNumberFirst()), lineNoSpacesLower);
+        //        log.debug("matchedNumberFirst"+matchedNumberFirst.toStringForCatalog()+",scoreNumberFirst="+scoreNumberFirst+"\n");
+
+        final Comparator<Product> compNameFirst = (p1, p2)->
+        {
+            return Double.compare(
+                    StringCommon.matchHeadScore(StringCommon.removeAllSpaces(p1.toStringNameFirst()), lineNoSpacesLower),
+                    StringCommon.matchHeadScore(StringCommon.removeAllSpaces(p2.toStringNameFirst()), lineNoSpacesLower)
+                    );
+        };
+        final Product matchedNameFirst=catalog.stream().max(compNameFirst).get();
+        final double scoreNameFirst=StringCommon.matchHeadScore(StringCommon.removeAllSpaces(matchedNameFirst.toStringNameFirst()), lineNoSpacesLower);
+        log.debug("matchedNameFirst="+matchedNameFirst.toStringForCatalog()+",scoreNameFirst="+scoreNameFirst+"\n");
+
+        double scoreMax=scoreNumberFirst;
+        Product matched=matchedNumberFirst;
+        if(scoreNameFirst>scoreMax){
+            scoreMax=scoreNameFirst;
+            matched=matchedNameFirst;
+        }
+        log.debug("scoreMax="+scoreMax+"\n");
+        if(scoreMax > 0.7)
+            return matched;
+        return Product.emptyProduct();
+    }
+
 }
