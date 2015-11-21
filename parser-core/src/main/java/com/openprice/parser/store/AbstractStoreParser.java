@@ -125,7 +125,7 @@ public abstract class AbstractStoreParser implements StoreParser {
         if (price.isEmpty()) {
             return null; // new Item(lineString);
         }
-        return new Item(price.getProduct().getName(), price.getPrice());
+        return new Item(price.getProduct().getName(), price.getPrice(), price.getProduct().toCatalogCode());
     }
 
 

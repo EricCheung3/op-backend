@@ -40,15 +40,15 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parse(receiptLines);
-        printResult(receipt);
+        //printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "sevengrain salad", "$7. 19 GC");
-        verifyItemParsedValue(iterator.next(), "Hot Soup Small", "$2.99 GC");
-        verifyItemParsedValue(iterator.next(), "for baby summer veg", "$1.19 c");
-        verifyItemParsedValue(iterator.next(), "Samosas Beef", "$2 .99 c");
-        verifyItemParsedValue(iterator.next(), "for baby carrots", "$1.19 c");
-        verifyItemParsedValue(iterator.next(), "=>FREE item", "-$1.19 c");
+        verifyItemParsedValue(iterator.next(), "sevengrain salad", "$7. 19 GC", "sevengrain salad");
+        verifyItemParsedValue(iterator.next(), "Hot Soup Small", "$2.99 GC", "Hot Soup Small_2113006680");
+        verifyItemParsedValue(iterator.next(), "for baby summer veg", "$1.19 c", "for baby summer veg");
+        verifyItemParsedValue(iterator.next(), "Samosas Beef", "$2 .99 c", "Samosas Beef_24586100000");
+        verifyItemParsedValue(iterator.next(), "for baby carrots", "$1.19 c", "for baby carrots");
+        verifyItemParsedValue(iterator.next(), "=>FREE item", "-$1.19 c", "=>FREE item");
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();

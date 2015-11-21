@@ -16,15 +16,16 @@ public class AbstractReceiptParserIntegrationTest {
     @Inject
     protected SimpleParser simpleParser;
 
-
-    protected void verifyItemParsedValue(final Item item, final String name, final String value) {
+    protected void verifyItemParsedValue(final Item item, final String name, final String value, final String catalogCode) {
         assertEquals(name, item.getName());
         assertEquals(value, item.getBuyPrice());
+        assertEquals(catalogCode, item.getCatalogCode());
     }
 
     protected void printResult(ParsedReceipt receipt) {
         for (Item item : receipt.getItems()) {
-            System.out.println("verifyItemParsedValue(iterator.next(), \""+item.getName() + "\", \""+ item.getBuyPrice() + "\");");
+            System.out.println("verifyItemParsedValue(iterator.next(), \""+item.getName() + "\", \""+
+                    item.getBuyPrice()+ "\", \""+ item.getCatalogCode() + "\");");
         }
         System.out.println("\n=====================\nFields parsed:");
         for (ReceiptField field : receipt.getFieldToValueMap().keySet()) {

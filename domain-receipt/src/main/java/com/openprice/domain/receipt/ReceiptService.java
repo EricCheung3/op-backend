@@ -169,7 +169,7 @@ public class ReceiptService {
             data = receiptDataRepository.save(data); // has to save ReceiptData first before saving ReceiptItem
 
             for (final Item item : parsedReceipt.getItems()) {
-                final ReceiptItem receiptItem = data.addItem(null, item.getName(), item.getBuyPrice()); //TODO add catalogCode from parser
+                final ReceiptItem receiptItem = data.addItem(item.getCatalogCode(), item.getName(), item.getBuyPrice());
                 receiptItemRepository.save(receiptItem);
             }
             log.debug("SimpleParser returns {} items.", data.getItems().size());

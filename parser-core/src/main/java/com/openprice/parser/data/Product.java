@@ -1,5 +1,7 @@
 package com.openprice.parser.data;
 
+import org.springframework.util.StringUtils;
+
 import com.openprice.parser.common.StringCommon;
 
 import lombok.Builder;
@@ -76,6 +78,13 @@ public class Product {
         final String name=getName().replaceAll(SPLITTER, StringCommon.EMPTY);
         final String number=getNumber().replaceAll(SPLITTER, StringCommon.EMPTY);
         return name + SPLITTER + number;
+    }
+
+    public String toCatalogCode() {
+        if (StringUtils.isEmpty(number)) {
+            return name;
+        }
+        return name+"_"+number;
     }
 
 }

@@ -32,18 +32,17 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
 
         // verify result of items
         Iterator<Item> iterator = receipt.getItems().iterator();
-
-        verifyItemParsedValue(iterator.next(), "YELW CALROS", "RICE");
-        verifyItemParsedValue(iterator.next(), "2 8 $24.88 list 4", "49.76");
-        verifyItemParsedValue(iterator.next(), "K DGON COOK    WINE    MRJ", "2.69");
-        verifyItemParsedValue(iterator.next(), "DEPOSII 1", "0.25");
-        verifyItemParsedValue(iterator.next(), "rooster garlic", "0.68");
-        verifyItemParsedValue(iterator.next(), "banana", "MftJ");
-        verifyItemParsedValue(iterator.next(), "0.940 kg 8 $1.73/kg", "1.60");
-        verifyItemParsedValue(iterator.next(), "onion green", "0,67");
-        verifyItemParsedValue(iterator.next(), "DUCKS FR7N    MRJ", "15.23");
-        verifyItemParsedValue(iterator.next(), "DUCKS FRZH    MRJ", "16.81");
-        verifyItemParsedValue(iterator.next(), "hairtail", "7.36");
+        verifyItemParsedValue(iterator.next(), "YELW CALROS", "RICE", "YELW CALROS_07323400310");
+        verifyItemParsedValue(iterator.next(), "2 8 $24.88 list 4", "49.76", "2 8 $24.88 list 4");
+        verifyItemParsedValue(iterator.next(), "K DGON COOK    WINE    MRJ", "2.69", "K DGON COOK    WINE    MRJ_690294490073");
+        verifyItemParsedValue(iterator.next(), "DEPOSII 1", "0.25", "DEPOSII 1");
+        verifyItemParsedValue(iterator.next(), "rooster garlic", "0.68", "rooster garlic_06038388591");
+        verifyItemParsedValue(iterator.next(), "banana", "MftJ", "banana_4011");
+        verifyItemParsedValue(iterator.next(), "0.940 kg 8 $1.73/kg", "1.60", "0.940 kg 8 $1.73/kg");
+        verifyItemParsedValue(iterator.next(), "onion green", "0,67", "onion green_4068");
+        verifyItemParsedValue(iterator.next(), "DUCKS FR7N    MRJ", "15.23", "DUCKS FR7N    MRJ_2021000");
+        verifyItemParsedValue(iterator.next(), "DUCKS FRZH    MRJ", "16.81", "DUCKS FRZH    MRJ_2021000");
+        verifyItemParsedValue(iterator.next(), "hairtail", "7.36", "hairtail_77016160104");
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();

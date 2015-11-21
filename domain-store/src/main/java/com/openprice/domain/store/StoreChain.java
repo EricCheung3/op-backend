@@ -50,6 +50,11 @@ public class StoreChain extends BaseAuditableEntity {
     @OneToMany(cascade=CascadeType.ALL, mappedBy="chain")
     private List<StoreBranch> branches = new ArrayList<>();
 
+    @Getter @Setter
+    @JsonIgnore
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="chain")
+    private List<Catalog> catalogs = new ArrayList<>();
+
     StoreChain() {}
 
     /**
@@ -78,5 +83,31 @@ public class StoreChain extends BaseAuditableEntity {
         branch.setName(name);
         branches.add(branch);
         return branch;
+    }
+
+    /**
+     * Builder method to create a Catalog and add to catalogs.
+     *
+     * @param name
+     * @return
+     */
+    public Catalog addCatalog(final String code,
+                              final String name,
+                              final String number,
+                              final String category,
+                              final String price,
+                              final String naturalName,
+                              final String labelCodes) {
+        final Catalog catalog = new Catalog();
+        catalog.setChain(this);
+        catalog.setCode(code);
+        catalog.setName(name);
+        catalog.setNumber(number);
+        catalog.setCategory(category);
+        catalog.setPrice(price);
+        catalog.setNaturalName(naturalName);
+        catalog.setLabelCodes(labelCodes);
+        catalogs.add(catalog);
+        return catalog;
     }
 }

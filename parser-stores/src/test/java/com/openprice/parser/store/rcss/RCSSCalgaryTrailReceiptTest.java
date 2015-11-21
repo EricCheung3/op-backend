@@ -40,20 +40,13 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
 
         // verify result of items
         Iterator<Item> iterator = receipt.getItems().iterator();
-//        verifyItemParsedValue(iterator.next(), "RSTR INSTNT NDLE", "0.98");
-//        verifyItemParsedValue(iterator.next(), "TABLE SALT", "1.99");
-//        verifyItemParsedValue(iterator.next(), "GARDEN WAFER", "2.56");
-//        verifyItemParsedValue(iterator.next(), "RICE STICK", "1.08");
-//        verifyItemParsedValue(iterator.next(), "DEPOSIT 1", "0.25");
-//        verifyItemParsedValue(iterator.next(), "CNTRY HVST BRD", "2.98");
-//        verifyItemParsedValue(iterator.next(), "PLASTIC BAGS", "0.10");
-        verifyItemParsedValue(iterator.next(), "rstr instnt ndle", "0.98");
-        verifyItemParsedValue(iterator.next(), "TABLE SALT    MRJ", "1.99");
-        verifyItemParsedValue(iterator.next(), "garden wafer", "2.56");
-        verifyItemParsedValue(iterator.next(), "rice stick", "1.08");
-        verifyItemParsedValue(iterator.next(), "DEPOSIT 1", "0.25");
-        verifyItemParsedValue(iterator.next(), "cntry hvst brd", "2.98");
-        verifyItemParsedValue(iterator.next(), "(2)9    PLASTIC BAGS    GRQ", "0.10");
+        verifyItemParsedValue(iterator.next(), "rstr instnt ndle", "0.98", "rstr instnt ndle_05719775555");
+        verifyItemParsedValue(iterator.next(), "TABLE SALT    MRJ", "1.99", "TABLE SALT    MRJ_06601007023");
+        verifyItemParsedValue(iterator.next(), "garden wafer", "2.56", "garden wafer_08978200269");
+        verifyItemParsedValue(iterator.next(), "rice stick", "1.08", "rice stick_693491804007");
+        verifyItemParsedValue(iterator.next(), "DEPOSIT 1", "0.25", "DEPOSIT 1");
+        verifyItemParsedValue(iterator.next(), "cntry hvst brd", "2.98", "cntry hvst brd_06340004440");
+        verifyItemParsedValue(iterator.next(), "(2)9    PLASTIC BAGS    GRQ", "0.10", "(2)9    PLASTIC BAGS    GRQ");
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
@@ -85,14 +78,10 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
 
         // verify result of items
         Iterator<Item> iterator = receipt.getItems().iterator();
-//        verifyItemParsedValue(iterator.next(), "OPO SQUASH", "2.80");
-//        verifyItemParsedValue(iterator.next(), "CHINESE CABBAGE", "1.43");
-//        verifyItemParsedValue(iterator.next(), "MUFFIN LEMN CRAN", "4.87");
-//        verifyItemParsedValue(iterator.next(), "PLASTIC BAGS", "0.05");
-        verifyItemParsedValue(iterator.next(), "opo squash", "2.80");
-        verifyItemParsedValue(iterator.next(), "CHINESE CABBAGE    MRJ", "1.43");
-        verifyItemParsedValue(iterator.next(), "muffin lemn cran", "4.87");
-        verifyItemParsedValue(iterator.next(), "plastic bags", "0.05");
+        verifyItemParsedValue(iterator.next(), "opo squash", "2.80", "opo squash_3141");
+        verifyItemParsedValue(iterator.next(), "CHINESE CABBAGE    MRJ", "1.43", "CHINESE CABBAGE    MRJ_4552");
+        verifyItemParsedValue(iterator.next(), "muffin lemn cran", "4.87", "muffin lemn cran_06038387812");
+        verifyItemParsedValue(iterator.next(), "plastic bags", "0.05", "plastic bags");
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
@@ -123,37 +112,21 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
 
         // verify result of items
         Iterator<Item> iterator = receipt.getItems().iterator();
-//        verifyItemParsedValue(iterator.next(), "ORANGE JUICE", "3.98");
-//        verifyItemParsedValue(iterator.next(), "DEPOSIT 1", "0.25");
-//        verifyItemParsedValue(iterator.next(), "DEPOSIT 1", "0.25");
-//        verifyItemParsedValue(iterator.next(), "CORN BICOLOR 4CT", "7.94");
-//        verifyItemParsedValue(iterator.next(), "PEP GRN SWT 4CT", "2.98");
-//        verifyItemParsedValue(iterator.next(), "POTATO M XD MINI", "5.98");
-//        verifyItemParsedValue(iterator.next(), "ROOSTER GARLIC", "2.48");
-//        verifyItemParsedValue(iterator.next(), "WMELON MINI SDLS", "3.97");
-//        verifyItemParsedValue(iterator.next(), "PEPPER GREEN SWT", "2.02");
-//        verifyItemParsedValue(iterator.next(), "MUSH CREM BULK", "1.64");
-//        verifyItemParsedValue(iterator.next(), "SPLIT CHKN WING", "17.58");
-//        verifyItemParsedValue(iterator.next(), "SPLIT CHKN WING", "16.65");
-//        verifyItemParsedValue(iterator.next(), "LAMB BONLESS LEG", "24.50");
-//        verifyItemParsedValue(iterator.next(), "SQ BASA FLTS", "7.98");
-//        verifyItemParsedValue(iterator.next(), "CROISSANT CP", "5.00");
-        verifyItemParsedValue(iterator.next(), "orange juice", "3.98");
-        verifyItemParsedValue(iterator.next(), "DEPOSIT 1", "0.25");
-        verifyItemParsedValue(iterator.next(), "DEPOSIT 1", "0.25");
-        verifyItemParsedValue(iterator.next(), "corn bicolor 4ct", "7.94");
-        verifyItemParsedValue(iterator.next(), "pep grn swt 4ct", "2.98");
-        verifyItemParsedValue(iterator.next(), "potato m xd mini", "5.98");
-        verifyItemParsedValue(iterator.next(), "rooster garlic", "2.48");
-        verifyItemParsedValue(iterator.next(), "wmelon mini sdls", "3.97");
-        verifyItemParsedValue(iterator.next(), "pepper green swt", "2.02");
-        verifyItemParsedValue(iterator.next(), "mush crem bulk", "1.64");
-        verifyItemParsedValue(iterator.next(), "split chkn wing", "17.58");
-        verifyItemParsedValue(iterator.next(), "split chkn wing", "16.65");
-        verifyItemParsedValue(iterator.next(), "lamb bonless leg", "24.50");
-        verifyItemParsedValue(iterator.next(), "sq basa flts", "7.98");
-        verifyItemParsedValue(iterator.next(), "croissant cp", "5.00");
-
+        verifyItemParsedValue(iterator.next(), "orange juice", "3.98", "orange juice_04850001964");
+        verifyItemParsedValue(iterator.next(), "DEPOSIT 1", "0.25", "DEPOSIT 1");
+        verifyItemParsedValue(iterator.next(), "DEPOSIT 1", "0.25", "DEPOSIT 1");
+        verifyItemParsedValue(iterator.next(), "corn bicolor 4ct", "7.94", "corn bicolor 4ct_03338370121");
+        verifyItemParsedValue(iterator.next(), "pep grn swt 4ct", "2.98", "pep grn swt 4ct_03338370178");
+        verifyItemParsedValue(iterator.next(), "potato m xd mini", "5.98", "potato m xd mini_06038310510");
+        verifyItemParsedValue(iterator.next(), "rooster garlic", "2.48", "rooster garlic_06038388591");
+        verifyItemParsedValue(iterator.next(), "wmelon mini sdls", "3.97", "wmelon mini sdls_3421");
+        verifyItemParsedValue(iterator.next(), "pepper green swt", "2.02", "pepper green swt_4065");
+        verifyItemParsedValue(iterator.next(), "mush crem bulk", "1.64", "mush crem bulk_4648");
+        verifyItemParsedValue(iterator.next(), "split chkn wing", "17.58", "split chkn wing_2163820");
+        verifyItemParsedValue(iterator.next(), "split chkn wing", "16.65", "split chkn wing_2163820");
+        verifyItemParsedValue(iterator.next(), "lamb bonless leg", "24.50", "lamb bonless leg_2174190");
+        verifyItemParsedValue(iterator.next(), "sq basa flts", "7.98", "sq basa flts_06038377431");
+        verifyItemParsedValue(iterator.next(), "croissant cp", "5.00", "croissant cp_46036330079");
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();

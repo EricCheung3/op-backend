@@ -15,6 +15,7 @@ public class Item {
     private String category;//category of the item
     private String regPrice;//regular price
     private String saving;//savings
+    private String catalogCode;
 
     public Item(final String name) {
         this.name = name;
@@ -23,6 +24,12 @@ public class Item {
     public Item(final String name, final String buyPrice) {
         this.name = name;
         this.buyPrice = buyPrice;
+    }
+
+    public Item(final String name, final String buyPrice, final String catalogCode) {
+        this.name = name;
+        this.buyPrice = buyPrice;
+        this.catalogCode = catalogCode;
     }
 
     public Item(final String name, final String buyPrice, final String unitPrice, final String weight, final String category) {

@@ -38,7 +38,6 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
                     .get(userReceiptDatatUrl(sessionFilter, "receipt001"))
                 ;
         //response.prettyPrint();
-
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
@@ -48,9 +47,11 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
             .body("branchName", equalTo("Calgary Trail"))
             .body("parsedTotal", equalTo("10.45"))
             .body("items[0].id", equalTo("recItem001"))
+            .body("items[0].catalogCode", equalTo("EGG"))
             .body("items[0].parsedName", equalTo("eggs"))
             .body("items[0].parsedPrice", equalTo("1.99"))
             .body("items[1].id", equalTo("recItem003"))
+            .body("items[1].catalogCode", equalTo("PORK"))
             .body("items[1].parsedName", equalTo("pork"))
             .body("items[1].parsedPrice", equalTo("5.99"))
         ;
@@ -67,7 +68,6 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
                     .get(userReceiptDatatUrl(sessionFilter, "receipt002"))
                 ;
         //response.prettyPrint();
-
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
@@ -75,16 +75,16 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
             .body("chainCode", equalTo("rcss"))
             .body("branchName", equalTo("Calgary Trail"))
             .body("parsedTotal", equalTo("104.73"))
-            .body("items[0].catalogCode", equalTo(null))
+            .body("items[0].catalogCode", equalTo("K DGON COOK    WINE    MRJ_690294490073"))
             .body("items[0].parsedName", equalTo("K DGON COOK    WINE    MRJ"))
             .body("items[0].parsedPrice", equalTo("2.69"))
-            .body("items[1].catalogCode", equalTo(null))
+            .body("items[1].catalogCode", equalTo("rooster garlic_06038388591"))
             .body("items[1].parsedName", equalTo("rooster garlic"))
             .body("items[1].parsedPrice", equalTo("0.68"))
-            .body("items[2].catalogCode", equalTo(null))
+            .body("items[2].catalogCode", equalTo("DUCKS FR7N    MRJ_2021000"))
             .body("items[2].parsedName", equalTo("DUCKS FR7N    MRJ"))
             .body("items[2].parsedPrice", equalTo("15.23"))
-            .body("items[3].catalogCode", equalTo(null))
+            .body("items[3].catalogCode", equalTo("hairtail_77016160104"))
             .body("items[3].parsedName", equalTo("hairtail"))
             .body("items[3].parsedPrice", equalTo("7.36"))
         ;
