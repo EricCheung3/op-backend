@@ -18,7 +18,6 @@ import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParserSelector;
 import com.openprice.parser.common.TextResourceUtils;
 import com.openprice.parser.data.Product;
-import com.openprice.parser.price.PriceParser;
 import com.openprice.parser.price.PriceParserFromStringTuple;
 import com.openprice.parser.price.PriceParserWithCatalog;
 
@@ -126,25 +125,9 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     }
 
     protected PriceParserWithCatalog loadPriceParserWithCatalog() {
-        PriceParser priceParser = getStorePriceParser();
-        if (priceParser == null) {
-            log.error("No PriceParser for {} yet!", getParserBaseCode());
-            return null; // No price parser yet!
-        }
-        // load catalog from file
         final List<Product> catalog=new ArrayList<Product>();
         TextResourceUtils.loadFromTextResource(getStoreConfigResource(CATALOG_FILE_NAME),
                 line -> {if (!StringUtils.isEmpty(line)) {catalog.add(Product.fromString(line));}});
-        return PriceParserWithCatalog.builder().catalog(catalog).priceParser(getStorePriceParser()).build();
-    }
-
-    /**
-     * Subclass can override it to provide store specific price parser.
-     *
-     * @return default store price parser to parse price from item line.
-     */
-    protected PriceParser getStorePriceParser() {
-        //return new UniversalPriceParser();
-        return new PriceParserFromStringTuple();
+        return PriceParserWithCatalog.builder().catalog(catalog).priceParser(new PriceParserFromStringTuple()).build();
     }
 }
