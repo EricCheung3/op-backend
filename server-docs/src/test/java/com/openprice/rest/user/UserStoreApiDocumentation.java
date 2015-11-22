@@ -5,6 +5,7 @@ import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.li
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
@@ -29,6 +30,7 @@ import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.domain.shopping.ShoppingStoreRepository;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
+import com.openprice.rest.user.store.ShoppingItemForm;
 import com.openprice.rest.user.store.ShoppingListForm;
 
 public class UserStoreApiDocumentation extends UserApiDocumentationBase {
@@ -87,8 +89,8 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
         ShoppingListForm form =
             ShoppingListForm.builder()
                             .chainCode("safeway")
-                            .item(ShoppingListForm.Item.builder().name("milk").catalogCode("MILK").build())
-                            .item(ShoppingListForm.Item.builder().name("egg").catalogCode("EGG").build())
+                            .item(ShoppingItemForm.builder().name("milk").catalogCode("MILK").build())
+                            .item(ShoppingItemForm.builder().name("egg").catalogCode("EGG").build())
                             .build();
 
         mockMvc
@@ -127,6 +129,30 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
     }
 
     @Test
+    public void shoppingItemCreateExample() throws Exception {
+        final ShoppingItemForm form =
+                ShoppingItemForm.builder()
+                                .name("milk")
+                                .catalogCode("MILK")
+                                .build();
+        mockMvc
+        .perform(
+            post(userShoppingItemsUrl())
+            .with(user(USERNAME))
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(this.objectMapper.writeValueAsString(form))
+        )
+        .andExpect(status().isCreated())
+        .andDo(document("user-shopping-item-create-example",
+            preprocessRequest(prettyPrint()),
+            requestFields(
+                fieldWithPath("name").description("The item name copied from catalog, user can edit."),
+                fieldWithPath("catalogCode").description("The code of catalog, from parser result.")
+            )
+        ));
+    }
+
+    @Test
     public void shoppingItemRetrieveExample() throws Exception {
         mockMvc
         .perform(get(userShoppingItemUrl()).with(user(USERNAME)))
@@ -146,6 +172,30 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
             )
         ));
     }
+
+    @Test
+    public void shoppingItemUpdateExample() throws Exception {
+        final ShoppingItemForm form =
+                ShoppingItemForm.builder()
+                                .name("2% milk")
+                                .build();
+        mockMvc
+        .perform(
+            put(userShoppingItemUrl())
+            .with(user(USERNAME))
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(this.objectMapper.writeValueAsString(form))
+        )
+        .andExpect(status().isNoContent())
+        .andDo(document("user-shopping-item-update-example",
+            preprocessRequest(prettyPrint()),
+            requestFields(
+                fieldWithPath("name").description("Shopping Item name"),
+                fieldWithPath("catalogCode").description("Catalog code, ignored.")
+            )
+        ));
+    }
+
 
     @Override
     @Before

@@ -1,24 +1,20 @@
 package com.openprice.rest.user.store;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Singular;
 
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class ShoppingListForm {
+public class ShoppingItemForm {
 
-    private String chainCode;
+    private String name;
 
-    @Singular private List<ShoppingItemForm> items = new ArrayList<>();
+    private String catalogCode;
 }

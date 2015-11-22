@@ -505,6 +505,23 @@ include::{snippets}/user-shopping-item-list-example/http-response.adoc[]
 include::{snippets}/user-shopping-item-list-example/links.adoc[]
 
 
+[[resources-user-shopping-item-create]]
+=== Create shopping list item
+
+A `POST` request is used to create a new shopping list item.
+
+==== Request structure
+
+include::{snippets}/user-shopping-item-create-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/user-shopping-item-create-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/user-shopping-item-create-example/http-response.adoc[]
+
 
 [[resources-user-shopping-item]]
 == User Shopping List Item
@@ -532,3 +549,37 @@ include::{snippets}/user-shopping-item-retrieve-example/http-response.adoc[]
 ==== Links
 
 include::{snippets}/user-shopping-item-retrieve-example/links.adoc[]
+
+
+[[resources-user-shopping-item-update]]
+=== Update shopping list item
+
+A `PUT` request is used to update an existing shopping list itemn.
+
+==== Request structure
+
+include::{snippets}/user-shopping-item-update-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/user-shopping-item-update-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/user-shopping-item-update-example/http-response.adoc[]
+
+
+[[resources-user-shopping-item-delete]]
+=== Delete user shopping list item
+
+A `DELETE` request is used to delete user shopping list item.
+
+==== Example request
+
+include::{snippets}/user-shopping-item-delete-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/user-shopping-item-delete-example/http-response.adoc[]
+
+

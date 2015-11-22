@@ -1,5 +1,10 @@
 package com.openprice.rest.user.store;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
+import java.net.URI;
+
 import javax.inject.Inject;
 
 import org.springframework.data.domain.Page;
@@ -10,6 +15,7 @@ import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,12 +63,35 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
         return ResponseEntity.ok(assembler.toResource(items, shoppingItemResourceAssembler));
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_SHOPPING_STORES_STORE_ITEMS)
+    public HttpEntity<Void> createStoreShoppingItem(
+            @PathVariable("storeId") final String storeId,
+            @RequestBody final ShoppingItemForm form) throws ResourceNotFoundException {
+        final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
+        final ShoppingItem item = store.addItem(form.getCatalogCode(), form.getName());
+        shoppingItemRepository.save(item);
+        shoppingStoreRepository.save(store);
+        final URI location = linkTo(methodOn(ShoppingItemRestController.class).getStoreShoppingItemById(store.getId(), item.getId())).toUri();
+        return ResponseEntity.created(location).body(null);
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_SHOPPING_STORES_STORE_ITEMS_ITEM)
     public HttpEntity<ShoppingItemResource> getStoreShoppingItemById(
             @PathVariable("storeId") final String storeId,
             @PathVariable("itemId") final String itemId) throws ResourceNotFoundException {
         final ShoppingItem item = getShoppingItemByIdAndCheckStore(storeId, itemId);
         return ResponseEntity.ok(shoppingItemResourceAssembler.toResource(item));
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = UserApiUrls.URL_USER_SHOPPING_STORES_STORE_ITEMS_ITEM)
+    public HttpEntity<Void> updateStoreShoppingItemById(
+            @PathVariable("storeId") final String storeId,
+            @PathVariable("itemId") final String itemId,
+            @RequestBody final ShoppingItemForm form) throws ResourceNotFoundException {
+        final ShoppingItem item = getShoppingItemByIdAndCheckStore(storeId, itemId);
+        item.setName(form.getName()); // we only allow user update name
+        shoppingItemRepository.save(item);
+        return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = UserApiUrls.URL_USER_SHOPPING_STORES_STORE_ITEMS_ITEM)

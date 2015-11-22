@@ -39,10 +39,49 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("page.number", equalTo(0))
             .body("_embedded.shoppingItems[0].id", equalTo("item103"))
             .body("_embedded.shoppingItems[0].name", equalTo("bread"))
+            .body("_embedded.shoppingItems[0].catalogCode", equalTo("BREAD"))
             .body("_embedded.shoppingItems[1].id", equalTo("item102"))
             .body("_embedded.shoppingItems[1].name", equalTo("eggs"))
+            .body("_embedded.shoppingItems[1].catalogCode", equalTo("EGG"))
             .body("_embedded.shoppingItems[2].id", equalTo("item101"))
             .body("_embedded.shoppingItems[2].name", equalTo("milk"))
+            .body("_embedded.shoppingItems[2].catalogCode", equalTo("MILK"))
+        ;
+    }
+
+    @Test
+    public void createShoppingListItem_ShouldAddItem() {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+        final ShoppingItemForm form = new ShoppingItemForm("Levis Jean", "CLOTHES");
+
+        Response response =
+        given()
+            .filter(sessionFilter)
+            .contentType(ContentType.JSON)
+            .body(form)
+        .when()
+            .post(userShoppingItemsUrl(sessionFilter, "shoppingStore101"))
+            ;
+        response
+        .then()
+            .statusCode(HttpStatus.SC_CREATED)
+        ;
+
+        response =
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(response.getHeader("Location"))
+        ;
+        //response.prettyPrint();
+        response
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("name", equalTo("Levis Jean"))
+            .body("catalogCode", equalTo("CLOTHES"))
+            .body("_links.user.href", endsWith("/user"))
+            .body("_links.store.href", endsWith("/user/stores/shoppingStore101"))
         ;
     }
 
@@ -62,6 +101,43 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
             .contentType(ContentType.JSON)
             .body("id", equalTo("item101"))
             .body("name", equalTo("milk"))
+            .body("catalogCode", equalTo("MILK"))
+            .body("_links.self.href", endsWith("/user/stores/shoppingStore101/items/item101"))
+            .body("_links.user.href", endsWith("/user"))
+            .body("_links.store.href", endsWith("/user/stores/shoppingStore101"))
+        ;
+    }
+
+    @Test
+    public void updateShoppingListItemById_ShouldUpdateItemName() {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+        final String itemUrl = userShoppingItemUrl(sessionFilter, "shoppingStore101", "item101");
+        final ShoppingItemForm form = new ShoppingItemForm("2% milk", null);
+
+        given()
+            .filter(sessionFilter)
+            .contentType(ContentType.JSON)
+            .body(form)
+        .when()
+            .put(itemUrl)
+        .then()
+            .statusCode(HttpStatus.SC_NO_CONTENT)
+        ;
+
+        Response response =
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(itemUrl)
+        ;
+        //response.prettyPrint();
+        response
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("id", equalTo("item101"))
+            .body("name", equalTo("2% milk"))
+            .body("catalogCode", equalTo("MILK"))
             .body("_links.self.href", endsWith("/user/stores/shoppingStore101/items/item101"))
             .body("_links.user.href", endsWith("/user"))
             .body("_links.store.href", endsWith("/user/stores/shoppingStore101"))

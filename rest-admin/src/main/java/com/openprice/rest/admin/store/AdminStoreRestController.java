@@ -79,8 +79,8 @@ public class AdminStoreRestController extends AbstractAdminRestController {
     public HttpEntity<Void> createStoreChain(@RequestBody final AdminStoreChainForm form) {
         // TODO verify user input
 
-        StoreChain chain = newStoreChain(form);
-        URI location = linkTo(methodOn(AdminStoreRestController.class).getStoreChainById(chain.getId())).toUri();
+        final StoreChain chain = newStoreChain(form);
+        final URI location = linkTo(methodOn(AdminStoreRestController.class).getStoreChainById(chain.getId())).toUri();
         return ResponseEntity.created(location).body(null);
     }
 
