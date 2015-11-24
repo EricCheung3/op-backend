@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.openprice.domain.account.admin.AdminAccount;
 import com.openprice.domain.account.admin.AdminAccountService;
@@ -109,6 +111,22 @@ public class AdminCatalogRestController extends AbstractStoreAdminRestController
         final Catalog catalog = loadCatalogByIdAndCheckStore(catalogId, store);
         catalogRepository.delete(catalog);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN_CATALOGS_UPLOAD)
+    public HttpEntity<Void> uploadCatalogs(
+            @PathVariable("chainId") final String chainId,
+            @RequestParam("file") final MultipartFile file) throws ResourceNotFoundException {
+        final StoreChain chain = loadStoreChainById(chainId);
+        if (!file.isEmpty()) {
+            storeService.loadCatalog(chain, file);
+            final URI location = linkTo(methodOn(AdminCatalogRestController.class).getCatalogs(chainId, null, null)).toUri();
+            return ResponseEntity.created(location).body(null);
+        }
+        else {
+            log.error("No file uploaded!");
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     private Catalog loadCatalogByIdAndCheckStore(final String catalogId, final StoreChain chain) {

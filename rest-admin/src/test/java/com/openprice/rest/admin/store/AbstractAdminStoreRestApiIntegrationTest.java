@@ -72,4 +72,11 @@ public abstract class AbstractAdminStoreRestApiIntegrationTest extends AbstractA
         return UriTemplate.fromTemplate(catalogLink).set("catalogId", catalogId).expand();
     }
 
+    protected String uploadUrl(final SessionFilter sessionFilter, final String chainId) {
+        return
+            given().filter(sessionFilter)
+                   .when().get(storeChainUrl(sessionFilter, chainId))
+                   .then().extract().path("_links.upload.href");
+    }
+
 }

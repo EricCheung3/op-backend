@@ -1,3 +1,4 @@
+[
 {
     "name" : "beatrice 1% milk",
     "number" : "06570010028",
@@ -6,7 +7,7 @@
     "naturalName" : "beatrice 1% milk",
     "labelCodes" : "drink,dairy,milk"
 }
-
+,
 {
     "name" : "blueberries",
     "number" : "06038309313",
@@ -15,4 +16,4 @@
     "naturalName" : "blueberries",
     "labelCodes" : "fruit,blueberry"
 }
-
+]

@@ -34,5 +34,5 @@ public interface AdminApiUrls {
     String URL_ADMIN_CHAINS_CHAIN_BRANCHES_BRANCH = "/admin/chains/{chainId}/branches/{branchId}";
     String URL_ADMIN_CHAINS_CHAIN_CATALOGS = "/admin/chains/{chainId}/catalogs";
     String URL_ADMIN_CHAINS_CHAIN_CATALOGS_CATALOG = "/admin/chains/{chainId}/catalogs/{catalogId}";
-
+    String URL_ADMIN_CHAINS_CHAIN_CATALOGS_UPLOAD = "/admin/chains/{chainId}/catalogs/upload";
 }

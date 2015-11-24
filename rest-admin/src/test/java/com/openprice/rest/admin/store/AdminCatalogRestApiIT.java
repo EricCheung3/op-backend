@@ -8,6 +8,8 @@ import static org.junit.Assert.assertNull;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
@@ -18,6 +20,9 @@ import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.AdminApiUrls;
 
 public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationTest {
+
+    @Value("classpath:/data/catalog_rcss.json")
+    private Resource sampleCatalogJson1;
 
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
@@ -215,4 +220,63 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
         assertEquals(3, storeBranchRepository.findByChain(store).size());
     }
 
+    @Test
+    @DatabaseSetup("classpath:/data/testAdmin.xml")
+    public void uploadCatalogs_ShouldLoadCatalogJsonFile() throws Exception {
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final String uploadCatalogUrl = uploadUrl(sessionFilter, "chain001");
+
+        Response response =
+            given()
+                .filter(sessionFilter)
+                .multiPart("file", sampleCatalogJson1.getFile())
+            .when()
+                .post(uploadCatalogUrl)
+            ;
+
+        response
+        .then()
+            .statusCode(HttpStatus.SC_CREATED)
+        ;
+
+        String catalogsUrl = response.getHeader("Location");
+
+        response =
+            given()
+                .filter(sessionFilter)
+            .when()
+                .get(catalogsUrl)
+            ;
+        response.prettyPrint();
+        response
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("page.size", equalTo(10))
+            .body("page.totalElements", equalTo(6))
+            .body("page.totalPages", equalTo(1))
+            .body("page.number", equalTo(0))
+            .body("_embedded.catalogs[0].id", equalTo("chain001cat001"))
+            .body("_embedded.catalogs[0].code", equalTo("MILK-1234"))
+            .body("_embedded.catalogs[0].name", equalTo("MILK"))
+            .body("_embedded.catalogs[0].number", equalTo("1234"))
+            .body("_embedded.catalogs[1].id", equalTo("chain001cat002"))
+            .body("_embedded.catalogs[1].code", equalTo("EGG-1235"))
+            .body("_embedded.catalogs[1].name", equalTo("EGG"))
+            .body("_embedded.catalogs[1].number", equalTo("1235"))
+            .body("_embedded.catalogs[2].id", equalTo("chain001cat003"))
+            .body("_embedded.catalogs[2].code", equalTo("PORK"))
+            .body("_embedded.catalogs[2].name", equalTo("PORK"))
+            .body("_embedded.catalogs[3].id", equalTo("chain001cat004"))
+            .body("_embedded.catalogs[3].code", equalTo("BREAD"))
+            .body("_embedded.catalogs[3].name", equalTo("BREAD"))
+            .body("_embedded.catalogs[4].code", equalTo("beatrice 1% milk-06570010028"))
+            .body("_embedded.catalogs[4].name", equalTo("beatrice 1% milk"))
+            .body("_embedded.catalogs[4].number", equalTo("06570010028"))
+            .body("_embedded.catalogs[5].code", equalTo("blueberries-06038309313"))
+            .body("_embedded.catalogs[5].name", equalTo("blueberries"))
+            .body("_embedded.catalogs[5].number", equalTo("06038309313"))
+        ;
+
+    }
 }

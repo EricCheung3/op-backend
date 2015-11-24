@@ -1,14 +1,22 @@
 package com.openprice.domain.store;
 
-import java.util.List;
+import java.io.IOException;
 
 import javax.inject.Inject;
 
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.InputStreamSource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openprice.domain.common.Address;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class StoreService {
     private final StoreChainRepository storeChainRepository;
     private final StoreBranchRepository storeBranchRepository;
@@ -94,7 +102,7 @@ public class StoreService {
      * @param chain
      * @param catalogs
      */
-    public void loadCatalog(final StoreChain chain, final List<Catalog> catalogs) {
+    public void loadCatalog(final StoreChain chain, final Catalog[] catalogs) {
         for (final Catalog catalog : catalogs) {
             final Catalog existCatalog = catalogRepository.findByChainAndCode(chain, catalog.getCode());
             if (existCatalog != null) {
@@ -110,5 +118,28 @@ public class StoreService {
             }
         }
         storeChainRepository.save(chain);
+    }
+
+    public void loadCatalog(final StoreChain chain, final MultipartFile file) {
+        byte[] content = null;
+        try {
+            content = file.getBytes();
+        } catch (IOException ex) {
+            log.error("No content of catalog data to load!");
+            throw new RuntimeException("No catalog content.");
+        }
+
+        // parse json catalog data
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
+        InputStreamSource roleResource = new ByteArrayResource(content);
+        try {
+            Catalog[] catalogs = mapper.readValue(roleResource.getInputStream(), Catalog[].class);
+            loadCatalog(chain, catalogs);
+        } catch (IOException ex) {
+            log.error("Parse catalog file error!", ex);
+            throw new RuntimeException("Cannot load catalog json file.");
+        }
     }
 }

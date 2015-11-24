@@ -41,12 +41,12 @@ import lombok.extern.slf4j.Slf4j;
  */
 @RestController
 @Slf4j
-public class AdminStoreRestController extends AbstractStoreAdminRestController {
+public class AdminStoreChainRestController extends AbstractStoreAdminRestController {
 
     private final AdminStoreChainResourceAssembler storeChainResourceAssembler;
 
     @Inject
-    public AdminStoreRestController(final AdminAccountService adminAccountService,
+    public AdminStoreChainRestController(final AdminAccountService adminAccountService,
                                     final StoreService storeService,
                                     final StoreChainRepository storeChainRepository,
                                     final AdminStoreChainResourceAssembler storeResourceAssembler) {
@@ -68,7 +68,7 @@ public class AdminStoreRestController extends AbstractStoreAdminRestController {
         // TODO verify user input
 
         final StoreChain chain = newStoreChain(form);
-        final URI location = linkTo(methodOn(AdminStoreRestController.class).getStoreChainById(chain.getId())).toUri();
+        final URI location = linkTo(methodOn(AdminStoreChainRestController.class).getStoreChainById(chain.getId())).toUri();
         return ResponseEntity.created(location).body(null);
     }
 
