@@ -65,6 +65,7 @@ public class AdminStoreChainRestApiIT extends AbstractAdminStoreRestApiIntegrati
             .body("code", equalTo("rcss"))
             .body("name", equalTo("Real Canadian Superstore"))
             .body("categories", equalTo("Grocery"))
+            .body("catalogUploadUrl", endsWith("api/admin/chains/chain001/catalogs/upload"))
             .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS+"/chain001"))
             .body("_links.branches.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS + "/chain001/branches" + UtilConstants.PAGINATION_TEMPLATES))
             .body("_links.branch.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS + "/chain001/branches/{branchId}"))

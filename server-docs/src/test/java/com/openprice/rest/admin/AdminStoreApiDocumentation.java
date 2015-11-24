@@ -95,6 +95,7 @@ public class AdminStoreApiDocumentation extends AdminApiDocumentationBase {
                 fieldWithPath("name").description("Store chain name."),
                 fieldWithPath("categories").description("Categories. Not used now"),
                 fieldWithPath("identifyFields").description("Comma separated strings used to match chain"),
+                fieldWithPath("catalogUploadUrl").description("URL for uploading catalog json files"),
                 fieldWithPath("_links").description("<<resources-admin-store-chain-links, Links>> to other resources")
             )
         ));

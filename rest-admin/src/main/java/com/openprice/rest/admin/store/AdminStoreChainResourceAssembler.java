@@ -23,6 +23,8 @@ public class AdminStoreChainResourceAssembler implements ResourceAssembler<Store
                    .addLink("catalog", URL_ADMIN_CHAINS_CHAIN_CATALOGS_CATALOG, false, pairs)
                    .addLink("upload", URL_ADMIN_CHAINS_CHAIN_CATALOGS_UPLOAD, false, pairs)
                    ;
+
+        resource.setCatalogUploadUrl(resource.getLink("upload").getHref());
         return resource;
     }
 
