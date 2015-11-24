@@ -1,0 +1,18 @@
+{
+    "name" : "beatrice 1% milk",
+    "number" : "06570010028",
+    "category" : "DAIRY",
+    "price" : "4.99",
+    "naturalName" : "beatrice 1% milk",
+    "labelCodes" : "drink,dairy,milk"
+}
+
+{
+    "name" : "blueberries",
+    "number" : "06038309313",
+    "category" : "GROCERY",
+    "price" : "10.99",
+    "naturalName" : "blueberries",
+    "labelCodes" : "fruit,blueberry"
+}
+

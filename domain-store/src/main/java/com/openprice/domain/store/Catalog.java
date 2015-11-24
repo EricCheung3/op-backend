@@ -7,6 +7,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.util.StringUtils;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
 
@@ -71,4 +73,14 @@ public class Catalog extends BaseAuditableEntity {
     private String labelCodes;
 
     Catalog() {}
+
+    Catalog(final String name, final String number) {
+        this.name = name;
+        this.number = number;
+        this.code = Catalog.generateCatalogCode(name, number);
+    }
+
+    public static String generateCatalogCode(final String name, final String number) {
+        return name + "-" + (StringUtils.isEmpty(number)? "" : number);
+    }
 }

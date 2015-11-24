@@ -28,10 +28,10 @@ public abstract class AbstractAdminRestApiIntegrationTest extends AbstractRestAp
     }
 
     protected String userUrl(final SessionFilter sessionFilter, final String userId) {
-        final String chainLink =
+        final String userLink =
             given().filter(sessionFilter)
                    .when().get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN)
                    .then().extract().path("_links.user.href");
-        return UriTemplate.fromTemplate(chainLink).set("userId", userId).expand();
+        return UriTemplate.fromTemplate(userLink).set("userId", userId).expand();
     }
 }

@@ -91,18 +91,14 @@ public class StoreChain extends BaseAuditableEntity {
      * @param name
      * @return
      */
-    public Catalog addCatalog(final String code,
-                              final String name,
+    public Catalog addCatalog(final String name,
                               final String number,
                               final String category,
                               final String price,
                               final String naturalName,
                               final String labelCodes) {
-        final Catalog catalog = new Catalog();
+        final Catalog catalog = new Catalog(name, number);
         catalog.setChain(this);
-        catalog.setCode(code);
-        catalog.setName(name);
-        catalog.setNumber(number);
         catalog.setCategory(category);
         catalog.setPrice(price);
         catalog.setNaturalName(naturalName);

@@ -11,8 +11,6 @@ import com.openprice.rest.admin.AdminApiUrls;
 @Component
 public class AdminStoreBranchResourceAssembler implements ResourceAssembler<StoreBranch, AdminStoreBranchResource>, AdminApiUrls {
 
-    public static final String LINK_NAME_CHAIN = "chain";
-
     @Override
     public AdminStoreBranchResource toResource(StoreBranch storeBranch) {
         final AdminStoreBranchResource resource = new AdminStoreBranchResource(storeBranch);

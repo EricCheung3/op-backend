@@ -84,7 +84,9 @@ public class AdminStoreApiDocumentation extends AdminApiDocumentationBase {
             links(
                 linkWithRel("self").description("The self link"),
                 linkWithRel("branches").description("<<resources-admin-store-branches, Link>> to store branches"),
-                linkWithRel("branch").description("<<resources-admin-store-branch, Link>> to store branch")
+                linkWithRel("branch").description("<<resources-admin-store-branch, Link>> to store branch"),
+                linkWithRel("catalogs").description("<<resources-admin-catalogs, Link>> to store catalogs"),
+                linkWithRel("catalog").description("<<resources-admin-catalog, Link>> to store catalog")
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),

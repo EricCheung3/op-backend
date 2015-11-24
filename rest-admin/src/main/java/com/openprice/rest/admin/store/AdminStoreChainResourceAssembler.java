@@ -19,6 +19,8 @@ public class AdminStoreChainResourceAssembler implements ResourceAssembler<Store
         linkBuilder.addLink(Link.REL_SELF, URL_ADMIN_CHAINS_CHAIN, false, pairs)
                    .addLink("branches", URL_ADMIN_CHAINS_CHAIN_BRANCHES, true, pairs)
                    .addLink("branch", URL_ADMIN_CHAINS_CHAIN_BRANCHES_BRANCH, false, pairs)
+                   .addLink("catalogs", URL_ADMIN_CHAINS_CHAIN_CATALOGS, true, pairs)
+                   .addLink("catalog", URL_ADMIN_CHAINS_CHAIN_CATALOGS_CATALOG, false, pairs)
                    ;
         return resource;
     }

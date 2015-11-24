@@ -51,6 +51,36 @@ public class StoreService {
         return storeBranchRepository.save(branch);
     }
 
+    public Catalog createCatalog(final StoreChain chain,
+                                     final String name,
+                                     final String number,
+                                     final String category,
+                                     final String price,
+                                     final String naturalName,
+                                     final String labelCodes) {
+        final Catalog catalog = chain.addCatalog(name, number, category, price, naturalName, labelCodes);
+        storeChainRepository.save(chain);
+        return catalogRepository.save(catalog);
+    }
+
+    public Catalog updateCatalog(final Catalog catalog,
+                                 final String name,
+                                 final String number,
+                                 final String category,
+                                 final String price,
+                                 final String naturalName,
+                                 final String labelCodes) {
+        catalog.setName(name);
+        catalog.setNumber(number);
+        catalog.setCategory(category);
+        catalog.setPrice(price);
+        catalog.setNaturalName(naturalName);
+        catalog.setLabelCodes(labelCodes);
+        catalog.setCode(Catalog.generateCatalogCode(name, number));
+        return catalogRepository.save(catalog);
+}
+
+
     public void deleteAllStores() {
         storeChainRepository.deleteAll();
     }
@@ -74,7 +104,7 @@ public class StoreService {
                 existCatalog.setLabelCodes(catalog.getLabelCodes());
                 catalogRepository.save(existCatalog);
             } else {
-                Catalog newCatalog = chain.addCatalog(catalog.getCode(), catalog.getName(), catalog.getNumber(),
+                Catalog newCatalog = chain.addCatalog(catalog.getName(), catalog.getNumber(),
                         catalog.getCategory(), catalog.getPrice(), catalog.getNaturalName(), catalog.getLabelCodes());
                 catalogRepository.save(newCatalog);
             }
