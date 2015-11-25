@@ -30,7 +30,7 @@ public class ProductPrice {
                     itemName=itemNameNumberNew[1];
                 }catch(Exception e2){
                     //item name is unchanged
-                    log.debug("item number is not detected in name. item number will remain empty.");
+                    //log.debug("item number is not detected in name. item number will remain empty.");
                 }
             }
         }

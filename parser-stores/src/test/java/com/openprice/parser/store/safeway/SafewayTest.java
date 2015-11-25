@@ -43,12 +43,12 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         //printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "sevengrain salad", "$7. 19 GC", "sevengrain salad");
-        verifyItemParsedValue(iterator.next(), "Hot Soup Small", "$2.99 GC", "Hot Soup Small_2113006680");
+        verifyItemParsedValue(iterator.next(), "sevengrain salad", "$7. 19 gc", "sevengrain salad");
+        verifyItemParsedValue(iterator.next(), "hot soup small", "$2.99 gc", "hot soup small_2113006680");
         verifyItemParsedValue(iterator.next(), "for baby summer veg", "$1.19 c", "for baby summer veg");
-        verifyItemParsedValue(iterator.next(), "Samosas Beef", "$2 .99 c", "Samosas Beef_24586100000");
+        verifyItemParsedValue(iterator.next(), "samosas beef", "$2 .99 c", "samosas beef_24586100000");
         verifyItemParsedValue(iterator.next(), "for baby carrots", "$1.19 c", "for baby carrots");
-        verifyItemParsedValue(iterator.next(), "=>FREE item", "-$1.19 c", "=>FREE item");
+        verifyItemParsedValue(iterator.next(), "=>free item", "-$1.19 c", "=>free item");
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
@@ -61,17 +61,41 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
 
     }
 
-//    @Value("classpath:/testFiles/Safeway/MGRKELSEYCOLE/2014_12_06_22_36_54.txt")
-//    private Resource sampleReceipt2;
-//
-//    @Test
-//    public void testReceipt2() throws Exception {
-//        final List<String> receiptLines = new ArrayList<>();
-//        TextResourceUtils.loadFromTextResource(sampleReceipt2, (line)-> receiptLines.add(line));
-//
-//        assertTrue(receiptLines.size() > 0);
-//
-//        ParsedReceipt receipt = simpleParser.parse(receiptLines);
-//        printResult(receipt);
-//    }
+    @Value("classpath:/testFiles/Safeway/MGRKELSEYCOLE/2014_12_06_22_36_54.txt")
+    private Resource sampleReceipt2;
+
+    @Test
+    public void testReceipt2() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(sampleReceipt2, (line)-> receiptLines.add(line));
+
+        assertTrue(receiptLines.size() > 0);
+
+        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        //printResult(receipt);
+
+        Iterator<Item> iterator = receipt.getItems().iterator();
+        verifyItemParsedValue(iterator.next(), "danone strawberry", "5 . 87", "danone strawberry");
+        verifyItemParsedValue(iterator.next(), "deposit", "0 . 80", "deposit");
+        verifyItemParsedValue(iterator.next(), "iogo nomad drink", "2 . 19 g", "iogo nomad drink");
+        verifyItemParsedValue(iterator.next(), "deposit", "0 ' 10", "deposit");
+        verifyItemParsedValue(iterator.next(), "pastry bulk", "1 . 29 g", "pastry bulk");
+        verifyItemParsedValue(iterator.next(), "wt    bulk minibits cook", "0 . 89", "wt    bulk minibits cook");
+        verifyItemParsedValue(iterator.next(), "cucumber", "1 . 29", "cucumber");
+        verifyItemParsedValue(iterator.next(), "regprice", ", . 38", "regprice");
+        verifyItemParsedValue(iterator.next(), "savings", ".38-", "savings");
+        verifyItemParsedValue(iterator.next(), "6 qty    corn on cob", "3 . 00", "6 qty    corn on cob");
+        verifyItemParsedValue(iterator.next(), "regprice", "5 . 31", "regprice");
+        verifyItemParsedValue(iterator.next(), "savings", "2.31-", "savings");
+        verifyItemParsedValue(iterator.next(), "2 qty    organic avocados", "5 .38", "2 qty    organic avocados");
+        verifyItemParsedValue(iterator.next(), "butter lettuce", "3 .4 9", "butter lettuce");
+        verifyItemParsedValue(iterator.next(), "2 qty    organic strawberry", "8. 98", "2 qty    organic strawberry");
+        verifyItemParsedValue(iterator.next(), "4\"rose w/hat pick", "6 . 99 g", "4\"rose w/hat pick");
+        verifyItemParsedValue(iterator.next(), "regprice", "7.99", "regprice");
+        verifyItemParsedValue(iterator.next(), "savings", "1. 00-", "savings");
+        verifyItemParsedValue(iterator.next(), "change", ". 00", "change");
+        verifyItemParsedValue(iterator.next(), "b.", "", "b._5/12/14 12:55 0877 08 029l");
+        verifyItemParsedValue(iterator.next(), "savings", "3.72", "savings");
+
+    }
 }
