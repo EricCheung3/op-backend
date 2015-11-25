@@ -41,6 +41,10 @@
         <module>server-web-api</module>
         <module>server-admin-api</module>
 
+        <module>api-internal</module>
+        <module>rest-internal</module>
+        <module>server-internal</module>
+
         <module>api-ocr</module>
         <module>rest-ocr</module>
         <module>server-ocr</module>
