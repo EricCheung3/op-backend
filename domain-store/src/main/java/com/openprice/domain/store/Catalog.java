@@ -50,10 +50,6 @@ public class Catalog extends BaseAuditableEntity {
     @Column(name="number")
     private String number;
 
-//    @Getter @Setter
-//    @Column(name="category")
-//    private String category;
-
     /*
      * TODO: Which price to save here? Need future design for historical price, low/high/average price, etc.
      */

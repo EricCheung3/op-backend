@@ -47,13 +47,15 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
             .body("branchName", equalTo("Calgary Trail"))
             .body("parsedTotal", equalTo("10.45"))
             .body("items[0].id", equalTo("recItem001"))
-            .body("items[0].catalogCode", equalTo("EGG"))
+            .body("items[0].catalogCode", equalTo("EGG_1235"))
             .body("items[0].parsedName", equalTo("eggs"))
             .body("items[0].parsedPrice", equalTo("1.99"))
+            .body("items[0].labelCodes", equalTo("food,egg"))
             .body("items[1].id", equalTo("recItem003"))
             .body("items[1].catalogCode", equalTo("PORK"))
             .body("items[1].parsedName", equalTo("pork"))
             .body("items[1].parsedPrice", equalTo("5.99"))
+            .body("items[1].labelCodes", equalTo("food,meat,pork"))
         ;
     }
 
@@ -101,7 +103,6 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
                     .get(userReceiptItemsUrl(sessionFilter, "receipt001"))
                 ;
         //response.prettyPrint();
-
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
@@ -130,7 +131,6 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
                     .get(userReceiptItemUrl(sessionFilter, "receipt001", "recItem001"))
                 ;
         //response.prettyPrint();
-
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
