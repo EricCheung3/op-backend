@@ -90,7 +90,6 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
 
     @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
     public HttpEntity<Void> uploadNewReceipt(@RequestParam("file") final MultipartFile file) {
-
         if (!file.isEmpty()) {
             final Receipt receipt = newReceiptWithFile(file);
             processQueueService.addImage(receipt.getImages().get(0));

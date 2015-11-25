@@ -6,6 +6,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.fileUpload;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
@@ -30,6 +31,7 @@ import com.jayway.jsonpath.JsonPath;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.rest.UtilConstants;
+import com.openprice.rest.user.receipt.FeedbackForm;
 import com.openprice.rest.user.receipt.UserReceiptItemForm;
 
 public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
@@ -97,26 +99,26 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
         ));
     }
 
-//    @Test
-//    public void receiptFeedbackUpdateExample() throws Exception {
-//        final Map<String, Integer> feedbackUpdate = new HashMap<>();
-//        feedbackUpdate.put("rating", 1);
-//
-//        mockMvc
-//        .perform(
-//            put(userReceiptFeedbackUrl())
-//            .with(user(USERNAME))
-//            .contentType(MediaType.APPLICATION_JSON)
-//            .content(this.objectMapper.writeValueAsString(feedbackUpdate))
-//        )
-//        .andExpect(status().isNoContent())
-//        .andDo(document("user-receipt-feedback-update-example",
-//            preprocessRequest(prettyPrint()),
-//            requestFields(
-//                fieldWithPath("rating").description("The user rating for the receipt, right now we only use 1 or 0 to indicate good or bad.")
-//            )
-//        ));
-//    }
+    @Test
+    public void receiptFeedbackCreateExample() throws Exception {
+        final FeedbackForm form = new FeedbackForm(1, "Poor result!");
+
+        mockMvc
+        .perform(
+            post(userReceiptFeedbackUrl())
+            .with(user(USERNAME))
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(this.objectMapper.writeValueAsString(form))
+        )
+        .andExpect(status().isNoContent())
+        .andDo(document("user-receipt-feedback-create-example",
+            preprocessRequest(prettyPrint()),
+            requestFields(
+                fieldWithPath("rating").description("The user rating for the receipt, right now we only use 1 or 0 to indicate good or bad."),
+                fieldWithPath("comment").description("The user comment for the receiptd.")
+            )
+        ));
+    }
 
     @Test
     public void receiptDeleteExample() throws Exception {
@@ -145,7 +147,7 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
     }
 
     @Test
-    public void imageRetrieveExample() throws Exception {
+    public void receiptImageRetrieveExample() throws Exception {
         mockMvc
         .perform(get(userReceiptImageUrl()).with(user(USERNAME)))
         .andExpect(status().isOk())
@@ -205,7 +207,7 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
                 fieldWithPath("parsedTotal").description("parsed field value for Total"),
                 fieldWithPath("parsedDate").description("parsed field value for Date"),
                 fieldWithPath("items").description("parsed receipt items"),
-                fieldWithPath("_links").description("<<resources-user-receipt-parser-result-item-links, Links>> to other resources")
+                fieldWithPath("_links").description("<<resources-user-receipt-parser-result-links, Links>> to other resources")
             )
        ));
     }

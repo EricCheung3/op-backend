@@ -461,34 +461,6 @@ include::{snippets}/admin-receipt-image-retrieve-example/links.adoc[]
 
 
 
-[[resources-admin-receipt-items]]
-== Admin Receipt Items
-
-Admin Receipt Items is used to retrieve list of items from
-one receipt parsing result.
-
-
-[[resources-admin-receipt-item-list]]
-=== List Admin Receipt Parsed Items
-
-A `GET` request will list all of the items from a specific receipt.
-
-==== Response structure
-
-TODO : fix receipt item resource
-
-/*include::{snippets}/admin-receipt-item-list-example/response-fields.adoc[]*/
-
-==== Example request
-
-include::{snippets}/admin-receipt-item-list-example/curl-request.adoc[]
-
-==== Example response
-
-include::{snippets}/admin-receipt-item-list-example/http-response.adoc[]
-
-
-
 [[resources-admin-store-chains]]
 == Admin Store Chains Resource
 

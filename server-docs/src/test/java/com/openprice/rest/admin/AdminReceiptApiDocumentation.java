@@ -115,6 +115,7 @@ public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
         ));
     }
 
+    // TODO add doc for admin receipt parser result and receipt item.
 //    @Test
 //    public void adminReceiptItemListExample() throws Exception {
 //        mockMvc

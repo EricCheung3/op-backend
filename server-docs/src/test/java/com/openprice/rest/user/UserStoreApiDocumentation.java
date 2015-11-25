@@ -3,6 +3,7 @@ package com.openprice.rest.user;
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
@@ -196,6 +197,13 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
         ));
     }
 
+    @Test
+    public void shoppingItemDeleteExample() throws Exception {
+        mockMvc
+        .perform(delete(userShoppingItemUrl()).with(user(USERNAME)))
+        .andExpect(status().isNoContent())
+        .andDo(document("user-shopping-item-delete-example"));
+    }
 
     @Override
     @Before
