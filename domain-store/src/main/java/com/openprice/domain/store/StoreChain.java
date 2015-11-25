@@ -37,14 +37,6 @@ public class StoreChain extends BaseAuditableEntity {
     @Column(name="name", nullable=false)
     private String name;
 
-//    @Getter @Setter
-//    @Column(name="categories")
-//    private String categories;
-//
-//    @Getter @Setter
-//    @Column(name="identify_fields")
-//    private String identifyFields;
-
     @Getter @Setter
     @JsonIgnore
     @OneToMany(cascade=CascadeType.ALL, mappedBy="chain")

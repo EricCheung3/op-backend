@@ -250,6 +250,7 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
                 fieldWithPath("parsedPrice").description("Parser parsed item price"),
                 fieldWithPath("displayPrice").description("User editable item price"),
                 fieldWithPath("ignored").description("Whether user deleted this item"),
+                fieldWithPath("labelCodes").description("Catalog labelCodes for the item"),
                 fieldWithPath("_links").description("<<resources-user-receipt-parser-result-item-retrieve-links,Links>> to other resources")
             )
         ));
