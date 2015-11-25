@@ -12,5 +12,5 @@ public interface CatalogRepository extends JpaRepository<Catalog, String> {
 
     List<Catalog> findByChain(StoreChain chain);
 
-    Catalog findByChainAndCode(StoreChain chain, String code);
+    Catalog findByChainAndCode(StoreChain chain, String catalogCode);
 }

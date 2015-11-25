@@ -7,9 +7,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -24,12 +24,8 @@ public class AdminAccountServiceTest {
     @Mock
     AdminAccountRepository accountRepositoryMock;
 
+    @InjectMocks
     AdminAccountService serviceToTest;
-
-    @Before
-    public void setup() {
-        serviceToTest = new AdminAccountService(accountRepositoryMock);
-    }
 
     @Test
     public void createAdminAccount_ShouldCreateNewAdmin() {

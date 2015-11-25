@@ -12,9 +12,9 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -31,12 +31,8 @@ public class UserAccountServiceTest {
     @Mock
     UserResetPasswordRequestRepository userResetPasswordRequestRepositoryMock;
 
+    @InjectMocks
     UserAccountService serviceToTest;
-
-    @Before
-    public void setup() {
-        serviceToTest = new UserAccountService(accountRepositoryMock, profileRepositoryMock, userResetPasswordRequestRepositoryMock);
-    }
 
     @Test
     public void createUserAccountByRegistrationData_ShouldCreateNewUser() {

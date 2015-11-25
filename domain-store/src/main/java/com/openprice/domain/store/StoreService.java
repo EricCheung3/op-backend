@@ -118,6 +118,7 @@ public class StoreService {
             }
         }
         storeChainRepository.save(chain);
+        log.info("Successfully loaded {} catalogs", catalogs.length);
     }
 
     public void loadCatalog(final StoreChain chain, final MultipartFile file) {
