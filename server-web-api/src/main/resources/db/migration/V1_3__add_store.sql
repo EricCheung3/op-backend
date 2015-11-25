@@ -8,8 +8,6 @@ CREATE TABLE store_chain (
 
     code VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL,
-    categories VARCHAR(255),
-    identify_fields VARCHAR(4095),
 
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
@@ -58,7 +56,6 @@ CREATE TABLE catalog (
     code VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL,
     number VARCHAR(255),
-    category VARCHAR(255),
     price VARCHAR(50),
     natural_name VARCHAR(255),
     label_codes VARCHAR(2048),

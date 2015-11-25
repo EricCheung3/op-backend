@@ -19,15 +19,9 @@ public class AdminStoreChainForm {
 
     private String name;
 
-    private String categories;
-
-    private String identifyFields;
-
     public StoreChain updateStore(final StoreChain store) {
         store.setCode(code);
         store.setName(name);
-        store.setCategories(categories);
-        store.setIdentifyFields(identifyFields);
         return store;
     }
 }

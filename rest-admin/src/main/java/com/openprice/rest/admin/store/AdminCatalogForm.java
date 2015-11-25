@@ -20,8 +20,6 @@ public class AdminCatalogForm {
 
     private String number;
 
-    private String category;
-
     private String price;
 
     private String naturalName;

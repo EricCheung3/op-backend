@@ -64,7 +64,6 @@ public class AdminStoreChainRestApiIT extends AbstractAdminStoreRestApiIntegrati
             .body("id", equalTo("chain001"))
             .body("code", equalTo("rcss"))
             .body("name", equalTo("Real Canadian Superstore"))
-            .body("categories", equalTo("Grocery"))
             .body("catalogUploadUrl", endsWith("api/admin/chains/chain001/catalogs/upload"))
             .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS+"/chain001"))
             .body("_links.branches.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS + "/chain001/branches" + UtilConstants.PAGINATION_TEMPLATES))
@@ -95,7 +94,6 @@ public class AdminStoreChainRestApiIT extends AbstractAdminStoreRestApiIntegrati
             AdminStoreChainForm.builder()
                                .code("BostonPizza")
                                .name("Boston Pizza")
-                               .categories("Restaurant")
                                .build();
 
         Response response =
@@ -137,7 +135,6 @@ public class AdminStoreChainRestApiIT extends AbstractAdminStoreRestApiIntegrati
             AdminStoreChainForm.builder()
                                .code("rcss")
                                .name("Superstore")
-                               .categories("Grocery,Fashion,Pharmacy")
                                .build();
 
         given()
@@ -160,7 +157,6 @@ public class AdminStoreChainRestApiIT extends AbstractAdminStoreRestApiIntegrati
             .body("id", equalTo("chain001"))
             .body("code", equalTo("rcss"))
             .body("name", equalTo("Superstore"))
-            .body("categories", equalTo("Grocery,Fashion,Pharmacy"))
             .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS+"/chain001"))
             .body("_links.branches.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS + "/chain001/branches" + UtilConstants.PAGINATION_TEMPLATES))
             .body("_links.branch.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS + "/chain001/branches/{branchId}"))

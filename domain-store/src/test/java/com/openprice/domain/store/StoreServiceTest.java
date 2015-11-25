@@ -53,7 +53,7 @@ public class StoreServiceTest {
     @Test
     public void loadCatalog_ShouldUpdateCatalog_IfExist() throws Exception {
         final StoreChain chain = getTestStoreChain();
-        final Catalog catalog = chain.addCatalog("milk", "1234", "DAIRY", "4.99", "Milk", "Food,dairy,milk");
+        final Catalog catalog = chain.addCatalog("milk", "1234", "4.99", "Milk", "Food,dairy,milk");
         when(catalogRepositoryMock.findByChainAndCode(chain, catalog.getCode())).thenReturn(catalog);
 
         final Catalog catalogInput = new Catalog("milk", "1234");

@@ -99,7 +99,12 @@ public class AdminCatalogRestController extends AbstractStoreAdminRestController
 
         final StoreChain store = loadStoreChainById(chainId);
         final Catalog catalog = loadCatalogByIdAndCheckStore(catalogId, store);
-        storeService.updateCatalog(catalog, form.getName(), form.getNumber(), form.getCategory(), form.getPrice(), form.getNaturalName(), form.getLabelCodes());
+        storeService.updateCatalog(catalog,
+                                   form.getName(),
+                                   form.getNumber(),
+                                   form.getPrice(),
+                                   form.getNaturalName(),
+                                   form.getLabelCodes());
         return ResponseEntity.noContent().build();
     }
 
@@ -149,7 +154,6 @@ public class AdminCatalogRestController extends AbstractStoreAdminRestController
         return storeService.createCatalog(chain,
                                           form.getName(),
                                           form.getNumber(),
-                                          form.getCategory(),
                                           form.getPrice(),
                                           form.getNaturalName(),
                                           form.getLabelCodes());

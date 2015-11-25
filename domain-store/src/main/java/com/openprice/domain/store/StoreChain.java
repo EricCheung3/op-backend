@@ -37,13 +37,13 @@ public class StoreChain extends BaseAuditableEntity {
     @Column(name="name", nullable=false)
     private String name;
 
-    @Getter @Setter
-    @Column(name="categories")
-    private String categories;
-
-    @Getter @Setter
-    @Column(name="identify_fields")
-    private String identifyFields;
+//    @Getter @Setter
+//    @Column(name="categories")
+//    private String categories;
+//
+//    @Getter @Setter
+//    @Column(name="identify_fields")
+//    private String identifyFields;
 
     @Getter @Setter
     @JsonIgnore
@@ -93,13 +93,11 @@ public class StoreChain extends BaseAuditableEntity {
      */
     public Catalog addCatalog(final String name,
                               final String number,
-                              final String category,
                               final String price,
                               final String naturalName,
                               final String labelCodes) {
         final Catalog catalog = new Catalog(name, number);
         catalog.setChain(this);
-        catalog.setCategory(category);
         catalog.setPrice(price);
         catalog.setNaturalName(naturalName);
         catalog.setLabelCodes(labelCodes);

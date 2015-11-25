@@ -45,7 +45,6 @@ public class AdminStoreCatalogApiDocumentation extends AdminStoreApiDocumentatio
                 AdminCatalogForm.builder()
                                 .name("Pork")
                                 .number("56789")
-                                .category("Grocery")
                                 .price("10.99")
                                 .naturalName("Ground pork")
                                 .labelCodes("food,meat,pork")
@@ -64,7 +63,6 @@ public class AdminStoreCatalogApiDocumentation extends AdminStoreApiDocumentatio
                 fieldWithPath("code").description("The catalog code, not set by user, auto generated from name+number."),
                 fieldWithPath("name").description("The catalog name."),
                 fieldWithPath("number").description("The catalog number."),
-                fieldWithPath("category").description("The category this catalog belong to."),
                 fieldWithPath("price").description("The price (unit price?)."),
                 fieldWithPath("naturalName").description("Readable name for the catalog."),
                 fieldWithPath("labelCodes").description("The labels of the catalog.")
@@ -88,7 +86,6 @@ public class AdminStoreCatalogApiDocumentation extends AdminStoreApiDocumentatio
                 fieldWithPath("code").description("The catalog code."),
                 fieldWithPath("name").description("The catalog name."),
                 fieldWithPath("number").description("The catalog number."),
-                fieldWithPath("category").description("The category this catalog belong to."),
                 fieldWithPath("price").description("The price (unit price?)."),
                 fieldWithPath("naturalName").description("Readable name for the catalog."),
                 fieldWithPath("labelCodes").description("The labels of the catalog."),
@@ -103,7 +100,6 @@ public class AdminStoreCatalogApiDocumentation extends AdminStoreApiDocumentatio
                 AdminCatalogForm.builder()
                                 .name("Pork")
                                 .number("56789")
-                                .category("Grocery")
                                 .price("10.99")
                                 .naturalName("Ground pork")
                                 .labelCodes("food,meat,pork")
@@ -122,7 +118,6 @@ public class AdminStoreCatalogApiDocumentation extends AdminStoreApiDocumentatio
                     fieldWithPath("code").description("The catalog code. User cannot change."),
                     fieldWithPath("name").description("The catalog name."),
                     fieldWithPath("number").description("The catalog number."),
-                    fieldWithPath("category").description("The category this catalog belong to."),
                     fieldWithPath("price").description("The price (unit price?)."),
                     fieldWithPath("naturalName").description("Readable name for the catalog."),
                     fieldWithPath("labelCodes").description("The labels of the catalog.")

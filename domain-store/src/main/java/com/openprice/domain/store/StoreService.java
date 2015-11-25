@@ -32,12 +32,8 @@ public class StoreService {
     }
 
     public StoreChain createStoreChain(final String code,
-                                       final String name,
-                                       final String categories,
-                                       final String identifyFields) {
+                                       final String name) {
         final StoreChain chain = StoreChain.createStoreChain(code, name);
-        chain.setCategories(categories);
-        chain.setIdentifyFields(identifyFields);
         return storeChainRepository.save(chain);
     }
 
@@ -62,11 +58,10 @@ public class StoreService {
     public Catalog createCatalog(final StoreChain chain,
                                      final String name,
                                      final String number,
-                                     final String category,
                                      final String price,
                                      final String naturalName,
                                      final String labelCodes) {
-        final Catalog catalog = chain.addCatalog(name, number, category, price, naturalName, labelCodes);
+        final Catalog catalog = chain.addCatalog(name, number, price, naturalName, labelCodes);
         storeChainRepository.save(chain);
         return catalogRepository.save(catalog);
     }
@@ -74,13 +69,11 @@ public class StoreService {
     public Catalog updateCatalog(final Catalog catalog,
                                  final String name,
                                  final String number,
-                                 final String category,
                                  final String price,
                                  final String naturalName,
                                  final String labelCodes) {
         catalog.setName(name);
         catalog.setNumber(number);
-        catalog.setCategory(category);
         catalog.setPrice(price);
         catalog.setNaturalName(naturalName);
         catalog.setLabelCodes(labelCodes);
@@ -106,14 +99,16 @@ public class StoreService {
         for (final Catalog catalog : catalogs) {
             final Catalog existCatalog = catalogRepository.findByChainAndCode(chain, catalog.getCode());
             if (existCatalog != null) {
-                existCatalog.setCategory(catalog.getCategory());
                 existCatalog.setPrice(catalog.getPrice());
                 existCatalog.setNaturalName(catalog.getNaturalName());
                 existCatalog.setLabelCodes(catalog.getLabelCodes());
                 catalogRepository.save(existCatalog);
             } else {
-                Catalog newCatalog = chain.addCatalog(catalog.getName(), catalog.getNumber(),
-                        catalog.getCategory(), catalog.getPrice(), catalog.getNaturalName(), catalog.getLabelCodes());
+                Catalog newCatalog = chain.addCatalog(catalog.getName(),
+                                                      catalog.getNumber(),
+                                                      catalog.getPrice(),
+                                                      catalog.getNaturalName(),
+                                                      catalog.getLabelCodes());
                 catalogRepository.save(newCatalog);
             }
         }

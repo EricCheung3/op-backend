@@ -37,19 +37,19 @@
     <receipt id="receipt102" version="1" user_account_id="user002" need_feedback="1" created_time="2009-01-02 11:00:01.0000"/>
     <receipt_image id="image102" version="1" receipt_id="receipt102" status="UPLOADED" created_time="2009-01-02 11:00:01.0000"/>
 
-    <store_chain id="chain001" version="1" code="rcss" name="Real Canadian Superstore" categories="Grocery" created_time="2009-01-02 10:00:01.0000"/>
+    <store_chain id="chain001" version="1" code="rcss" name="Real Canadian Superstore" created_time="2009-01-02 10:00:01.0000"/>
     <store_branch id="branch101" version="1" chain_id="chain001" name="Calgary Trail RCSS" phone="780-430-2769" 
         address1="4821 Calgary Trail" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
     <store_branch id="branch102" version="1" chain_id="chain001" name="South Common RCSS" phone="780-490-3918" 
         address1="1549 9711, 23 AVE NW" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
     <store_branch id="branch103" version="1" chain_id="chain001" name="Whitemud RCSS" phone="780-450-8328" 
         address1="4410, 17 St NW" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
-    <catalog id="chain001cat001" version="1" chain_id="chain001" code="MILK-1234" name="MILK" number="1234" category="GROCERY" natural_name="2% milk" created_time="2009-01-01 10:00:01.0000" />
-    <catalog id="chain001cat002" version="1" chain_id="chain001" code="EGG-1235" name="EGG" number="1235" category="GROCERY" natural_name="Large Egg" created_time="2009-01-01 10:00:01.0000" />
-    <catalog id="chain001cat003" version="1" chain_id="chain001" code="PORK" name="PORK" category="GROCERY" natural_name="Pork Meat" created_time="2009-01-01 10:00:01.0000" />
-    <catalog id="chain001cat004" version="1" chain_id="chain001" code="BREAD" name="BREAD" category="GROCERY" natural_name="Breakfast bread" created_time="2009-01-01 10:00:01.0000" />
+    <catalog id="chain001cat001" version="1" chain_id="chain001" code="MILK-1234" name="MILK" number="1234" natural_name="2% milk" created_time="2009-01-01 10:00:01.0000" />
+    <catalog id="chain001cat002" version="1" chain_id="chain001" code="EGG-1235" name="EGG" number="1235" natural_name="Large Egg" created_time="2009-01-01 10:00:01.0000" />
+    <catalog id="chain001cat003" version="1" chain_id="chain001" code="PORK" name="PORK" natural_name="Pork Meat" created_time="2009-01-01 10:00:01.0000" />
+    <catalog id="chain001cat004" version="1" chain_id="chain001" code="BREAD" name="BREAD" natural_name="Breakfast bread" created_time="2009-01-01 10:00:01.0000" />
 
-    <store_chain id="chain002" version="1" code="safeway" name="Safeway" categories="Grocery,Health" created_time="2009-01-02 10:00:01.0000"/>
+    <store_chain id="chain002" version="1" code="safeway" name="Safeway" created_time="2009-01-02 10:00:01.0000"/>
     <store_branch id="branch201" version="1" chain_id="chain002" name="SAFEWAY" phone="780-436-185" 
         address1="5110 Windermere Blvd" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
 

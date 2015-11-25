@@ -103,10 +103,7 @@ public class AdminStoreChainRestController extends AbstractStoreAdminRestControl
     protected StoreChain newStoreChain(final AdminStoreChainForm form) {
         final AdminAccount currentAdmin = getCurrentAuthenticatedAdmin();
         log.debug("Admin {} created a new store chain {}", currentAdmin.getUsername(), form.getName());
-        return storeService.createStoreChain(form.getCode(),
-                                             form.getName(),
-                                             form.getCategories(),
-                                             form.getIdentifyFields());
+        return storeService.createStoreChain(form.getCode(), form.getName());
     }
 
 }

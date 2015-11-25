@@ -45,8 +45,6 @@ public class AdminStoreChainApiDocumentation extends AdminStoreApiDocumentationB
             AdminStoreChainForm.builder()
                                .code("BostonPizza")
                                .name("Boston Pizza")
-                               .categories("Restaurant")
-                               .identifyFields("Food")
                                .build();
         mockMvc
         .perform(
@@ -60,9 +58,7 @@ public class AdminStoreChainApiDocumentation extends AdminStoreApiDocumentationB
             preprocessRequest(prettyPrint()),
             requestFields(
                 fieldWithPath("code").description("The unique code of the new store chain."),
-                fieldWithPath("name").description("The store chain name."),
-                fieldWithPath("categories").description("The store chain categories."),
-                fieldWithPath("identifyFields").description("The store chain identify fields for chain matching.")
+                fieldWithPath("name").description("The store chain name.")
             )
         ));
     }
@@ -86,8 +82,6 @@ public class AdminStoreChainApiDocumentation extends AdminStoreApiDocumentationB
                 fieldWithPath("id").description("Primary ID"),
                 fieldWithPath("code").description("Store chain unique code"),
                 fieldWithPath("name").description("Store chain name."),
-                fieldWithPath("categories").description("Categories. Not used now"),
-                fieldWithPath("identifyFields").description("Comma separated strings used to match chain"),
                 fieldWithPath("catalogUploadUrl").description("URL for uploading catalog json files"),
                 fieldWithPath("_links").description("<<resources-admin-store-chain-links, Links>> to other resources")
             )
@@ -100,8 +94,6 @@ public class AdminStoreChainApiDocumentation extends AdminStoreApiDocumentationB
             AdminStoreChainForm.builder()
                                .code("BostonPizza")
                                .name("Boston Pizza")
-                               .categories("Restaurant")
-                               .identifyFields("Food")
                                .build();
         mockMvc
         .perform(
@@ -115,9 +107,7 @@ public class AdminStoreChainApiDocumentation extends AdminStoreApiDocumentationB
             preprocessRequest(prettyPrint()),
             requestFields(
                 fieldWithPath("code").description("The unique code of the new store chain."),
-                fieldWithPath("name").description("The store chain name."),
-                fieldWithPath("categories").description("The store chain categories."),
-                fieldWithPath("identifyFields").description("The store chain identify fields for chain matching.")
+                fieldWithPath("name").description("The store chain name.")
             )
         ));
     }
