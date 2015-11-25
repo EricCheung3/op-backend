@@ -149,7 +149,7 @@ public class PriceParserFromStringTuple implements PriceParser {
             price="";
         }
 
-        log.debug("No item numbers.");
+        //log.debug("No item numbers.");
         if(isNotPrice(three.getThird())){
             price=three.getSecond();
             itemName=three.getFirst();

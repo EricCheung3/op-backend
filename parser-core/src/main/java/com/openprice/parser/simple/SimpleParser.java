@@ -47,9 +47,13 @@ public class SimpleParser {
             final GenericParser parser = new GenericParser();
             return parser.parse(receipt.getOriginalLines());
         }
+        log.info("Parse receipt and find matcing chain {}", chain.getCode());
 
         // get store branch
         final StoreBranch branch = chain.matchBranchByScoreSum(receipt);
+        if (branch != null) {
+            log.info("Parser find matching branch {}.", branch.getBranchName());
+        }
 
         // get store parser
         final StoreParserSelector selector = chain.getSelector();
@@ -57,7 +61,6 @@ public class SimpleParser {
 
         // match fields
         final MatchedRecord matchedRecord = new MatchedRecord();
-        //matchedRecord.putFieldLine(ReceiptField.Chain, matchedChain.getMatchedOnLine(), chain.getCode());
         matchedRecord.matchToBranch(receipt, branch);
         matchedRecord.matchToHeader(receipt, parser.getStoreConfig(), parser);
 

@@ -13,6 +13,7 @@ import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.ScoreWithMatchPair;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Service to store all store chains in the system as registry. Each StoreParserSelector service will register
@@ -20,7 +21,7 @@ import lombok.Getter;
  *
  */
 @Service
-//@Slf4j
+@Slf4j
 public class ChainRegistry {
     private static final double CHAIN_IDENTIFY_MATCH_THRESHOLD = 0.8;
 
@@ -63,7 +64,7 @@ public class ChainRegistry {
                             .max( Comparator.comparing(ScoreWithMatchPair<String>::getScore) )
                             ;
                         if (maxIdentifyMatch.isPresent()) {
-                            //log.debug("maxIdentifyMatch score is "+maxIdentifyMatch.get().getScore());
+                            //log.debug("maxIdentifyMatch score for line '{}' is {}.", line.getCleanText(), maxIdentifyMatch.get().getScore());
                             return maxIdentifyMatch.get().getScore();
                         }
                         return -1.0;
@@ -71,6 +72,7 @@ public class ChainRegistry {
                     .filter( score -> score > CHAIN_IDENTIFY_MATCH_THRESHOLD)
                     .reduce(0.0, Double::sum)
                     ;
+                log.debug("Get matching score {} for chain {}", matchingScoreSum, chain.getCode());
                 return new ScoreWithMatchPair<StoreChain>(matchingScoreSum, -1, chain);
             })
             .max( Comparator.comparing(ScoreWithMatchPair<StoreChain>::getScore) )

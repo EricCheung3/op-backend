@@ -28,7 +28,7 @@ public class ReceiptData {
         receiptLines = new ArrayList<>();
         int lineNumber = 0;
         for (final String line : lines) {
-            receiptLines.add(new ReceiptLine(line, line.trim(), lineNumber));
+            receiptLines.add(new ReceiptLine(line, line.trim().toLowerCase(), lineNumber));
             lineNumber++;
         }
     }

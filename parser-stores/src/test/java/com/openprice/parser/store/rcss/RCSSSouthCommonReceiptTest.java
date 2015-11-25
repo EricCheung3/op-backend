@@ -39,10 +39,22 @@ public class RCSSSouthCommonReceiptTest extends AbstractReceiptParserIntegration
 
         // verify result of items
         Iterator<Item> iterator = receipt.getItems().iterator();
+        verifyItemParsedValue(iterator.next(), "rooster rice", "25.78", "rooster rice_05719777953");
+        verifyItemParsedValue(iterator.next(), "van bircrm mx", "3.50", "van bircrm mx");
+        verifyItemParsedValue(iterator.next(), "cm dis prncs cnd", "2.99", "cm dis prncs cnd");
+        verifyItemParsedValue(iterator.next(), "cm scribblers ha", "4.49", "cm scribblers ha");
+        verifyItemParsedValue(iterator.next(), "dh fc starter", "2.79", "dh fc starter");
+        verifyItemParsedValue(iterator.next(), "after bite kids", "4.99", "after bite kids");
+        verifyItemParsedValue(iterator.next(), "c&c astringent", "6.49", "c&c astringent");
+        verifyItemParsedValue(iterator.next(), "acne wash", "8.49", "acne wash");
+        verifyItemParsedValue(iterator.next(), "st ives vanilla", "2.98", "st ives vanilla");
+        verifyItemParsedValue(iterator.next(), "shower creme sof", "3.93", "shower creme sof");
+        verifyItemParsedValue(iterator.next(), "wlin cpck dcrtng", "5.04", "wlin cpck dcrtng");
+        verifyItemParsedValue(iterator.next(), "hp jar scraper", "5.00", "hp jar scraper");
+        verifyItemParsedValue(iterator.next(), "measure cup    gmrj", "4.29", "measure cup    gmrj");
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptField.Chain).getValue(), "Superstore");
         assertEquals(fieldValues.get(ReceiptField.Slogan).getValue(), "big on fresh, low on price");
         assertEquals(fieldValues.get(ReceiptField.StoreID).getValue(), "01549");
         assertEquals(fieldValues.get(ReceiptField.AddressLine1).getValue(), "9711 23 ave nw");
