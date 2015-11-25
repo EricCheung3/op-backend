@@ -706,3 +706,114 @@ include::{snippets}/admin-store-branch-delete-example/curl-request.adoc[]
 ==== Example response
 
 include::{snippets}/admin-store-branch-delete-example/http-response.adoc[]
+
+
+
+[[resources-admin-store-catalogs]]
+== Admin Store Catalogs Resource
+
+Admin Store Catalogs resource is used to list admin-managed store catalogs.
+
+[[resources-admin-store-catalog-list]]
+=== List catalogs for an admin-managed store.
+
+A `GET` request will list all of the admin-manged store catalogs with pagination.
+
+return 404 if store chain id is invalid.
+
+==== Response structure
+
+include::{snippets}/admin-store-catalog-list-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-store-catalog-list-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-store-catalog-list-example/http-response.adoc[]
+
+
+[[resources-admin-store-catalog-list-links]]
+==== Links
+
+include::{snippets}/admin-store-catalog-list-example/links.adoc[]
+
+
+[[resources-admin-store-catalog-create]]
+=== Create Store Catalog
+
+A `POST` request is used to create a new store catalog.
+
+==== Request structure
+
+include::{snippets}/admin-store-catalog-create-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-store-catalog-create-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-store-catalog-create-example/http-response.adoc[]
+
+
+[[resources-admin-store-catalog]]
+== Admin Store Catalog Resource
+
+Resource for a single admin-managed store catalog.
+
+[[resources-admin-store-catalog-retrieve]]
+=== Get admin-managed catalog
+
+A `GET` request is used to retrieve catalog of a particular store chain.
+
+==== Response structure
+
+include::{snippets}/admin-store-catalog-retrieve-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-store-catalog-retrieve-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-store-catalog-retrieve-example/http-response.adoc[]
+
+[[resources-admin-store-catalog-links]]
+==== Links
+Hyperlinks to other resources.
+include::{snippets}/admin-store-catalog-retrieve-example/links.adoc[]
+
+
+
+[[resources-admin-store-catalog-update]]
+=== Update Store Catalog
+
+A `PUT` request is used to update an existing store catalog.
+
+==== Request structure
+
+include::{snippets}/admin-store-catalog-update-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-store-catalog-update-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-store-catalog-update-example/http-response.adoc[]
+
+
+[[resources-admin-store-catalog-delete]]
+=== Delete admin-managed store catalog
+
+A `DELETE` request is used to delete admin-managed store catalog,
+
+==== Example request
+
+include::{snippets}/admin-store-catalog-delete-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-store-catalog-delete-example/http-response.adoc[]

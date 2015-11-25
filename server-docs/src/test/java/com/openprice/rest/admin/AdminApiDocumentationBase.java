@@ -77,6 +77,8 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
         StoreChain chain = storeService.createStoreChain("RCSS", "Real Canadian Superstore", "Grocery", "Superstore, RCSS");
         storeService.createStoreBranch(chain, "Calgary Trail RCSS", "780-430-2769", "", "4821, Calgary Trail", "", "Edmonton", "AB", "", "Canada");
         storeService.createStoreBranch(chain, "South Common RCSS", "780-490-3918", "", "1549 9711, 23 AVE NW", "", "Edmonton", "AB", "", "Canada");
+        storeService.createCatalog(chain, "MILK", "1234", "DAIRY", "4.99", "Homo Milk", "Food,Dairy,milk");
+        storeService.createCatalog(chain, "EGG", "1235", "GROCERY", "2.99", "Free Run Egg", "Food,Egg");
     }
 
     protected void deleteStores() throws Exception {
