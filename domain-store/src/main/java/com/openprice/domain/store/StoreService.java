@@ -117,6 +117,8 @@ public class StoreService {
     }
 
     public void loadCatalog(final StoreChain chain, final MultipartFile file) {
+        log.info("Loading catalog for store {} from file {}...", chain.getName(), file.getName());
+
         byte[] content = null;
         try {
             content = file.getBytes();
