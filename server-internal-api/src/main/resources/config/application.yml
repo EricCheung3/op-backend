@@ -1,0 +1,60 @@
+server:
+    port: 7800
+
+application:
+    email:
+        systemName: GroundTruth Inc.
+        systemEmail: no-reply@openprice.com
+        adminName: Open Price
+        adminEmail: admin@openprice.com
+
+spring:
+    datasource:
+        test-on-borrow: true
+        validation-query: SELECT 1
+    jpa:
+        database: MYSQL
+        show-sql: false
+        hibernate:
+            ddl-auto: validate
+
+---
+
+spring:
+    profiles: local
+    
+    datasource:
+        url: jdbc:mysql://localhost:3306/openpricelocal
+        username: openprice
+        password: openprice
+        driver-class-name: com.mysql.jdbc.Driver
+
+application:
+    email:
+      webServerUrl: http://localhost:7000
+    file:
+        virtual: false
+        imageRootFolder: /tmp/groundtruth/images
+
+---
+
+spring:
+    profiles: docker
+
+    datasource:
+        url: jdbc:mysql://mysql:3306/openprice
+        username: openprice
+        password: openprice
+        driver-class-name: com.mysql.jdbc.Driver
+
+application:
+    email:
+      webServerUrl: http://104.197.105.245:8080
+    file:
+        virtual: false
+        imageRootFolder: /groundtruth/images
+    
+    process:
+        serverPrefix: openprice-server-ocr-
+        numberOfServers: 1
+
