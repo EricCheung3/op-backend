@@ -23,6 +23,11 @@ public class OpenPriceInternalApiApplication extends AbstractApiApplication {
 
     @Configuration
     public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+        public SecurityConfig() {
+            super();
+        }
+
         @Override
         protected void configure(final HttpSecurity http) throws Exception {
             http
