@@ -29,6 +29,6 @@ public class InternalService {
     }
 
     private String getImageQueueServiceUrl() {
-        return settings.getServerHost() + ":" + settings.getServerPort() + InternalServiceApiUrls.URL_IMAGE_QUEUE;
+        return "http://" + settings.getServerHost() + ":" + settings.getServerPort() + InternalServiceApiUrls.URL_IMAGE_QUEUE;
     }
 }
