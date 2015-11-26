@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <user_profile id="profile001" version="1" first_name="John" last_name="Doe" address1="101 123 street" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
+    <user_profile id="profile002" version="1" first_name="Jane" last_name="Doe" address1="101 123 street" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
+    <user_profile id="profile003" version="1" first_name="junior" last_name="Doe" address1="101 123 street" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
+    
+    <user_account id="user001" version="1" email="john.doe@email.com" password="12345" account_locked="false" activated="true" trusted_account="true" profile_id="profile001" created_time="2009-01-01 10:00:01.0000"/>
+    <user_account id="user002" version="1" email="jane.doe@email.com" password="12345" account_locked="false" activated="true" trusted_account="true" profile_id="profile002" created_time="2009-01-02 10:00:01.0000"/>
+    <user_account id="user003" version="1" email="junior.doe@email.com" password="12345" account_locked="false" activated="true" trusted_account="true" profile_id="profile003" created_time="2009-01-03 10:00:01.0000"/>
+
+    <user_role user_account_id="user001" role="ROLE_USER"/>
+    <user_role user_account_id="user001" role="ROLE_STORE_MANAGER"/>
+    <user_role user_account_id="user002" role="ROLE_USER"/>
+    <user_role user_account_id="user003" role="ROLE_USER"/>
+
+    <receipt id="user001rec001" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 10:00:01.0000"/>
+
+    <receipt_image id="user001rec001image001" version="1" receipt_id="user001rec001" file_name="test.jpg" status="UPLOADED" created_time="2009-01-01 10:00:01.0000"/>
+</dataset>

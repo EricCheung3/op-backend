@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan({ "com.openprice.domain", "com.openprice.rest", "com.openprice.process", "com.openprice.parser" })
+@ComponentScan({ "com.openprice.domain", "com.openprice.rest", "com.openprice.internal.client", "com.openprice.parser" })
 @EntityScan("com.openprice.domain")
 @EnableJpaRepositories("com.openprice.domain")
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")

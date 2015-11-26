@@ -51,7 +51,3 @@ application:
     file:
         virtual: false
         imageRootFolder: /groundtruth/images
-
-    process:
-        serverPrefix: openprice-server-ocr-
-        numberOfServers: 2

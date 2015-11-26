@@ -91,4 +91,15 @@ public class ProcessQueueService {
         queue.add(item);
     }
 
+    public void addImage(final String imageId) {
+        addImage(receiptImageRepository.findOne(imageId));
+    }
+
+    /**
+     * Monitor how many images in the queue now.
+     * @return
+     */
+    public int getQueueSize() {
+        return queue.size();
+    }
 }

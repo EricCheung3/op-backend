@@ -35,6 +35,10 @@ application:
     file:
         virtual: false
         imageRootFolder: /tmp/groundtruth/images
+    service:
+        internal:
+            serverHost: openprice-server-internal
+            serverPort: 7900
 
 ---
 
@@ -53,8 +57,8 @@ application:
     file:
         virtual: false
         imageRootFolder: /groundtruth/images
-    
-    process:
-        serverPrefix: openprice-server-ocr-
-        numberOfServers: 1
+    service:
+        internal:
+            serverHost: openprice-server-internal-api
+            serverPort: 7900
 

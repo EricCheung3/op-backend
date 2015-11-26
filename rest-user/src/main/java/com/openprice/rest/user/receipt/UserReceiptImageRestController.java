@@ -34,7 +34,7 @@ import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
-import com.openprice.process.ProcessQueueService;
+import com.openprice.internal.client.InternalService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.user.UserApiUrls;
@@ -51,7 +51,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
 
     private final ReceiptImageRepository receiptImageRepository;
     private final UserReceiptImageResourceAssembler receiptImageResourceAssembler;
-    private final ProcessQueueService processQueueService;
+    private final InternalService internalService;
 
     @Inject
     public UserReceiptImageRestController(final UserAccountService userAccountService,
@@ -59,11 +59,11 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
                                           final ReceiptRepository receiptRepository,
                                           final ReceiptImageRepository receiptImageRepository,
                                           final UserReceiptImageResourceAssembler receiptImageResourceAssembler,
-                                          final ProcessQueueService processQueueService) {
+                                          final InternalService internalService) {
         super(userAccountService, receiptService, receiptRepository);
         this.receiptImageRepository = receiptImageRepository;
         this.receiptImageResourceAssembler = receiptImageResourceAssembler;
-        this.processQueueService = processQueueService;
+        this.internalService = internalService;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_IMAGES)
@@ -101,7 +101,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
     public HttpEntity<Void> createReceiptImageWithBase64String(@PathVariable("receiptId") final String receiptId,
                                                                @RequestBody final ImageDataForm imageDataForm) {
         final ReceiptImage image = newReceiptImageWithBase64ImageData(receiptId, imageDataForm.getBase64String());
-        processQueueService.addImage(image);
+        internalService.addImageToProcessQueue(image.getId());
 
         final URI location =
             linkTo(methodOn(UserReceiptImageRestController.class).getUserReceiptImageById(receiptId, image.getId())).toUri();
@@ -119,7 +119,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
             @RequestParam(value="file") final MultipartFile file) {
         if (!file.isEmpty()) {
             final ReceiptImage image = newReceiptImageWithFile(receiptId, file);
-            processQueueService.addImage(image);
+            internalService.addImageToProcessQueue(image.getId());
 
             final URI location =
                 linkTo(methodOn(UserReceiptImageRestController.class).getUserReceiptImageById(receiptId, image.getId())).toUri();
@@ -172,4 +172,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
         return image;
     }
 
+    private void addImageToQueue(final ReceiptImage image) {
+
+    }
 }

@@ -20,9 +20,13 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 
@@ -30,6 +34,8 @@ import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.jsonpath.JsonPath;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.receipt.Receipt;
+import com.openprice.domain.receipt.ReceiptImage;
+import com.openprice.parser.common.TextResourceUtils;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.user.receipt.FeedbackForm;
 import com.openprice.rest.user.receipt.UserReceiptItemForm;
@@ -299,6 +305,9 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
         deleteTestUser();
     }
 
+    @Value("classpath:/ocrResult.txt")
+    private Resource ocrResultResource;
+
     protected void createReceipts() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
 
@@ -333,6 +342,15 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
             .with(csrf())
         );
 
+        // set sample ocr result to image
+        final String ocrResult = TextResourceUtils.loadTextResource(ocrResultResource);
+        final String receiptId = receiptLocation.substring(receiptLocation.lastIndexOf("/")+1);
+        Receipt receipt = receiptRepository.findOne(receiptId);
+        List<ReceiptImage> images = receiptImageRepository.findByReceiptOrderByCreatedTime(receipt);
+        for (ReceiptImage image : images) {
+            image.setOcrResult(ocrResult);
+            receiptImageRepository.save(image);
+        }
     }
 
     protected void deleteReceipts() throws Exception {

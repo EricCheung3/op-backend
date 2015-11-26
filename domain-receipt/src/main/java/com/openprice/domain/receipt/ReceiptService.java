@@ -181,7 +181,7 @@ public class ReceiptService {
         return null;
     }
 
-    private List<String> loadOcrResults(final Receipt receipt) {
+    public List<String> loadOcrResults(final Receipt receipt) {
         final List<String> ocrTextList = new ArrayList<>();
         boolean ocrReady = true;
 

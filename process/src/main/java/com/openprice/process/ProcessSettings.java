@@ -18,7 +18,7 @@ public class ProcessSettings {
     private String serverPrefix;
 
     @Getter @Setter
-    private int serverPort = 8800;
+    private int serverPort = 8800;  // default to 8800 for OCR Server port
 
     @Getter @Setter
     private int numberOfServers = 0;

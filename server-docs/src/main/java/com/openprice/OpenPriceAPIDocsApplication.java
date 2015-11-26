@@ -24,17 +24,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.openprice.file.FileFolderSettings;
 import com.openprice.file.FileSystemService;
+import com.openprice.internal.client.InternalServiceSettings;
 import com.openprice.mail.EmailProperties;
 import com.openprice.mail.EmailService;
 import com.openprice.mail.stub.DummyEmailService;
-import com.openprice.process.ProcessSettings;
 
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @EnableAspectJAutoProxy
-@EnableConfigurationProperties({EmailProperties.class, FileFolderSettings.class, ProcessSettings.class})
+@EnableConfigurationProperties({EmailProperties.class, FileFolderSettings.class, InternalServiceSettings.class})
 @Slf4j
 public class OpenPriceAPIDocsApplication {
 

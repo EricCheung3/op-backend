@@ -1,5 +1,5 @@
 server:
-    port: 7800
+    port: 7900
 
 application:
     email:
@@ -49,7 +49,7 @@ spring:
 
 application:
     email:
-      webServerUrl: http://104.197.105.245:8080
+      webServerUrl: http://104.154.88.206:8080
     file:
         virtual: false
         imageRootFolder: /groundtruth/images
@@ -57,4 +57,3 @@ application:
     process:
         serverPrefix: openprice-server-ocr-
         numberOfServers: 1
-

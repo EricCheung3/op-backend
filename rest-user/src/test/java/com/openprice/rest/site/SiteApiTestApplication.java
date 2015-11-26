@@ -10,11 +10,11 @@ import org.springframework.security.web.authentication.preauth.AbstractPreAuthen
 
 import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.file.FileFolderSettings;
+import com.openprice.internal.client.InternalServiceSettings;
 import com.openprice.mail.EmailProperties;
-import com.openprice.process.ProcessSettings;
 import com.openprice.rest.AbstractRestApiTestApplication;
 
-@EnableConfigurationProperties( {FileFolderSettings.class, EmailProperties.class, ProcessSettings.class} )
+@EnableConfigurationProperties( {FileFolderSettings.class, EmailProperties.class, InternalServiceSettings.class} )
 public class SiteApiTestApplication extends AbstractRestApiTestApplication {
 
     public static void main(String[] args) throws Exception {

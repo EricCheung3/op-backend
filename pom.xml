@@ -43,7 +43,7 @@
 
         <module>api-internal</module>
         <module>rest-internal</module>
-        <module>server-internal</module>
+        <module>server-internal-api</module>
 
         <module>api-ocr</module>
         <module>rest-ocr</module>

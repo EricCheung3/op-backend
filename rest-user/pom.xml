@@ -22,7 +22,7 @@
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-process</artifactId>
+            <artifactId>openprice-domain-receipt</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -30,7 +30,11 @@
             <artifactId>openprice-parser-stores</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-api-internal</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
             <artifactId>openprice-rest-common</artifactId>

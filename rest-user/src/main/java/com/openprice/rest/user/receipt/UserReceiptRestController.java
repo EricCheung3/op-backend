@@ -27,7 +27,7 @@ import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
-import com.openprice.process.ProcessQueueService;
+import com.openprice.internal.client.InternalService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.user.UserApiUrls;
 
@@ -37,17 +37,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserReceiptRestController extends AbstractUserReceiptRestController {
     private final UserReceiptResourceAssembler receiptResourceAssembler;
-    private final ProcessQueueService processQueueService;
+    private final InternalService internalService;
 
     @Inject
     public UserReceiptRestController(final UserAccountService userAccountService,
                                      final ReceiptService receiptService,
                                      final ReceiptRepository receiptRepository,
                                      final UserReceiptResourceAssembler receiptResourceAssembler,
-                                     final ProcessQueueService processQueueService) {
+                                     final InternalService internalService) {
         super(userAccountService, receiptService, receiptRepository);
         this.receiptResourceAssembler = receiptResourceAssembler;
-        this.processQueueService = processQueueService;
+        this.internalService = internalService;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS)
@@ -77,7 +77,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
     @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS)
     public HttpEntity<Void> createNewReceiptWithBase64String(@RequestBody final ImageDataForm imageDataForm) {
         final Receipt receipt = newReceiptWithBase64ImageData(imageDataForm.getBase64String());
-        processQueueService.addImage(receipt.getImages().get(0));
+        internalService.addImageToProcessQueue(receipt.getImages().get(0).getId());
 
         final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId())).toUri();
         return ResponseEntity.created(location).body(null);
@@ -92,7 +92,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
     public HttpEntity<Void> uploadNewReceipt(@RequestParam("file") final MultipartFile file) {
         if (!file.isEmpty()) {
             final Receipt receipt = newReceiptWithFile(file);
-            processQueueService.addImage(receipt.getImages().get(0));
+            internalService.addImageToProcessQueue(receipt.getImages().get(0).getId());
 
             final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId())).toUri();
             return ResponseEntity.created(location).body(null);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true">
-    <contextName>API</contextName>
+    <contextName>INT</contextName>
     
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
@@ -64,5 +64,4 @@
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
     </root>
-
 </configuration>

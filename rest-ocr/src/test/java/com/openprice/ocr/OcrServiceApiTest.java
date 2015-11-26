@@ -39,6 +39,7 @@ import com.openprice.ocr.api.OcrServerApiUrls;
         TransactionalTestExecutionListener.class })
 @SpringApplicationConfiguration(classes = {OcrServerTestApplication.class})
 public class OcrServiceApiTest {
+
     @Value("${local.server.port}")
     private int port;
 

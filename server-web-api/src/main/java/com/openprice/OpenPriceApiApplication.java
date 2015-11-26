@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import com.openprice.file.FileFolderSettings;
+import com.openprice.internal.client.InternalServiceSettings;
 import com.openprice.mail.EmailProperties;
-import com.openprice.process.ProcessSettings;
 
-@EnableConfigurationProperties({EmailProperties.class, FileFolderSettings.class, ProcessSettings.class})
+@EnableConfigurationProperties({EmailProperties.class, FileFolderSettings.class, InternalServiceSettings.class})
 public class OpenPriceApiApplication extends AbstractApiApplication {
 
     /**
