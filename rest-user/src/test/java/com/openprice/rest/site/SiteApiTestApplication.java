@@ -4,12 +4,14 @@ import javax.inject.Inject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 
 import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.file.FileFolderSettings;
+import com.openprice.internal.client.InternalService;
 import com.openprice.internal.client.InternalServiceSettings;
 import com.openprice.mail.EmailProperties;
 import com.openprice.rest.AbstractRestApiTestApplication;
@@ -41,4 +43,8 @@ public class SiteApiTestApplication extends AbstractRestApiTestApplication {
         return userAccountService;
     }
 
+    @Bean
+    InternalService internalService(final InternalServiceSettings settings) {
+        return new InternalService(settings);
+    }
 }

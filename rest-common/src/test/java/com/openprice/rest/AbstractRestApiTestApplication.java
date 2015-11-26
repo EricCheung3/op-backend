@@ -99,4 +99,5 @@ public abstract class AbstractRestApiTestApplication extends WebSecurityConfigur
     }
 
     protected abstract UserDetailsService getUserDetailsService();
+
 }

@@ -1,21 +1,19 @@
-#!/bin/bash
-
-cd ~/openprice-backend
+cd ~/openprice/openprice-backend
 git pull
 
-cd ~/openprice-backend
+cd ~/openprice/openprice-backend
 mvn clean install -Pdev
 
-cd ~/openprice-backend/server-admin-api
+cd ~/openprice/openprice-backend/server-internal-api
 mvn docker:build
 
-cd ~/openprice-backend/server-web-api
+cd ~/openprice/openprice-backend/server-admin-api
 mvn docker:build
 
-cd ~/openprice-backend/server-ocr
+cd ~/openprice/openprice-backend/server-web-api
 mvn docker:build
 
-cd ~/openprice-backend/server-docs
+cd ~/openprice/openprice-backend/server-docs
 mvn docker:build
 
 docker run --name openprice-mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=openprice -e MYSQL_USER=openprice -e MYSQL_PASSWORD=openprice -p 3306:3306 -d mysql:5.6
@@ -25,20 +23,20 @@ docker run --name openprice-server-web-api -d -p 7800:7800 -e SPRING_PROFILES_AC
 docker run --name openprice-server-admin-api -d -p 7801:7801 -e SPRING_PROFILES_ACTIVE=dev,docker,sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link openprice-mysql:mysql --link openprice-server-ocr-1:openprice-server-ocr-1 --link openprice-server-ocr-2:openprice-server-ocr-2 openprice/openprice-server-admin-api
 docker run --name openprice-server-docs -p 8880:8080 -d openprice/openprice-server-docs
 
-cd ~/openprice-admin-ui
+cd ~/openprice/openprice-admin-ui
 git pull
 npm install
 bower install
 gulp build
-cd ~/openprice-admin-ui/docker
+cd ~/openprice/openprice-admin-ui/docker
 docker build -t openprice/openprice-server-admin-ui .
 docker run --name openprice-server-admin-ui -p 8081:80 -d openprice/openprice-server-admin-ui
 
-cd ~/openprice-web-ui
+cd ~/openprice/openprice-web-ui
 git pull
 npm install
 bower install
 gulp build
-cd ~/openprice-web-ui/docker
+cd ~/openprice/openprice-web-ui/docker
 docker build -t openprice/openprice-server-web-ui .
 docker run --name openprice-server-web-ui -p 8080:80 -d openprice/openprice-server-web-ui

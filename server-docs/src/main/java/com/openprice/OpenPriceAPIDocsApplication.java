@@ -24,6 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.openprice.file.FileFolderSettings;
 import com.openprice.file.FileSystemService;
+import com.openprice.internal.client.InternalService;
 import com.openprice.internal.client.InternalServiceSettings;
 import com.openprice.mail.EmailProperties;
 import com.openprice.mail.EmailService;
@@ -88,6 +89,11 @@ public class OpenPriceAPIDocsApplication {
     @Bean
     public FileSystemService fileSystemService() {
         return new FileSystemService(new FileFolderSettings());
+    }
+
+    @Bean
+    InternalService internalService(final InternalServiceSettings settings) {
+        return new InternalService(settings);
     }
 
     @EnableWebSecurity
