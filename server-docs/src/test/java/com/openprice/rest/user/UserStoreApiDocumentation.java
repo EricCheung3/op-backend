@@ -169,6 +169,7 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
                 fieldWithPath("id").description("Primary ID"),
                 fieldWithPath("name").description("Shopping Item name, user can edit"),
                 fieldWithPath("catalogCode").description("Optional catalog code."),
+                fieldWithPath("labelCodes").description("Optional label codes copied from catalog."),
                 fieldWithPath("_links").description("<<resources-user-shopping-item-retrieve-links,Links>> to other resources")
             )
         ));

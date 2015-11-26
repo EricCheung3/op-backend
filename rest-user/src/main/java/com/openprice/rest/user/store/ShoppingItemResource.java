@@ -4,10 +4,13 @@ import org.springframework.hateoas.Resource;
 
 import com.openprice.domain.shopping.ShoppingItem;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class ShoppingItemResource extends Resource<ShoppingItem> {
 
-    public static final String LINK_NAME_USER = "user";
-    public static final String LINK_NAME_STORE = "store";
+    @Getter @Setter
+    private String labelCodes; // labelCodes from catalog
 
     public ShoppingItemResource(final ShoppingItem shoppingItem) {
         super(shoppingItem);
