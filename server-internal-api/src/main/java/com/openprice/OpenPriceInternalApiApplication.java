@@ -17,4 +17,5 @@ public class OpenPriceInternalApiApplication extends AbstractApiApplication {
         SpringApplication app = new SpringApplication(OpenPriceInternalApiApplication.class);
         app.run(args);
     }
+
 }

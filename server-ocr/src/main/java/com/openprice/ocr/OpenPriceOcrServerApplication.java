@@ -11,7 +11,7 @@ import com.openprice.file.FileFolderSettings;
 @SpringBootApplication
 @ComponentScan({ "com.openprice.file", "com.openprice.ocr" })
 @EnableConfigurationProperties({FileFolderSettings.class})
-public class OpenPriceOcrServerApplication{
+public class OpenPriceOcrServerApplication {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(OpenPriceOcrServerApplication.class, args);

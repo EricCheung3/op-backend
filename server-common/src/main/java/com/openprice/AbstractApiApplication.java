@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import com.openprice.mail.EmailService;
 import com.openprice.mail.sendgrid.EmailServiceImpl;
@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @EnableAspectJAutoProxy
 @Slf4j
-public abstract class AbstractApiApplication {
+public abstract class AbstractApiApplication extends WebSecurityConfigurerAdapter {
 
     @Inject
     private Environment environment;
@@ -51,13 +51,7 @@ public abstract class AbstractApiApplication {
         return new AuditorAware<String>() {
             @Override
             public String getCurrentAuditor() {
-                final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-                if (authentication == null || !authentication.isAuthenticated()) {
-                    return "system"; // if no user logged in, we assume the system will create/modify the entity
-                }
-
-                return authentication.getName();
+                return "system"; // always system as user.
             }
         };
     }
@@ -81,6 +75,15 @@ public abstract class AbstractApiApplication {
     @Profile("dev")
     public RestApiLoggingAspect loggingAspect() {
         return new RestApiLoggingAspect();
+    }
+
+    @Override
+    protected void configure(final HttpSecurity http) throws Exception {
+        http
+            .csrf().disable()
+            .authorizeRequests()
+                .anyRequest().permitAll()
+            ;
     }
 
 }
