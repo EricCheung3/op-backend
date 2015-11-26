@@ -2,8 +2,10 @@ package com.openprice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 import com.openprice.file.FileFolderSettings;
+import com.openprice.internal.client.InternalService;
 import com.openprice.internal.client.InternalServiceSettings;
 import com.openprice.mail.EmailProperties;
 
@@ -17,4 +19,10 @@ public class OpenPriceApiApplication extends AbstractApiApplication {
         SpringApplication app = new SpringApplication(OpenPriceApiApplication.class);
         app.run(args);
     }
+
+    @Bean
+    InternalService internalService(final InternalServiceSettings settings) {
+        return new InternalService(settings);
+    }
+
 }
