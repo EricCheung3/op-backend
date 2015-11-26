@@ -17,11 +17,6 @@
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-domain-shopping</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.openprice</groupId>
             <artifactId>openprice-process</artifactId>
             <version>${project.version}</version>
         </dependency>
