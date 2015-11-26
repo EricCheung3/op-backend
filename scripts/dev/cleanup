@@ -4,6 +4,9 @@ docker rm openprice-server-admin-api
 docker stop openprice-server-web-api
 docker rm openprice-server-web-api
 
+docker stop openprice-server-internal-api
+docker rm openprice-server-internal-api
+
 docker stop openprice-server-docs
 docker rm openprice-server-docs
 
