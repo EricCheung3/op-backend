@@ -4,6 +4,9 @@ git pull
 cd ~/openprice/openprice-backend
 mvn clean install -Pdev
 
+cd ~/openprice/openprice-backend/server-internal-api
+mvn docker:build
+
 cd ~/openprice/openprice-backend/server-admin-api
 mvn docker:build
 
