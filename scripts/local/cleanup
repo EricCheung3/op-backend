@@ -1,0 +1,20 @@
+docker stop openprice-server-admin-api
+docker rm openprice-server-admin-api
+
+docker stop openprice-server-web-api
+docker rm openprice-server-web-api
+
+docker stop openprice-server-internal-api
+docker rm openprice-server-internal-api
+
+docker stop openprice-server-docs
+docker rm openprice-server-docs
+
+docker stop openprice-server-admin-ui
+docker rm openprice-server-admin-ui
+
+docker stop openprice-server-web-ui
+docker rm openprice-server-web-ui
+
+docker stop openprice-mysql
+docker rm openprice-mysql

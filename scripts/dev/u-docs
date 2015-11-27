@@ -1,9 +1,11 @@
-cd ~/openprice/openprice-backend
+oproot=~/openprice
+
+cd $oproot/openprice-backend
 git pull
 
-cd ~/openprice/openprice-backend
+cd $oproot/openprice-backend
 mvn clean install -Pdev
-cd ~/openprice/openprice-backend/server-docs
+cd $oproot/openprice-backend/server-docs
 mvn docker:build
 
 docker stop openprice-server-docs

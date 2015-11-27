@@ -1,10 +1,12 @@
-cd ~/openprice/openprice-web-ui
+oproot=~/openprice
+
+cd $oproot/openprice-web-ui
 git pull
 npm install
 bower install
 gulp build
 
-cd ~/openprice/openprice-web-ui/docker
+cd $oproot/openprice-web-ui/docker
 docker build -t openprice/openprice-server-web-ui .
 
 docker stop openprice-server-web-ui

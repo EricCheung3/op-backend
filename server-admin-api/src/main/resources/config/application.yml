@@ -23,22 +23,6 @@ spring:
 ---
 
 spring:
-    profiles: local
-
-    datasource:
-        url: jdbc:mysql://localhost:3306/openpricelocal
-        username: openprice
-        password: openprice
-        driver-class-name: com.mysql.jdbc.Driver
-
-application:
-    file:
-        virtual: false
-        imageRootFolder: /tmp/groundtruth/images
-
----
-
-spring:
     profiles: docker
 
     datasource:
