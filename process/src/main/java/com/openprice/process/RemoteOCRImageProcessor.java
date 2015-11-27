@@ -2,44 +2,37 @@ package com.openprice.process;
 
 import javax.transaction.Transactional;
 
-import org.springframework.web.client.RestTemplate;
-
 import com.openprice.domain.receipt.ProcessLog;
 import com.openprice.domain.receipt.ProcessLogRepository;
 import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
-import com.openprice.ocr.api.ImageProcessRequest;
+import com.openprice.file.FileSystemService;
 import com.openprice.ocr.api.ImageProcessResult;
-import com.openprice.ocr.api.OcrServerApiUrls;
+import com.openprice.ocr.client.OcrService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class RemoteOCRImageProcessor implements ImageProcessor {
-    private final RestTemplate restTemplate;
+
+    private final OcrService ocrService;
+    private final FileSystemService fileSystemService;
     private final String serverName;
-    private final String serverUrl;
+    //private final String serverUrl;
     private final ProcessLogRepository processLogRepository;
     private final ReceiptImageRepository receiptImageRepository;
 
     public RemoteOCRImageProcessor(final String serverName,
-                                   final String serverUrl,
+                                   final OcrService ocrService,
+                                   final FileSystemService fileSystemService,
                                    final ProcessLogRepository processLogRepository,
                                    final ReceiptImageRepository receiptImageRepository) {
-        this(serverName, serverUrl, processLogRepository, receiptImageRepository, new RestTemplate());
-    }
-
-    public RemoteOCRImageProcessor(final String serverName,
-                                   final String serverUrl,
-                                   final ProcessLogRepository processLogRepository,
-                                   final ReceiptImageRepository receiptImageRepository,
-                                   final RestTemplate restTemplate) {
         this.serverName = serverName;
-        this.serverUrl = serverUrl.endsWith("/")? serverUrl.substring(0, serverUrl.length()-1) : serverUrl;
+        this.ocrService = ocrService;
+        this.fileSystemService = fileSystemService;
         this.processLogRepository = processLogRepository;
         this.receiptImageRepository = receiptImageRepository;
-        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -49,25 +42,27 @@ public class RemoteOCRImageProcessor implements ImageProcessor {
 
     @Override
     public void processImage(final ProcessItem item) {
-        final ProcessLog processLog = new ProcessLog();
-        processLog.setImageId(item.getImage().getId());
-        processLog.setUsername(item.getUsername());
-        processLog.setServerName(serverName);
-
         final long start = System.currentTimeMillis();
+        final ReceiptImage image = receiptImageRepository.findOne(item.getImageId());
+        final String ownerId = image.getReceipt().getUser().getId();
+        final String imageFilePath = ownerId + fileSystemService.getPathSeparator() + image.getFileName();
+        log.debug("Start process image {} by calling OCR API at '{}'", imageFilePath, ocrService.getUrl());
+        final ImageProcessResult result = ocrService.processUserReceiptImage(imageFilePath);
+        final long duration = System.currentTimeMillis() - start;
+        log.info("Finish process image {} with server '{}', took {} milli-seconds.", imageFilePath, serverName, duration);
+        saveProcessResult(item, result, start, duration);
+    }
+
+    @Transactional
+    private void saveProcessResult(final ProcessItem item, final ImageProcessResult result, final long start, final long duration) {
+        final ReceiptImage image = receiptImageRepository.findOne(item.getImageId());
+        final ProcessLog processLog = new ProcessLog();
+        processLog.setImageId(item.getImageId());
+        //processLog.setOwnerName(image.getReceipt().getUser().getId()); // TODO set user email as owner name, or "system" if this is admin uploaded image
+        //processLog.setRequesterName(item.getRequesterId()); // TODO get email if requester is user; or admin username if requester is admin
+        processLog.setServerName(serverName);
         processLog.setStartTime(start);
-
-        log.debug("==> Start process image {} from user '{}' by calling '{}'",
-                item.getImage().getFileName(), item.getUsername(), serverUrl);
-
-        final ImageProcessRequest request = new ImageProcessRequest(item.getUserId(), item.getUsername(), item.getImage().getFileName());
-
-        final ImageProcessResult result = restTemplate.postForObject(serverUrl + OcrServerApiUrls.URL_OCR_PROCESSOR,
-                                                                    request,
-                                                                    ImageProcessResult.class);
-        processLog.setOcrDuration(System.currentTimeMillis() - start);
-
-        final ReceiptImage image = receiptImageRepository.findOne(item.getImage().getId());
+        processLog.setOcrDuration(duration);
 
         if (result.isSuccess()) {
             log.debug("Got OCR result as\n" + result.getOcrResult());
@@ -75,20 +70,10 @@ public class RemoteOCRImageProcessor implements ImageProcessor {
             image.setStatus(ProcessStatusType.SCANNED);
             image.setOcrResult(result.getOcrResult());
         } else {
-            log.warn("OCR process error: "+result.getErrorMessage());
+            log.warn("OCR process error: " + result.getErrorMessage());
             processLog.setErrorMessage(result.getErrorMessage());
             image.setStatus(ProcessStatusType.SCANNED_ERR);
         }
-
-        saveProcessResult(processLog, image);
-
-        log.info("Finish process image {} with server '{}', took {} milli-seconds.",
-                item.getImage().getFileName(), serverName, processLog.getOcrDuration());
-
-    }
-
-    @Transactional
-    private void saveProcessResult(final ProcessLog processLog, final ReceiptImage image) {
         processLogRepository.save(processLog);
         receiptImageRepository.save(image);
     }

@@ -1,6 +1,10 @@
 package com.openprice.process;
 
+/**
+ * Interface for a generic image processor.
+ */
 public interface ImageProcessor {
+
     /**
      * Returns this process or name for logging purpose.
      * @return

@@ -14,4 +14,11 @@
     <name>OCR Public API Module</name>
     <description>OpenPrice OCR Service public API code for outside usage.</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

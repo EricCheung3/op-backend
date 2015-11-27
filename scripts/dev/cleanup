@@ -15,3 +15,6 @@ docker rm openprice-server-admin-ui
 
 docker stop openprice-server-web-ui
 docker rm openprice-server-web-ui
+
+docker stop openprice-mysql
+docker rm openprice-mysql

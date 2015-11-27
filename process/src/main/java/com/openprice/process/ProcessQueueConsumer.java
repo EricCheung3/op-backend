@@ -21,7 +21,7 @@ public class ProcessQueueConsumer implements Runnable {
         while (true) {
             try {
                 ProcessItem item = queue.take();
-                if (item.getImage() == null) {
+                if (item.getImageId() == null) {
                     break; // poison pill algorithm
                 }
                 imageProcessor.processImage(item);

@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.openprice.domain.receipt.ProcessLogRepository;
-import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
+import com.openprice.file.FileSystemService;
+import com.openprice.ocr.api.OcrServerApiUrls;
+import com.openprice.ocr.client.OcrService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,16 +29,19 @@ public class ProcessQueueService {
     private final ProcessSettings settings;
     private final ProcessLogRepository processLogRepository;
     private final ReceiptImageRepository receiptImageRepository;
+    private final FileSystemService fileSystemService;
 
     @Inject
     public ProcessQueueService(final ProcessSettings settings,
                                final ProcessLogRepository processLogRepository,
-                               final ReceiptImageRepository receiptImageRepository) {
+                               final ReceiptImageRepository receiptImageRepository,
+                               final FileSystemService fileSystemService) {
         this.queue = new LinkedBlockingQueue<>();
         this.consumers = new ArrayList<>();
         this.settings = settings;
         this.processLogRepository = processLogRepository;
         this.receiptImageRepository = receiptImageRepository;
+        this.fileSystemService = fileSystemService;
     }
 
     @PostConstruct
@@ -60,8 +65,13 @@ public class ProcessQueueService {
     }
 
     private void startConsumer(final String server) {
-        final String serverUrl = "http://" + server + ":" + settings.getServerPort();
-        final RemoteOCRImageProcessor p = new RemoteOCRImageProcessor(server, serverUrl, processLogRepository, receiptImageRepository);
+        final String serviceUrl = "http://" + server + ":" + settings.getServerPort() + OcrServerApiUrls.URL_OCR_PROCESSOR;
+        final OcrService ocrService = new OcrService(serviceUrl);
+        final RemoteOCRImageProcessor p = new RemoteOCRImageProcessor(server,
+                                                                      ocrService,
+                                                                      fileSystemService,
+                                                                      processLogRepository,
+                                                                      receiptImageRepository);
         final ProcessQueueConsumer consumer = new ProcessQueueConsumer(queue, p);
         consumers.add(consumer);
         new Thread(consumer).start();
@@ -81,18 +91,12 @@ public class ProcessQueueService {
      *
      * @param image
      */
-    public void addImage(final ReceiptImage image) {
-        log.info("New image {} added to queue for file {}.", image.getId(), image.getFileName());
+    public void addImageFromUser(final String userId, final String imageId) {
         final ProcessItem item = new ProcessItem();
-        item.setImage(image);
+        item.setRequesterId(userId);
+        item.setImageId(imageId);
         item.setAddTime(new Date());
-        item.setUserId(image.getReceipt().getUser().getId());
-        item.setUsername(image.getReceipt().getUser().getUsername());
         queue.add(item);
-    }
-
-    public void addImage(final String imageId) {
-        addImage(receiptImageRepository.findOne(imageId));
     }
 
     /**

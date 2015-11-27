@@ -62,7 +62,7 @@ public class ImageQueueRestApiIT {
     public void addImage_ShouldAddProcessItemToQueue() {
         final String TEST_RECEIPT_ID = "user001rec001";
         final String TEST_IMAGE_ID = "user001rec001image001";
-        final ImageQueueRequest request = new ImageQueueRequest(TEST_IMAGE_ID, null);
+        final ImageQueueRequest request = new ImageQueueRequest(TEST_IMAGE_ID, "user001");
 
         given()
             .contentType(ContentType.JSON)

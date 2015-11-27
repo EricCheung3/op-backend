@@ -55,7 +55,6 @@ public class OcrServiceApiTest {
     public void process_ShouldReturnOcrResult() {
         final String TEST_FILENAME = "2015_09_09_12_00_01_001.jpg";
         final String TEST_USERID = "user001";
-        final String TEST_USERNAME = "john.doe@openprice.com";
         final byte[] content = "image".getBytes();
         // save test image file
         final Path imageFolder = fileSystemService.getReceiptImageSubFolder(TEST_USERID);
@@ -67,10 +66,7 @@ public class OcrServiceApiTest {
             throw new RuntimeException("System Error! Cannot save image.", ex);
         }
 
-        final ImageProcessRequest request = new ImageProcessRequest();
-        request.setUserId(TEST_USERID);
-        request.setUsername(TEST_USERNAME);
-        request.setFileName(TEST_FILENAME);
+        final ImageProcessRequest request = new ImageProcessRequest(TEST_USERID + fileSystemService.getPathSeparator() + TEST_FILENAME);
 
         given()
             .contentType(ContentType.JSON)

@@ -27,14 +27,13 @@ public class OcrProcessor {
     }
 
     public String processImage(final ImageProcessRequest request) {
-        log.info("Process image {} from user '{}'.", request.getFileName(), request.getUsername());
+        log.info("Process image {}.", request.getImageFilePath());
 
         // TODO return if it is still processing
 
         // change state to processing
 
-        final String imagePath = request.getUserId() + fileSystemService.getPathSeparator() + request.getFileName();
-        final Path imageFile = fileSystemService.getReceiptImageFolder().resolve(imagePath);
+        final Path imageFile = fileSystemService.getReceiptImageFolder().resolve(request.getImageFilePath());
 
         if (Files.notExists(imageFile)) {
             log.error("Cannot open image file {}, please check file system.", imageFile.toString());

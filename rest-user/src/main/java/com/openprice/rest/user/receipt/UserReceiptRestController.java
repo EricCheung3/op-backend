@@ -77,7 +77,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
     @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS)
     public HttpEntity<Void> createNewReceiptWithBase64String(@RequestBody final ImageDataForm imageDataForm) {
         final Receipt receipt = newReceiptWithBase64ImageData(imageDataForm.getBase64String());
-        internalService.addImageToProcessQueue(receipt.getImages().get(0).getId());
+        internalService.addImageToProcessQueue(receipt.getImages().get(0).getId(), receipt.getUser().getId());
 
         final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId())).toUri();
         return ResponseEntity.created(location).body(null);
@@ -92,7 +92,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
     public HttpEntity<Void> uploadNewReceipt(@RequestParam("file") final MultipartFile file) {
         if (!file.isEmpty()) {
             final Receipt receipt = newReceiptWithFile(file);
-            internalService.addImageToProcessQueue(receipt.getImages().get(0).getId());
+            internalService.addImageToProcessQueue(receipt.getImages().get(0).getId(), receipt.getUser().getId());
 
             final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId())).toUri();
             return ResponseEntity.created(location).body(null);

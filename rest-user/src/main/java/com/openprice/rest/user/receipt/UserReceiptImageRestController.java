@@ -101,7 +101,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
     public HttpEntity<Void> createReceiptImageWithBase64String(@PathVariable("receiptId") final String receiptId,
                                                                @RequestBody final ImageDataForm imageDataForm) {
         final ReceiptImage image = newReceiptImageWithBase64ImageData(receiptId, imageDataForm.getBase64String());
-        internalService.addImageToProcessQueue(image.getId());
+        internalService.addImageToProcessQueue(image.getId(), getCurrentAuthenticatedUser().getId());
 
         final URI location =
             linkTo(methodOn(UserReceiptImageRestController.class).getUserReceiptImageById(receiptId, image.getId())).toUri();
@@ -119,7 +119,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
             @RequestParam(value="file") final MultipartFile file) {
         if (!file.isEmpty()) {
             final ReceiptImage image = newReceiptImageWithFile(receiptId, file);
-            internalService.addImageToProcessQueue(image.getId());
+            internalService.addImageToProcessQueue(image.getId(), getCurrentAuthenticatedUser().getId());
 
             final URI location =
                 linkTo(methodOn(UserReceiptImageRestController.class).getUserReceiptImageById(receiptId, image.getId())).toUri();
@@ -170,9 +170,5 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
             throw new ResourceNotFoundException("No receipt image with the id: " + imageId); // we treat image not belong to receipt as 404
         }
         return image;
-    }
-
-    private void addImageToQueue(final ReceiptImage image) {
-
     }
 }

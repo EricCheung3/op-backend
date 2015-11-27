@@ -25,8 +25,12 @@ public class ProcessLog extends BaseEntity {
     private String imageId;
 
     @Getter @Setter
-    @Column(name="username", nullable = false)
-    private String username;
+    @Column(name="owner_name")
+    private String ownerName;
+
+    @Getter @Setter
+    @Column(name="requester_name")
+    private String requesterName;
 
     @Getter @Setter
     @Column(name="server_name", nullable = false)

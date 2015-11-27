@@ -20,10 +20,16 @@ import org.springframework.web.client.RestTemplate;
 import com.openprice.domain.receipt.ProcessLog;
 import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.ReceiptImage;
+import com.openprice.file.FileFolderSettings;
+import com.openprice.file.FileSystemService;
 import com.openprice.ocr.api.ImageProcessResult;
+import com.openprice.ocr.client.OcrService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RemoteOCRImageProcessorTest extends AbstractProcessorTest {
+
+    static final String TEST_SERVER_NAME = "test_ocr_server";
+    static final String TEST_URL = "http://test_server/processor";
 
     @Mock
     RestTemplate restTemplateMock;
@@ -32,23 +38,26 @@ public class RemoteOCRImageProcessorTest extends AbstractProcessorTest {
 
     @Before
     public void setup() throws Exception {
-        processorToTest = new RemoteOCRImageProcessor("test_ocr_server", "http://test",
-                processLogRepositoryMock, receiptImageRepositoryMock, restTemplateMock);
+        OcrService ocrService = new OcrService(restTemplateMock, TEST_URL);
+        processorToTest = new RemoteOCRImageProcessor(TEST_SERVER_NAME,
+                                                      ocrService,
+                                                      new FileSystemService(new FileFolderSettings()),
+                                                      processLogRepositoryMock,
+                                                      receiptImageRepositoryMock);
     }
 
     @Test
     public void processImage_ShouldSaveProcessLog_ReceiptImage_WithSuccessResult() {
         final ReceiptImage image = getTestReceiptImage();
         final ProcessItem item = new ProcessItem();
-        item.setImage(image);
-        item.setUserId(TEST_USERID);
-        item.setUsername(TEST_USERNAME);
+        item.setImageId(IMAGE_ID);
+        item.setRequesterId(TEST_USERID);
 
         final ImageProcessResult mockResult = new ImageProcessResult();
         mockResult.setSuccess(true);
         mockResult.setOcrResult(TEST_OCR_RESULT);
 
-        when(restTemplateMock.postForObject(eq("http://test/processor"),
+        when(restTemplateMock.postForObject(eq(TEST_URL),
                                            anyObject(),
                                            eq(ImageProcessResult.class))).thenReturn(mockResult);
         when(receiptImageRepositoryMock.findOne(eq(IMAGE_ID))).thenReturn(image);
@@ -60,9 +69,8 @@ public class RemoteOCRImageProcessorTest extends AbstractProcessorTest {
             verify(processLogRepositoryMock, times(1)).save(argument.capture());
             ProcessLog processLogRecord = argument.getValue();
             assertEquals(IMAGE_ID, processLogRecord.getImageId());
-            assertEquals(TEST_USERNAME, processLogRecord.getUsername());
             assertEquals(TEST_OCR_RESULT, processLogRecord.getOcrResult());
-            assertEquals("test_ocr_server", processLogRecord.getServerName());
+            assertEquals(TEST_SERVER_NAME, processLogRecord.getServerName());
             assertTrue(processLogRecord.getStartTime() > 0);
         }
 
@@ -80,15 +88,14 @@ public class RemoteOCRImageProcessorTest extends AbstractProcessorTest {
     public void processImage_ShouldSaveProcessLog_ReceiptImage_WithErrorResult() {
         final ReceiptImage image = getTestReceiptImage();
         final ProcessItem item = new ProcessItem();
-        item.setImage(image);
-        item.setUserId(TEST_USERID);
-        item.setUsername(TEST_USERNAME);
+        item.setImageId(IMAGE_ID);
+        item.setRequesterId(TEST_USERID);
 
         final ImageProcessResult mockResult = new ImageProcessResult();
         mockResult.setSuccess(false);
         mockResult.setErrorMessage(TEST_OCR_ERROR);
 
-        when(restTemplateMock.postForObject(eq("http://test/processor"),
+        when(restTemplateMock.postForObject(eq(TEST_URL),
                                            anyObject(),
                                            eq(ImageProcessResult.class))).thenReturn(mockResult);
         when(receiptImageRepositoryMock.findOne(eq(IMAGE_ID))).thenReturn(image);
@@ -100,8 +107,7 @@ public class RemoteOCRImageProcessorTest extends AbstractProcessorTest {
             verify(processLogRepositoryMock, times(1)).save(argument.capture());
             ProcessLog processLogRecord = argument.getValue();
             assertEquals(IMAGE_ID, processLogRecord.getImageId());
-            assertEquals(TEST_USERNAME, processLogRecord.getUsername());
-            assertEquals("test_ocr_server", processLogRecord.getServerName());
+            assertEquals(TEST_SERVER_NAME, processLogRecord.getServerName());
             assertEquals(TEST_OCR_ERROR, processLogRecord.getErrorMessage());
             assertTrue(processLogRecord.getStartTime() > 0);
         }

@@ -26,7 +26,7 @@ public class ImageQueueRestController {
     }
     @RequestMapping(method = RequestMethod.POST, value = InternalServiceApiUrls.URL_IMAGE_QUEUE)
     public HttpEntity<ImageQueueResult> addImageToQueue(@RequestBody final ImageQueueRequest request) {
-        queueService.addImage(request.getImageId());
+        queueService.addImageFromUser(request.getRequesterId(), request.getImageId()); // TODO separate user and admin account
 
         return ResponseEntity.ok(new ImageQueueResult(true, null));
     }

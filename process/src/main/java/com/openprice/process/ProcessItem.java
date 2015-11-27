@@ -2,23 +2,19 @@ package com.openprice.process;
 
 import java.util.Date;
 
-import com.openprice.domain.receipt.ReceiptImage;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import lombok.Getter;
-import lombok.Setter;
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProcessItem {
 
-    @Getter @Setter
-    private ReceiptImage image;
+    private String requesterId;
 
-    @Getter @Setter
-    private String userId;
+    private String imageId;
 
-    @Getter @Setter
-    private String username; // for end user, it is user's email
-
-    @Getter @Setter
     private Date addTime;
 
 }

@@ -48,23 +48,24 @@ public class StaticResultImageProcessor implements ImageProcessor {
 
     @Override
     public void processImage(final ProcessItem item) {
-        final ProcessLog processLog = new ProcessLog();
-        processLog.setImageId(item.getImage().getId());
-        processLog.setUsername(item.getUsername());
-        processLog.setServerName("static");
+        saveProcessResult(item);
+    }
 
+    @Transactional
+    private void saveProcessResult(final ProcessItem item) {
+        final ReceiptImage image = receiptImageRepository.findOne(item.getImageId());
+        final ProcessLog processLog = new ProcessLog();
+        processLog.setImageId(item.getImageId());
+        processLog.setServerName("static");
+        //processLog.setOwnerName(image.getId());// TODO fix it!!!
+        //processLog.setRequesterName(item.getRequesterId());
         processLog.setStartTime(System.currentTimeMillis());
         processLog.setOcrResult(staticResult);
         processLog.setOcrDuration(0l);
 
-        ReceiptImage image = receiptImageRepository.findOne(item.getImage().getId());
         image.setStatus(ProcessStatusType.SCANNED);
         image.setOcrResult(staticResult);
-        saveProcessResult(processLog, image);
-    }
 
-    @Transactional
-    private void saveProcessResult(final ProcessLog processLog, final ReceiptImage image) {
         processLogRepository.save(processLog);
         receiptImageRepository.save(image);
     }
