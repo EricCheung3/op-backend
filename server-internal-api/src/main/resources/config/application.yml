@@ -45,4 +45,4 @@ application:
     process:
         serverPrefix: openprice-server-ocr-
         numberOfServers: 1
-        serverPort: 8800
+        serverPort: 7901
