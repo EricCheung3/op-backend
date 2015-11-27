@@ -69,7 +69,7 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
                 .when()
                     .get(userReceiptDatatUrl(sessionFilter, "receipt002"))
                 ;
-        response.prettyPrint();
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)

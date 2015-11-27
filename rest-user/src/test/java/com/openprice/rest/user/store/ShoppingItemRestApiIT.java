@@ -28,7 +28,7 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
             .when()
                 .get(userShoppingItemsUrl(sessionFilter, "shoppingStore101"))
             ;
-        response.prettyPrint();
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)

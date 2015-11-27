@@ -69,7 +69,7 @@ public class AdminUserReceiptRestApiIT extends AbstractAdminRestApiIntegrationTe
             .when()
                 .get(userReceiptUrl(sessionFilter, TEST_USERID_JOHN_DOE, "receipt001"))
             ;
-        response.prettyPrint();
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)

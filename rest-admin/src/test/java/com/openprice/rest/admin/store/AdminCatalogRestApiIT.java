@@ -245,7 +245,7 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
             .when()
                 .get(catalogsUrl)
             ;
-        response.prettyPrint();
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)

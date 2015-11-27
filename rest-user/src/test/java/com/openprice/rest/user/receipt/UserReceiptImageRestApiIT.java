@@ -50,9 +50,7 @@ public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTes
             .when()
                 .get(userReceiptImagesUrl(sessionFilter, "receipt001"))
             ;
-
         //response.prettyPrint();
-
         response
         .then()
             .statusCode(HttpStatus.SC_OK)

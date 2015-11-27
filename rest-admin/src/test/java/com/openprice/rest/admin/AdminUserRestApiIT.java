@@ -114,9 +114,7 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
             .when()
                 .get(profileLink)
             ;
-
         //response.prettyPrint();
-
         response
         .then()
             .statusCode(HttpStatus.SC_OK)

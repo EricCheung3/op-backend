@@ -61,7 +61,6 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
                 .get(userReceiptsUrl(sessionFilter))
             ;
         //response.prettyPrint();
-
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
@@ -203,7 +202,6 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .contentType(ContentType.JSON)
             //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name()))
         ;
-
         //response.prettyPrint();
 
         // verify image in FileSystem
