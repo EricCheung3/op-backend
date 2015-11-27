@@ -22,6 +22,7 @@ import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptItemRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
+import com.openprice.internal.client.InternalService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.user.UserApiUrls;
@@ -46,8 +47,9 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
                                          final ReceiptRepository receiptRepository,
                                          final ReceiptItemRepository receiptItemRepository,
                                          final UserReceiptDataResourceAssembler receiptDataResourceAssembler,
-                                         final UserReceiptItemResourceAssembler receiptItemResourceAssembler) {
-        super(userAccountService, receiptService, receiptRepository);
+                                         final UserReceiptItemResourceAssembler receiptItemResourceAssembler,
+                                         final InternalService internalService) {
+        super(userAccountService, receiptService, receiptRepository, internalService);
         this.receiptItemRepository = receiptItemRepository;
         this.receiptDataResourceAssembler = receiptDataResourceAssembler;
         this.receiptItemResourceAssembler = receiptItemResourceAssembler;

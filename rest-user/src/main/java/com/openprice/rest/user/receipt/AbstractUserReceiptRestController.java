@@ -10,6 +10,7 @@ import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
+import com.openprice.internal.client.InternalService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.user.AbstractUserRestController;
 
@@ -20,13 +21,16 @@ public abstract class AbstractUserReceiptRestController extends AbstractUserRest
 
     protected final ReceiptService receiptService;
     protected final ReceiptRepository receiptRepository;
+    protected final InternalService internalService;
 
     public AbstractUserReceiptRestController(final UserAccountService userAccountService,
                                              final ReceiptService receiptService,
-                                             final ReceiptRepository receiptRepository) {
+                                             final ReceiptRepository receiptRepository,
+                                             final InternalService internalService) {
         super(userAccountService);
         this.receiptService = receiptService;
         this.receiptRepository = receiptRepository;
+        this.internalService = internalService;
     }
 
     protected Receipt getReceiptByIdAndCheckUser(final String receiptId)
@@ -72,6 +76,12 @@ public abstract class AbstractUserReceiptRestController extends AbstractUserRest
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         log.debug("User {} upload image file for receipt {}.", currentUser.getUsername(), receiptId);
         return receiptService.appendImageToReceipt(receipt, file);
+    }
+
+    protected void addReceiptImageToProcessQueue(final ReceiptImage image) {
+        final String userId = getCurrentAuthenticatedUser().getId();
+        internalService.addImageToProcessQueue(image.getId(), userId, userId);
+
     }
 
 }

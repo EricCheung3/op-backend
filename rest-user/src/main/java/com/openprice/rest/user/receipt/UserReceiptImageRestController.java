@@ -51,7 +51,6 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
 
     private final ReceiptImageRepository receiptImageRepository;
     private final UserReceiptImageResourceAssembler receiptImageResourceAssembler;
-    private final InternalService internalService;
 
     @Inject
     public UserReceiptImageRestController(final UserAccountService userAccountService,
@@ -60,10 +59,9 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
                                           final ReceiptImageRepository receiptImageRepository,
                                           final UserReceiptImageResourceAssembler receiptImageResourceAssembler,
                                           final InternalService internalService) {
-        super(userAccountService, receiptService, receiptRepository);
+        super(userAccountService, receiptService, receiptRepository, internalService);
         this.receiptImageRepository = receiptImageRepository;
         this.receiptImageResourceAssembler = receiptImageResourceAssembler;
-        this.internalService = internalService;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_IMAGES)
@@ -101,7 +99,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
     public HttpEntity<Void> createReceiptImageWithBase64String(@PathVariable("receiptId") final String receiptId,
                                                                @RequestBody final ImageDataForm imageDataForm) {
         final ReceiptImage image = newReceiptImageWithBase64ImageData(receiptId, imageDataForm.getBase64String());
-        internalService.addImageToProcessQueue(image.getId(), getCurrentAuthenticatedUser().getId());
+        addReceiptImageToProcessQueue(image);
 
         final URI location =
             linkTo(methodOn(UserReceiptImageRestController.class).getUserReceiptImageById(receiptId, image.getId())).toUri();
@@ -119,8 +117,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
             @RequestParam(value="file") final MultipartFile file) {
         if (!file.isEmpty()) {
             final ReceiptImage image = newReceiptImageWithFile(receiptId, file);
-            internalService.addImageToProcessQueue(image.getId(), getCurrentAuthenticatedUser().getId());
-
+            addReceiptImageToProcessQueue(image);
             final URI location =
                 linkTo(methodOn(UserReceiptImageRestController.class).getUserReceiptImageById(receiptId, image.getId())).toUri();
             return ResponseEntity.created(location).body(null);

@@ -11,9 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProcessItem {
 
-    private String requesterId;
-
     private String imageId;
+
+    private String ownerId;
+
+    private String requesterId;
 
     private Date addTime;
 

@@ -36,8 +36,8 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class UserReceiptRestController extends AbstractUserReceiptRestController {
+
     private final UserReceiptResourceAssembler receiptResourceAssembler;
-    private final InternalService internalService;
 
     @Inject
     public UserReceiptRestController(final UserAccountService userAccountService,
@@ -45,9 +45,8 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
                                      final ReceiptRepository receiptRepository,
                                      final UserReceiptResourceAssembler receiptResourceAssembler,
                                      final InternalService internalService) {
-        super(userAccountService, receiptService, receiptRepository);
+        super(userAccountService, receiptService, receiptRepository, internalService);
         this.receiptResourceAssembler = receiptResourceAssembler;
-        this.internalService = internalService;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS)
@@ -77,8 +76,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
     @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS)
     public HttpEntity<Void> createNewReceiptWithBase64String(@RequestBody final ImageDataForm imageDataForm) {
         final Receipt receipt = newReceiptWithBase64ImageData(imageDataForm.getBase64String());
-        internalService.addImageToProcessQueue(receipt.getImages().get(0).getId(), receipt.getUser().getId());
-
+        addReceiptImageToProcessQueue(receipt.getImages().get(0));
         final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId())).toUri();
         return ResponseEntity.created(location).body(null);
     }
@@ -92,8 +90,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
     public HttpEntity<Void> uploadNewReceipt(@RequestParam("file") final MultipartFile file) {
         if (!file.isEmpty()) {
             final Receipt receipt = newReceiptWithFile(file);
-            internalService.addImageToProcessQueue(receipt.getImages().get(0).getId(), receipt.getUser().getId());
-
+            addReceiptImageToProcessQueue(receipt.getImages().get(0));
             final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId())).toUri();
             return ResponseEntity.created(location).body(null);
         }

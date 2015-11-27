@@ -11,6 +11,8 @@ public class ImageQueueRequest {
 
     private String imageId;
 
+    private String ownerId;
+
     private String requesterId;
 
 }

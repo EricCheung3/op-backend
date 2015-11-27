@@ -91,9 +91,10 @@ public class ProcessQueueService {
      *
      * @param image
      */
-    public void addImageFromUser(final String userId, final String imageId) {
+    public void addImage(final String imageId, final String ownerId, final String requesterId) {
         final ProcessItem item = new ProcessItem();
-        item.setRequesterId(userId);
+        item.setOwnerId(ownerId);
+        item.setRequesterId(requesterId);
         item.setImageId(imageId);
         item.setAddTime(new Date());
         queue.add(item);

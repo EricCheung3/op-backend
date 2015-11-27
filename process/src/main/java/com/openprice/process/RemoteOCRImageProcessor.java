@@ -44,8 +44,7 @@ public class RemoteOCRImageProcessor implements ImageProcessor {
     public void processImage(final ProcessItem item) {
         final long start = System.currentTimeMillis();
         final ReceiptImage image = receiptImageRepository.findOne(item.getImageId());
-        final String ownerId = image.getReceipt().getUser().getId();
-        final String imageFilePath = ownerId + fileSystemService.getPathSeparator() + image.getFileName();
+        final String imageFilePath = item.getOwnerId() + fileSystemService.getPathSeparator() + image.getFileName();
         log.debug("Start process image {} by calling OCR API at '{}'", imageFilePath, ocrService.getUrl());
         final ImageProcessResult result = ocrService.processUserReceiptImage(imageFilePath);
         final long duration = System.currentTimeMillis() - start;

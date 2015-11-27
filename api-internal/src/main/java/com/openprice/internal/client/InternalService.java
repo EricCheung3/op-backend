@@ -20,12 +20,12 @@ public class InternalService {
         this.settings = settings;
     }
 
-    public ImageQueueResult addImageToProcessQueue(final String imageId, final String requesterId) {
+    public ImageQueueResult addImageToProcessQueue(final String imageId, final String ownerId, final String requesterId) {
         if (StringUtils.isEmpty(settings.getServerHost())) {
             log.warn("No Inernal Server configured!");
             return new ImageQueueResult(false, "No server configured.");
         }
-        return restTemplate.postForObject(getImageQueueServiceUrl(), new ImageQueueRequest(imageId, requesterId), ImageQueueResult.class);
+        return restTemplate.postForObject(getImageQueueServiceUrl(), new ImageQueueRequest(imageId, ownerId, requesterId), ImageQueueResult.class);
     }
 
     private String getImageQueueServiceUrl() {
