@@ -41,11 +41,11 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
             .body("page.totalPages", equalTo(1))
             .body("page.number", equalTo(0))
             .body("_embedded.catalogs[0].id", equalTo("chain001cat001"))
-            .body("_embedded.catalogs[0].code", equalTo("MILK-1234"))
+            .body("_embedded.catalogs[0].code", equalTo("MILK_1234"))
             .body("_embedded.catalogs[0].name", equalTo("MILK"))
             .body("_embedded.catalogs[0].number", equalTo("1234"))
             .body("_embedded.catalogs[1].id", equalTo("chain001cat002"))
-            .body("_embedded.catalogs[1].code", equalTo("EGG-1235"))
+            .body("_embedded.catalogs[1].code", equalTo("EGG_1235"))
             .body("_embedded.catalogs[1].name", equalTo("EGG"))
             .body("_embedded.catalogs[1].number", equalTo("1235"))
             .body("_embedded.catalogs[2].id", equalTo("chain001cat003"))
@@ -103,7 +103,7 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
 
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
-    public void createStoreBranch_ShouldCreateNewBranchForStore() throws Exception {
+    public void createCatalog_ShouldCreateNewCatalogForStore() throws Exception {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
         final AdminCatalogForm form =
             AdminCatalogForm.builder()
@@ -142,7 +142,7 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            .body("code", equalTo("APPLE-3333"))
+            .body("code", equalTo("APPLE_3333"))
             .body("name", equalTo("APPLE"))
             .body("number", equalTo("3333"))
             .body("price", equalTo("1.99"))
@@ -182,7 +182,7 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("id", equalTo("chain001cat001"))
-            .body("code", equalTo("APPLE-3333"))
+            .body("code", equalTo("APPLE_3333"))
             .body("name", equalTo("APPLE"))
             .body("number", equalTo("3333"))
             .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS+"/chain001/catalogs/chain001cat001"))
@@ -255,11 +255,11 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
             .body("page.totalPages", equalTo(1))
             .body("page.number", equalTo(0))
             .body("_embedded.catalogs[0].id", equalTo("chain001cat001"))
-            .body("_embedded.catalogs[0].code", equalTo("MILK-1234"))
+            .body("_embedded.catalogs[0].code", equalTo("MILK_1234"))
             .body("_embedded.catalogs[0].name", equalTo("MILK"))
             .body("_embedded.catalogs[0].number", equalTo("1234"))
             .body("_embedded.catalogs[1].id", equalTo("chain001cat002"))
-            .body("_embedded.catalogs[1].code", equalTo("EGG-1235"))
+            .body("_embedded.catalogs[1].code", equalTo("EGG_1235"))
             .body("_embedded.catalogs[1].name", equalTo("EGG"))
             .body("_embedded.catalogs[1].number", equalTo("1235"))
             .body("_embedded.catalogs[2].id", equalTo("chain001cat003"))
@@ -268,10 +268,10 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
             .body("_embedded.catalogs[3].id", equalTo("chain001cat004"))
             .body("_embedded.catalogs[3].code", equalTo("BREAD"))
             .body("_embedded.catalogs[3].name", equalTo("BREAD"))
-            .body("_embedded.catalogs[4].code", equalTo("beatrice 1% milk-06570010028"))
+            .body("_embedded.catalogs[4].code", equalTo("beatrice 1% milk_06570010028"))
             .body("_embedded.catalogs[4].name", equalTo("beatrice 1% milk"))
             .body("_embedded.catalogs[4].number", equalTo("06570010028"))
-            .body("_embedded.catalogs[5].code", equalTo("blueberries-06038309313"))
+            .body("_embedded.catalogs[5].code", equalTo("blueberries_06038309313"))
             .body("_embedded.catalogs[5].name", equalTo("blueberries"))
             .body("_embedded.catalogs[5].number", equalTo("06038309313"))
         ;
