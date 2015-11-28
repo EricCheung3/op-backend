@@ -3,7 +3,7 @@ oproot=~/groundtruth/dev
 cd $oproot/openprice-backend
 mvn clean install -Pdev
 
-docker run --name openprice-mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=openprice -e MYSQL_USER=openprice -e MYSQL_PASSWORD=openprice -p 3307:3306 -d mysql:5.6
+docker run --name openprice-mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=openprice -e MYSQL_USER=openprice -e MYSQL_PASSWORD=openprice -p 3306:3306 -d mysql:5.6
 
 cd $oproot/openprice-backend/server-ocr
 mvn docker:build
