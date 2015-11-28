@@ -12,6 +12,9 @@ public class ShoppingItemResource extends Resource<ShoppingItem> {
     @Getter @Setter
     private String labelCodes; // labelCodes from catalog
 
+    @Getter @Setter
+    private String price; // price from catalog
+
     public ShoppingItemResource(final ShoppingItem shoppingItem) {
         super(shoppingItem);
     }

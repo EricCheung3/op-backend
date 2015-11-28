@@ -37,10 +37,10 @@
     <store_chain id="store002" version="1" code="safeway" name="Safeway" created_time="2009-01-01 10:00:01.0000"/>
     <store_chain id="store003" version="1" code="americaneagle" name="American Eagle" created_time="2009-01-01 10:00:01.0000"/>
 
-    <catalog id="store001cat001" version="1" chain_id="store001" code="MILK_1234" name="MILK" number="1234" natural_name="2% milk" label_codes="food,milk" created_time="2009-01-01 10:00:01.0000" />
-    <catalog id="store001cat002" version="1" chain_id="store001" code="EGG_1235" name="EGG" number="1235" natural_name="Large Egg" label_codes="food,egg" created_time="2009-01-01 10:00:01.0000" />
-    <catalog id="store001cat003" version="1" chain_id="store001" code="PORK" name="PORK" natural_name="Pork Meat" label_codes="food,meat,pork" created_time="2009-01-01 10:00:01.0000" />
-    <catalog id="store001cat004" version="1" chain_id="store001" code="BREAD" name="Bread" natural_name="Breakfast bread" label_codes="food,bread" created_time="2009-01-01 10:00:01.0000" />
+    <catalog id="store001cat001" version="1" chain_id="store001" code="MILK_1234" name="MILK" number="1234" price="4.99" natural_name="2% milk" label_codes="food,milk" created_time="2009-01-01 10:00:01.0000" />
+    <catalog id="store001cat002" version="1" chain_id="store001" code="EGG_1235" name="EGG" number="1235" price="1.99" natural_name="Large Egg" label_codes="food,egg" created_time="2009-01-01 10:00:01.0000" />
+    <catalog id="store001cat003" version="1" chain_id="store001" code="PORK" name="PORK" price="10.99" natural_name="Pork Meat" label_codes="food,meat,pork" created_time="2009-01-01 10:00:01.0000" />
+    <catalog id="store001cat004" version="1" chain_id="store001" code="BREAD" name="Bread" price="2.99" natural_name="Breakfast bread" label_codes="food,bread" created_time="2009-01-01 10:00:01.0000" />
     
     <receipt_data id="recData001" version="1" receipt_id="receipt001" chain_code="rcss" branch_name="Calgary Trail" parsed_total="10.45" parsed_date="2015/11/11" created_time="2009-01-01 10:00:01.0000" />
     <receipt_item id="recItem001" version="1" receipt_data_id="recData001" catalog_code="EGG_1235" parsed_name="eggs" display_name="eggs" parsed_price="1.99" display_price="1.99" user_ignored="0" created_time="2009-01-01 10:00:01.0000" />

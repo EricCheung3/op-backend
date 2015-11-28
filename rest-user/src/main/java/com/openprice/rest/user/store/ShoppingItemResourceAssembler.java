@@ -40,6 +40,7 @@ public class ShoppingItemResourceAssembler implements ResourceAssembler<Shopping
                 final Catalog catalog = catalogRepository.findByChainAndCode(chain, shoppingItem.getCatalogCode());
                 if (catalog != null) {
                     resource.setLabelCodes(catalog.getLabelCodes());
+                    resource.setPrice(catalog.getPrice());
                 }
             }
         }
