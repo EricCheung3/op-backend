@@ -13,10 +13,10 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.openprice.common.client.ServiceSettings;
 import com.openprice.domain.receipt.ProcessLogRepository;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.file.FileSystemService;
-import com.openprice.ocr.api.OcrServerApiUrls;
 import com.openprice.ocr.client.OcrService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,19 +26,19 @@ import lombok.extern.slf4j.Slf4j;
 public class ProcessQueueService {
     private final BlockingQueue<ProcessItem> queue;
     private final List<ProcessQueueConsumer> consumers;
-    private final ProcessSettings settings;
+    private final ProcessSettings processSettings;
     private final ProcessLogRepository processLogRepository;
     private final ReceiptImageRepository receiptImageRepository;
     private final FileSystemService fileSystemService;
 
     @Inject
-    public ProcessQueueService(final ProcessSettings settings,
+    public ProcessQueueService(final ProcessSettings processSettings,
                                final ProcessLogRepository processLogRepository,
                                final ReceiptImageRepository receiptImageRepository,
                                final FileSystemService fileSystemService) {
         this.queue = new LinkedBlockingQueue<>();
         this.consumers = new ArrayList<>();
-        this.settings = settings;
+        this.processSettings = processSettings;
         this.processLogRepository = processLogRepository;
         this.receiptImageRepository = receiptImageRepository;
         this.fileSystemService = fileSystemService;
@@ -48,13 +48,13 @@ public class ProcessQueueService {
     public void init() {
         log.info("init ProcessQueueService...");
 
-        if ( StringUtils.hasText(settings.getServerPrefix()) && settings.getNumberOfServers() > 0) {
-            for (int i=1; i<=settings.getNumberOfServers(); i++) {
-                startConsumer(settings.getServerPrefix() + i);
+        if ( StringUtils.hasText(processSettings.getServerPrefix()) && processSettings.getNumberOfServers() > 0) {
+            for (int i=1; i<=processSettings.getNumberOfServers(); i++) {
+                startConsumer(new ServiceSettings(processSettings.getServerPrefix() + i, processSettings.getServerPort()));
             }
-        } else if (!settings.getServers().isEmpty()) {
-            for (final String server : settings.getServers()) {
-                startConsumer(server);
+        } else if (!processSettings.getOcrServers().isEmpty()) {
+            for (final ServiceSettings settings : processSettings.getOcrServers()) {
+                startConsumer(settings);
             }
         } else {
             final ImageProcessor p = new StaticResultImageProcessor(processLogRepository, receiptImageRepository);
@@ -64,10 +64,9 @@ public class ProcessQueueService {
         }
     }
 
-    private void startConsumer(final String server) {
-        final String serviceUrl = "http://" + server + ":" + settings.getServerPort() + OcrServerApiUrls.URL_OCR_PROCESSOR;
-        final OcrService ocrService = new OcrService(serviceUrl);
-        final RemoteOCRImageProcessor p = new RemoteOCRImageProcessor(server,
+    private void startConsumer(final ServiceSettings settings) {
+        final OcrService ocrService = new OcrService(settings);
+        final RemoteOCRImageProcessor p = new RemoteOCRImageProcessor(settings.getServerHost(),
                                                                       ocrService,
                                                                       fileSystemService,
                                                                       processLogRepository,
@@ -82,7 +81,7 @@ public class ProcessQueueService {
         log.info("stop ProcessQueueService...");
         int count = consumers.size();
         while (count-- > 0) {
-            queue.add(new ProcessItem());
+            queue.add(new ProcessItem(null, null, null, null));
         }
     }
 
@@ -92,12 +91,7 @@ public class ProcessQueueService {
      * @param image
      */
     public void addImage(final String imageId, final String ownerId, final String requesterId) {
-        final ProcessItem item = new ProcessItem();
-        item.setOwnerId(ownerId);
-        item.setRequesterId(requesterId);
-        item.setImageId(imageId);
-        item.setAddTime(new Date());
-        queue.add(item);
+        queue.add(new ProcessItem(imageId, ownerId, requesterId, new Date()));
     }
 
     /**

@@ -1,0 +1,11 @@
+oproot=~/groundtruth/dev
+
+cd $oproot/openprice-backend
+mvn clean install -Pdev
+cd $oproot/openprice-backend/server-docs
+mvn docker:build
+
+docker stop openprice-server-docs
+docker rm openprice-server-docs
+
+docker run --name openprice-server-docs -p 8880:8080 -d openprice/openprice-server-docs

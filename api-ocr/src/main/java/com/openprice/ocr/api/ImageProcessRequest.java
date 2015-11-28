@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * Request parameters for receipt image processing.
- * TODO: handle admin uploaded receipt images - system owned receipt images are stored in different folder
  */
 @Data
 @AllArgsConstructor

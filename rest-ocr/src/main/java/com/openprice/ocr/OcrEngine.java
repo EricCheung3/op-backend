@@ -1,6 +1,6 @@
 package com.openprice.ocr;
 
-public interface Tesseract {
+public interface OcrEngine {
 
     /**
      * Scan the image file and return OCR result.

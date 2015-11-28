@@ -9,14 +9,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 
+import com.openprice.common.client.ServiceSettings;
 import com.openprice.domain.account.user.UserAccountService;
-import com.openprice.file.FileFolderSettings;
 import com.openprice.internal.client.InternalService;
-import com.openprice.internal.client.InternalServiceSettings;
 import com.openprice.mail.EmailProperties;
 import com.openprice.rest.AbstractRestApiTestApplication;
 
-@EnableConfigurationProperties( {FileFolderSettings.class, EmailProperties.class, InternalServiceSettings.class} )
+@EnableConfigurationProperties( {EmailProperties.class} )
 public class SiteApiTestApplication extends AbstractRestApiTestApplication {
 
     public static void main(String[] args) throws Exception {
@@ -43,8 +42,10 @@ public class SiteApiTestApplication extends AbstractRestApiTestApplication {
         return userAccountService;
     }
 
+
     @Bean
-    InternalService internalService(final InternalServiceSettings settings) {
-        return new InternalService(settings);
+    InternalService internalService() {
+        return new InternalService(new ServiceSettings());
     }
+
 }

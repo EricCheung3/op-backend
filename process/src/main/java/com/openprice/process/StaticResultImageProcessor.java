@@ -18,8 +18,13 @@ import com.openprice.domain.receipt.ReceiptImageRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * This ImageProcessor will only return static OCR result for test purpose. The result is loaded from file
+ * ocrResult.txt in classpath.
+ */
 @Slf4j
 public class StaticResultImageProcessor implements ImageProcessor {
+
     static final String OCR_RESULT_FILE_PATH = "ocrResult.txt";
 
     private final ProcessLogRepository processLogRepository;

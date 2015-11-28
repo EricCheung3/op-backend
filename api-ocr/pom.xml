@@ -16,8 +16,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-api-common</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

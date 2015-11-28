@@ -3,12 +3,10 @@ package com.openprice.process;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Value;
 
-@Data
+@Value
 @AllArgsConstructor
-@NoArgsConstructor
 public class ProcessItem {
 
     private String imageId;

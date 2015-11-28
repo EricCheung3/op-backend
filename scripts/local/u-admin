@@ -1,0 +1,12 @@
+oproot=~/groundtruth/dev
+
+cd $oproot/openprice-admin-ui
+gulp build
+
+cd $oproot/openprice-admin-ui/docker
+docker build -t openprice/openprice-server-admin-ui .
+
+docker stop openprice-server-admin-ui
+docker rm openprice-server-admin-ui
+
+docker run --name openprice-server-admin-ui -p 8081:80 -d openprice/openprice-server-admin-ui

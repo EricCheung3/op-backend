@@ -22,10 +22,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.openprice.common.client.ServiceSettings;
 import com.openprice.file.FileFolderSettings;
 import com.openprice.file.FileSystemService;
 import com.openprice.internal.client.InternalService;
-import com.openprice.internal.client.InternalServiceSettings;
 import com.openprice.mail.EmailProperties;
 import com.openprice.mail.EmailService;
 import com.openprice.mail.stub.DummyEmailService;
@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @EnableAspectJAutoProxy
-@EnableConfigurationProperties({EmailProperties.class, FileFolderSettings.class, InternalServiceSettings.class})
+@EnableConfigurationProperties({EmailProperties.class})
 @Slf4j
 public class OpenPriceAPIDocsApplication {
 
@@ -92,8 +92,8 @@ public class OpenPriceAPIDocsApplication {
     }
 
     @Bean
-    InternalService internalService(final InternalServiceSettings settings) {
-        return new InternalService(settings);
+    InternalService internalService() {
+        return new InternalService(new ServiceSettings());
     }
 
     @EnableWebSecurity

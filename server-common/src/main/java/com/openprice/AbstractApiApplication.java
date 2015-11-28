@@ -68,7 +68,7 @@ public abstract class AbstractApiApplication {
                                     environment.getProperty("sendgrid.password"));
     }
 
-    @Bean @Profile("noemail")
+    @Bean @Profile("no_email")
     public EmailService dummyEmailService() {
         return new DummyEmailService();
     }
@@ -77,8 +77,7 @@ public abstract class AbstractApiApplication {
      * Trace REST API calls for development.
      * @return
      */
-    @Bean
-    @Profile("dev")
+    @Bean @Profile("dev")
     public RestApiLoggingAspect loggingAspect() {
         return new RestApiLoggingAspect();
     }

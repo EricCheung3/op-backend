@@ -1,17 +1,12 @@
 server:
     port: 7801
 
-application:
-    token:
-        secret: skdjvjvndjwkenfnhvjksknsjndjsdnf
-    email:
-        systemName: GroundTruth Inc.
-        systemEmail: no-reply@openprice.com
-        adminName: Open Price
-        adminEmail: admin@openprice.com
-
 spring:
     datasource:
+        url: jdbc:mysql://mysql:3306/openprice
+        username: openprice
+        password: openprice
+        driver-class-name: com.mysql.jdbc.Driver
         test-on-borrow: true
         validation-query: SELECT 1
     jpa:
@@ -20,18 +15,16 @@ spring:
         hibernate:
             ddl-auto: validate
 
----
-
-spring:
-    profiles: docker
-
-    datasource:
-        url: jdbc:mysql://mysql:3306/openprice
-        username: openprice
-        password: openprice
-        driver-class-name: com.mysql.jdbc.Driver
-
 application:
-    file:
-        virtual: false
-        imageRootFolder: /groundtruth/images
+    email:
+        systemName: GroundTruth Inc.
+        systemEmail: no-reply@openprice.com
+        adminName: Open Price
+        adminEmail: admin@openprice.com
+    settings:
+        internal:
+            serverHost: openprice-server-internal-api
+            serverPort: 7900
+        file:
+            virtual: false
+            imageRootFolder: /groundtruth/images

@@ -2,7 +2,6 @@ package com.openprice.rest.internal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,7 +20,6 @@ import com.openprice.process.ProcessSettings;
 @EntityScan("com.openprice.domain")
 @EnableJpaRepositories("com.openprice.domain")
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
-@EnableConfigurationProperties({ProcessSettings.class})
 public class InternalApiTestApplication extends WebSecurityConfigurerAdapter {
 
     public static void main(String[] args) throws Exception {
@@ -38,11 +36,6 @@ public class InternalApiTestApplication extends WebSecurityConfigurerAdapter {
         };
     }
 
-    @Bean
-    public FileSystemService fileSystemService() {
-        return new FileSystemService(new FileFolderSettings());
-    }
-
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
@@ -52,4 +45,13 @@ public class InternalApiTestApplication extends WebSecurityConfigurerAdapter {
             ;
     }
 
+    @Bean
+    public FileSystemService fileSystemService() {
+        return new FileSystemService(new FileFolderSettings());
+    }
+
+    @Bean
+    public ProcessSettings processSettings() {
+        return new ProcessSettings(); // it will trigger StaticResultImageProcessor
+    }
 }

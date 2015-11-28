@@ -10,6 +10,7 @@ import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
+import com.openprice.internal.api.ImageQueueRequest;
 import com.openprice.internal.client.InternalService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.user.AbstractUserRestController;
@@ -80,8 +81,7 @@ public abstract class AbstractUserReceiptRestController extends AbstractUserRest
 
     protected void addReceiptImageToProcessQueue(final ReceiptImage image) {
         final String userId = getCurrentAuthenticatedUser().getId();
-        internalService.addImageToProcessQueue(image.getId(), userId, userId);
-
+        internalService.addImageToProcessQueue(new ImageQueueRequest(image.getId(), userId, userId));
     }
 
 }

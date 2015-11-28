@@ -77,6 +77,6 @@ public class Catalog extends BaseAuditableEntity {
     }
 
     public static String generateCatalogCode(final String name, final String number) {
-        return name + "-" + (StringUtils.isEmpty(number)? "" : number);
+        return name + (StringUtils.isEmpty(number)? "" : "_" + number);
     }
 }

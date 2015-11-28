@@ -7,24 +7,19 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 
-import javax.inject.Inject;
-
-import org.springframework.stereotype.Service;
-
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Service
 @Slf4j
 public class FileSystemService {
+
     public static final String RECEIPTS_FOLDER_NAME = "receipts";
 
     private final FileSystem fileSystem;
     private final FileFolderSettings fileFolderSettings;
 
-    @Inject
     public FileSystemService(final FileFolderSettings fileFolderSettings) {
         this.fileFolderSettings = fileFolderSettings;
 

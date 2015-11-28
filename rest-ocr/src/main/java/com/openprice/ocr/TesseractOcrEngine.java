@@ -7,14 +7,12 @@ import java.nio.charset.StandardCharsets;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class TesseractCommandImpl implements Tesseract {
+public class TesseractOcrEngine implements OcrEngine {
 
     @Override
     public String scan(final String filePath) {
-//        final String command = "./OP_OCR -g sup -i " + filePath;
-//        log.info("call tesseract: '{}'.", command);
-        final String command = "./aby.sh slow " + filePath;
-        log.info("call ABBYY: '{}'.", command);
+        final String command = "./OP_OCR -g sup -i " + filePath;
+        log.info("call Tesseract: '{}'.", command);
         final long start = System.currentTimeMillis();
 
         final StringBuilder output = new StringBuilder();
@@ -34,12 +32,12 @@ public class TesseractCommandImpl implements Tesseract {
                 errorMessage.append(line + "\n");
             }
             if (errorMessage.length() > 0) {
-                log.warn("Got error message from OCR program: " + errorMessage);
+                log.warn("Got error message from Tesseract OCR program: " + errorMessage);
             }
             log.info("took {} milli-seconds to ocr image.", (System.currentTimeMillis() - start));
         } catch (Exception ex) {
-            log.error("Got error while calling tesseract!", ex);
-            throw new RuntimeException("Got exception from tesseract: " + ex.getMessage(), ex);
+            log.error("Got error while calling Tesseract!", ex);
+            throw new RuntimeException("Got exception from Tesseract: " + ex.getMessage(), ex);
         }
 
         return output.toString();

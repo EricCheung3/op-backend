@@ -2,12 +2,13 @@ package com.openprice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
-import com.openprice.file.FileFolderSettings;
+import com.openprice.file.FileSystemService;
 import com.openprice.mail.EmailProperties;
 import com.openprice.process.ProcessSettings;
 
-@EnableConfigurationProperties({EmailProperties.class, FileFolderSettings.class, ProcessSettings.class})
+@EnableConfigurationProperties({EmailProperties.class, InternalApiApplicationSettings.class})
 public class OpenPriceInternalApiApplication extends AbstractApiApplication {
 
     /**
@@ -16,6 +17,16 @@ public class OpenPriceInternalApiApplication extends AbstractApiApplication {
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(OpenPriceInternalApiApplication.class);
         app.run(args);
+    }
+
+    @Bean
+    public FileSystemService fileSystemService(InternalApiApplicationSettings settings) {
+        return new FileSystemService(settings.getFile());
+    }
+
+    @Bean
+    public ProcessSettings processSettings(InternalApiApplicationSettings settings) {
+        return settings.getProcess();
     }
 
 }

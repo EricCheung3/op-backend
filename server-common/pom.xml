@@ -40,7 +40,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+        
         <!-- recommended by Spring Social to use it as HTTP client ?? TODO: do we need it??-->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>

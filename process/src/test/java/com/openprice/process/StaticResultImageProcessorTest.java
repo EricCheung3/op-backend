@@ -6,6 +6,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,8 +31,7 @@ public class StaticResultImageProcessorTest extends AbstractProcessorTest {
     @Test
     public void processImage_ShouldSaveProcessLog_ReceiptImage_WithStaticResult() {
         final ReceiptImage image = getTestReceiptImage();
-        final ProcessItem item = new ProcessItem();
-        item.setImageId(IMAGE_ID);
+        final ProcessItem item = new ProcessItem(IMAGE_ID, TEST_USERID, TEST_USERID, new Date());
 
         when(receiptImageRepositoryMock.findOne(eq(IMAGE_ID))).thenReturn(image);
 

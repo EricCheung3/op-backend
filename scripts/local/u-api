@@ -1,0 +1,36 @@
+oproot=~/groundtruth/dev
+
+cd $oproot/openprice-backend
+mvn clean install -Pdev
+
+docker stop openprice-server-admin-api
+docker rm openprice-server-admin-api
+
+docker stop openprice-server-web-api
+docker rm openprice-server-web-api
+
+docker stop openprice-server-internal-api
+docker rm openprice-server-internal-api
+
+docker stop openprice-server-ocr-1
+docker rm openprice-server-ocr-1
+
+docker stop openprice-server-ocr-2
+docker rm openprice-server-ocr-2
+
+cd $oproot/openprice-backend/server-ocr
+mvn docker:build
+docker run --name openprice-server-ocr-1 -d -e SPRING_PROFILES_ACTIVE=dev,fake_ocr -e LOGGING_FILE_FOLDER=/groundtruth/logs -e OCR_SERVER_NAME=OCR_1 -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link openprice-mysql:mysql openprice/openprice-server-ocr
+docker run --name openprice-server-ocr-2 -d -e SPRING_PROFILES_ACTIVE=dev,fake_ocr -e LOGGING_FILE_FOLDER=/groundtruth/logs -e OCR_SERVER_NAME=OCR_2 -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link openprice-mysql:mysql openprice/openprice-server-ocr
+
+cd $oproot/openprice-backend/server-internal-api
+mvn docker:build
+docker run --name openprice-server-internal-api -e SPRING_PROFILES_ACTIVE=dev,sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link openprice-mysql:mysql --link openprice-server-ocr-1:openprice-server-ocr-1 --link openprice-server-ocr-2:openprice-server-ocr-2 -d openprice/openprice-server-internal-api
+
+cd $oproot/openprice-backend/server-web-api
+mvn docker:build
+docker run --name openprice-server-web-api -p 7800:7800 -e SPRING_PROFILES_ACTIVE=dev,docker,sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link openprice-mysql:mysql --link openprice-server-internal-api:openprice-server-internal-api -d openprice/openprice-server-web-api
+
+cd $oproot/openprice-backend/server-admin-api
+mvn docker:build
+docker run --name openprice-server-admin-api -p 7801:7801 -e SPRING_PROFILES_ACTIVE=dev,docker,sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link openprice-mysql:mysql --link openprice-server-internal-api:openprice-server-internal-api -d openprice/openprice-server-admin-api

@@ -1,12 +1,12 @@
 package com.openprice.mail.sendgrid;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.scheduling.annotation.Async;
 
 import com.openprice.mail.EmailMessage;
 import com.openprice.mail.EmailService;
 import com.sendgrid.SendGrid;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Email Service implementation using Sendgrid.
@@ -14,6 +14,7 @@ import com.sendgrid.SendGrid;
  */
 @Slf4j
 public class EmailServiceImpl implements EmailService {
+
     private final String username;
     private final String password;
 

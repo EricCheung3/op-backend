@@ -29,7 +29,7 @@ import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
 import com.openprice.file.FileSystemService;
 import com.openprice.ocr.api.ImageProcessRequest;
-import com.openprice.ocr.api.OcrServerApiUrls;
+import com.openprice.ocr.api.OcrServiceApiUrls;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebIntegrationTest(randomPort = true)
@@ -72,7 +72,7 @@ public class OcrServiceApiTest {
             .contentType(ContentType.JSON)
             .body(request)
         .when()
-            .post(OcrServerApiUrls.URL_OCR_PROCESSOR)
+            .post(OcrServiceApiUrls.URL_OCR_PROCESSOR)
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)

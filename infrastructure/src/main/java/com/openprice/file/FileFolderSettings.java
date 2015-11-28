@@ -1,16 +1,16 @@
 package com.openprice.file;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@ConfigurationProperties("application.file")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class FileFolderSettings {
-    @Getter @Setter
+
     private String imageRootFolder = "/images_test";
 
-    @Getter @Setter
     private boolean virtual = true;
 
 }

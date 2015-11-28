@@ -17,11 +17,11 @@ import lombok.extern.slf4j.Slf4j;
 public class OcrProcessor {
 
     private final FileSystemService fileSystemService;
-    private final Tesseract tesseract;
+    private final OcrEngine tesseract;
 
     @Inject
     public OcrProcessor(final FileSystemService fileSystemService,
-                        final Tesseract tesseract) {
+                        final OcrEngine tesseract) {
         this.fileSystemService = fileSystemService;
         this.tesseract = tesseract;
     }

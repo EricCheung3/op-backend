@@ -15,7 +15,7 @@
     <description>OpenPrice REST API server code.</description>
 
     <properties>
-        <start-class>com.openprice.OpenPriceApiApplication</start-class>
+        <start-class>com.openprice.OpenPriceWebApiApplication</start-class>
     </properties>
 
     <dependencies>
