@@ -103,7 +103,7 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
 
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
-    public void createStoreBranch_ShouldCreateNewBranchForStore() throws Exception {
+    public void createCatalog_ShouldCreateNewCatalogForStore() throws Exception {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
         final AdminCatalogForm form =
             AdminCatalogForm.builder()
