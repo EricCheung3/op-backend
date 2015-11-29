@@ -43,6 +43,7 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
                 .body("profile.id", equalTo("profile001"))
                 .body("profile.firstName", equalTo("John"))
                 .body("profile.lastName", equalTo("Doe"))
+                .body("uploadUrl", endsWith(UserApiUrls.URL_USER_RECEIPTS_UPLOAD))
                 .body("_links.self.href", endsWith(UserApiUrls.URL_USER))
                 .body("_links.profile.href", endsWith(UserApiUrls.URL_USER_PROFILE))
                 .body("_links.receipts.href", endsWith(UserApiUrls.URL_USER_RECEIPTS + UtilConstants.PAGINATION_TEMPLATES))

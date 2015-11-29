@@ -13,6 +13,7 @@ public class UserAccountResourceAssembler implements ResourceAssembler<UserAccou
     @Override
     public UserAccountResource toResource(final UserAccount userAccount) {
         final UserAccountResource resource = new UserAccountResource(userAccount);
+
         final LinkBuilder linkBuilder = new LinkBuilder(resource);
         linkBuilder.addLink(Link.REL_SELF, URL_USER, false, null)
                    .addLink("profile", URL_USER_PROFILE, false, null)
@@ -22,6 +23,8 @@ public class UserAccountResourceAssembler implements ResourceAssembler<UserAccou
                    .addLink("receipt", URL_USER_RECEIPTS_RECEIPT, false, null)
                    .addLink("stores", URL_USER_SHOPPING_STORES, true, null)
                    .addLink("store", URL_USER_SHOPPING_STORES_STORE, false, null);
+
+        resource.setUploadUrl(resource.getLink("upload").getHref());
         return resource;
     }
 

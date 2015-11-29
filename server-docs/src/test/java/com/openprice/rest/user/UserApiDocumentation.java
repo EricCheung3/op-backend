@@ -48,6 +48,7 @@ public class UserApiDocumentation extends UserApiDocumentationBase {
                 fieldWithPath("trustedAccount").description("Whether this user account is trusted"),
                 fieldWithPath("activated").description("Whether this user account is activated"),
                 fieldWithPath("profile").description("User profile data"),
+                fieldWithPath("uploadUrl").description("URL to upload receipt image for the user"),
                 fieldWithPath("_links").description("<<resources-user-links,Links>> to other resources")
             )
         ));
