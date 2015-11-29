@@ -47,7 +47,18 @@ public class FakeOcrEngine extends AbstractOcrEngine {
         if (!imageFile.exists()) {
             throw new RuntimeException("No file at "+filePath);
         }
-        log.info("Fake OCR Engine {} return static ocr result.", getName());
+        log.info("Fake OCR Engine {} return static ocr result.", getServerName());
         return staticResult;
     }
+
+    @Override
+    protected String getCommand(String filePath) {
+        return null;
+    }
+
+    @Override
+    protected String getEngineName() {
+        return "Fake";
+    }
+
 }

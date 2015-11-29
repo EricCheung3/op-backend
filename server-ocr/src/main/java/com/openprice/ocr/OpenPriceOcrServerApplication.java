@@ -42,7 +42,7 @@ public class OpenPriceOcrServerApplication {
 
     @Bean @Profile("abbyy")
     public OcrEngine abbyy() {
-        return new AbbyyOcrEngine();
+        return new AbbyyOcrEngine(environment);
     }
 
     @Bean @Profile("fake_ocr")
