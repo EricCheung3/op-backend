@@ -37,7 +37,7 @@ public class UserReceiptItemResourceAssembler implements ResourceAssembler<Recei
             if (chain != null) {
                 final Catalog catalog = catalogRepository.findByChainAndCode(chain, receiptItem.getCatalogCode());
                 if (catalog != null) {
-                    resource.setLabelCodes(catalog.getLabelCodes());
+                    resource.setCatalog(catalog);
                 }
             }
         }

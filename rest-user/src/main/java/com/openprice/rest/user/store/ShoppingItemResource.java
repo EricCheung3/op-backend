@@ -3,6 +3,7 @@ package com.openprice.rest.user.store;
 import org.springframework.hateoas.Resource;
 
 import com.openprice.domain.shopping.ShoppingItem;
+import com.openprice.domain.store.Catalog;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,10 +11,7 @@ import lombok.Setter;
 public class ShoppingItemResource extends Resource<ShoppingItem> {
 
     @Getter @Setter
-    private String labelCodes; // labelCodes from catalog
-
-    @Getter @Setter
-    private String price; // price from catalog
+    private Catalog catalog;
 
     public ShoppingItemResource(final ShoppingItem shoppingItem) {
         super(shoppingItem);

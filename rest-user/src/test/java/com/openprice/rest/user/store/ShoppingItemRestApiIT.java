@@ -3,6 +3,7 @@ package com.openprice.rest.user.store;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.nullValue;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
@@ -40,18 +41,18 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("_embedded.shoppingItems[0].id", equalTo("item103"))
             .body("_embedded.shoppingItems[0].name", equalTo("bread"))
             .body("_embedded.shoppingItems[0].catalogCode", equalTo("BREAD"))
-            .body("_embedded.shoppingItems[0].labelCodes", equalTo("food,bread"))
-            .body("_embedded.shoppingItems[0].price", equalTo("2.99"))
+            .body("_embedded.shoppingItems[0].catalog.code", equalTo("BREAD"))
+            .body("_embedded.shoppingItems[0].catalog.price", equalTo("2.99"))
             .body("_embedded.shoppingItems[1].id", equalTo("item102"))
             .body("_embedded.shoppingItems[1].name", equalTo("eggs"))
             .body("_embedded.shoppingItems[1].catalogCode", equalTo("EGG_1235"))
-            .body("_embedded.shoppingItems[1].labelCodes", equalTo("food,egg"))
-            .body("_embedded.shoppingItems[1].price", equalTo("1.99"))
+            .body("_embedded.shoppingItems[1].catalog.code", equalTo("EGG_1235"))
+            .body("_embedded.shoppingItems[1].catalog.price", equalTo("1.99"))
             .body("_embedded.shoppingItems[2].id", equalTo("item101"))
             .body("_embedded.shoppingItems[2].name", equalTo("milk"))
             .body("_embedded.shoppingItems[2].catalogCode", equalTo("MILK_1234"))
-            .body("_embedded.shoppingItems[2].labelCodes", equalTo("food,milk"))
-            .body("_embedded.shoppingItems[2].price", equalTo("4.99"))
+            .body("_embedded.shoppingItems[2].catalog.code", equalTo("MILK_1234"))
+            .body("_embedded.shoppingItems[2].catalog.price", equalTo("4.99"))
         ;
     }
 
@@ -86,6 +87,7 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
             .contentType(ContentType.JSON)
             .body("name", equalTo("Levis Jean"))
             .body("catalogCode", equalTo("CLOTHES"))
+            .body("catalog", nullValue())
             .body("_links.user.href", endsWith("/user"))
             .body("_links.store.href", endsWith("/user/stores/shoppingStore101"))
         ;
@@ -108,8 +110,8 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("id", equalTo("item101"))
             .body("name", equalTo("milk"))
             .body("catalogCode", equalTo("MILK_1234"))
-            .body("labelCodes", equalTo("food,milk"))
-            .body("price", equalTo("4.99"))
+            .body("catalog.labelCodes", equalTo("food,milk"))
+            .body("catalog.price", equalTo("4.99"))
             .body("_links.self.href", endsWith("/user/stores/shoppingStore101/items/item101"))
             .body("_links.user.href", endsWith("/user"))
             .body("_links.store.href", endsWith("/user/stores/shoppingStore101"))
@@ -146,8 +148,8 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("id", equalTo("item101"))
             .body("name", equalTo("2% milk"))
             .body("catalogCode", equalTo("MILK_1234"))
-            .body("labelCodes", equalTo("food,milk"))
-            .body("price", equalTo("4.99"))
+            .body("catalog.labelCodes", equalTo("food,milk"))
+            .body("catalog.price", equalTo("4.99"))
             .body("_links.self.href", endsWith("/user/stores/shoppingStore101/items/item101"))
             .body("_links.user.href", endsWith("/user"))
             .body("_links.store.href", endsWith("/user/stores/shoppingStore101"))

@@ -3,6 +3,7 @@ package com.openprice.rest.user.receipt;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertTrue;
 
 import javax.inject.Inject;
@@ -50,12 +51,12 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
             .body("items[0].catalogCode", equalTo("EGG_1235"))
             .body("items[0].parsedName", equalTo("eggs"))
             .body("items[0].parsedPrice", equalTo("1.99"))
-            .body("items[0].labelCodes", equalTo("food,egg"))
+            .body("items[0].catalog.code", equalTo("EGG_1235"))
             .body("items[1].id", equalTo("recItem003"))
             .body("items[1].catalogCode", equalTo("PORK"))
             .body("items[1].parsedName", equalTo("pork"))
             .body("items[1].parsedPrice", equalTo("5.99"))
-            .body("items[1].labelCodes", equalTo("food,meat,pork"))
+            .body("items[1].catalog.code", equalTo("PORK"))
         ;
     }
 
@@ -80,15 +81,19 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
             .body("items[0].catalogCode", equalTo("k dgon cook    wine    mrj_690294490073"))
             .body("items[0].parsedName", equalTo("k dgon cook    wine    mrj"))
             .body("items[0].parsedPrice", equalTo("2.69"))
+            .body("items[0].catalog", nullValue())
             .body("items[1].catalogCode", equalTo("rooster garlic_06038388591"))
             .body("items[1].parsedName", equalTo("rooster garlic"))
             .body("items[1].parsedPrice", equalTo("0.68"))
+            .body("items[1].catalog", nullValue())
             .body("items[2].catalogCode", equalTo("ducks fr7n    mrj_2021000"))
             .body("items[2].parsedName", equalTo("ducks fr7n    mrj"))
             .body("items[2].parsedPrice", equalTo("15.23"))
+            .body("items[2].catalog", nullValue())
             .body("items[3].catalogCode", equalTo("hairtail_77016160104"))
             .body("items[3].parsedName", equalTo("hairtail"))
             .body("items[3].parsedPrice", equalTo("7.36"))
+            .body("items[3].catalog", nullValue())
         ;
     }
 
@@ -114,9 +119,11 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
             .body("_embedded.receiptItems[0].id", equalTo("recItem001"))
             .body("_embedded.receiptItems[0].parsedName", equalTo("eggs"))
             .body("_embedded.receiptItems[0].parsedPrice", equalTo("1.99"))
+            .body("_embedded.receiptItems[0].catalog.id", equalTo("store001cat002"))
             .body("_embedded.receiptItems[1].id", equalTo("recItem003"))
             .body("_embedded.receiptItems[1].parsedName", equalTo("pork"))
             .body("_embedded.receiptItems[1].parsedPrice", equalTo("5.99"))
+            .body("_embedded.receiptItems[1].catalog.id", equalTo("store001cat003"))
         ;
     }
 
@@ -139,6 +146,7 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
             .body("displayName", equalTo("eggs"))
             .body("parsedPrice", equalTo("1.99"))
             .body("displayPrice", equalTo("1.99"))
+            .body("catalog.id", equalTo("store001cat002"))
         ;
     }
 
