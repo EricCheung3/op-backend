@@ -8,7 +8,10 @@ import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class ShoppingService {
     private final ShoppingStoreRepository shoppingStoreRepository;
     private final StoreChainRepository storeChainRepository;
@@ -39,6 +42,7 @@ public class ShoppingService {
             return store;
         }
         store = ShoppingStore.createShoppingStore(user, chain);
+        log.debug("Create shopping list for store '{}' for user {}.", chain.getCode(), user.getEmail());
         return shoppingStoreRepository.save(store);
     }
 

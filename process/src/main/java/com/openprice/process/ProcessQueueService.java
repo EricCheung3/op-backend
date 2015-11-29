@@ -93,6 +93,7 @@ public class ProcessQueueService {
      * @param image
      */
     public void addImage(final String imageId, final String ownerId, final String requesterId) {
+        log.debug("Add image {} to image queue.", imageId);
         queue.add(new ProcessItem(imageId, ownerId, requesterId, new Date()));
     }
 
