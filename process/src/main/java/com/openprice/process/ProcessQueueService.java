@@ -61,6 +61,7 @@ public class ProcessQueueService {
             final ProcessQueueConsumer consumer = new ProcessQueueConsumer(queue, p);
             consumers.add(consumer);
             new Thread(consumer).start();
+            log.info("No remote image process server configured, started image queue consumer with static result image processor.");
         }
     }
 
@@ -74,6 +75,7 @@ public class ProcessQueueService {
         final ProcessQueueConsumer consumer = new ProcessQueueConsumer(queue, p);
         consumers.add(consumer);
         new Thread(consumer).start();
+        log.info("Started image queue consumer with remote OCR image processor {}.", p.getName());
     }
 
     @PreDestroy()
