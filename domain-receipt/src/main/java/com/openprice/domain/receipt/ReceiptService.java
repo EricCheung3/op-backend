@@ -136,7 +136,7 @@ public class ReceiptService {
         }
 
         image.setStatus(ProcessStatusType.UPLOADED);
-        receipt.getImages().add(image);
+        log.debug("Save uploaded receipt image to {}.", imageFile);
         return receiptImageRepository.save(image);
     }
 
@@ -186,7 +186,7 @@ public class ReceiptService {
         boolean ocrReady = true;
 
         int counter = 0;
-        while (counter++ < 10) {
+        while (counter++ < 40) {
             final List<ReceiptImage> images = receiptImageRepository.findByReceiptOrderByCreatedTime(receipt);
             ocrTextList.clear();
             ocrReady = true;
