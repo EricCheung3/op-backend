@@ -4,9 +4,9 @@ import org.springframework.security.authentication.AuthenticationCredentialsNotF
 
 import com.openprice.domain.account.admin.AdminAccount;
 import com.openprice.domain.account.admin.AdminAccountService;
-import com.openprice.rest.AbstractRestController;
+import com.openprice.rest.AbstractExternalRestController;
 
-public abstract class AbstractAdminRestController extends AbstractRestController {
+public abstract class AbstractAdminRestController extends AbstractExternalRestController {
     protected final AdminAccountService adminAccountService;
 
     public AbstractAdminRestController(final AdminAccountService adminAccountService) {

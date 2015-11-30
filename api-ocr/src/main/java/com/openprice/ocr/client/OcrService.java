@@ -1,5 +1,6 @@
 package com.openprice.ocr.client;
 
+import com.openprice.common.ApiConstants;
 import com.openprice.common.client.AbstractService;
 import com.openprice.common.client.ServiceSettings;
 import com.openprice.ocr.api.ImageProcessRequest;
@@ -26,7 +27,7 @@ public class OcrService extends AbstractService {
     }
 
     public String getOcrServiceUrl() {
-        return getServiceUrlBase() + OcrServiceApiUrls.URL_OCR_PROCESSOR;
+        return getServiceUrlBase() + ApiConstants.INTERNAL_API_ROOT + OcrServiceApiUrls.URL_OCR_PROCESSOR;
     }
 
 }

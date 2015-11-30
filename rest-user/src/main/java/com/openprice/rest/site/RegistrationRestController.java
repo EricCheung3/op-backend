@@ -25,7 +25,7 @@ import com.openprice.domain.account.user.UserResetPasswordRequest;
 import com.openprice.mail.EmailMessage;
 import com.openprice.mail.EmailProperties;
 import com.openprice.mail.EmailService;
-import com.openprice.rest.AbstractRestController;
+import com.openprice.rest.AbstractExternalRestController;
 import com.openprice.rest.ResourceNotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @RestController
 @Slf4j
-public class RegistrationRestController extends AbstractRestController {
+public class RegistrationRestController extends AbstractExternalRestController {
 
     private final UserAccountService userAccountService;
     private final UserAccountRepository userAccountRepository;

@@ -25,6 +25,11 @@
             <artifactId>openprice-domain-common</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>openprice-api-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- spring hateoas for restful api -->
         <dependency>

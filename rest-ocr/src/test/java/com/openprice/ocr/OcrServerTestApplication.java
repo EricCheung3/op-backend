@@ -21,7 +21,7 @@ public class OcrServerTestApplication {
     }
 
     @Bean
-    public OcrEngine tesseract() {
+    public OcrEngine testOcr() {
         return new OcrEngine() {
 
             @Override

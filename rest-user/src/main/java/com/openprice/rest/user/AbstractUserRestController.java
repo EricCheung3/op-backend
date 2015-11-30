@@ -4,9 +4,9 @@ import org.springframework.security.authentication.AuthenticationCredentialsNotF
 
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountService;
-import com.openprice.rest.AbstractRestController;
+import com.openprice.rest.AbstractExternalRestController;
 
-public class AbstractUserRestController extends AbstractRestController {
+public class AbstractUserRestController extends AbstractExternalRestController {
 
     protected final UserAccountService userAccountService;
 

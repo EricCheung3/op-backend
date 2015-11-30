@@ -26,6 +26,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
+import com.openprice.common.ApiConstants;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
@@ -68,7 +69,7 @@ public class ImageQueueRestApiIT {
             .contentType(ContentType.JSON)
             .body(request)
         .when()
-            .post(InternalServiceApiUrls.URL_IMAGE_QUEUE)
+            .post(ApiConstants.INTERNAL_API_ROOT + InternalServiceApiUrls.URL_IMAGE_QUEUE)
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)

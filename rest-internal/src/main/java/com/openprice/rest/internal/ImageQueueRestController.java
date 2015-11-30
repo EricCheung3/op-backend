@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.openprice.common.ApiConstants;
 import com.openprice.internal.api.ImageQueueRequest;
 import com.openprice.internal.api.ImageQueueResult;
 import com.openprice.internal.api.InternalServiceApiUrls;
 import com.openprice.process.ProcessQueueService;
 
 @RestController
+@RequestMapping(value = ApiConstants.INTERNAL_API_ROOT)
 public class ImageQueueRestController {
 
     private final ProcessQueueService queueService;

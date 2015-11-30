@@ -2,6 +2,7 @@ package com.openprice.internal.client;
 
 import org.springframework.util.StringUtils;
 
+import com.openprice.common.ApiConstants;
 import com.openprice.common.client.AbstractService;
 import com.openprice.common.client.ServiceSettings;
 import com.openprice.internal.api.ImageQueueRequest;
@@ -26,6 +27,6 @@ public class InternalService extends AbstractService{
     }
 
     private String getImageQueueServiceUrl() {
-        return getServiceUrlBase() + InternalServiceApiUrls.URL_IMAGE_QUEUE;
+        return getServiceUrlBase() + ApiConstants.INTERNAL_API_ROOT + InternalServiceApiUrls.URL_IMAGE_QUEUE;
     }
 }

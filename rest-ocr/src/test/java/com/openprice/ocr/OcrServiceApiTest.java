@@ -27,6 +27,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
+import com.openprice.common.ApiConstants;
 import com.openprice.file.FileSystemService;
 import com.openprice.ocr.api.ImageProcessRequest;
 import com.openprice.ocr.api.OcrServiceApiUrls;
@@ -72,7 +73,7 @@ public class OcrServiceApiTest {
             .contentType(ContentType.JSON)
             .body(request)
         .when()
-            .post(OcrServiceApiUrls.URL_OCR_PROCESSOR)
+            .post(ApiConstants.INTERNAL_API_ROOT + OcrServiceApiUrls.URL_OCR_PROCESSOR)
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)

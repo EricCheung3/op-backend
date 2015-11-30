@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openprice.rest.AbstractRestController;
+import com.openprice.rest.AbstractExternalRestController;
 
 /**
  * REST API Controller for public website.
  *
  */
 @RestController
-public class WebsiteRestController extends AbstractRestController {
+public class WebsiteRestController extends AbstractExternalRestController {
 
     private final WebsiteResourceAssembler websiteResourceAssembler;
 
