@@ -280,4 +280,23 @@ public class ReceiptUploadServiceTest {
 
     }
 
+    @Test
+    public void hackloadOcrResult_ShouldUpdateReceiptOcrResult()
+            throws Exception {
+        final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
+        final Receipt receipt = Receipt.createReceipt(testUser);
+        receipt.setId("receipt123");
+
+        final ReceiptImage image = receipt.createImage();
+
+        when(ocrMock.getBytes()).thenReturn(TEST_OCR.getBytes());
+
+
+        serviceToTest.hackloadOcrResult(receipt, ocrMock);
+
+        //receipt image has ocr data
+         assertEquals(ProcessStatusType.SCANNED, image.getStatus());
+        assertEquals(TEST_OCR, image.getOcrResult());
+    }
+
 }

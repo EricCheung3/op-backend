@@ -16,7 +16,7 @@ public class UserAccountResource extends Resource<UserAccount> {
     private String uploadUrl;
 
     @Getter @Setter
-    private String hackloadUrl;
+    private String receiptsUrl;
 
     public UserAccountResource(final UserAccount account) {
         super(account);

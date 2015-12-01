@@ -37,8 +37,7 @@ public class UserApiDocumentation extends UserApiDocumentationBase {
                 linkWithRel("shoppingList").description("The <<resources-user-shoppinglist,ShoppingList resource>>"),
                 linkWithRel("stores").description("The <<resources-user-stores,Stores resource>>"),
                 linkWithRel("store").description("The <<resources-user-store,Store resource>>"),
-                linkWithRel("upload").description("The <<resources-user-receipt-upload,Upload New Receipt resource>>"),
-                linkWithRel("hackload").description("The <<resources-user-receipt-hackload, Hackload New Receipt resource>>")
+                linkWithRel("upload").description("The <<resources-user-receipt-upload,Upload New Receipt resource>>")
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
@@ -50,7 +49,7 @@ public class UserApiDocumentation extends UserApiDocumentationBase {
                 fieldWithPath("activated").description("Whether this user account is activated"),
                 fieldWithPath("profile").description("User profile data"),
                 fieldWithPath("uploadUrl").description("URL to upload receipt image for the user"),
-                fieldWithPath("hackloadUrl").description("URL to upload receipt image with OCR result for the user, test purpose."),
+                fieldWithPath("receiptsUrl").description("URL for user receipts, test purpose."),
                 fieldWithPath("_links").description("<<resources-user-links,Links>> to other resources")
             )
         ));

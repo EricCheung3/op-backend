@@ -123,7 +123,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
         }
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_HACKLOAD)
+    @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_HACKLOAD_OCR)
     public HttpEntity<Void> hackloadOcrResult(
             @PathVariable("receiptId") final String receiptId,
             @RequestParam("ocr") final MultipartFile ocr) {

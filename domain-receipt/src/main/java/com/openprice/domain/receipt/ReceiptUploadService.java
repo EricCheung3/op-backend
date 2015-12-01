@@ -123,6 +123,14 @@ public class ReceiptUploadService {
         return receiptImageRepository.save(image);
     }
 
+    /**
+     * Hack solution to upload receipt image with OCR result.
+     *
+     * @param user
+     * @param image
+     * @param ocr
+     * @return
+     */
     public Receipt hackloadImageFileAndOcrResultForNewReceipt(final UserAccount user,
                                                               final MultipartFile image,
                                                               final MultipartFile ocr) {
@@ -148,6 +156,12 @@ public class ReceiptUploadService {
         return receiptRepository.save(receipt);
     }
 
+    /**
+     * Hack solution to upload OCR result for existing receipt.
+     *
+     * @param receipt
+     * @param ocr
+     */
     public void hackloadOcrResult(final Receipt receipt, final MultipartFile ocr) {
         if (receipt.getImages().size() != 1) {
             log.error("Cannot hack load OCR result to receipt not having just one image!");
