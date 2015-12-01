@@ -10,6 +10,7 @@ import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
+import com.openprice.domain.receipt.ReceiptUploadService;
 import com.openprice.internal.api.ImageQueueRequest;
 import com.openprice.internal.client.InternalService;
 import com.openprice.rest.ResourceNotFoundException;
@@ -21,15 +22,18 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class AbstractUserReceiptRestController extends AbstractUserRestController {
 
     protected final ReceiptService receiptService;
+    protected final ReceiptUploadService receiptUploadService;
     protected final ReceiptRepository receiptRepository;
     protected final InternalService internalService;
 
     public AbstractUserReceiptRestController(final UserAccountService userAccountService,
                                              final ReceiptService receiptService,
+                                             final ReceiptUploadService receiptUploadService,
                                              final ReceiptRepository receiptRepository,
                                              final InternalService internalService) {
         super(userAccountService);
         this.receiptService = receiptService;
+        this.receiptUploadService = receiptUploadService;
         this.receiptRepository = receiptRepository;
         this.internalService = internalService;
     }
@@ -53,14 +57,14 @@ public abstract class AbstractUserReceiptRestController extends AbstractUserRest
     protected Receipt newReceiptWithBase64ImageData(final String base64Data) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
         log.debug("User {} upload image as base64 string for new receipt", currentUser.getUsername());
-        return receiptService.uploadImageForNewReceipt(currentUser, base64Data);
+        return receiptUploadService.uploadImageForNewReceipt(currentUser, base64Data);
     }
 
     @Transactional
     protected Receipt newReceiptWithFile(final MultipartFile file) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
         log.debug("User {} upload image file for new receipt", currentUser.getUsername());
-        return receiptService.uploadImageForNewReceipt(currentUser, file);
+        return receiptUploadService.uploadImageForNewReceipt(currentUser, file);
     }
 
     @Transactional
@@ -68,7 +72,7 @@ public abstract class AbstractUserReceiptRestController extends AbstractUserRest
         final UserAccount currentUser = getCurrentAuthenticatedUser();
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         log.debug("User {} upload image base64 string for receipt {}.", currentUser.getUsername(), receiptId);
-        return receiptService.appendImageToReceipt(receipt, base64Data);
+        return receiptUploadService.appendImageToReceipt(receipt, base64Data);
     }
 
     @Transactional
@@ -76,7 +80,7 @@ public abstract class AbstractUserReceiptRestController extends AbstractUserRest
         final UserAccount currentUser = getCurrentAuthenticatedUser();
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         log.debug("User {} upload image file for receipt {}.", currentUser.getUsername(), receiptId);
-        return receiptService.appendImageToReceipt(receipt, file);
+        return receiptUploadService.appendImageToReceipt(receipt, file);
     }
 
     protected void addReceiptImageToProcessQueue(final ReceiptImage image) {

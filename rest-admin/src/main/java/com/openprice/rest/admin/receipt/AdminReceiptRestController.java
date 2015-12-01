@@ -30,6 +30,7 @@ import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
+import com.openprice.domain.receipt.ReceiptUploadService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.AbstractAdminRestController;
@@ -46,6 +47,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminReceiptRestController extends AbstractAdminRestController {
 
     private final ReceiptService receiptService;
+    private final ReceiptUploadService receiptUploadService;
     private final ReceiptRepository receiptRepository;
     private final ReceiptImageRepository receiptImageRepository;
     private final AdminReceiptResourceAssembler receiptResourceAssembler;
@@ -54,12 +56,14 @@ public class AdminReceiptRestController extends AbstractAdminRestController {
     @Inject
     public AdminReceiptRestController(final AdminAccountService adminAccountService,
                                       final ReceiptService receiptService,
+                                      final ReceiptUploadService receiptUploadService,
                                       final ReceiptRepository receiptRepository,
                                       final ReceiptImageRepository receiptImageRepository,
                                       final AdminReceiptResourceAssembler receiptResourceAssembler,
                                       final AdminReceiptImageResourceAssembler receiptImageResourceAssembler) {
         super(adminAccountService);
         this.receiptService = receiptService;
+        this.receiptUploadService = receiptUploadService;
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
         this.receiptResourceAssembler = receiptResourceAssembler;
@@ -127,7 +131,7 @@ public class AdminReceiptRestController extends AbstractAdminRestController {
             @PathVariable("imageId") final String imageId) throws ResourceNotFoundException {
         final Receipt receipt = loadReceiptById(receiptId);
         final ReceiptImage image = loadReceiptImageByIdAndCheckReceipt(imageId, receipt);
-        return ResponseEntity.ok(new PathResource(receiptService.getImageFile(image)));
+        return ResponseEntity.ok(new PathResource(receiptUploadService.getImageFile(image)));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE_BASE64,
@@ -137,7 +141,7 @@ public class AdminReceiptRestController extends AbstractAdminRestController {
             @PathVariable("imageId") final String imageId) throws ResourceNotFoundException {
         final Receipt receipt = loadReceiptById(receiptId);
         final ReceiptImage image = loadReceiptImageByIdAndCheckReceipt(imageId, receipt);
-        final Resource resource = new PathResource(receiptService.getImageFile(image));
+        final Resource resource = new PathResource(receiptUploadService.getImageFile(image));
 
         try {
             final byte[] content = ByteStreams.toByteArray(resource.getInputStream());

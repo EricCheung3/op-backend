@@ -14,6 +14,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
+import com.openprice.domain.receipt.ReceiptUploadService;
 import com.openprice.internal.client.InternalService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.user.UserApiUrls;
@@ -42,10 +44,11 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
     @Inject
     public UserReceiptRestController(final UserAccountService userAccountService,
                                      final ReceiptService receiptService,
+                                     final ReceiptUploadService receiptUploadService,
                                      final ReceiptRepository receiptRepository,
                                      final UserReceiptResourceAssembler receiptResourceAssembler,
                                      final InternalService internalService) {
-        super(userAccountService, receiptService, receiptRepository, internalService);
+        super(userAccountService, receiptService, receiptUploadService, receiptRepository, internalService);
         this.receiptResourceAssembler = receiptResourceAssembler;
     }
 
@@ -87,11 +90,47 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
     }
 
     @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
-    public HttpEntity<Void> uploadNewReceipt(@RequestParam("file") final MultipartFile file) {
+    public HttpEntity<String> uploadNewReceipt(@RequestParam("file") final MultipartFile file) {
         if (!file.isEmpty()) {
             final Receipt receipt = newReceiptWithFile(file);
             addReceiptImageToProcessQueue(receipt.getImages().get(0));
             final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId())).toUri();
+            return ResponseEntity.created(location).body(receipt.getId());
+        }
+        else {
+            log.error("No file uploaded!");
+            return ResponseEntity.badRequest().body("");
+        }
+    }
+
+    /**
+     * Temp solution to upload receipt image with OCR result text.
+     * @param file
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS_HACKLOAD)
+    public HttpEntity<Void> hackloadNewReceiptWithOcrResult(
+            @RequestParam("image") final MultipartFile image,
+            @RequestParam("ocr") final MultipartFile ocr) {
+        if (!image.isEmpty() && !ocr.isEmpty()) {
+            final Receipt receipt = newReceiptWithImageAndOcrFile(image, ocr);
+            final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId())).toUri();
+            return ResponseEntity.created(location).body(null);
+        }
+        else {
+            log.error("No file uploaded!");
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_HACKLOAD)
+    public HttpEntity<Void> hackloadOcrResult(
+            @PathVariable("receiptId") final String receiptId,
+            @RequestParam("ocr") final MultipartFile ocr) {
+        if (!ocr.isEmpty()) {
+            final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
+            receiptUploadService.hackloadOcrResult(receipt, ocr);
+            final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receiptId)).toUri();
             return ResponseEntity.created(location).body(null);
         }
         else {
@@ -108,5 +147,13 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
         receiptService.addFeedback(receipt, form.getRating(), form.getComment());
         return ResponseEntity.noContent().build();
     }
+
+    @Transactional
+    protected Receipt newReceiptWithImageAndOcrFile(final MultipartFile image, final MultipartFile ocr) {
+        final UserAccount currentUser = getCurrentAuthenticatedUser();
+        log.debug("User {} HACKLoad image file for new receipt and OCR result.", currentUser.getUsername());
+        return receiptUploadService.hackloadImageFileAndOcrResultForNewReceipt(currentUser, image, ocr);
+    }
+
 
 }

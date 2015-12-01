@@ -1,23 +1,13 @@
 package com.openprice.domain.receipt;
 
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.openprice.domain.account.user.UserAccount;
-import com.openprice.file.FileSystemService;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.simple.SimpleParser;
@@ -32,7 +22,6 @@ public class ReceiptService {
     private final ReceiptDataRepository receiptDataRepository;
     private final ReceiptItemRepository receiptItemRepository;
     private final ReceiptFeedbackRepository receiptFeedbackRepository;
-    private final FileSystemService fileSystemService;
     private final SimpleParser simpleParser;
 
     @Inject
@@ -41,103 +30,13 @@ public class ReceiptService {
                           final ReceiptDataRepository receiptDataRepository,
                           final ReceiptItemRepository receiptItemRepository,
                           final ReceiptFeedbackRepository receiptFeedbackRepository,
-                          final FileSystemService fileSystemService,
                           final SimpleParser simpleParser) {
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
         this.receiptDataRepository = receiptDataRepository;
         this.receiptItemRepository = receiptItemRepository;
         this.receiptFeedbackRepository = receiptFeedbackRepository;
-        this.fileSystemService = fileSystemService;
         this.simpleParser = simpleParser;
-    }
-
-    public Receipt uploadImageForNewReceipt(final UserAccount user, final String base64Data) {
-        byte[] content = null;
-        try {
-            content = Base64.getDecoder().decode(base64Data);
-        } catch (IllegalArgumentException ex) {
-            log.error("Not a valid base64 encoded data!", ex);
-            throw new RuntimeException("Not a valid image content.");
-        }
-        final Receipt receipt = receiptRepository.save(Receipt.createReceipt(user));
-        saveImage(receipt, content);
-
-        return receiptRepository.save(receipt);
-    }
-
-    public Receipt uploadImageForNewReceipt(final UserAccount user, final MultipartFile file) {
-        byte[] content = null;
-        try {
-            content = file.getBytes();
-        } catch (IOException ex) {
-            log.error("No content of receipt image to save!");
-            throw new RuntimeException("No image content.");
-        }
-
-        final Receipt receipt = receiptRepository.save(Receipt.createReceipt(user));
-        saveImage(receipt, content);
-
-        return receiptRepository.save(receipt);
-    }
-
-    public ReceiptImage appendImageToReceipt(final Receipt receipt, final String base64Data) {
-        byte[] content = null;
-        try {
-            content = Base64.getDecoder().decode(base64Data);
-        } catch (IllegalArgumentException ex) {
-            log.error("Not a valid base64 encoded data!", ex);
-            throw new RuntimeException("Not a valid image content.");
-        }
-
-        final ReceiptImage image = saveImage(receipt, content);
-        receiptRepository.save(receipt);
-        return image;
-    }
-
-    public ReceiptImage appendImageToReceipt(final Receipt receipt, final MultipartFile file) {
-        byte[] content = null;
-        try {
-            content = file.getBytes();
-        } catch (IOException ex) {
-            log.error("No content of receipt image to save!");
-            throw new RuntimeException("No image content.");
-        }
-
-        final ReceiptImage image = saveImage(receipt, content);
-
-        receiptRepository.save(receipt);
-        return image;
-    }
-
-    public String getImageFilePath(final ReceiptImage image) {
-        final Receipt receipt = image.getReceipt();
-        final UserAccount user = receipt.getUser();
-        return user.getId() + fileSystemService.getPathSeparator() + image.getFileName();
-    }
-
-    public Path getImageFile(final ReceiptImage image) {
-        final Receipt receipt = image.getReceipt();
-        final UserAccount user = receipt.getUser();
-        final Path imageFolder = fileSystemService.getReceiptImageSubFolder(user.getId());
-        return imageFolder.resolve(image.getFileName());
-    }
-
-    private ReceiptImage saveImage(final Receipt receipt, final byte[] content) {
-        final ReceiptImage image = receipt.createImage();
-        final Path imageFile = getImageFile(image);
-
-        try (final OutputStream out = new BufferedOutputStream(Files.newOutputStream(imageFile, StandardOpenOption.CREATE_NEW)))
-        {
-            out.write(content);
-        } catch (IOException ex) {
-            log.error("Cannot save receipt image to image folder at '{}', please check server file system!", imageFile.toString());
-            throw new RuntimeException("System Error! Cannot save image.", ex); //TODO design exceptions
-        }
-
-        image.setStatus(ProcessStatusType.UPLOADED);
-        log.debug("Save uploaded receipt image to {}.", imageFile);
-        return receiptImageRepository.save(image);
     }
 
     /**
@@ -231,4 +130,5 @@ public class ReceiptService {
 
         return feedback;
     }
+
 }

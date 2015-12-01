@@ -1,0 +1,167 @@
+package com.openprice.domain.receipt;
+
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.Base64;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.openprice.domain.account.user.UserAccount;
+import com.openprice.file.FileSystemService;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Slf4j
+public class ReceiptUploadService {
+
+    private final ReceiptRepository receiptRepository;
+    private final ReceiptImageRepository receiptImageRepository;
+    private final FileSystemService fileSystemService;
+
+    @Inject
+    public ReceiptUploadService(final ReceiptRepository receiptRepository,
+                                final ReceiptImageRepository receiptImageRepository,
+                                final FileSystemService fileSystemService) {
+        this.receiptRepository = receiptRepository;
+        this.receiptImageRepository = receiptImageRepository;
+        this.fileSystemService = fileSystemService;
+    }
+
+    public Receipt uploadImageForNewReceipt(final UserAccount user, final String base64Data) {
+        byte[] content = null;
+        try {
+            content = Base64.getDecoder().decode(base64Data);
+        } catch (IllegalArgumentException ex) {
+            log.error("Not a valid base64 encoded data!", ex);
+            throw new RuntimeException("Not a valid image content.");
+        }
+        final Receipt receipt = receiptRepository.save(Receipt.createReceipt(user));
+        saveImage(receipt, content);
+
+        return receiptRepository.save(receipt);
+    }
+
+    public Receipt uploadImageForNewReceipt(final UserAccount user, final MultipartFile file) {
+        byte[] content = null;
+        try {
+            content = file.getBytes();
+        } catch (IOException ex) {
+            log.error("No content of receipt image to save!");
+            throw new RuntimeException("No image content.");
+        }
+
+        final Receipt receipt = receiptRepository.save(Receipt.createReceipt(user));
+        saveImage(receipt, content);
+
+        return receiptRepository.save(receipt);
+    }
+
+    public ReceiptImage appendImageToReceipt(final Receipt receipt, final String base64Data) {
+        byte[] content = null;
+        try {
+            content = Base64.getDecoder().decode(base64Data);
+        } catch (IllegalArgumentException ex) {
+            log.error("Not a valid base64 encoded data!", ex);
+            throw new RuntimeException("Not a valid image content.");
+        }
+
+        final ReceiptImage image = saveImage(receipt, content);
+        receiptRepository.save(receipt);
+        return image;
+    }
+
+    public ReceiptImage appendImageToReceipt(final Receipt receipt, final MultipartFile file) {
+        byte[] content = null;
+        try {
+            content = file.getBytes();
+        } catch (IOException ex) {
+            log.error("No content of receipt image to save!");
+            throw new RuntimeException("No image content.");
+        }
+
+        final ReceiptImage image = saveImage(receipt, content);
+
+        receiptRepository.save(receipt);
+        return image;
+    }
+
+    public String getImageFilePath(final ReceiptImage image) {
+        final Receipt receipt = image.getReceipt();
+        final UserAccount user = receipt.getUser();
+        return user.getId() + fileSystemService.getPathSeparator() + image.getFileName();
+    }
+
+    public Path getImageFile(final ReceiptImage image) {
+        final Receipt receipt = image.getReceipt();
+        final UserAccount user = receipt.getUser();
+        final Path imageFolder = fileSystemService.getReceiptImageSubFolder(user.getId());
+        return imageFolder.resolve(image.getFileName());
+    }
+
+    private ReceiptImage saveImage(final Receipt receipt, final byte[] content) {
+        final ReceiptImage image = receipt.createImage();
+        final Path imageFile = getImageFile(image);
+
+        try (final OutputStream out = new BufferedOutputStream(Files.newOutputStream(imageFile, StandardOpenOption.CREATE_NEW)))
+        {
+            out.write(content);
+        } catch (IOException ex) {
+            log.error("Cannot save receipt image to image folder at '{}', please check server file system!", imageFile.toString());
+            throw new RuntimeException("System Error! Cannot save image.", ex); //TODO design exceptions
+        }
+
+        image.setStatus(ProcessStatusType.UPLOADED);
+        log.debug("Save uploaded receipt image to {}.", imageFile);
+        return receiptImageRepository.save(image);
+    }
+
+    public Receipt hackloadImageFileAndOcrResultForNewReceipt(final UserAccount user,
+                                                              final MultipartFile image,
+                                                              final MultipartFile ocr) {
+        byte[] content = null;
+        try {
+            content = image.getBytes();
+        } catch (IOException ex) {
+            log.error("No content of receipt image to save!");
+            throw new RuntimeException("No image content.");
+        }
+
+        final Receipt receipt = receiptRepository.save(Receipt.createReceipt(user));
+        final ReceiptImage receiptImage = saveImage(receipt, content);
+
+        try {
+            receiptImage.setOcrResult(new String(ocr.getBytes()));
+            receiptImage.setStatus(ProcessStatusType.SCANNED);
+            receiptImageRepository.save(receiptImage);
+        } catch (IOException ex) {
+            log.error("No content of OCR result to save!");
+            throw new RuntimeException("No OCR result content.");
+        }
+        return receiptRepository.save(receipt);
+    }
+
+    public void hackloadOcrResult(final Receipt receipt, final MultipartFile ocr) {
+        if (receipt.getImages().size() != 1) {
+            log.error("Cannot hack load OCR result to receipt not having just one image!");
+        }
+        ReceiptImage receiptImage = receipt.getImages().get(0);
+        try {
+            receiptImage.setOcrResult(new String(ocr.getBytes()));
+            receiptImage.setStatus(ProcessStatusType.SCANNED);
+            receiptImageRepository.save(receiptImage);
+            log.info("Hackloaded OCR result into receipt "+receipt.getId());
+        } catch (IOException ex) {
+            log.error("No content of OCR result to save!");
+            throw new RuntimeException("No OCR result content.");
+        }
+
+    }
+}

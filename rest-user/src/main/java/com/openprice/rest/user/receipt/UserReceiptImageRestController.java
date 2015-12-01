@@ -34,6 +34,7 @@ import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
+import com.openprice.domain.receipt.ReceiptUploadService;
 import com.openprice.internal.client.InternalService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
@@ -55,11 +56,12 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
     @Inject
     public UserReceiptImageRestController(final UserAccountService userAccountService,
                                           final ReceiptService receiptService,
+                                          final ReceiptUploadService receiptUploadService,
                                           final ReceiptRepository receiptRepository,
                                           final ReceiptImageRepository receiptImageRepository,
                                           final UserReceiptImageResourceAssembler receiptImageResourceAssembler,
                                           final InternalService internalService) {
-        super(userAccountService, receiptService, receiptRepository, internalService);
+        super(userAccountService, receiptService, receiptUploadService, receiptRepository, internalService);
         this.receiptImageRepository = receiptImageRepository;
         this.receiptImageResourceAssembler = receiptImageResourceAssembler;
     }
@@ -134,7 +136,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
             @PathVariable("imageId") final String imageId) throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         final ReceiptImage image = getReceiptImageByIdAndCheckReceipt(imageId, receipt);
-        return ResponseEntity.ok(new PathResource(receiptService.getImageFile(image)));
+        return ResponseEntity.ok(new PathResource(receiptUploadService.getImageFile(image)));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_BASE64,
@@ -144,7 +146,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
             @PathVariable("imageId") final String imageId) throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         final ReceiptImage image = getReceiptImageByIdAndCheckReceipt(imageId, receipt);
-        final Resource resource = new PathResource(receiptService.getImageFile(image));
+        final Resource resource = new PathResource(receiptUploadService.getImageFile(image));
 
         try {
             final byte[] content = ByteStreams.toByteArray(resource.getInputStream());

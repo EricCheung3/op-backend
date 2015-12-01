@@ -15,6 +15,9 @@ public class UserAccountResource extends Resource<UserAccount> {
     @Getter @Setter
     private String uploadUrl;
 
+    @Getter @Setter
+    private String hackloadUrl;
+
     public UserAccountResource(final UserAccount account) {
         super(account);
         profile = new UserProfileResource(account.getProfile());

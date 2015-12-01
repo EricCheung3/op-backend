@@ -44,6 +44,9 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
     @Value("classpath:/data/sample2.txt")
     private Resource sampleReceipt2;
 
+    @Value("classpath:/data/ocrResult.txt")
+    private Resource sampleOcrResult;
+
     @Inject
     private ReceiptRepository receiptRepository;
 
@@ -203,6 +206,61 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name()))
         ;
         //response.prettyPrint();
+
+        // verify image in FileSystem
+        String fileName = response.then().extract().path("images[0].fileName");
+        Path imageFile = fileSystemService.getReceiptImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
+        assertTrue(Files.exists(imageFile));
+        BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
+        assertEquals("test", reader.readLine());
+
+        String downloadUrl = response.then().extract().path("images[0]._links.download.href");
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(downloadUrl)
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType("image/jpeg")
+        ;
+    }
+
+    //@Test
+    public void hackloadNewReceipt_ShouldCreateReceipt_AndSaveImageFileWithOcrResult() throws Exception {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+
+        // add new image as base64 encoded string
+        Response response =
+            given()
+                .filter(sessionFilter)
+                .multiPart("image", sampleReceipt1.getFile())
+                .multiPart("ocr", sampleOcrResult.getFile())
+            .when()
+                .post(userReceiptHackloadUrl(sessionFilter))
+            ;
+
+        response
+        .then()
+            .statusCode(HttpStatus.SC_CREATED)
+        ;
+
+        // verify new receipt
+        String receiptUrl = response.getHeader("Location");
+
+        response =
+            given()
+                .filter(sessionFilter)
+            .when()
+                .get(receiptUrl)
+            ;
+
+        response
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name()))
+        ;
+        response.prettyPrint();
 
         // verify image in FileSystem
         String fileName = response.then().extract().path("images[0].fileName");

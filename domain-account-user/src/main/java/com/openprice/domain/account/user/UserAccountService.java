@@ -109,7 +109,7 @@ public class UserAccountService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.debug("==>loadUserByUsername("+username+")");
+        //log.debug("==>loadUserByUsername("+username+")");
 
         final UserAccount userAccount = userAccountRepository.findByEmail(username);
         if (userAccount == null) {
