@@ -42,7 +42,7 @@ public class StaticResultImageProcessor implements ImageProcessor {
             this.staticResult = CharStreams.toString(new InputStreamReader(resourceInputStream, "UTF-8"));
         } catch (IOException ex) {
             log.error("Cannot load static result from file {}, please check the file exits.", OCR_RESULT_FILE_PATH);
-            throw new RuntimeException("Error loading static result file "+OCR_RESULT_FILE_PATH, ex);
+            throw new RuntimeException("Error loading static result file " + OCR_RESULT_FILE_PATH, ex);
         }
     }
 

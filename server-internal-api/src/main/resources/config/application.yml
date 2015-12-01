@@ -28,5 +28,5 @@ application:
             imageRootFolder: /groundtruth/images
         process:
             serverPrefix: openprice-server-ocr-
-            numberOfServers: 2
+            numberOfServers: 0
             serverPort: 7901
