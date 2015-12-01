@@ -24,6 +24,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.openprice.file.FileFolderSettings;
 import com.openprice.file.FileSystemService;
+import com.openprice.mail.EmailProperties;
 import com.openprice.mail.EmailService;
 import com.openprice.mail.stub.DummyEmailService;
 
@@ -65,6 +66,15 @@ public abstract class AbstractRestApiTestApplication extends WebSecurityConfigur
     @Bean
     public FileSystemService fileSystemService() {
         return new FileSystemService(new FileFolderSettings());
+    }
+
+    @Bean
+    EmailProperties emailProperties() {
+        return new EmailProperties("http://openprice,com",
+                                   "OpenPrice Admin",
+                                   "admin@openprice.com",
+                                   "OpenPrice Team",
+                                   "noreply@openprice.com");
     }
 
     @PostConstruct

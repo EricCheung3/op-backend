@@ -13,12 +13,12 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-public class EmailServiceImpl implements EmailService {
+public class SendgridEmailService implements EmailService {
 
     private final String username;
     private final String password;
 
-    public EmailServiceImpl(final String username, final String password) {
+    public SendgridEmailService(final String username, final String password) {
         this.username = username;
         this.password = password;
     }

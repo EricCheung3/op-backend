@@ -16,12 +16,12 @@ spring:
             ddl-auto: validate
 
 application:
-    email:
-        systemName: GroundTruth Inc.
-        systemEmail: no-reply@openprice.com
-        adminName: Open Price
-        adminEmail: admin@openprice.com
     settings:
+        email:
+            systemName: GroundTruth Inc.
+            systemEmail: no-reply@openprice.com
+            adminName: Open Price
+            adminEmail: admin@openprice.com
         internal:
             serverHost: openprice-server-internal-api
             serverPort: 7900

@@ -16,8 +16,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.openprice.mail.EmailProperties;
 import com.openprice.mail.EmailService;
-import com.openprice.mail.sendgrid.EmailServiceImpl;
+import com.openprice.mail.sendgrid.SendgridEmailService;
 import com.openprice.mail.stub.DummyEmailService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -64,13 +65,18 @@ public abstract class AbstractApiApplication {
 
     @Bean @Profile("sendgrid")
     public EmailService sendgridEmailService() {
-        return new EmailServiceImpl(environment.getProperty("sendgrid.username"),
-                                    environment.getProperty("sendgrid.password"));
+        return new SendgridEmailService(environment.getProperty("sendgrid.username"),
+                                        environment.getProperty("sendgrid.password"));
     }
 
     @Bean @Profile("no_email")
     public EmailService dummyEmailService() {
         return new DummyEmailService();
+    }
+
+    @Bean @Profile("sendgrid")
+    public EmailProperties emailProperties(AbstractApplicationSettings settings) {
+        return settings.getEmail();
     }
 
     /**

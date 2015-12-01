@@ -1,40 +1,36 @@
 package com.openprice.mail;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@ConfigurationProperties("application.email")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class EmailProperties {
     /**
      * OpenPrice Web UI Server url
      */
-    @Getter @Setter
     private String webServerUrl;
 
     /**
      * Name of administrator the notification or contact message will send to.
      */
-    @Getter @Setter
     private String adminName;
 
     /**
      * Email of administrator the notification or contact message will send to.
      */
-    @Getter @Setter
     private String adminEmail;
 
     /**
      * System message sender name.
      */
-    @Getter @Setter
     private String systemName;
 
     /**
      * System message sender email.
      */
-    @Getter @Setter
     private String systemEmail;
 
 }

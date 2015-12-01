@@ -132,20 +132,20 @@ public class RegistrationRestController extends AbstractExternalRestController {
         }
         final String subject = "New user registered";
         final String message = "A new user registered: name is " + user.getProfile().getDisplayName() + ", email is " + userEmail;
-        emailService.sendEmail(new EmailMessage(emailProperties, subject, message, null));
+        emailService.sendEmail(EmailMessage.createEmailToAdmin(emailProperties, subject, message));
     }
 
     private void sendWelcomeEmailToNewUser(final UserAccount user) {
         final String subject = "Welcome to OpenPrice";
         final String message = String.format(WELCOME_MESSAGE_TEMPLATE, user.getProfile().getDisplayName(), user.getEmail()); //TODO impl activation feature
-        emailService.sendEmail(new EmailMessage(emailProperties, user.getEmail(), user.getProfile().getDisplayName(), subject, message, null));
+        emailService.sendEmail(EmailMessage.createEmail(emailProperties, user.getEmail(), user.getProfile().getDisplayName(), subject, message, null));
     }
 
     private void sendResetPasswordLinkToUser(final UserAccount user, final UserResetPasswordRequest request) {
         final String url = emailProperties.getWebServerUrl() + "/resetPassword/" + request.getId();
         final String subject = "Reset Password in OpenPrice";
         final String message = String.format(FORGET_PASSWORD_TEMPLATE, user.getProfile().getDisplayName(), url, url);
-        emailService.sendEmail(new EmailMessage(emailProperties, user.getEmail(), user.getProfile().getDisplayName(), subject, message, null));
+        emailService.sendEmail(EmailMessage.createEmail(emailProperties, user.getEmail(), user.getProfile().getDisplayName(), subject, message, null));
     }
 
     private static final String WELCOME_MESSAGE_TEMPLATE = "Hi %s,\n"+

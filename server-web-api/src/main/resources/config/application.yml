@@ -16,13 +16,13 @@ spring:
             ddl-auto: validate
 
 application:
-    email:
-        systemName: GroundTruth Inc.
-        systemEmail: no-reply@openprice.com
-        adminName: Open Price
-        adminEmail: admin@openprice.com
-        webServerUrl: http://104.197.105.245:8080
     settings:
+        email:
+            systemName: GroundTruth Inc.
+            systemEmail: no-reply@openprice.com
+            adminName: Open Price
+            adminEmail: admin@openprice.com
+            webServerUrl: http://104.197.105.245:8080
         internal:
             serverHost: openprice-server-internal-api
             serverPort: 7900

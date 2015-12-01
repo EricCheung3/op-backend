@@ -3,7 +3,6 @@ package com.openprice.rest.user;
 import javax.inject.Inject;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,10 +12,8 @@ import com.openprice.common.client.ServiceSettings;
 import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.account.user.UserRoleType;
 import com.openprice.internal.client.InternalService;
-import com.openprice.mail.EmailProperties;
 import com.openprice.rest.AbstractRestApiTestApplication;
 
-@EnableConfigurationProperties( {EmailProperties.class} )
 public class UserApiTestApplication extends AbstractRestApiTestApplication {
 
     public static void main(String[] args) throws Exception {
@@ -44,7 +41,6 @@ public class UserApiTestApplication extends AbstractRestApiTestApplication {
     protected UserDetailsService getUserDetailsService() {
         return userAccountService;
     }
-
 
     @Bean
     InternalService internalService() {

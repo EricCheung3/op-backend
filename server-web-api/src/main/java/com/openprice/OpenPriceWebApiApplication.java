@@ -6,9 +6,8 @@ import org.springframework.context.annotation.Bean;
 
 import com.openprice.file.FileSystemService;
 import com.openprice.internal.client.InternalService;
-import com.openprice.mail.EmailProperties;
 
-@EnableConfigurationProperties({EmailProperties.class, WebApiApplicationSettings.class})
+@EnableConfigurationProperties({WebApiApplicationSettings.class})
 public class OpenPriceWebApiApplication extends AbstractApiApplication {
 
     /**
