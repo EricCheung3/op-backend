@@ -16,6 +16,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
+import com.openprice.common.ApiConstants;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
@@ -190,7 +191,7 @@ public class AdminReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
     private String receiptsUrl(final SessionFilter sessionFilter) {
         final String receiptsLink =
             given().filter(sessionFilter)
-                   .when().get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN)
+                   .when().get(ApiConstants.EXTERNAL_API_ROOT + AdminApiUrls.URL_ADMIN)
                    .then().extract().path("_links.receipts.href");
         return UriTemplate.fromTemplate(receiptsLink).set("page", null).set("size", null).set("sort", null).expand();
     }
@@ -198,7 +199,7 @@ public class AdminReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
     private String receiptUrl(final SessionFilter sessionFilter, final String receiptId) {
         final String receiptLink =
             given().filter(sessionFilter)
-                   .when().get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN)
+                   .when().get(ApiConstants.EXTERNAL_API_ROOT + AdminApiUrls.URL_ADMIN)
                    .then().extract().path("_links.receipt.href");
         return UriTemplate.fromTemplate(receiptLink).set("receiptId", receiptId).expand();
     }

@@ -13,8 +13,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
+import com.openprice.common.ApiConstants;
 import com.openprice.domain.store.StoreChain;
-import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.AdminApiUrls;
 
 public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrationTest {
@@ -78,7 +78,7 @@ public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrat
             .statusCode(HttpStatus.SC_NOT_FOUND)
         ;
 
-        final String invalidStoreUrl = UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN_CHAINS + "/invalid/branches/branch101";
+        final String invalidStoreUrl = ApiConstants.EXTERNAL_API_ROOT + AdminApiUrls.URL_ADMIN_CHAINS + "/invalid/branches/branch101";
         given()
             .filter(sessionFilter)
         .when()

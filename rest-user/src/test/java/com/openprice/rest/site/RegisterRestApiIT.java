@@ -11,16 +11,16 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
+import com.openprice.common.ApiConstants;
 import com.openprice.domain.account.user.UserRoleType;
 import com.openprice.rest.AbstractRestApiIntegrationTest;
-import com.openprice.rest.UtilConstants;
 
 @SpringApplicationConfiguration(classes = {SiteApiTestApplication.class})
 public class RegisterRestApiIT extends AbstractRestApiIntegrationTest {
 
     @Test
     public void registerNewUser_ShouldAddUserAccount() {
-        String registrationUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.registration.href");
+        String registrationUrl = when().get(ApiConstants.EXTERNAL_API_ROOT).then().extract().path("_links.registration.href");
 
         RegistrationForm registration = new RegistrationForm();
         registration.setFirstName("John");
@@ -48,7 +48,7 @@ public class RegisterRestApiIT extends AbstractRestApiIntegrationTest {
             given()
                 .filter(sessionFilter)
             .when()
-                .get(UtilConstants.API_ROOT + "/user")
+                .get(ApiConstants.EXTERNAL_API_ROOT + "/user")
             ;
 
         //response.prettyPrint();

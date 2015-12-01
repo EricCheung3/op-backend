@@ -32,11 +32,11 @@ import org.springframework.mock.web.MockMultipartFile;
 
 import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.jsonpath.JsonPath;
+import com.openprice.common.ApiConstants;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.parser.common.TextResourceUtils;
-import com.openprice.rest.UtilConstants;
 import com.openprice.rest.user.receipt.FeedbackForm;
 import com.openprice.rest.user.receipt.UserReceiptItemForm;
 
@@ -314,7 +314,7 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
         String receiptLocation =
             mockMvc
             .perform(
-                fileUpload(UtilConstants.API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
+                fileUpload(ApiConstants.EXTERNAL_API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
                 .file(file)
                 .with(user(USERNAME))
                 .with(csrf())

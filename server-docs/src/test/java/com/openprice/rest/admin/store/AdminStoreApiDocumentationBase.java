@@ -9,9 +9,7 @@ import org.junit.Before;
 
 import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.jsonpath.JsonPath;
-import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.AdminApiDocumentationBase;
-import com.openprice.rest.admin.AdminApiUrls;
 
 public abstract class AdminStoreApiDocumentationBase extends AdminApiDocumentationBase {
 
@@ -32,7 +30,7 @@ public abstract class AdminStoreApiDocumentationBase extends AdminApiDocumentati
     protected String getStoreChainsUrl() throws Exception {
         final String responseContent =
             mockMvc
-            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN).with(user(ADMINNAME)))
+            .perform(get(adminUrl()).with(user(ADMINNAME)))
             .andExpect(status().isOk())
             .andReturn().getResponse()
             .getContentAsString();

@@ -13,8 +13,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import com.openprice.common.ApiConstants;
 import com.openprice.rest.ApiDocumentationBase;
-import com.openprice.rest.UtilConstants;
 
 
 @WithMockUser
@@ -23,7 +23,7 @@ public class SiteApiDocumentation extends ApiDocumentationBase {
     @Test
     public void websiteExample() throws Exception {
         mockMvc
-        .perform(get(UtilConstants.API_ROOT))
+        .perform(get(ApiConstants.EXTERNAL_API_ROOT))
         .andExpect(status().isOk())
         .andDo(document("website-example",
             preprocessResponse(prettyPrint()),

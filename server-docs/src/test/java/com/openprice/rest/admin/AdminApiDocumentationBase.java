@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.jsonpath.JsonPath;
+import com.openprice.common.ApiConstants;
 import com.openprice.domain.account.admin.AdminAccount;
 import com.openprice.domain.account.admin.AdminAccountRepository;
 import com.openprice.domain.account.admin.AdminAccountService;
@@ -18,7 +19,6 @@ import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreService;
 import com.openprice.rest.ApiDocumentationBase;
-import com.openprice.rest.UtilConstants;
 
 public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
     public static final String ADMINNAME = "jdoe";
@@ -85,10 +85,14 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
         storeService.deleteAllStores();
     }
 
+    protected String adminUrl() {
+        return ApiConstants.EXTERNAL_API_ROOT + AdminApiUrls.URL_ADMIN;
+    }
+
     protected String usersUrl() throws Exception {
         final String responseContent =
             mockMvc
-            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN).with(user(ADMINNAME)))
+            .perform(get(adminUrl()).with(user(ADMINNAME)))
             .andExpect(status().isOk())
             .andReturn().getResponse()
             .getContentAsString();

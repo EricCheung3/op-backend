@@ -16,18 +16,16 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
+import com.openprice.common.ApiConstants;
 import com.openprice.domain.account.user.UserResetPasswordRequest;
 import com.openprice.domain.account.user.UserResetPasswordRequestRepository;
 import com.openprice.rest.AbstractRestApiIntegrationTest;
-import com.openprice.rest.UtilConstants;
 
 @SpringApplicationConfiguration(classes = {SiteApiTestApplication.class})
 public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
 
     @Test
     public void forgetPassword_ShouldReturn404_WithInvalidEmail() {
-        String resetPasswordRequestsUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.forgetPassword.href");
-
         ForgetPasswordForm form = new ForgetPasswordForm("non@email.com");
 
         Response response =
@@ -35,7 +33,7 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
                 .contentType(ContentType.JSON)
                 .body(form)
             .when()
-                .post(resetPasswordRequestsUrl)
+                .post(forgetPasswordUrl())
             ;
 
         response
@@ -47,8 +45,6 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testData.xml")
     public void forgetPassword_ShouldAddForgetPasswordRequest() {
-        String resetPasswordRequestsUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.forgetPassword.href");
-
         ForgetPasswordForm form = new ForgetPasswordForm(TEST_USERNAME_JOHN_DOE);
 
         Response response =
@@ -56,7 +52,7 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
                 .contentType(ContentType.JSON)
                 .body(form)
             .when()
-                .post(resetPasswordRequestsUrl)
+                .post(forgetPasswordUrl())
             ;
 
         response
@@ -73,8 +69,6 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testData.xml")
     public void getResetPasswordRequest_ShouldReturnPasswordRequest() {
-        String resetPasswordRequestsUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.forgetPassword.href");
-
         ForgetPasswordForm form = new ForgetPasswordForm(TEST_USERNAME_JOHN_DOE);
 
         Response response =
@@ -82,7 +76,7 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
                 .contentType(ContentType.JSON)
                 .body(form)
             .when()
-                .post(resetPasswordRequestsUrl)
+                .post(forgetPasswordUrl())
             ;
 
         response
@@ -92,7 +86,7 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
 
         List<UserResetPasswordRequest> requests = userResetPasswordRequestRepository.findByEmail(TEST_USERNAME_JOHN_DOE);
         String requestId = requests.get(0).getId();
-        String resetPasswordRequestUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.resetPassword.href");
+        String resetPasswordRequestUrl = when().get(ApiConstants.EXTERNAL_API_ROOT).then().extract().path("_links.resetPassword.href");
         response =
             given()
             .when()
@@ -114,8 +108,6 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testData.xml")
     public void getResetPasswordRequest_ShouldReturn404_WhenRequestExpired() {
-        String resetPasswordRequestsUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.forgetPassword.href");
-
         ForgetPasswordForm form = new ForgetPasswordForm(TEST_USERNAME_JOHN_DOE);
 
         Response response =
@@ -123,7 +115,7 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
                 .contentType(ContentType.JSON)
                 .body(form)
             .when()
-                .post(resetPasswordRequestsUrl)
+                .post(forgetPasswordUrl())
             ;
 
         response
@@ -137,10 +129,9 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
         request.setRequestTime(request.getRequestTime().minusHours(2));
         userResetPasswordRequestRepository.save(request);
 
-        String resetPasswordRequestUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.resetPassword.href");
         given()
             .when()
-                .get(resetPasswordRequestUrl, requestId)
+                .get(resetPasswordRequestUrl(), requestId)
             .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
             ;
@@ -150,7 +141,6 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testData.xml")
     public void resetPassword_ShouldResetPassword() {
-        String resetPasswordRequestsUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.forgetPassword.href");
 
         ForgetPasswordForm form = new ForgetPasswordForm(TEST_USERNAME_JOHN_DOE);
 
@@ -159,7 +149,7 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
                 .contentType(ContentType.JSON)
                 .body(form)
             .when()
-                .post(resetPasswordRequestsUrl)
+                .post(forgetPasswordUrl())
             ;
 
         response
@@ -169,14 +159,13 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
 
         List<UserResetPasswordRequest> requests = userResetPasswordRequestRepository.findByEmail(TEST_USERNAME_JOHN_DOE);
         String requestId = requests.get(0).getId();
-        String resetPasswordRequestUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.resetPassword.href");
         ResetPasswordForm resetForm = new ResetPasswordForm("newpassword");
 
         given()
             .contentType(ContentType.JSON)
             .body(resetForm)
         .when()
-            .put(resetPasswordRequestUrl, requestId)
+            .put(resetPasswordRequestUrl(), requestId)
         .then()
             .statusCode(HttpStatus.SC_NO_CONTENT)
         ;
@@ -186,8 +175,6 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testData.xml")
     public void resetPassword_ShouldReturn404_WhenRequestExpired() {
-        String resetPasswordRequestsUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.forgetPassword.href");
-
         ForgetPasswordForm form = new ForgetPasswordForm(TEST_USERNAME_JOHN_DOE);
 
         Response response =
@@ -195,7 +182,7 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
                 .contentType(ContentType.JSON)
                 .body(form)
             .when()
-                .post(resetPasswordRequestsUrl)
+                .post(forgetPasswordUrl())
             ;
 
         response
@@ -209,14 +196,13 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
         request.setRequestTime(request.getRequestTime().minusHours(2));
         userResetPasswordRequestRepository.save(request);
 
-        String resetPasswordRequestUrl = when().get(UtilConstants.API_ROOT).then().extract().path("_links.resetPassword.href");
         ResetPasswordForm resetForm = new ResetPasswordForm("newpassword");
 
         given()
             .contentType(ContentType.JSON)
             .body(resetForm)
         .when()
-            .put(resetPasswordRequestUrl, requestId)
+            .put(resetPasswordRequestUrl(), requestId)
         .then()
             .statusCode(HttpStatus.SC_NOT_FOUND)
         ;
@@ -225,4 +211,12 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
 
     @Inject
     private UserResetPasswordRequestRepository userResetPasswordRequestRepository;
+
+    private String forgetPasswordUrl() {
+        return  when().get(ApiConstants.EXTERNAL_API_ROOT).then().extract().path("_links.forgetPassword.href");
+    }
+
+    private String resetPasswordRequestUrl() {
+        return  when().get(ApiConstants.EXTERNAL_API_ROOT).then().extract().path("_links.resetPassword.href");
+    }
 }

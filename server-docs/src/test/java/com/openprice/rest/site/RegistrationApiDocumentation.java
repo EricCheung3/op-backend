@@ -15,9 +15,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
+import com.openprice.common.ApiConstants;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.rest.ApiDocumentationBase;
-import com.openprice.rest.UtilConstants;
 
 public class RegistrationApiDocumentation extends ApiDocumentationBase {
 
@@ -31,7 +31,7 @@ public class RegistrationApiDocumentation extends ApiDocumentationBase {
 
         mockMvc
         .perform(
-            post(UtilConstants.API_ROOT + SiteApiUrls.URL_PUBLIC_REGISTRATION)
+            post(ApiConstants.EXTERNAL_API_ROOT + SiteApiUrls.URL_PUBLIC_REGISTRATION)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content(objectMapper.writeValueAsString(form))
         )
@@ -58,7 +58,7 @@ public class RegistrationApiDocumentation extends ApiDocumentationBase {
 
         mockMvc
         .perform(
-            post(UtilConstants.API_ROOT + SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS)
+            post(ApiConstants.EXTERNAL_API_ROOT + SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content(objectMapper.writeValueAsString(form))
         )
@@ -82,7 +82,7 @@ public class RegistrationApiDocumentation extends ApiDocumentationBase {
         String requestLocation =
             mockMvc
             .perform(
-                post(UtilConstants.API_ROOT + SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS)
+                post(ApiConstants.EXTERNAL_API_ROOT + SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(form))
             )

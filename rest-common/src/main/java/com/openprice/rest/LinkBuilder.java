@@ -5,6 +5,8 @@ import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.UriTemplate;
 import org.springframework.hateoas.mvc.BasicLinkBuilder;
 
+import com.openprice.common.ApiConstants;
+
 public class LinkBuilder {
 
     private final String baseUri;
@@ -26,7 +28,7 @@ public class LinkBuilder {
     private String buildUrl(final String apiUrl, final boolean appendPagination, final String[] pairs) {
         final StringBuilder strBuilder = new StringBuilder();
         strBuilder.append(baseUri)
-                  .append(UtilConstants.API_ROOT)
+                  .append(ApiConstants.EXTERNAL_API_ROOT)
                   .append(apiUrl);
         if (appendPagination) {
             strBuilder.append(UtilConstants.PAGINATION_TEMPLATES);

@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 
 import com.jayway.restassured.http.ContentType;
+import com.openprice.common.ApiConstants;
 import com.openprice.rest.AbstractRestApiIntegrationTest;
 import com.openprice.rest.UtilConstants;
 
@@ -17,11 +18,11 @@ public class WebsiteRestApiIT extends AbstractRestApiIntegrationTest {
     @Test
     public void getPublic_ShouldReturnWebsiteResource() {
         when()
-            .get(UtilConstants.API_ROOT)
+            .get(ApiConstants.EXTERNAL_API_ROOT)
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            .body("_links.self.href", endsWith(UtilConstants.API_ROOT))
+            .body("_links.self.href", endsWith(ApiConstants.EXTERNAL_API_ROOT))
             .body("_links.signin.href", endsWith(UtilConstants.URL_SIGNIN))
             .body("_links.registration.href", endsWith(SiteApiUrls.URL_PUBLIC_REGISTRATION))
             .body("_links.forgetPassword.href", endsWith(SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS))

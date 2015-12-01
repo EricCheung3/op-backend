@@ -11,6 +11,7 @@ import org.junit.Test;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
+import com.openprice.common.ApiConstants;
 import com.openprice.rest.UtilConstants;
 
 public class AdminAccountRestApiIT extends AbstractAdminRestApiIntegrationTest {
@@ -18,7 +19,7 @@ public class AdminAccountRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @Test
     public void getCurrentAdminAccount_ShouldReturn403_IfNotSignin() {
         when()
-            .get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN)
+            .get(ApiConstants.EXTERNAL_API_ROOT + AdminApiUrls.URL_ADMIN)
         .then()
             .statusCode(HttpStatus.SC_FORBIDDEN)
         ;
@@ -32,7 +33,7 @@ public class AdminAccountRestApiIT extends AbstractAdminRestApiIntegrationTest {
         given()
             .filter(sessionFilter)
         .when()
-            .get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN)
+            .get(ApiConstants.EXTERNAL_API_ROOT + AdminApiUrls.URL_ADMIN)
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)

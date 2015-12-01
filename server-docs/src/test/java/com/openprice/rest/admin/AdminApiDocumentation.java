@@ -15,14 +15,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.openprice.rest.UtilConstants;
-
 public class AdminApiDocumentation extends AdminApiDocumentationBase {
     @Test
     public void currentAdminExample() throws Exception {
 
         mockMvc
-        .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN).with(user(ADMINNAME)))
+        .perform(get(adminUrl()).with(user(ADMINNAME)))
         .andExpect(status().isOk())
         .andDo(document("admin-example",
             preprocessResponse(prettyPrint()),

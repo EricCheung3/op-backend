@@ -18,7 +18,6 @@ import org.junit.Test;
 
 import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.jsonpath.JsonPath;
-import com.openprice.rest.UtilConstants;
 
 public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
     @Test
@@ -146,7 +145,7 @@ public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
     private String getReceiptsUrl() throws Exception {
         final String responseContent =
             mockMvc
-            .perform(get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN).with(user(ADMINNAME)))
+            .perform(get(adminUrl()).with(user(ADMINNAME)))
             .andExpect(status().isOk())
             .andReturn().getResponse()
             .getContentAsString();

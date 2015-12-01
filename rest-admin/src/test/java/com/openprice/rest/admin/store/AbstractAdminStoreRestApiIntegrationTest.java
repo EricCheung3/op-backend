@@ -6,10 +6,10 @@ import javax.inject.Inject;
 
 import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.restassured.filter.session.SessionFilter;
+import com.openprice.common.ApiConstants;
 import com.openprice.domain.store.CatalogRepository;
 import com.openprice.domain.store.StoreBranchRepository;
 import com.openprice.domain.store.StoreChainRepository;
-import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.AbstractAdminRestApiIntegrationTest;
 import com.openprice.rest.admin.AdminApiUrls;
 
@@ -27,7 +27,7 @@ public abstract class AbstractAdminStoreRestApiIntegrationTest extends AbstractA
     protected String storeChainsUrl(final SessionFilter sessionFilter) {
         final String chainsLink =
             given().filter(sessionFilter)
-                   .when().get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN)
+                   .when().get(ApiConstants.EXTERNAL_API_ROOT + AdminApiUrls.URL_ADMIN)
                    .then().extract().path("_links.chains.href");
         return UriTemplate.fromTemplate(chainsLink).set("page", null).set("size", null).set("sort", null).expand();
     }
@@ -35,7 +35,7 @@ public abstract class AbstractAdminStoreRestApiIntegrationTest extends AbstractA
     protected String storeChainUrl(final SessionFilter sessionFilter, final String chainId) {
         final String chainLink =
             given().filter(sessionFilter)
-                   .when().get(UtilConstants.API_ROOT + AdminApiUrls.URL_ADMIN)
+                   .when().get(ApiConstants.EXTERNAL_API_ROOT + AdminApiUrls.URL_ADMIN)
                    .then().extract().path("_links.chain.href");
         return UriTemplate.fromTemplate(chainLink).set("chainId", chainId).expand();
     }
