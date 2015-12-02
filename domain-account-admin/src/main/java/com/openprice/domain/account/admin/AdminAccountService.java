@@ -64,8 +64,6 @@ public class AdminAccountService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //log.debug("==>loadUserByUsername("+username+")");
-
         final AdminAccount account = accountRepository.findByUsername(username);
         if (account == null) {
             throw new UsernameNotFoundException("Cannot find user by username " + username);

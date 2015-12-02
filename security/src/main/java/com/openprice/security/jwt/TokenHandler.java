@@ -2,9 +2,11 @@ package com.openprice.security.jwt;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Code copied from http://technicalrex.com/2015/02/20/stateless-authentication-with-spring-security-and-jwt/.
@@ -13,6 +15,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
  * Handler to process JWT token with JJWT (https://github.com/jwtk/jjwt).
  *
  */
+@Slf4j
 public class TokenHandler {
     private final String secret;
     private final UserDetailsService userService;
@@ -28,7 +31,12 @@ public class TokenHandler {
                                     .parseClaimsJws(token)
                                     .getBody()
                                     .getSubject();
-        return userService.loadUserByUsername(username);
+        try {
+            return userService.loadUserByUsername(username);
+        } catch (UsernameNotFoundException ex) {
+            log.warn("Cannot load user by username: '{}'!", username);
+            return null;
+        }
     }
 
     public String createTokenForUser(final UserDetails user) {
