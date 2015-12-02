@@ -51,17 +51,13 @@ public class ReceiptService {
 
         if (result == null) {
             log.debug("No receipt data yet for receipt {}, call parser to generate...", receipt.getId());
-            return generateParsedReceiptData(receipt);
+            final List<String> ocrTextList = loadOcrResults(receipt);
+            return parseOcrResults(receipt, ocrTextList);
         }
         return result;
     }
 
-    /*
-     * Call parser to generate ReceiptData from receipt image OCR result if new uploaded receipt was not parsed yet.
-     */
-    private ReceiptData generateParsedReceiptData(final Receipt receipt) {
-
-        final List<String> ocrTextList = loadOcrResults(receipt);
+    public ReceiptData parseOcrResults(final Receipt receipt, final List<String> ocrTextList) {
         try {
             final ParsedReceipt parsedReceipt = simpleParser.parseOCRResults(ocrTextList);
             ReceiptData data = receipt.createReceiptDataFromParserResult(parsedReceipt);

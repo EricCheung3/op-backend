@@ -33,7 +33,6 @@ import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.domain.receipt.ReceiptUploadService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.admin.AbstractAdminRestController;
 import com.openprice.rest.admin.AdminApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,11 +43,8 @@ import lombok.extern.slf4j.Slf4j;
  */
 @RestController
 @Slf4j
-public class AdminReceiptRestController extends AbstractAdminRestController {
+public class AdminReceiptRestController extends AbstractReceiptAdminRestController {
 
-    private final ReceiptService receiptService;
-    private final ReceiptUploadService receiptUploadService;
-    private final ReceiptRepository receiptRepository;
     private final ReceiptImageRepository receiptImageRepository;
     private final AdminReceiptResourceAssembler receiptResourceAssembler;
     private final AdminReceiptImageResourceAssembler receiptImageResourceAssembler;
@@ -61,10 +57,7 @@ public class AdminReceiptRestController extends AbstractAdminRestController {
                                       final ReceiptImageRepository receiptImageRepository,
                                       final AdminReceiptResourceAssembler receiptResourceAssembler,
                                       final AdminReceiptImageResourceAssembler receiptImageResourceAssembler) {
-        super(adminAccountService);
-        this.receiptService = receiptService;
-        this.receiptUploadService = receiptUploadService;
-        this.receiptRepository = receiptRepository;
+        super(adminAccountService, receiptService, receiptUploadService, receiptRepository);
         this.receiptImageRepository = receiptImageRepository;
         this.receiptResourceAssembler = receiptResourceAssembler;
         this.receiptImageResourceAssembler = receiptImageResourceAssembler;
@@ -151,24 +144,6 @@ public class AdminReceiptRestController extends AbstractAdminRestController {
             log.error("Cannot load image file from {}, please check file system!", image.getFileName());
             throw new ResourceNotFoundException("No image with the id: " + imageId);
         }
-    }
-
-    // FIXME add API for ReceiptData
-//    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT_ITEMS)
-//    public HttpEntity<List<ReceiptItem>> getReceiptItems(
-//            @PathVariable("receiptId") final String receiptId) {
-//        final Receipt receipt = loadReceiptById(receiptId);
-//        List<ReceiptItem> result = receiptService.getLatestReceiptParserResult(receipt);
-//        return ResponseEntity.ok(result);
-//    }
-
-    private Receipt loadReceiptById(final String receiptId) {
-        final Receipt receipt = receiptRepository.findOne(receiptId);
-        if (receipt == null) {
-            log.warn("ILLEGAL RECEIPT ACCESS! No such receipt Id: {}.", receiptId);
-            throw new ResourceNotFoundException("No receipt with the id: " + receiptId);
-        }
-        return receipt;
     }
 
     private ReceiptImage loadReceiptImageByIdAndCheckReceipt(final String imageId, final Receipt receipt) {

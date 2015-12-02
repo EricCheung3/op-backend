@@ -39,9 +39,13 @@ public class ReceiptUploadServiceTest {
     @Mock
     MultipartFile ocrMock;
 
+    @Mock
+    ReceiptService receiptServiceMock;
+
     FileSystemService fileSystemService;
 
     ReceiptUploadService serviceToTest;
+
 
     static final String TEST_CONTENT = "test";
     static final String TEST_OCR = "Superstore";
@@ -49,7 +53,8 @@ public class ReceiptUploadServiceTest {
     @Before
     public void setup() throws Exception {
         fileSystemService = new FileSystemService(new FileFolderSettings());
-        serviceToTest = new ReceiptUploadService(receiptRepositoryMock,
+        serviceToTest = new ReceiptUploadService(receiptServiceMock,
+                                                 receiptRepositoryMock,
                                                  receiptImageRepositoryMock,
                                                  fileSystemService);
     }
@@ -281,7 +286,7 @@ public class ReceiptUploadServiceTest {
     }
 
     @Test
-    public void hackloadOcrResult_ShouldUpdateReceiptOcrResult()
+    public void hackloadOcrResult_ShouldUpdateReceiptOcrResultAndParse()
             throws Exception {
         final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
         final Receipt receipt = Receipt.createReceipt(testUser);

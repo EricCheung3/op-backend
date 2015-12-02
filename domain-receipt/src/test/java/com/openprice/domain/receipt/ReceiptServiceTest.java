@@ -62,7 +62,6 @@ public class ReceiptServiceTest {
                                            simpleParser);
     }
 
-
     @Test
     public void getLatestReceiptParserResult_ShouldGenerateParserResult_IfNotInDatabase() throws Exception {
         final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");

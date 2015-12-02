@@ -24,7 +24,7 @@ public class UserAccountResourceAssembler implements ResourceAssembler<UserAccou
                    .addLink("stores", URL_USER_SHOPPING_STORES, true, null)
                    .addLink("store", URL_USER_SHOPPING_STORES_STORE, false, null);
 
-        resource.setReceiptsUrl(resource.getLink("receipts").getHref());
+        resource.setReceiptsUrl(resource.getLink(Link.REL_SELF).getHref() + "/receipts"); // HACK. Remove it after ABBYY license ok.
         resource.setUploadUrl(resource.getLink("upload").getHref());
         return resource;
     }

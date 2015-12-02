@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
 import java.util.Base64;
 
 import javax.inject.Inject;
@@ -22,14 +23,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ReceiptUploadService {
 
+    private final ReceiptService receiptService;
     private final ReceiptRepository receiptRepository;
     private final ReceiptImageRepository receiptImageRepository;
     private final FileSystemService fileSystemService;
 
     @Inject
-    public ReceiptUploadService(final ReceiptRepository receiptRepository,
+    public ReceiptUploadService(final ReceiptService receiptService,
+                                final ReceiptRepository receiptRepository,
                                 final ReceiptImageRepository receiptImageRepository,
                                 final FileSystemService fileSystemService) {
+        this.receiptService = receiptService;
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
         this.fileSystemService = fileSystemService;
@@ -165,13 +169,16 @@ public class ReceiptUploadService {
     public void hackloadOcrResult(final Receipt receipt, final MultipartFile ocr) {
         if (receipt.getImages().size() != 1) {
             log.error("Cannot hack load OCR result to receipt not having just one image!");
+            return;
         }
         ReceiptImage receiptImage = receipt.getImages().get(0);
         try {
-            receiptImage.setOcrResult(new String(ocr.getBytes()));
+            final String ocrText = new String(ocr.getBytes());
+            receiptImage.setOcrResult(ocrText);
             receiptImage.setStatus(ProcessStatusType.SCANNED);
             receiptImageRepository.save(receiptImage);
-            log.info("Hackloaded OCR result into receipt "+receipt.getId());
+            receiptService.parseOcrResults(receipt, Arrays.asList(ocrText));
+            log.info("Hackloaded OCR result into receipt {} and parsed the result.", receipt.getId());
         } catch (IOException ex) {
             log.error("No content of OCR result to save!");
             throw new RuntimeException("No OCR result content.");
