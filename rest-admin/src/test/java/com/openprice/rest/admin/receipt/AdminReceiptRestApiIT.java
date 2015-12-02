@@ -1,4 +1,4 @@
-package com.openprice.rest.admin;
+package com.openprice.rest.admin.receipt;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
@@ -6,29 +6,18 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import javax.inject.Inject;
-
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import com.damnhandy.uri.template.UriTemplate;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
-import com.openprice.common.ApiConstants;
 import com.openprice.domain.receipt.Receipt;
-import com.openprice.domain.receipt.ReceiptImageRepository;
-import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.rest.UtilConstants;
+import com.openprice.rest.admin.AdminApiUrls;
 
-public class AdminReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
-
-    @Inject
-    private ReceiptRepository receiptRepository;
-
-    @Inject
-    private ReceiptImageRepository receiptImageRepository;
+public class AdminReceiptRestApiIT extends AbstractAdminReceiptRestApiIntegrationTest {
 
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
@@ -188,35 +177,4 @@ public class AdminReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
         assertEquals(0, receiptImageRepository.findByReceiptOrderByCreatedTime(receipt).size());
     }
 
-    private String receiptsUrl(final SessionFilter sessionFilter) {
-        final String receiptsLink =
-            given().filter(sessionFilter)
-                   .when().get(ApiConstants.EXTERNAL_API_ROOT + AdminApiUrls.URL_ADMIN)
-                   .then().extract().path("_links.receipts.href");
-        return UriTemplate.fromTemplate(receiptsLink).set("page", null).set("size", null).set("sort", null).expand();
-    }
-
-    private String receiptUrl(final SessionFilter sessionFilter, final String receiptId) {
-        final String receiptLink =
-            given().filter(sessionFilter)
-                   .when().get(ApiConstants.EXTERNAL_API_ROOT + AdminApiUrls.URL_ADMIN)
-                   .then().extract().path("_links.receipt.href");
-        return UriTemplate.fromTemplate(receiptLink).set("receiptId", receiptId).expand();
-    }
-
-    private String receiptImagesUrl(final SessionFilter sessionFilter, final String receiptId) {
-        final String imagesLink =
-            given().filter(sessionFilter)
-                   .when().get(receiptUrl(sessionFilter, receiptId))
-                   .then().extract().path("_links.images.href");
-        return UriTemplate.fromTemplate(imagesLink).set("page", null).set("size", null).set("sort", null).expand();
-    }
-
-    private String receiptImageUrl(final SessionFilter sessionFilter, final String receiptId, final String imageId) {
-        final String imageLink =
-            given().filter(sessionFilter)
-                   .when().get(receiptUrl(sessionFilter, receiptId))
-                   .then().extract().path("_links.image.href");
-        return UriTemplate.fromTemplate(imageLink).set("imageId", imageId).expand();
-    }
 }

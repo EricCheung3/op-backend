@@ -40,6 +40,8 @@ public class AdminReceiptResourceAssembler implements ResourceAssembler<Receipt,
         linkBuilder.addLink(Link.REL_SELF, URL_ADMIN_RECEIPTS_RECEIPT, false, pairs)
                    .addLink("images", URL_ADMIN_RECEIPTS_RECEIPT_IMAGES,  true, pairs)
                    .addLink("image", URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE, false, pairs)
+                   .addLink("results", URL_ADMIN_RECEIPTS_RECEIPT_RESULTS,  true, pairs)
+                   .addLink("result", URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT, false, pairs)
                    ;
 
         // Temp solution for embedded resources

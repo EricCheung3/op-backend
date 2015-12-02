@@ -37,6 +37,11 @@
     <receipt id="receipt102" version="1" user_account_id="user002" need_feedback="1" created_time="2009-01-02 11:00:01.0000"/>
     <receipt_image id="image102" version="1" receipt_id="receipt102" status="UPLOADED" created_time="2009-01-02 11:00:01.0000"/>
 
+    <receipt_data id="recData001" version="1" receipt_id="receipt001" chain_code="rcss" branch_name="Calgary Trail" parsed_total="10.45" parsed_date="2015/11/11" created_time="2009-01-01 10:00:01.0000" />
+    <receipt_item id="recItem001" version="1" receipt_data_id="recData001" catalog_code="EGG_1235" parsed_name="eggs" display_name="eggs" parsed_price="1.99" display_price="1.99" user_ignored="0" created_time="2009-01-01 10:00:01.0000" />
+    <receipt_item id="recItem002" version="1" receipt_data_id="recData001" catalog_code="MILK_1234" parsed_name="milk" display_name="milk" parsed_price="4.99" display_price="4.99" user_ignored="1" created_time="2009-01-01 10:00:01.0000" />
+    <receipt_item id="recItem003" version="1" receipt_data_id="recData001" catalog_code="PORK" parsed_name="pork" display_name="pork" parsed_price="5.99" display_price="5.99" user_ignored="0" created_time="2009-01-01 10:00:01.0000" />
+
     <store_chain id="chain001" version="1" code="rcss" name="Real Canadian Superstore" created_time="2009-01-02 10:00:01.0000"/>
     <store_branch id="branch101" version="1" chain_id="chain001" name="Calgary Trail RCSS" phone="780-430-2769"
         address1="4821 Calgary Trail" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>

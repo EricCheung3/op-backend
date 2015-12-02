@@ -26,7 +26,10 @@ public interface AdminApiUrls {
     String URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE = "/admin/receipts/{receiptId}/images/{imageId}";
     String URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE_DOWNLOAD = "/admin/receipts/{receiptId}/images/{imageId}/download";
     String URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE_BASE64 = "/admin/receipts/{receiptId}/images/{imageId}/base64";
-    String URL_ADMIN_RECEIPTS_RECEIPT_ITEMS = "/admin/receipts/{receiptId}/items";
+    String URL_ADMIN_RECEIPTS_RECEIPT_RESULTS = "/admin/receipts/{receiptId}/results";
+    String URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT = "/admin/receipts/{receiptId}/results/{resultId}";
+    String URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_ITEMS = "/admin/receipts/{receiptId}/results/{resultId}/items";
+    String URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_ITEMS_ITEM = "/admin/receipts/{receiptId}/results/{resultId}/items/{itemId}";
 
     String URL_ADMIN_CHAINS = "/admin/chains";
     String URL_ADMIN_CHAINS_CHAIN = "/admin/chains/{chainId}";

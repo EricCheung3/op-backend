@@ -1,5 +1,7 @@
 package com.openprice.domain.receipt;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReceiptDataRepository extends JpaRepository<ReceiptData, String> {
@@ -10,4 +12,6 @@ public interface ReceiptDataRepository extends JpaRepository<ReceiptData, String
      * @return
      */
     ReceiptData findFirstByReceiptOrderByCreatedTimeDesc(Receipt receipt);
+
+    Page<ReceiptData> findByReceiptOrderByCreatedTime(Receipt receipt, Pageable pageable);
 }

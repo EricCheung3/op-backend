@@ -6,7 +6,7 @@ import com.openprice.domain.account.admin.AdminAccount;
 import com.openprice.domain.account.admin.AdminAccountService;
 import com.openprice.rest.AbstractExternalRestController;
 
-public abstract class AbstractAdminRestController extends AbstractExternalRestController {
+public abstract class AbstractAdminRestController extends AbstractExternalRestController implements AdminApiUrls {
     protected final AdminAccountService adminAccountService;
 
     public AbstractAdminRestController(final AdminAccountService adminAccountService) {
