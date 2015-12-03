@@ -23,12 +23,12 @@ import com.openprice.domain.account.user.UserProfileRepository;
 public class UserAccountRestController extends AbstractUserRestController {
 
     private final UserProfileRepository userProfileRepository;
-    private final UserAccountResourceAssembler userAccountResourceAssembler;
+    private final UserAccountResource.Assembler userAccountResourceAssembler;
 
     @Inject
     public UserAccountRestController(final UserAccountService userAccountService,
                                      final UserProfileRepository userProfileRepository,
-                                     final UserAccountResourceAssembler userAccountResourceAssembler) {
+                                     final UserAccountResource.Assembler userAccountResourceAssembler) {
         super(userAccountService);
         this.userProfileRepository = userProfileRepository;
         this.userAccountResourceAssembler = userAccountResourceAssembler;

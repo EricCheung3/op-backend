@@ -28,13 +28,13 @@ import com.openprice.rest.ResourceNotFoundException;
 @RestController
 public class ShoppingStoreRestController extends AbstractUserStoreRestController {
 
-    private final ShoppingStoreResourceAssembler shoppingStoreResourceAssembler;
+    private final ShoppingStoreResource.Assembler shoppingStoreResourceAssembler;
 
     @Inject
     public ShoppingStoreRestController(final UserAccountService userAccountService,
                                        final ShoppingService shoppingService,
                                        final ShoppingStoreRepository shoppingStoreRepository,
-                                       final ShoppingStoreResourceAssembler shoppingStoreResourceAssembler) {
+                                       final ShoppingStoreResource.Assembler shoppingStoreResourceAssembler) {
         super(userAccountService, shoppingService, shoppingStoreRepository);
         this.shoppingStoreResourceAssembler = shoppingStoreResourceAssembler;
     }

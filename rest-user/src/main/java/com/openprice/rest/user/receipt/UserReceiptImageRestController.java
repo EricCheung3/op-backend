@@ -50,7 +50,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserReceiptImageRestController extends AbstractUserReceiptRestController {
 
     private final ReceiptImageRepository receiptImageRepository;
-    private final UserReceiptImageResourceAssembler receiptImageResourceAssembler;
+    private final UserReceiptImageResource.Assembler receiptImageResourceAssembler;
 
     @Inject
     public UserReceiptImageRestController(final UserAccountService userAccountService,
@@ -58,7 +58,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
                                           final ReceiptUploadService receiptUploadService,
                                           final ReceiptRepository receiptRepository,
                                           final ReceiptImageRepository receiptImageRepository,
-                                          final UserReceiptImageResourceAssembler receiptImageResourceAssembler,
+                                          final UserReceiptImageResource.Assembler receiptImageResourceAssembler,
                                           final InternalService internalService) {
         super(userAccountService, receiptService, receiptUploadService, receiptRepository, internalService);
         this.receiptImageRepository = receiptImageRepository;

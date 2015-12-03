@@ -18,10 +18,10 @@ import com.openprice.rest.AbstractExternalRestController;
 @RestController
 public class WebsiteRestController extends AbstractExternalRestController {
 
-    private final WebsiteResourceAssembler websiteResourceAssembler;
+    private final WebsiteResource.Assembler websiteResourceAssembler;
 
     @Inject
-    public WebsiteRestController(final WebsiteResourceAssembler websiteResourceAssembler) {
+    public WebsiteRestController(final WebsiteResource.Assembler websiteResourceAssembler) {
         this.websiteResourceAssembler = websiteResourceAssembler;
     }
 

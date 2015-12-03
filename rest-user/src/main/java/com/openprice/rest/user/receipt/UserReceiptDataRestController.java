@@ -38,8 +38,8 @@ import lombok.extern.slf4j.Slf4j;
 public class UserReceiptDataRestController extends AbstractUserReceiptRestController {
 
     private final ReceiptItemRepository receiptItemRepository;
-    private final UserReceiptDataResourceAssembler receiptDataResourceAssembler;
-    private final UserReceiptItemResourceAssembler receiptItemResourceAssembler;
+    private final UserReceiptDataResource.Assembler receiptDataResourceAssembler;
+    private final UserReceiptItemResource.Assembler receiptItemResourceAssembler;
 
     @Inject
     public UserReceiptDataRestController(final UserAccountService userAccountService,
@@ -47,8 +47,8 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
                                          final ReceiptUploadService receiptUploadService,
                                          final ReceiptRepository receiptRepository,
                                          final ReceiptItemRepository receiptItemRepository,
-                                         final UserReceiptDataResourceAssembler receiptDataResourceAssembler,
-                                         final UserReceiptItemResourceAssembler receiptItemResourceAssembler,
+                                         final UserReceiptDataResource.Assembler receiptDataResourceAssembler,
+                                         final UserReceiptItemResource.Assembler receiptItemResourceAssembler,
                                          final InternalService internalService) {
         super(userAccountService, receiptService, receiptUploadService, receiptRepository, internalService);
         this.receiptItemRepository = receiptItemRepository;

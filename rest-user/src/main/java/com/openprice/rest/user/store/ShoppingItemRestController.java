@@ -39,14 +39,14 @@ import lombok.extern.slf4j.Slf4j;
 public class ShoppingItemRestController extends AbstractUserStoreRestController {
 
     private final ShoppingItemRepository shoppingItemRepository;
-    private final ShoppingItemResourceAssembler shoppingItemResourceAssembler;
+    private final ShoppingItemResource.Assembler shoppingItemResourceAssembler;
 
     @Inject
     public ShoppingItemRestController(final UserAccountService userAccountService,
                                       final ShoppingService shoppingService,
                                       final ShoppingStoreRepository shoppingStoreRepository,
                                       final ShoppingItemRepository shoppingItemRepository,
-                                      final ShoppingItemResourceAssembler shoppingItemResourceAssembler) {
+                                      final ShoppingItemResource.Assembler shoppingItemResourceAssembler) {
         super(userAccountService, shoppingService, shoppingStoreRepository);
         this.shoppingItemRepository = shoppingItemRepository;
         this.shoppingItemResourceAssembler = shoppingItemResourceAssembler;
