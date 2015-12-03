@@ -42,13 +42,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AdminStoreChainRestController extends AbstractStoreAdminRestController {
 
-    private final AdminStoreChainResourceAssembler storeChainResourceAssembler;
+    private final AdminStoreChainResource.Assembler storeChainResourceAssembler;
 
     @Inject
     public AdminStoreChainRestController(final AdminAccountService adminAccountService,
-                                    final StoreService storeService,
-                                    final StoreChainRepository storeChainRepository,
-                                    final AdminStoreChainResourceAssembler storeResourceAssembler) {
+                                         final StoreService storeService,
+                                         final StoreChainRepository storeChainRepository,
+                                         final AdminStoreChainResource.Assembler storeResourceAssembler) {
         super(adminAccountService, storeService, storeChainRepository);
         this.storeChainResourceAssembler = storeResourceAssembler;
     }

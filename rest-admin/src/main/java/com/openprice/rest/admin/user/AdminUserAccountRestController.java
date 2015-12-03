@@ -37,14 +37,14 @@ import com.openprice.rest.admin.AbstractUserAdminRestController;
 public class AdminUserAccountRestController extends AbstractUserAdminRestController {
 
     private final UserProfileRepository userProfileRepository;
-    private final AdminUserAccountResourceAssembler userResourceAssembler;
+    private final AdminUserAccountResource.Assembler userResourceAssembler;
 
     @Inject
     public AdminUserAccountRestController(final AdminAccountService adminAccountService,
                                           final UserAccountService userAccountService,
                                           final UserAccountRepository userAccountRepository,
                                           final UserProfileRepository userProfileRepository,
-                                          final AdminUserAccountResourceAssembler userResourceAssembler) {
+                                          final AdminUserAccountResource.Assembler userResourceAssembler) {
         super(adminAccountService, userAccountService, userAccountRepository);
         this.userProfileRepository = userProfileRepository;
         this.userResourceAssembler = userResourceAssembler;

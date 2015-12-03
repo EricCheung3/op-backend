@@ -52,8 +52,8 @@ public class AdminUserReceiptRestController extends AbstractUserAdminRestControl
     private final ReceiptUploadService receiptUploadService;
     private final ReceiptRepository receiptRepository;
     private final ReceiptImageRepository receiptImageRepository;
-    private final AdminUserReceiptResourceAssembler receiptResourceAssembler;
-    private final AdminUserReceiptImageResourceAssembler receiptImageResourceAssembler;
+    private final AdminUserReceiptResource.Assembler receiptResourceAssembler;
+    private final AdminUserReceiptImageResource.Assembler receiptImageResourceAssembler;
 
     @Inject
     public AdminUserReceiptRestController(final AdminAccountService adminAccountService,
@@ -63,8 +63,8 @@ public class AdminUserReceiptRestController extends AbstractUserAdminRestControl
                                           final ReceiptUploadService receiptUploadService,
                                           final ReceiptRepository receiptRepository,
                                           final ReceiptImageRepository receiptImageRepository,
-                                          final AdminUserReceiptResourceAssembler receiptResourceAssembler,
-                                          final AdminUserReceiptImageResourceAssembler receiptImageResourceAssembler) {
+                                          final AdminUserReceiptResource.Assembler receiptResourceAssembler,
+                                          final AdminUserReceiptImageResource.Assembler receiptImageResourceAssembler) {
         super(adminAccountService, userAccountService, userAccountRepository);
         this.receiptService = receiptService;
         this.receiptUploadService = receiptUploadService;

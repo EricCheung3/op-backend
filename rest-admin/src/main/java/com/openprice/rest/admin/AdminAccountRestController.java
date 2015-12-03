@@ -19,11 +19,11 @@ import com.openprice.domain.account.admin.AdminAccountService;
 @RestController
 public class AdminAccountRestController extends AbstractAdminRestController {
 
-    private final AdminAccountResourceAssembler adminAccountResourceAssembler;
+    private final AdminAccountResource.Assembler adminAccountResourceAssembler;
 
     @Inject
     public AdminAccountRestController(final AdminAccountService adminAccountService,
-                                      final AdminAccountResourceAssembler adminAccountResourceAssembler) {
+                                      final AdminAccountResource.Assembler adminAccountResourceAssembler) {
         super(adminAccountService);
         this.adminAccountResourceAssembler = adminAccountResourceAssembler;
     }

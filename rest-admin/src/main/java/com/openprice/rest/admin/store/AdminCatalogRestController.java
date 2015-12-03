@@ -45,14 +45,14 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminCatalogRestController extends AbstractStoreAdminRestController {
 
     private final CatalogRepository catalogRepository;
-    private final AdminCatalogResourceAssembler catalogResourceAssembler;
+    private final AdminCatalogResource.Assembler catalogResourceAssembler;
 
     @Inject
     public AdminCatalogRestController(final AdminAccountService adminAccountService,
                                       final StoreService storeService,
                                       final StoreChainRepository storeChainRepository,
                                       final CatalogRepository catalogRepository,
-                                      final AdminCatalogResourceAssembler catalogResourceAssembler) {
+                                      final AdminCatalogResource.Assembler catalogResourceAssembler) {
         super(adminAccountService, storeService, storeChainRepository);
         this.catalogRepository = catalogRepository;
         this.catalogResourceAssembler = catalogResourceAssembler;
