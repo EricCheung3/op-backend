@@ -12,12 +12,12 @@ import com.openprice.rest.AbstractRestApiIntegrationTest;
 @SpringApplicationConfiguration(classes = {AdminApiTestApplication.class})
 public abstract class AbstractAdminRestApiIntegrationTest extends AbstractRestApiIntegrationTest implements AdminApiUrls {
 
-    public static final String TEST_ADMIN_USERID_JOHN_DOE = "admin001";
-    public static final String TEST_ADMIN_USERNAME_JOHN_DOE = "john.doe";
-    public static final String TEST_ADMIN_USERID_JANE_DOE = "admin002";
-    public static final String TEST_ADMIN_USERNAME_JANE_DOE = "jane.doe";
-    public static final String TEST_ADMIN_USERID_JUNIOR_DOE = "admin003";
-    public static final String TEST_ADMIN_USERNAME_JUNIOR_DOE = "junior.doe";
+    public static final String TEST_ADMIN_USERID_NEWTON = "admin001";
+    public static final String TEST_ADMIN_USERNAME_NEWTON = "newton";
+    public static final String TEST_ADMIN_USERID_EINSTEIN = "admin002";
+    public static final String TEST_ADMIN_USERNAME_EINSTEIN = "einstein";
+    public static final String TEST_ADMIN_USERID_HAWKING = "admin003";
+    public static final String TEST_ADMIN_USERNAME_HAWKING = "hawking";
 
     protected String usersUrl(final SessionFilter sessionFilter) {
         final String usersLink =

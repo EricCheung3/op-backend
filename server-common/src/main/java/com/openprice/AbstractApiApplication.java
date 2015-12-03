@@ -83,7 +83,7 @@ public abstract class AbstractApiApplication {
      * Trace REST API calls for development.
      * @return
      */
-    @Bean @Profile("dev")
+    @Bean @Profile("trace")
     public RestApiLoggingAspect loggingAspect() {
         return new RestApiLoggingAspect();
     }

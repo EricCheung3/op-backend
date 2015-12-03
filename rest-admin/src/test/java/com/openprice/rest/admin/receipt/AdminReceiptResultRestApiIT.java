@@ -16,7 +16,7 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
 
     @Test
     public void getReceiptResults_ShouldReturntReceiptResultsFromDatabase() throws Exception {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         Response response =
                 given()
@@ -41,7 +41,7 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
 
     @Test
     public void getUserReceiptResult_ShouldReturnParserResult() throws Exception {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         Response response =
                 given()
@@ -66,7 +66,7 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
 
     @Test
     public void getReceiptResultItems_ShouldReturnReceiptItems() throws Exception {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         Response response =
             given()
@@ -100,7 +100,7 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
 
     @Test
     public void getUserReceiptItemById_ShouldReturnItem() throws Exception {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         Response response =
                 given()

@@ -36,15 +36,15 @@ public class AdminAccountService implements UserDetailsService {
                                            final String title) {
 
         final String hashedPassword = passwordEncoder.encode(password);
-        final AdminAccount account = new AdminAccount();
+        final AdminAccount account = AdminAccount.createAccount();
         account.setUsername(username);
         account.setPassword(hashedPassword);
         account.setEmail(email);
-        account.setFirstName(firstName);
-        account.setLastName(lastName);
-        account.setTitle(title);
         account.getRoles().add(AdminRoleType.ROLE_USER_MANAGER);
         account.setActivated(true);
+        account.getProfile().setFirstName(firstName);
+        account.getProfile().setLastName(lastName);
+        account.getProfile().setTitle(title);
         return accountRepository.save(account);
     }
 

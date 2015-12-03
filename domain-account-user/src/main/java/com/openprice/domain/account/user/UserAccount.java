@@ -1,7 +1,8 @@
 package com.openprice.domain.account.user;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
@@ -16,7 +17,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.account.AbstractAccount;
@@ -33,14 +33,15 @@ import lombok.ToString;
 @SuppressWarnings("serial")
 @Entity
 @Table( name="user_account" )
-public class UserAccount extends AbstractAccount implements UserDetails {
+public class UserAccount extends AbstractAccount {
 
     @Getter @Setter
     @ElementCollection(targetClass=UserRoleType.class, fetch=FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name="user_role", joinColumns=@JoinColumn(name="user_account_id"))
     @Column(name="role")
-    private Collection<UserRoleType> roles = new ArrayList<>();
+    @org.hibernate.annotations.SortNatural
+    private SortedSet<UserRoleType> roles = new TreeSet<>();
 
     @Getter @Setter
     @Column(name="email")

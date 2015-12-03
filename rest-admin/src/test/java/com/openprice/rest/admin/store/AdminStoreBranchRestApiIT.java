@@ -21,7 +21,7 @@ public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrat
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getStoreBranches_ShouldReturnAllBranchesOfStore() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         given()
             .filter(sessionFilter)
@@ -47,7 +47,7 @@ public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrat
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getStoreBranchById_ShouldReturnCorrectStoreBranch() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         given()
             .filter(sessionFilter)
@@ -67,7 +67,7 @@ public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrat
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getStoreBranchById_ShouldReturn404_WithInvalidId() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         given()
             .filter(sessionFilter)
@@ -90,7 +90,7 @@ public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrat
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void createStoreBranch_ShouldCreateNewBranchForStore() throws Exception {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         final AdminStoreBranchForm form =
             AdminStoreBranchForm.builder()
@@ -139,7 +139,7 @@ public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrat
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void updateStoreBranch_ShouldUpdate() throws Exception {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String branchUrl = storeBranchUrl(sessionFilter, "chain001", "branch101");
         final AdminStoreBranchForm form =
             AdminStoreBranchForm.builder()
@@ -179,7 +179,7 @@ public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrat
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void deleteStoreBranchById_ShouldDeleteBranch() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String branchUrl = storeBranchUrl(sessionFilter, "chain001", "branch101");
 
         given()

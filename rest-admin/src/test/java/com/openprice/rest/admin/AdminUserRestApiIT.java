@@ -22,7 +22,7 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getUserAccounts_ShouldReturnAllUserAccounts() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         given()
             .filter(sessionFilter)
@@ -44,7 +44,7 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getUserAccount_ShouldReturnSpecificUserAccount() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String userUrl =  userUrl(sessionFilter, TEST_USERID_JANE_DOE);
 
         given()
@@ -70,7 +70,7 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void changeUserLockState_ShouldLockUserAccount() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String userUrl =  userUrl(sessionFilter, TEST_USERID_JANE_DOE);
         final String lockStateLink = given().filter(sessionFilter).when().get(userUrl).then().extract().path("_links.lockState.href");
 
@@ -104,7 +104,7 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void updateUserProfile_ShouldChangeProfileAddress() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String userUrl =  userUrl(sessionFilter, TEST_USERID_JANE_DOE);
         final String profileLink = given().filter(sessionFilter).when().get(userUrl).then().extract().path("_links.profile.href");
 

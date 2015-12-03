@@ -28,7 +28,7 @@ public class AdminAccountRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getCurrentAdminAccount_ShouldReturnLoggedInAdmiAccount() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         given()
             .filter(sessionFilter)
@@ -38,7 +38,7 @@ public class AdminAccountRestApiIT extends AbstractAdminRestApiIntegrationTest {
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("id", equalTo("admin001"))
-            .body("email", equalTo("john.doe@openprice.com"))
+            .body("email", equalTo("newton@openprice.com"))
             .body("_links.self.href", endsWith(URL_ADMIN))
             .body("_links.users.href", endsWith(URL_ADMIN_USERS + UtilConstants.PAGINATION_TEMPLATES))
             .body("_links.receipts.href", endsWith(URL_ADMIN_RECEIPTS + UtilConstants.PAGINATION_TEMPLATES))
