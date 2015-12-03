@@ -38,20 +38,20 @@ public class UserAccountRestController extends AbstractUserRestController {
      * Get current user info. If not authenticated, return 401.
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER)
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER)
     @Transactional(readOnly=true)
     public HttpEntity<UserAccountResource> getCurrentUserAccount() {
         return ResponseEntity.ok(userAccountResourceAssembler.toResource(getCurrentAuthenticatedUser()));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_PROFILE)
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER_PROFILE)
     @Transactional(readOnly=true)
     public HttpEntity<UserProfileResource> getCurrentUserProfile() {
         final UserAccount currentUserAccount = getCurrentAuthenticatedUser();
         return ResponseEntity.ok(new UserProfileResource(currentUserAccount.getProfile()));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = UserApiUrls.URL_USER_PROFILE)
+    @RequestMapping(method = RequestMethod.PUT, value = URL_USER_PROFILE)
     @Transactional
     public HttpEntity<Void> updateCurrentUserProfile(@RequestBody final UserProfileForm profileForm) {
         final UserAccount currentUserAccount = getCurrentAuthenticatedUser();

@@ -6,7 +6,7 @@ import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.rest.AbstractExternalRestController;
 
-public class AbstractUserRestController extends AbstractExternalRestController {
+public class AbstractUserRestController extends AbstractExternalRestController implements UserApiUrls {
 
     protected final UserAccountService userAccountService;
 

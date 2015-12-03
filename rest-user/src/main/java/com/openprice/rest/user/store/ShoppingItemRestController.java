@@ -27,7 +27,6 @@ import com.openprice.domain.shopping.ShoppingService;
 import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.domain.shopping.ShoppingStoreRepository;
 import com.openprice.rest.ResourceNotFoundException;
-import com.openprice.rest.user.UserApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -53,7 +52,7 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
         this.shoppingItemResourceAssembler = shoppingItemResourceAssembler;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_SHOPPING_STORES_STORE_ITEMS)
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER_SHOPPING_STORES_STORE_ITEMS)
     public HttpEntity<PagedResources<ShoppingItemResource>> getShoppingItems(
             @PathVariable("storeId") final String storeId,
             @PageableDefault(size = 10, page = 0) final Pageable pageable,
@@ -63,7 +62,7 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
         return ResponseEntity.ok(assembler.toResource(items, shoppingItemResourceAssembler));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_SHOPPING_STORES_STORE_ITEMS)
+    @RequestMapping(method = RequestMethod.POST, value = URL_USER_SHOPPING_STORES_STORE_ITEMS)
     public HttpEntity<Void> createStoreShoppingItem(
             @PathVariable("storeId") final String storeId,
             @RequestBody final ShoppingItemForm form) throws ResourceNotFoundException {
@@ -75,7 +74,7 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
         return ResponseEntity.created(location).body(null);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_SHOPPING_STORES_STORE_ITEMS_ITEM)
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER_SHOPPING_STORES_STORE_ITEMS_ITEM)
     public HttpEntity<ShoppingItemResource> getStoreShoppingItemById(
             @PathVariable("storeId") final String storeId,
             @PathVariable("itemId") final String itemId) throws ResourceNotFoundException {
@@ -83,7 +82,7 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
         return ResponseEntity.ok(shoppingItemResourceAssembler.toResource(item));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = UserApiUrls.URL_USER_SHOPPING_STORES_STORE_ITEMS_ITEM)
+    @RequestMapping(method = RequestMethod.PUT, value = URL_USER_SHOPPING_STORES_STORE_ITEMS_ITEM)
     public HttpEntity<Void> updateStoreShoppingItemById(
             @PathVariable("storeId") final String storeId,
             @PathVariable("itemId") final String itemId,
@@ -94,7 +93,7 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = UserApiUrls.URL_USER_SHOPPING_STORES_STORE_ITEMS_ITEM)
+    @RequestMapping(method = RequestMethod.DELETE, value = URL_USER_SHOPPING_STORES_STORE_ITEMS_ITEM)
     public HttpEntity<Void> deleteStoreShoppingItemById(
             @PathVariable("storeId") final String storeId,
             @PathVariable("itemId") final String itemId) throws ResourceNotFoundException {

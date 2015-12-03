@@ -31,7 +31,6 @@ import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.domain.receipt.ReceiptUploadService;
 import com.openprice.internal.client.InternalService;
 import com.openprice.rest.ResourceNotFoundException;
-import com.openprice.rest.user.UserApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,7 +51,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
         this.receiptResourceAssembler = receiptResourceAssembler;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS)
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER_RECEIPTS)
     public HttpEntity<PagedResources<UserReceiptResource>> getCurrentUserReceipts(
             @PageableDefault(size = 3, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<Receipt> assembler) {
@@ -61,14 +60,14 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
         return ResponseEntity.ok(assembler.toResource(receipts, receiptResourceAssembler));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT)
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER_RECEIPTS_RECEIPT)
     public HttpEntity<UserReceiptResource> getUserReceiptById(@PathVariable("receiptId") final String receiptId)
             throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         return ResponseEntity.ok(receiptResourceAssembler.toResource(receipt));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT)
+    @RequestMapping(method = RequestMethod.DELETE, value = URL_USER_RECEIPTS_RECEIPT)
     public HttpEntity<Void> deleteReceiptById(@PathVariable("receiptId") final String receiptId)
             throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
@@ -76,7 +75,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS)
+    @RequestMapping(method = RequestMethod.POST, value = URL_USER_RECEIPTS)
     public HttpEntity<Void> createNewReceiptWithBase64String(@RequestBody final ImageDataForm imageDataForm) {
         final Receipt receipt = newReceiptWithBase64ImageData(imageDataForm.getBase64String());
         addReceiptImageToProcessQueue(receipt.getImages().get(0));
@@ -84,12 +83,12 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
         return ResponseEntity.created(location).body(null);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER_RECEIPTS_UPLOAD)
     public HttpEntity<Void> getUploadNewReceiptPath() {
         return ResponseEntity.notFound().build();
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
+    @RequestMapping(method = RequestMethod.POST, value = URL_USER_RECEIPTS_UPLOAD)
     public HttpEntity<String> uploadNewReceipt(@RequestParam("file") final MultipartFile file) {
         if (!file.isEmpty()) {
             final Receipt receipt = newReceiptWithFile(file);
@@ -108,7 +107,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
      * @param file
      * @return
      */
-    @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS_HACKLOAD)
+    @RequestMapping(method = RequestMethod.POST, value = URL_USER_RECEIPTS_HACKLOAD)
     public HttpEntity<Void> hackloadNewReceiptWithOcrResult(
             @RequestParam("image") final MultipartFile image,
             @RequestParam("ocr") final MultipartFile ocr) {
@@ -123,7 +122,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
         }
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_HACKLOAD_OCR)
+    @RequestMapping(method = RequestMethod.POST, value = URL_USER_RECEIPTS_RECEIPT_HACKLOAD_OCR)
     public HttpEntity<Void> hackloadOcrResult(
             @PathVariable("receiptId") final String receiptId,
             @RequestParam("ocr") final MultipartFile ocr) {
@@ -139,7 +138,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
         }
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_FEEDBACK)
+    @RequestMapping(method = RequestMethod.POST, value = URL_USER_RECEIPTS_RECEIPT_FEEDBACK)
     public HttpEntity<Void> addReceiptFeedback(
             @PathVariable("receiptId") final String receiptId,
             @RequestBody final FeedbackForm form) throws ResourceNotFoundException {

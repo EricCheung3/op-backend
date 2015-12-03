@@ -26,7 +26,6 @@ import com.openprice.domain.receipt.ReceiptUploadService;
 import com.openprice.internal.client.InternalService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.user.UserApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,7 +56,7 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
         this.receiptItemResourceAssembler = receiptItemResourceAssembler;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_RESULT)
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER_RECEIPTS_RECEIPT_RESULT)
     public HttpEntity<UserReceiptDataResource> getUserReceiptData(
             @PathVariable("receiptId") final String receiptId) {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
@@ -73,7 +72,7 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
      * @param assembler
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS)
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS)
     public HttpEntity<PagedResources<UserReceiptItemResource>> getUserReceiptItems(
             @PathVariable("receiptId") final String receiptId,
             @PageableDefault(size = UtilConstants.MAX_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
@@ -84,7 +83,7 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
         return ResponseEntity.ok(assembler.toResource(items, receiptItemResourceAssembler));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS_ITEM)
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS_ITEM)
     public HttpEntity<UserReceiptItemResource> getUserReceiptItemById(
             @PathVariable("receiptId") final String receiptId,
             @PathVariable("itemId") final String itemId) throws ResourceNotFoundException {
@@ -93,7 +92,7 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
         return ResponseEntity.ok(receiptItemResourceAssembler.toResource(item));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS_ITEM)
+    @RequestMapping(method = RequestMethod.PUT, value = URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS_ITEM)
     public HttpEntity<Void> updateUserReceiptItem(
             @PathVariable("receiptId") final String receiptId,
             @PathVariable("itemId") final String itemId,
@@ -111,7 +110,7 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
      * @return
      * @throws ResourceNotFoundException
      */
-    @RequestMapping(method = RequestMethod.DELETE, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS_ITEM)
+    @RequestMapping(method = RequestMethod.DELETE, value = URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS_ITEM)
     public HttpEntity<Void> deleteReceiptItemById(
             @PathVariable("receiptId") final String receiptId,
             @PathVariable("itemId") final String itemId) throws ResourceNotFoundException {

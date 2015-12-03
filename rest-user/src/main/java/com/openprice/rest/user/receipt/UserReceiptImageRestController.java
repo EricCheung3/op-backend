@@ -38,7 +38,6 @@ import com.openprice.domain.receipt.ReceiptUploadService;
 import com.openprice.internal.client.InternalService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.user.UserApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -66,7 +65,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
         this.receiptImageResourceAssembler = receiptImageResourceAssembler;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_IMAGES)
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER_RECEIPTS_RECEIPT_IMAGES)
     public HttpEntity<PagedResources<UserReceiptImageResource>> getUserReceiptImages(
             @PathVariable("receiptId") final String receiptId,
             @PageableDefault(size = UtilConstants.MAX_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
@@ -76,7 +75,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
         return ResponseEntity.ok(assembler.toResource(images, receiptImageResourceAssembler));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE)
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE)
     public HttpEntity<UserReceiptImageResource> getUserReceiptImageById(
             @PathVariable("receiptId") final String receiptId,
             @PathVariable("imageId") final String imageId)
@@ -86,7 +85,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
         return ResponseEntity.ok(receiptImageResourceAssembler.toResource(image));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE)
+    @RequestMapping(method = RequestMethod.DELETE, value = URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE)
     public HttpEntity<Void> deleteReceiptImageById(
             @PathVariable("receiptId") final String receiptId,
             @PathVariable("imageId") final String imageId)
@@ -97,7 +96,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_IMAGES)
+    @RequestMapping(method = RequestMethod.POST, value = URL_USER_RECEIPTS_RECEIPT_IMAGES)
     public HttpEntity<Void> createReceiptImageWithBase64String(@PathVariable("receiptId") final String receiptId,
                                                                @RequestBody final ImageDataForm imageDataForm) {
         final ReceiptImage image = newReceiptImageWithBase64ImageData(receiptId, imageDataForm.getBase64String());
@@ -108,12 +107,12 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
         return ResponseEntity.created(location).body(null);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_IMAGES_UPLOAD)
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER_RECEIPTS_RECEIPT_IMAGES_UPLOAD)
     public HttpEntity<Void> getUploadReceiptImagePath(@PathVariable("receiptId") final String receiptId) {
         return ResponseEntity.notFound().build();
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_IMAGES_UPLOAD)
+    @RequestMapping(method = RequestMethod.POST, value = URL_USER_RECEIPTS_RECEIPT_IMAGES_UPLOAD)
     public HttpEntity<Void> uploadReceiptImage(
             @PathVariable("receiptId") final String receiptId,
             @RequestParam(value="file") final MultipartFile file) {
@@ -129,7 +128,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_DOWNLOAD,
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_DOWNLOAD,
             produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<Resource> downloadUserReceiptImage(
             @PathVariable("receiptId") final String receiptId,
@@ -139,7 +138,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
         return ResponseEntity.ok(new PathResource(receiptUploadService.getImageFile(image)));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = UserApiUrls.URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_BASE64,
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_BASE64,
             produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> downloadUserReceiptImageAsBase64(
             @PathVariable("receiptId") final String receiptId,

@@ -13,7 +13,7 @@ import com.openprice.rest.AbstractRestApiIntegrationTest;
 import com.openprice.rest.UtilConstants;
 
 @SpringApplicationConfiguration(classes = {SiteApiTestApplication.class})
-public class WebsiteRestApiIT extends AbstractRestApiIntegrationTest {
+public class WebsiteRestApiIT extends AbstractRestApiIntegrationTest implements SiteApiUrls {
 
     @Test
     public void getPublic_ShouldReturnWebsiteResource() {
@@ -24,9 +24,9 @@ public class WebsiteRestApiIT extends AbstractRestApiIntegrationTest {
             .contentType(ContentType.JSON)
             .body("_links.self.href", endsWith(ApiConstants.EXTERNAL_API_ROOT))
             .body("_links.signin.href", endsWith(UtilConstants.URL_SIGNIN))
-            .body("_links.registration.href", endsWith(SiteApiUrls.URL_PUBLIC_REGISTRATION))
-            .body("_links.forgetPassword.href", endsWith(SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS))
-            .body("_links.resetPassword.href", endsWith(SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS_REQUEST))
+            .body("_links.registration.href", endsWith(URL_PUBLIC_REGISTRATION))
+            .body("_links.forgetPassword.href", endsWith(URL_PUBLIC_RESET_PASSWORD_REQUESTS))
+            .body("_links.resetPassword.href", endsWith(URL_PUBLIC_RESET_PASSWORD_REQUESTS_REQUEST))
         ;
     }
 

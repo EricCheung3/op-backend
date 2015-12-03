@@ -22,7 +22,6 @@ import com.openprice.domain.shopping.ShoppingItemRepository;
 import com.openprice.domain.shopping.ShoppingService;
 import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.domain.shopping.ShoppingStoreRepository;
-import com.openprice.rest.user.UserApiUrls;
 
 /**
  * REST API Controller for current user uploading shopping list from receipt.
@@ -42,7 +41,7 @@ public class ShoppingListRestController extends AbstractUserStoreRestController 
         this.shoppingItemRepository = shoppingItemRepository;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = UserApiUrls.URL_USER_SHOPPINGLIST)
+    @RequestMapping(method = RequestMethod.POST, value = URL_USER_SHOPPINGLIST)
     public HttpEntity<Void> uploadShoppingList(@RequestBody final ShoppingListForm form) {
         final ShoppingStore store = saveShoppingList(form);
         final URI location = linkTo(methodOn(ShoppingStoreRestController.class).getUserShoppingStoreById(store.getId())).toUri();

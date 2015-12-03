@@ -43,12 +43,12 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
                 .body("profile.id", equalTo("profile001"))
                 .body("profile.firstName", equalTo("John"))
                 .body("profile.lastName", equalTo("Doe"))
-                .body("uploadUrl", endsWith(UserApiUrls.URL_USER_RECEIPTS_UPLOAD))
-                .body("_links.self.href", endsWith(UserApiUrls.URL_USER))
-                .body("_links.profile.href", endsWith(UserApiUrls.URL_USER_PROFILE))
-                .body("_links.receipts.href", endsWith(UserApiUrls.URL_USER_RECEIPTS + UtilConstants.PAGINATION_TEMPLATES))
-                .body("_links.receipt.href", endsWith(UserApiUrls.URL_USER_RECEIPTS_RECEIPT))
-                .body("_links.upload.href", endsWith(UserApiUrls.URL_USER_RECEIPTS_UPLOAD))
+                .body("uploadUrl", endsWith(URL_USER_RECEIPTS_UPLOAD))
+                .body("_links.self.href", endsWith(URL_USER))
+                .body("_links.profile.href", endsWith(URL_USER_PROFILE))
+                .body("_links.receipts.href", endsWith(URL_USER_RECEIPTS + UtilConstants.PAGINATION_TEMPLATES))
+                .body("_links.receipt.href", endsWith(URL_USER_RECEIPTS_RECEIPT))
+                .body("_links.upload.href", endsWith(URL_USER_RECEIPTS_UPLOAD))
             ;
     }
 

@@ -33,7 +33,6 @@ import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 import com.openprice.rest.user.UserApiTestApplication;
-import com.openprice.rest.user.UserApiUrls;
 
 @SpringApplicationConfiguration(classes = {UserApiTestApplication.class})
 @DatabaseSetup("classpath:/data/testData.xml")
@@ -148,7 +147,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name())) TODO should be UPLOADED without process thread
-            .body("_links.images.href", endsWith(UserApiUrls.URL_USER_RECEIPTS + "/" + receiptId + "/images" + UtilConstants.PAGINATION_TEMPLATES))
+            .body("_links.images.href", endsWith(URL_USER_RECEIPTS + "/" + receiptId + "/images" + UtilConstants.PAGINATION_TEMPLATES))
         ;
 
         //response.prettyPrint();

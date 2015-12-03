@@ -7,14 +7,14 @@ import com.jayway.restassured.filter.session.SessionFilter;
 import com.openprice.common.ApiConstants;
 import com.openprice.rest.AbstractRestApiIntegrationTest;
 
-public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApiIntegrationTest {
+public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApiIntegrationTest implements UserApiUrls {
 
     protected String userUrl() {
-        return ApiConstants.EXTERNAL_API_ROOT + UserApiUrls.URL_USER;
+        return ApiConstants.EXTERNAL_API_ROOT + URL_USER;
     }
 
     protected String userProfileUrl() {
-        return ApiConstants.EXTERNAL_API_ROOT + UserApiUrls.URL_USER_PROFILE;
+        return ApiConstants.EXTERNAL_API_ROOT + URL_USER_PROFILE;
     }
 
     protected String userReceiptUploadUrl(final SessionFilter sessionFilter) {

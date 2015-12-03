@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @RestController
 @Slf4j
-public class RegistrationRestController extends AbstractExternalRestController {
+public class RegistrationRestController extends AbstractExternalRestController implements SiteApiUrls {
 
     private final UserAccountService userAccountService;
     private final UserAccountRepository userAccountRepository;
@@ -54,7 +54,7 @@ public class RegistrationRestController extends AbstractExternalRestController {
         this.emailService = emailService;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = SiteApiUrls.URL_PUBLIC_REGISTRATION)
+    @RequestMapping(method = RequestMethod.POST, value = URL_PUBLIC_REGISTRATION)
     @Transactional
     public HttpEntity<Void> registerNewUser(@RequestBody final RegistrationForm registration)
                 throws ResourceNotFoundException {
@@ -80,7 +80,7 @@ public class RegistrationRestController extends AbstractExternalRestController {
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS)
+    @RequestMapping(method = RequestMethod.POST, value = URL_PUBLIC_RESET_PASSWORD_REQUESTS)
     @Transactional
     public HttpEntity<Void> forgetPassword(@RequestBody final ForgetPasswordForm form)
                 throws ResourceNotFoundException {
@@ -97,7 +97,7 @@ public class RegistrationRestController extends AbstractExternalRestController {
         return ResponseEntity.created(location).body(null);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS_REQUEST)
+    @RequestMapping(method = RequestMethod.GET, value = URL_PUBLIC_RESET_PASSWORD_REQUESTS_REQUEST)
     @Transactional
     public HttpEntity<UserResetPasswordRequest> getResetPasswordRequest(
             @PathVariable("requestId") final String requestId) {
@@ -108,7 +108,7 @@ public class RegistrationRestController extends AbstractExternalRestController {
         return ResponseEntity.ok(request);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = SiteApiUrls.URL_PUBLIC_RESET_PASSWORD_REQUESTS_REQUEST)
+    @RequestMapping(method = RequestMethod.PUT, value = URL_PUBLIC_RESET_PASSWORD_REQUESTS_REQUEST)
     @Transactional
     public HttpEntity<Void> resetPassword(
             @PathVariable("requestId") final String requestId,

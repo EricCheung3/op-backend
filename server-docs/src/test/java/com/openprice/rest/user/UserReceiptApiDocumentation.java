@@ -314,7 +314,7 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
         String receiptLocation =
             mockMvc
             .perform(
-                fileUpload(ApiConstants.EXTERNAL_API_ROOT + UserApiUrls.URL_USER_RECEIPTS_UPLOAD)
+                fileUpload(ApiConstants.EXTERNAL_API_ROOT + URL_USER_RECEIPTS_UPLOAD)
                 .file(file)
                 .with(user(USERNAME))
                 .with(csrf())
