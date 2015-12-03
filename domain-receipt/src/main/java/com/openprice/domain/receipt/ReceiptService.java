@@ -120,7 +120,6 @@ public class ReceiptService {
         feedback.setComment(comment);
         receiptFeedbackRepository.save(feedback);
 
-        receipt.getFeedbacks().add(feedback);
         receipt.setNeedFeedback(false);
         receiptRepository.save(receipt);
 

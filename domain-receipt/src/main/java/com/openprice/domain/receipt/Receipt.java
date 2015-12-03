@@ -52,18 +52,6 @@ public class Receipt extends BaseAuditableEntity {
     @OrderBy("createdTime")
     private List<ReceiptImage> images = new ArrayList<>();
 
-    @Getter @Setter
-    @JsonIgnore
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="receipt")
-    @OrderBy("createdTime")
-    private List<ReceiptData> results = new ArrayList<>();
-
-    @Getter @Setter
-    @JsonIgnore
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="receipt")
-    @OrderBy("createdTime")
-    private List<ReceiptFeedback> feedbacks = new ArrayList<>();
-
     Receipt() {}
 
     /**

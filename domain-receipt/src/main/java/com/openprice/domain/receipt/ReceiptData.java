@@ -35,6 +35,9 @@ public class ReceiptData extends BaseAuditableEntity {
     @JsonIgnore
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="receipt_id")
+    @org.hibernate.annotations.OnDelete(
+        action = org.hibernate.annotations.OnDeleteAction.CASCADE
+    )
     private Receipt receipt;
 
     @Getter @Setter
@@ -57,6 +60,9 @@ public class ReceiptData extends BaseAuditableEntity {
     @JsonIgnore
     @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="receiptData")
     //@OrderBy("createdTime") TODO how to keep the order?
+    @org.hibernate.annotations.OnDelete(
+        action = org.hibernate.annotations.OnDeleteAction.CASCADE
+    )
     private List<ReceiptItem> items = new ArrayList<>();
 
     ReceiptData() {}
