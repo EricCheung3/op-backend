@@ -96,6 +96,8 @@ public class StoreService {
      * @param catalogs
      */
     public void loadCatalog(final StoreChain chain, final Catalog[] catalogs) {
+        int newCount = 0;
+        int updateCount = 0;
         for (final Catalog catalog : catalogs) {
             final Catalog existCatalog = catalogRepository.findByChainAndCode(chain, catalog.getCode());
             if (existCatalog != null) {
@@ -103,6 +105,7 @@ public class StoreService {
                 existCatalog.setNaturalName(catalog.getNaturalName());
                 existCatalog.setLabelCodes(catalog.getLabelCodes());
                 catalogRepository.save(existCatalog);
+                updateCount++;
             } else {
                 Catalog newCatalog = chain.addCatalog(catalog.getName(),
                                                       catalog.getNumber(),
@@ -110,20 +113,22 @@ public class StoreService {
                                                       catalog.getNaturalName(),
                                                       catalog.getLabelCodes());
                 catalogRepository.save(newCatalog);
+                newCount++;
             }
         }
         storeChainRepository.save(chain);
-        log.info("Successfully loaded {} catalogs", catalogs.length);
+        log.info("Successfully loaded {} catalogs for store [{}].", catalogs.length, chain.getCode());
+        log.info("{} new catalogs added and {} existing catalogs updated.", newCount, updateCount);
     }
 
     public void loadCatalog(final StoreChain chain, final MultipartFile file) {
-        log.info("Loading catalog for store {} from file {}...", chain.getName(), file.getName());
+        log.info("Loading catalog for store [{}] from file '{}'...", chain.getCode(), file.getOriginalFilename());
 
         byte[] content = null;
         try {
             content = file.getBytes();
         } catch (IOException ex) {
-            log.error("No content of catalog data to load!");
+            log.warn("No content of catalog data to load!");
             throw new RuntimeException("No catalog content.");
         }
 
@@ -136,7 +141,7 @@ public class StoreService {
             Catalog[] catalogs = mapper.readValue(roleResource.getInputStream(), Catalog[].class);
             loadCatalog(chain, catalogs);
         } catch (IOException ex) {
-            log.error("Parse catalog file error!", ex);
+            log.warn("Parse catalog file error!", ex);
             throw new RuntimeException("Cannot load catalog json file.");
         }
     }
