@@ -28,7 +28,7 @@ public class AdminAccountRestController extends AbstractAdminRestController {
         this.adminAccountResourceAssembler = adminAccountResourceAssembler;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN)
     @Transactional(readOnly=true)
     public HttpEntity<AdminAccountResource> getAdminAccount() {
         final AdminAccount currentUser = getCurrentAuthenticatedAdmin();

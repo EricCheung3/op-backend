@@ -28,7 +28,6 @@ import com.openprice.domain.account.user.UserProfileRepository;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.AbstractUserAdminRestController;
-import com.openprice.rest.admin.AdminApiUrls;
 
 /**
  * REST API Controller for user account management.
@@ -51,7 +50,7 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
         this.userResourceAssembler = userResourceAssembler;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_USERS)
     @Transactional(readOnly=true)
     public HttpEntity<PagedResources<AdminUserAccountResource>> getUserAccounts(
             @PageableDefault(size = UtilConstants.DEFAULT_RETURN_RECORD_COUNT, page = 0,
@@ -61,7 +60,7 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
         return ResponseEntity.ok(assembler.toResource(userAccounts, userResourceAssembler));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_USERS_USER)
     @Transactional(readOnly=true)
     public HttpEntity<AdminUserAccountResource> getUserAccountByUserId(
             @PathVariable("userId") final String userId) throws ResourceNotFoundException {
@@ -69,7 +68,7 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
         return ResponseEntity.ok(userResourceAssembler.toResource(userAccount));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = AdminApiUrls.URL_ADMIN_USERS_USER_LOCK_STATE)
+    @RequestMapping(method = RequestMethod.PUT, value = URL_ADMIN_USERS_USER_LOCK_STATE)
     @Transactional
     public HttpEntity<Void> changeUserLockStatus(
             @PathVariable("userId") final String userId,
@@ -83,7 +82,7 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_USERS_USER_PROFILE)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_USERS_USER_PROFILE)
     @Transactional(readOnly=true)
     public HttpEntity<AdminUserProfileResource> getUserProfile(
             @PathVariable("userId") final String userId) {
@@ -92,7 +91,7 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
         return ResponseEntity.ok(new AdminUserProfileResource(profile));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = AdminApiUrls.URL_ADMIN_USERS_USER_PROFILE)
+    @RequestMapping(method = RequestMethod.PUT, value = URL_ADMIN_USERS_USER_PROFILE)
     @Transactional
     public HttpEntity<Void> updateUserProfile(
             @PathVariable("userId") final String userId,

@@ -19,7 +19,7 @@ public class AdminAccountRestApiIT extends AbstractAdminRestApiIntegrationTest {
     @Test
     public void getCurrentAdminAccount_ShouldReturn403_IfNotSignin() {
         when()
-            .get(ApiConstants.EXTERNAL_API_ROOT + AdminApiUrls.URL_ADMIN)
+            .get(ApiConstants.EXTERNAL_API_ROOT + URL_ADMIN)
         .then()
             .statusCode(HttpStatus.SC_FORBIDDEN)
         ;
@@ -33,15 +33,15 @@ public class AdminAccountRestApiIT extends AbstractAdminRestApiIntegrationTest {
         given()
             .filter(sessionFilter)
         .when()
-            .get(ApiConstants.EXTERNAL_API_ROOT + AdminApiUrls.URL_ADMIN)
+            .get(ApiConstants.EXTERNAL_API_ROOT + URL_ADMIN)
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("id", equalTo("admin001"))
             .body("email", equalTo("john.doe@openprice.com"))
-            .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN))
-            .body("_links.users.href", endsWith(AdminApiUrls.URL_ADMIN_USERS + UtilConstants.PAGINATION_TEMPLATES))
-            .body("_links.receipts.href", endsWith(AdminApiUrls.URL_ADMIN_RECEIPTS + UtilConstants.PAGINATION_TEMPLATES))
+            .body("_links.self.href", endsWith(URL_ADMIN))
+            .body("_links.users.href", endsWith(URL_ADMIN_USERS + UtilConstants.PAGINATION_TEMPLATES))
+            .body("_links.receipts.href", endsWith(URL_ADMIN_RECEIPTS + UtilConstants.PAGINATION_TEMPLATES))
         ;
     }
 }

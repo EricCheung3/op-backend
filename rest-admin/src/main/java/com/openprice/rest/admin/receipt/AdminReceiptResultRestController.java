@@ -25,7 +25,6 @@ import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.domain.receipt.ReceiptUploadService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.admin.AdminApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -58,7 +57,7 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
         this.receiptItemResourceAssembler = receiptItemResourceAssembler;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT_RESULTS)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_RECEIPTS_RECEIPT_RESULTS)
     public HttpEntity<PagedResources<AdminReceiptResultResource>> getReceiptResults(
             @PathVariable("receiptId") final String receiptId,
             @PageableDefault(size = UtilConstants.MAX_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
@@ -68,7 +67,7 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
         return ResponseEntity.ok(assembler.toResource(results, receiptResultResourceAssembler));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT)
     public HttpEntity<AdminReceiptResultResource> getReceiptResultById(
             @PathVariable("receiptId") final String receiptId,
             @PathVariable("resultId") final String resultId) throws ResourceNotFoundException {
@@ -77,7 +76,7 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
         return ResponseEntity.ok(receiptResultResourceAssembler.toResource(result));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_ITEMS)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_ITEMS)
     public HttpEntity<PagedResources<AdminReceiptItemResource>> getReceiptResultItems(
             @PathVariable("receiptId") final String receiptId,
             @PathVariable("resultId") final String resultId,
@@ -89,7 +88,7 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
         return ResponseEntity.ok(assembler.toResource(items, receiptItemResourceAssembler));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_ITEMS_ITEM)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_ITEMS_ITEM)
     public HttpEntity<AdminReceiptItemResource> getReceiptResultItemById(
             @PathVariable("receiptId") final String receiptId,
             @PathVariable("resultId") final String resultId,

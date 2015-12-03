@@ -10,7 +10,6 @@ import com.openprice.common.ApiConstants;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.rest.admin.AbstractAdminRestApiIntegrationTest;
-import com.openprice.rest.admin.AdminApiUrls;
 
 public abstract class AbstractAdminReceiptRestApiIntegrationTest extends AbstractAdminRestApiIntegrationTest {
 
@@ -23,7 +22,7 @@ public abstract class AbstractAdminReceiptRestApiIntegrationTest extends Abstrac
     protected String receiptsUrl(final SessionFilter sessionFilter) {
         final String receiptsLink =
             given().filter(sessionFilter)
-                   .when().get(ApiConstants.EXTERNAL_API_ROOT + AdminApiUrls.URL_ADMIN)
+                   .when().get(ApiConstants.EXTERNAL_API_ROOT + URL_ADMIN)
                    .then().extract().path("_links.receipts.href");
         return UriTemplate.fromTemplate(receiptsLink).set("page", null).set("size", null).set("sort", null).expand();
     }
@@ -31,7 +30,7 @@ public abstract class AbstractAdminReceiptRestApiIntegrationTest extends Abstrac
     protected String receiptUrl(final SessionFilter sessionFilter, final String receiptId) {
         final String receiptLink =
             given().filter(sessionFilter)
-                   .when().get(ApiConstants.EXTERNAL_API_ROOT + AdminApiUrls.URL_ADMIN)
+                   .when().get(ApiConstants.EXTERNAL_API_ROOT + URL_ADMIN)
                    .then().extract().path("_links.receipt.href");
         return UriTemplate.fromTemplate(receiptLink).set("receiptId", receiptId).expand();
     }

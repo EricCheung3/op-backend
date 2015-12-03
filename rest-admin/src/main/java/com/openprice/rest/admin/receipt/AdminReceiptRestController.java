@@ -33,7 +33,6 @@ import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.domain.receipt.ReceiptUploadService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.admin.AdminApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -63,7 +62,7 @@ public class AdminReceiptRestController extends AbstractReceiptAdminRestControll
         this.receiptImageResourceAssembler = receiptImageResourceAssembler;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_RECEIPTS)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_RECEIPTS)
     public HttpEntity<PagedResources<AdminReceiptResource>> getAllReceipts(
             @PageableDefault(size = UtilConstants.DEFAULT_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<Receipt> assembler) {
@@ -72,14 +71,14 @@ public class AdminReceiptRestController extends AbstractReceiptAdminRestControll
         return ResponseEntity.ok(assembler.toResource(receipts, receiptResourceAssembler));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_RECEIPTS_RECEIPT)
     public HttpEntity<AdminReceiptResource> getReceiptById(
             @PathVariable("receiptId") final String receiptId) throws ResourceNotFoundException {
         final Receipt receipt = loadReceiptById(receiptId);
         return ResponseEntity.ok(receiptResourceAssembler.toResource(receipt));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT)
+    @RequestMapping(method = RequestMethod.DELETE, value = URL_ADMIN_RECEIPTS_RECEIPT)
     public HttpEntity<Void> deleteReceiptById(
             @PathVariable("receiptId") final String receiptId) throws ResourceNotFoundException {
         final Receipt receipt = loadReceiptById(receiptId);
@@ -87,7 +86,7 @@ public class AdminReceiptRestController extends AbstractReceiptAdminRestControll
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT_IMAGES)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_RECEIPTS_RECEIPT_IMAGES)
     public HttpEntity<PagedResources<AdminReceiptImageResource>> getReceiptImages(
             @PathVariable("receiptId") final String receiptId,
             @PageableDefault(size = UtilConstants.MAX_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
@@ -97,7 +96,7 @@ public class AdminReceiptRestController extends AbstractReceiptAdminRestControll
         return ResponseEntity.ok(assembler.toResource(images, receiptImageResourceAssembler));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE)
     public HttpEntity<AdminReceiptImageResource> getReceiptImageById(
             @PathVariable("receiptId") final String receiptId,
             @PathVariable("imageId") final String imageId) throws ResourceNotFoundException {
@@ -106,7 +105,7 @@ public class AdminReceiptRestController extends AbstractReceiptAdminRestControll
         return ResponseEntity.ok(receiptImageResourceAssembler.toResource(image));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE)
+    @RequestMapping(method = RequestMethod.DELETE, value = URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE)
     public HttpEntity<Void> deleteReceiptImageById(
             @PathVariable("receiptId") final String receiptId,
             @PathVariable("imageId") final String imageId) throws ResourceNotFoundException {
@@ -116,7 +115,7 @@ public class AdminReceiptRestController extends AbstractReceiptAdminRestControll
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE_DOWNLOAD,
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE_DOWNLOAD,
             produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public ResponseEntity<Resource> downloadReceiptImage(
@@ -127,7 +126,7 @@ public class AdminReceiptRestController extends AbstractReceiptAdminRestControll
         return ResponseEntity.ok(new PathResource(receiptUploadService.getImageFile(image)));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE_BASE64,
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE_BASE64,
             produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> downloadUserReceiptImageAsBase64(
             @PathVariable("receiptId") final String receiptId,

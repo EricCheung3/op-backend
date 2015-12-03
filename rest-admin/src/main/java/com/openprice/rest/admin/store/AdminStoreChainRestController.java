@@ -31,7 +31,6 @@ import com.openprice.domain.store.StoreService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.AbstractStoreAdminRestController;
-import com.openprice.rest.admin.AdminApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -54,7 +53,7 @@ public class AdminStoreChainRestController extends AbstractStoreAdminRestControl
         this.storeChainResourceAssembler = storeResourceAssembler;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_CHAINS)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_CHAINS)
     public HttpEntity<PagedResources<AdminStoreChainResource>> getAllStoreChains(
             @PageableDefault(size = UtilConstants.DEFAULT_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<StoreChain> assembler) {
@@ -63,7 +62,7 @@ public class AdminStoreChainRestController extends AbstractStoreAdminRestControl
         return ResponseEntity.ok(assembler.toResource(stores, storeChainResourceAssembler));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = AdminApiUrls.URL_ADMIN_CHAINS)
+    @RequestMapping(method = RequestMethod.POST, value = URL_ADMIN_CHAINS)
     public HttpEntity<Void> createStoreChain(@RequestBody final AdminStoreChainForm form) {
         // TODO verify user input
 
@@ -72,14 +71,14 @@ public class AdminStoreChainRestController extends AbstractStoreAdminRestControl
         return ResponseEntity.created(location).body(null);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_CHAINS_CHAIN)
     public HttpEntity<AdminStoreChainResource> getStoreChainById(@PathVariable("chainId") final String chainId)
             throws ResourceNotFoundException {
         final StoreChain chain = loadStoreChainById(chainId);
         return ResponseEntity.ok(storeChainResourceAssembler.toResource(chain));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN)
+    @RequestMapping(method = RequestMethod.PUT, value = URL_ADMIN_CHAINS_CHAIN)
     public HttpEntity<Void> updateStoreChain(
             @PathVariable("chainId") final String chainId,
             @RequestBody final AdminStoreChainForm form) throws ResourceNotFoundException {
@@ -90,7 +89,7 @@ public class AdminStoreChainRestController extends AbstractStoreAdminRestControl
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN)
+    @RequestMapping(method = RequestMethod.DELETE, value = URL_ADMIN_CHAINS_CHAIN)
     public HttpEntity<Void> deleteStoreChainById(@PathVariable("chainId") final String chainId)
             throws ResourceNotFoundException {
         final StoreChain chain = loadStoreChainById(chainId);

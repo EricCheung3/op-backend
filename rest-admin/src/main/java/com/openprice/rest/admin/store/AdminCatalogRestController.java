@@ -33,7 +33,6 @@ import com.openprice.domain.store.StoreService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.AbstractStoreAdminRestController;
-import com.openprice.rest.admin.AdminApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -59,7 +58,7 @@ public class AdminCatalogRestController extends AbstractStoreAdminRestController
         this.catalogResourceAssembler = catalogResourceAssembler;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN_CATALOGS)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_CHAINS_CHAIN_CATALOGS)
     public HttpEntity<PagedResources<AdminCatalogResource>> getCatalogs(
             @PathVariable("chainId") final String chainId,
             @PageableDefault(size = UtilConstants.DEFAULT_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
@@ -69,7 +68,7 @@ public class AdminCatalogRestController extends AbstractStoreAdminRestController
         return ResponseEntity.ok(assembler.toResource(catalogs, catalogResourceAssembler));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN_CATALOGS)
+    @RequestMapping(method = RequestMethod.POST, value = URL_ADMIN_CHAINS_CHAIN_CATALOGS)
     public HttpEntity<Void> createStoreCatalog(
             @PathVariable("chainId") final String chainId,
             @RequestBody final AdminCatalogForm form) throws ResourceNotFoundException {
@@ -81,7 +80,7 @@ public class AdminCatalogRestController extends AbstractStoreAdminRestController
         return ResponseEntity.created(location).body(null);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN_CATALOGS_CATALOG)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_CHAINS_CHAIN_CATALOGS_CATALOG)
     public HttpEntity<AdminCatalogResource> getCatalogById(
             @PathVariable("chainId") final String chainId,
             @PathVariable("catalogId") final String catalogId) throws ResourceNotFoundException {
@@ -90,7 +89,7 @@ public class AdminCatalogRestController extends AbstractStoreAdminRestController
         return ResponseEntity.ok(catalogResourceAssembler.toResource(catalog));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN_CATALOGS_CATALOG)
+    @RequestMapping(method = RequestMethod.PUT, value = URL_ADMIN_CHAINS_CHAIN_CATALOGS_CATALOG)
     public HttpEntity<Void> updateCatalog(
             @PathVariable("chainId") final String chainId,
             @PathVariable("catalogId") final String catalogId,
@@ -108,7 +107,7 @@ public class AdminCatalogRestController extends AbstractStoreAdminRestController
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN_CATALOGS_CATALOG)
+    @RequestMapping(method = RequestMethod.DELETE, value = URL_ADMIN_CHAINS_CHAIN_CATALOGS_CATALOG)
     public HttpEntity<Void> deleteCatalogById(
             @PathVariable("chainId") final String chainId,
             @PathVariable("catalogId") final String catalogId) throws ResourceNotFoundException {
@@ -118,7 +117,7 @@ public class AdminCatalogRestController extends AbstractStoreAdminRestController
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN_CATALOGS_UPLOAD)
+    @RequestMapping(method = RequestMethod.POST, value = URL_ADMIN_CHAINS_CHAIN_CATALOGS_UPLOAD)
     public HttpEntity<Void> uploadCatalogs(
             @PathVariable("chainId") final String chainId,
             @RequestParam("file") final MultipartFile file) throws ResourceNotFoundException {

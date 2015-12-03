@@ -17,7 +17,6 @@ import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.openprice.common.ApiConstants;
 import com.openprice.domain.store.StoreChain;
-import com.openprice.rest.admin.AdminApiUrls;
 
 public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationTest {
 
@@ -54,7 +53,7 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
             .body("_embedded.catalogs[3].id", equalTo("chain001cat004"))
             .body("_embedded.catalogs[3].code", equalTo("BREAD"))
             .body("_embedded.catalogs[3].name", equalTo("BREAD"))
-            .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS+"/chain001/catalogs"))
+            .body("_links.self.href", endsWith(URL_ADMIN_CHAINS+"/chain001/catalogs"))
         ;
     }
 
@@ -73,8 +72,8 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
             .body("id", equalTo("chain001cat001"))
             .body("name", equalTo("MILK"))
             .body("number", equalTo("1234"))
-            .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS+"/chain001/catalogs/chain001cat001"))
-            .body("_links.chain.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS + "/chain001"))
+            .body("_links.self.href", endsWith(URL_ADMIN_CHAINS+"/chain001/catalogs/chain001cat001"))
+            .body("_links.chain.href", endsWith(URL_ADMIN_CHAINS + "/chain001"))
         ;
     }
 
@@ -91,7 +90,7 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
             .statusCode(HttpStatus.SC_NOT_FOUND)
         ;
 
-        final String invalidStoreUrl = ApiConstants.EXTERNAL_API_ROOT + AdminApiUrls.URL_ADMIN_CHAINS + "/invalid/catalogs/chain001cat001";
+        final String invalidStoreUrl = ApiConstants.EXTERNAL_API_ROOT + URL_ADMIN_CHAINS + "/invalid/catalogs/chain001cat001";
         given()
             .filter(sessionFilter)
         .when()
@@ -146,7 +145,7 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
             .body("name", equalTo("APPLE"))
             .body("number", equalTo("3333"))
             .body("price", equalTo("1.99"))
-            .body("_links.chain.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS + "/chain001"))
+            .body("_links.chain.href", endsWith(URL_ADMIN_CHAINS + "/chain001"))
         ;
     }
 
@@ -185,8 +184,8 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
             .body("code", equalTo("APPLE_3333"))
             .body("name", equalTo("APPLE"))
             .body("number", equalTo("3333"))
-            .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS+"/chain001/catalogs/chain001cat001"))
-            .body("_links.chain.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS + "/chain001"))
+            .body("_links.self.href", endsWith(URL_ADMIN_CHAINS+"/chain001/catalogs/chain001cat001"))
+            .body("_links.chain.href", endsWith(URL_ADMIN_CHAINS + "/chain001"))
         ;
     }
 

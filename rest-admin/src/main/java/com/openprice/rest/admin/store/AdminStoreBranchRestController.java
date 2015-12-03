@@ -31,7 +31,6 @@ import com.openprice.domain.store.StoreService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.AbstractStoreAdminRestController;
-import com.openprice.rest.admin.AdminApiUrls;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,7 +56,7 @@ public class AdminStoreBranchRestController extends AbstractStoreAdminRestContro
         this.storeBranchResourceAssembler = storeBranchResourceAssembler;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN_BRANCHES)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_CHAINS_CHAIN_BRANCHES)
     public HttpEntity<PagedResources<AdminStoreBranchResource>> getStoreBranches(
             @PathVariable("chainId") final String chainId,
             @PageableDefault(size = UtilConstants.DEFAULT_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
@@ -67,7 +66,7 @@ public class AdminStoreBranchRestController extends AbstractStoreAdminRestContro
         return ResponseEntity.ok(assembler.toResource(branches, storeBranchResourceAssembler));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN_BRANCHES)
+    @RequestMapping(method = RequestMethod.POST, value = URL_ADMIN_CHAINS_CHAIN_BRANCHES)
     public HttpEntity<Void> createStoreBranch(
             @PathVariable("chainId") final String chainId,
             @RequestBody final AdminStoreBranchForm form) throws ResourceNotFoundException {
@@ -79,7 +78,7 @@ public class AdminStoreBranchRestController extends AbstractStoreAdminRestContro
         return ResponseEntity.created(location).body(null);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN_BRANCHES_BRANCH)
+    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_CHAINS_CHAIN_BRANCHES_BRANCH)
     public HttpEntity<AdminStoreBranchResource> getStoreBranchById(
             @PathVariable("chainId") final String chainId,
             @PathVariable("branchId") final String branchId) throws ResourceNotFoundException {
@@ -88,7 +87,7 @@ public class AdminStoreBranchRestController extends AbstractStoreAdminRestContro
         return ResponseEntity.ok(storeBranchResourceAssembler.toResource(branch));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN_BRANCHES_BRANCH)
+    @RequestMapping(method = RequestMethod.PUT, value = URL_ADMIN_CHAINS_CHAIN_BRANCHES_BRANCH)
     public HttpEntity<Void> updateStoreBranch(
             @PathVariable("chainId") final String chainId,
             @PathVariable("branchId") final String branchId,
@@ -101,7 +100,7 @@ public class AdminStoreBranchRestController extends AbstractStoreAdminRestContro
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = AdminApiUrls.URL_ADMIN_CHAINS_CHAIN_BRANCHES_BRANCH)
+    @RequestMapping(method = RequestMethod.DELETE, value = URL_ADMIN_CHAINS_CHAIN_BRANCHES_BRANCH)
     public HttpEntity<Void> deleteStoreBranchById(
             @PathVariable("chainId") final String chainId,
             @PathVariable("branchId") final String branchId) throws ResourceNotFoundException {

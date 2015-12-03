@@ -15,7 +15,6 @@ import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.openprice.common.ApiConstants;
 import com.openprice.domain.store.StoreChain;
-import com.openprice.rest.admin.AdminApiUrls;
 
 public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrationTest {
 
@@ -41,7 +40,7 @@ public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrat
             .body("_embedded.storeBranches[1].name", equalTo("South Common RCSS"))
             .body("_embedded.storeBranches[2].id", equalTo("branch103"))
             .body("_embedded.storeBranches[2].name", equalTo("Whitemud RCSS"))
-            .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS+"/chain001/branches"))
+            .body("_links.self.href", endsWith(URL_ADMIN_CHAINS+"/chain001/branches"))
         ;
     }
 
@@ -60,8 +59,8 @@ public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrat
             .body("id", equalTo("branch101"))
             .body("name", equalTo("Calgary Trail RCSS"))
             .body("phone", equalTo("780-430-2769"))
-            .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS+"/chain001/branches/branch101"))
-            .body("_links.chain.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS + "/chain001"))
+            .body("_links.self.href", endsWith(URL_ADMIN_CHAINS+"/chain001/branches/branch101"))
+            .body("_links.chain.href", endsWith(URL_ADMIN_CHAINS + "/chain001"))
         ;
     }
 
@@ -78,7 +77,7 @@ public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrat
             .statusCode(HttpStatus.SC_NOT_FOUND)
         ;
 
-        final String invalidStoreUrl = ApiConstants.EXTERNAL_API_ROOT + AdminApiUrls.URL_ADMIN_CHAINS + "/invalid/branches/branch101";
+        final String invalidStoreUrl = ApiConstants.EXTERNAL_API_ROOT + URL_ADMIN_CHAINS + "/invalid/branches/branch101";
         given()
             .filter(sessionFilter)
         .when()
@@ -172,8 +171,8 @@ public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrat
             .body("id", equalTo("branch101"))
             .body("name", equalTo("New RCSS"))
             .body("phone", equalTo("555-123-4567"))
-            .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS+"/chain001/branches/branch101"))
-            .body("_links.chain.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS + "/chain001"))
+            .body("_links.self.href", endsWith(URL_ADMIN_CHAINS+"/chain001/branches/branch101"))
+            .body("_links.chain.href", endsWith(URL_ADMIN_CHAINS + "/chain001"))
         ;
     }
 

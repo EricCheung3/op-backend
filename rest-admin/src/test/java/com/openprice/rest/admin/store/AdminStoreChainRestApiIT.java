@@ -13,7 +13,6 @@ import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.admin.AdminApiUrls;
 
 public class AdminStoreChainRestApiIT extends AbstractAdminStoreRestApiIntegrationTest {
 
@@ -41,7 +40,7 @@ public class AdminStoreChainRestApiIT extends AbstractAdminStoreRestApiIntegrati
             .body("_embedded.storeChains[0].code", equalTo("rcss"))
             .body("_embedded.storeChains[1].id", equalTo("chain002"))
             .body("_embedded.storeChains[1].code", equalTo("safeway"))
-            .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS))
+            .body("_links.self.href", endsWith(URL_ADMIN_CHAINS))
         ;
     }
 
@@ -65,9 +64,9 @@ public class AdminStoreChainRestApiIT extends AbstractAdminStoreRestApiIntegrati
             .body("code", equalTo("rcss"))
             .body("name", equalTo("Real Canadian Superstore"))
             .body("catalogUploadUrl", endsWith("api/admin/chains/chain001/catalogs/upload"))
-            .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS+"/chain001"))
-            .body("_links.branches.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS + "/chain001/branches" + UtilConstants.PAGINATION_TEMPLATES))
-            .body("_links.branch.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS + "/chain001/branches/{branchId}"))
+            .body("_links.self.href", endsWith(URL_ADMIN_CHAINS+"/chain001"))
+            .body("_links.branches.href", endsWith(URL_ADMIN_CHAINS + "/chain001/branches" + UtilConstants.PAGINATION_TEMPLATES))
+            .body("_links.branch.href", endsWith(URL_ADMIN_CHAINS + "/chain001/branches/{branchId}"))
         ;
     }
 
@@ -157,9 +156,9 @@ public class AdminStoreChainRestApiIT extends AbstractAdminStoreRestApiIntegrati
             .body("id", equalTo("chain001"))
             .body("code", equalTo("rcss"))
             .body("name", equalTo("Superstore"))
-            .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS+"/chain001"))
-            .body("_links.branches.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS + "/chain001/branches" + UtilConstants.PAGINATION_TEMPLATES))
-            .body("_links.branch.href", endsWith(AdminApiUrls.URL_ADMIN_CHAINS + "/chain001/branches/{branchId}"))
+            .body("_links.self.href", endsWith(URL_ADMIN_CHAINS+"/chain001"))
+            .body("_links.branches.href", endsWith(URL_ADMIN_CHAINS + "/chain001/branches" + UtilConstants.PAGINATION_TEMPLATES))
+            .body("_links.branch.href", endsWith(URL_ADMIN_CHAINS + "/chain001/branches/{branchId}"))
         ;
     }
 
