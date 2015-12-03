@@ -15,7 +15,6 @@ import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.rest.UtilConstants;
-import com.openprice.rest.admin.AdminApiUrls;
 
 public class AdminReceiptRestApiIT extends AbstractAdminReceiptRestApiIntegrationTest {
 
@@ -60,9 +59,9 @@ public class AdminReceiptRestApiIT extends AbstractAdminReceiptRestApiIntegratio
             .contentType(ContentType.JSON)
             .body("id", equalTo("receipt001"))
             .body("user", equalTo("John Doe"))
-            .body("_links.self.href", endsWith(AdminApiUrls.URL_ADMIN_RECEIPTS+"/receipt001"))
-            .body("_links.images.href", endsWith(AdminApiUrls.URL_ADMIN_RECEIPTS + "/receipt001/images" + UtilConstants.PAGINATION_TEMPLATES))
-            .body("_links.image.href", endsWith(AdminApiUrls.URL_ADMIN_RECEIPTS + "/receipt001/images/{imageId}"))
+            .body("_links.self.href", endsWith(URL_ADMIN_RECEIPTS+"/receipt001"))
+            .body("_links.images.href", endsWith(URL_ADMIN_RECEIPTS + "/receipt001/images" + UtilConstants.PAGINATION_TEMPLATES))
+            .body("_links.image.href", endsWith(URL_ADMIN_RECEIPTS + "/receipt001/images/{imageId}"))
         ;
         //TODO test images, feedback
     }
