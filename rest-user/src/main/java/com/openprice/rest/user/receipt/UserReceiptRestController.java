@@ -92,7 +92,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
     public HttpEntity<String> uploadNewReceipt(@RequestParam("file") final MultipartFile file) {
         if (!file.isEmpty()) {
             final Receipt receipt = newReceiptWithFile(file);
-            addReceiptImageToProcessQueue(receipt.getImages().get(0));
+            //addReceiptImageToProcessQueue(receipt.getImages().get(0)); FIXME temporally disable image processing because of ABBYY license issue
             final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId())).toUri();
             return ResponseEntity.created(location).body(receipt.getId());
         }
