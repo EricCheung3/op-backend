@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.openprice.domain.receipt.ProcessLog;
+import com.openprice.domain.receipt.OcrProcessLog;
 import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.ReceiptImage;
 
@@ -25,7 +25,7 @@ public class StaticResultImageProcessorTest extends AbstractProcessorTest {
 
     @Before
     public void setup() throws Exception {
-        processorToTest = new StaticResultImageProcessor(processLogRepositoryMock, receiptImageRepositoryMock);
+        processorToTest = new StaticResultImageProcessor(fileSystemService, processLogRepositoryMock, receiptImageRepositoryMock);
     }
 
     @Test
@@ -38,10 +38,10 @@ public class StaticResultImageProcessorTest extends AbstractProcessorTest {
         processorToTest.processImage(item);
 
         {
-            ArgumentCaptor<ProcessLog> argument = ArgumentCaptor.forClass(ProcessLog.class);
+            ArgumentCaptor<OcrProcessLog> argument = ArgumentCaptor.forClass(OcrProcessLog.class);
             verify(processLogRepositoryMock, times(1)).save(argument.capture());
             assertEquals(IMAGE_ID, argument.getValue().getImageId());
-            assertEquals("static", argument.getValue().getServerName());
+            assertEquals("Static", argument.getValue().getServerName());
         }
 
         {

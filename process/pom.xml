@@ -32,6 +32,10 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+        	<groupId>com.hazelcast</groupId>
+        	<artifactId>hazelcast</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

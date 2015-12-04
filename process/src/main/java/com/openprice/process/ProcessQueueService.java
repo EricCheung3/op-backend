@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.openprice.common.client.ServiceSettings;
-import com.openprice.domain.receipt.ProcessLogRepository;
+import com.openprice.domain.receipt.OcrProcessLogRepository;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.file.FileSystemService;
 import com.openprice.ocr.client.OcrService;
@@ -27,13 +27,13 @@ public class ProcessQueueService {
     private final BlockingQueue<ProcessItem> queue;
     private final List<ProcessQueueConsumer> consumers;
     private final ProcessSettings processSettings;
-    private final ProcessLogRepository processLogRepository;
+    private final OcrProcessLogRepository processLogRepository;
     private final ReceiptImageRepository receiptImageRepository;
     private final FileSystemService fileSystemService;
 
     @Inject
     public ProcessQueueService(final ProcessSettings processSettings,
-                               final ProcessLogRepository processLogRepository,
+                               final OcrProcessLogRepository processLogRepository,
                                final ReceiptImageRepository receiptImageRepository,
                                final FileSystemService fileSystemService) {
         this.queue = new LinkedBlockingQueue<>();
@@ -57,7 +57,9 @@ public class ProcessQueueService {
                 startConsumer(settings);
             }
         } else {
-            final ImageProcessor p = new StaticResultImageProcessor(processLogRepository, receiptImageRepository);
+            final ImageProcessor p = new StaticResultImageProcessor(fileSystemService,
+                                                                    processLogRepository,
+                                                                    receiptImageRepository);
             final ProcessQueueConsumer consumer = new ProcessQueueConsumer(queue, p);
             consumers.add(consumer);
             new Thread(consumer).start();

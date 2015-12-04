@@ -6,7 +6,7 @@ package com.openprice.process;
 public interface ImageProcessor {
 
     /**
-     * Returns this process or name for logging purpose.
+     * Returns this processor name for logging purpose.
      * @return
      */
     String getName();
