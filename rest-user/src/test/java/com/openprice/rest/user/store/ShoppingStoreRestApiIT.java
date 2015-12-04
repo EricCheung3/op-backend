@@ -3,6 +3,7 @@ package com.openprice.rest.user.store;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
@@ -70,4 +71,41 @@ public class ShoppingStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
         ;
     }
 
+    @Test
+    public void searchCatalogsForStoreChain_ShouldReturnMatchingCatalogFromRcss() throws Exception {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+        final Response response =
+            given()
+                .filter(sessionFilter)
+            .when()
+                .get(userShoppingStoreCatalogsQueryUrl(sessionFilter, "shoppingStore101", "egg"))
+            ;
+        response.prettyPrint();
+        response
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("[0].id", equalTo("store001cat002"))
+            .body("[0].name", equalTo("EGG"))
+        ;
+
+    }
+
+    @Test
+    public void searchCatalogsForStoreChain_ShouldReturnEmpty_IfQueryEmpty() throws Exception {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+        final Response response =
+            given()
+                .filter(sessionFilter)
+            .when()
+                .get(userShoppingStoreCatalogsQueryUrl(sessionFilter, "shoppingStore101", ""))
+            ;
+        response.prettyPrint();
+        response
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("", hasSize(0))
+        ;
+    }
 }

@@ -583,3 +583,25 @@ include::{snippets}/user-shopping-item-delete-example/curl-request.adoc[]
 include::{snippets}/user-shopping-item-delete-example/http-response.adoc[]
 
 
+[[resources-user-shopping-store-catalogs]]
+== User Shopping Store Catalogs
+
+User Shopping Store Catalogs resource is for searching catalogs by user entered query for a store.
+
+[[resources-user-shopping-store-catalogs-query]]
+=== Search catalogs by query string for a shopping store. 
+Assume the shopping store has linked StoreChain.
+
+A `GET` request will get matching Catalog list.
+
+==== Response structure
+
+include::{snippets}/user-shopping-store-catalogs-query-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/user-shopping-store-catalogs-query-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/user-shopping-store-catalogs-query-example/http-response.adoc[]

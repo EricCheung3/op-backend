@@ -46,6 +46,7 @@ public class ShoppingStoreResource extends Resource<ShoppingStore> {
                        .addLink("user", URL_USER, false, pairs)
                        .addLink("items", URL_USER_SHOPPING_STORES_STORE_ITEMS, true, pairs)
                        .addLink("item", URL_USER_SHOPPING_STORES_STORE_ITEMS_ITEM, false, pairs)
+                       .addLink("catalogs", URL_USER_SHOPPING_STORES_STORE_CATALOGS, false, pairs)
                        ;
 
             // TODO fix _embedded issue
