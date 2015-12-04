@@ -77,10 +77,10 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
 
         // verify result of items
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "opo squash", "2.80", "opo squash_3141");
+        verifyItemParsedValue(iterator.next(), "opo squash    mrj", "2.80", "opo squash    mrj_3141");
         verifyItemParsedValue(iterator.next(), "chinese cabbage    mrj", "1.43", "chinese cabbage    mrj_4552");
         verifyItemParsedValue(iterator.next(), "muffin lemn cran", "4.87", "muffin lemn cran_06038387812");
-        verifyItemParsedValue(iterator.next(), "plastic bags", "0.05", "plastic bags");
+        verifyItemParsedValue(iterator.next(), "plastic bags    gro", "0.05", "plastic bags    gro");
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
@@ -118,9 +118,9 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         verifyItemParsedValue(iterator.next(), "rooster garlic", "2.48", "rooster garlic_06038388591");
         verifyItemParsedValue(iterator.next(), "wmelon mini sdls", "3.97", "wmelon mini sdls_3421");
         verifyItemParsedValue(iterator.next(), "pepper green swt", "2.02", "pepper green swt_4065");
-        verifyItemParsedValue(iterator.next(), "mush crem bulk", "1.64", "mush crem bulk_4648");
+        verifyItemParsedValue(iterator.next(), "mush crem bulk    hrj", "1.64", "mush crem bulk    hrj_4648");
         verifyItemParsedValue(iterator.next(), "split chkn wing", "17.58", "split chkn wing_2163820");
-        verifyItemParsedValue(iterator.next(), "split chkn wing", "16.65", "split chkn wing_2163820");
+        verifyItemParsedValue(iterator.next(), "split chkn wing    hrj", "16.65", "split chkn wing    hrj_216382c");
         verifyItemParsedValue(iterator.next(), "lamb bonless leg", "24.50", "lamb bonless leg_2174190");
         verifyItemParsedValue(iterator.next(), "sq basa flts", "7.98", "sq basa flts_06038377431");
         verifyItemParsedValue(iterator.next(), "croissant cp", "5.00", "croissant cp_46036330079");
