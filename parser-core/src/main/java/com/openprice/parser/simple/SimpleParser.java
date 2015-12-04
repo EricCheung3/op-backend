@@ -73,16 +73,20 @@ public class SimpleParser {
     private List<Item> parseItem(final MatchedRecord matchedRecord, final ReceiptData receipt, final StoreParser parser) throws Exception {
         final int stopLine = Math.min(matchedRecord.itemStopLineNumber(), receipt.getReceiptLines().size());
         return
-            receipt.lines()
-                   .filter( line -> !matchedRecord.isFieldLine(line.getNumber()))
-                   .filter( line -> line.getNumber() < stopLine)
-                   .filter( line ->
-                       !ListCommon.matchList(parser.getStoreConfig().getSkipBefore(), line.getCleanText(), parser.getStoreConfig().similarityThresholdOfTwoStrings())
-                   )
-                   .map( line -> parser.parseItemLine(line.getCleanText()))
-                   .filter( item -> item != null)
-                   .collect(Collectors.toList())
-                   ;
+                receipt.lines()
+                .filter( line -> !matchedRecord.isFieldLine(line.getNumber()))
+                .filter( line -> line.getNumber() < stopLine)
+                .filter( line ->
+                !ListCommon.matchList(parser.getStoreConfig().getSkipBefore(), line.getCleanText(), parser.getStoreConfig().similarityThresholdOfTwoStrings())
+                        )
+                .map( line -> parser.parseItemLine(line.getCleanText()))
+                .filter( item ->
+                item != null &&
+                !item.getName().isEmpty() &&
+                !parser.getStoreConfig().getCatalogFilter().matchesBlackList(item.getName())
+                        )
+                .collect(Collectors.toList())
+                ;
         // TODO stop if match skipAfter strings
     }
 

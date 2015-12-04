@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.openprice.parser.data.ReceiptField;
+import com.openprice.parser.price.CatalogFilter;
 
 import lombok.Getter;
 
@@ -19,7 +20,7 @@ public class StoreConfig {
     @Getter
     private final List<String> skipAfter;
     @Getter
-    private final List<String> blackList;
+    private final CatalogFilter catalogFilter;
 
     public StoreConfig(final Properties prop,
             final List<String> category,
@@ -30,7 +31,7 @@ public class StoreConfig {
         this.category = category;
         this.skipBefore = skipBefore;
         this.skipAfter = skipAfter;
-        this.blackList=blackList;
+        this.catalogFilter=CatalogFilter.builder().blackList(blackList).build();
     }
 
     //a substring pattern of the quantity price line (sell by numbers of items)

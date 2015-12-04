@@ -25,6 +25,7 @@ public class ListCommon{
         list.add(s);
     }
 
+    //TODO: rename ListCommon.matchList to ListCommon.matchHeadList
     public static boolean matchList(final List<String> skip,
             final String str, final double similarityScore) {
         for(int i=0;i<skip.size();i++){
