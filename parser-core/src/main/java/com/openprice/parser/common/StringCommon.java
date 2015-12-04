@@ -392,7 +392,7 @@ public class StringCommon {
      *            non-null head string
      * @return [description]
      */
-    public static double matchHeadScore(String str, String head) {
+    public static double matchStringToHeader(String str, String head) {
         assert str != null;
         if (str.isEmpty() && head.isEmpty())
             return 1.0;
@@ -410,7 +410,7 @@ public class StringCommon {
 
         String strHead = StringCommon.firstCharsSameSet(str, head);
         double score = Levenshtein.compare(head, strHead);
-        // logger.debug("!!!!!score="+score+", str="+strHead+", head="+head);
+        log.debug("!!!!!score="+score+", str="+strHead+", head="+head);
         return score;
     }
 
@@ -418,7 +418,7 @@ public class StringCommon {
     public static boolean stringMatchesHead(String str, String head, final double threshold) {
         if (threshold == 0.0)
             return true;
-        return matchHeadScore(str, head) >= threshold;
+        return matchStringToHeader(str, head) >= threshold;
     }
 
     public static String stringMatchesHead(final String str, final List<String> head, final double threshold)
@@ -788,6 +788,10 @@ public class StringCommon {
 
     public static String removeAllSpaces(final String str){
         return str.replaceAll("\\s+", StringCommon.EMPTY);
+    }
+
+    public static String lowerCaseNoSpaces(final String str){
+        return removeAllSpaces(str.toLowerCase());
     }
 
 }

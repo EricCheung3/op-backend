@@ -52,14 +52,14 @@ public class PriceParserUtils {
      */
     public static Product matchLineToCatalog(final String line, final List<Product> catalog){
         final Comparator<Product> comp=(p1, p2)->Double.compare(
-                StringCommon.matchHeadScore(line.replaceAll("\\s+", ""),
+                StringCommon.matchStringToHeader(line.replaceAll("\\s+", ""),
                         p1.toStringNumberFirst().replaceAll("\\s+", "")),
-                StringCommon.matchHeadScore(line.replaceAll("\\s+", ""),
+                StringCommon.matchStringToHeader(line.replaceAll("\\s+", ""),
                         p2.toStringNumberFirst().replaceAll("\\s+", ""))
                 );
         final Product matched=catalog.stream().max(comp).get();
         //        log.debug("\nThe most promissing product is "+matched.toStringNumberFirst());
-        final double score=StringCommon.matchHeadScore(
+        final double score=StringCommon.matchStringToHeader(
                 line.replaceAll("\\s+", ""),
                 matched.toStringNumberFirst().replace("\\s+", ""));
         //        log.debug("score="+score);
@@ -84,30 +84,24 @@ public class PriceParserUtils {
         final Comparator<Product> compNumberFirst = (p1, p2)->
         {
             return Double.compare(
-                    StringCommon.matchHeadScore(StringCommon.removeAllSpaces(p1.toStringNumberFirst()), lineNoSpacesLower),
-                    StringCommon.matchHeadScore(StringCommon.removeAllSpaces(p2.toStringNumberFirst()), lineNoSpacesLower)
+                    StringCommon.matchStringToHeader(lineNoSpacesLower, StringCommon.lowerCaseNoSpaces(p1.toStringNumberFirst())),
+                    StringCommon.matchStringToHeader(lineNoSpacesLower, StringCommon.lowerCaseNoSpaces(p2.toStringNumberFirst()))
                     );
         };
 
-        //        catalog.stream().forEach(p->System.out.println(p.toStringForCatalog()+", score="
-        //                +StringCommon.matchHeadScore(lineNoSpacesLower,
-        //                        CatalogBase.removeAllSpaces(p.toStringNumberFirst()))));
-
         final Product matchedNumberFirst=catalog.stream().max(compNumberFirst).get();
-        final double scoreNumberFirst=StringCommon.matchHeadScore(
-                StringCommon.removeAllSpaces(matchedNumberFirst.toStringNumberFirst()), lineNoSpacesLower);
-        //        log.debug("matchedNumberFirst"+matchedNumberFirst.toStringForCatalog()+",scoreNumberFirst="+scoreNumberFirst+"\n");
+        final double scoreNumberFirst=StringCommon.matchStringToHeader(lineNoSpacesLower,
+                StringCommon.lowerCaseNoSpaces(matchedNumberFirst.toStringNumberFirst()));
 
         final Comparator<Product> compNameFirst = (p1, p2)->
         {
             return Double.compare(
-                    StringCommon.matchHeadScore(StringCommon.removeAllSpaces(p1.toStringNameFirst()), lineNoSpacesLower),
-                    StringCommon.matchHeadScore(StringCommon.removeAllSpaces(p2.toStringNameFirst()), lineNoSpacesLower)
+                    StringCommon.matchStringToHeader(lineNoSpacesLower, StringCommon.lowerCaseNoSpaces(p1.toStringNameFirst())),
+                    StringCommon.matchStringToHeader(lineNoSpacesLower, StringCommon.lowerCaseNoSpaces(p2.toStringNameFirst()))
                     );
         };
         final Product matchedNameFirst=catalog.stream().max(compNameFirst).get();
-        final double scoreNameFirst=StringCommon.matchHeadScore(StringCommon.removeAllSpaces(matchedNameFirst.toStringNameFirst()), lineNoSpacesLower);
-        log.debug("matchedNameFirst="+matchedNameFirst.toStringForCatalog()+",scoreNameFirst="+scoreNameFirst+"\n");
+        final double scoreNameFirst=StringCommon.matchStringToHeader(lineNoSpacesLower, StringCommon.lowerCaseNoSpaces(matchedNameFirst.toStringNameFirst()));
 
         double scoreMax=scoreNumberFirst;
         Product matched=matchedNumberFirst;

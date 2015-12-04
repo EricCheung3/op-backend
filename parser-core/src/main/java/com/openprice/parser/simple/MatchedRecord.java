@@ -148,7 +148,7 @@ public class MatchedRecord {
                    .filter( line -> {
                        Optional<Double> maxScore =
                                headerPatterns.stream()
-                                             .map( header -> StringCommon.matchHeadScore(line.getCleanText(), header) )
+                                             .map( header -> StringCommon.matchStringToHeader(line.getCleanText(), header) )
                                              .max( Comparator.comparing(score -> score) );
                        return maxScore.isPresent() && maxScore.get() > config.similarityThresholdOfTwoStrings();
                    })
