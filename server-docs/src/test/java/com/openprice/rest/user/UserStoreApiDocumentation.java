@@ -29,20 +29,25 @@ import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.shopping.ShoppingItemRepository;
 import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.domain.shopping.ShoppingStoreRepository;
+import com.openprice.domain.store.CatalogRepository;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.rest.user.store.ShoppingItemForm;
 import com.openprice.rest.user.store.ShoppingListForm;
 
 public class UserStoreApiDocumentation extends UserApiDocumentationBase {
-    @Inject
-    protected StoreChainRepository storeRepository;
 
     @Inject
-    protected ShoppingStoreRepository shoppingStoreRepository;
+    StoreChainRepository storeRepository;
 
     @Inject
-    protected ShoppingItemRepository shoppingItemRepository;
+    CatalogRepository catalogRepository;
+
+    @Inject
+    ShoppingStoreRepository shoppingStoreRepository;
+
+    @Inject
+    ShoppingItemRepository shoppingItemRepository;
 
     @Test
     public void storeListExample() throws Exception {
@@ -72,8 +77,9 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
             links(
                 linkWithRel("self").description("The self link"),
                 linkWithRel("user").description("The user link"),
-                linkWithRel("items").description("The <<resources-user-shopping-items,Shopping Items>> link"),
-                linkWithRel("item").description("The <<resources-user-shopping-item,Shopping Item>> link")
+                linkWithRel("items").description("The <<resources-user-shopping-items, Shopping Items>> link"),
+                linkWithRel("item").description("The <<resources-user-shopping-item, Shopping Item>> link"),
+                linkWithRel("catalogs").description("The <<resources-user-shopping-store-catalogs, Shopping Store Catalogs Query>> link")
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
@@ -206,6 +212,26 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
         .andDo(document("user-shopping-item-delete-example"));
     }
 
+    @Test
+    public void catalogQueryExample() throws Exception {
+        mockMvc
+        .perform(get(userShoppingStoreCatalogQueryUrl("egg")).with(user(USERNAME)))
+        .andExpect(status().isOk())
+        .andDo(document("user-shopping-store-catalogs-query-example",
+            preprocessResponse(prettyPrint()),
+            responseFields(
+                fieldWithPath("[].id").description("Primary ID"),
+                fieldWithPath("[].code").description("The catalog code."),
+                fieldWithPath("[].name").description("The catalog name."),
+                fieldWithPath("[].number").description("The catalog number."),
+                fieldWithPath("[].price").description("The price (unit price?)."),
+                fieldWithPath("[].naturalName").description("Readable name for the catalog."),
+                fieldWithPath("[].labelCodes").description("The labels of the catalog.")
+            )
+        ));
+
+    }
+
     @Override
     @Before
     public void setUp() throws Exception {
@@ -224,7 +250,15 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
 
     protected void createStores() throws Exception {
         storeRepository.save(StoreChain.createStoreChain("safeway", "Safeway"));
-        storeRepository.save(StoreChain.createStoreChain("rcss", "SuperStore"));
+
+        StoreChain rcss = StoreChain.createStoreChain("rcss", "SuperStore");
+        storeRepository.save(rcss);
+
+        // add catalogs to rcss
+        rcss.addCatalog("egg", "1234", "1.99", "Large Egg", "food,egg");
+        rcss.addCatalog("egg", "1235", "1.59", "Medium Egg", "food,egg");
+        rcss.addCatalog("egg", "1236", "1.29", "Small Egg", "food,egg");
+        storeRepository.save(rcss);
     }
 
     protected void deleteStores() throws Exception {
@@ -295,6 +329,17 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
             .andReturn().getResponse()
             .getContentAsString();
         return JsonPath.read(responseContent, "_embedded.shoppingItems[0]._links.self.href");
+    }
+
+    private String userShoppingStoreCatalogQueryUrl(final String query) throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(userStoreUrl()).with(user(USERNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        final String storesLink = JsonPath.read(responseContent, "_links.catalogs.href");
+        return UriTemplate.fromTemplate(storesLink).set("query", query).expand();
     }
 
 }
