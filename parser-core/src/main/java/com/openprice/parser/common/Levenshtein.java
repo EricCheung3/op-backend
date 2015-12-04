@@ -18,12 +18,11 @@ public class Levenshtein
         ? p1:p2).get();
     }
 
-    //TODO removeAllSpaces
     //the string matches the list
     public static boolean matchList(final String given, final List<String> list, final double threshold){
         for(String s2:list){
-            if(Levenshtein.compare(given.replaceAll("\\s+", StringCommon.EMPTY),
-                    s2.replaceAll("\\s+", StringCommon.EMPTY)) >=threshold){
+            if(Levenshtein.compare(StringCommon.removeAllSpaces(given),
+                    StringCommon.removeAllSpaces(s2)) >=threshold){
                 return true;
             }
         }

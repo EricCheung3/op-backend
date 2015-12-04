@@ -37,7 +37,6 @@ public class ListCommon{
         return false;
     }
 
-
     /*
           sum up values in List
      */
