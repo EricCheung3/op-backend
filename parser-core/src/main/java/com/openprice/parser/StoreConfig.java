@@ -18,15 +18,19 @@ public class StoreConfig {
     private final List<String> skipBefore;
     @Getter
     private final List<String> skipAfter;
+    @Getter
+    private final List<String> blackList;
 
     public StoreConfig(final Properties prop,
             final List<String> category,
             final List<String> skipBefore,
-            final List<String> skipAfter) {
+            final List<String> skipAfter,
+            final List<String> blackList) {
         this.prop = prop;
         this.category = category;
         this.skipBefore = skipBefore;
         this.skipAfter = skipAfter;
+        this.blackList=blackList;
     }
 
     //a substring pattern of the quantity price line (sell by numbers of items)

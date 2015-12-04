@@ -39,6 +39,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     static final String CATEGORY_FILE_NAME = "category.txt";
     static final String IDENTIFY_FIELD_FILE_NAME = "identify.txt";
     static final String CATALOG_FILE_NAME = "catalog.txt";
+    static final String CATALOG_BLACK_LIST_FILE_NAME="notCatalogItemNames.txt";
 
     static final String SKIP_BEFORE_FILE_NAME = "skipBeforeItemsFinish.txt";
     static final String SKIP_AFTER_FILE_NAME = "skipAfterItemsFinish.txt";
@@ -119,7 +120,9 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
                 configProp,
                 TextResourceUtils.loadStringArray(getStoreConfigResource(CATEGORY_FILE_NAME)),
                 TextResourceUtils.loadStringArray(getParserConfigResource(parserName, SKIP_BEFORE_FILE_NAME)),
-                TextResourceUtils.loadStringArray(getParserConfigResource(parserName, SKIP_AFTER_FILE_NAME)));
+                TextResourceUtils.loadStringArray(getParserConfigResource(parserName, SKIP_AFTER_FILE_NAME)),
+                TextResourceUtils.loadStringArray(getStoreConfigResource(CATALOG_BLACK_LIST_FILE_NAME))
+                );
     }
 
     private Resource getStoreConfigResource(final String filename) {
