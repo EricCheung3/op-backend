@@ -28,7 +28,8 @@ public class ImageQueueRestController {
     }
     @RequestMapping(method = RequestMethod.POST, value = InternalServiceApiUrls.URL_IMAGE_QUEUE)
     public HttpEntity<ImageQueueResult> addImageToQueue(@RequestBody final ImageQueueRequest request) {
-        queueService.addImage(request.getImageId(), request.getOwnerId(), request.getRequesterId());
+        //queueService.addImage(request.getImageId(), request.getOwnerId(), request.getRequesterId());
+        // FIXME enable queue after ABBYY ready
         return ResponseEntity.ok(new ImageQueueResult(true, null));
     }
 
