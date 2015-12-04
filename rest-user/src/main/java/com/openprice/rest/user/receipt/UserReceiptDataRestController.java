@@ -127,7 +127,7 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
             log.warn("ILLEGAL RECEIPT ITEM ACCESS! No such receipt item Id: {}.", itemId);
             throw new ResourceNotFoundException("No receipt item with the id: " + itemId);
         }
-        if (item.isIgnored()) {
+        if (item.getIgnored()) {
             log.warn("ILLEGAL RECEIPT ITEM ACCESS! Receipt item Id: {} was ignored by user.", itemId);
             throw new ResourceNotFoundException("No receipt item with the id: " + itemId);
         }

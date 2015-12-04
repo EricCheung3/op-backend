@@ -33,6 +33,7 @@ public class ReceiptItem extends BaseAuditableEntity {
     private ReceiptData receiptData;
 
     @Getter @Setter
+    @JsonIgnore // we don't expose this to user
     @Column(name="line_number")
     private Integer lineNumber;
 
@@ -57,8 +58,9 @@ public class ReceiptItem extends BaseAuditableEntity {
     private String displayPrice;
 
     @Getter @Setter
+    @JsonIgnore // we don't expose this to user
     @Column(name="user_ignored")
-    private boolean ignored;
+    private Boolean ignored = false;
 
     ReceiptItem() {}
 }

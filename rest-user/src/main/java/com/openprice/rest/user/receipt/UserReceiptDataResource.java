@@ -50,7 +50,7 @@ public class UserReceiptDataResource extends Resource<ReceiptData> {
             // TODO fix _embedded issue
             List<UserReceiptItemResource> items = new ArrayList<>();
             for (ReceiptItem item : receiptData.getItems()) {
-                if (!item.isIgnored()) {
+                if (!item.getIgnored()) {
                     items.add(itemResourceAssembler.toResource(item));
                 }
             }

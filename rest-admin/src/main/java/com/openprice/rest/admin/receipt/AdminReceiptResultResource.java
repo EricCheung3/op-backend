@@ -51,9 +51,7 @@ public class AdminReceiptResultResource extends Resource<ReceiptData> {
             // TODO fix _embedded issue
             List<AdminReceiptItemResource> items = new ArrayList<>();
             for (ReceiptItem item : receiptData.getItems()) {
-                if (!item.isIgnored()) {
-                    items.add(itemResourceAssembler.toResource(item));
-                }
+                items.add(itemResourceAssembler.toResource(item));
             }
             resource.setItems(items);
 

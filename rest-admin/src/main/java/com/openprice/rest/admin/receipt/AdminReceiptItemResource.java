@@ -22,6 +22,12 @@ import lombok.Setter;
 public class AdminReceiptItemResource extends Resource<ReceiptItem> {
 
     @Getter @Setter
+    private Integer lineNumber;
+
+    @Getter @Setter
+    private Boolean userDeleted;
+
+    @Getter @Setter
     private Catalog catalog;
 
     public AdminReceiptItemResource(ReceiptItem resource) {
@@ -53,6 +59,10 @@ public class AdminReceiptItemResource extends Resource<ReceiptItem> {
                     }
                 }
             }
+
+            // set properties admin can see
+            resource.setLineNumber(receiptItem.getLineNumber());
+            resource.setUserDeleted(receiptItem.getIgnored());
 
             final String[] pairs = {"receiptId", receiptItem.getReceiptData().getReceipt().getId(),
                                     "resultId", receiptItem.getReceiptData().getId(),
