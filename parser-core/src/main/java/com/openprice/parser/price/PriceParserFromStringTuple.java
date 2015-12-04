@@ -90,7 +90,6 @@ public class PriceParserFromStringTuple implements PriceParser {
     }
 
     //product and price from four strings
-    //product and price from four strings
     @Override
     public ProductPrice fromThreeStrings(final ThreeStrings three) throws Exception{
         final boolean firstIsNumber=isItemNumber(three.getFirst());
