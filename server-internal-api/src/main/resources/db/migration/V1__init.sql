@@ -61,6 +61,24 @@ ALTER TABLE user_role
     REFERENCES user_account(id)
     ON DELETE CASCADE;
 
+CREATE TABLE admin_profile (
+    id VARCHAR(50),
+    version BIGINT NOT NULL DEFAULT 1,
+    created_by VARCHAR(50) NOT NULL,
+    created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_modified_by VARCHAR(50),
+    last_modified_time TIMESTAMP,
+
+    first_name VARCHAR(100),
+    middle_name VARCHAR(100),
+    last_name VARCHAR(100),
+    phone VARCHAR(50),
+    title VARCHAR(100),
+
+    PRIMARY KEY (id)
+) ENGINE=InnoDB;
+
+
 CREATE TABLE admin_account (
     id VARCHAR(50),
     version BIGINT NOT NULL DEFAULT 1,
@@ -72,17 +90,21 @@ CREATE TABLE admin_account (
     username VARCHAR(100) NOT NULL,
     password VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    first_name VARCHAR(100),
-    last_name VARCHAR(100),
-    title VARCHAR(100),
     account_locked BOOLEAN DEFAULT false,
     activated BOOLEAN DEFAULT false,
+    profile_id VARCHAR(50) NOT NULL,
 
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
 CREATE INDEX idx_admin_account_1
     ON admin_account(username);
+
+ALTER TABLE admin_account
+    ADD CONSTRAINT fk_admin_account_admin_profile
+    FOREIGN KEY (profile_id)
+    REFERENCES admin_profile(id)
+    ON DELETE CASCADE;
 
 CREATE TABLE admin_role (
     admin_account_id VARCHAR(50) NOT NULL,

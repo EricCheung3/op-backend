@@ -45,10 +45,10 @@ public class AdminAccountServiceTest {
 
         assertEquals("johndoe", newAccount.getUsername());
         assertTrue(newAccount.isEnabled());
-        assertEquals("John", newAccount.getFirstName());
-        assertEquals("Doe", newAccount.getLastName());
+        assertEquals("John", newAccount.getProfile().getFirstName());
+        assertEquals("Doe", newAccount.getProfile().getLastName());
         assertEquals("john.doe@mail.com", newAccount.getEmail());
-        assertEquals("CEO", newAccount.getTitle());
+        assertEquals("CEO", newAccount.getProfile().getTitle());
 
         verify(accountRepositoryMock, times(1)).save(isA(AdminAccount.class));
     }

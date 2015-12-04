@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ReceiptService {
     private final ReceiptRepository receiptRepository;
     private final ReceiptImageRepository receiptImageRepository;
-    private final ReceiptDataRepository receiptDataRepository;
+    private final ReceiptResultRepository receiptResultRepository;
     private final ReceiptItemRepository receiptItemRepository;
     private final ReceiptFeedbackRepository receiptFeedbackRepository;
     private final SimpleParser simpleParser;
@@ -27,48 +27,51 @@ public class ReceiptService {
     @Inject
     public ReceiptService(final ReceiptRepository receiptRepository,
                           final ReceiptImageRepository receiptImageRepository,
-                          final ReceiptDataRepository receiptDataRepository,
+                          final ReceiptResultRepository receiptResultRepository,
                           final ReceiptItemRepository receiptItemRepository,
                           final ReceiptFeedbackRepository receiptFeedbackRepository,
                           final SimpleParser simpleParser) {
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
-        this.receiptDataRepository = receiptDataRepository;
+        this.receiptResultRepository = receiptResultRepository;
         this.receiptItemRepository = receiptItemRepository;
         this.receiptFeedbackRepository = receiptFeedbackRepository;
         this.simpleParser = simpleParser;
     }
 
     /**
-     * Return latest parser result of ReceiptData object for the receipt in the database.
+     * Return latest parser result of ReceiptResult object for the receipt in the database.
      * If no parser result yet, try to query ocr result for all receipt images and call Simple Parser.
      *
      * @param receipt
      * @return
      */
-    public ReceiptData getLatestReceiptParserResult(final Receipt receipt) {
-        final ReceiptData result = receiptDataRepository.findFirstByReceiptOrderByCreatedTimeDesc(receipt);
+    public ReceiptResult getLatestReceiptResult(final Receipt receipt) {
+        final ReceiptResult result = receiptResultRepository.findFirstByReceiptOrderByCreatedTimeDesc(receipt);
 
         if (result == null) {
-            log.debug("No receipt data yet for receipt {}, call parser to generate...", receipt.getId());
+            log.debug("No receipt result yet for receipt {}, call parser to generate...", receipt.getId());
             final List<String> ocrTextList = loadOcrResults(receipt);
             return parseOcrResults(receipt, ocrTextList);
         }
         return result;
     }
 
-    public ReceiptData parseOcrResults(final Receipt receipt, final List<String> ocrTextList) {
+    public ReceiptResult parseOcrResults(final Receipt receipt, final List<String> ocrTextList) {
         try {
             final ParsedReceipt parsedReceipt = simpleParser.parseOCRResults(ocrTextList);
-            ReceiptData data = receipt.createReceiptDataFromParserResult(parsedReceipt);
-            data = receiptDataRepository.save(data); // has to save ReceiptData first before saving ReceiptItem
+            ReceiptResult result = receipt.createReceiptDataFromParserResult(parsedReceipt);
+            result = receiptResultRepository.save(result); // has to save ReceiptResult first before saving ReceiptItem
 
+            int lineNumber = 1;
             for (final Item item : parsedReceipt.getItems()) {
-                final ReceiptItem receiptItem = data.addItem(item.getCatalogCode(), item.getName(), item.getBuyPrice());
+                final ReceiptItem receiptItem = result.addItem(item.getCatalogCode(), item.getName(), item.getBuyPrice());
+                // TODO add lineNumber from parser items
+                receiptItem.setLineNumber(lineNumber++);
                 receiptItemRepository.save(receiptItem);
             }
-            log.debug("SimpleParser returns {} items.", data.getItems().size());
-            return receiptDataRepository.save(data);
+            log.debug("SimpleParser returns {} items.", result.getItems().size());
+            return receiptResultRepository.save(result);
         } catch (Exception ex) {
             log.error("SEVERE: Got exception during parsing ocr text.", ex);
         }
@@ -120,7 +123,6 @@ public class ReceiptService {
         feedback.setComment(comment);
         receiptFeedbackRepository.save(feedback);
 
-        receipt.getFeedbacks().add(feedback);
         receipt.setNeedFeedback(false);
         receiptRepository.save(receipt);
 

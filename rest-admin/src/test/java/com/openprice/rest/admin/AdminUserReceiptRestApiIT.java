@@ -40,7 +40,7 @@ public class AdminUserReceiptRestApiIT extends AbstractAdminRestApiIntegrationTe
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getUserReceipts_ShouldReturnAllUserReceipts() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         given()
             .filter(sessionFilter)
@@ -61,7 +61,7 @@ public class AdminUserReceiptRestApiIT extends AbstractAdminRestApiIntegrationTe
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getUserReceiptById_ShouldReturnCorrectReceipt() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         Response response =
             given()
@@ -85,7 +85,7 @@ public class AdminUserReceiptRestApiIT extends AbstractAdminRestApiIntegrationTe
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void deleteUserReceiptById_ShouldDeleteReceiptAndImages() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String receiptUrl = userReceiptUrl(sessionFilter, TEST_USERID_JOHN_DOE, "receipt001");
 
         given()
@@ -112,7 +112,7 @@ public class AdminUserReceiptRestApiIT extends AbstractAdminRestApiIntegrationTe
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getUserReceiptImages_ShouldReturnAllImagesOfReceipt() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         given()
             .filter(sessionFilter)
@@ -134,7 +134,7 @@ public class AdminUserReceiptRestApiIT extends AbstractAdminRestApiIntegrationTe
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getUserReceiptImageById_ShouldReturnCorrectReceiptImage() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         given()
             .filter(sessionFilter)
@@ -153,7 +153,7 @@ public class AdminUserReceiptRestApiIT extends AbstractAdminRestApiIntegrationTe
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void deleteUserReceiptImageById_ShouldDeleteImage() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String imageUrl = userReceiptImageUrl(sessionFilter, TEST_USERID_JOHN_DOE, "receipt001", "image001");
 
         given()

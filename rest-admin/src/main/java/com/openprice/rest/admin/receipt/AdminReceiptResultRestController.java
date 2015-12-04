@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.openprice.domain.account.admin.AdminAccountService;
 import com.openprice.domain.receipt.Receipt;
-import com.openprice.domain.receipt.ReceiptData;
-import com.openprice.domain.receipt.ReceiptDataRepository;
 import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptItemRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
+import com.openprice.domain.receipt.ReceiptResult;
+import com.openprice.domain.receipt.ReceiptResultRepository;
 import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.domain.receipt.ReceiptUploadService;
 import com.openprice.rest.ResourceNotFoundException;
@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AdminReceiptResultRestController extends AbstractReceiptAdminRestController {
 
-    private final ReceiptDataRepository receiptDataRepository;
+    private final ReceiptResultRepository receiptDataRepository;
     private final ReceiptItemRepository receiptItemRepository;
     private final AdminReceiptResultResource.Assembler receiptResultResourceAssembler;
     private final AdminReceiptItemResource.Assembler receiptItemResourceAssembler;
@@ -46,7 +46,7 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
                                             final ReceiptService receiptService,
                                             final ReceiptUploadService receiptUploadService,
                                             final ReceiptRepository receiptRepository,
-                                            final ReceiptDataRepository receiptDataRepository,
+                                            final ReceiptResultRepository receiptDataRepository,
                                             final ReceiptItemRepository receiptItemRepository,
                                             final AdminReceiptResultResource.Assembler receiptResultResourceAssembler,
                                             final AdminReceiptItemResource.Assembler receiptItemResourceAssembler) {
@@ -61,9 +61,9 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
     public HttpEntity<PagedResources<AdminReceiptResultResource>> getReceiptResults(
             @PathVariable("receiptId") final String receiptId,
             @PageableDefault(size = UtilConstants.MAX_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
-            final PagedResourcesAssembler<ReceiptData> assembler) {
+            final PagedResourcesAssembler<ReceiptResult> assembler) {
         final Receipt receipt = loadReceiptById(receiptId);
-        final Page<ReceiptData> results = receiptDataRepository.findByReceiptOrderByCreatedTime(receipt, pageable);
+        final Page<ReceiptResult> results = receiptDataRepository.findByReceiptOrderByCreatedTime(receipt, pageable);
         return ResponseEntity.ok(assembler.toResource(results, receiptResultResourceAssembler));
     }
 
@@ -72,7 +72,7 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
             @PathVariable("receiptId") final String receiptId,
             @PathVariable("resultId") final String resultId) throws ResourceNotFoundException {
         final Receipt receipt = loadReceiptById(receiptId);
-        final ReceiptData result = loadReceiptResultByIdAndCheckReceipt(resultId, receipt);
+        final ReceiptResult result = loadReceiptResultByIdAndCheckReceipt(resultId, receipt);
         return ResponseEntity.ok(receiptResultResourceAssembler.toResource(result));
     }
 
@@ -83,8 +83,8 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
             @PageableDefault(size = UtilConstants.MAX_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<ReceiptItem> assembler) throws ResourceNotFoundException {
         final Receipt receipt = loadReceiptById(receiptId);
-        final ReceiptData result = loadReceiptResultByIdAndCheckReceipt(resultId, receipt);
-        final Page<ReceiptItem> items = receiptItemRepository.findByReceiptData(result, pageable);
+        final ReceiptResult result = loadReceiptResultByIdAndCheckReceipt(resultId, receipt);
+        final Page<ReceiptItem> items = receiptItemRepository.findByReceiptResult(result, pageable);
         return ResponseEntity.ok(assembler.toResource(items, receiptItemResourceAssembler));
     }
 
@@ -94,13 +94,13 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
             @PathVariable("resultId") final String resultId,
             @PathVariable("itemId") final String itemId) throws ResourceNotFoundException {
         final Receipt receipt = loadReceiptById(receiptId);
-        final ReceiptData result = loadReceiptResultByIdAndCheckReceipt(resultId, receipt);
+        final ReceiptResult result = loadReceiptResultByIdAndCheckReceipt(resultId, receipt);
         final ReceiptItem item = loadReceiptItemByIdAndCheckResult(itemId, result);
         return ResponseEntity.ok(receiptItemResourceAssembler.toResource(item));
     }
 
-    private ReceiptData loadReceiptResultByIdAndCheckReceipt(final String resultId, final Receipt receipt) {
-        final ReceiptData result = receiptDataRepository.findOne(resultId);
+    private ReceiptResult loadReceiptResultByIdAndCheckReceipt(final String resultId, final Receipt receipt) {
+        final ReceiptResult result = receiptDataRepository.findOne(resultId);
         if (result == null) {
             log.warn("ILLEGAL RECEIPT RESULT ACCESS! No such receipt result Id: {}.", resultId);
             throw new ResourceNotFoundException("No receipt result with the id: " + resultId);
@@ -112,13 +112,13 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
         return result;
     }
 
-    private ReceiptItem loadReceiptItemByIdAndCheckResult(final String itemId, final ReceiptData result) {
+    private ReceiptItem loadReceiptItemByIdAndCheckResult(final String itemId, final ReceiptResult result) {
         final ReceiptItem item = receiptItemRepository.findOne(itemId);
         if (item == null) {
             log.warn("ILLEGAL RECEIPT ITEM ACCESS! No such receipt item Id: {}.", itemId);
             throw new ResourceNotFoundException("No receipt item with the id: " + itemId);
         }
-        if (!result.equals(item.getReceiptData())) {
+        if (!result.equals(item.getReceiptResult())) {
             log.warn("ILLEGAL RECEIPT ITEM ACCESS! Item '{}' not belong to Result '{}'.", itemId, result.getId());
             throw new ResourceNotFoundException("No receipt item with the id: " + itemId); // we treat item not belong to result as 404
         }

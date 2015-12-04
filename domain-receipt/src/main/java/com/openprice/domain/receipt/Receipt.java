@@ -30,7 +30,7 @@ import lombok.ToString;
  * Receipt uploaded by user in the server side.
  *
  */
-@ToString(callSuper=true, exclude={"user", "images", "results"})
+@ToString(callSuper=true, exclude={"user", "images"})
 @SuppressWarnings("serial")
 @Entity
 @Table( name="receipt" )
@@ -51,18 +51,6 @@ public class Receipt extends BaseAuditableEntity {
     @OneToMany(cascade=CascadeType.ALL, mappedBy="receipt")
     @OrderBy("createdTime")
     private List<ReceiptImage> images = new ArrayList<>();
-
-    @Getter @Setter
-    @JsonIgnore
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="receipt")
-    @OrderBy("createdTime")
-    private List<ReceiptData> results = new ArrayList<>();
-
-    @Getter @Setter
-    @JsonIgnore
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="receipt")
-    @OrderBy("createdTime")
-    private List<ReceiptFeedback> feedbacks = new ArrayList<>();
 
     Receipt() {}
 
@@ -102,8 +90,8 @@ public class Receipt extends BaseAuditableEntity {
      * @param parsedReceipt
      * @return
      */
-    public ReceiptData createReceiptDataFromParserResult(final ParsedReceipt parsedReceipt) {
-        final ReceiptData data = new ReceiptData();
+    public ReceiptResult createReceiptDataFromParserResult(final ParsedReceipt parsedReceipt) {
+        final ReceiptResult data = new ReceiptResult();
         data.setReceipt(this);
         if (parsedReceipt.getChain() != null) {
             data.setChainCode(parsedReceipt.getChain().getCode());

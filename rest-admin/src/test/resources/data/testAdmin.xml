@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <admin_account id="admin001" version="1" username="john.doe" password="12345" account_locked="false" activated="true"
-        email="john.doe@openprice.com" first_name="John" last_name="Doe" title="CEO" created_time="2009-01-01 10:00:01.0000"/>
-    <admin_account id="admin002" version="1" username="jane.doe" password="12345" account_locked="false" activated="true"
-        email="jane.doe@openprice.com" first_name="Jane" last_name="Doe" title="CFO" created_time="2009-01-02 10:00:01.0000"/>
-    <admin_account id="admin003" version="1" username="junior.doe" password="12345" account_locked="false" activated="true"
-        email="junior.doe@openprice.com" first_name="Junior" last_name="Doe" title="Manager" created_time="2009-01-03 10:00:01.0000"/>
+    <admin_profile id="admin001" version="1" first_name="Isaac" last_name="Newton" phone="+1 123-456-001" title="CEO" created_time="2009-01-01 10:00:01.0000"/>
+    <admin_profile id="admin002" version="1" first_name="Albert" last_name="Einstein" phone="+1 123-456-002" title="CTO" created_time="2009-01-01 10:00:01.0000"/>
+    <admin_profile id="admin003" version="1" first_name="Stephen" last_name="Hawking" phone="+1 123-456-003" title="Manager" created_time="2009-01-01 10:00:01.0000"/>
+    
+    <admin_account id="admin001" version="1" username="newton" password="12345" account_locked="false" activated="true"
+        email="newton@openprice.com" profile_id="admin001" created_time="2009-01-01 10:00:01.0000"/>
+    <admin_account id="admin002" version="1" username="einstein" password="12345" account_locked="false" activated="true"
+        email="einstein@openprice.com" profile_id="admin002" created_time="2009-01-02 10:00:01.0000"/>
+    <admin_account id="admin003" version="1" username="hawking" password="12345" account_locked="false" activated="true"
+        email="hawking@openprice.com" profile_id="admin003" created_time="2009-01-03 10:00:01.0000"/>
 
     <admin_role admin_account_id="admin001" role="ROLE_SUPER_ADMIN"/>
     <admin_role admin_account_id="admin001" role="ROLE_USER_MANAGER"/>
@@ -37,10 +41,10 @@
     <receipt id="receipt102" version="1" user_account_id="user002" need_feedback="1" created_time="2009-01-02 11:00:01.0000"/>
     <receipt_image id="image102" version="1" receipt_id="receipt102" status="UPLOADED" created_time="2009-01-02 11:00:01.0000"/>
 
-    <receipt_data id="recData001" version="1" receipt_id="receipt001" chain_code="rcss" branch_name="Calgary Trail" parsed_total="10.45" parsed_date="2015/11/11" created_time="2009-01-01 10:00:01.0000" />
-    <receipt_item id="recItem001" version="1" receipt_data_id="recData001" catalog_code="EGG_1235" parsed_name="eggs" display_name="eggs" parsed_price="1.99" display_price="1.99" user_ignored="0" created_time="2009-01-01 10:00:01.0000" />
-    <receipt_item id="recItem002" version="1" receipt_data_id="recData001" catalog_code="MILK_1234" parsed_name="milk" display_name="milk" parsed_price="4.99" display_price="4.99" user_ignored="1" created_time="2009-01-01 10:00:01.0000" />
-    <receipt_item id="recItem003" version="1" receipt_data_id="recData001" catalog_code="PORK" parsed_name="pork" display_name="pork" parsed_price="5.99" display_price="5.99" user_ignored="0" created_time="2009-01-01 10:00:01.0000" />
+    <receipt_result id="recData001" version="1" receipt_id="receipt001" chain_code="rcss" branch_name="Calgary Trail" parsed_total="10.45" parsed_date="2015/11/11" created_time="2009-01-01 10:00:01.0000" />
+    <receipt_item id="recItem001" version="1" receipt_result_id="recData001" line_number="15" catalog_code="EGG_1235" parsed_name="eggs" display_name="eggs" parsed_price="1.99" display_price="1.99" user_ignored="0" created_time="2009-01-01 10:00:01.0000" />
+    <receipt_item id="recItem002" version="1" receipt_result_id="recData001" line_number="18" catalog_code="MILK_1234" parsed_name="milk" display_name="milk" parsed_price="4.99" display_price="4.99" user_ignored="1" created_time="2009-01-01 10:00:01.0000" />
+    <receipt_item id="recItem003" version="1" receipt_result_id="recData001" line_number="10" catalog_code="PORK" parsed_name="pork" display_name="pork" parsed_price="5.99" display_price="5.99" user_ignored="0" created_time="2009-01-01 10:00:01.0000" />
 
     <store_chain id="chain001" version="1" code="rcss" name="Real Canadian Superstore" created_time="2009-01-02 10:00:01.0000"/>
     <store_branch id="branch101" version="1" chain_id="chain001" name="Calgary Trail RCSS" phone="780-430-2769"

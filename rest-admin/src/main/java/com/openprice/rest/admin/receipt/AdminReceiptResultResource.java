@@ -8,27 +8,29 @@ import javax.inject.Inject;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
+import org.springframework.hateoas.core.Relation;
 import org.springframework.stereotype.Component;
 
-import com.openprice.domain.receipt.ReceiptData;
 import com.openprice.domain.receipt.ReceiptItem;
+import com.openprice.domain.receipt.ReceiptResult;
 import com.openprice.rest.LinkBuilder;
 import com.openprice.rest.admin.AdminApiUrls;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdminReceiptResultResource extends Resource<ReceiptData> {
+@Relation(value = "result", collectionRelation = "results")
+public class AdminReceiptResultResource extends Resource<ReceiptResult> {
 
     @Getter @Setter
     private List<AdminReceiptItemResource> items;
 
-    AdminReceiptResultResource(final ReceiptData resource) {
+    AdminReceiptResultResource(final ReceiptResult resource) {
         super(resource);
     }
 
     @Component
-    public static class Assembler implements ResourceAssembler<ReceiptData, AdminReceiptResultResource>, AdminApiUrls {
+    public static class Assembler implements ResourceAssembler<ReceiptResult, AdminReceiptResultResource>, AdminApiUrls {
 
         private final AdminReceiptItemResource.Assembler itemResourceAssembler;
 
@@ -38,7 +40,7 @@ public class AdminReceiptResultResource extends Resource<ReceiptData> {
         }
 
         @Override
-        public AdminReceiptResultResource toResource(final ReceiptData receiptData) {
+        public AdminReceiptResultResource toResource(final ReceiptResult receiptData) {
             final String[] pairs = {"receiptId", receiptData.getReceipt().getId(),
                                     "resultId", receiptData.getId()};
             final AdminReceiptResultResource resource = new AdminReceiptResultResource(receiptData);
@@ -51,9 +53,7 @@ public class AdminReceiptResultResource extends Resource<ReceiptData> {
             // TODO fix _embedded issue
             List<AdminReceiptItemResource> items = new ArrayList<>();
             for (ReceiptItem item : receiptData.getItems()) {
-                if (!item.isIgnored()) {
-                    items.add(itemResourceAssembler.toResource(item));
-                }
+                items.add(itemResourceAssembler.toResource(item));
             }
             resource.setItems(items);
 

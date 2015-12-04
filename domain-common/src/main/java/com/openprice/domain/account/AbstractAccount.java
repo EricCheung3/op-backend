@@ -13,6 +13,8 @@ import lombok.Setter;
 
 /**
  * Super class for UserAccount and AdminAccount.
+ * We are using "Table per concrete class with implicit polymorphism" for account hierarchy.
+ *
  */
 @MappedSuperclass
 @SuppressWarnings("serial")

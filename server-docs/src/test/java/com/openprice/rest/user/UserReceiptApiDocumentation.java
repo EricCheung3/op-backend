@@ -250,12 +250,13 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
+                //fieldWithPath("lineNumber").description("Primary ID"),
                 fieldWithPath("catalogCode").description("Parser parsed matching catalog code"),
                 fieldWithPath("parsedName").description("Parser parsed item name"),
                 fieldWithPath("displayName").description("User editable item name"),
                 fieldWithPath("parsedPrice").description("Parser parsed item price"),
                 fieldWithPath("displayPrice").description("User editable item price"),
-                fieldWithPath("ignored").description("Whether user deleted this item"),
+                //fieldWithPath("ignored").description("Whether user deleted this item"),
                 fieldWithPath("catalog").description("Catalog object for the item"),
                 fieldWithPath("_links").description("<<resources-user-receipt-parser-result-item-retrieve-links,Links>> to other resources")
             )

@@ -1,8 +1,10 @@
 package com.openprice.domain.account.admin;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -11,10 +13,10 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.account.AbstractAccount;
@@ -31,14 +33,15 @@ import lombok.ToString;
 @SuppressWarnings("serial")
 @Entity
 @Table( name="admin_account" )
-public class AdminAccount extends AbstractAccount implements UserDetails {
+public class AdminAccount extends AbstractAccount {
 
     @Getter @Setter
     @ElementCollection(targetClass=AdminRoleType.class, fetch=FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name="admin_role", joinColumns=@JoinColumn(name="admin_account_id"))
     @Column(name="role")
-    private Collection<AdminRoleType> roles = new ArrayList<>();
+    @org.hibernate.annotations.SortNatural
+    private SortedSet<AdminRoleType> roles = new TreeSet<>();
 
     @Getter @Setter
     @Column(name="username")
@@ -49,16 +52,10 @@ public class AdminAccount extends AbstractAccount implements UserDetails {
     private String email;
 
     @Getter @Setter
-    @Column(name="first_name")
-    private String firstName;
-
-    @Getter @Setter
-    @Column(name="last_name")
-    private String lastName;
-
-    @Getter @Setter
-    @Column(name="title")
-    private String title;
+    @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn
+    @JsonIgnore
+    private AdminProfile profile;
 
     AdminAccount() {}
 
@@ -76,4 +73,19 @@ public class AdminAccount extends AbstractAccount implements UserDetails {
         }
         return false;
     }
+
+    /**
+     * Builder method to create a new admin account.
+     *
+     * @param user
+     * @return
+     */
+    public static AdminAccount createAccount() {
+        final AdminAccount admin = new AdminAccount();
+        final AdminProfile profile = new AdminProfile();
+        admin.setProfile(profile);
+        profile.setAdmin(admin);
+        return admin;
+    }
+
 }

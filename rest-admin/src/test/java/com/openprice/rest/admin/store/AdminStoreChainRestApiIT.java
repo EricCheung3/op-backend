@@ -19,7 +19,7 @@ public class AdminStoreChainRestApiIT extends AbstractAdminStoreRestApiIntegrati
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getStoreChains_ShouldReturnAllStoreChains() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         Response response =
             given()
@@ -47,7 +47,7 @@ public class AdminStoreChainRestApiIT extends AbstractAdminStoreRestApiIntegrati
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getStoreChainById_ShouldReturnCorrectChain() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         Response response =
             given()
@@ -73,7 +73,7 @@ public class AdminStoreChainRestApiIT extends AbstractAdminStoreRestApiIntegrati
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getStoreChainById_ShouldReturn404_WithInvalidId() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         given()
             .filter(sessionFilter)
@@ -87,7 +87,7 @@ public class AdminStoreChainRestApiIT extends AbstractAdminStoreRestApiIntegrati
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void createStoreChain_ShouldCreateNewChain() throws Exception {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         final AdminStoreChainForm form =
             AdminStoreChainForm.builder()
@@ -128,7 +128,7 @@ public class AdminStoreChainRestApiIT extends AbstractAdminStoreRestApiIntegrati
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void updateStoreChain_ShouldUpdate() throws Exception {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String chainUrl = storeChainUrl(sessionFilter, "chain001");
         final AdminStoreChainForm form =
             AdminStoreChainForm.builder()
@@ -165,7 +165,7 @@ public class AdminStoreChainRestApiIT extends AbstractAdminStoreRestApiIntegrati
     @Test
     @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void deleteStoreChainById_ShouldDeleteChainAndBranches() {
-        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_JOHN_DOE);
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String chainUrl = storeChainUrl(sessionFilter, "chain001");
 
         given()

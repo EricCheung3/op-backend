@@ -46,7 +46,7 @@ public class UserReceiptItemResource extends Resource<ReceiptItem> {
             final UserReceiptItemResource resource = new UserReceiptItemResource(receiptItem);
 
             if (StringUtils.hasText(receiptItem.getCatalogCode())) {
-                final StoreChain chain = chainRepository.findByCode(receiptItem.getReceiptData().getChainCode());
+                final StoreChain chain = chainRepository.findByCode(receiptItem.getReceiptResult().getChainCode());
                 if (chain != null) {
                     final Catalog catalog = catalogRepository.findByChainAndCode(chain, receiptItem.getCatalogCode());
                     if (catalog != null) {
@@ -55,7 +55,7 @@ public class UserReceiptItemResource extends Resource<ReceiptItem> {
                 }
             }
 
-            final String[] pairs = {"receiptId", receiptItem.getReceiptData().getReceipt().getId(),
+            final String[] pairs = {"receiptId", receiptItem.getReceiptResult().getReceipt().getId(),
                                     "itemId", receiptItem.getId()};
             final LinkBuilder linkBuilder = new LinkBuilder(resource);
             linkBuilder.addLink(Link.REL_SELF, URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS_ITEM, false, pairs)

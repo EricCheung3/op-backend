@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.receipt.Receipt;
-import com.openprice.domain.receipt.ReceiptData;
 import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptItemRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
+import com.openprice.domain.receipt.ReceiptResult;
 import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.domain.receipt.ReceiptUploadService;
 import com.openprice.internal.client.InternalService;
@@ -35,33 +35,33 @@ import lombok.extern.slf4j.Slf4j;
  */
 @RestController
 @Slf4j
-public class UserReceiptDataRestController extends AbstractUserReceiptRestController {
+public class UserReceiptResultRestController extends AbstractUserReceiptRestController {
 
     private final ReceiptItemRepository receiptItemRepository;
-    private final UserReceiptDataResource.Assembler receiptDataResourceAssembler;
+    private final UserReceiptResultResource.Assembler receiptResultResourceAssembler;
     private final UserReceiptItemResource.Assembler receiptItemResourceAssembler;
 
     @Inject
-    public UserReceiptDataRestController(final UserAccountService userAccountService,
+    public UserReceiptResultRestController(final UserAccountService userAccountService,
                                          final ReceiptService receiptService,
                                          final ReceiptUploadService receiptUploadService,
                                          final ReceiptRepository receiptRepository,
                                          final ReceiptItemRepository receiptItemRepository,
-                                         final UserReceiptDataResource.Assembler receiptDataResourceAssembler,
+                                         final UserReceiptResultResource.Assembler receiptResultResourceAssembler,
                                          final UserReceiptItemResource.Assembler receiptItemResourceAssembler,
                                          final InternalService internalService) {
         super(userAccountService, receiptService, receiptUploadService, receiptRepository, internalService);
         this.receiptItemRepository = receiptItemRepository;
-        this.receiptDataResourceAssembler = receiptDataResourceAssembler;
+        this.receiptResultResourceAssembler = receiptResultResourceAssembler;
         this.receiptItemResourceAssembler = receiptItemResourceAssembler;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = URL_USER_RECEIPTS_RECEIPT_RESULT)
-    public HttpEntity<UserReceiptDataResource> getUserReceiptData(
+    public HttpEntity<UserReceiptResultResource> getUserReceiptResult(
             @PathVariable("receiptId") final String receiptId) {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
-        final ReceiptData result = receiptService.getLatestReceiptParserResult(receipt);
-        return ResponseEntity.ok(receiptDataResourceAssembler.toResource(result));
+        final ReceiptResult result = receiptService.getLatestReceiptResult(receipt);
+        return ResponseEntity.ok(receiptResultResourceAssembler.toResource(result));
     }
 
     /**
@@ -78,8 +78,8 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
             @PageableDefault(size = UtilConstants.MAX_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<ReceiptItem> assembler) {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
-        final ReceiptData result = receiptService.getLatestReceiptParserResult(receipt);
-        final Page<ReceiptItem> items = receiptItemRepository.findByReceiptDataAndIgnoredIsFalse(result, pageable);
+        final ReceiptResult result = receiptService.getLatestReceiptResult(receipt);
+        final Page<ReceiptItem> items = receiptItemRepository.findByReceiptResultAndIgnoredIsFalse(result, pageable);
         return ResponseEntity.ok(assembler.toResource(items, receiptItemResourceAssembler));
     }
 
@@ -127,11 +127,11 @@ public class UserReceiptDataRestController extends AbstractUserReceiptRestContro
             log.warn("ILLEGAL RECEIPT ITEM ACCESS! No such receipt item Id: {}.", itemId);
             throw new ResourceNotFoundException("No receipt item with the id: " + itemId);
         }
-        if (item.isIgnored()) {
+        if (item.getIgnored()) {
             log.warn("ILLEGAL RECEIPT ITEM ACCESS! Receipt item Id: {} was ignored by user.", itemId);
             throw new ResourceNotFoundException("No receipt item with the id: " + itemId);
         }
-        if (!receipt.equals(item.getReceiptData().getReceipt())) {
+        if (!receipt.equals(item.getReceiptResult().getReceipt())) {
             log.warn("ILLEGAL RECEIPT ITEM ACCESS! Item '{}' not belong to Receipt '{}'.", itemId, receipt.getId());
             throw new ResourceNotFoundException("No receipt item with the id: " + itemId); // we treat item not belong to receipt as 404
         }
