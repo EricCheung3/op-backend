@@ -20,26 +20,25 @@ public class CatalogFilter {
         if( !PriceParserFromStringTuple.isItemName(name))
             return true;
         if(StringCommon.removeAllSpaces(name).length()<=5)
-            return lowercaseNoSpaceMatchList(blackList, name, 0.95);
+            return lowercaseNoSpaceMatchList(name, 0.95);
         try{
-            return lowercaseNoSpaceMatchList(blackList, name, BLACKLIST_THRESHOLD);
+            return lowercaseNoSpaceMatchList(name, BLACKLIST_THRESHOLD);
         }catch(Exception e){
             return blackList.contains(name);
         }
     }
 
     /**
-     * match a list of String in the comparison mode of "lowercased" and "no spaces"
+     * match the blacklist in the comparison mode of "lowercased" and "no spaces"
      * @param skip
      * @param str
      * @param threshold
      * @return
      */
-    public static boolean lowercaseNoSpaceMatchList(final List<String> skip,
-            final String str, final double threshold){
+    public boolean lowercaseNoSpaceMatchList(final String str, final double threshold){
         final String strLowNoSpace=StringCommon.lowerCaseNoSpaces(str);
-        for(int i=0;i<skip.size();i++){
-            final String skipStr=StringCommon.lowerCaseNoSpaces(skip.get(i));
+        for(int i=0;i<blackList.size();i++){
+            final String skipStr=StringCommon.lowerCaseNoSpaces(blackList.get(i));
             final double score=Levenshtein.compare(strLowNoSpace,skipStr);
             if(score > threshold)
                 return true;

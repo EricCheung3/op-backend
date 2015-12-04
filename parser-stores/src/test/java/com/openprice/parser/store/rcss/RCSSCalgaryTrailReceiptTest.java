@@ -44,7 +44,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         verifyItemParsedValue(iterator.next(), "table salt    mrj", "1.99", "table salt    mrj_06601007023");
         verifyItemParsedValue(iterator.next(), "garden wafer", "2.56", "garden wafer_08978200269");
         verifyItemParsedValue(iterator.next(), "rice stick", "1.08", "rice stick_693491804007");
-        verifyItemParsedValue(iterator.next(), "deposit 1", "0.25", "deposit 1");
+        //verifyItemParsedValue(iterator.next(), "deposit 1", "0.25", "deposit 1");
         verifyItemParsedValue(iterator.next(), "cntry hvst brd", "2.98", "cntry hvst brd_06340004440");
         verifyItemParsedValue(iterator.next(), "(2)9    plastic bags    grq", "0.10", "(2)9    plastic bags    grq");
 
@@ -110,8 +110,8 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         // verify result of items
         Iterator<Item> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "orange juice", "3.98", "orange juice_04850001964");
-        verifyItemParsedValue(iterator.next(), "deposit 1", "0.25", "deposit 1");
-        verifyItemParsedValue(iterator.next(), "deposit 1", "0.25", "deposit 1");
+        // verifyItemParsedValue(iterator.next(), "deposit 1", "0.25", "deposit 1");
+        //verifyItemParsedValue(iterator.next(), "deposit 1", "0.25", "deposit 1");
         verifyItemParsedValue(iterator.next(), "corn bicolor 4ct", "7.94", "corn bicolor 4ct_03338370121");
         verifyItemParsedValue(iterator.next(), "pep grn swt 4ct", "2.98", "pep grn swt 4ct_03338370178");
         verifyItemParsedValue(iterator.next(), "potato m xd mini", "5.98", "potato m xd mini_06038310510");
