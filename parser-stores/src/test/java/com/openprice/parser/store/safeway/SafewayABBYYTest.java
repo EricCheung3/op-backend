@@ -47,14 +47,14 @@ public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
         verifyItemParsedValue(iterator.next(), "clabatta buns 4pk", "2.50", "clabatta buns 4pk");
         verifyItemParsedValue(iterator.next(), "clabatta buns 4pk", "2.50", "clabatta buns 4pk");
         verifyItemParsedValue(iterator.next(), "spinach bunch", "1.49", "spinach bunch_4090");
-        verifyItemParsedValue(iterator.next(), "lucerne whole mi 1k2l", "3.79", "lucerne whole mi 1k2l");
+        verifyItemParsedValue(iterator.next(), "lucerne who1e mi1k4l", "3.79", "lucerne who1e mi1k4l");
         verifyItemParsedValue(iterator.next(), "+ehc", "0.08", "+ehc_76910 dp");
-        //verifyItemParsedValue(iterator.next(), "♦deposit", "0.25", "♦deposit_96460 dp");
+        verifyItemParsedValue(iterator.next(), "♦deposit", "0.25", "♦deposit_96460 dp");
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
-//        assertEquals(fieldValues.get(ReceiptField.AddressLine1).getValue(), "100a 5015");
-//        assertEquals(fieldValues.get(ReceiptField.AddressCity).getValue(), "edmonton");
+        //        assertEquals(fieldValues.get(ReceiptField.AddressLine1).getValue(), "100a 5015");
+        //        assertEquals(fieldValues.get(ReceiptField.AddressCity).getValue(), "edmonton");
         assertEquals(fieldValues.get(ReceiptField.Phone).getValue(), "780-435-5132");
         assertEquals(fieldValues.get(ReceiptField.GstNumber).getValue(), "817093735");
         assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "22.59");

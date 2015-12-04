@@ -47,7 +47,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         verifyItemParsedValue(iterator.next(), "hot soup small", "2.999", "hot soup small_2113006680");
         verifyItemParsedValue(iterator.next(), "for baby summer veg", "1.19", "for baby summer veg");
         verifyItemParsedValue(iterator.next(), "samosas beef", "2.99", "samosas beef_24586100000");
-        verifyItemParsedValue(iterator.next(), "for baby carrots -", "1.19", "for baby carrots -");
+        verifyItemParsedValue(iterator.next(), "for baby carrots", "1.19", "for baby carrots");
         verifyItemParsedValue(iterator.next(), "=>free item", "1.19", "=>free item");
 
         // verify parsed fields
@@ -72,12 +72,12 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parse(receiptLines);
-        printResult(receipt);
+        //printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "danone strawberry", "5.87", "danone strawberry");
         verifyItemParsedValue(iterator.next(), "deposit", "0.80", "deposit");
-        verifyItemParsedValue(iterator.next(), "logo nomad drink", "2.199", "logo nomad drink");
+        verifyItemParsedValue(iterator.next(), "iogo nomad drink", "2.199", "iogo nomad drink");
         verifyItemParsedValue(iterator.next(), "deposit", "0.10", "deposit");
         verifyItemParsedValue(iterator.next(), "pastry bulk", "1.299", "pastry bulk");
         verifyItemParsedValue(iterator.next(), "wt    bulk minibits cook", "0.89", "wt    bulk minibits cook");
