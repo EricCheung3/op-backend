@@ -63,8 +63,11 @@ public class ReceiptService {
             ReceiptData data = receipt.createReceiptDataFromParserResult(parsedReceipt);
             data = receiptDataRepository.save(data); // has to save ReceiptData first before saving ReceiptItem
 
+            int lineNumber = 1;
             for (final Item item : parsedReceipt.getItems()) {
                 final ReceiptItem receiptItem = data.addItem(item.getCatalogCode(), item.getName(), item.getBuyPrice());
+                // TODO add lineNumber from parser items
+                receiptItem.setLineNumber(lineNumber++);
                 receiptItemRepository.save(receiptItem);
             }
             log.debug("SimpleParser returns {} items.", data.getItems().size());

@@ -33,6 +33,10 @@ public class ReceiptItem extends BaseAuditableEntity {
     private ReceiptData receiptData;
 
     @Getter @Setter
+    @Column(name="line_number")
+    private Integer lineNumber;
+
+    @Getter @Setter
     @Column(name="catalog_code")
     private String catalogCode;
 

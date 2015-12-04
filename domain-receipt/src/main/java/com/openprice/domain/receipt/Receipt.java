@@ -30,7 +30,7 @@ import lombok.ToString;
  * Receipt uploaded by user in the server side.
  *
  */
-@ToString(callSuper=true, exclude={"user", "images", "results"})
+@ToString(callSuper=true, exclude={"user", "images"})
 @SuppressWarnings("serial")
 @Entity
 @Table( name="receipt" )

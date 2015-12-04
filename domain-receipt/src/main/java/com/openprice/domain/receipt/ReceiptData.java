@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -59,7 +60,7 @@ public class ReceiptData extends BaseAuditableEntity {
     @Getter @Setter
     @JsonIgnore
     @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="receiptData")
-    //@OrderBy("createdTime") TODO how to keep the order?
+    @OrderBy("lineNumber ASC")
     @org.hibernate.annotations.OnDelete(
         action = org.hibernate.annotations.OnDeleteAction.CASCADE
     )
