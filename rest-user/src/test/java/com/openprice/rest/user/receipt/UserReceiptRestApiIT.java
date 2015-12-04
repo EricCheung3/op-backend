@@ -3,6 +3,7 @@ package com.openprice.rest.user.receipt;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -224,7 +225,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
         ;
     }
 
-    //@Test
+    @Test
     public void hackloadNewReceipt_ShouldCreateReceipt_AndSaveImageFileWithOcrResult() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
@@ -235,7 +236,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
                 .multiPart("image", sampleReceipt1.getFile())
                 .multiPart("ocr", sampleOcrResult.getFile())
             .when()
-                .post(userReceiptHackloadUrl(sessionFilter))
+                .post("/api/user/receipts/hackload")
             ;
 
         response
@@ -252,14 +253,13 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .when()
                 .get(receiptUrl)
             ;
-
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name()))
         ;
-        response.prettyPrint();
 
         // verify image in FileSystem
         String fileName = response.then().extract().path("images[0].fileName");
@@ -277,6 +277,79 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .statusCode(HttpStatus.SC_OK)
             .contentType("image/jpeg")
         ;
+    }
+
+    @Test
+    public void hackloadOcrResult_ShouldUpdateReceiptImageOcrResult() throws Exception {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+
+        // add new image as base64 encoded string
+        Response response =
+            given()
+                .filter(sessionFilter)
+                .multiPart("file", sampleReceipt1.getFile())
+            .when()
+                .post(userReceiptUploadUrl(sessionFilter))
+            ;
+
+        response
+        .then()
+            .statusCode(HttpStatus.SC_CREATED)
+        ;
+
+        // hackload OCR
+        String receiptUrl = response.getHeader("Location");
+        response =
+            given()
+                .filter(sessionFilter)
+                .multiPart("ocr", sampleOcrResult.getFile())
+            .when()
+                .post(receiptUrl + "/hackload")
+            ;
+        assertEquals(receiptUrl, response.getHeader("Location"));
+
+        // verify result
+        response =
+            given()
+                .filter(sessionFilter)
+            .when()
+                .get(receiptUrl)
+            ;
+        //response.prettyPrint();
+
+        String resultUrl = response.then().extract().path("_links.result.href");
+        response =
+            given()
+                .filter(sessionFilter)
+            .when()
+                .get(resultUrl)
+            ;
+        response.prettyPrint();
+        response
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("chainCode", equalTo("rcss"))
+            .body("branchName", equalTo("Calgary Trail"))
+            .body("parsedTotal", equalTo("104.73"))
+            .body("items[0].catalogCode", equalTo("k dgon cook    wine    mrj_690294490073"))
+            .body("items[0].parsedName", equalTo("k dgon cook    wine    mrj"))
+            .body("items[0].parsedPrice", equalTo("2.69"))
+            .body("items[0].catalog", nullValue())
+            .body("items[1].catalogCode", equalTo("rooster garlic_06038388591"))
+            .body("items[1].parsedName", equalTo("rooster garlic"))
+            .body("items[1].parsedPrice", equalTo("0.68"))
+            .body("items[1].catalog", nullValue())
+            .body("items[2].catalogCode", equalTo("ducks fr7n    mrj_2021000"))
+            .body("items[2].parsedName", equalTo("ducks fr7n    mrj"))
+            .body("items[2].parsedPrice", equalTo("15.23"))
+            .body("items[2].catalog", nullValue())
+            .body("items[3].catalogCode", equalTo("hairtail_77016160104"))
+            .body("items[3].parsedName", equalTo("hairtail"))
+            .body("items[3].parsedPrice", equalTo("7.36"))
+            .body("items[3].catalog", nullValue())
+        ;
+
     }
 
     @Test

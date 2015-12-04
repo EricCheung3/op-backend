@@ -127,8 +127,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
             @PathVariable("receiptId") final String receiptId,
             @RequestParam("ocr") final MultipartFile ocr) {
         if (!ocr.isEmpty()) {
-            final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
-            receiptUploadService.hackloadOcrResult(receipt, ocr);
+            setOcrResultOfReceipt(receiptId, ocr);
             final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receiptId)).toUri();
             return ResponseEntity.created(location).body(null);
         }
@@ -152,6 +151,12 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
         final UserAccount currentUser = getCurrentAuthenticatedUser();
         log.debug("User {} HACKLoad image file for new receipt and OCR result.", currentUser.getUsername());
         return receiptUploadService.hackloadImageFileAndOcrResultForNewReceipt(currentUser, image, ocr);
+    }
+
+    @Transactional
+    private void setOcrResultOfReceipt(final String receiptId, final MultipartFile ocr) {
+        final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
+        receiptUploadService.hackloadOcrResult(receipt, ocr);
     }
 
 
