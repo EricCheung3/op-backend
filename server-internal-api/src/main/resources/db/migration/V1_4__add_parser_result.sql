@@ -34,6 +34,7 @@ CREATE TABLE receipt_item (
 
     receipt_data_id VARCHAR(50) NOT NULL,
     catalog_code VARCHAR(255),
+    line_number INTEGER,
     parsed_name VARCHAR(255),
     display_name VARCHAR(255),
     parsed_price VARCHAR(255),
