@@ -14,8 +14,8 @@ import lombok.ToString;
 @ToString
 @SuppressWarnings("serial")
 @Entity
-@Table( name="process_log" )
-public class ProcessLog extends BaseEntity {
+@Table( name="ocr_process_log" )
+public class OcrProcessLog extends BaseEntity {
 
     /**
      * Use imageId to reference ReceiptImage, in case the image was deleted.
@@ -37,6 +37,10 @@ public class ProcessLog extends BaseEntity {
     private String serverName;
 
     @Getter @Setter
+    @Column(name="request_time", nullable = false)
+    private Long requestTime;
+
+    @Getter @Setter
     @Column(name="start_time", nullable = false)
     private Long startTime;
 
@@ -48,15 +52,6 @@ public class ProcessLog extends BaseEntity {
     @Column(name="ocr_result")
     @Lob
     private String ocrResult;
-
-    @Getter @Setter
-    @Column(name="parser_duration")
-    private Long parserDuration; // not used
-
-    @Getter @Setter
-    @Column(name="parser_result")
-    @Lob
-    private String parserResult; // not used
 
     @Getter @Setter
     @Column(name="error_message")

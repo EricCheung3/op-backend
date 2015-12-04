@@ -18,11 +18,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.openprice.domain.receipt.ProcessLog;
+import com.openprice.domain.receipt.OcrProcessLog;
 import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.ReceiptImage;
-import com.openprice.file.FileFolderSettings;
-import com.openprice.file.FileSystemService;
 import com.openprice.ocr.api.ImageProcessResult;
 import com.openprice.ocr.client.OcrService;
 
@@ -41,7 +39,7 @@ public class RemoteOCRImageProcessorTest extends AbstractProcessorTest {
     public void setup() throws Exception {
         processorToTest = new RemoteOCRImageProcessor(TEST_SERVER_NAME,
                                                       ocrServiceMock,
-                                                      new FileSystemService(new FileFolderSettings()), // in memory VFS
+                                                      fileSystemService,
                                                       processLogRepositoryMock,
                                                       receiptImageRepositoryMock);
     }
@@ -59,9 +57,9 @@ public class RemoteOCRImageProcessorTest extends AbstractProcessorTest {
         processorToTest.processImage(item);
 
         {
-            ArgumentCaptor<ProcessLog> argument = ArgumentCaptor.forClass(ProcessLog.class);
+            ArgumentCaptor<OcrProcessLog> argument = ArgumentCaptor.forClass(OcrProcessLog.class);
             verify(processLogRepositoryMock, times(1)).save(argument.capture());
-            ProcessLog processLogRecord = argument.getValue();
+            OcrProcessLog processLogRecord = argument.getValue();
             assertEquals(IMAGE_ID, processLogRecord.getImageId());
             assertEquals(TEST_OCR_RESULT, processLogRecord.getOcrResult());
             assertEquals(TEST_SERVER_NAME, processLogRecord.getServerName());
@@ -91,9 +89,9 @@ public class RemoteOCRImageProcessorTest extends AbstractProcessorTest {
         processorToTest.processImage(item);
 
         {
-            ArgumentCaptor<ProcessLog> argument = ArgumentCaptor.forClass(ProcessLog.class);
+            ArgumentCaptor<OcrProcessLog> argument = ArgumentCaptor.forClass(OcrProcessLog.class);
             verify(processLogRepositoryMock, times(1)).save(argument.capture());
-            ProcessLog processLogRecord = argument.getValue();
+            OcrProcessLog processLogRecord = argument.getValue();
             assertEquals(IMAGE_ID, processLogRecord.getImageId());
             assertEquals(TEST_SERVER_NAME, processLogRecord.getServerName());
             assertEquals(TEST_OCR_ERROR, processLogRecord.getErrorMessage());

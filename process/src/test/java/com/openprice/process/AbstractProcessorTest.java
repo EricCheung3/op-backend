@@ -3,10 +3,12 @@ package com.openprice.process;
 import org.mockito.Mock;
 
 import com.openprice.domain.account.user.UserAccount;
-import com.openprice.domain.receipt.ProcessLogRepository;
+import com.openprice.domain.receipt.OcrProcessLogRepository;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
+import com.openprice.file.FileFolderSettings;
+import com.openprice.file.FileSystemService;
 
 public abstract class AbstractProcessorTest {
     protected final String IMAGE_ID = "image001";
@@ -17,11 +19,12 @@ public abstract class AbstractProcessorTest {
     protected final String TEST_OCR_ERROR = "OCR Error";
 
     @Mock
-    protected ProcessLogRepository processLogRepositoryMock;
+    protected OcrProcessLogRepository processLogRepositoryMock;
 
     @Mock
     protected ReceiptImageRepository receiptImageRepositoryMock;
 
+    protected FileSystemService fileSystemService = new FileSystemService(new FileFolderSettings()); // in memory VFS
 
     protected ReceiptImage getTestReceiptImage() {
         final UserAccount testUser = UserAccount.createTestUser(TEST_USERID, TEST_USERNAME);
