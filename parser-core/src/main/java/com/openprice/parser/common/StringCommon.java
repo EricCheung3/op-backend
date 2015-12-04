@@ -16,6 +16,29 @@ public class StringCommon {
     public static final String EMPTY = "";
     public static final String WIDE_SPACES="    ";
 
+
+    /**
+     *
+     * @param line
+     * @param slash the position of slash '/'
+     * @return at most two digits that are before the slash position
+     */
+    public static String twoDigitsBeforeSlash(final String line,final int slash)
+            throws Exception{
+        if(line.charAt(slash)!='/'){
+            throw new Exception("line "+line +" does not have the slash sign at position "+slash);
+        }
+        StringBuilder twoDigits=new StringBuilder();
+        int count=0;
+        for(int i=slash; i>=0 && count<2;i--){
+            if(Character.isDigit(line.charAt(i))){
+                twoDigits.append(line.charAt(i)+"");
+                count++;
+            }
+        }
+        return twoDigits.reverse().toString();
+    }
+
     public static String getOnlyNumbersAndLetters(String str) {
         return str.replaceAll("[^A-Za-z0-9]", EMPTY);
     }
@@ -41,8 +64,8 @@ public class StringCommon {
      * @return
      */
     public static double bestSliceMatching(String line, String subStr) {
-        line = line.replaceAll("\\s+", EMPTY).toLowerCase();
-        subStr = subStr.replaceAll("\\s+", EMPTY).toLowerCase();
+        line = removeAllSpaces(line).toLowerCase();
+        subStr = removeAllSpaces(subStr).toLowerCase();
         if (line.isEmpty() || subStr.isEmpty() || line.length() < subStr.length()) {
             return 0;
         }
@@ -525,126 +548,130 @@ public class StringCommon {
     }
 
     // format price into close-to numeric format
-    public static String formatPrice(String priceStr) {
+    public static String formatPrice(String priceStr){
         // logger.debug("priceStr="+priceStr);
-        priceStr = priceStr.trim();
-        if (priceStr.isEmpty())
-            return priceStr;
+        priceStr=priceStr.trim();
+        if(priceStr.isEmpty()) return priceStr;
 
-        // only keep the last word if there are too many spaces
-        String[] words = priceStr.split("\\s{5,}");
-        priceStr = words[words.length - 1];
+        //only keep the last word if there are too many spaces
+        String[] words=priceStr.split("\\s{5,}");
+        priceStr=words[words.length-1];
 
-        // change "'1 . 73" to "4.73"
-        int tmp = priceStr.indexOf("'1");
-        if (tmp >= 0) {
-            priceStr = priceStr.substring(0, tmp) + "4" + priceStr.substring(tmp + 2);
-            priceStr = priceStr.trim();
+        //change "'1 . 73" to "4.73"
+        int tmp=priceStr.indexOf("'1");
+        if(tmp>=0){
+            priceStr=priceStr.substring(0, tmp)+"4"+priceStr.substring(tmp+2);
+            priceStr=priceStr.trim();
         }
 
-        // remove the beginning dots in like ". 1.00" but not ".76", and "..76"
-        // will be changed to ".76"
-        int numHeadDots = 0; // number of continuous dots in the beginning
-        for (int i = 0; i < priceStr.length(); i++) {
-            if (priceStr.charAt(i) == '.') {
+        //remove the beginning dots in like ". 1.00" but not ".76", and "..76" will be changed to ".76"
+        int numHeadDots=0; //number of continuous dots in the beginning
+        for(int i=0; i<priceStr.length(); i++){
+            if(priceStr.charAt(i)=='.'){
                 numHeadDots++;
-            } else {
+            }else{
                 break;
             }
         }
-        if (numHeadDots > 0) {
-            int firstDot = priceStr.indexOf(".");
-            // logger.debug("firstDot="+firstDot);
-            int lastDot = priceStr.lastIndexOf(".");
-            // logger.debug("lastDot="+lastDot);
-            if (lastDot != numHeadDots - 1) // last dot is not in the heading
-                                            // continuous dots, then remove all
-                                            // begining
-                priceStr = priceStr.substring(numHeadDots).trim();
-            else {
-                priceStr = priceStr.substring(numHeadDots - 1).trim();// keep
-                                                                      // the
-                                                                      // last
-                                                                      // one
+        if(numHeadDots>0){
+            int firstDot=priceStr.indexOf(".");
+            //      logger.debug("firstDot="+firstDot);
+            int lastDot=priceStr.lastIndexOf(".");
+            //       logger.debug("lastDot="+lastDot);
+            if(lastDot!=numHeadDots-1)//last dot is not in the heading continuous dots, then remove all begining
+                priceStr=priceStr.substring(numHeadDots).trim();
+            else{
+                priceStr=priceStr.substring(numHeadDots-1).trim();//keep the last one
             }
         }
         // logger.debug("str1:"+priceStr);
 
-        // if price is like "38 99" "3 99", then likely it is "38.99" "3.99"
-        priceStr = priceStr.replaceAll("['%]", ".");
-        // if(priceStr.length()==4 || priceStr.length()==5){
-        if (!priceStr.contains(".") && priceStr.contains(" ")) {
-            priceStr = priceStr.replaceAll("\\s+", ".");
+        //if price is like "38 99" "3 99", then likely it is "38.99" "3.99"
+        priceStr=priceStr.replaceAll("['%]", ".");
+        //if(priceStr.length()==4 || priceStr.length()==5){
+        if(!priceStr.contains(".")&& priceStr.contains(" "))
+        {
+            priceStr=priceStr.replaceAll("\\s+", ".");
         }
-        // }
+        //}
         // logger.debug("str2:"+priceStr);
 
-        // remove spaces
-        priceStr = priceStr.replaceAll("\\s+", "");
-        // replace 'O' 'o' with 0
-        priceStr = priceStr.replaceAll("[Oo]", "0");
-        // fix OCR mistaking . for '
-        // change g to "9"
-        priceStr = priceStr.replaceAll("[g]", "9");
-        // replace all '?' with 2.
-        priceStr = priceStr.replaceAll("\\?", "2");
+        //remove spaces
+        priceStr=priceStr.replaceAll("\\s+", "");
+        //replace 'O' 'o' with 0
+        priceStr=priceStr.replaceAll("[Oo]", "0");
+        //fix OCR mistaking . for '
+        //change g to "9"
+        priceStr=priceStr.replaceAll("[g]", "9");
+        //replace all '?' with 2.
+        priceStr=priceStr.replaceAll("\\?", "2");
 
-        // handling with "-" and "~"
-        // "-" in the end is moved to the beginning: negative price
-        priceStr = priceStr.replaceAll("~", "-");
-        int lastOfCross = priceStr.indexOf("-");
-        if (lastOfCross == priceStr.length() - 1) {
-            priceStr = priceStr.substring(0, priceStr.length() - 1);
-            priceStr = "-" + priceStr;
+        //handling with "-" and "~"
+        //"-" in the end is moved to the beginning: negative price
+        priceStr=priceStr.replaceAll("~", "-");
+        int lastOfCross=priceStr.indexOf("-");
+        if(lastOfCross==priceStr.length()-1){
+            priceStr=priceStr.substring(0, priceStr.length()-1);
+            priceStr="-"+priceStr;
         }
-        // "-" (in the middle) is changed to "." if there is no dot
-        if (!priceStr.contains(".") && priceStr.contains("-")) {
-            priceStr = priceStr.replaceAll("[~-]", ".");
-        } else {
-            if (priceStr.indexOf(".") == 0) {
-                if (priceStr.indexOf(".") != priceStr.lastIndexOf(".")) {
-                    priceStr = priceStr.substring(1);
-                    priceStr = priceStr.replaceAll("[~-]", ".");
-                } else {
-                    // logger.debug("if0");
-                    if (priceStr.contains("-") || priceStr.contains("~")) {
+        //"-" (in the middle) is changed to "." if there is no dot
+        if(!priceStr.contains(".")&& priceStr.contains("-")){
+            priceStr=priceStr.replaceAll("[~-]", ".");
+        }else{
+            if(priceStr.indexOf(".")==0){
+                if(priceStr.indexOf(".")!=priceStr.lastIndexOf(".")){
+                    priceStr=priceStr.substring(1);
+                    priceStr=priceStr.replaceAll("[~-]", ".");
+                }else{
+                    //logger.debug("if0");
+                    if(priceStr.contains("-")|| priceStr.contains("~")){
                         // logger.debug("if1");
-                        priceStr = priceStr.substring(1);
-                        priceStr = priceStr.replaceAll("[~-]", ".");
+                        priceStr=priceStr.substring(1);
+                        priceStr=priceStr.replaceAll("[~-]", ".");
                     } else
-                        priceStr = "0" + priceStr.trim();
+                        priceStr="0"+priceStr.trim();
                 }
             }
         }
         // logger.debug("str3:"+priceStr);
         // System.exit(1);
 
-        priceStr = priceStr.replaceAll("[_]", ".");
+        priceStr=priceStr.replaceAll("[_]", ".");
 
         // logger.debug("str4:"+priceStr);
 
-        // get only alphabetic chars and dot
-        priceStr = priceStr.replaceAll("[^A-Za-z0-9.-]", "");
 
-        if (isNumeric(priceStr))
+        final String onlyDigit=priceStr.replaceAll("[^0-9._]", StringCommon.EMPTY);
+        if(isNumeric(onlyDigit))
+            return onlyDigit;
+
+        //get only alphabetic chars and dot
+        priceStr=priceStr.replaceAll("[^A-Za-z0-9.-]", "");
+
+        if(isNumeric(priceStr))
             return priceStr;
 
         return ignoreAfterDot(priceStr);
     }
 
-    // return 7.0 for prices like 7.llJ
-    public static String ignoreAfterDot(final String priceStr) {
-        int dot = priceStr.indexOf(".");
-        if (dot < 0)
+    /**
+     * return
+     * 7.0 for 7.llJ
+     * 15.98 for 15.98   G
+     */
+
+    public static String ignoreAfterDot(final String priceStr){
+        int dot=priceStr.indexOf(".");
+        if(dot<0)
             return priceStr;
-        return priceStr.substring(0, dot + 1) + "0";
+        return priceStr.substring(0, dot+1)+"0";
     }
 
-    public static boolean isNumeric(String s) {
+    public static boolean isNumeric(String s){
         boolean ret = true;
         try {
             Double.parseDouble(s);
-        } catch (NumberFormatException e) {
+        }catch (NumberFormatException e) {
             ret = false;
         }
         return ret;

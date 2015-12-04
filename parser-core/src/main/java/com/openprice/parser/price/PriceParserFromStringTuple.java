@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PriceParserFromStringTuple implements PriceParser {
 
     //product and price from four strings
+    //product and price from four strings
     @Override
     public ProductPrice fromFourStrings(final FourStrings four) throws Exception{
         final boolean firstIsNumber=isItemNumber(four.getFirst());
@@ -89,6 +90,7 @@ public class PriceParserFromStringTuple implements PriceParser {
     }
 
     //product and price from four strings
+    //product and price from four strings
     @Override
     public ProductPrice fromThreeStrings(final ThreeStrings three) throws Exception{
         final boolean firstIsNumber=isItemNumber(three.getFirst());
@@ -149,7 +151,7 @@ public class PriceParserFromStringTuple implements PriceParser {
             price="";
         }
 
-        //log.debug("No item numbers.");
+        log.debug("No item numbers.");
         if(isNotPrice(three.getThird())){
             price=three.getSecond();
             itemName=three.getFirst();

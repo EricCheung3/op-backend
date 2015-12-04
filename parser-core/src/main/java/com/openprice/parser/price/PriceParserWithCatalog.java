@@ -1,6 +1,6 @@
 package com.openprice.parser.price;
 
-import java.util.List;
+import java.util.Set;
 
 import com.openprice.parser.data.Product;
 
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PriceParserWithCatalog {
 
-    List<Product> catalog;
+    Set<Product> catalog;
 
     PriceParser priceParser;
 
@@ -29,10 +29,7 @@ public class PriceParserWithCatalog {
      */
     public ProductPrice parsePriceLine(final String line){
         final Product matched=PriceParserUtils.matchLineToCatalog(line, catalog);
-        //        log.debug("\nline= "+line+"\n");
-        if( ! matched.isEmpty()){
-            log.debug("matched product in catalog: "+matched.toStringNumberFirst());
-        }
+        log.debug("matched product "+matched.toStringForCatalog()+"\n");
         //        if(!matched.isEmpty()){
         //            final String priceAtTail=getPriceAtTail(line, matched);
         //            if(!priceAtTail.isEmpty())
@@ -40,7 +37,7 @@ public class PriceParserWithCatalog {
         //                        .product(matched)
         //                        .price(priceAtTail)
         //                        .build();
-        //        }
+        //    }
 
         FourStrings four=null;
         ProductPrice pPrice4 = null;
@@ -48,13 +45,20 @@ public class PriceParserWithCatalog {
             four=StringsFromWideSpace.fourStrings(line);
             pPrice4 = priceParser.fromFourStrings(four);
         }catch(Exception e){
-            log.warn("fromFourStrings: "+e.getMessage());
+            log.warn("line="+line+",fromFourStrings: "+e.getMessage());
         }
+
         if( !matched.isEmpty() && !pPrice4.isEmpty()){
             return ProductPrice.builder()
                     .product(matched)
+                    .productIsInCatalog(true)
                     .price(pPrice4.getPrice())
                     .build();
+        }
+
+        //not matched but pPrice4 is good
+        if(pPrice4!=null && !pPrice4.isEmpty()){
+            return pPrice4;
         }
 
         ThreeStrings tri=null;
@@ -63,13 +67,19 @@ public class PriceParserWithCatalog {
             tri=StringsFromWideSpace.trippleStrings(line);
             pPrice3=priceParser.fromThreeStrings(tri);
         }catch(Exception e){
-            log.warn("fromThreeStrings: "+e.getMessage());
+            log.warn("line="+ line+", fromThreeStrings: "+e.getMessage());
         }
         if( !matched.isEmpty() && !pPrice3.isEmpty()){
             return ProductPrice.builder()
                     .product(matched)
+                    .productIsInCatalog(true)
                     .price(pPrice3.getPrice())
                     .build();
+        }
+
+        //not matched but pPrice3 is good
+        if(pPrice3!=null && !pPrice3.isEmpty()){
+            return pPrice3;
         }
 
         TwoStrings two=null;
@@ -78,18 +88,17 @@ public class PriceParserWithCatalog {
             two=StringsFromWideSpace.twoStrings(line);
             pPrice2=priceParser.fromTwoStrings(two);
         }catch(Exception e){
-            log.warn("fromTwoStrings: "+e.getMessage());
+            log.warn("line="+ line+",fromTwoStrings: "+e.getMessage());
         }
         if( !matched.isEmpty() && !pPrice2.isEmpty()){
             return ProductPrice.builder()
                     .product(matched)
+                    .productIsInCatalog(true)
                     .price(pPrice2.getPrice())
                     .build();
         }
 
-        if( !pPrice4.isEmpty()) return pPrice4;
-        if( !pPrice3.isEmpty()) return pPrice3;
-        if( !pPrice2.isEmpty()) return pPrice2;
+        if(pPrice2!=null &&  !pPrice2.isEmpty()) return pPrice2;
         return ProductPrice.emptyValue();
     }
 

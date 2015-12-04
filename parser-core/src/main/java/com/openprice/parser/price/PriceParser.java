@@ -7,4 +7,5 @@ public interface PriceParser {
 
     ProductPrice fromFourStrings(final FourStrings four) throws Exception;
 
+
 }

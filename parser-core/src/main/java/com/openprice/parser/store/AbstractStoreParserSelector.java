@@ -2,8 +2,10 @@ package com.openprice.parser.store;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ResourceLoaderAware;
@@ -79,14 +81,14 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
                 (line)-> branches.add(StoreBranch.fromString(line, baseConfig.getProperty("Slogan")))); // FIXME why slogan?
 
         chain =
-            StoreChain
-            .builder()
-            .code(getParserBaseCode().toLowerCase()) // TODO maybe use lower case in all places?
-            .categories(TextResourceUtils.loadStringArray(getStoreConfigResource(CATEGORY_FILE_NAME)))
-            .identifyFields(TextResourceUtils.loadStringArray(getStoreConfigResource(IDENTIFY_FIELD_FILE_NAME)))
-            .branches(branches)
-            .selector(this)
-            .build();
+                StoreChain
+                .builder()
+                .code(getParserBaseCode().toLowerCase()) // TODO maybe use lower case in all places?
+                .categories(TextResourceUtils.loadStringArray(getStoreConfigResource(CATEGORY_FILE_NAME)))
+                .identifyFields(TextResourceUtils.loadStringArray(getStoreConfigResource(IDENTIFY_FIELD_FILE_NAME)))
+                .branches(branches)
+                .selector(this)
+                .build();
         chainRegistry.addChain(chain);
     }
 
@@ -125,7 +127,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     }
 
     protected PriceParserWithCatalog loadPriceParserWithCatalog() {
-        final List<Product> catalog=new ArrayList<Product>();
+        final Set<Product> catalog=new HashSet<Product>();
         TextResourceUtils.loadFromTextResource(getStoreConfigResource(CATALOG_FILE_NAME),
                 line -> {if (!StringUtils.isEmpty(line)) {catalog.add(Product.fromString(line));}});
         return PriceParserWithCatalog.builder().catalog(catalog).priceParser(new PriceParserFromStringTuple()).build();
