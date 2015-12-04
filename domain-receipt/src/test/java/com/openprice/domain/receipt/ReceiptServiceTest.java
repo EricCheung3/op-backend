@@ -37,7 +37,7 @@ public class ReceiptServiceTest {
     ReceiptImageRepository receiptImageRepositoryMock;
 
     @Mock
-    ReceiptDataRepository receiptDataRepositoryMock;
+    ReceiptResultRepository receiptResultRepositoryMock;
 
     @Mock
     ReceiptItemRepository receiptItemRepositoryMock;
@@ -56,7 +56,7 @@ public class ReceiptServiceTest {
     public void setup() throws Exception {
         serviceToTest = new ReceiptService(receiptRepositoryMock,
                                            receiptImageRepositoryMock,
-                                           receiptDataRepositoryMock,
+                                           receiptResultRepositoryMock,
                                            receiptItemRepositoryMock,
                                            receiptFeedbackRepositoryMock,
                                            simpleParser);
@@ -91,17 +91,17 @@ public class ReceiptServiceTest {
         fieldToValueLine.put(ReceiptField.Total, ValueLine.builder().line(-1).value("15.00").build());
         final ParsedReceipt receiptDebug = ParsedReceipt.builder().chain(chain).branch(branch).fieldToValueMap(fieldToValueLine).items(items).build();
 
-        when(receiptDataRepositoryMock.findFirstByReceiptOrderByCreatedTimeDesc(eq(receipt))).thenReturn(null);
+        when(receiptResultRepositoryMock.findFirstByReceiptOrderByCreatedTimeDesc(eq(receipt))).thenReturn(null);
         when(receiptImageRepositoryMock.findByReceiptOrderByCreatedTime(eq(receipt))).thenReturn(images);
         when(simpleParser.parseOCRResults(eq(ocrTextList))).thenReturn(receiptDebug);
-        when(receiptDataRepositoryMock.save(isA(ReceiptData.class))).thenAnswer( new Answer<ReceiptData>() {
+        when(receiptResultRepositoryMock.save(isA(ReceiptResult.class))).thenAnswer( new Answer<ReceiptResult>() {
             @Override
-            public ReceiptData answer(InvocationOnMock invocation) throws Throwable {
-                return (ReceiptData)invocation.getArguments()[0];
+            public ReceiptResult answer(InvocationOnMock invocation) throws Throwable {
+                return (ReceiptResult)invocation.getArguments()[0];
             }
         });
 
-        final ReceiptData data = serviceToTest.getLatestReceiptParserResult(receipt);
+        final ReceiptResult data = serviceToTest.getLatestReceiptResult(receipt);
         assertEquals("rcss", data.getChainCode());
         assertEquals("Calgary Trail", data.getBranchName());
         assertEquals(2, data.getItems().size());

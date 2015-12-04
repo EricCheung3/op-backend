@@ -41,7 +41,6 @@
             <groupId>org.atteo</groupId>
             <artifactId>evo-inflector</artifactId>
             <version>${evo-inflector.version}</version>
-            <scope>runtime</scope>
         </dependency>
         <!-- Java implementation for RFC6570 -->
         <dependency>

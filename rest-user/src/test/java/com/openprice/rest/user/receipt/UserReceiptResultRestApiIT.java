@@ -23,13 +23,13 @@ import com.openprice.rest.user.UserApiTestApplication;
 
 @SpringApplicationConfiguration(classes = {UserApiTestApplication.class})
 @DatabaseSetup("classpath:/data/testData.xml")
-public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest {
+public class UserReceiptResultRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Inject
     private ReceiptItemRepository receiptItemRepository;
 
     @Test
-    public void getUserReceiptData_ShouldReturnParserResultReceiptDataFromDatabase() throws Exception {
+    public void getUserReceiptResult_ShouldReturnRecentParsedReceiptResultFromDatabase() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         Response response =
@@ -61,7 +61,7 @@ public class UserReceiptDataRestApiIT extends AbstractUserRestApiIntegrationTest
     }
 
     @Test
-    public void getUserReceiptData_ShouldGenerateReceiptDataThroughParser_IfNotExist() throws Exception {
+    public void getUserReceiptData_ShouldGenerateReceiptResultThroughParser_IfNotExist() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         Response response =

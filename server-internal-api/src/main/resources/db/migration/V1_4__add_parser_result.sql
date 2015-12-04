@@ -1,4 +1,4 @@
-CREATE TABLE receipt_data (
+CREATE TABLE receipt_result (
     id VARCHAR(50),
     version BIGINT NOT NULL DEFAULT 1,
     created_by VARCHAR(50) NOT NULL,
@@ -15,11 +15,11 @@ CREATE TABLE receipt_data (
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
-CREATE INDEX idx_receipt_data_1
-    ON receipt_data(receipt_id ASC);
+CREATE INDEX idx_receipt_result_1
+    ON receipt_result(receipt_id ASC);
     
-ALTER TABLE receipt_data
-    ADD CONSTRAINT fk_receipt_data_receipt
+ALTER TABLE receipt_result
+    ADD CONSTRAINT fk_receipt_result_receipt
     FOREIGN KEY (receipt_id)
     REFERENCES receipt(id)
     ON DELETE CASCADE;
@@ -32,7 +32,7 @@ CREATE TABLE receipt_item (
     last_modified_by VARCHAR(50),
     last_modified_time TIMESTAMP,
 
-    receipt_data_id VARCHAR(50) NOT NULL,
+    receipt_result_id VARCHAR(50) NOT NULL,
     catalog_code VARCHAR(255),
     line_number INTEGER,
     parsed_name VARCHAR(255),
@@ -45,10 +45,10 @@ CREATE TABLE receipt_item (
 ) ENGINE=InnoDB;
 
 CREATE INDEX idx_receipt_item_1
-    ON receipt_item(receipt_data_id ASC);
+    ON receipt_item(receipt_result_id ASC);
     
 ALTER TABLE receipt_item
     ADD CONSTRAINT fk_receipt_item_receipt_data
-    FOREIGN KEY (receipt_data_id)
-    REFERENCES receipt_data(id)
+    FOREIGN KEY (receipt_result_id)
+    REFERENCES receipt_result(id)
     ON DELETE CASCADE;

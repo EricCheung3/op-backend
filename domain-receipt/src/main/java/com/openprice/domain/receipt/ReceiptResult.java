@@ -21,7 +21,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Parsed receipt data by parser. Parser will recognize store chain first, and saved as <code>chainCode</code>.
+ * Parsed receipt result by parser. Parser will recognize store chain first, and saved as <code>chainCode</code>.
  * Then specific store parser will parse receipt items. If chain is not recognized, a generic parser will try to
  * get item list as best effort.
  *
@@ -29,8 +29,8 @@ import lombok.ToString;
 @ToString(callSuper=true, exclude={"receipt", "items"})
 @SuppressWarnings("serial")
 @Entity
-@Table( name="receipt_data" )
-public class ReceiptData extends BaseAuditableEntity {
+@Table( name="receipt_result" )
+public class ReceiptResult extends BaseAuditableEntity {
 
     @Getter @Setter
     @JsonIgnore
@@ -59,17 +59,17 @@ public class ReceiptData extends BaseAuditableEntity {
 
     @Getter @Setter
     @JsonIgnore
-    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="receiptData")
+    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="receiptResult")
     @OrderBy("lineNumber ASC")
     @org.hibernate.annotations.OnDelete(
         action = org.hibernate.annotations.OnDeleteAction.CASCADE
     )
     private List<ReceiptItem> items = new ArrayList<>();
 
-    ReceiptData() {}
+    ReceiptResult() {}
 
     /**
-     * Builder method to create a ReceiptItem from parser result data, and add to item list.
+     * Builder method to create a ReceiptItem from parser result, and add to item list.
      *
      * @param catalogCode
      * @param parsedName
@@ -78,7 +78,7 @@ public class ReceiptData extends BaseAuditableEntity {
      */
     public ReceiptItem addItem(final String catalogCode, final String parsedName, final String parsedPrice) {
         final ReceiptItem item = new ReceiptItem();
-        item.setReceiptData(this);
+        item.setReceiptResult(this);
         item.setCatalogCode(catalogCode);
         item.setParsedName(parsedName);
         item.setDisplayName(parsedName);

@@ -20,7 +20,7 @@ import lombok.ToString;
  * to user.
  *
  */
-@ToString(callSuper=true, exclude={"receiptData"})
+@ToString(callSuper=true, exclude={"receiptResult"})
 @SuppressWarnings("serial")
 @Entity
 @Table( name="receipt_item" )
@@ -29,8 +29,8 @@ public class ReceiptItem extends BaseAuditableEntity {
     @Getter @Setter
     @JsonIgnore
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="receipt_data_id")
-    private ReceiptData receiptData;
+    @JoinColumn(name="receipt_result_id")
+    private ReceiptResult receiptResult;
 
     @Getter @Setter
     @JsonIgnore // we don't expose this to user

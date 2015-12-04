@@ -90,8 +90,8 @@ public class Receipt extends BaseAuditableEntity {
      * @param parsedReceipt
      * @return
      */
-    public ReceiptData createReceiptDataFromParserResult(final ParsedReceipt parsedReceipt) {
-        final ReceiptData data = new ReceiptData();
+    public ReceiptResult createReceiptDataFromParserResult(final ParsedReceipt parsedReceipt) {
+        final ReceiptResult data = new ReceiptResult();
         data.setReceipt(this);
         if (parsedReceipt.getChain() != null) {
             data.setChainCode(parsedReceipt.getChain().getCode());
