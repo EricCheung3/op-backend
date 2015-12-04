@@ -410,7 +410,7 @@ public class StringCommon {
 
         String strHead = StringCommon.firstCharsSameSet(str, head);
         double score = Levenshtein.compare(head, strHead);
-        log.debug("!!!!!score="+score+", str="+strHead+", head="+head);
+        //log.debug("!!!!!score="+score+", str="+strHead+", head="+head);
         return score;
     }
 
