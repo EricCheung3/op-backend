@@ -25,7 +25,7 @@ public abstract class AbstractStoreParser implements StoreParser {
     protected final Map<ReceiptField, Function<ReceiptLine, String>> fieldParsers = new HashMap<>();
 
     public AbstractStoreParser(final StoreConfig config,
-                               final PriceParserWithCatalog priceParserWithCatalog) {
+            final PriceParserWithCatalog priceParserWithCatalog) {
         this.config = config;
         this.priceParserWithCatalog = priceParserWithCatalog;
     }
@@ -111,9 +111,12 @@ public abstract class AbstractStoreParser implements StoreParser {
         if (last == -1) {
             log.warn("line '{}' did not find a letter?", lineString);
             return "";
-
         }
         return StringCommon.formatPrice(lineString.substring(last + 1));
+    }
+
+    protected String parseDate(final String lineString){
+        return "";
     }
 
     @Override

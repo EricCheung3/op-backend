@@ -59,6 +59,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "14.47");
         //assertEquals(fieldValues.get(ReceiptField.GstAmount).getValue(), "0.01");  // FIXME ??
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "14.48");
+        assertEquals(fieldValues.get(ReceiptField.Date).getValue(), "");
 
     }
 
@@ -92,6 +93,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         assertEquals(fieldValues.get(ReceiptField.GstNumber).getValue(), "12223-5922 rt0001");
         assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "9.15");
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "9.15");
+        assertEquals(fieldValues.get(ReceiptField.Date).getValue(), "");
     }
 
     @Value("classpath:/testFiles/RCSS/CalgaryTrail/2015_04_04_22_22_32.jpg.jingwang.txt")
@@ -136,5 +138,6 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "116.71");
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "116.71");
         //assertEquals(fieldValues.get(ReceiptField.).getValue(), "");
+        assertEquals(fieldValues.get(ReceiptField.Date).getValue(), "");
     }
 }
