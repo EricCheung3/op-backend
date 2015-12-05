@@ -70,6 +70,8 @@
         <spring-test-dbunit.version>1.2.1</spring-test-dbunit.version>
         <rest-assured.version>2.7.0</rest-assured.version>
         <docker-maven-plugin.version>0.3.5</docker-maven-plugin.version>
+        
+        <logback.loglevel>TEST</logback.loglevel>
     </properties>
 
     <!-- Generic Dependencies used by all modules -->

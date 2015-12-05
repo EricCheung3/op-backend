@@ -11,11 +11,11 @@
     <artifactId>openprice-server-internal-api</artifactId>
     <packaging>jar</packaging>
 
-    <name>Internal REST Web Service</name>
-    <description>OpenPrice REST API server code for internal functions.</description>
+    <name>Internal RESTful API Server</name>
+    <description>OpenPrice RESTful API server for internal functions.</description>
 
     <properties>
-        <start-class>com.openprice.OpenPriceInternalApiApplication</start-class>
+        <start-class>com.openprice.InternalApiApplication</start-class>
     </properties>
 
     <dependencies>

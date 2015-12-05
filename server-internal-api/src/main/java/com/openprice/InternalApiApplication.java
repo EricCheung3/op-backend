@@ -8,13 +8,13 @@ import com.openprice.file.FileSystemService;
 import com.openprice.process.ProcessSettings;
 
 @EnableConfigurationProperties({InternalApiApplicationSettings.class})
-public class OpenPriceInternalApiApplication extends AbstractApiApplication {
+public class InternalApiApplication extends AbstractApiApplication {
 
     /**
      * Main method, used to run the application.
      */
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(OpenPriceInternalApiApplication.class);
+        SpringApplication app = new SpringApplication(InternalApiApplication.class);
         app.run(args);
     }
 

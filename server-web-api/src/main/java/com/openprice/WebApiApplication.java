@@ -7,24 +7,24 @@ import org.springframework.context.annotation.Bean;
 import com.openprice.file.FileSystemService;
 import com.openprice.internal.client.InternalService;
 
-@EnableConfigurationProperties({AdminApiApplicationSettings.class})
-public class OpenPriceAdminApiApplication extends AbstractApiApplication {
+@EnableConfigurationProperties({WebApiApplicationSettings.class})
+public class WebApiApplication extends AbstractApiApplication {
 
     /**
      * Main method, used to run the application.
      */
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(OpenPriceAdminApiApplication.class);
+        SpringApplication app = new SpringApplication(WebApiApplication.class);
         app.run(args);
     }
 
     @Bean
-    public FileSystemService fileSystemService(AdminApiApplicationSettings settings) {
+    public FileSystemService fileSystemService(WebApiApplicationSettings settings) {
         return new FileSystemService(settings.getFile());
     }
 
     @Bean
-    InternalService internalService(final AdminApiApplicationSettings settings) {
+    InternalService internalService(final WebApiApplicationSettings settings) {
         return new InternalService(settings.getInternal());
     }
 

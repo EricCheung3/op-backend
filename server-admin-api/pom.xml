@@ -11,11 +11,11 @@
     <artifactId>openprice-server-admin-api</artifactId>
     <packaging>jar</packaging>
 
-    <name>Admin REST API Web Service</name>
-    <description>OpenPrice REST API server code for admin functions.</description>
+    <name>Admin RESTful API Server</name>
+    <description>OpenPrice RESTful API server for admin functions.</description>
 
     <properties>
-        <start-class>com.openprice.OpenPriceAdminApiApplication</start-class>
+        <start-class>com.openprice.AdminApiApplication</start-class>
     </properties>
 
     <dependencies>
