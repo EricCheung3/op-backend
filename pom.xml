@@ -135,6 +135,7 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <debug>true</debug>
                 </configuration>
             </plugin>
             <plugin>
@@ -169,7 +170,7 @@
             <properties>
                 <!-- log configuration -->
                 <logback.loglevel>DEBUG</logback.loglevel>
-                <logback.loggly.loglevel>DEBUG</logback.loggly.loglevel>
+                <logback.loggly.loglevel>OFF</logback.loggly.loglevel>
             </properties>
             <dependencies>
                 <dependency>

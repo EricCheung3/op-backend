@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true">
-    <contextName>INT</contextName>
+    <contextName>INTAPI</contextName>
     
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
@@ -8,7 +8,7 @@
         </filter>
         <encoder>
             <charset>utf-8</charset>
-            <Pattern>%d %-5level [%thread] %c.%M\(%line\): %msg%n</Pattern>
+            <Pattern>%d{"ISO8601", UTC}  %p %t %c.%M\(%L\) -%-6contextName- %m%n</Pattern>
         </encoder>
     </appender>
 
@@ -19,7 +19,7 @@
         </rollingPolicy>
         <encoder>
             <charset>utf-8</charset>
-            <Pattern>%d %-5contextName %-5level [%thread] %c.%M\(%line\): %msg%n</Pattern>
+            <Pattern>%d{"ISO8601", UTC}  %p %t %c.%M\(%L\) -%-6contextName- %m%n</Pattern>
         </encoder>
     </appender>
 
@@ -30,10 +30,13 @@
 
     <appender name="LOGGLY" class="ch.qos.logback.ext.loggly.LogglyAppender">
         <endpointUrl>https://logs-01.loggly.com/inputs/14a534cc-b254-452a-adf7-cbd5d4362680/tag/logback</endpointUrl>
-        <pattern>%d{"ISO8601", UTC}  %p %t %c{0}.%M - %-5contextName %m%n</pattern>
+        <pattern>%d{"ISO8601", UTC}  %p %t %c.%M\(%L\) -%-6contextName- %m%n</pattern>
     </appender>
 
     <appender name="ASYNC_LOGGLY" class="ch.qos.logback.classic.AsyncAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>OFF</level>
+        </filter>
         <queueSize>512</queueSize>
         <appender-ref ref="LOGGLY"/>
     </appender>
@@ -52,10 +55,11 @@
     <logger name="org.apache" level="WARN"/>
     <logger name="org.apache.catalina.startup.DigesterFactory" level="OFF"/>
     <logger name="org.bson" level="WARN"/>
-    <logger name="flywaydb" level="WARN"/>
+    <logger name="org.flywaydb" level="WARN"/>
     <logger name="org.hibernate.validator" level="WARN"/>
     <logger name="org.hibernate" level="WARN"/>
     <logger name="org.hibernate.ejb.HibernatePersistence" level="OFF"/>
+    <logger name="org.jboss" level="WARN"/>
     <logger name="org.atmosphere" level="WARN"/>
     <logger name="org.springframework" level="WARN"/>
     <logger name="org.springframework.web" level="WARN"/>
@@ -71,11 +75,9 @@
     </contextListener>
 
     <root level="${logback.loglevel}">
-        <appender-ref ref="ASYNC_FILE"/>
         <appender-ref ref="CONSOLE"/>
-    </root>
-
-    <root level="${logback.loggly.loglevel}">
+        <appender-ref ref="ASYNC_FILE"/>
         <appender-ref ref="ASYNC_LOGGLY"/>
     </root>
+
 </configuration>
