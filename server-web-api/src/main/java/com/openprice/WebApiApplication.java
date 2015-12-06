@@ -10,12 +10,8 @@ import com.openprice.internal.client.InternalService;
 @EnableConfigurationProperties({WebApiApplicationSettings.class})
 public class WebApiApplication extends AbstractApiApplication {
 
-    /**
-     * Main method, used to run the application.
-     */
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(WebApiApplication.class);
-        app.run(args);
+        SpringApplication.run(WebApiApplication.class, args);
     }
 
     @Bean

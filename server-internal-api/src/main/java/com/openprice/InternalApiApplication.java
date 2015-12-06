@@ -10,12 +10,8 @@ import com.openprice.process.ProcessSettings;
 @EnableConfigurationProperties({InternalApiApplicationSettings.class})
 public class InternalApiApplication extends AbstractApiApplication {
 
-    /**
-     * Main method, used to run the application.
-     */
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(InternalApiApplication.class);
-        app.run(args);
+        SpringApplication.run(InternalApiApplication.class, args);
     }
 
     @Bean

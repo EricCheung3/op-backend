@@ -12,12 +12,8 @@ import com.openprice.internal.client.InternalService;
 @EnableConfigurationProperties({AdminApiApplicationSettings.class})
 public class AdminApiApplication extends AbstractApiApplication {
 
-    /**
-     * Main method, used to run the application.
-     */
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(AdminApiApplication.class);
-        app.run(args);
+        SpringApplication.run(AdminApiApplication.class, args);
     }
 
     @Bean

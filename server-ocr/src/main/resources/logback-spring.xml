@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration scan="true">
+<configuration debug="true">
     <contextName>${SERVER_NAME}</contextName>
     
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -8,7 +8,7 @@
         </filter>
         <encoder>
             <charset>utf-8</charset>
-            <Pattern>%d -%-6contextName- %-5level [%thread] %c.%M\(%L\): %msg%n</Pattern>
+            <Pattern>%d %-6contextName %-5level [%thread] %c.%M\(%L\): %msg%n</Pattern>
         </encoder>
     </appender>
 
@@ -19,7 +19,7 @@
         </rollingPolicy>
         <encoder>
             <charset>utf-8</charset>
-            <Pattern>%d -%-6contextName- %-5level [%thread] %c.%M\(%L\): %msg%n</Pattern>
+            <Pattern>%d %-6contextName %-5level [%thread] %c.%M\(%L\): %msg%n</Pattern>
         </encoder>
     </appender>
 
@@ -29,8 +29,8 @@
     </appender>
 
     <appender name="LOGGLY" class="ch.qos.logback.ext.loggly.LogglyAppender">
-        <endpointUrl>https://logs-01.loggly.com/inputs/14a534cc-b254-452a-adf7-cbd5d4362680/tag/logback</endpointUrl>
-        <pattern>%d -%-6contextName- %-5level [%thread] %c.%M\(%L\): %msg%n</pattern>
+        <endpointUrl>https://logs-01.loggly.com/inputs/14a534cc-b254-452a-adf7-cbd5d4362680/tag/${SERVER_NAME}</endpointUrl>
+        <pattern>%d %-5level [%thread] %c.%M\(%L\): %msg%n</pattern>
     </appender>
 
     <appender name="ASYNC_LOGGLY" class="ch.qos.logback.classic.AsyncAppender">
