@@ -34,7 +34,7 @@ public class FakeOcrEngine extends AbstractOcrEngine {
             Resource resource = new ClassPathResource(OCR_RESULT_FILE_PATH);
             InputStream resourceInputStream = resource.getInputStream();
             this.staticResult = CharStreams.toString(new InputStreamReader(resourceInputStream, "UTF-8"));
-            log.info("Fake OCR Engine started with loaded static ocr result");
+            log.info("Fake OCR Engine {} started with loaded static ocr result", getServerName());
         } catch (IOException ex) {
             log.error("Cannot load static result from file {}, please check the file exits.", OCR_RESULT_FILE_PATH);
             throw new RuntimeException("Error loading static result file "+OCR_RESULT_FILE_PATH, ex);
