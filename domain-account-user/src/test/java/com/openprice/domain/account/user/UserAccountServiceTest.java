@@ -26,9 +26,6 @@ public class UserAccountServiceTest {
     UserAccountRepository accountRepositoryMock;
 
     @Mock
-    UserProfileRepository profileRepositoryMock;
-
-    @Mock
     UserResetPasswordRequestRepository userResetPasswordRequestRepositoryMock;
 
     @InjectMocks

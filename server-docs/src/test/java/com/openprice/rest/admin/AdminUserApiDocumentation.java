@@ -102,7 +102,6 @@ public class AdminUserApiDocumentation extends AdminApiDocumentationBase {
             preprocessResponse(prettyPrint()),
             links(),
             responseFields(
-                fieldWithPath("id").description("Primary ID"),
                 fieldWithPath("firstName").description("User first name"),
                 fieldWithPath("middleName").description("User middle name"),
                 fieldWithPath("lastName").description("User last name"),

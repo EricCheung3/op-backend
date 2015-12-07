@@ -22,8 +22,6 @@ import com.openprice.OpenPriceAPIDocsApplication;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.domain.account.user.UserAccountService;
-import com.openprice.domain.account.user.UserProfile;
-import com.openprice.domain.account.user.UserProfileRepository;
 import com.openprice.domain.account.user.UserResetPasswordRequestRepository;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
@@ -48,9 +46,6 @@ public abstract class ApiDocumentationBase {
 
     @Inject
     protected UserAccountRepository userAccountRepository;
-
-    @Inject
-    protected UserProfileRepository userProfileRepository;
 
     @Inject
     protected ReceiptService receiptService;
@@ -81,15 +76,13 @@ public abstract class ApiDocumentationBase {
         UserAccount account = userAccountService.createUserAccountByRegistrationData(USERNAME, "password", "John", "Doe");
         userAccountService.activateAccount(account.getId());
         account = userAccountRepository.findByEmail(USERNAME);
-        UserProfile profile = account.getProfile();
-        profile.setPhone("780-888-1234");
-        profile.getAddress().setAddress1("GroundTruth Inc.");
-        profile.getAddress().setAddress2("123 Street");
-        profile.getAddress().setCity("Edmonton");
-        profile.getAddress().setState("AB");
-        profile.getAddress().setCountry("Canada");
-        userProfileRepository.save(profile);
-
+        account.getProfile().setPhone("780-888-1234");
+        account.getProfile().getAddress().setAddress1("GroundTruth Inc.");
+        account.getProfile().getAddress().setAddress2("123 Street");
+        account.getProfile().getAddress().setCity("Edmonton");
+        account.getProfile().getAddress().setState("AB");
+        account.getProfile().getAddress().setCountry("Canada");
+        userAccountRepository.save(account);
         return USERNAME;
     }
 

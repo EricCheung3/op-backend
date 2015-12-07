@@ -37,7 +37,7 @@ public class AdminApiDocumentation extends AdminApiDocumentationBase {
                 fieldWithPath("id").description("Primary ID"),
                 fieldWithPath("username").description("Unique login username"),
                 fieldWithPath("email").description("Admin email"),
-                //fieldWithPath("profile").description("Admin profile object"),
+                fieldWithPath("profile").description("Admin profile object"),
                 fieldWithPath("roles").description("Admin security roles"),
                 fieldWithPath("accountLocked").description("Whether this admin account is locked"),
                 fieldWithPath("activated").description("Whether this admin account is activated"),

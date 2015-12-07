@@ -45,6 +45,8 @@ public class AdminAccountService implements UserDetailsService {
         account.getProfile().setFirstName(firstName);
         account.getProfile().setLastName(lastName);
         account.getProfile().setTitle(title);
+        log.info("A new admin was created for {}, as {}.",
+                account.getProfile().getDisplayName(), account.getProfile().getTitle());
         return accountRepository.save(account);
     }
 

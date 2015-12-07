@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -13,7 +12,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -52,9 +50,6 @@ public class AdminAccount extends AbstractAccount {
     private String email;
 
     @Getter @Setter
-    @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn
-    @JsonIgnore
     private AdminProfile profile;
 
     AdminAccount() {}
@@ -84,7 +79,6 @@ public class AdminAccount extends AbstractAccount {
         final AdminAccount admin = new AdminAccount();
         final AdminProfile profile = new AdminProfile();
         admin.setProfile(profile);
-        profile.setAdmin(admin);
         return admin;
     }
 

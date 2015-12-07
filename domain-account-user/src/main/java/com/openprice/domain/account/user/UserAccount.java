@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -13,7 +12,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -52,9 +50,6 @@ public class UserAccount extends AbstractAccount {
     private boolean trustedAccount = false;
 
     @Getter @Setter
-    @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn
-    @JsonIgnore
     private UserProfile profile;
 
     @Override
@@ -74,7 +69,34 @@ public class UserAccount extends AbstractAccount {
     }
 
     /**
-     * Static builder method to create a UserAccount object for test purpose.
+     * Static builder method to create a normal UserAccount object with profile from input.
+     * Can be used from self-registration or user management.
+     *
+     * @param email
+     * @param password
+     * @param firstName
+     * @param lastName
+     * @return
+     */
+    public static UserAccount createNormalUser(final String email,
+                                               final String password,
+                                               final String firstName,
+                                               final String lastName) {
+        final UserAccount userAccount = new UserAccount();
+        userAccount.setEmail(email);
+        userAccount.setPassword(password);
+        userAccount.getRoles().add(UserRoleType.ROLE_USER);
+
+        final UserProfile profile = new UserProfile();
+        profile.setFirstName(firstName);
+        profile.setLastName(lastName);
+        userAccount.setProfile(profile);
+
+        return userAccount;
+    }
+
+    /**
+     * Static builder method to create a UserAccount object without profile for test purpose. FIXME ???
      *
      * @param id
      * @param email
