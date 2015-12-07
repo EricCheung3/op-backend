@@ -92,9 +92,7 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
             .when()
                 .get(resetPasswordRequestUrl, requestId)
             ;
-
         //response.prettyPrint();
-
         response
             .then()
                 .statusCode(HttpStatus.SC_OK)

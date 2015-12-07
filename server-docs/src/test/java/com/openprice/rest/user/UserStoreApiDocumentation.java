@@ -255,10 +255,9 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
         storeRepository.save(rcss);
 
         // add catalogs to rcss
-        rcss.addCatalog("egg", "1234", "1.99", "Large Egg", "food,egg");
-        rcss.addCatalog("egg", "1235", "1.59", "Medium Egg", "food,egg");
-        rcss.addCatalog("egg", "1236", "1.29", "Small Egg", "food,egg");
-        storeRepository.save(rcss);
+        catalogRepository.save(rcss.addCatalog("egg", "1234", "1.99", "Large Egg", "food,egg"));
+        catalogRepository.save(rcss.addCatalog("egg", "1235", "1.59", "Medium Egg", "food,egg"));
+        catalogRepository.save(rcss.addCatalog("egg", "1236", "1.29", "Small Egg", "food,egg"));
     }
 
     protected void deleteStores() throws Exception {

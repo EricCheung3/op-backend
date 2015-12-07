@@ -142,6 +142,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .when()
                 .get(receiptUrl)
             ;
+        //response.prettyPrint();
         final String receiptId = response.then().extract().path("id");
         response
         .then()
@@ -150,8 +151,6 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name())) TODO should be UPLOADED without process thread
             .body("_links.images.href", endsWith(URL_USER_RECEIPTS + "/" + receiptId + "/images" + UtilConstants.PAGINATION_TEMPLATES))
         ;
-
-        //response.prettyPrint();
 
         // verify image in FileSystem
         String fileName = response.then().extract().path("images[0].fileName");
@@ -324,7 +323,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .when()
                 .get(resultUrl)
             ;
-        response.prettyPrint();
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
