@@ -7,8 +7,11 @@ import com.openprice.domain.account.AbstractProfile;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Embeddable
+@ToString(callSuper=true)
+@SuppressWarnings("serial")
 public class AdminProfile extends AbstractProfile {
 
     @Getter @Setter

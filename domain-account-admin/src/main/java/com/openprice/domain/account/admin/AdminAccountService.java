@@ -36,7 +36,7 @@ public class AdminAccountService implements UserDetailsService {
                                            final String title) {
 
         final String hashedPassword = passwordEncoder.encode(password);
-        final AdminAccount account = AdminAccount.createAccount();
+        final AdminAccount account = new AdminAccount();
         account.setUsername(username);
         account.setPassword(hashedPassword);
         account.setEmail(email);

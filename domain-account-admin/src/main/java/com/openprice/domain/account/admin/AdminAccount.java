@@ -42,15 +42,15 @@ public class AdminAccount extends AbstractAccount {
     private SortedSet<AdminRoleType> roles = new TreeSet<>();
 
     @Getter @Setter
-    @Column(name="username")
+    @Column(name="username", unique=true)
     private String username;
 
     @Getter @Setter
     @Column(name="email")
     private String email;
 
-    @Getter @Setter
-    private AdminProfile profile;
+    @Getter
+    private AdminProfile profile = new AdminProfile();
 
     AdminAccount() {}
 
@@ -67,19 +67,6 @@ public class AdminAccount extends AbstractAccount {
             }
         }
         return false;
-    }
-
-    /**
-     * Builder method to create a new admin account.
-     *
-     * @param user
-     * @return
-     */
-    public static AdminAccount createAccount() {
-        final AdminAccount admin = new AdminAccount();
-        final AdminProfile profile = new AdminProfile();
-        admin.setProfile(profile);
-        return admin;
     }
 
 }

@@ -39,7 +39,7 @@ public class Receipt extends BaseAuditableEntity {
 
     @Getter @Setter
     @Column(name="need_feedback")
-    private boolean needFeedback = true;
+    private Boolean needFeedback = true;
 
     Receipt() {}
 
@@ -66,7 +66,7 @@ public class Receipt extends BaseAuditableEntity {
 
         // set default value for new image without real content yet
         final SimpleDateFormat dt = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_SSS");
-        image.setFileName(dt.format(new Date()) + ".jpg");  // always save as jpg?
+        image.setFileName(dt.format(new Date()) + ".jpg");  // always save as jpg???
         image.setStatus(ProcessStatusType.CREATED);
 
         return image;

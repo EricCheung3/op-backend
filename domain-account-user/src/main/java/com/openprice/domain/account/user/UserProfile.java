@@ -7,11 +7,14 @@ import com.openprice.domain.account.AbstractProfile;
 import com.openprice.domain.common.Address;
 
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * User profile data.
  */
 @Embeddable
+@ToString(callSuper=true)
+@SuppressWarnings("serial")
 public class UserProfile extends AbstractProfile {
 
     @Setter

@@ -27,11 +27,11 @@ public abstract class AbstractAccount extends BaseAuditableEntity implements Use
 
     @Getter @Setter
     @Column(name="account_locked")
-    private boolean accountLocked = false;
+    private Boolean accountLocked = false;
 
     @Getter @Setter
     @Column(name="activated")
-    private boolean activated = false;
+    private Boolean activated = false;
 
     @Override
     @JsonIgnore
@@ -42,7 +42,7 @@ public abstract class AbstractAccount extends BaseAuditableEntity implements Use
     @Override
     @JsonIgnore
     public boolean isAccountNonLocked() {
-        return !accountLocked;
+        return !getAccountLocked();
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.openprice.domain.account;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
@@ -10,8 +12,9 @@ import lombok.Setter;
  * Super class for UserProfile and AdminProfile.
  * Profiles are embedded components inside account (UserAccount or AdminAccount).
  */
+@SuppressWarnings("serial")
 @MappedSuperclass
-public class AbstractProfile {
+public abstract class AbstractProfile implements Serializable {
 
     @Getter @Setter
     @Column(name="first_name")

@@ -78,7 +78,7 @@ public class UserReceiptFeedbackRestApiIT extends AbstractUserRestApiIntegration
         // check database
         Receipt receipt = receiptRepository.findOne(RECEIPT_ID);
         assertNotNull(receipt);
-        assertFalse(receipt.isNeedFeedback());
+        assertFalse(receipt.getNeedFeedback());
         List<ReceiptFeedback> feedbacks = receiptFeedbackRepository.findByReceiptOrderByCreatedTime(receipt);
         assertEquals(1, feedbacks.size());
     }

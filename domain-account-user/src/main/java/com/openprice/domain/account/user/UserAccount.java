@@ -42,15 +42,15 @@ public class UserAccount extends AbstractAccount {
     private SortedSet<UserRoleType> roles = new TreeSet<>();
 
     @Getter @Setter
-    @Column(name="email")
+    @Column(name="email", unique=true)
     private String email;
 
     @Getter @Setter
     @Column(name="trusted_account")
-    private boolean trustedAccount = false;
+    private Boolean trustedAccount = false;
 
-    @Getter @Setter
-    private UserProfile profile;
+    @Getter
+    private UserProfile profile = new UserProfile();
 
     @Override
     @JsonIgnore
@@ -86,12 +86,8 @@ public class UserAccount extends AbstractAccount {
         userAccount.setEmail(email);
         userAccount.setPassword(password);
         userAccount.getRoles().add(UserRoleType.ROLE_USER);
-
-        final UserProfile profile = new UserProfile();
-        profile.setFirstName(firstName);
-        profile.setLastName(lastName);
-        userAccount.setProfile(profile);
-
+        userAccount.getProfile().setFirstName(firstName);
+        userAccount.getProfile().setLastName(lastName);
         return userAccount;
     }
 

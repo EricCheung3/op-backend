@@ -47,7 +47,7 @@ public class UserAccountServiceTest {
         final UserAccount newAccount = serviceToTest.createUserAccountByRegistrationData("john.doe@email.com", "password", "John", "Doe");
 
         assertEquals("john.doe@email.com", newAccount.getEmail());
-        assertFalse(newAccount.isTrustedAccount());
+        assertFalse(newAccount.getTrustedAccount());
         //assertFalse(newAccount.isEnabled());
         assertEquals("John", newAccount.getProfile().getFirstName());
         assertEquals("Doe", newAccount.getProfile().getLastName());
