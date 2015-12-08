@@ -77,7 +77,6 @@ public class ReceiptServiceTest {
         image2.setFileName("test2");
         image2.setOcrResult("ocr result2");
         final List<ReceiptImage> images = Arrays.asList(image1, image2);
-        receipt.setImages(images);
 
         final List<String> ocrTextList = Arrays.asList("ocr result1","ocr result2");
 

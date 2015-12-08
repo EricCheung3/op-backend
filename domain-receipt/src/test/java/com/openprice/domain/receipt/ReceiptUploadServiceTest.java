@@ -2,6 +2,7 @@ package com.openprice.domain.receipt;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.when;
 
@@ -85,16 +86,15 @@ public class ReceiptUploadServiceTest {
 
         });
 
-        final Receipt receipt = serviceToTest.uploadImageForNewReceipt(testUser, base64String);
-
-        //receipt has correct data
-        assertEquals("receipt123", receipt.getId());
-        assertEquals(testUser, receipt.getUser());
+        final ReceiptImage image = serviceToTest.uploadImageForNewReceipt(testUser, base64String);
 
         //receipt image has been saved
-        final ReceiptImage image = receipt.getImages().get(0);
         assertEquals("image123", image.getId());
         assertEquals(ProcessStatusType.UPLOADED, image.getStatus());
+
+        //receipt has correct data
+        assertEquals("receipt123", image.getReceipt().getId());
+        assertEquals(testUser, image.getReceipt().getUser());
 
         // check file exists and content is the same as test content
         final Path imageFile = fileSystemService.getReceiptImageSubFolder(testUser.getId()).resolve(image.getFileName());
@@ -131,16 +131,15 @@ public class ReceiptUploadServiceTest {
 
         when(fileMock.getBytes()).thenReturn(content);
 
-        final Receipt receipt = serviceToTest.uploadImageForNewReceipt(testUser, fileMock);
-
-        //receipt has correct data
-        assertEquals("receipt123", receipt.getId());
-        assertEquals(testUser, receipt.getUser());
+        final ReceiptImage image = serviceToTest.uploadImageForNewReceipt(testUser, fileMock);
 
         //receipt image has been saved
-        final ReceiptImage image = receipt.getImages().get(0);
         assertEquals("image123", image.getId());
         assertEquals(ProcessStatusType.UPLOADED, image.getStatus());
+
+        //receipt has correct data
+        assertEquals("receipt123", image.getReceipt().getId());
+        assertEquals(testUser, image.getReceipt().getUser());
 
         // check file exists and content is the same as test content
         final Path imageFile = fileSystemService.getReceiptImageSubFolder(testUser.getId()).resolve(image.getFileName());
@@ -155,8 +154,6 @@ public class ReceiptUploadServiceTest {
         final byte[] content = TEST_CONTENT.getBytes();
         final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
         final Receipt receipt = Receipt.createReceipt(testUser);
-        receipt.setId("receipt123");
-        receipt.getImages().add(new ReceiptImage()); //first image
 
         when(receiptImageRepositoryMock.save(isA(ReceiptImage.class))).thenAnswer( new Answer<ReceiptImage>() {
             @Override
@@ -171,7 +168,9 @@ public class ReceiptUploadServiceTest {
         when(receiptRepositoryMock.save(isA(Receipt.class))).thenAnswer( new Answer<Receipt>() {
             @Override
             public Receipt answer(InvocationOnMock invocation) throws Throwable {
-                return (Receipt)invocation.getArguments()[0];
+                final Receipt receipt = (Receipt)invocation.getArguments()[0];
+                receipt.setId("receipt123");
+                return receipt;
             }
         });
 
@@ -200,8 +199,6 @@ public class ReceiptUploadServiceTest {
         final String base64String = Base64.getEncoder().encodeToString(content);
         final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
         final Receipt receipt = Receipt.createReceipt(testUser);
-        receipt.setId("receipt123");
-        receipt.getImages().add(new ReceiptImage()); //first image
 
         when(receiptImageRepositoryMock.save(isA(ReceiptImage.class))).thenAnswer( new Answer<ReceiptImage>() {
             @Override
@@ -216,7 +213,9 @@ public class ReceiptUploadServiceTest {
         when(receiptRepositoryMock.save(isA(Receipt.class))).thenAnswer( new Answer<Receipt>() {
             @Override
             public Receipt answer(InvocationOnMock invocation) throws Throwable {
-                return (Receipt)invocation.getArguments()[0];
+                final Receipt receipt = (Receipt)invocation.getArguments()[0];
+                receipt.setId("receipt123");
+                return receipt;
             }
         });
 
@@ -265,17 +264,16 @@ public class ReceiptUploadServiceTest {
         when(fileMock.getBytes()).thenReturn(TEST_CONTENT.getBytes());
         when(ocrMock.getBytes()).thenReturn(TEST_OCR.getBytes());
 
-        final Receipt receipt = serviceToTest.hackloadImageFileAndOcrResultForNewReceipt(testUser, fileMock, ocrMock);
-
-        //receipt has correct data
-        assertEquals("receipt123", receipt.getId());
-        assertEquals(testUser, receipt.getUser());
+        final ReceiptImage image = serviceToTest.hackloadImageFileAndOcrResultForNewReceipt(testUser, fileMock, ocrMock);
 
         //receipt image has been saved
-        final ReceiptImage image = receipt.getImages().get(0);
         assertEquals("image123", image.getId());
         assertEquals(ProcessStatusType.SCANNED, image.getStatus());
         assertEquals(TEST_OCR, image.getOcrResult());
+
+        //receipt has correct data
+        assertEquals("receipt123", image.getReceipt().getId());
+        assertEquals(testUser, image.getReceipt().getUser());
 
         // check file exists and content is the same as test content
         final Path imageFile = fileSystemService.getReceiptImageSubFolder(testUser.getId()).resolve(image.getFileName());
@@ -294,8 +292,9 @@ public class ReceiptUploadServiceTest {
 
         final ReceiptImage image = receipt.createImage();
 
+        when(receiptImageRepositoryMock.countByReceipt(eq(receipt))).thenReturn(1l);
+        when(receiptImageRepositoryMock.findFirstByReceiptOrderByCreatedTime(eq(receipt))).thenReturn(image);
         when(ocrMock.getBytes()).thenReturn(TEST_OCR.getBytes());
-
 
         serviceToTest.hackloadOcrResult(receipt, ocrMock);
 
