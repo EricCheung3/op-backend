@@ -299,7 +299,7 @@ public class ReceiptUploadServiceTest {
         serviceToTest.hackloadOcrResult(receipt, ocrMock);
 
         //receipt image has ocr data
-         assertEquals(ProcessStatusType.SCANNED, image.getStatus());
+        assertEquals(ProcessStatusType.SCANNED, image.getStatus());
         assertEquals(TEST_OCR, image.getOcrResult());
     }
 

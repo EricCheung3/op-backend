@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AdminReceiptResultRestController extends AbstractReceiptAdminRestController {
 
-    private final ReceiptResultRepository receiptDataRepository;
+    private final ReceiptResultRepository receiptResultRepository;
     private final ReceiptItemRepository receiptItemRepository;
     private final AdminReceiptResultResource.Assembler receiptResultResourceAssembler;
     private final AdminReceiptItemResource.Assembler receiptItemResourceAssembler;
@@ -46,12 +46,12 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
                                             final ReceiptService receiptService,
                                             final ReceiptUploadService receiptUploadService,
                                             final ReceiptRepository receiptRepository,
-                                            final ReceiptResultRepository receiptDataRepository,
+                                            final ReceiptResultRepository receiptResultRepository,
                                             final ReceiptItemRepository receiptItemRepository,
                                             final AdminReceiptResultResource.Assembler receiptResultResourceAssembler,
                                             final AdminReceiptItemResource.Assembler receiptItemResourceAssembler) {
         super(adminAccountService, receiptService, receiptUploadService, receiptRepository);
-        this.receiptDataRepository = receiptDataRepository;
+        this.receiptResultRepository = receiptResultRepository;
         this.receiptItemRepository = receiptItemRepository;
         this.receiptResultResourceAssembler = receiptResultResourceAssembler;
         this.receiptItemResourceAssembler = receiptItemResourceAssembler;
@@ -63,7 +63,7 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
             @PageableDefault(size = UtilConstants.MAX_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<ReceiptResult> assembler) {
         final Receipt receipt = loadReceiptById(receiptId);
-        final Page<ReceiptResult> results = receiptDataRepository.findByReceiptOrderByCreatedTime(receipt, pageable);
+        final Page<ReceiptResult> results = receiptResultRepository.findByReceiptOrderByCreatedTime(receipt, pageable);
         return ResponseEntity.ok(assembler.toResource(results, receiptResultResourceAssembler));
     }
 
@@ -84,7 +84,7 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
             final PagedResourcesAssembler<ReceiptItem> assembler) throws ResourceNotFoundException {
         final Receipt receipt = loadReceiptById(receiptId);
         final ReceiptResult result = loadReceiptResultByIdAndCheckReceipt(resultId, receipt);
-        final Page<ReceiptItem> items = receiptItemRepository.findByReceiptResult(result, pageable);
+        final Page<ReceiptItem> items = receiptItemRepository.findByReceiptResultOrderByLineNumber(result, pageable);
         return ResponseEntity.ok(assembler.toResource(items, receiptItemResourceAssembler));
     }
 
@@ -100,7 +100,7 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
     }
 
     private ReceiptResult loadReceiptResultByIdAndCheckReceipt(final String resultId, final Receipt receipt) {
-        final ReceiptResult result = receiptDataRepository.findOne(resultId);
+        final ReceiptResult result = receiptResultRepository.findOne(resultId);
         if (result == null) {
             log.warn("ILLEGAL RECEIPT RESULT ACCESS! No such receipt result Id: {}.", resultId);
             throw new ResourceNotFoundException("No receipt result with the id: " + resultId);

@@ -30,6 +30,9 @@ public class ReceiptItem extends BaseAuditableEntity {
     @JsonIgnore
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="receipt_result_id")
+    @org.hibernate.annotations.OnDelete(
+        action = org.hibernate.annotations.OnDeleteAction.CASCADE
+    )
     private ReceiptResult receiptResult;
 
     @Getter @Setter

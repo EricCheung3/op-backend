@@ -73,28 +73,28 @@ public class Receipt extends BaseAuditableEntity {
     }
 
     /**
-     * Builder method to create a new <code>ReceiptData</code> object from parser result <code>ParsedReceipt</code>.
+     * Builder method to create a new <code>ReceiptResult</code> object from parser result <code>ParsedReceipt</code>.
      *
      * @param parsedReceipt
      * @return
      */
-    public ReceiptResult createReceiptDataFromParserResult(final ParsedReceipt parsedReceipt) {
-        final ReceiptResult data = new ReceiptResult();
-        data.setReceipt(this);
+    public ReceiptResult createReceiptResultFromParserResult(final ParsedReceipt parsedReceipt) {
+        final ReceiptResult result = new ReceiptResult();
+        result.setReceipt(this);
         if (parsedReceipt.getChain() != null) {
-            data.setChainCode(parsedReceipt.getChain().getCode());
+            result.setChainCode(parsedReceipt.getChain().getCode());
         }
         if (parsedReceipt.getBranch() != null) {
-            data.setBranchName(parsedReceipt.getBranch().getBranchName());
+            result.setBranchName(parsedReceipt.getBranch().getBranchName());
         }
         final ValueLine parsedTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Total);
         if (parsedTotalValue != null) {
-            data.setParsedTotal(parsedTotalValue.getValue());
+            result.setParsedTotal(parsedTotalValue.getValue());
         }
         final ValueLine parsedDateValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Date);
         if (parsedDateValue != null) {
-            data.setParsedDate(parsedDateValue.getValue());
+            result.setParsedDate(parsedDateValue.getValue());
         }
-        return data;
+        return result;
     }
 }
