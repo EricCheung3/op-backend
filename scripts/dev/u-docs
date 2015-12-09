@@ -4,7 +4,7 @@ cd $oproot/openprice-backend
 git pull
 
 cd $oproot/openprice-backend
-mvn clean install -Pdev
+mvn clean install -P prod
 cd $oproot/openprice-backend/server-docs
 mvn docker:build
 

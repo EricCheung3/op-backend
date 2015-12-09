@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -13,7 +12,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -35,7 +33,7 @@ import lombok.ToString;
 @Table( name="user_account" )
 public class UserAccount extends AbstractAccount {
 
-    @Getter @Setter
+    @Getter
     @ElementCollection(targetClass=UserRoleType.class, fetch=FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name="user_role", joinColumns=@JoinColumn(name="user_account_id"))
@@ -44,18 +42,15 @@ public class UserAccount extends AbstractAccount {
     private SortedSet<UserRoleType> roles = new TreeSet<>();
 
     @Getter @Setter
-    @Column(name="email")
+    @Column(name="email", unique=true)
     private String email;
 
     @Getter @Setter
     @Column(name="trusted_account")
-    private boolean trustedAccount = false;
+    private Boolean trustedAccount = false;
 
-    @Getter @Setter
-    @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn
-    @JsonIgnore
-    private UserProfile profile;
+    @Getter
+    private UserProfile profile = new UserProfile();
 
     @Override
     @JsonIgnore
@@ -74,7 +69,30 @@ public class UserAccount extends AbstractAccount {
     }
 
     /**
-     * Static builder method to create a UserAccount object for test purpose.
+     * Static builder method to create a normal UserAccount object with profile from input.
+     * Can be used from self-registration or user management.
+     *
+     * @param email
+     * @param password
+     * @param firstName
+     * @param lastName
+     * @return
+     */
+    public static UserAccount createNormalUser(final String email,
+                                               final String password,
+                                               final String firstName,
+                                               final String lastName) {
+        final UserAccount userAccount = new UserAccount();
+        userAccount.setEmail(email);
+        userAccount.setPassword(password);
+        userAccount.getRoles().add(UserRoleType.ROLE_USER);
+        userAccount.getProfile().setFirstName(firstName);
+        userAccount.getProfile().setLastName(lastName);
+        return userAccount;
+    }
+
+    /**
+     * Static builder method to create a UserAccount object without profile for test purpose. FIXME ???
      *
      * @param id
      * @param email

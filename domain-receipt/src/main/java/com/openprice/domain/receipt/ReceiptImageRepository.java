@@ -12,4 +12,8 @@ public interface ReceiptImageRepository extends JpaRepository<ReceiptImage, Stri
 
     List<ReceiptImage> findByReceiptOrderByCreatedTime(Receipt receipt);
 
+    Long countByReceipt(Receipt receipt);
+
+    ReceiptImage findFirstByReceiptOrderByCreatedTime(Receipt receipt);
+
 }

@@ -1,5 +1,7 @@
 package com.openprice.rest.user.receipt;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.openprice.domain.receipt.ReceiptItem;
 
@@ -11,7 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class UserReceiptItemForm {
+@SuppressWarnings("serial")
+public class UserReceiptItemForm implements Serializable {
 
     private String name;
 

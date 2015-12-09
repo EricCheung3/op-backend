@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -13,7 +12,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -35,7 +33,7 @@ import lombok.ToString;
 @Table( name="admin_account" )
 public class AdminAccount extends AbstractAccount {
 
-    @Getter @Setter
+    @Getter
     @ElementCollection(targetClass=AdminRoleType.class, fetch=FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name="admin_role", joinColumns=@JoinColumn(name="admin_account_id"))
@@ -43,21 +41,22 @@ public class AdminAccount extends AbstractAccount {
     @org.hibernate.annotations.SortNatural
     private SortedSet<AdminRoleType> roles = new TreeSet<>();
 
-    @Getter @Setter
-    @Column(name="username")
+    @Getter
+    @Column(name="username", unique=true)
     private String username;
 
     @Getter @Setter
     @Column(name="email")
     private String email;
 
-    @Getter @Setter
-    @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn
-    @JsonIgnore
-    private AdminProfile profile;
+    @Getter
+    private AdminProfile profile = new AdminProfile();
 
     AdminAccount() {}
+
+    AdminAccount(final String username) {
+        this.username = username;
+    }
 
     @Override
     @JsonIgnore
@@ -72,20 +71,6 @@ public class AdminAccount extends AbstractAccount {
             }
         }
         return false;
-    }
-
-    /**
-     * Builder method to create a new admin account.
-     *
-     * @param user
-     * @return
-     */
-    public static AdminAccount createAccount() {
-        final AdminAccount admin = new AdminAccount();
-        final AdminProfile profile = new AdminProfile();
-        admin.setProfile(profile);
-        profile.setAdmin(admin);
-        return admin;
     }
 
 }

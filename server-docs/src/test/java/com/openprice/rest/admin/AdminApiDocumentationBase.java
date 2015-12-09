@@ -50,18 +50,15 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
         // add two images to the receipt
         final ReceiptImage image1 = receipt.createImage();
         image1.setStatus(ProcessStatusType.UPLOADED);
-        receipt.getImages().add(image1);
         receiptImageRepository.save(image1);
         final ReceiptImage image2 = receipt.createImage();
         image2.setStatus(ProcessStatusType.UPLOADED);
-        receipt.getImages().add(image2);
         receiptImageRepository.save(image2);
 
         receipt = Receipt.createReceipt(user);
         receipt = receiptRepository.save(receipt);
         final ReceiptImage image = receipt.createImage();
         image.setStatus(ProcessStatusType.UPLOADED);
-        receipt.getImages().add(image);
         receiptImageRepository.save(image);
 
     }

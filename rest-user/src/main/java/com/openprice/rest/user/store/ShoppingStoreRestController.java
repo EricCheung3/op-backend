@@ -77,7 +77,7 @@ public class ShoppingStoreRestController extends AbstractUserStoreRestController
         final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
         final StoreChain chain = storeChainRepository.findByCode(store.getChainCode());
         if (chain != null && !StringUtils.isEmpty(query)){
-            return ResponseEntity.ok(catalogRepository.searchCatalog(chain, query.toUpperCase()));
+            return ResponseEntity.ok(catalogRepository.findTop20ByChainAndNaturalNameIgnoreCaseContaining(chain, query));
         }
         return ResponseEntity.ok(Collections.emptyList());
     }

@@ -11,8 +11,8 @@
     <artifactId>openprice-server-common</artifactId>
     <packaging>jar</packaging>
 
-    <name>REST API Server Common</name>
-    <description>OpenPrice REST API server common code for web-api and admin-api.</description>
+    <name>RESTful API Server Common</name>
+    <description>OpenPrice common code for other RESTful API Servers, such as web-api and admin-api.</description>
 
     <dependencies>
         <dependency>
@@ -49,6 +49,13 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
+        </dependency>
+
+        <!-- For Loggly Logback extension -->
+        <dependency>
+            <groupId>org.logback-extensions</groupId>
+            <artifactId>logback-ext-loggly</artifactId>
+            <version>0.1.2</version>
         </dependency>
 
     </dependencies>

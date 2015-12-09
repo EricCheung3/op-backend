@@ -40,7 +40,6 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
                 .body("roles[1]", equalTo(UserRoleType.ROLE_USER.name()))
                 .body("trustedAccount", equalTo(true))
                 .body("activated", equalTo(true))
-                .body("profile.id", equalTo("profile001"))
                 .body("profile.firstName", equalTo("John"))
                 .body("profile.lastName", equalTo("Doe"))
                 .body("uploadUrl", endsWith(URL_USER_RECEIPTS_UPLOAD))
@@ -67,7 +66,6 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
             .then()
                 .statusCode(HttpStatus.SC_OK)
                 .contentType(ContentType.JSON)
-                .body("id", equalTo("profile002"))
                 .body("firstName", equalTo("Jane"))
                 .body("lastName", equalTo("Doe"))
             ;
@@ -89,7 +87,6 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
             .then()
                 .statusCode(HttpStatus.SC_OK)
                 .contentType(ContentType.JSON)
-                .body("id", equalTo("profile002"))
                 .body("address.address1", equalTo("101 123 street"))
                 .body("address.city", equalTo("Edmonton"))
             ;
@@ -121,7 +118,6 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
             .then()
                 .statusCode(HttpStatus.SC_OK)
                 .contentType(ContentType.JSON)
-                .body("id", equalTo("profile002"))
                 .body("address.address1", equalTo("888 Broadway Ave"))
                 .body("address.city", equalTo("Calgary"))
             ;

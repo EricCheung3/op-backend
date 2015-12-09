@@ -4,47 +4,40 @@ cd $oproot/openprice-backend
 git pull
 
 cd $oproot/openprice-backend
-mvn clean install -Pdev
+mvn clean install -P prod
 
-cd $oproot/openprice-backend/server-internal-api
-mvn docker:build
-
-cd $oproot/openprice-backend/server-admin-api
-mvn docker:build
-
-cd $oproot/openprice-backend/server-web-api
-mvn docker:build
-
-cd $oproot/openprice-backend/server-docs
-mvn docker:build
 
 docker run --name openprice-mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=openprice -e MYSQL_USER=openprice -e MYSQL_PASSWORD=openprice -d mysql:5.6
 
-# docker run --name openprice-server-ocr-1 -d -e SPRING_PROFILES_ACTIVE=abbyy -e LOGGING_FILE_FOLDER=/groundtruth/logs -e OCR_SERVER_NAME=ocr1 -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images openprice/openprice-server-ocr
-# docker run --name openprice-server-ocr-2 -d -e SPRING_PROFILES_ACTIVE=abbyy -e LOGGING_FILE_FOLDER=/groundtruth/logs -e OCR_SERVER_NAME=ocr2 -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images openprice/openprice-server-ocr
+# OCR Image Processing Server, used by Internal API Server only
+cd $oproot/openprice-backend/server-ocr
+mvn docker:build
+docker run --name openprice-server-ocr-1 -e SERVER_NAME=OCR001 -e SPRING_PROFILES_ACTIVE=fake_ocr -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link openprice-mysql:mysql -d openprice/openprice-server-ocr
+docker run --name openprice-server-ocr-2 -e SERVER_NAME=OCR002 -e SPRING_PROFILES_ACTIVE=fake_ocr -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link openprice-mysql:mysql -d openprice/openprice-server-ocr
 
-docker run --name openprice-server-internal-api -p 7900:7900 -e SPRING_PROFILES_ACTIVE=sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link openprice-mysql:mysql --link openprice-server-ocr-1:openprice-server-ocr-1 -d openprice/openprice-server-internal-api
+# Internal RESTful API Server, internal usage only
+cd $oproot/openprice-backend/server-internal-api
+mvn docker:build
+docker run --name openprice-server-internal-api -e SERVER_NAME=INTAPI -e SPRING_PROFILES_ACTIVE=sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link openprice-mysql:mysql --link openprice-server-ocr-1:openprice-server-ocr-1 --link openprice-server-ocr-2:openprice-server-ocr-2 -d openprice/openprice-server-internal-api
 
-docker run --name openprice-server-web-api -p 7800:7800 -e SPRING_PROFILES_ACTIVE=sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link openprice-mysql:mysql --link openprice-server-internal-api:openprice-server-internal-api -d openprice/openprice-server-web-api
+# Web RESTful API Server, for Web UI
+cd $oproot/openprice-backend/server-web-api
+mvn docker:build
+docker run --name openprice-server-web-api -p 7800:8080 -e SERVER_NAME=WEBAPI -e SPRING_PROFILES_ACTIVE=sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link openprice-mysql:mysql --link openprice-server-internal-api:openprice-server-internal-api -d openprice/openprice-server-web-api
 
-docker run --name openprice-server-admin-api -p 7801:7801 -e SPRING_PROFILES_ACTIVE=sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link openprice-mysql:mysql --link openprice-server-internal-api:openprice-server-internal-api -d openprice/openprice-server-admin-api
+# ADMIN RESTful API Server, for Admin UI
+cd $oproot/openprice-backend/server-admin-api
+mvn docker:build
+docker run --name openprice-server-admin-api -p 7801:8080 -e SERVER_NAME=ADMAPI -e SPRING_PROFILES_ACTIVE=sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link openprice-mysql:mysql --link openprice-server-internal-api:openprice-server-internal-api -d openprice/openprice-server-admin-api
 
+# REST Documentation
+cd $oproot/openprice-backend/server-docs
+mvn docker:build
 docker run --name openprice-server-docs -p 8880:8080 -d openprice/openprice-server-docs
 
+# Administration UI
 cd $oproot/openprice-admin-ui
-git pull
-npm install
-bower install
-gulp build
+gulp build --env localdocker
 cd $oproot/openprice-admin-ui/docker
 docker build -t openprice/openprice-server-admin-ui .
 docker run --name openprice-server-admin-ui -p 8081:80 -d openprice/openprice-server-admin-ui
-
-cd $oproot/openprice-web-ui
-git pull
-npm install
-bower install
-gulp build
-cd $oproot/openprice-web-ui/docker
-docker build -t openprice/openprice-server-web-ui .
-docker run --name openprice-server-web-ui -p 8080:80 -d openprice/openprice-server-web-ui

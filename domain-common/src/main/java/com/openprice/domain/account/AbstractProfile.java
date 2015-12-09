@@ -1,20 +1,20 @@
 package com.openprice.domain.account;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-
-import com.openprice.domain.BaseAuditableEntity;
 
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * Super class for UserProfile and AdminProfile.
- * We are using "Table per concrete class with implicit polymorphism" for profile hierarchy.
+ * Profiles are embedded components inside account (UserAccount or AdminAccount).
  */
-@MappedSuperclass
 @SuppressWarnings("serial")
-public class AbstractProfile extends BaseAuditableEntity {
+@MappedSuperclass
+public abstract class AbstractProfile implements Serializable {
 
     @Getter @Setter
     @Column(name="first_name")
@@ -31,5 +31,9 @@ public class AbstractProfile extends BaseAuditableEntity {
     @Getter @Setter
     @Column(name="phone")
     private String phone;
+
+    public String getDisplayName() {
+        return getFirstName() + " " + getLastName();
+    }
 
 }

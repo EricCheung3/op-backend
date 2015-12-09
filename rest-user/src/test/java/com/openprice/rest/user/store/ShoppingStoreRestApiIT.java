@@ -80,7 +80,7 @@ public class ShoppingStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
             .when()
                 .get(userShoppingStoreCatalogsQueryUrl(sessionFilter, "shoppingStore101", "egg"))
             ;
-        response.prettyPrint();
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
@@ -100,7 +100,7 @@ public class ShoppingStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
             .when()
                 .get(userShoppingStoreCatalogsQueryUrl(sessionFilter, "shoppingStore101", ""))
             ;
-        response.prettyPrint();
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)

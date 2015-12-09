@@ -125,9 +125,7 @@ public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTes
             .contentType(ContentType.JSON)
             //.body("status", equalTo(ProcessStatusType.SCANNED.name()))
         ;
-
         //response.prettyPrint();
-
         // verify image in FileSystem
         String fileName = response.then().extract().path("fileName");
         Path imageFile = fileSystemService.getReceiptImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);

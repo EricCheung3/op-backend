@@ -79,7 +79,7 @@ public class UserReceiptResultRestController extends AbstractUserReceiptRestCont
             final PagedResourcesAssembler<ReceiptItem> assembler) {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         final ReceiptResult result = receiptService.getLatestReceiptResult(receipt);
-        final Page<ReceiptItem> items = receiptItemRepository.findByReceiptResultAndIgnoredIsFalse(result, pageable);
+        final Page<ReceiptItem> items = receiptItemRepository.findByReceiptResultAndIgnoredIsFalseOrderByLineNumber(result, pageable);
         return ResponseEntity.ok(assembler.toResource(items, receiptItemResourceAssembler));
     }
 

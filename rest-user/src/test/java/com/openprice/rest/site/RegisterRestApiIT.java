@@ -50,9 +50,7 @@ public class RegisterRestApiIT extends AbstractRestApiIntegrationTest {
             .when()
                 .get(ApiConstants.EXTERNAL_API_ROOT + "/user")
             ;
-
         //response.prettyPrint();
-
         response
             .then()
                 .statusCode(HttpStatus.SC_OK)

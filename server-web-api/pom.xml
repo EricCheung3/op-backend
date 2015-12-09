@@ -11,11 +11,11 @@
     <artifactId>openprice-server-web-api</artifactId>
     <packaging>jar</packaging>
 
-    <name>REST API Web Service</name>
-    <description>OpenPrice REST API server code.</description>
+    <name>Web RESTful API Server</name>
+    <description>OpenPrice RESTful API Server for public or end user services.</description>
 
     <properties>
-        <start-class>com.openprice.OpenPriceWebApiApplication</start-class>
+        <start-class>com.openprice.WebApiApplication</start-class>
     </properties>
 
     <dependencies>
@@ -41,6 +41,7 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+
     </dependencies>
 
     <build>

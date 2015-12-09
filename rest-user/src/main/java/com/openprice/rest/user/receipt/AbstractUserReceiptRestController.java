@@ -54,14 +54,14 @@ public abstract class AbstractUserReceiptRestController extends AbstractUserRest
     }
 
     @Transactional
-    protected Receipt newReceiptWithBase64ImageData(final String base64Data) {
+    protected ReceiptImage newReceiptWithBase64ImageData(final String base64Data) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
         log.debug("User {} upload image as base64 string for new receipt", currentUser.getUsername());
         return receiptUploadService.uploadImageForNewReceipt(currentUser, base64Data);
     }
 
     @Transactional
-    protected Receipt newReceiptWithFile(final MultipartFile file) {
+    protected ReceiptImage newReceiptWithFile(final MultipartFile file) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
         log.debug("User {} upload image file for new receipt", currentUser.getUsername());
         return receiptUploadService.uploadImageForNewReceipt(currentUser, file);

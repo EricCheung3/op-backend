@@ -10,8 +10,9 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
 
-import com.openprice.domain.receipt.ReceiptResult;
 import com.openprice.domain.receipt.ReceiptItem;
+import com.openprice.domain.receipt.ReceiptItemRepository;
+import com.openprice.domain.receipt.ReceiptResult;
 import com.openprice.rest.LinkBuilder;
 import com.openprice.rest.user.UserApiUrls;
 
@@ -30,17 +31,20 @@ public class UserReceiptResultResource extends Resource<ReceiptResult> {
     @Component
     public static class Assembler implements ResourceAssembler<ReceiptResult, UserReceiptResultResource>, UserApiUrls {
 
+        private final ReceiptItemRepository receiptItemRepository;
         private final UserReceiptItemResource.Assembler itemResourceAssembler;
 
         @Inject
-        public Assembler(final UserReceiptItemResource.Assembler itemResourceAssembler) {
+        public Assembler(final ReceiptItemRepository receiptItemRepository,
+                         final UserReceiptItemResource.Assembler itemResourceAssembler) {
+            this.receiptItemRepository = receiptItemRepository;
             this.itemResourceAssembler = itemResourceAssembler;
         }
 
         @Override
-        public UserReceiptResultResource toResource(final ReceiptResult receiptData) {
-            final String[] pairs = {"receiptId", receiptData.getReceipt().getId()};
-            final UserReceiptResultResource resource = new UserReceiptResultResource(receiptData);
+        public UserReceiptResultResource toResource(final ReceiptResult result) {
+            final String[] pairs = {"receiptId", result.getReceipt().getId()};
+            final UserReceiptResultResource resource = new UserReceiptResultResource(result);
             final LinkBuilder linkBuilder = new LinkBuilder(resource);
             linkBuilder.addLink(Link.REL_SELF, URL_USER_RECEIPTS_RECEIPT_RESULT, false, pairs)
                        .addLink("items", URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS, true, pairs)
@@ -49,10 +53,8 @@ public class UserReceiptResultResource extends Resource<ReceiptResult> {
 
             // TODO fix _embedded issue
             List<UserReceiptItemResource> items = new ArrayList<>();
-            for (ReceiptItem item : receiptData.getItems()) {
-                if (!item.getIgnored()) {
-                    items.add(itemResourceAssembler.toResource(item));
-                }
+            for (ReceiptItem item : receiptItemRepository.findByReceiptResultAndIgnoredIsFalseOrderByLineNumber(result)) {
+                items.add(itemResourceAssembler.toResource(item));
             }
             resource.setItems(items);
 

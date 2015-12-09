@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <admin_profile id="admin001" version="1" first_name="Isaac" last_name="Newton" phone="+1 123-456-001" title="CEO" created_time="2009-01-01 10:00:01.0000"/>
-    <admin_profile id="admin002" version="1" first_name="Albert" last_name="Einstein" phone="+1 123-456-002" title="CTO" created_time="2009-01-01 10:00:01.0000"/>
-    <admin_profile id="admin003" version="1" first_name="Stephen" last_name="Hawking" phone="+1 123-456-003" title="Manager" created_time="2009-01-01 10:00:01.0000"/>
-    
     <admin_account id="admin001" version="1" username="newton" password="12345" account_locked="false" activated="true"
-        email="newton@openprice.com" profile_id="admin001" created_time="2009-01-01 10:00:01.0000"/>
+        email="newton@openprice.com" first_name="Isaac" last_name="Newton" phone="+1 123-456-001" title="CEO"
+        created_time="2009-01-01 10:00:01.0000"/>
     <admin_account id="admin002" version="1" username="einstein" password="12345" account_locked="false" activated="true"
-        email="einstein@openprice.com" profile_id="admin002" created_time="2009-01-02 10:00:01.0000"/>
+        email="einstein@openprice.com" first_name="Albert" last_name="Einstein" phone="+1 123-456-002" title="CTO"
+        created_time="2009-01-02 10:00:01.0000"/>
     <admin_account id="admin003" version="1" username="hawking" password="12345" account_locked="false" activated="true"
-        email="hawking@openprice.com" profile_id="admin003" created_time="2009-01-03 10:00:01.0000"/>
+        email="hawking@openprice.com" first_name="Stephen" last_name="Hawking" phone="+1 123-456-003" title="Manager"
+        created_time="2009-01-03 10:00:01.0000"/>
 
     <admin_role admin_account_id="admin001" role="ROLE_SUPER_ADMIN"/>
     <admin_role admin_account_id="admin001" role="ROLE_USER_MANAGER"/>
     <admin_role admin_account_id="admin002" role="ROLE_USER_MANAGER"/>
     <admin_role admin_account_id="admin003" role="ROLE_STORE_ADMIN"/>
 
-    <user_profile id="profile001" version="1" first_name="John" last_name="Doe" address1="101 123 street" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
-    <user_profile id="profile002" version="1" first_name="Jane" last_name="Doe" address1="101 123 street" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
-    <user_profile id="profile003" version="1" first_name="junior" last_name="Doe" address1="101 123 street" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
-
-    <user_account id="user001" version="1" email="john.doe@email.com" password="12345" account_locked="false" activated="true" trusted_account="true" profile_id="profile001" created_time="2009-01-01 10:00:01.0000"/>
-    <user_account id="user002" version="1" email="jane.doe@email.com" password="12345" account_locked="false" activated="true" trusted_account="true" profile_id="profile002" created_time="2009-01-02 10:00:01.0000"/>
-    <user_account id="user003" version="1" email="junior.doe@email.com" password="12345" account_locked="false" activated="true" trusted_account="true" profile_id="profile003" created_time="2009-01-03 10:00:01.0000"/>
+    <user_account id="user001" version="1" email="john.doe@email.com" password="12345" account_locked="false" activated="true" trusted_account="true" 
+        first_name="John" last_name="Doe" address1="101 123 street" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
+    <user_account id="user002" version="1" email="jane.doe@email.com" password="12345" account_locked="false" activated="true" trusted_account="true" 
+        first_name="Jane" last_name="Doe" address1="101 123 street" city="Edmonton" state="AB" country="Canada" created_time="2009-01-02 10:00:01.0000"/>
+    <user_account id="user003" version="1" email="junior.doe@email.com" password="12345" account_locked="false" activated="true" trusted_account="true" 
+        first_name="junior" last_name="Doe" address1="101 123 street" city="Edmonton" state="AB" country="Canada" created_time="2009-01-03 10:00:01.0000"/>
 
     <user_role user_account_id="user001" role="ROLE_USER"/>
     <user_role user_account_id="user001" role="ROLE_STORE_MANAGER"/>

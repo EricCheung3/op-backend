@@ -36,7 +36,7 @@ public class UserReceiptResultRestApiIT extends AbstractUserRestApiIntegrationTe
                 given()
                     .filter(sessionFilter)
                 .when()
-                    .get(userReceiptDatatUrl(sessionFilter, "receipt001"))
+                    .get(userReceiptResultUrl(sessionFilter, "receipt001"))
                 ;
         //response.prettyPrint();
         response
@@ -61,14 +61,14 @@ public class UserReceiptResultRestApiIT extends AbstractUserRestApiIntegrationTe
     }
 
     @Test
-    public void getUserReceiptData_ShouldGenerateReceiptResultThroughParser_IfNotExist() throws Exception {
+    public void getUserReceiptResult_ShouldGenerateReceiptResultThroughParser_IfNotExist() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         Response response =
                 given()
                     .filter(sessionFilter)
                 .when()
-                    .get(userReceiptDatatUrl(sessionFilter, "receipt002"))
+                    .get(userReceiptResultUrl(sessionFilter, "receipt002"))
                 ;
         //response.prettyPrint();
         response

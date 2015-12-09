@@ -1,5 +1,6 @@
 package com.openprice.rest.user.store;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,8 @@ import lombok.Singular;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class ShoppingListForm {
+@SuppressWarnings("serial")
+public class ShoppingListForm implements Serializable {
 
     private String chainCode;
 

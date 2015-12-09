@@ -24,7 +24,6 @@ import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.account.user.UserProfile;
-import com.openprice.domain.account.user.UserProfileRepository;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.AbstractUserAdminRestController;
@@ -36,17 +35,14 @@ import com.openprice.rest.admin.AbstractUserAdminRestController;
 @RestController
 public class AdminUserAccountRestController extends AbstractUserAdminRestController {
 
-    private final UserProfileRepository userProfileRepository;
     private final AdminUserAccountResource.Assembler userResourceAssembler;
 
     @Inject
     public AdminUserAccountRestController(final AdminAccountService adminAccountService,
                                           final UserAccountService userAccountService,
                                           final UserAccountRepository userAccountRepository,
-                                          final UserProfileRepository userProfileRepository,
                                           final AdminUserAccountResource.Assembler userResourceAssembler) {
         super(adminAccountService, userAccountService, userAccountRepository);
-        this.userProfileRepository = userProfileRepository;
         this.userResourceAssembler = userResourceAssembler;
     }
 
@@ -97,8 +93,8 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
             @PathVariable("userId") final String userId,
             @RequestBody final AdminUserProfileForm profileForm) {
         final UserAccount user = getUserByUserId(userId);
-        final UserProfile profile = user.getProfile();
-        userProfileRepository.save(profileForm.updateProfile(profile));
+        profileForm.updateProfile(user.getProfile());
+        userAccountRepository.save(user);
         return ResponseEntity.noContent().build();
     }
 

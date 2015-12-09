@@ -25,16 +25,13 @@ public class UserAccountService implements UserDetailsService {
     public static final int RESET_PASSWORD_REQUEST_EXPIRING_HOURS = 2;
 
     private final UserAccountRepository userAccountRepository;
-    private final UserProfileRepository profileRepository;
     private final UserResetPasswordRequestRepository userResetPasswordRequestRepository;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Inject
     public UserAccountService(final UserAccountRepository userAccountRepository,
-                              final UserProfileRepository profileRepository,
                               final UserResetPasswordRequestRepository userResetPasswordRequestRepository) {
         this.userAccountRepository = userAccountRepository;
-        this.profileRepository = profileRepository;
         this.userResetPasswordRequestRepository = userResetPasswordRequestRepository;
     }
 
@@ -43,19 +40,9 @@ public class UserAccountService implements UserDetailsService {
                                                            final String firstName,
                                                            final String lastName) {
         final String hashedPassword = passwordEncoder.encode(password);
-        UserAccount userAccount = new UserAccount();
-        userAccount.setEmail(email);
-        userAccount.setPassword(hashedPassword);
-        userAccount.getRoles().add(UserRoleType.ROLE_USER);
+        final UserAccount userAccount = UserAccount.createNormalUser(email, hashedPassword, firstName, lastName);
         userAccount.setTrustedAccount(false);
         userAccount.setActivated(true);  // Temp solution. FIXME: add activation process
-
-        final UserProfile profile = new UserProfile();
-        profile.setUser(userAccount);
-        profile.setFirstName(firstName);
-        profile.setLastName(lastName);
-
-        userAccount.setProfile(profile);
         return userAccountRepository.save(userAccount);
     }
 
@@ -109,8 +96,6 @@ public class UserAccountService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //log.debug("==>loadUserByUsername("+username+")");
-
         final UserAccount userAccount = userAccountRepository.findByEmail(username);
         if (userAccount == null) {
             throw new UsernameNotFoundException("Cannot find user by username " + username);
