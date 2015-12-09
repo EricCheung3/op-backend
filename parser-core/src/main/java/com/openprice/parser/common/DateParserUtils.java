@@ -1,5 +1,7 @@
 package com.openprice.parser.common;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -15,17 +17,21 @@ public class DateParserUtils {
 
     //    private static Pattern datePattern= Pattern.compile("(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
 
+    private static final String DATE_SPLITTER="-/.";//date splitter between day month year
+
     //month(one or two digits) and day (one or two digits), 4-digit year
-    private static Pattern patternMonthDayYear4= Pattern.compile("([1-9]|0[1-9]|1[012])[- /.]([1-9]|0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
+    private static Pattern patternMonthDayYear4= Pattern.compile("([1-9]|0[1-9]|1[012])["+DATE_SPLITTER+"]([1-9]|0[1-9]|[12][0-9]|3[01])[" + DATE_SPLITTER+ "](19|20)\\d\\d");
 
     //month(one or two digits) and day (one or two digits), 2-digit year
-    private static Pattern patternMonthDayYear2= Pattern.compile("([1-9]|0[1-9]|1[012])[- /.]([1-9]|0[1-9]|[12][0-9]|3[01])[- /.]\\d\\d");
+    private static Pattern patternMonthDayYear2= Pattern.compile("([1-9]|0[1-9]|1[012])["+DATE_SPLITTER+"]([1-9]|0[1-9]|[12][0-9]|3[01])["+DATE_SPLITTER+"]\\d\\d");
 
     //4-digit year, month(one  two digits) and day (two digits)
-    private static Pattern patternYear4MonthDay2=Pattern.compile("(19|20)\\d\\d[-/.]([1-9]|0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])");
+    private static Pattern patternYear4MonthDay2=Pattern.compile("(19|20)\\d\\d["+DATE_SPLITTER+"]([1-9]|0[1-9]|1[012])["+DATE_SPLITTER+"](0[1-9]|[12][0-9]|3[01])");
 
     //    4-digit year, month(one  two digits) and day (one or two digits)
-    private static Pattern patternYear4MonthDay1=Pattern.compile("(19|20)\\d\\d[-/.]([1-9]|0[1-9]|1[012])[- /.]([1-9]|0[1-9]|[12][0-9]|3[01])");
+    private static Pattern patternYear4MonthDay1=Pattern.compile("(19|20)\\d\\d["+DATE_SPLITTER+"]([1-9]|0[1-9]|1[012])["+DATE_SPLITTER+"]([1-9]|0[1-9]|[12][0-9]|3[01])");
+
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     public static ValueLine findDateStringAfterLine(final List<String> origLines, final int start){
         log.debug("date line searching from line "+start+":"+origLines.get(start)+"\n");
@@ -36,6 +42,15 @@ public class DateParserUtils {
         }
         return ValueLine.defaultValueLine();
     }
+
+    /**
+     * convert a date string to Date
+     * @param dateStr
+     * @return
+     */
+    //    public static Date toDate(final String dateStr){
+    //
+    //    }
 
     /**matching date patterns
      * the following order is important
