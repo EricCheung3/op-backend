@@ -7,4 +7,5 @@ public class ReceiptLine {
     private String originalText;
     private String cleanText; // trim
     private int number;
+    private ReceiptData receipt;
 }

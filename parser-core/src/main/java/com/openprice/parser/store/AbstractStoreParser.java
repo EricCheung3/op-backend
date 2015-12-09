@@ -1,6 +1,7 @@
 package com.openprice.parser.store;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -115,8 +116,19 @@ public abstract class AbstractStoreParser implements StoreParser {
         return StringCommon.formatPrice(lineString.substring(last + 1));
     }
 
-    protected String parseDate(final String lineString){
-        return "";
+    protected String parseDate(final ReceiptLine line){
+        final List<String> origLines=line.getReceipt().getOriginalLines();
+        final int currentNumber=line.getNumber();
+        return findDateStringAfterLine(origLines, currentNumber);
+    }
+
+    public static String findDateStringAfterLine(final List<String> origLines, final int start){
+        for(int i=start; i<origLines.size();i++){
+            final String dateString=StringCommon.pruneDateString(origLines.get(i));
+            if( !dateString.isEmpty())
+                return dateString;
+        }
+        return StringCommon.EMPTY;
     }
 
     @Override

@@ -138,6 +138,6 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "116.71");
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "116.71");
         //assertEquals(fieldValues.get(ReceiptField.).getValue(), "");
-        assertEquals(fieldValues.get(ReceiptField.Date).getValue(), "");
+        assertEquals(fieldValues.get(ReceiptField.Date).getValue(), "abc");
     }
 }

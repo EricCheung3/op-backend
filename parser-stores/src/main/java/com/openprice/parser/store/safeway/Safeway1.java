@@ -15,6 +15,6 @@ public class Safeway1 extends AbstractStoreParser {
         fieldParsers.put(ReceiptField.GstAmount,  line -> parseItemPrice(line.getCleanText(), config.priceTail()));
         fieldParsers.put(ReceiptField.SubTotal,  line -> parseItemPrice(line.getCleanText(), config.priceTail()));
         fieldParsers.put(ReceiptField.Total,  line -> parseTotal(line.getCleanText()));
-        fieldParsers.put(ReceiptField.Date,  line -> parseDate(line.getCleanText()));
+        fieldParsers.put(ReceiptField.Date,  line -> parseDate(line));
     }
 }

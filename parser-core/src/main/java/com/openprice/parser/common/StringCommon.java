@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,6 +18,36 @@ public class StringCommon {
     public static final String EMPTY = "";
     public static final String WIDE_SPACES="    ";
 
+
+    /**
+     * prune a String to see if it contains any date substring in the format of
+     * AB/CD/EF or AB/CD/20EF
+     * where all A-F are digits
+     * if yes, return it,
+     * else return empty String
+     * @param str
+     * @return
+     */
+    private static Pattern datePattern= Pattern.compile("(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
+    public static String pruneDateString(final String str){
+        Matcher match=datePattern.matcher(removeAllSpaces(str));
+        final List<String> allMatches=new ArrayList<>();
+        while(match.find()){
+            allMatches.add(match.group());
+        }
+        if(allMatches.size()==0)
+            return EMPTY;
+        return selectDateString(allMatches);
+    }
+
+    /**
+     * select a date string with a good confidence from a list of candidates
+     * @param list
+     * @return
+     */
+    public static String selectDateString(final List<String> list){
+        return list.get(0);
+    }
 
     /**
      *
