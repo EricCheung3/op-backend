@@ -32,8 +32,19 @@ public class StringCommon {
     //    private static Pattern datePattern= Pattern.compile("(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
     //allowing single digit in month and day
     private static Pattern datePattern= Pattern.compile("([1-9]|0[1-9]|1[012])[- /.]([1-9]|0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
+    //allow two-digit year
+    private static Pattern datePattern2DigitYear= Pattern.compile("([1-9]|0[1-9]|1[012])[- /.]([1-9]|0[1-9]|[12][0-9]|3[01])[- /.]\\d\\d");
+
+
     public static String pruneDateString(final String str){
-        Matcher match=datePattern.matcher(removeAllSpaces(str));
+        final String strNoSpace=removeAllSpaces(str);
+        Matcher match=datePattern.matcher(strNoSpace);
+        final String dateWith4DigitYear=pruneDateStringWithMatch(str, match);
+        if(!dateWith4DigitYear.isEmpty())
+            return dateWith4DigitYear;
+        return pruneDateStringWithMatch(str, datePattern2DigitYear.matcher(strNoSpace));
+    }
+    public static String pruneDateStringWithMatch(final String str, final Matcher match){
         final List<String> allMatches=new ArrayList<>();
         while(match.find()){
             allMatches.add(match.group());

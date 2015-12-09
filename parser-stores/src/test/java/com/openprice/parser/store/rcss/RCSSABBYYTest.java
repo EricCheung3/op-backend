@@ -51,6 +51,7 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
         assertEquals(fieldValues.get(ReceiptField.StoreID).getValue(), "01570");
         assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "104.73");
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "104.73");
+        assertEquals(null, fieldValues.get(ReceiptField.Date));//this receipt has no date
 
     }
 }

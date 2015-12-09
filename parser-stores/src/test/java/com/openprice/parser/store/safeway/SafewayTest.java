@@ -58,6 +58,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         assertEquals(fieldValues.get(ReceiptField.GstNumber).getValue(), "817093735");
         assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "14.36");
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "14.87");
+        assertEquals("02/27/15", fieldValues.get(ReceiptField.Date).getValue());
 
     }
 

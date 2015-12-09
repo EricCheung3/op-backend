@@ -60,6 +60,7 @@ public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
         assertEquals(fieldValues.get(ReceiptField.GstNumber).getValue(), "817093735");
         assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "22.59");
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "23.09");
+        assertEquals(null, fieldValues.get(ReceiptField.Date));//has no date
 
 
     }
