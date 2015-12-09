@@ -4,7 +4,7 @@ cd $oproot/openprice-admin-ui
 git pull
 npm install
 bower install
-gulp build
+gulp build --env development
 
 cd $oproot/openprice-admin-ui/docker
 docker build -t openprice/openprice-server-admin-ui .

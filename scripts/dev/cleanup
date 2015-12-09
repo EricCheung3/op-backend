@@ -7,6 +7,12 @@ docker rm openprice-server-web-api
 docker stop openprice-server-internal-api
 docker rm openprice-server-internal-api
 
+docker stop openprice-server-ocr-1
+docker rm openprice-server-ocr-1
+
+docker stop openprice-server-ocr-2
+docker rm openprice-server-ocr-2
+
 docker stop openprice-server-docs
 docker rm openprice-server-docs
 
