@@ -57,16 +57,12 @@ public class MatchedRecord {
 
     // maintain
     public void putFieldLine(final ReceiptField fName, final int lineNumber) {
-        if (!fieldToLine.containsKey(fName)) {
+        if ( !fieldToLine.containsKey(fName))
             fieldToLine.put(fName, new HashSet<Integer>());
-        }
         fieldToLine.get(fName).add(lineNumber);
-
-        if (!lineToField.containsKey(lineNumber)) {
+        if ( !lineToField.containsKey(lineNumber))
             lineToField.put(lineNumber, new HashSet<ReceiptField>());
-        }
         lineToField.get(lineNumber).add(fName);
-
     }
 
     /**
@@ -104,16 +100,7 @@ public class MatchedRecord {
      * @param value
      */
     public void putFieldLine(final ReceiptField fName, final int lineNumber, final String value) {
-        if (!fieldToLine.containsKey(fName)) {
-            fieldToLine.put(fName, new HashSet<Integer>());
-        }
-        fieldToLine.get(fName).add(lineNumber);
-
-        if (!lineToField.containsKey(lineNumber)) {
-            lineToField.put(lineNumber, new HashSet<ReceiptField>());
-        }
-        lineToField.get(lineNumber).add(fName);
-
+        putFieldLine(fName, lineNumber);
         fieldToValueLine.put(fName,  ValueLine.builder().line(lineNumber).value(value).build());
     }
     public void putFieldLine(final ReceiptField fName, final ValueLine valueLine) {
