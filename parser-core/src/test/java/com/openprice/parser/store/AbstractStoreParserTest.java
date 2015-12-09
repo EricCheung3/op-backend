@@ -7,8 +7,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class AbstractStoreParserTest {
+import com.openprice.parser.common.TextResourceUtils;
 
+public class AbstractStoreParserTest {
 
     @Test
     public void testDate1(){
@@ -27,5 +28,30 @@ public class AbstractStoreParserTest {
         lines.add("AUTH # 00509Z                    REF # 00000062");
         assertEquals("03/06/2015", AbstractStoreParser.findDateStringAfterLine(lines, 0));
     }
+
+    @Test
+    public void testDateFile1(){
+        final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/unknown/2015_02_09_11_34_51.jpg.hengshuai.txt"));
+        assertEquals("2/1/2015", AbstractStoreParser.findDateStringAfterLine(lines, 0));
+    }
+
+    @Test
+    public void testDateFile2(){
+        final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/unknown/2015_02_09_11_34_51_variantionDate.jpg.hengshuai2.txt"));
+        assertEquals("02/01/2015", AbstractStoreParser.findDateStringAfterLine(lines, 0));
+    }
+
+    @Test
+    public void testDateFileSafeway1(){
+        final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/2015_02_27_20_04_24.jpg.dongcui.txt"));
+        assertEquals("02/27/2015", AbstractStoreParser.findDateStringAfterLine(lines, 0));
+    }
+
+    @Test
+    public void testDateFileRCSS1(){
+        final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/2015_04_04_21_25_02.jpg.jingwang.txt"));
+        assertEquals("02/21/2015", AbstractStoreParser.findDateStringAfterLine(lines, 0));
+    }
+
 
 }

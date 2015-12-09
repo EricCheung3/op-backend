@@ -55,4 +55,11 @@ public class TextResourceUtils {
         return result;
     }
 
+    public static List<String> loadStringArray(final String fileName){
+        InputStream in=TextResourceUtils.class.getResourceAsStream(fileName);
+        final List<String> result =new ArrayList<>();
+        loadFromInputStream(in, line->result.add(line));
+        return result;
+    }
+
 }

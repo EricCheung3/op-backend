@@ -28,7 +28,10 @@ public class StringCommon {
      * @param str
      * @return
      */
-    private static Pattern datePattern= Pattern.compile("(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
+
+    //    private static Pattern datePattern= Pattern.compile("(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
+    //allowing single digit in month and day
+    private static Pattern datePattern= Pattern.compile("([1-9]|0[1-9]|1[012])[- /.]([1-9]|0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
     public static String pruneDateString(final String str){
         Matcher match=datePattern.matcher(removeAllSpaces(str));
         final List<String> allMatches=new ArrayList<>();
