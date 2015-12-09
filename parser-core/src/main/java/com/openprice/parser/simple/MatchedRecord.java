@@ -55,16 +55,6 @@ public class MatchedRecord {
         return lineToField.get(line);
     }
 
-    // maintain
-    public void putFieldLine(final ReceiptField fName, final int lineNumber) {
-        if ( !fieldToLine.containsKey(fName))
-            fieldToLine.put(fName, new HashSet<Integer>());
-        fieldToLine.get(fName).add(lineNumber);
-        if ( !lineToField.containsKey(lineNumber))
-            lineToField.put(lineNumber, new HashSet<ReceiptField>());
-        lineToField.get(lineNumber).add(fName);
-    }
-
     /**
      * get the last/maximum line number of all fields. It is the last field
      * line.
@@ -90,6 +80,14 @@ public class MatchedRecord {
         return stopLine.isPresent()? stopLine.get().getLine() : Integer.MAX_VALUE;
     }
 
+    public void putFieldLine(final ReceiptField fName, final int lineNumber) {
+        if ( !fieldToLine.containsKey(fName))
+            fieldToLine.put(fName, new HashSet<Integer>());
+        fieldToLine.get(fName).add(lineNumber);
+        if ( !lineToField.containsKey(lineNumber))
+            lineToField.put(lineNumber, new HashSet<ReceiptField>());
+        lineToField.get(lineNumber).add(fName);
+    }
 
     /**
      * Put matched field with line and parsed value.
