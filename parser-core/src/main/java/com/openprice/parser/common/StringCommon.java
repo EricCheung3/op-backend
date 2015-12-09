@@ -35,6 +35,15 @@ public class StringCommon {
     //allow two-digit year
     private static Pattern datePattern2DigitYear= Pattern.compile("([1-9]|0[1-9]|1[012])[- /.]([1-9]|0[1-9]|[12][0-9]|3[01])[- /.]\\d\\d");
 
+    public static String findDateStringAfterLine(final List<String> origLines, final int start){
+        log.debug("date line searching from line "+start+":"+origLines.get(start)+"\n");
+        for(int i=start; i<origLines.size();i++){
+            final String dateString=StringCommon.pruneDateString(origLines.get(i));
+            if( !dateString.isEmpty())
+                return dateString;
+        }
+        return StringCommon.EMPTY;
+    }
 
     public static String pruneDateString(final String str){
         final String strNoSpace=removeAllSpaces(str);

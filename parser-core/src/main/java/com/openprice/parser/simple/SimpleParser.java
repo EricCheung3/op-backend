@@ -16,6 +16,7 @@ import com.openprice.parser.StoreParser;
 import com.openprice.parser.StoreParserSelector;
 import com.openprice.parser.common.ListCommon;
 import com.openprice.parser.data.Item;
+import com.openprice.parser.data.ReceiptField;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -63,11 +64,19 @@ public class SimpleParser {
         final MatchedRecord matchedRecord = new MatchedRecord();
         matchedRecord.matchToBranch(receipt, branch);
         matchedRecord.matchToHeader(receipt, parser.getStoreConfig(), parser);
+        if (matchedRecord.getFieldToValueLine().get(ReceiptField.Date) == null){
+
+        }
 
         // parse items
         List<Item> items = parseItem(matchedRecord, receipt, parser);
 
-        return ParsedReceipt.builder().chain(chain).branch(branch).items(items).fieldToValueMap(matchedRecord.getFieldToValueLine()).build();
+        return ParsedReceipt.builder()
+                .chain(chain)
+                .branch(branch)
+                .items(items)
+                .fieldToValueMap(matchedRecord.getFieldToValueLine())
+                .build();
     }
 
     private List<Item> parseItem(final MatchedRecord matchedRecord, final ReceiptData receipt, final StoreParser parser) throws Exception {

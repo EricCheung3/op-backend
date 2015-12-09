@@ -60,9 +60,18 @@ public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
         assertEquals(fieldValues.get(ReceiptField.GstNumber).getValue(), "817093735");
         assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "22.59");
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "23.09");
-        assertEquals(null, fieldValues.get(ReceiptField.Date));//has no date
+        assertEquals(null, fieldValues.get(ReceiptField.Date));//this receipt has no date string
+    }
 
-
+    @Value("classpath:/testFiles/Safeway/abbyy/receiptWithNoDateHeader.txt")
+    private Resource receiptWithNoDateHeader;
+    @Test
+    public void testDateNoDateHeaderShouldAlsoFindIt() throws Exception{
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receiptWithNoDateHeader, (line)-> receiptLines.add(line));
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        assertEquals("02/27/2015", receipt.getFieldToValueMap().get(ReceiptField.Date));
     }
 
 }

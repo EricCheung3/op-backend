@@ -119,17 +119,7 @@ public abstract class AbstractStoreParser implements StoreParser {
     protected String parseDate(final ReceiptLine line){
         final List<String> origLines=line.getReceipt().getOriginalLines();
         final int currentNumber=line.getNumber();
-        return findDateStringAfterLine(origLines, currentNumber);
-    }
-
-    public static String findDateStringAfterLine(final List<String> origLines, final int start){
-        log.debug("date line searching from line "+start+":"+origLines.get(start)+"\n");
-        for(int i=start; i<origLines.size();i++){
-            final String dateString=StringCommon.pruneDateString(origLines.get(i));
-            if( !dateString.isEmpty())
-                return dateString;
-        }
-        return StringCommon.EMPTY;
+        return StringCommon.findDateStringAfterLine(origLines, currentNumber);
     }
 
     @Override
