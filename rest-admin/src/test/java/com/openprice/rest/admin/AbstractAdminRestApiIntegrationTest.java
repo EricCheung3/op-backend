@@ -19,10 +19,14 @@ public abstract class AbstractAdminRestApiIntegrationTest extends AbstractRestAp
     public static final String TEST_ADMIN_USERID_HAWKING = "admin003";
     public static final String TEST_ADMIN_USERNAME_HAWKING = "hawking";
 
+    protected String adminUrl() {
+        return ApiConstants.EXTERNAL_API_ROOT + URL_ADMIN;
+    }
+
     protected String usersUrl(final SessionFilter sessionFilter) {
         final String usersLink =
             given().filter(sessionFilter)
-                   .when().get(ApiConstants.EXTERNAL_API_ROOT + URL_ADMIN)
+                   .when().get(adminUrl())
                    .then().extract().path("_links.users.href");
         return UriTemplate.fromTemplate(usersLink).set("page", null).set("size", null).set("sort", null).expand();
     }
@@ -30,7 +34,7 @@ public abstract class AbstractAdminRestApiIntegrationTest extends AbstractRestAp
     protected String userUrl(final SessionFilter sessionFilter, final String userId) {
         final String userLink =
             given().filter(sessionFilter)
-                   .when().get(ApiConstants.EXTERNAL_API_ROOT + URL_ADMIN)
+                   .when().get(adminUrl())
                    .then().extract().path("_links.user.href");
         return UriTemplate.fromTemplate(userLink).set("userId", userId).expand();
     }

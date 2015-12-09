@@ -1,5 +1,7 @@
 package com.openprice.rest.user.receipt;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -12,7 +14,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString(callSuper=true, exclude={"base64String"})
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class ImageDataForm {
+@SuppressWarnings("serial")
+public class ImageDataForm implements Serializable {
 
     private String base64String;
 

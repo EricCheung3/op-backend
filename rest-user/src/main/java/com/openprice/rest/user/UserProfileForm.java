@@ -1,5 +1,7 @@
 package com.openprice.rest.user;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.openprice.domain.account.user.UserProfile;
 import com.openprice.domain.common.Address;
@@ -14,7 +16,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class UserProfileForm {
+@SuppressWarnings("serial")
+public class UserProfileForm implements Serializable {
     private String firstName;
 
     private String middleName;

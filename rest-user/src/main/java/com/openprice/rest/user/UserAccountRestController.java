@@ -20,6 +20,7 @@ import com.openprice.domain.account.user.UserAccountService;
  */
 @RestController
 public class UserAccountRestController extends AbstractUserRestController {
+
     private final UserAccountRepository userAccountRepository;
     private final UserAccountResource.Assembler userAccountResourceAssembler;
 

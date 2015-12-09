@@ -33,7 +33,7 @@ import lombok.ToString;
 @Table( name="user_account" )
 public class UserAccount extends AbstractAccount {
 
-    @Getter @Setter
+    @Getter
     @ElementCollection(targetClass=UserRoleType.class, fetch=FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name="user_role", joinColumns=@JoinColumn(name="user_account_id"))

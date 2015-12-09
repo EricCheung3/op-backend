@@ -33,7 +33,7 @@ import lombok.ToString;
 @Table( name="admin_account" )
 public class AdminAccount extends AbstractAccount {
 
-    @Getter @Setter
+    @Getter
     @ElementCollection(targetClass=AdminRoleType.class, fetch=FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name="admin_role", joinColumns=@JoinColumn(name="admin_account_id"))
@@ -41,7 +41,7 @@ public class AdminAccount extends AbstractAccount {
     @org.hibernate.annotations.SortNatural
     private SortedSet<AdminRoleType> roles = new TreeSet<>();
 
-    @Getter @Setter
+    @Getter
     @Column(name="username", unique=true)
     private String username;
 
@@ -53,6 +53,10 @@ public class AdminAccount extends AbstractAccount {
     private AdminProfile profile = new AdminProfile();
 
     AdminAccount() {}
+
+    AdminAccount(final String username) {
+        this.username = username;
+    }
 
     @Override
     @JsonIgnore
