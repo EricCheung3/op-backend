@@ -7,6 +7,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.openprice.parser.data.ValueLine;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -30,28 +32,63 @@ public class StringCommon {
      */
 
     //    private static Pattern datePattern= Pattern.compile("(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
-    //allowing single digit in month and day
-    private static Pattern datePattern= Pattern.compile("([1-9]|0[1-9]|1[012])[- /.]([1-9]|0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
-    //allow two-digit year
-    private static Pattern datePattern2DigitYear= Pattern.compile("([1-9]|0[1-9]|1[012])[- /.]([1-9]|0[1-9]|[12][0-9]|3[01])[- /.]\\d\\d");
 
-    public static String findDateStringAfterLine(final List<String> origLines, final int start){
+    //month(one or two digits) and day (one or two digits), 4-digit year
+    private static Pattern patternMonthDayYear4= Pattern.compile("([1-9]|0[1-9]|1[012])[- /.]([1-9]|0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
+
+    //month(one or two digits) and day (one or two digits), 2-digit year
+    private static Pattern patternMonthDayYear2= Pattern.compile("([1-9]|0[1-9]|1[012])[- /.]([1-9]|0[1-9]|[12][0-9]|3[01])[- /.]\\d\\d");
+
+    //4-digit year, month(one  two digits) and day (two digits)
+    private static Pattern patternYear4MonthDay2=Pattern.compile("(19|20)\\d\\d[-/.]([1-9]|0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])");
+
+    //    4-digit year, month(one  two digits) and day (one or two digits)
+    private static Pattern patternYear4MonthDay1=Pattern.compile("(19|20)\\d\\d[-/.]([1-9]|0[1-9]|1[012])[- /.]([1-9]|0[1-9]|[12][0-9]|3[01])");
+
+    public static ValueLine findDateStringAfterLine(final List<String> origLines, final int start){
         log.debug("date line searching from line "+start+":"+origLines.get(start)+"\n");
         for(int i=start; i<origLines.size();i++){
             final String dateString=StringCommon.pruneDateString(origLines.get(i));
             if( !dateString.isEmpty())
-                return dateString;
+                return ValueLine.builder().value(dateString).line(i).build();
         }
-        return StringCommon.EMPTY;
+        return ValueLine.defaultValueLine();
     }
 
+    /**matching date patterns
+     * the following order is important
+     * first matching the format "2015/12/02"
+     * then matching "12/02/2015"
+     * then matching "12/02/15"
+     * @param str
+     * @return
+     */
     public static String pruneDateString(final String str){
         final String strNoSpace=removeAllSpaces(str);
-        Matcher match=datePattern.matcher(strNoSpace);
-        final String dateWith4DigitYear=pruneDateStringWithMatch(str, match);
-        if(!dateWith4DigitYear.isEmpty())
-            return dateWith4DigitYear;
-        return pruneDateStringWithMatch(str, datePattern2DigitYear.matcher(strNoSpace));
+        log.debug("line string is "+str+"\n");
+        final String y4MD2=pruneDateStringWithMatch(str, patternYear4MonthDay2.matcher(strNoSpace));
+        if (!y4MD2.isEmpty()){
+            log.debug("found y4MD2 format."+y4MD2+"\n");
+            return y4MD2;
+        }
+
+        final String y4MD1=pruneDateStringWithMatch(str, patternYear4MonthDay1.matcher(strNoSpace));
+        if (!y4MD1.isEmpty()){
+            log.debug("found y4MD1 format."+y4MD1+"\n");
+            return y4MD1;
+        }
+
+        final String mDY4=pruneDateStringWithMatch(str, patternMonthDayYear4.matcher(strNoSpace));
+        if(!mDY4.isEmpty()){
+            log.debug("found mDY4 format."+mDY4+"\n");
+            return mDY4;
+        }
+        final String mDY2=pruneDateStringWithMatch(str, patternMonthDayYear2.matcher(strNoSpace));
+        if(!mDY2.isEmpty()){
+            log.debug("found mDY2 format."+mDY2+"\n");
+            return mDY2;
+        }
+        return StringCommon.EMPTY;
     }
     public static String pruneDateStringWithMatch(final String str, final Matcher match){
         final List<String> allMatches=new ArrayList<>();
@@ -69,6 +106,8 @@ public class StringCommon {
      * @return
      */
     public static String selectDateString(final List<String> list){
+        log.debug("all date strings are:\n");
+        list.forEach(str->log.debug(str+"\n"));
         return list.get(0);
     }
 

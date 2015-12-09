@@ -63,7 +63,7 @@ public class RCSSSouthCommonReceiptTest extends AbstractReceiptParserIntegration
         assertEquals(fieldValues.get(ReceiptField.GstNumber).getValue(), "12223-5922 rt0001");
         assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "80.76");
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "82.97");
-        //assertEquals(fieldValues.get(ReceiptField.).getValue(), "");
+        assertEquals("2014/08/16", fieldValues.get(ReceiptField.Date).getValue());
 
     }
 
@@ -101,7 +101,6 @@ public class RCSSSouthCommonReceiptTest extends AbstractReceiptParserIntegration
         assertEquals(fieldValues.get(ReceiptField.GstNumber).getValue(), "12223-5922 rt0001");
         assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "35.18");
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "35.18");
-        //assertEquals(fieldValues.get(ReceiptField.).getValue(), "");
-
+        assertEquals("2014/09/14", fieldValues.get(ReceiptField.Date).getValue());
     }
 }

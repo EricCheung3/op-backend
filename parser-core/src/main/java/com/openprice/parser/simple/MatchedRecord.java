@@ -87,10 +87,10 @@ public class MatchedRecord {
 
     public int itemStopLineNumber() {
         Optional<ValueLine> stopLine =
-            Stream.of(ReceiptField.GstAmount, ReceiptField.Total, ReceiptField.SubTotal)
-                  .map( field -> fieldToValueLine.get(field) )
-                  .filter( value -> value != null )
-                  .min( Comparator.comparing(ValueLine::getLine) );
+                Stream.of(ReceiptField.GstAmount, ReceiptField.Total, ReceiptField.SubTotal)
+                .map( field -> fieldToValueLine.get(field) )
+                .filter( value -> value != null )
+                .min( Comparator.comparing(ValueLine::getLine) );
         return stopLine.isPresent()? stopLine.get().getLine() : Integer.MAX_VALUE;
     }
 
@@ -116,19 +116,22 @@ public class MatchedRecord {
 
         fieldToValueLine.put(fName,  ValueLine.builder().line(lineNumber).value(value).build());
     }
+    public void putFieldLine(final ReceiptField fName, final ValueLine valueLine) {
+        putFieldLine(fName, valueLine.getLine(), valueLine.getValue());
+    }
 
     public void matchToBranch(final ReceiptData receipt, final StoreBranch storeBranch) {
         receipt.lines()
-               .filter( line -> line.getCleanText().length() > 2 )
-               .map( line -> storeBranch.maxFieldMatchScore(line) )
-               .filter( lineScore -> lineScore.getScore() > 0.5)
-               .forEach( lineScore -> putFieldLine(lineScore.getField(), lineScore.getReceiptLine().getNumber(), lineScore.getValue()));
-               ;
-//
-//        System.out.println("After matchToBranch, parsed fields are :");
-//        for (ReceiptField field : fieldToValueLine.keySet()) {
-//            System.out.println(field.name() + " at line "+fieldToValueLine.get(field).getLine() + " : " + fieldToValueLine.get(field).getValue() );
-//        }
+        .filter( line -> line.getCleanText().length() > 2 )
+        .map( line -> storeBranch.maxFieldMatchScore(line) )
+        .filter( lineScore -> lineScore.getScore() > 0.5)
+        .forEach( lineScore -> putFieldLine(lineScore.getField(), lineScore.getReceiptLine().getNumber(), lineScore.getValue()));
+        ;
+        //
+        //        System.out.println("After matchToBranch, parsed fields are :");
+        //        for (ReceiptField field : fieldToValueLine.keySet()) {
+        //            System.out.println(field.name() + " at line "+fieldToValueLine.get(field).getLine() + " : " + fieldToValueLine.get(field).getValue() );
+        //        }
 
     }
 
@@ -143,17 +146,17 @@ public class MatchedRecord {
             }
 
             receipt.lines()
-                   .filter( line -> line.getCleanText().length() > 1 )
-                   .filter( line -> !isFieldLine(line.getNumber()) )
-                   .filter( line -> {
-                       Optional<Double> maxScore =
-                               headerPatterns.stream()
-                                             .map( header -> StringCommon.matchStringToHeader(line.getCleanText(), header) )
-                                             .max( Comparator.comparing(score -> score) );
-                       return maxScore.isPresent() && maxScore.get() > config.similarityThresholdOfTwoStrings();
-                   })
-                   .forEach( line -> putFieldLine(field, line.getNumber(), parser.parseField(field, line)))
-                   ;
+            .filter( line -> line.getCleanText().length() > 1 )
+            .filter( line -> !isFieldLine(line.getNumber()) )
+            .filter( line -> {
+                Optional<Double> maxScore =
+                        headerPatterns.stream()
+                        .map( header -> StringCommon.matchStringToHeader(line.getCleanText(), header) )
+                        .max( Comparator.comparing(score -> score) );
+                return maxScore.isPresent() && maxScore.get() > config.similarityThresholdOfTwoStrings();
+            })
+            .forEach( line -> putFieldLine(field, line.getNumber(), parser.parseField(field, line)))
+            ;
 
         }
     }

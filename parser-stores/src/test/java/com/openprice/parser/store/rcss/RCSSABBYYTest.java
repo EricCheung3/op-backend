@@ -12,6 +12,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.common.TextResourceUtils;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ReceiptField;
@@ -51,7 +52,7 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
         assertEquals(fieldValues.get(ReceiptField.StoreID).getValue(), "01570");
         assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "104.73");
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "104.73");
-        assertEquals(null, fieldValues.get(ReceiptField.Date));//this receipt has no date
+        assertEquals(StringCommon.EMPTY, fieldValues.get(ReceiptField.Date).getValue());//this receipt has no date
 
     }
 }

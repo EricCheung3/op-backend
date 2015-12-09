@@ -1,5 +1,7 @@
 package com.openprice.parser.data;
 
+import com.openprice.parser.common.StringCommon;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,6 +20,6 @@ public class ValueLine {
     }
 
     public static ValueLine defaultValueLine() {
-        return ValueLine.builder().value("").line(-1).build();
+        return ValueLine.builder().value(StringCommon.EMPTY).line(-1).build();
     }
 }

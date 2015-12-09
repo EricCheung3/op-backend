@@ -15,8 +15,10 @@ import com.openprice.parser.StoreChain;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.StoreParserSelector;
 import com.openprice.parser.common.ListCommon;
+import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ReceiptField;
+import com.openprice.parser.data.ValueLine;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -64,8 +66,12 @@ public class SimpleParser {
         final MatchedRecord matchedRecord = new MatchedRecord();
         matchedRecord.matchToBranch(receipt, branch);
         matchedRecord.matchToHeader(receipt, parser.getStoreConfig(), parser);
-        if (matchedRecord.getFieldToValueLine().get(ReceiptField.Date) == null){
-
+        //globally finding the date string
+        if (matchedRecord.getFieldToValueLine().get(ReceiptField.Date) == null ||
+                matchedRecord.getFieldToValueLine().get(ReceiptField.Date).getValue().isEmpty()){
+            log.debug("date header not found: searching date string globally.");
+            final ValueLine dateVL=StringCommon.findDateStringAfterLine(receipt.getOriginalLines(), 0);
+            matchedRecord.putFieldLine(ReceiptField.Date, dateVL);
         }
 
         // parse items
