@@ -1,18 +1,13 @@
 package com.openprice.domain.receipt;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -30,7 +25,7 @@ import lombok.ToString;
  * Receipt uploaded by user in the server side.
  *
  */
-@ToString(callSuper=true, exclude={"user", "images"})
+@ToString(callSuper=true, exclude={"user"})
 @SuppressWarnings("serial")
 @Entity
 @Table( name="receipt" )
@@ -44,13 +39,7 @@ public class Receipt extends BaseAuditableEntity {
 
     @Getter @Setter
     @Column(name="need_feedback")
-    private boolean needFeedback = true;
-
-    @Getter @Setter
-    @JsonIgnore
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="receipt")
-    @OrderBy("createdTime")
-    private List<ReceiptImage> images = new ArrayList<>();
+    private Boolean needFeedback = true;
 
     Receipt() {}
 
@@ -74,39 +63,38 @@ public class Receipt extends BaseAuditableEntity {
     public ReceiptImage createImage() {
         final ReceiptImage image = new ReceiptImage();
         image.setReceipt(this);
-        images.add(image);
 
         // set default value for new image without real content yet
         final SimpleDateFormat dt = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_SSS");
-        image.setFileName(dt.format(new Date()) + ".jpg");  // always save as jpg?
+        image.setFileName(dt.format(new Date()) + ".jpg");  // always save as jpg???
         image.setStatus(ProcessStatusType.CREATED);
 
         return image;
     }
 
     /**
-     * Builder method to create a new <code>ReceiptData</code> object from parser result <code>ParsedReceipt</code>.
+     * Builder method to create a new <code>ReceiptResult</code> object from parser result <code>ParsedReceipt</code>.
      *
      * @param parsedReceipt
      * @return
      */
-    public ReceiptResult createReceiptDataFromParserResult(final ParsedReceipt parsedReceipt) {
-        final ReceiptResult data = new ReceiptResult();
-        data.setReceipt(this);
+    public ReceiptResult createReceiptResultFromParserResult(final ParsedReceipt parsedReceipt) {
+        final ReceiptResult result = new ReceiptResult();
+        result.setReceipt(this);
         if (parsedReceipt.getChain() != null) {
-            data.setChainCode(parsedReceipt.getChain().getCode());
+            result.setChainCode(parsedReceipt.getChain().getCode());
         }
         if (parsedReceipt.getBranch() != null) {
-            data.setBranchName(parsedReceipt.getBranch().getBranchName());
+            result.setBranchName(parsedReceipt.getBranch().getBranchName());
         }
         final ValueLine parsedTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Total);
         if (parsedTotalValue != null) {
-            data.setParsedTotal(parsedTotalValue.getValue());
+            result.setParsedTotal(parsedTotalValue.getValue());
         }
         final ValueLine parsedDateValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Date);
         if (parsedDateValue != null) {
-            data.setParsedDate(parsedDateValue.getValue());
+            result.setParsedDate(parsedDateValue.getValue());
         }
-        return data;
+        return result;
     }
 }

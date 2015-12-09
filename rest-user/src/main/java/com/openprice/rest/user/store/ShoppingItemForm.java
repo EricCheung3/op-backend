@@ -1,5 +1,7 @@
 package com.openprice.rest.user.store;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -12,7 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class ShoppingItemForm {
+@SuppressWarnings("serial")
+public class ShoppingItemForm implements Serializable {
 
     private String name;
 

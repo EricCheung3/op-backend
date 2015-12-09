@@ -30,7 +30,6 @@ public abstract class BaseEntity implements Serializable {
     @org.hibernate.annotations.GenericGenerator(name="system-uuid", strategy = "uuid2")
     private String id;
 
-    @Getter @Setter
     @Column(name="version", nullable=false)
     @Version
     @JsonIgnore
@@ -38,16 +37,16 @@ public abstract class BaseEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        return (id == null) ? 0 : id.hashCode();
+        return (getId() == null) ? 0 : getId().hashCode();
     }
 
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
+        if (getClass() != obj.getClass()) return false;  // FIXME should not use getClass()
         final BaseEntity other = (BaseEntity) obj;
-        if (id == null) return other.id == null;
-        return id.equals(other.id);
+        if (getId() == null) return other.getId() == null;
+        return getId().equals(other.getId());
     }
 }

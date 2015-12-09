@@ -51,18 +51,16 @@ public class StoreService {
         branch.setPhone(phone);
         branch.setGstNumber(gstNumber);
         branch.setAddress(new Address(address1, address2, city, state, zip, country));
-        storeChainRepository.save(chain);
         return storeBranchRepository.save(branch);
     }
 
     public Catalog createCatalog(final StoreChain chain,
-                                     final String name,
-                                     final String number,
-                                     final String price,
-                                     final String naturalName,
-                                     final String labelCodes) {
+                                 final String name,
+                                 final String number,
+                                 final String price,
+                                 final String naturalName,
+                                 final String labelCodes) {
         final Catalog catalog = chain.addCatalog(name, number, price, naturalName, labelCodes);
-        storeChainRepository.save(chain);
         return catalogRepository.save(catalog);
     }
 
@@ -80,7 +78,6 @@ public class StoreService {
         catalog.setCode(Catalog.generateCatalogCode(name, number));
         return catalogRepository.save(catalog);
 }
-
 
     public void deleteAllStores() {
         storeChainRepository.deleteAll();

@@ -24,7 +24,7 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
                 .when()
                     .get(receiptResultsUrl(sessionFilter, "receipt001"))
                 ;
-        response.prettyPrint();
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
@@ -85,7 +85,7 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
             .when()
                 .get(receiptItemsUrl(sessionFilter, "receipt001", "recData001"))
             ;
-        response.prettyPrint();
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
@@ -94,18 +94,18 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
             .body("page.totalElements", equalTo(3))
             .body("page.totalPages", equalTo(1))
             .body("page.number", equalTo(0))
-            .body("_embedded.receiptItems[0].id", equalTo("recItem001"))
-            .body("_embedded.receiptItems[0].parsedName", equalTo("eggs"))
-            .body("_embedded.receiptItems[0].parsedPrice", equalTo("1.99"))
-            .body("_embedded.receiptItems[0].catalog.id", equalTo("chain001cat002"))
-            .body("_embedded.receiptItems[1].id", equalTo("recItem002"))
-            .body("_embedded.receiptItems[1].parsedName", equalTo("milk"))
-            .body("_embedded.receiptItems[1].parsedPrice", equalTo("4.99"))
-            .body("_embedded.receiptItems[1].catalog.id", equalTo("chain001cat001"))
-            .body("_embedded.receiptItems[2].id", equalTo("recItem003"))
-            .body("_embedded.receiptItems[2].parsedName", equalTo("pork"))
-            .body("_embedded.receiptItems[2].parsedPrice", equalTo("5.99"))
-            .body("_embedded.receiptItems[2].catalog.id", equalTo("chain001cat003"))
+            .body("_embedded.receiptItems[0].id", equalTo("recItem003"))
+            .body("_embedded.receiptItems[0].parsedName", equalTo("pork"))
+            .body("_embedded.receiptItems[0].parsedPrice", equalTo("5.99"))
+            .body("_embedded.receiptItems[0].catalog.id", equalTo("chain001cat003"))
+            .body("_embedded.receiptItems[1].id", equalTo("recItem001"))
+            .body("_embedded.receiptItems[1].parsedName", equalTo("eggs"))
+            .body("_embedded.receiptItems[1].parsedPrice", equalTo("1.99"))
+            .body("_embedded.receiptItems[1].catalog.id", equalTo("chain001cat002"))
+            .body("_embedded.receiptItems[2].id", equalTo("recItem002"))
+            .body("_embedded.receiptItems[2].parsedName", equalTo("milk"))
+            .body("_embedded.receiptItems[2].parsedPrice", equalTo("4.99"))
+            .body("_embedded.receiptItems[2].catalog.id", equalTo("chain001cat001"))
         ;
     }
 

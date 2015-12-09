@@ -11,11 +11,11 @@
     <artifactId>openprice-server-ocr</artifactId>
     <packaging>jar</packaging>
 
-    <name>OCR Process Server</name>
-    <description>OpenPrice OCR server code.</description>
+    <name>OCR RESTful API Server</name>
+    <description>OpenPrice RESTful API Server for OCR service.</description>
 
     <properties>
-        <start-class>com.openprice.ocr.OpenPriceOcrServerApplication</start-class>
+        <start-class>com.openprice.ocr.OcrServerApplication</start-class>
     </properties>
 
     <dependencies>
@@ -41,6 +41,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+
+        <!-- For Loggly Logback extension -->
+        <dependency>
+            <groupId>org.logback-extensions</groupId>
+            <artifactId>logback-ext-loggly</artifactId>
+            <version>0.1.2</version>
         </dependency>
 
     </dependencies>

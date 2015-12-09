@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
+import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.rest.LinkBuilder;
 import com.openprice.rest.admin.AdminApiUrls;
 
@@ -30,10 +31,13 @@ public class AdminUserReceiptResource extends Resource<Receipt> {
     @Component
     public static class Assembler implements ResourceAssembler<Receipt, AdminUserReceiptResource>, AdminApiUrls {
 
+        private final ReceiptImageRepository receiptImageRepository;
         private final AdminUserReceiptImageResource.Assembler imageResourceAssembler;
 
         @Inject
-        public Assembler(final AdminUserReceiptImageResource.Assembler imageResourceAssembler) {
+        public Assembler(final ReceiptImageRepository receiptImageRepository,
+                         final AdminUserReceiptImageResource.Assembler imageResourceAssembler) {
+            this.receiptImageRepository = receiptImageRepository;
             this.imageResourceAssembler = imageResourceAssembler;
         }
 
@@ -52,7 +56,7 @@ public class AdminUserReceiptResource extends Resource<Receipt> {
             // Temp solution for embedded resources
             // Monitor https://github.com/spring-projects/spring-hateoas/issues/270
             List<AdminUserReceiptImageResource> images = new ArrayList<>();
-            for (ReceiptImage image : receipt.getImages()) {
+            for (ReceiptImage image : receiptImageRepository.findByReceiptOrderByCreatedTime(receipt)) {
                 images.add(imageResourceAssembler.toResource(image));
             }
             resource.setImages(images);

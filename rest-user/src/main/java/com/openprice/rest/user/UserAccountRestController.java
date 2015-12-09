@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openprice.domain.account.user.UserAccount;
+import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.domain.account.user.UserAccountService;
-import com.openprice.domain.account.user.UserProfile;
-import com.openprice.domain.account.user.UserProfileRepository;
 
 /**
  * REST API Controller for current user account management.
@@ -22,15 +21,15 @@ import com.openprice.domain.account.user.UserProfileRepository;
 @RestController
 public class UserAccountRestController extends AbstractUserRestController {
 
-    private final UserProfileRepository userProfileRepository;
+    private final UserAccountRepository userAccountRepository;
     private final UserAccountResource.Assembler userAccountResourceAssembler;
 
     @Inject
     public UserAccountRestController(final UserAccountService userAccountService,
-                                     final UserProfileRepository userProfileRepository,
+                                     final UserAccountRepository userAccountRepository,
                                      final UserAccountResource.Assembler userAccountResourceAssembler) {
         super(userAccountService);
-        this.userProfileRepository = userProfileRepository;
+        this.userAccountRepository = userAccountRepository;
         this.userAccountResourceAssembler = userAccountResourceAssembler;
     }
 
@@ -55,9 +54,8 @@ public class UserAccountRestController extends AbstractUserRestController {
     @Transactional
     public HttpEntity<Void> updateCurrentUserProfile(@RequestBody final UserProfileForm profileForm) {
         final UserAccount currentUserAccount = getCurrentAuthenticatedUser();
-        final UserProfile profile = currentUserAccount.getProfile();
-        profileForm.updateProfile(profile);
-        userProfileRepository.save(profile);
+        profileForm.updateProfile(currentUserAccount.getProfile());
+        userAccountRepository.save(currentUserAccount);
         return ResponseEntity.noContent().build();
     }
 }

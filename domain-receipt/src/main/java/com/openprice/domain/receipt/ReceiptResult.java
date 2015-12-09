@@ -1,16 +1,10 @@
 package com.openprice.domain.receipt;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,7 +20,7 @@ import lombok.ToString;
  * get item list as best effort.
  *
  */
-@ToString(callSuper=true, exclude={"receipt", "items"})
+@ToString(callSuper=true, exclude={"receipt"})
 @SuppressWarnings("serial")
 @Entity
 @Table( name="receipt_result" )
@@ -57,15 +51,6 @@ public class ReceiptResult extends BaseAuditableEntity {
     @Column(name="parsed_date")
     private String parsedDate;
 
-    @Getter @Setter
-    @JsonIgnore
-    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="receiptResult")
-    @OrderBy("lineNumber ASC")
-    @org.hibernate.annotations.OnDelete(
-        action = org.hibernate.annotations.OnDeleteAction.CASCADE
-    )
-    private List<ReceiptItem> items = new ArrayList<>();
-
     ReceiptResult() {}
 
     /**
@@ -84,7 +69,6 @@ public class ReceiptResult extends BaseAuditableEntity {
         item.setDisplayName(parsedName);
         item.setParsedPrice(parsedPrice);
         item.setDisplayPrice(parsedPrice);
-        items.add(item);
         return item;
     }
 }

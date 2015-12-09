@@ -119,7 +119,6 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            .body("id", equalTo("profile002"))
             .body("address.address1", equalTo("101 123 street"))
             .body("address.city", equalTo("Edmonton"))
         ;
@@ -152,7 +151,6 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            .body("id", equalTo("profile002"))
             .body("address.address1", equalTo("888 Broadway Ave"))
             .body("address.city", equalTo("Calgary"))
         ;

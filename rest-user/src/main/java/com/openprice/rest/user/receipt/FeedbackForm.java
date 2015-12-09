@@ -1,5 +1,7 @@
 package com.openprice.rest.user.receipt;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -10,7 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class FeedbackForm {
+@SuppressWarnings("serial")
+public class FeedbackForm implements Serializable {
 
     private Integer rating;
 

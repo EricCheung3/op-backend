@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
+import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.rest.LinkBuilder;
 import com.openprice.rest.user.UserApiUrls;
 
@@ -32,10 +33,13 @@ public class UserReceiptResource extends Resource<Receipt> {
     @Component
     public static class Assembler implements ResourceAssembler<Receipt, UserReceiptResource>, UserApiUrls {
 
+        private final ReceiptImageRepository receiptImageRepository;
         private final UserReceiptImageResource.Assembler imageResourceAssembler;
 
         @Inject
-        public Assembler(final UserReceiptImageResource.Assembler imageResourceAssembler) {
+        public Assembler(final ReceiptImageRepository receiptImageRepository,
+                         final UserReceiptImageResource.Assembler imageResourceAssembler) {
+            this.receiptImageRepository = receiptImageRepository;
             this.imageResourceAssembler = imageResourceAssembler;
         }
 
@@ -56,7 +60,7 @@ public class UserReceiptResource extends Resource<Receipt> {
 
             // TODO fix _embedded issue
             List<UserReceiptImageResource> images = new ArrayList<>();
-            for (ReceiptImage image : receipt.getImages()) {
+            for (ReceiptImage image : receiptImageRepository.findByReceiptOrderByCreatedTime(receipt)) {
                 images.add(imageResourceAssembler.toResource(image));
             }
             resource.setImages(images);

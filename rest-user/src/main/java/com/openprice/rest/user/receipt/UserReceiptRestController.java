@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.receipt.Receipt;
+import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.domain.receipt.ReceiptUploadService;
@@ -77,9 +78,9 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
 
     @RequestMapping(method = RequestMethod.POST, value = URL_USER_RECEIPTS)
     public HttpEntity<Void> createNewReceiptWithBase64String(@RequestBody final ImageDataForm imageDataForm) {
-        final Receipt receipt = newReceiptWithBase64ImageData(imageDataForm.getBase64String());
-        addReceiptImageToProcessQueue(receipt.getImages().get(0));
-        final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId())).toUri();
+        final ReceiptImage receiptImage = newReceiptWithBase64ImageData(imageDataForm.getBase64String());
+        addReceiptImageToProcessQueue(receiptImage);
+        final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receiptImage.getReceipt().getId())).toUri();
         return ResponseEntity.created(location).body(null);
     }
 
@@ -91,10 +92,10 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
     @RequestMapping(method = RequestMethod.POST, value = URL_USER_RECEIPTS_UPLOAD)
     public HttpEntity<String> uploadNewReceipt(@RequestParam("file") final MultipartFile file) {
         if (!file.isEmpty()) {
-            final Receipt receipt = newReceiptWithFile(file);
-            addReceiptImageToProcessQueue(receipt.getImages().get(0));
-            final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId())).toUri();
-            return ResponseEntity.created(location).body(receipt.getId());
+            final ReceiptImage receiptImage = newReceiptWithFile(file);
+            //addReceiptImageToProcessQueue(receiptImage); FIXME temporally disable image processing because of ABBYY license issue
+            final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receiptImage.getReceipt().getId())).toUri();
+            return ResponseEntity.created(location).body(receiptImage.getReceipt().getId());
         }
         else {
             log.error("No file uploaded!");
@@ -112,8 +113,8 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
             @RequestParam("image") final MultipartFile image,
             @RequestParam("ocr") final MultipartFile ocr) {
         if (!image.isEmpty() && !ocr.isEmpty()) {
-            final Receipt receipt = newReceiptWithImageAndOcrFile(image, ocr);
-            final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receipt.getId())).toUri();
+            final ReceiptImage receitImage = newReceiptWithImageAndOcrFile(image, ocr);
+            final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receitImage.getReceipt().getId())).toUri();
             return ResponseEntity.created(location).body(null);
         }
         else {
@@ -147,7 +148,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
     }
 
     @Transactional
-    protected Receipt newReceiptWithImageAndOcrFile(final MultipartFile image, final MultipartFile ocr) {
+    protected ReceiptImage newReceiptWithImageAndOcrFile(final MultipartFile image, final MultipartFile ocr) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
         log.debug("User {} HACKLoad image file for new receipt and OCR result.", currentUser.getUsername());
         return receiptUploadService.hackloadImageFileAndOcrResultForNewReceipt(currentUser, image, ocr);

@@ -150,12 +150,12 @@ public class AdminCatalogRestController extends AbstractStoreAdminRestController
     protected Catalog newCatalog(final AdminCatalogForm form, final StoreChain chain) {
         final AdminAccount currentAdmin = getCurrentAuthenticatedAdmin();
         log.debug("Admin {} created a new store catalog {} for chain {}", currentAdmin.getUsername(), form.getName(), chain.getName());
-        return storeService.createCatalog(chain,
-                                          form.getName(),
-                                          form.getNumber(),
-                                          form.getPrice(),
-                                          form.getNaturalName(),
-                                          form.getLabelCodes());
+        final Catalog catalog = chain.addCatalog(form.getName(),
+                                                 form.getNumber(),
+                                                 form.getPrice(),
+                                                 form.getNaturalName(),
+                                                 form.getLabelCodes());
+        return catalogRepository.save(catalog);
     }
 
 }

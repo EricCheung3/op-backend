@@ -19,7 +19,7 @@ public abstract class AbstractOcrEngine implements OcrEngine {
     private final String serverName;
 
     public AbstractOcrEngine(final Environment environment) {
-        this.serverName = environment.getProperty("ocr.server.name");
+        this.serverName = environment.getProperty("server.name");
     }
 
     @PostConstruct

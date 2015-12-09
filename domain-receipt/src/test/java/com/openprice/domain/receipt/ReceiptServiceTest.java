@@ -3,6 +3,8 @@ package com.openprice.domain.receipt;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isA;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -77,7 +79,6 @@ public class ReceiptServiceTest {
         image2.setFileName("test2");
         image2.setOcrResult("ocr result2");
         final List<ReceiptImage> images = Arrays.asList(image1, image2);
-        receipt.setImages(images);
 
         final List<String> ocrTextList = Arrays.asList("ocr result1","ocr result2");
 
@@ -104,11 +105,7 @@ public class ReceiptServiceTest {
         final ReceiptResult data = serviceToTest.getLatestReceiptResult(receipt);
         assertEquals("rcss", data.getChainCode());
         assertEquals("Calgary Trail", data.getBranchName());
-        assertEquals(2, data.getItems().size());
-        assertEquals("milk", data.getItems().get(0).getParsedName());
-        assertEquals("10.99", data.getItems().get(0).getParsedPrice());
-        assertEquals("eggs", data.getItems().get(1).getParsedName());
-        assertEquals("4.99", data.getItems().get(1).getParsedPrice());
+        verify(receiptItemRepositoryMock, times(2)).save(isA(ReceiptItem.class));
 
     }
 }

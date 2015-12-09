@@ -1,6 +1,3 @@
-server:
-    port: 7900
-
 spring:
     datasource:
         url: jdbc:mysql://mysql:3306/openprice
@@ -29,4 +26,4 @@ application:
         process:
             serverPrefix: openprice-server-ocr-
             numberOfServers: 0
-            serverPort: 7901
+            serverPort: 8080

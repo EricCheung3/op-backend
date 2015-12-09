@@ -274,6 +274,5 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
             .body("_embedded.catalogs[5].name", equalTo("blueberries"))
             .body("_embedded.catalogs[5].number", equalTo("06038309313"))
         ;
-
     }
 }

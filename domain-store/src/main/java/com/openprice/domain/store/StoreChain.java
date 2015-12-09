@@ -1,15 +1,9 @@
 package com.openprice.domain.store;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
 
 import lombok.Getter;
@@ -23,7 +17,7 @@ import lombok.ToString;
  * in database is mostly for user shopping list usage right now.
  *
  */
-@ToString(callSuper=true, exclude={"branches"})
+@ToString(callSuper=true)
 @SuppressWarnings("serial")
 @Entity
 @Table( name="store_chain" )
@@ -36,16 +30,6 @@ public class StoreChain extends BaseAuditableEntity {
     @Getter @Setter
     @Column(name="name", nullable=false)
     private String name;
-
-    @Getter @Setter
-    @JsonIgnore
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="chain")
-    private List<StoreBranch> branches = new ArrayList<>();
-
-    @Getter @Setter
-    @JsonIgnore
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="chain")
-    private List<Catalog> catalogs = new ArrayList<>();
 
     StoreChain() {}
 
@@ -73,7 +57,6 @@ public class StoreChain extends BaseAuditableEntity {
         final StoreBranch branch = new StoreBranch();
         branch.setChain(this);
         branch.setName(name);
-        branches.add(branch);
         return branch;
     }
 
@@ -93,7 +76,6 @@ public class StoreChain extends BaseAuditableEntity {
         catalog.setPrice(price);
         catalog.setNaturalName(naturalName);
         catalog.setLabelCodes(labelCodes);
-        catalogs.add(catalog);
         return catalog;
     }
 }

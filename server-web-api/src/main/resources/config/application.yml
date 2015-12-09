@@ -1,6 +1,3 @@
-server:
-    port: 7800
-
 spring:
     datasource:
         url: jdbc:mysql://mysql:3306/openprice
@@ -25,7 +22,7 @@ application:
             webServerUrl: http://104.197.105.245:8080
         internal:
             serverHost: openprice-server-internal-api
-            serverPort: 7900
+            serverPort: 8080
         file:
             virtual: false
             imageRootFolder: /groundtruth/images
