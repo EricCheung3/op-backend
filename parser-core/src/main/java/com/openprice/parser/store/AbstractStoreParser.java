@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import com.openprice.parser.ReceiptLine;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
+import com.openprice.parser.common.DateParserUtils;
 import com.openprice.parser.common.Levenshtein;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Item;
@@ -119,7 +120,7 @@ public abstract class AbstractStoreParser implements StoreParser {
     protected String parseDate(final ReceiptLine line){
         final List<String> origLines=line.getReceipt().getOriginalLines();
         final int currentNumber=line.getNumber();
-        return StringCommon.findDateStringAfterLine(origLines, currentNumber).getValue();
+        return DateParserUtils.findDateStringAfterLine(origLines, currentNumber).getValue();
     }
 
     @Override
