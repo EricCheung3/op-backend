@@ -1,7 +1,9 @@
 package com.openprice.rest.user.receipt;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -11,6 +13,9 @@ import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.hateoas.core.Relation;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
@@ -23,8 +28,10 @@ import lombok.Setter;
 @Relation(value = "receipt") // TODO why doing this?
 public class UserReceiptResource extends Resource<Receipt> {
 
+    @JsonInclude(Include.NON_EMPTY)
+    @JsonProperty("_embedded")
     @Getter @Setter
-    private List<UserReceiptImageResource> images;
+    private Map<String, List<UserReceiptImageResource>> embeddedImages = new HashMap<String, List<UserReceiptImageResource>>();
 
     public UserReceiptResource(final Receipt resource) {
         super(resource);
@@ -58,12 +65,11 @@ public class UserReceiptResource extends Resource<Receipt> {
                        .addLink("upload", URL_USER_RECEIPTS_RECEIPT_IMAGES_UPLOAD, false, pairs)
                        ;
 
-            // TODO fix _embedded issue
             List<UserReceiptImageResource> images = new ArrayList<>();
             for (ReceiptImage image : receiptImageRepository.findByReceiptOrderByCreatedTime(receipt)) {
                 images.add(imageResourceAssembler.toResource(image));
             }
-            resource.setImages(images);
+            resource.getEmbeddedImages().put("images", images);
 
             return resource;
         }

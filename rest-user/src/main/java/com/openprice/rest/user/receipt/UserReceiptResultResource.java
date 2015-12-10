@@ -1,7 +1,9 @@
 package com.openprice.rest.user.receipt;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -10,6 +12,9 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptItemRepository;
 import com.openprice.domain.receipt.ReceiptResult;
@@ -21,8 +26,10 @@ import lombok.Setter;
 
 public class UserReceiptResultResource extends Resource<ReceiptResult> {
 
+    @JsonInclude(Include.NON_EMPTY)
+    @JsonProperty("_embedded")
     @Getter @Setter
-    private List<UserReceiptItemResource> items;
+    private Map<String, List<UserReceiptItemResource>> embeddedItems = new HashMap<String, List<UserReceiptItemResource>>();
 
     public UserReceiptResultResource(final ReceiptResult resource) {
         super(resource);
@@ -51,12 +58,11 @@ public class UserReceiptResultResource extends Resource<ReceiptResult> {
                        .addLink("item", URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS_ITEM, false, pairs)
                        ;
 
-            // TODO fix _embedded issue
             List<UserReceiptItemResource> items = new ArrayList<>();
             for (ReceiptItem item : receiptItemRepository.findByReceiptResultAndIgnoredIsFalseOrderByLineNumber(result)) {
                 items.add(itemResourceAssembler.toResource(item));
             }
-            resource.setItems(items);
+            resource.getEmbeddedItems().put("items", items);
 
             return resource;
         }

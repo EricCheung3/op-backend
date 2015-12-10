@@ -91,19 +91,23 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
     public void getUserReceiptById_ShouldReturnUserReceipt() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
-        given()
-            .filter(sessionFilter)
-        .when()
-            .get(userReceiptUrl(sessionFilter, "receipt001"))
+        Response response =
+            given()
+                .filter(sessionFilter)
+            .when()
+                .get(userReceiptUrl(sessionFilter, "receipt001"))
+            ;
+        //response.prettyPrint();
+        response
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("id", equalTo("receipt001"))
-            .body("images[0].id", equalTo("image001"))
-            .body("images[0].status", equalTo(ProcessStatusType.UPLOADED.name()))
-            .body("images[1].id", equalTo("image003"))
-            .body("images[2].id", equalTo("image002"))
-            .body("images[3].id", equalTo("image004"))
+            .body("_embedded.images[0].id", equalTo("image001"))
+            .body("_embedded.images[0].status", equalTo(ProcessStatusType.UPLOADED.name()))
+            .body("_embedded.images[1].id", equalTo("image003"))
+            .body("_embedded.images[2].id", equalTo("image002"))
+            .body("_embedded.images[3].id", equalTo("image004"))
             .body("_links.images.href", endsWith("/images" + UtilConstants.PAGINATION_TEMPLATES))
             .body("_links.image.href", endsWith("/images/{imageId}"))
             //.body("_links.items.href", endsWith("/items"))
@@ -148,18 +152,17 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name())) TODO should be UPLOADED without process thread
             .body("_links.images.href", endsWith(URL_USER_RECEIPTS + "/" + receiptId + "/images" + UtilConstants.PAGINATION_TEMPLATES))
         ;
 
         // verify image in FileSystem
-        String fileName = response.then().extract().path("images[0].fileName");
+        String fileName = response.then().extract().path("_embedded.images[0].fileName");
         Path imageFile = fileSystemService.getReceiptImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
         assertTrue(Files.exists(imageFile));
         BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
         assertEquals("test", reader.readLine());
 
-        String downloadUrl = response.then().extract().path("images[0]._links.download.href");
+        String downloadUrl = response.then().extract().path("_embedded.images[0]._links.download.href");
         given()
             .filter(sessionFilter)
         .when()
@@ -202,18 +205,17 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name()))
         ;
         //response.prettyPrint();
 
         // verify image in FileSystem
-        String fileName = response.then().extract().path("images[0].fileName");
+        String fileName = response.then().extract().path("_embedded.images[0].fileName");
         Path imageFile = fileSystemService.getReceiptImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
         assertTrue(Files.exists(imageFile));
         BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
         assertEquals("test", reader.readLine());
 
-        String downloadUrl = response.then().extract().path("images[0]._links.download.href");
+        String downloadUrl = response.then().extract().path("_embedded.images[0]._links.download.href");
         given()
             .filter(sessionFilter)
         .when()
@@ -261,13 +263,13 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
         ;
 
         // verify image in FileSystem
-        String fileName = response.then().extract().path("images[0].fileName");
+        String fileName = response.then().extract().path("_embedded.images[0].fileName");
         Path imageFile = fileSystemService.getReceiptImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
         assertTrue(Files.exists(imageFile));
         BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
         assertEquals("test", reader.readLine());
 
-        String downloadUrl = response.then().extract().path("images[0]._links.download.href");
+        String downloadUrl = response.then().extract().path("_embedded.images[0]._links.download.href");
         given()
             .filter(sessionFilter)
         .when()
@@ -331,22 +333,22 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("chainCode", equalTo("rcss"))
             .body("branchName", equalTo("Calgary Trail"))
             .body("parsedTotal", equalTo("104.73"))
-            .body("items[0].catalogCode", equalTo("k dgon cook    wine    mrj_690294490073"))
-            .body("items[0].parsedName", equalTo("k dgon cook    wine    mrj"))
-            .body("items[0].parsedPrice", equalTo("2.69"))
-            .body("items[0].catalog", nullValue())
-            .body("items[1].catalogCode", equalTo("rooster garlic_06038388591"))
-            .body("items[1].parsedName", equalTo("rooster garlic"))
-            .body("items[1].parsedPrice", equalTo("0.68"))
-            .body("items[1].catalog", nullValue())
-            .body("items[2].catalogCode", equalTo("ducks fr7n    mrj_2021000"))
-            .body("items[2].parsedName", equalTo("ducks fr7n    mrj"))
-            .body("items[2].parsedPrice", equalTo("15.23"))
-            .body("items[2].catalog", nullValue())
-            .body("items[3].catalogCode", equalTo("hairtail_77016160104"))
-            .body("items[3].parsedName", equalTo("hairtail"))
-            .body("items[3].parsedPrice", equalTo("7.36"))
-            .body("items[3].catalog", nullValue())
+            .body("_embedded.items[0].catalogCode", equalTo("k dgon cook    wine    mrj_690294490073"))
+            .body("_embedded.items[0].parsedName", equalTo("k dgon cook    wine    mrj"))
+            .body("_embedded.items[0].parsedPrice", equalTo("2.69"))
+            .body("_embedded.items[0].catalog", nullValue())
+            .body("_embedded.items[1].catalogCode", equalTo("rooster garlic_06038388591"))
+            .body("_embedded.items[1].parsedName", equalTo("rooster garlic"))
+            .body("_embedded.items[1].parsedPrice", equalTo("0.68"))
+            .body("_embedded.items[1].catalog", nullValue())
+            .body("_embedded.items[2].catalogCode", equalTo("ducks fr7n    mrj_2021000"))
+            .body("_embedded.items[2].parsedName", equalTo("ducks fr7n    mrj"))
+            .body("_embedded.items[2].parsedPrice", equalTo("15.23"))
+            .body("_embedded.items[2].catalog", nullValue())
+            .body("_embedded.items[3].catalogCode", equalTo("hairtail_77016160104"))
+            .body("_embedded.items[3].parsedName", equalTo("hairtail"))
+            .body("_embedded.items[3].parsedPrice", equalTo("7.36"))
+            .body("_embedded.items[3].catalog", nullValue())
         ;
 
     }

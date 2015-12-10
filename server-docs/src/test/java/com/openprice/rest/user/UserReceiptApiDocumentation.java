@@ -98,7 +98,7 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
-                fieldWithPath("images").description("Receipt image list"),
+                fieldWithPath("_embedded.images").description("Receipt image list"),
                 fieldWithPath("needFeedback").description("Whether user can give feedback"),
                 fieldWithPath("_links").description("<<resources-user-receipt-links,Links>> to other resources")
             )
@@ -212,7 +212,7 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
                 fieldWithPath("branchName").description("Recognized store branch name, maybe null"),
                 fieldWithPath("parsedTotal").description("parsed field value for Total"),
                 fieldWithPath("parsedDate").description("parsed field value for Date"),
-                fieldWithPath("items").description("parsed receipt items"),
+                fieldWithPath("_embedded.items").description("parsed receipt items"),
                 fieldWithPath("_links").description("<<resources-user-receipt-parser-result-links, Links>> to other resources")
             )
        ));
@@ -250,13 +250,11 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
-                //fieldWithPath("lineNumber").description("Primary ID"),
                 fieldWithPath("catalogCode").description("Parser parsed matching catalog code"),
                 fieldWithPath("parsedName").description("Parser parsed item name"),
                 fieldWithPath("displayName").description("User editable item name"),
                 fieldWithPath("parsedPrice").description("Parser parsed item price"),
                 fieldWithPath("displayPrice").description("User editable item price"),
-                //fieldWithPath("ignored").description("Whether user deleted this item"),
                 fieldWithPath("catalog").description("Catalog object for the item"),
                 fieldWithPath("_links").description("<<resources-user-receipt-parser-result-item-retrieve-links,Links>> to other resources")
             )
