@@ -3,6 +3,8 @@ package com.openprice.parser.common;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,6 +20,8 @@ public class DateParserUtils {
     //    private static Pattern datePattern= Pattern.compile("(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
 
     private static final String DATE_SPLITTER="-/.";//date splitter between day month year
+
+    private static final String DATE_SPLITTER_UNIFORM="/";//uniformly used
 
     //month(one or two digits) and day (one or two digits), 4-digit year
     private static Pattern patternMonthDayYear4= Pattern.compile("([1-9]|0[1-9]|1[012])["+DATE_SPLITTER+"]([1-9]|0[1-9]|[12][0-9]|3[01])[" + DATE_SPLITTER+ "](19|20)\\d\\d");
@@ -37,20 +41,54 @@ public class DateParserUtils {
         log.debug("date line searching from line "+start+":"+origLines.get(start)+"\n");
         for(int i=start; i<origLines.size();i++){
             final String dateString=pruneDateString(origLines.get(i));
-            if( !dateString.isEmpty())
-                return ValueLine.builder().value(dateString).line(i).build();
+            try{
+                return ValueLine.builder().value(formatDateString(toDate(dateString))).line(i).build();
+            }catch(Exception e){
+                log.warn("String "+dateString+" fails for toDate(dateString)");
+            }
         }
         return ValueLine.defaultValueLine();
     }
 
+    public static String formatDateString(final Date date){
+        final int[] yMD=getYearMonthDay(date);
+        return yMD[0]+DATE_SPLITTER_UNIFORM
+                +yMD[1]+DATE_SPLITTER_UNIFORM
+                +yMD[2];
+    }
+
+    /**
+     * get the year month day in integer from a Date object
+     * @param date
+     * @return
+     */
+    public static int[] getYearMonthDay(final Date date){
+        final Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return new int[]{
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH)+1,
+                cal.get(Calendar.DAY_OF_MONTH)};
+    }
+
     /**
      * convert a date string to Date
+     * two order are allowed:
+     * Month Day Year or Year Month Day
      * @param dateStr
      * @return
      */
-    //    public static Date toDate(final String dateStr){
-    //
-    //    }
+    public static Date toDate(final String dateStr) throws Exception{
+        final String[] words=dateStr.split("-|\\.|/");//this is dependent on the DATE_SPLITTER
+        String yMD="";
+        if(words[0].length()==4)
+            yMD=words[0]+"-"+words[1]+"-"+words[2];
+        else if(words[2].length()==4)
+            yMD=words[2]+"-"+words[0]+"-"+words[1];
+        else
+            throw new Exception("the dateStr "+ dateStr+" is not a good date format");
+        return DATE_FORMAT.parse(yMD);
+    }
 
     /**matching date patterns
      * the following order is important

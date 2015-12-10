@@ -72,7 +72,7 @@ public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
         TextResourceUtils.loadFromTextResource(receiptWithNoDateHeader, (line)-> receiptLines.add(line));
         assertTrue(receiptLines.size() > 0);
         ParsedReceipt receipt = simpleParser.parse(receiptLines);
-        assertEquals("02/27/2015", receipt.getFieldToValueMap().get(ReceiptField.Date).getValue());
+        assertEquals("2015/2/27", receipt.getFieldToValueMap().get(ReceiptField.Date).getValue());
     }
 
 }

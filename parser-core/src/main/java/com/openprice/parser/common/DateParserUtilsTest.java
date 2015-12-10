@@ -3,11 +3,121 @@ package com.openprice.parser.common;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class DateParserUtilsTest {
+
+    @Test
+    public void formatDateStringTest()throws Exception{
+        final Date date=DateParserUtils.toDate("2013/01/31");
+        assertEquals("2013/1/31", DateParserUtils.formatDateString(date));
+    }
+
+    @Test(expected=Exception.class)
+    public void toDateTest1TwoDigitYearFormatIsNotSupported() throws Exception{
+        final Date date=DateParserUtils.toDate("1/1/13");
+        //        log.debug("date"+date);
+        //        final int[] yMD=DateParserUtils.getYearMonthDay(date);
+        //        assertEquals(2013, yMD[0]);
+        //        assertEquals(1, yMD[1]);
+        //        assertEquals(1, yMD[2]);
+    }
+
+    @Test
+    public void toDateTest1SingleDigitDayIsOkayYearAtEnd() throws Exception{
+        final Date date=DateParserUtils.toDate("1/1/2013");
+        log.debug("date"+date);
+        final int[] yMD=DateParserUtils.getYearMonthDay(date);
+        assertEquals(2013, yMD[0]);
+        assertEquals(1, yMD[1]);
+        assertEquals(1, yMD[2]);
+    }
+
+    @Test
+    public void toDateTest1SingleDigitDayIsOkay() throws Exception{
+        final Date date=DateParserUtils.toDate("2013/1/1");
+        log.debug("date"+date);
+        final int[] yMD=DateParserUtils.getYearMonthDay(date);
+        assertEquals(2013, yMD[0]);
+        assertEquals(1, yMD[1]);
+        assertEquals(1, yMD[2]);
+    }
+
+    @Test
+    public void toDateTest1SingleDigitMonthIsOkay() throws Exception{
+        final Date date=DateParserUtils.toDate("2013/1/31");
+        log.debug("date"+date);
+        final int[] yMD=DateParserUtils.getYearMonthDay(date);
+        assertEquals(2013, yMD[0]);
+        assertEquals(1, yMD[1]);
+        assertEquals(31, yMD[2]);
+    }
+
+    @Test
+    public void toDateTest1() throws Exception{
+        final Date date=DateParserUtils.toDate("2013/01/31");
+        log.debug("date"+date);
+        final int[] yMD=DateParserUtils.getYearMonthDay(date);
+        assertEquals(2013, yMD[0]);
+        assertEquals(1, yMD[1]);
+        assertEquals(31, yMD[2]);
+    }
+
+    @Test
+    public void toDateTest1DotIsOkay() throws Exception{
+        final Date date=DateParserUtils.toDate("2013.01.31");
+        log.debug("date"+date);
+        final int[] yMD=DateParserUtils.getYearMonthDay(date);
+        assertEquals(2013, yMD[0]);
+        assertEquals(1, yMD[1]);
+        assertEquals(31, yMD[2]);
+    }
+
+    @Test
+    public void toDateTest1DashIsOkay() throws Exception{
+        final Date date=DateParserUtils.toDate("2013-01-31");
+        log.debug("date"+date);
+        final int[] yMD=DateParserUtils.getYearMonthDay(date);
+        assertEquals(2013, yMD[0]);
+        assertEquals(1, yMD[1]);
+        assertEquals(31, yMD[2]);
+    }
+
+    @Test
+    public void toDateTest1YearInTheEndIsOkay() throws Exception{
+        final Date date=DateParserUtils.toDate("01-31-2013");
+        log.debug("date"+date);
+        final int[] yMD=DateParserUtils.getYearMonthDay(date);
+        assertEquals(2013, yMD[0]);
+        assertEquals(1, yMD[1]);
+        assertEquals(31, yMD[2]);
+    }
+
+    @Test
+    public void toDateTest1YearInTheEndIsOkayDot() throws Exception{
+        final Date date=DateParserUtils.toDate("01.31.2013");
+        log.debug("date"+date);
+        final int[] yMD=DateParserUtils.getYearMonthDay(date);
+        assertEquals(2013, yMD[0]);
+        assertEquals(1, yMD[1]);
+        assertEquals(31, yMD[2]);
+    }
+
+    @Test
+    public void toDateTest1YearInTheEndIsOkaySlash() throws Exception{
+        final Date date=DateParserUtils.toDate("01/31/2013");
+        log.debug("date"+date);
+        final int[] yMD=DateParserUtils.getYearMonthDay(date);
+        assertEquals(2013, yMD[0]);
+        assertEquals(1, yMD[1]);
+        assertEquals(31, yMD[2]);
+    }
 
     @Test
     public void testDate1YearFirstIsOkay(){
@@ -16,7 +126,7 @@ public class DateParserUtilsTest {
         lines.add("2015/01/18      17:26:22        $        14.48");
         lines.add("APPROVED");
         lines.add("No Signature Required");
-        assertEquals("2015/01/18", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
+        assertEquals("2015/1/18", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
     }
 
     @Test
@@ -26,7 +136,7 @@ public class DateParserUtilsTest {
         lines.add("01/18/2015      17:26:22        $        14.48");
         lines.add("APPROVED");
         lines.add("No Signature Required");
-        assertEquals("01/18/2015", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
+        assertEquals("2015/1/18", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
     }
 
     @Test
@@ -34,31 +144,31 @@ public class DateParserUtilsTest {
         final List<String> lines=new ArrayList<String>();
         lines.add("DATE 03/ 06/ 2015                TIME 14 :49:48");
         lines.add("AUTH # 00509Z                    REF # 00000062");
-        assertEquals("03/06/2015", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
+        assertEquals("2015/3/6", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
     }
 
     @Test
     public void testDateFile1(){
         final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/2015_02_09_11_34_51.jpg.hengshuai.txt"));
-        assertEquals("2/1/2015", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
+        assertEquals("2015/2/1", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
     }
 
     @Test
     public void testDateFile2(){
         final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/2015_02_09_11_34_51_variantionDate.jpg.hengshuai2.txt"));
-        assertEquals("02/01/2015", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
+        assertEquals("2015/2/1", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
     }
 
     @Test
     public void testDateFileSafeway1(){
         final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/2015_02_27_20_04_24.jpg.dongcui.txt"));
-        assertEquals("02/27/2015", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
+        assertEquals("2015/2/27", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
     }
 
     @Test
     public void testDateFileRCSS1(){
         final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/2015_04_04_21_25_02.jpg.jingwang.txt"));
-        assertEquals("02/21/2015", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
+        assertEquals("2015/2/21", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
     }
 
     @Test
