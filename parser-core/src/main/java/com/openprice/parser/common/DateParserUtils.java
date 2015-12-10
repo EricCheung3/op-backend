@@ -32,7 +32,7 @@ public class DateParserUtils {
     //4-digit year, month(one  two digits) and day (two digits)
     private static Pattern patternYear4MonthDay2=Pattern.compile("(19|20)\\d\\d["+DATE_SPLITTER+"]([1-9]|0[1-9]|1[012])["+DATE_SPLITTER+"](0[1-9]|[12][0-9]|3[01])");
 
-    //    4-digit year, month(one  two digits) and day (one or two digits)
+    //4-digit year, month(one  two digits) and day (one or two digits)
     private static Pattern patternYear4MonthDay1=Pattern.compile("(19|20)\\d\\d["+DATE_SPLITTER+"]([1-9]|0[1-9]|1[012])["+DATE_SPLITTER+"]([1-9]|0[1-9]|[12][0-9]|3[01])");
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
