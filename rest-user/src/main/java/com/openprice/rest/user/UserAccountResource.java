@@ -14,9 +14,6 @@ import lombok.Setter;
 public class UserAccountResource extends Resource<UserAccount> {
 
     @Getter @Setter
-    private UserProfileResource profile;
-
-    @Getter @Setter
     private String uploadUrl;
 
     @Getter @Setter
@@ -24,7 +21,6 @@ public class UserAccountResource extends Resource<UserAccount> {
 
     public UserAccountResource(final UserAccount account) {
         super(account);
-        profile = new UserProfileResource(account.getProfile());
     }
 
     @Component
@@ -46,6 +42,7 @@ public class UserAccountResource extends Resource<UserAccount> {
 
             resource.setReceiptsUrl(resource.getLink(Link.REL_SELF).getHref() + "/receipts"); // HACK. Remove it after ABBYY license ok.
             resource.setUploadUrl(resource.getLink("upload").getHref());
+
             return resource;
         }
 

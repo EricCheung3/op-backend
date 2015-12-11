@@ -79,12 +79,12 @@ public class ShoppingListRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("id", equalTo("shoppingStore101"))
             .body("chainCode", equalTo("rcss"))
             .body("displayName", equalTo("Superstore"))
-            .body("_embedded.items[0].name", equalTo("bread"))
-            .body("_embedded.items[1].name", equalTo("eggs"))
-            .body("_embedded.items[2].name", equalTo("jean"))
-            .body("_embedded.items[3].name", equalTo("milk"))
-            .body("_embedded.items[4].name", equalTo("shoes"))
-            .body("_embedded.items[5].name", equalTo("t-shirt"))
+            .body("_embedded.shoppingItems[0].name", equalTo("bread"))
+            .body("_embedded.shoppingItems[1].name", equalTo("eggs"))
+            .body("_embedded.shoppingItems[2].name", equalTo("jean"))
+            .body("_embedded.shoppingItems[3].name", equalTo("milk"))
+            .body("_embedded.shoppingItems[4].name", equalTo("shoes"))
+            .body("_embedded.shoppingItems[5].name", equalTo("t-shirt"))
         ;
     }
 }

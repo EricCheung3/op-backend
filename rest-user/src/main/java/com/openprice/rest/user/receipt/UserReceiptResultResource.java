@@ -26,10 +26,13 @@ import lombok.Setter;
 
 public class UserReceiptResultResource extends Resource<ReceiptResult> {
 
+    @Getter
+    private List<UserReceiptItemResource> items;
+
     @JsonInclude(Include.NON_EMPTY)
     @JsonProperty("_embedded")
     @Getter @Setter
-    private Map<String, List<UserReceiptItemResource>> embeddedItems = new HashMap<String, List<UserReceiptItemResource>>();
+    private Map<String, List<UserReceiptItemResource>> embeddedItems = new HashMap<>();
 
     public UserReceiptResultResource(final ReceiptResult resource) {
         super(resource);
@@ -62,7 +65,8 @@ public class UserReceiptResultResource extends Resource<ReceiptResult> {
             for (ReceiptItem item : receiptItemRepository.findByReceiptResultAndIgnoredIsFalseOrderByLineNumber(result)) {
                 items.add(itemResourceAssembler.toResource(item));
             }
-            resource.getEmbeddedItems().put("items", items);
+            resource.getEmbeddedItems().put("receiptItems", items);
+            resource.items = items;
 
             return resource;
         }

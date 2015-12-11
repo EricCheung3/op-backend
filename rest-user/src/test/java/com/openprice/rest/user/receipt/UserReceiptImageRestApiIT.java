@@ -1,6 +1,7 @@
 package com.openprice.rest.user.receipt;
 
 import static com.jayway.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -98,7 +99,6 @@ public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTes
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            //.body("images[0].status", equalTo(ProcessStatusType.SCANNED.name()))
         ;
 
         // upload second image
@@ -118,14 +118,15 @@ public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTes
             .when()
                 .get(imageUrl)
             ;
-
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            //.body("status", equalTo(ProcessStatusType.SCANNED.name()))
+            .body("downloadUrl", endsWith("/download"))
+            .body("base64Url", endsWith("/base64"))
         ;
-        //response.prettyPrint();
+
         // verify image in FileSystem
         String fileName = response.then().extract().path("fileName");
         Path imageFile = fileSystemService.getReceiptImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);

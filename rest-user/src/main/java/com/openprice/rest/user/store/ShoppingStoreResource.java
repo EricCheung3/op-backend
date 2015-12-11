@@ -60,7 +60,7 @@ public class ShoppingStoreResource extends Resource<ShoppingStore> {
             for (ShoppingItem item : store.getItems()) {
                 items.add(itemResourceAssembler.toResource(item));
             }
-            resource.getEmbeddedItems().put("items", items);
+            resource.getEmbeddedItems().put("shoppingItems", items);
 
             return resource;
         }

@@ -72,6 +72,7 @@ public class AdminReceiptItemResource extends Resource<ReceiptItem> {
                        .addLink("result", URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT, false, pairs)
                        .addLink("items", URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_ITEMS, true, pairs)
                        ;
+
             return resource;
         }
 

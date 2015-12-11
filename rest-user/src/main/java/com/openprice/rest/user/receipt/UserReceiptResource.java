@@ -23,15 +23,14 @@ import com.openprice.rest.LinkBuilder;
 import com.openprice.rest.user.UserApiUrls;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Relation(value = "receipt") // TODO why doing this?
 public class UserReceiptResource extends Resource<Receipt> {
 
     @JsonInclude(Include.NON_EMPTY)
     @JsonProperty("_embedded")
-    @Getter @Setter
-    private Map<String, List<UserReceiptImageResource>> embeddedImages = new HashMap<String, List<UserReceiptImageResource>>();
+    @Getter
+    private Map<String, List<UserReceiptImageResource>> embeddedImages = new HashMap<>();
 
     public UserReceiptResource(final Receipt resource) {
         super(resource);
@@ -69,7 +68,7 @@ public class UserReceiptResource extends Resource<Receipt> {
             for (ReceiptImage image : receiptImageRepository.findByReceiptOrderByCreatedTime(receipt)) {
                 images.add(imageResourceAssembler.toResource(image));
             }
-            resource.getEmbeddedImages().put("images", images);
+            resource.getEmbeddedImages().put("receiptImages", images);
 
             return resource;
         }
