@@ -128,6 +128,22 @@
                     <exclude>**/*.yml</exclude>
                 </excludes>
             </resource>
+            <resource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.yml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/test/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>**/*.xml</exclude>
+                    <exclude>**/*.yml</exclude>
+                </excludes>
+            </resource>
         </resources>
 
         <plugins>
