@@ -34,18 +34,18 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
             .body("_embedded.receiptResults[0].branchName", equalTo("Calgary Trail"))
             .body("_embedded.receiptResults[0].parsedTotal", equalTo("10.45"))
             .body("_embedded.receiptResults[0].parsedDate", equalTo("2015/11/11"))
-            .body("_embedded.receiptResults[0].items[0].id", equalTo("recItem003"))
-            .body("_embedded.receiptResults[0].items[0].lineNumber", equalTo(10))
-            .body("_embedded.receiptResults[0].items[0].catalogCode", equalTo("PORK"))
-            .body("_embedded.receiptResults[0].items[0].userDeleted", equalTo(false))
-            .body("_embedded.receiptResults[0].items[1].id", equalTo("recItem001"))
-            .body("_embedded.receiptResults[0].items[1].lineNumber", equalTo(15))
-            .body("_embedded.receiptResults[0].items[1].catalogCode", equalTo("EGG_1235"))
-            .body("_embedded.receiptResults[0].items[1].userDeleted", equalTo(false))
-            .body("_embedded.receiptResults[0].items[2].id", equalTo("recItem002"))
-            .body("_embedded.receiptResults[0].items[2].lineNumber", equalTo(18))
-            .body("_embedded.receiptResults[0].items[2].catalogCode", equalTo("MILK_1234"))
-            .body("_embedded.receiptResults[0].items[2].userDeleted", equalTo(true))
+            .body("_embedded.receiptResults[0]._embedded.receiptItems[0].id", equalTo("recItem003"))
+            .body("_embedded.receiptResults[0]._embedded.receiptItems[0].lineNumber", equalTo(10))
+            .body("_embedded.receiptResults[0]._embedded.receiptItems[0].catalogCode", equalTo("PORK"))
+            .body("_embedded.receiptResults[0]._embedded.receiptItems[0].userDeleted", equalTo(false))
+            .body("_embedded.receiptResults[0]._embedded.receiptItems[1].id", equalTo("recItem001"))
+            .body("_embedded.receiptResults[0]._embedded.receiptItems[1].lineNumber", equalTo(15))
+            .body("_embedded.receiptResults[0]._embedded.receiptItems[1].catalogCode", equalTo("EGG_1235"))
+            .body("_embedded.receiptResults[0]._embedded.receiptItems[1].userDeleted", equalTo(false))
+            .body("_embedded.receiptResults[0]._embedded.receiptItems[2].id", equalTo("recItem002"))
+            .body("_embedded.receiptResults[0]._embedded.receiptItems[2].lineNumber", equalTo(18))
+            .body("_embedded.receiptResults[0]._embedded.receiptItems[2].catalogCode", equalTo("MILK_1234"))
+            .body("_embedded.receiptResults[0]._embedded.receiptItems[2].userDeleted", equalTo(true))
         ;
     }
 
@@ -69,9 +69,9 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
             .body("branchName", equalTo("Calgary Trail"))
             .body("parsedTotal", equalTo("10.45"))
             .body("parsedDate", equalTo("2015/11/11"))
-            .body("items[0].id", equalTo("recItem003"))
-            .body("items[1].id", equalTo("recItem001"))
-            .body("items[2].id", equalTo("recItem002"))
+            .body("_embedded.receiptItems[0].id", equalTo("recItem003"))
+            .body("_embedded.receiptItems[1].id", equalTo("recItem001"))
+            .body("_embedded.receiptItems[2].id", equalTo("recItem002"))
         ;
     }
 

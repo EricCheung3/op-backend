@@ -1,7 +1,9 @@
 package com.openprice.rest.user.store;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -10,6 +12,9 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.openprice.domain.shopping.ShoppingItem;
 import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.rest.LinkBuilder;
@@ -20,8 +25,10 @@ import lombok.Setter;
 
 public class ShoppingStoreResource extends Resource<ShoppingStore> {
 
+    @JsonInclude(Include.NON_EMPTY)
+    @JsonProperty("_embedded")
     @Getter @Setter
-    private List<ShoppingItemResource> items;
+    private Map<String, List<ShoppingItemResource>> embeddedItems = new HashMap<String, List<ShoppingItemResource>>();
 
     public ShoppingStoreResource(ShoppingStore store) {
         super(store);
@@ -49,12 +56,11 @@ public class ShoppingStoreResource extends Resource<ShoppingStore> {
                        .addLink("catalogs", URL_USER_SHOPPING_STORES_STORE_CATALOGS, false, pairs)
                        ;
 
-            // TODO fix _embedded issue
             List<ShoppingItemResource> items = new ArrayList<>();
             for (ShoppingItem item : store.getItems()) {
                 items.add(itemResourceAssembler.toResource(item));
             }
-            resource.setItems(items);
+            resource.getEmbeddedItems().put("shoppingItems", items);
 
             return resource;
         }

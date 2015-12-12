@@ -54,7 +54,7 @@ public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
-                fieldWithPath("images").description("Receipt image list"),
+                fieldWithPath("_embedded.receiptImages").description("Receipt image list"),
                 fieldWithPath("needFeedback").description("Whether user can give feedback"),
                 fieldWithPath("user").description("Receipt owner display name"),
                 fieldWithPath("uploadTimestamp").description("ISO 8601 formatted timestamp when user uploaded the receipt"),
@@ -110,6 +110,7 @@ public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
                 fieldWithPath("status").description("Receipt image process status"),
                 fieldWithPath("ocrResult").description("Receipt image ocr process result"),
                 fieldWithPath("fileName").description("Receipt image file name"),
+                fieldWithPath("downloadUrl").description("Receipt image JPEG file download URL"),
                 fieldWithPath("_links").description("<<resources-admin-receipt-image-retrieve-links,Links>> to other resources")
             )
         ));
@@ -183,17 +184,6 @@ public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
             .andReturn().getResponse()
             .getContentAsString();
         return JsonPath.read(responseContent, "_embedded.receiptImages[0]._links.self.href");
-    }
-
-    private String getTestReceiptItemsUrl() throws Exception {
-        final String responseContent =
-            mockMvc
-            .perform(get(getTestReceiptUrl()).with(user(ADMINNAME)))
-            .andExpect(status().isOk())
-            .andReturn().getResponse()
-            .getContentAsString();
-        final String imagesLink = JsonPath.read(responseContent, "_links.items.href");
-        return UriTemplate.fromTemplate(imagesLink).set("page", null).set("size", null).set("sort", null).expand();
     }
 
 }

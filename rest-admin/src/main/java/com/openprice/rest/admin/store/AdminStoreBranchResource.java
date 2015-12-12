@@ -21,6 +21,7 @@ public class AdminStoreBranchResource extends Resource<StoreBranch> {
         @Override
         public AdminStoreBranchResource toResource(StoreBranch storeBranch) {
             final AdminStoreBranchResource resource = new AdminStoreBranchResource(storeBranch);
+
             final String[] pairs = {"chainId", storeBranch.getChain().getId(), "branchId", storeBranch.getId()};
             final LinkBuilder linkBuilder = new LinkBuilder(resource);
             linkBuilder.addLink(Link.REL_SELF, URL_ADMIN_CHAINS_CHAIN_BRANCHES_BRANCH, false, pairs)

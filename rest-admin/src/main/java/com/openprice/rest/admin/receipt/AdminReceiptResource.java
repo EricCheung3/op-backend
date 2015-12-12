@@ -3,7 +3,9 @@ package com.openprice.rest.admin.receipt;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -12,6 +14,9 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
@@ -29,8 +34,10 @@ public class AdminReceiptResource extends Resource<Receipt> {
     @Getter @Setter
     private String uploadTimestamp;
 
-    @Getter @Setter
-    private List<AdminReceiptImageResource> images;
+    @JsonInclude(Include.NON_EMPTY)
+    @JsonProperty("_embedded")
+    @Getter
+    private Map<String, List<AdminReceiptImageResource>> embeddedImages = new HashMap<>();
 
     public AdminReceiptResource(final Receipt resource) {
         super(resource);
@@ -57,6 +64,12 @@ public class AdminReceiptResource extends Resource<Receipt> {
             LocalDateTime createdTime = receipt.getCreatedTime();
             resource.setUploadTimestamp(createdTime.format(DateTimeFormatter.ISO_DATE_TIME));
 
+            List<AdminReceiptImageResource> images = new ArrayList<>();
+            for (ReceiptImage image : receiptImageRepository.findByReceiptOrderByCreatedTime(receipt)) {
+                images.add(imageResourceAssembler.toResource(image));
+            }
+            resource.getEmbeddedImages().put("receiptImages", images);
+
             final String[] pairs = {"receiptId", receipt.getId()};
             final LinkBuilder linkBuilder = new LinkBuilder(resource);
             linkBuilder.addLink(Link.REL_SELF, URL_ADMIN_RECEIPTS_RECEIPT, false, pairs)
@@ -65,14 +78,6 @@ public class AdminReceiptResource extends Resource<Receipt> {
                        .addLink("results", URL_ADMIN_RECEIPTS_RECEIPT_RESULTS,  true, pairs)
                        .addLink("result", URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT, false, pairs)
                        ;
-
-            // Temp solution for embedded resources
-            // Monitor https://github.com/spring-projects/spring-hateoas/issues/270
-            List<AdminReceiptImageResource> images = new ArrayList<>();
-            for (ReceiptImage image : receiptImageRepository.findByReceiptOrderByCreatedTime(receipt)) {
-                images.add(imageResourceAssembler.toResource(image));
-            }
-            resource.setImages(images);
 
             return resource;
         }
