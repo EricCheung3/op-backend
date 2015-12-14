@@ -2,11 +2,14 @@ package com.openprice.rest.user;
 
 import static com.jayway.restassured.RestAssured.given;
 
+import org.springframework.boot.test.SpringApplicationConfiguration;
+
 import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.openprice.common.ApiConstants;
 import com.openprice.rest.AbstractRestApiIntegrationTest;
 
+@SpringApplicationConfiguration(classes = {UserApiTestApplication.class})
 public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApiIntegrationTest implements UserApiUrls {
 
     protected String userUrl() {

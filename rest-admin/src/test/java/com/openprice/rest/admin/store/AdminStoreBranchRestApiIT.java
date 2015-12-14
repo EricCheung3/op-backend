@@ -16,10 +16,10 @@ import com.jayway.restassured.response.Response;
 import com.openprice.common.ApiConstants;
 import com.openprice.domain.store.StoreChain;
 
+@DatabaseSetup("classpath:/data/testAdmin.xml")
 public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrationTest {
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getStoreBranches_ShouldReturnAllBranchesOfStore() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
@@ -45,7 +45,6 @@ public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrat
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getStoreBranchById_ShouldReturnCorrectStoreBranch() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
@@ -65,7 +64,6 @@ public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrat
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getStoreBranchById_ShouldReturn404_WithInvalidId() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
@@ -88,7 +86,6 @@ public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrat
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void createStoreBranch_ShouldCreateNewBranchForStore() throws Exception {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
@@ -137,7 +134,6 @@ public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrat
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void updateStoreBranch_ShouldUpdate() throws Exception {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String branchUrl = storeBranchUrl(sessionFilter, "chain001", "branch101");
@@ -177,7 +173,6 @@ public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrat
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void deleteStoreBranchById_ShouldDeleteBranch() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String branchUrl = storeBranchUrl(sessionFilter, "chain001", "branch101");
@@ -203,6 +198,5 @@ public class AdminStoreBranchRestApiIT extends AbstractAdminStoreRestApiIntegrat
         final StoreChain store = storeRepository.findOne("chain001");
         assertEquals(2, storeBranchRepository.findByChain(store).size());
     }
-
 
 }
