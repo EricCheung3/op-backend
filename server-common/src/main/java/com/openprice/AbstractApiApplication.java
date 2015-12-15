@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -20,6 +21,7 @@ import com.openprice.mail.stub.DummyEmailService;
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @EnableAspectJAutoProxy
+@EnableAsync
 public abstract class AbstractApiApplication {
 
     @Inject
