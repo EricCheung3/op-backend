@@ -22,18 +22,21 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Code copied from https://github.com/Robbert1/boot-stateless-auth
  *
  */
+@Slf4j
 public class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter {
 
     private final TokenAuthenticationService tokenAuthenticationService;
     private final UserDetailsService userDetailsService;
 
-    public StatelessLoginFilter(final String urlMapping, 
+    public StatelessLoginFilter(final String urlMapping,
                                 final TokenAuthenticationService tokenAuthenticationService,
-                                final UserDetailsService userDetailsService, 
+                                final UserDetailsService userDetailsService,
                                 final AuthenticationManager authManager) {
         super(new AntPathRequestMatcher(urlMapping));
         this.userDetailsService = userDetailsService;
@@ -50,17 +53,17 @@ public class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter
                     credentials.getUsername(), credentials.getPassword());
             return getAuthenticationManager().authenticate(loginToken);
         } catch (JsonParseException | JsonMappingException ex) {
-            throw new BadCredentialsException("Cannot parse input credentials!"); 
+            throw new BadCredentialsException("Cannot parse input credentials!");
         }
-        
+
     }
 
     @Override
-    protected void successfulAuthentication(final HttpServletRequest request, 
+    protected void successfulAuthentication(final HttpServletRequest request,
                                             final HttpServletResponse response,
-                                            final FilterChain chain, 
+                                            final FilterChain chain,
                                             final Authentication authentication) throws IOException, ServletException {
-
+        log.info("User '{}' successfully logged in.", authentication.getName());
         // Lookup the complete User object from the database and create an Authentication for it
         final UserDetails authenticatedUser = userDetailsService.loadUserByUsername(authentication.getName());
         final UserAuthentication userAuthentication = new UserAuthentication(authenticatedUser);

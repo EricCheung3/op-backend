@@ -34,7 +34,7 @@ public class TokenHandler {
         try {
             return userService.loadUserByUsername(username);
         } catch (UsernameNotFoundException ex) {
-            log.warn("Cannot load user by username: '{}'!", username);
+            log.warn("Authentication Error! Cannot load user by username: '{}'!", username);
             return null;
         }
     }
