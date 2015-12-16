@@ -1,0 +1,87 @@
+
+SUPERSTORE
+RCSS 1570 - 4821 CALGARY TRAIL
+ 780-430-2769
+          Big on Fresh, Lou on Price
+ Uelcone
+ Card#: ~*H*****'*n·**
+ GROCERY
+   08490901119 RICE STICKS 1MM                    R           1.48
+   06038369427 PC FREE RUN LRG                    R           3.48
+   62363800002 QUAIL EGGS                         R
+     $3.99 ea or 2/$7.58
+     2@ 2/$7.58                                               7.58
+     1 @$3.99 ea                                              3.99
+   64802         SOYA BEANS
+     1.695 kg@ $4.10/kg                                       6.95
+     1.590 kg @ $4.1 0/kg                                     6.52
+ SEAFOOD
+   2861670          MANILA CLAMS                              8.49
+   2861690          ATL MUSSELS                               7.32
+   2867990          FZ SMELTS                                 3.60
+ MEAT
+   2814190          OXTAIL                                  14.06
+   2848930          SIRLOIN TIP                             21.77
+   ~?89 1210435     NZ LAMB STEW BI                         16.98
+ PRUOUCE
+    03338300960 ORG GALA 3LB                                  5.97
+    06038303705 PCO PEARS 3LB                                 3.99
+    03338325055 GRN SDLS GRAPES                   R           5.96
+    (2) 4062            CUCUMBER FIELD            R           1.54
+      2 @ $0.77                                    
+    4401            PEACH WHT FLESH                           4.83
+      0.735 kg @ $6.57/kg                           
+    4636            GRAPE R   GLOBE                R          7.88
+      1.030 kg @ $7.65/~g                          
+  ' 70336           PC BLACK SABLE                R          12.10
+      1.380 kg~ $8.77/kg                           
+    3040            DRAGON FRUIT                              1.48
+    30665           DURIAN                        R          10.72
+      2.735 kg@ $3.92/kg                          
+    4527            LONG BEANS                                1.58
+      0.395 kg .@ $4.00/kg                       
+    4552            CHINESE CABBAGE               R          3.13
+      1.820 kg~ $1.72/kg                          
+    (2)4790             SUGAR CANE                R          3.96
+       2 @ $1.98                                   
+  505D371J1800"'"" PINEAPPLE                      R    -     1.96
+  885851soooo 1 TAMARIND 454GM                   -R-         2.98
+  03338340243 WMELON MINI SDLS                    R          2.98
+    $2.98 lmt 1. $3.97 ea
+       1 @ $2.96' 1nt 1                           
+  07143001 105 STRAWBERRIES 2LB                   R          3.98
+  4547           RAPINI                                      2.27
+  03338370119 PEP RED SWT 4CT                     R          3.98
+  4012           ORANGE NAVEL LG                  R          7.21
+    2.575 kg@ $2.80/kg                             
+  4799           TOMATO GH RED                    R          3.76
+    1.755 kg @ $2.14/kg                            
+SUBTOTAL                                             194.48
+TOTAL                                                194.48
+CARD   #:   ***~*~~**~** 7591
+       PC points                                           130.00
+---------TRANSACTION RECORD -------------
+GLOBAL PAYMENTS MERCHANT # 0955971
+Superstore
+4821 Calgary Trail N.W.
+EdMOnton AB
+STORE 01570             TERM Z0157003C
+SL IP # 369500          REG 3
+RETAIN THIS COPY FOR YOUR RECORDS
+** Purchase              ** ChiP
+CARD # *~**********7591      EXP **f**
+PC MasterCard
+REF #          AUTH #     RESP 001
+256001001082 043502       ISO 00
+AID: A0000000041010
+TSI EBOO TUR 0000001000
+DATE            TIME            AMOUNT
+03/01/2014      16:38:11        $        64.48
+             APPROVED
+No Signature Required
+
+    CREDIT TN                                              64.48
+PC Plus
+Points Redeened                                             130000
+Balance Unavail able
+

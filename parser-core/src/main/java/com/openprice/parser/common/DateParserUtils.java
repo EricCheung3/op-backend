@@ -41,10 +41,11 @@ public class DateParserUtils {
         log.debug("date line searching from line "+start+":"+origLines.get(start)+"\n");
         for(int i=start; i<origLines.size();i++){
             final String dateString=pruneDateString(origLines.get(i));
+            if(dateString.isEmpty()) continue;
             try{
                 return ValueLine.builder().value(formatDateString(toDate(dateString))).line(i).build();
             }catch(Exception e){
-                log.warn("String "+dateString+" fails for toDate(dateString)");
+                log.debug("dateString="+dateString+", toDate(dateString) error.");
             }
         }
         return ValueLine.defaultValueLine();

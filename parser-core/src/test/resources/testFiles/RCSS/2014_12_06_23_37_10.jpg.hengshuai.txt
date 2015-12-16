@@ -1,0 +1,81 @@
+SUPERSTORE
+RCSS 1570 -     ~B? 1   CALGARY TRAIL
+781)-430-276
+             B            esh. Low on Price
+We len· ·
+Cn'"             ~h****'**'
+GROCERY
+  06148311533        FM 2% MILK                    R       4.54
+ x44000855341        RECYCLING                     R       0.07
+ x4.J00721908        DEPOSIT                               0.25
+  62058000002        RR LRG ORG EGGS               R       6.59
+  06038304432        PC MAX TOWELS                GR      19.97
+    $19.97 lnt      6, $24.98 ea
+    1 @ $19.97      lnt 6                           
+SEAFOOD
+  tl6038385340 SHRIMP RAW                         R        17.96
+     $8.98 lnt 4. $10.99 ea
+     2 ~ $8.98 lrnt 4                              
+                                                        1800 Pts
+MEAT
+  :2848940               ROUND ROAST               R      18.88
+  :2174190               LAMB BONLESS LEG          R      22.40
+PRODUCE
+  1)6038388091 APPLE RED DEL                               5.98
+  ')6038303814 t·1USHROOMS ORG                     R       2.48
+  4067            ZUCCHINI GREEN                   R       2.37
+     0.730 kg@ $3.24/kg                             
+   4636           GRAPE RED GLOBE                  R       5.63
+     0.860 kg @ $6.55/kg                            
+  4527            LONG BEANS                               2.46
+     0.450 kg @ $5.4 7/ kg  
+  4544            BABY BOK CHOY /PA                        2.16
+     0.765 kg @ $2.82/kg           
+  4552            CHINESE CABBAGE                          2.92
+     1.100 kg ~ $1.72/kg         
+  4795            TARO ROOT MED                    R       7.50
+     2.660 kg @ $2.82/kg                            
+  ·1032           WMELON RED SDLS                  R       4.96
+  03338390405 ORGANIC CAULIFLO                     R       3.48
+  4068            ONION GREEN                      R       0.57
+  4547            RAPINI                           R       2.27
+  4889            CILANTRO                         R       0.87
+  :3029           MANDARIN SDLS                    R       5.70
+     1.750 kg @ $3.26/kg                            
+  ti4564          FM TOMS RED BAG                  R       5.05
+     1.560 kg ~ $3.24/kg                           
+  03338360104 ONION RED 1OLB                       R       6.98
+  ')6038385461 PCBM NS PISTAS                      R      12.98
+  ·)6038387748_ NN PEANUTS                         R       6.98
+  4073            POTATO RED                       R       1.97
+     0.920 kg@ $2.14/kg                             
+  4083            POTATO WHITE                     R       4.21
+     1.965 kg @ $2.14/kg                          
+  4234            BANANA MINI                      R       3.60
+     1.105 kg@ $3.26/kg                             
+HOME
+  (3)9                     PLASTIC BAGS            GR      0.15
+    3 @$0.05                                         
+SUBTOTAL                                               181.93
+     G=GST 5%            20.12   @   5.000%                 1.01
+
+TOTAL                                                   182.94
+---------TRANSACTION RECORD-- ----- ---- --
+GLOBAL PAYMENTS MERCHANT # 0955971
+Superstore
+4811 Calgary Trail N.W.
+Edmonton AB
+STORE 01570             TERM Z0157009C
+SLIP # 318600           REG 9
+RETAIN THIS COPY FOR YOUR RECORDS
+xx Purchase              ** ChiP
+CAI10 # *******x*xu7591      EXP **I**
+PC MasterCard
+REF#           AUTH #      RESP 001
+311001001073 09920Z        ISO 00
+AID: A0000000041010
+TSI EBOO    TUR 0000001000
+DATE              TIME             AMOUNT
+05/09/2014        17:53:30         $     182.94
+             APPROVED
+

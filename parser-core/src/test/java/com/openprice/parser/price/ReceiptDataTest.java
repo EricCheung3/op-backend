@@ -1,4 +1,4 @@
-package com.openprice.parser;
+package com.openprice.parser.price;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import com.openprice.parser.ReceiptData;
+import com.openprice.parser.ReceiptLine;
 
 public class ReceiptDataTest {
 

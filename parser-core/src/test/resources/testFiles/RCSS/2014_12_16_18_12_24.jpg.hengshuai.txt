@@ -1,0 +1,60 @@
+
+SUPERSTORE
+RCSS 1570 - 4821 CALGARV TRAIL
+780-430-2769
+         Blg on Fresh. Low on Prlce
+
+GROCERY
+  02392390965     EB COOKIES                    R       2.96
+  05786400067     SOYGANIC PR. MED                      2.99
+  06820084517     BD FICELLO CHEDD                      4.37
+SEAFOOD
+  2121080         TILAPIA WHOLE                 R       6.68
+MEAT
+  2202000         GRND TURKEY                           4.41
+  2105970         FF PORK BACKRIB                      11.28
+PRODUCE
+  63855001162 ORG GRANNY 3LB                    R       5.98
+  C2J779102800005 ORG PEAR PACKHAM              R       7.96
+    2 @ $3.98                                    
+  4023           GRAPE RED SDL CS               R       5.37
+    0.820 kg @ $6.55/kg                         
+  (3)06038383232 PCO BLUEBERRIES                R      10.47
+    3 @ $3.49                                  
+  4031           WMELON RED SEED                R       9.98
+  4045           CHERRIES RED                          11.04
+    2.045 kg @ $5.40/kg      
+  94011          BANANA ORGANIC                        1.19
+    0.620 kg @ $1.92/kg        
+EYEWEAR
+  05870308902     JOE BABY SPT         ~JRP     GR     8.00
+BABY CARE
+  06038304146 VEG RICE W CHICK                  R      2.47
+  06038385064 PCO MASHED POTAT                  R      2.47
+  62861930003 VEGGIE BEEF                              1.33
+    $1.33 lmt 4, $1.79 ea
+    1@ $1.33 lnt 4        
+SUBTOTAL                                             98.95
+    G:GST 5%       8.00   @   5.000%                   0.40
+
+TOTAL                                                99.35
+
+ ----- · ---TRntlSACTION RECORD- ------------
+GLOBAL PAVHEtHS MERCHANT # 0955971
+Superstore
+4821 Calgary Trall N.H.
+Edmonton AB
+STORE 01570              TERH Z0157001C
+SLIP # 904100                 RtG 1
+    RETAW THIS COP V FOR VOUR RECORDS
+** Purchase                  ** Proxlmlty
+CARD # *''******'**1591
+ijASTERC  P.RD
+                                   EXP **f**
+REF #                 AUTH #       RESP 001
+047001001121          02403Z       ISO 00
+DATE             TIME           AMOUNT
+07/21/2013       18:17:46       $      99.35
+            APPROVED
+No Signature Required
+

@@ -1,0 +1,88 @@
+
+SUPERSTORE
+RCSS 1570 - 4821 CALGARY TRAIL
+  780-430-2769       ~           .
+           Big, on Fresh, Low on Price
+  U~l cone
+  Card#: *x*l*~'''~*~·*·'
+  GROCERY
+    05786420002      SOYA UNSWT                         5.39
+   ~4400061 0048     RECYCLING                          0.07
+   *44000370207      DEPOSIT                  R         0.25
+    06038375010      PC BM BROWN EGGS         R         4.19
+      $4.19 ea or 2/$7.58
+      1 @ $4.19 ea                            
+    06148311533 FM 2% MILK                              4.54
+   ·44000855341 RECYCLING                               0.07
+   *44000721908 DEPOSIT                       R         0.25
+    06565100361 NATUREGG OMEGA P              R         4.59
+      $4.59 ea or 2/$8.18
+      1 @ $4.59 ea                             
+    06038304880 PCSS BATH TISSUE              GR       17.97
+      $17.97 lnt 6, $24.97 ea
+· ~ 1 ~ $17.97 lmt 6                            
+    06343570234 RYLE VELR BT                  GR       19.97
+      $19.97 lnt 6, $28.98 ea
+      1@$19.971~t6                              
+  SEAFOOD
+    2867990          FZ    SMELTS                       3.76
+  MEAT
+    2834460          ROUND STEAK              R        18.08
+  PRODUCE
+    68965           PC GRAPE MUSCAT                     4.30
+       0.490 kg@ $8.77/kg                      
+    3164            YU CHOY                             2.56
+       0.585 kg @$4.37/kg  
+     C3l4030            KIWI                            2.34
+       3 @ $0.78         
+    4596            DAIKON/ LO BOK            R         1.13
+       0.585 kg @ $1.94/kg                     
+    4655            OKRA                                2.32
+       0.425 kg @ $5.47/kg 
+     C3J 82757520007 WMELON MINI SDLS        R         11.91
+       3@ $3.97                              
+    07146431254 CARROT JUICE                           5.47
+   ·44000672258 RECYCLING                              0.07
+   *44000634362 DEPOSIT                                0.25
+    4664            TOV GH RED                         1.61
+       0.495 kg @$3.26/kg     
+    64664           FM TOMS RED BAG                    2.17
+       0.665 kg @ $3.26/kg         
+    4011            BANANA                    R        1.41
+       0.830 kg @ $1.70/KG               
+    4235            BANANA PLT RP CS         R         0.57
+       0.295 kg @ Sl. 94/kg                 
+  BABY CARE
+    05679600495      ENFAMIL A+ OMEGA                 26.99
+      $26.99 1nt   2, $29.99 ea
+      1 @ $26.99    1~t 2            
+    06036301923      SNACK CUP                GR       4.29
+  SKIN /ORAL
+    C2l31031032022        ORAJEL TTHBRSH      GR
+     2 @ $3.49                                        6.98
+  SUBTOTAL                                         153.50
+      G=GST 5%       49.21 @ 5.000%                    2.46
+ TOTAL                                             155.96
+  --------- TRANSACTION RECORD-------------
+ GLOBAL PAYMENTS HERCHANT ~ 0955971
+ Superstore
+ 4821 Calgary Trail N.W.
+ Edmonton AB
+ STORE 01570              fERH Z0157005C
+ SLIP ~ 4520~             REG 5
+ RETAIN THIS COPY FOR YOUR RECORDS
+ ** Purchase               *' ChiP
+ CARD M ****'*******6689         EXP '*''~
+ PC MasterCard
+ REF 8           AUTH 8      RESP 001
+ 304001001064 03858Z         ISO
+ AID: A0000000041010
+ TSI E800     TUR 0000001000
+ DATE            TIME           AMOUIH
+ 04/16/2014      20:41:27       $    155.96
+              APPROUED
+ No    Signature                Req11 i red
+
+
+      CREDIT TN                                      155.96
+

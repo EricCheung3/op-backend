@@ -109,6 +109,12 @@ public class DateParserUtilsTest {
         assertEquals(31, yMD[2]);
     }
 
+
+    @Test(expected=Exception.class)
+    public void toDateTestSplitterIsNotAccepted() throws Exception{
+        final Date date=DateParserUtils.toDate("01)31)2013");
+    }
+
     @Test
     public void toDateTest1YearInTheEndIsOkaySlash() throws Exception{
         final Date date=DateParserUtils.toDate("01/31/2013");
@@ -120,7 +126,7 @@ public class DateParserUtilsTest {
     }
 
     @Test
-    public void testDate1YearFirstIsOkay(){
+    public void testDate1YearFirstIsOkay() throws Exception{
         final List<String> lines=new ArrayList<String>();
         lines.add("DATE            TIME            AMOUNT");
         lines.add("2015/01/18      17:26:22        $        14.48");
@@ -130,7 +136,7 @@ public class DateParserUtilsTest {
     }
 
     @Test
-    public void testDate1(){
+    public void testDate1()throws Exception{
         final List<String> lines=new ArrayList<String>();
         lines.add("DATE            TIME            AMOUNT");
         lines.add("01/18/2015      17:26:22        $        14.48");
@@ -140,7 +146,7 @@ public class DateParserUtilsTest {
     }
 
     @Test
-    public void testDate2(){
+    public void testDate2()throws Exception{
         final List<String> lines=new ArrayList<String>();
         lines.add("DATE 03/ 06/ 2015                TIME 14 :49:48");
         lines.add("AUTH # 00509Z                    REF # 00000062");
@@ -148,25 +154,31 @@ public class DateParserUtilsTest {
     }
 
     @Test
-    public void testDateFile1(){
+    public void testDateFile1()throws Exception{
         final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/2015_02_09_11_34_51.jpg.hengshuai.txt"));
         assertEquals("2015/2/1", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
     }
 
     @Test
-    public void testDateFile2(){
+    public void testDateFile2()throws Exception{
         final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/2015_02_09_11_34_51_variantionDate.jpg.hengshuai2.txt"));
         assertEquals("2015/2/1", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
     }
 
     @Test
-    public void testDateFileSafeway1(){
+    public void testDateFileSafeway1()throws Exception{
         final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/2015_02_27_20_04_24.jpg.dongcui.txt"));
         assertEquals("2015/2/27", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
     }
 
     @Test
-    public void testDateFileRCSS1(){
+    public void testDateFileRCSS1()throws Exception{
+        final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/2015_04_04_21_25_02.jpg.jingwang.txt"));
+        assertEquals("2015/2/21", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
+    }
+
+    @Test
+    public void testDateFileRCSS2()throws Exception{
         final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/2015_04_04_21_25_02.jpg.jingwang.txt"));
         assertEquals("2015/2/21", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
     }
