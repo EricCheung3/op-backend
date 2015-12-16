@@ -5,20 +5,17 @@ import static org.hamcrest.Matchers.endsWith;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 
 import com.jayway.restassured.http.ContentType;
 import com.openprice.common.ApiConstants;
-import com.openprice.rest.AbstractRestApiIntegrationTest;
 import com.openprice.rest.UtilConstants;
 
-@SpringApplicationConfiguration(classes = {SiteApiTestApplication.class})
-public class WebsiteRestApiIT extends AbstractRestApiIntegrationTest implements SiteApiUrls {
+public class WebsiteRestApiIT extends AbstractSiteRestApiIntegrationTest implements SiteApiUrls {
 
     @Test
     public void getPublic_ShouldReturnWebsiteResource() {
         when()
-            .get(ApiConstants.EXTERNAL_API_ROOT)
+            .get(siteUrl())
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)

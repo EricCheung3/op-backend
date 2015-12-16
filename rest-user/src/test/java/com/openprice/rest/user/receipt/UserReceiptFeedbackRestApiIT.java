@@ -12,7 +12,6 @@ import javax.inject.Inject;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
@@ -22,11 +21,8 @@ import com.openprice.domain.receipt.ReceiptFeedback;
 import com.openprice.domain.receipt.ReceiptFeedbackRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
-import com.openprice.rest.user.UserApiTestApplication;
 
-@SpringApplicationConfiguration(classes = {UserApiTestApplication.class})
 @DatabaseSetup("classpath:/data/testData.xml")
-//@Ignore
 public class UserReceiptFeedbackRestApiIT extends AbstractUserRestApiIntegrationTest {
     @Inject
     private ReceiptRepository receiptRepository;

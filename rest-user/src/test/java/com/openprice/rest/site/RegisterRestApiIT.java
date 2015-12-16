@@ -1,27 +1,21 @@
 package com.openprice.rest.site;
 
 import static com.jayway.restassured.RestAssured.given;
-import static com.jayway.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.openprice.common.ApiConstants;
 import com.openprice.domain.account.user.UserRoleType;
-import com.openprice.rest.AbstractRestApiIntegrationTest;
 
-@SpringApplicationConfiguration(classes = {SiteApiTestApplication.class})
-public class RegisterRestApiIT extends AbstractRestApiIntegrationTest {
+public class RegisterRestApiIT extends AbstractSiteRestApiIntegrationTest {
 
     @Test
     public void registerNewUser_ShouldAddUserAccount() {
-        String registrationUrl = when().get(ApiConstants.EXTERNAL_API_ROOT).then().extract().path("_links.registration.href");
-
         RegistrationForm registration = new RegistrationForm();
         registration.setFirstName("John");
         registration.setLastName("Doe");
@@ -33,7 +27,7 @@ public class RegisterRestApiIT extends AbstractRestApiIntegrationTest {
                 .contentType(ContentType.JSON)
                 .body(registration)
             .when()
-                .post(registrationUrl)
+                .post(registrationUrl())
             ;
 
         response
@@ -62,7 +56,6 @@ public class RegisterRestApiIT extends AbstractRestApiIntegrationTest {
                 .body("profile.firstName", equalTo("John"))
                 .body("profile.lastName", equalTo("Doe"))
             ;
-
     }
 
 }

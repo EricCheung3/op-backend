@@ -6,12 +6,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TestAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
@@ -26,7 +26,6 @@ public class TestAuthenticationFilter extends AbstractAuthenticationProcessingFi
             throws AuthenticationException, IOException, ServletException {
         final String username = request.getParameter("username");
         final TestAuthenticationToken authentication = new TestAuthenticationToken(username);
-        log.debug("TestAuthenticationFilter get username "+username);
         return getAuthenticationManager().authenticate(authentication);
     }
 

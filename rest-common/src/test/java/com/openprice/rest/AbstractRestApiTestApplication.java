@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.sql.DataSource;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.orm.jpa.EntityScan;
@@ -22,6 +23,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import com.github.springtestdbunit.bean.DatabaseConfigBean;
+import com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean;
 import com.openprice.file.FileFolderSettings;
 import com.openprice.file.FileSystemService;
 import com.openprice.mail.EmailProperties;
@@ -106,6 +109,20 @@ public abstract class AbstractRestApiTestApplication extends WebSecurityConfigur
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public DatabaseConfigBean dbUnitDatabaseConfig() {
+        DatabaseConfigBean dbConfig = new DatabaseConfigBean();
+        dbConfig.setDatatypeFactory(new org.dbunit.ext.h2.H2DataTypeFactory());
+        return dbConfig;
+    }
+
+    @Bean
+    public DatabaseDataSourceConnectionFactoryBean dbUnitDatabaseConnection(DataSource dataSource) {
+        DatabaseDataSourceConnectionFactoryBean dbConnection = new DatabaseDataSourceConnectionFactoryBean(dataSource);
+        dbConnection.setDatabaseConfig(dbUnitDatabaseConfig());
+        return dbConnection;
     }
 
     protected abstract UserDetailsService getUserDetailsService();

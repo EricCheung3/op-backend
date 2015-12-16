@@ -11,7 +11,6 @@ import javax.inject.Inject;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.http.ContentType;
@@ -19,10 +18,8 @@ import com.jayway.restassured.response.Response;
 import com.openprice.common.ApiConstants;
 import com.openprice.domain.account.user.UserResetPasswordRequest;
 import com.openprice.domain.account.user.UserResetPasswordRequestRepository;
-import com.openprice.rest.AbstractRestApiIntegrationTest;
 
-@SpringApplicationConfiguration(classes = {SiteApiTestApplication.class})
-public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
+public class ResetPasswordRestApiIT extends AbstractSiteRestApiIntegrationTest {
 
     @Test
     public void forgetPassword_ShouldReturn404_WithInvalidEmail() {
@@ -209,12 +206,4 @@ public class ResetPasswordRestApiIT extends AbstractRestApiIntegrationTest {
 
     @Inject
     private UserResetPasswordRequestRepository userResetPasswordRequestRepository;
-
-    private String forgetPasswordUrl() {
-        return  when().get(ApiConstants.EXTERNAL_API_ROOT).then().extract().path("_links.forgetPassword.href");
-    }
-
-    private String resetPasswordRequestUrl() {
-        return  when().get(ApiConstants.EXTERNAL_API_ROOT).then().extract().path("_links.resetPassword.href");
-    }
 }

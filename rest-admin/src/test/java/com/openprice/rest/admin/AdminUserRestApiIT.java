@@ -17,11 +17,11 @@ import com.jayway.restassured.response.Response;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.user.AdminUserProfileForm;
 
+@DatabaseSetup("classpath:/data/testAdmin.xml")
 public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
-    public void getUserAccounts_ShouldReturnAllUserAccounts() {
+    public void getUserAccounts_ShouldReturnAllUserAccountsAndOrderByCreatedTime() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         given()
@@ -42,8 +42,7 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
-    public void getUserAccount_ShouldReturnSpecificUserAccount() {
+    public void getUserAccountByUserId_ShouldReturnSpecificUserAccount() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String userUrl =  userUrl(sessionFilter, TEST_USERID_JANE_DOE);
 
@@ -68,7 +67,6 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void changeUserLockState_ShouldLockUserAccount() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String userUrl =  userUrl(sessionFilter, TEST_USERID_JANE_DOE);
@@ -102,7 +100,6 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void updateUserProfile_ShouldChangeProfileAddress() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String userUrl =  userUrl(sessionFilter, TEST_USERID_JANE_DOE);
@@ -146,7 +143,6 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
                 .get(profileLink)
             ;
         //response.prettyPrint();
-
         response
         .then()
             .statusCode(HttpStatus.SC_OK)

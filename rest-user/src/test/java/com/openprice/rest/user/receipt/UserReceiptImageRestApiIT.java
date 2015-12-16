@@ -17,7 +17,6 @@ import javax.inject.Inject;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.core.io.Resource;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -27,9 +26,7 @@ import com.jayway.restassured.response.Response;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
-import com.openprice.rest.user.UserApiTestApplication;
 
-@SpringApplicationConfiguration(classes = {UserApiTestApplication.class})
 @DatabaseSetup("classpath:/data/testData.xml")
 public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTest {
     @Value("classpath:/data/sample1.txt")

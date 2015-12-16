@@ -18,13 +18,13 @@ import com.jayway.restassured.response.Response;
 import com.openprice.common.ApiConstants;
 import com.openprice.domain.store.StoreChain;
 
+@DatabaseSetup("classpath:/data/testAdmin.xml")
 public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationTest {
 
     @Value("classpath:/data/catalog_rcss.json")
     private Resource sampleCatalogJson1;
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getCatalogs_ShouldReturnAllCatalogsOfStoreChain() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
@@ -58,7 +58,6 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getCatalogById_ShouldReturnCorrectCatalog() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
@@ -78,7 +77,6 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void getCatalogById_ShouldReturn404_WithInvalidId() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
@@ -101,7 +99,6 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void createCatalog_ShouldCreateNewCatalogForStore() throws Exception {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final AdminCatalogForm form =
@@ -150,7 +147,6 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void updateCatalog_ShouldUpdate() throws Exception {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String catalogUrl = catalogUrl(sessionFilter, "chain001", "chain001cat001");
@@ -190,7 +186,6 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void deleteCatalogById_ShouldDeleteCatalog() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String catalogUrl = catalogUrl(sessionFilter, "chain001", "chain001cat001");
@@ -218,7 +213,6 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
     public void uploadCatalogs_ShouldLoadCatalogJsonFile() throws Exception {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String uploadCatalogUrl = uploadUrl(sessionFilter, "chain001");
