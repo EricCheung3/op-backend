@@ -23,6 +23,7 @@ public class AdminAccountResource extends Resource<AdminAccount> {
         @Override
         public AdminAccountResource toResource(final AdminAccount adminAccount) {
             final AdminAccountResource resource = new AdminAccountResource(adminAccount);
+
             final LinkBuilder linkBuilder = new LinkBuilder(resource);
             linkBuilder.addLink(Link.REL_SELF, URL_ADMIN, false, null)
                        .addLink("users", URL_ADMIN_USERS, true, null)

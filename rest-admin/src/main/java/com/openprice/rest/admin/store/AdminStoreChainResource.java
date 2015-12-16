@@ -10,11 +10,10 @@ import com.openprice.rest.LinkBuilder;
 import com.openprice.rest.admin.AdminApiUrls;
 
 import lombok.Getter;
-import lombok.Setter;
 
 public class AdminStoreChainResource extends Resource<StoreChain> {
 
-    @Getter @Setter
+    @Getter
     private String catalogUploadUrl;
 
     public AdminStoreChainResource(final StoreChain chain) {
@@ -27,6 +26,7 @@ public class AdminStoreChainResource extends Resource<StoreChain> {
         @Override
         public AdminStoreChainResource toResource(StoreChain chain) {
             final AdminStoreChainResource resource = new AdminStoreChainResource(chain);
+
             final String[] pairs = {"chainId", chain.getId()};
             final LinkBuilder linkBuilder = new LinkBuilder(resource);
             linkBuilder.addLink(Link.REL_SELF, URL_ADMIN_CHAINS_CHAIN, false, pairs)
@@ -36,8 +36,8 @@ public class AdminStoreChainResource extends Resource<StoreChain> {
                        .addLink("catalog", URL_ADMIN_CHAINS_CHAIN_CATALOGS_CATALOG, false, pairs)
                        .addLink("upload", URL_ADMIN_CHAINS_CHAIN_CATALOGS_UPLOAD, false, pairs)
                        ;
+            resource.catalogUploadUrl= resource.getLink("upload").getHref();
 
-            resource.setCatalogUploadUrl(resource.getLink("upload").getHref());
             return resource;
         }
 

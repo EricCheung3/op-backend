@@ -21,6 +21,7 @@ public class AdminCatalogResource extends Resource<Catalog> {
         @Override
         public AdminCatalogResource toResource(Catalog catalog) {
             final AdminCatalogResource resource = new AdminCatalogResource(catalog);
+
             final String[] pairs = {"chainId", catalog.getChain().getId(), "catalogId", catalog.getId()};
             final LinkBuilder linkBuilder = new LinkBuilder(resource);
             linkBuilder.addLink(Link.REL_SELF, URL_ADMIN_CHAINS_CHAIN_CATALOGS_CATALOG, false, pairs)

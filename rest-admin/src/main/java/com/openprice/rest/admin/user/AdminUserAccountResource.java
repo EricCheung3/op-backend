@@ -21,6 +21,7 @@ public class AdminUserAccountResource extends Resource<UserAccount> {
         @Override
         public AdminUserAccountResource toResource(final UserAccount userAccount) {
             final AdminUserAccountResource resource = new AdminUserAccountResource(userAccount);
+
             final String[] pairs = {"userId", userAccount.getId()};
             final LinkBuilder linkBuilder = new LinkBuilder(resource);
             linkBuilder.addLink(Link.REL_SELF, URL_ADMIN_USERS_USER, false, pairs)
@@ -29,6 +30,7 @@ public class AdminUserAccountResource extends Resource<UserAccount> {
                        .addLink("receipts", URL_ADMIN_USERS_USER_RECEIPTS, true, pairs)
                        .addLink("receipt", URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT, false, pairs)
                        ;
+
             return resource;
         }
     }

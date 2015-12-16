@@ -55,7 +55,7 @@ public class AdminUserReceiptApiDocumentation extends AdminApiDocumentationBase 
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
-                fieldWithPath("images").description("Receipt image list"),
+                fieldWithPath("_embedded.receiptImages").description("Receipt image list"),
                 fieldWithPath("needFeedback").description("Whether user can give feedback."),
                 fieldWithPath("_links").description("<<resources-admin-user-receipt-links,Links>> to other resources")
             )

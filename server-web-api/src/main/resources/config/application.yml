@@ -12,6 +12,9 @@ spring:
         hibernate:
             ddl-auto: validate
 
+multipart:
+    maxFileSize: 10Mb
+    
 application:
     settings:
         email:
@@ -19,7 +22,7 @@ application:
             systemEmail: no-reply@openprice.com
             adminName: Open Price
             adminEmail: admin@openprice.com
-            webServerUrl: http://104.197.105.245:8080
+            webServerUrl: http://104.154.88.206:8080
         internal:
             serverHost: openprice-server-internal-api
             serverPort: 8080

@@ -9,7 +9,15 @@ import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.rest.LinkBuilder;
 import com.openprice.rest.user.UserApiUrls;
 
+import lombok.Getter;
+
 public class UserReceiptImageResource extends Resource<ReceiptImage> {
+
+    @Getter
+    private String downloadUrl;
+
+    @Getter
+    private String base64Url;
 
     public UserReceiptImageResource(final ReceiptImage resource) {
         super(resource);
@@ -28,6 +36,9 @@ public class UserReceiptImageResource extends Resource<ReceiptImage> {
                        .addLink("download", URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_DOWNLOAD, false, pairs)
                        .addLink("base64", URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_BASE64, false, pairs)
                        ;
+            resource.downloadUrl = resource.getLink("download").getHref();
+            resource.base64Url = resource.getLink("base64").getHref();
+
             return resource;
         }
 
