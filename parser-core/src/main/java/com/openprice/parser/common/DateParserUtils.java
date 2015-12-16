@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 import com.openprice.parser.data.ValueLine;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -23,19 +24,25 @@ public class DateParserUtils {
 
     private static final String DATE_SPLITTER_UNIFORM="/";//uniformly used
 
+    @Getter
     //month(one or two digits) and day (one or two digits), 4-digit year
     private static Pattern patternMonthDayYear4= Pattern.compile("([1-9]|0[1-9]|1[012])["+DATE_SPLITTER+"]([1-9]|0[1-9]|[12][0-9]|3[01])[" + DATE_SPLITTER+ "](19|20)\\d\\d");
 
+    @Getter
     //month(one or two digits) and day (one or two digits), 2-digit year
     private static Pattern patternMonthDayYear2= Pattern.compile("([1-9]|0[1-9]|1[012])["+DATE_SPLITTER+"]([1-9]|0[1-9]|[12][0-9]|3[01])["+DATE_SPLITTER+"]\\d\\d");
 
+    @Getter
     //4-digit year, month(one  two digits) and day (two digits)
     private static Pattern patternYear4MonthDay2=Pattern.compile("(19|20)\\d\\d["+DATE_SPLITTER+"]([1-9]|0[1-9]|1[012])["+DATE_SPLITTER+"](0[1-9]|[12][0-9]|3[01])");
 
+    @Getter
     //4-digit year, month(one  two digits) and day (one or two digits)
     private static Pattern patternYear4MonthDay1=Pattern.compile("(19|20)\\d\\d["+DATE_SPLITTER+"]([1-9]|0[1-9]|1[012])["+DATE_SPLITTER+"]([1-9]|0[1-9]|[12][0-9]|3[01])");
 
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy"+DATE_SPLITTER_UNIFORM+
+            "MM"+DATE_SPLITTER_UNIFORM+
+            "dd");
 
     public static ValueLine findDateStringAfterLine(final List<String> origLines, final int start){
         log.debug("date line searching from line "+start+":"+origLines.get(start)+"\n");
@@ -83,11 +90,15 @@ public class DateParserUtils {
         final String[] words=dateStr.split("-|\\.|/");//this is dependent on the DATE_SPLITTER
         String yMD="";
         if(words[0].length()==4)
-            yMD=words[0]+"-"+words[1]+"-"+words[2];
+            yMD=words[0]+DATE_SPLITTER_UNIFORM+words[1]+DATE_SPLITTER_UNIFORM+words[2];
         else if(words[2].length()==4)
-            yMD=words[2]+"-"+words[0]+"-"+words[1];
-        else
-            throw new Exception("the dateStr "+ dateStr+" is not a good date format");
+            yMD=words[2]+DATE_SPLITTER_UNIFORM+words[0]+DATE_SPLITTER_UNIFORM+words[1];
+        else{
+            //a hack handling the format like 05/31/15; assuming here the format "15/05/31" is not possible
+            yMD="20"+words[2]+DATE_SPLITTER_UNIFORM
+                    +words[0]+DATE_SPLITTER_UNIFORM
+                    +words[1];
+        }
         return DATE_FORMAT.parse(yMD);
     }
 
@@ -96,6 +107,7 @@ public class DateParserUtils {
      * first matching the format "2015/12/02"
      * then matching "12/02/2015"
      * then matching "12/02/15"
+     * then matching "5/13/15"
      * @param str
      * @return
      */
