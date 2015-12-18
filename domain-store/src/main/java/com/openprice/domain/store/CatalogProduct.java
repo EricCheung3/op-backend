@@ -2,15 +2,17 @@ package com.openprice.domain.store;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.util.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
+import com.openprice.domain.product.ProductCategory;
+import com.openprice.domain.product.ProductUtils;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,8 +30,8 @@ import lombok.ToString;
 @ToString(callSuper=true, exclude={"chain"})
 @SuppressWarnings("serial")
 @Entity
-@Table( name="catalog" )
-public class Catalog extends BaseAuditableEntity {
+@Table( name="catalog_product" )
+public class CatalogProduct extends BaseAuditableEntity {
 
     @Getter @Setter
     @JsonIgnore
@@ -41,19 +43,8 @@ public class Catalog extends BaseAuditableEntity {
     private StoreChain chain;
 
     @Getter @Setter
-    @Column(name="code", nullable=false)
-    private String code;
-
-    /*
-     * Can be used by shopping list items name.
-     */
-    @Getter @Setter
-    @Column(name="name", nullable=false)
-    private String name;
-
-    @Getter @Setter
-    @Column(name="number")
-    private String number;
+    @Column(name="catalog_code", nullable=false)
+    private String catalogCode;
 
     /*
      * TODO: Which price to save here? Need future design for historical price, low/high/average price, etc.
@@ -73,15 +64,15 @@ public class Catalog extends BaseAuditableEntity {
     @Column(name="label_codes")
     private String labelCodes;
 
-    Catalog() {}
+    @Getter @Setter
+    @Enumerated(EnumType.STRING)
+    @Column(name="product_category")
+    private ProductCategory productCategory;
 
-    Catalog(final String name, final String number) {
-        this.name = name;
-        this.number = number;
-        this.code = Catalog.generateCatalogCode(name, number);
+    CatalogProduct() {}
+
+    CatalogProduct(final String name, final String number) {
+        this.catalogCode = ProductUtils.generateCatalogCode(name, number);
     }
 
-    public static String generateCatalogCode(final String name, final String number) {
-        return name + (StringUtils.isEmpty(number)? "" : "_" + number);
-    }
 }

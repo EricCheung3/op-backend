@@ -24,7 +24,7 @@ import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.shopping.ShoppingService;
 import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.domain.shopping.ShoppingStoreRepository;
-import com.openprice.domain.store.Catalog;
+import com.openprice.domain.store.CatalogProduct;
 import com.openprice.domain.store.CatalogRepository;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
@@ -71,13 +71,14 @@ public class ShoppingStoreRestController extends AbstractUserStoreRestController
     }
 
     @RequestMapping(method = RequestMethod.GET, value = URL_USER_SHOPPING_STORES_STORE_CATALOGS)
-    public HttpEntity<List<Catalog>> searchCatalogsForStoreChain(
+    public HttpEntity<List<CatalogProduct>> searchCatalogsForStoreChain(
             @PathVariable("storeId") final String storeId,
             @RequestParam("query") String query) throws ResourceNotFoundException {
         final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
         final StoreChain chain = storeChainRepository.findByCode(store.getChainCode());
         if (chain != null && !StringUtils.isEmpty(query)){
             return ResponseEntity.ok(catalogRepository.findTop20ByChainAndNaturalNameIgnoreCaseContaining(chain, query));
+            // TODO if not found, return product category best matched with query
         }
         return ResponseEntity.ok(Collections.emptyList());
     }

@@ -154,7 +154,7 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
             preprocessRequest(prettyPrint()),
             requestFields(
                 fieldWithPath("name").description("The item name copied from catalog, user can edit."),
-                fieldWithPath("catalogCode").description("The code of catalog, from parser result.")
+                fieldWithPath("catalogCode").description("The code of catalog product, from parser result.")
             )
         ));
     }
@@ -176,6 +176,7 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
                 fieldWithPath("name").description("Shopping Item name, user can edit"),
                 fieldWithPath("catalogCode").description("Optional catalog code."),
                 fieldWithPath("catalog").description("Catalog object if catalogCode is not null."),
+                fieldWithPath("productCategory").description("The category this item belongs to."),
                 fieldWithPath("_links").description("<<resources-user-shopping-item-retrieve-links,Links>> to other resources")
             )
         ));
@@ -221,15 +222,13 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
             preprocessResponse(prettyPrint()),
             responseFields(
                 fieldWithPath("[].id").description("Primary ID"),
-                fieldWithPath("[].code").description("The catalog code."),
-                fieldWithPath("[].name").description("The catalog name."),
-                fieldWithPath("[].number").description("The catalog number."),
+                fieldWithPath("[].catalogCode").description("The catalog code."),
                 fieldWithPath("[].price").description("The price (unit price?)."),
-                fieldWithPath("[].naturalName").description("Readable name for the catalog."),
-                fieldWithPath("[].labelCodes").description("The labels of the catalog.")
+                fieldWithPath("[].naturalName").description("Readable name for the catalog product."),
+                fieldWithPath("[].labelCodes").description("The labels of the catalog product."),
+                fieldWithPath("[].productCategory").description("The category this product belongs to.")
             )
         ));
-
     }
 
     @Override
@@ -255,9 +254,9 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
         storeRepository.save(rcss);
 
         // add catalogs to rcss
-        catalogRepository.save(rcss.addCatalog("egg", "1234", "1.99", "Large Egg", "food,egg"));
-        catalogRepository.save(rcss.addCatalog("egg", "1235", "1.59", "Medium Egg", "food,egg"));
-        catalogRepository.save(rcss.addCatalog("egg", "1236", "1.29", "Small Egg", "food,egg"));
+        catalogRepository.save(rcss.addCatalogProduct("egg", "1234", "1.99", "Large Egg", "food,egg", "meat"));
+        catalogRepository.save(rcss.addCatalogProduct("egg", "1235", "1.59", "Medium Egg", "food,egg", "meat"));
+        catalogRepository.save(rcss.addCatalogProduct("egg", "1236", "1.29", "Small Egg", "food,egg", "meat"));
     }
 
     protected void deleteStores() throws Exception {

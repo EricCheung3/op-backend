@@ -67,6 +67,10 @@ public class ReceiptService {
             for (final Item item : parsedReceipt.getItems()) {
                 final ReceiptItem receiptItem = result.addItem(item.getCatalogCode(), item.getName(), item.getBuyPrice());
                 // TODO add lineNumber from parser items
+
+                //  set item ProductCategory
+                // CategoryMacher.match(item, catalogList);
+
                 receiptItem.setLineNumber(lineNumber++);
                 receiptItemRepository.save(receiptItem);
             }

@@ -6,11 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CatalogRepository extends JpaRepository<Catalog, String> {
+public interface CatalogRepository extends JpaRepository<CatalogProduct, String> {
 
-    Page<Catalog> findByChain(StoreChain chain, Pageable pageable);
+    Page<CatalogProduct> findByChain(StoreChain chain, Pageable pageable);
 
-    Catalog findByChainAndCode(StoreChain chain, String catalogCode);
+    CatalogProduct findByChainAndCatalogCode(StoreChain chain, String catalogCode);
 
-    List<Catalog> findTop20ByChainAndNaturalNameIgnoreCaseContaining(StoreChain chain, String query);
+    List<CatalogProduct> findTop20ByChainAndNaturalNameIgnoreCaseContaining(StoreChain chain, String query);
 }

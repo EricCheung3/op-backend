@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.openprice.domain.BaseAuditableEntity;
+import com.openprice.domain.product.ProductCategory;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -66,16 +67,18 @@ public class StoreChain extends BaseAuditableEntity {
      * @param name
      * @return
      */
-    public Catalog addCatalog(final String name,
-                              final String number,
-                              final String price,
-                              final String naturalName,
-                              final String labelCodes) {
-        final Catalog catalog = new Catalog(name, number);
-        catalog.setChain(this);
-        catalog.setPrice(price);
-        catalog.setNaturalName(naturalName);
-        catalog.setLabelCodes(labelCodes);
-        return catalog;
+    public CatalogProduct addCatalogProduct(final String name,
+                                            final String number,
+                                            final String price,
+                                            final String naturalName,
+                                            final String labelCodes,
+                                            final String productCategory) {
+        final CatalogProduct catalogProduct = new CatalogProduct(name, number);
+        catalogProduct.setChain(this);
+        catalogProduct.setPrice(price);
+        catalogProduct.setNaturalName(naturalName);
+        catalogProduct.setLabelCodes(labelCodes);
+        catalogProduct.setProductCategory(ProductCategory.valueOf(productCategory));
+        return catalogProduct;
     }
 }

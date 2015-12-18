@@ -14,6 +14,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.openprice.domain.product.ProductData;
+
 @RunWith(MockitoJUnitRunner.class)
 public class StoreServiceTest {
     private static final String TEST_CHAIN_ID = "CHAIN_TEST_ID";
@@ -38,33 +40,33 @@ public class StoreServiceTest {
     @Test
     public void loadCatalog_ShouldAddNewCatalog_IfNotExist() throws Exception {
         final StoreChain chain = getTestStoreChain();
-        final Catalog catalogInput = new Catalog("milk", "1234");
-        when(catalogRepositoryMock.findByChainAndCode(chain, catalogInput.getCode())).thenReturn(null);
+        final ProductData input = ProductData.builder().name("milk").number("1234").productCategory("dairy").build();
+        when(catalogRepositoryMock.findByChainAndCatalogCode(chain, input.getCatalogCode())).thenReturn(null);
 
-        serviceToTest.loadCatalog(chain, new Catalog[]{catalogInput});
+        serviceToTest.loadCatalog(chain, new ProductData[]{input});
 
         //assertEquals(1, chain.getCatalogs().size());
         //assertEquals("milk_1234", chain.getCatalogs().get(0).getCode());
-        verify(catalogRepositoryMock, times(1)).findByChainAndCode(chain, catalogInput.getCode());
-        verify(catalogRepositoryMock, times(1)).save(any(Catalog.class));
+        verify(catalogRepositoryMock, times(1)).findByChainAndCatalogCode(chain, input.getCatalogCode());
+        verify(catalogRepositoryMock, times(1)).save(any(CatalogProduct.class));
         verify(storeChainRepositoryMock, times(1)).save(chain);
     }
 
     @Test
     public void loadCatalog_ShouldUpdateCatalog_IfExist() throws Exception {
         final StoreChain chain = getTestStoreChain();
-        final Catalog catalog = chain.addCatalog("milk", "1234", "4.99", "Milk", "Food,dairy,milk");
-        when(catalogRepositoryMock.findByChainAndCode(chain, catalog.getCode())).thenReturn(catalog);
+        final CatalogProduct catalog = chain.addCatalogProduct("milk", "1234", "4.99", "Milk", "Food,dairy,milk", "dairy");
+        when(catalogRepositoryMock.findByChainAndCatalogCode(chain, catalog.getCatalogCode())).thenReturn(catalog);
 
-        final Catalog catalogInput = new Catalog("milk", "1234");
-        catalogInput.setNaturalName("Homo Milk");
-        catalogInput.setPrice("5.99");
+        final ProductData input = ProductData.builder().name("milk").number("1234").productCategory("dairy").build();
+        input.setNaturalName("Homo Milk");
+        input.setPrice("5.99");
 
-        serviceToTest.loadCatalog(chain, new Catalog[]{catalogInput});
+        serviceToTest.loadCatalog(chain, new ProductData[]{input});
 
         assertEquals("Homo Milk", catalog.getNaturalName());
         assertEquals("5.99", catalog.getPrice());
-        verify(catalogRepositoryMock, times(1)).findByChainAndCode(chain, catalog.getCode());
+        verify(catalogRepositoryMock, times(1)).findByChainAndCatalogCode(chain, catalog.getCatalogCode());
         verify(catalogRepositoryMock, times(1)).save(eq(catalog));
         verify(storeChainRepositoryMock, times(1)).save(chain);
     }

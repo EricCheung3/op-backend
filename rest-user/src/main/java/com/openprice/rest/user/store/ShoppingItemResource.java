@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import com.openprice.domain.shopping.ShoppingItem;
-import com.openprice.domain.store.Catalog;
+import com.openprice.domain.store.CatalogProduct;
 import com.openprice.domain.store.CatalogRepository;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
@@ -22,7 +22,7 @@ import lombok.Setter;
 public class ShoppingItemResource extends Resource<ShoppingItem> {
 
     @Getter @Setter
-    private Catalog catalog;
+    private CatalogProduct catalog;
 
     public ShoppingItemResource(final ShoppingItem shoppingItem) {
         super(shoppingItem);
@@ -50,7 +50,7 @@ public class ShoppingItemResource extends Resource<ShoppingItem> {
             if (StringUtils.hasText(shoppingItem.getCatalogCode())) {
                 final StoreChain chain = chainRepository.findByCode(shoppingItem.getStore().getChainCode());
                 if (chain != null) {
-                    final Catalog catalog = catalogRepository.findByChainAndCode(chain, shoppingItem.getCatalogCode());
+                    final CatalogProduct catalog = catalogRepository.findByChainAndCatalogCode(chain, shoppingItem.getCatalogCode());
                     if (catalog != null) {
                         resource.setCatalog(catalog);
                     }

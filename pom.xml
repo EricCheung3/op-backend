@@ -11,7 +11,7 @@
 
     <groupId>com.openprice</groupId>
     <artifactId>openprice-project</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <packaging>pom</packaging>
 
     <name>Open Price Project</name>
@@ -29,7 +29,7 @@
         <module>api-common</module>
         <module>api-internal</module>
         <module>api-ocr</module>
-        
+
         <module>domain-common</module>
         <module>domain-account-user</module>
         <module>domain-account-admin</module>

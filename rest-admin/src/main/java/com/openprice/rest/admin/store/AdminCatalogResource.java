@@ -5,21 +5,21 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
 
-import com.openprice.domain.store.Catalog;
+import com.openprice.domain.store.CatalogProduct;
 import com.openprice.rest.LinkBuilder;
 import com.openprice.rest.admin.AdminApiUrls;
 
-public class AdminCatalogResource extends Resource<Catalog> {
+public class AdminCatalogResource extends Resource<CatalogProduct> {
 
-    public AdminCatalogResource(Catalog catalog) {
+    public AdminCatalogResource(CatalogProduct catalog) {
         super(catalog);
     }
 
     @Component
-    public static class Assembler implements ResourceAssembler<Catalog, AdminCatalogResource>, AdminApiUrls {
+    public static class Assembler implements ResourceAssembler<CatalogProduct, AdminCatalogResource>, AdminApiUrls {
 
         @Override
-        public AdminCatalogResource toResource(Catalog catalog) {
+        public AdminCatalogResource toResource(CatalogProduct catalog) {
             final AdminCatalogResource resource = new AdminCatalogResource(catalog);
 
             final String[] pairs = {"chainId", catalog.getChain().getId(), "catalogId", catalog.getId()};

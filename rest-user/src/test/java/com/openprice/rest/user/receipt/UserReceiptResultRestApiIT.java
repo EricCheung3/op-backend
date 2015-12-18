@@ -48,12 +48,12 @@ public class UserReceiptResultRestApiIT extends AbstractUserRestApiIntegrationTe
             .body("_embedded.receiptItems[0].catalogCode", equalTo("EGG_1235"))
             .body("_embedded.receiptItems[0].parsedName", equalTo("eggs"))
             .body("_embedded.receiptItems[0].parsedPrice", equalTo("1.99"))
-            .body("_embedded.receiptItems[0].catalog.code", equalTo("EGG_1235"))
+            .body("_embedded.receiptItems[0].catalog.catalogCode", equalTo("EGG_1235"))
             .body("_embedded.receiptItems[1].id", equalTo("recItem003"))
             .body("_embedded.receiptItems[1].catalogCode", equalTo("PORK"))
             .body("_embedded.receiptItems[1].parsedName", equalTo("pork"))
             .body("_embedded.receiptItems[1].parsedPrice", equalTo("5.99"))
-            .body("_embedded.receiptItems[1].catalog.code", equalTo("PORK"))
+            .body("_embedded.receiptItems[1].catalog.catalogCode", equalTo("PORK"))
         ;
     }
 

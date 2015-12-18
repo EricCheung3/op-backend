@@ -2,6 +2,8 @@ package com.openprice.domain.shopping;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -9,6 +11,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
+import com.openprice.domain.product.ProductCategory;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +22,8 @@ import lombok.ToString;
  *
  * <p>The <code>catalogCode</code> is copied from <code>Catalog</code> when user add items from receipt parser result
  * or from auto complete catalog search.
+ *
+ * <p>The <code>productCategory</code> is produced by ProductMatchingService to find the best matching category.
  *
  */
 @ToString(callSuper=true, exclude={"store"})
@@ -36,6 +41,11 @@ public class ShoppingItem extends BaseAuditableEntity {
     @Getter @Setter
     @Column(name="catalog_code")
     private String catalogCode;
+
+    @Getter @Setter
+    @Enumerated(EnumType.STRING)
+    @Column(name="product_category")
+    private ProductCategory productCategory;
 
     @Getter @Setter
     @Column(name="name")

@@ -92,7 +92,8 @@ public class ShoppingStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("[0].id", equalTo("store001cat002"))
-            .body("[0].name", equalTo("EGG"))
+            .body("[0].catalogCode", equalTo("EGG_1235"))
+            .body("[0].productCategory", equalTo("meat"))
         ;
 
     }

@@ -32,7 +32,7 @@ public class AdminStoreCatalogApiDocumentation extends AdminStoreApiDocumentatio
                 linkWithRel("self").description("The self link")
             ),
             responseFields(
-                fieldWithPath("_embedded.catalogs").description("An array of <<resources-admin-store-catalog, Admin Store Catalog resources>>"),
+                fieldWithPath("_embedded.catalogProducts").description("An array of <<resources-admin-store-catalog, Admin Store Catalog resources>>"),
                 fieldWithPath("page").description("Pagination data"),
                 fieldWithPath("_links").description("<<resources-admin-store-catalog-list-links, Links>> to other resources")
             )
@@ -48,6 +48,7 @@ public class AdminStoreCatalogApiDocumentation extends AdminStoreApiDocumentatio
                                 .price("10.99")
                                 .naturalName("Ground pork")
                                 .labelCodes("food,meat,pork")
+                                .productCategory("meat")
                                 .build();
         mockMvc
         .perform(
@@ -60,12 +61,12 @@ public class AdminStoreCatalogApiDocumentation extends AdminStoreApiDocumentatio
         .andDo(document("admin-store-catalog-create-example",
             preprocessRequest(prettyPrint()),
             requestFields(
-                fieldWithPath("code").description("The catalog code, not set by user, auto generated from name+number."),
                 fieldWithPath("name").description("The catalog name."),
                 fieldWithPath("number").description("The catalog number."),
                 fieldWithPath("price").description("The price (unit price?)."),
                 fieldWithPath("naturalName").description("Readable name for the catalog."),
-                fieldWithPath("labelCodes").description("The labels of the catalog.")
+                fieldWithPath("labelCodes").description("The labels of the catalog."),
+                fieldWithPath("productCategory").description("The category this catalog product belongs to.")
             )
         ));
     }
@@ -83,12 +84,11 @@ public class AdminStoreCatalogApiDocumentation extends AdminStoreApiDocumentatio
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
-                fieldWithPath("code").description("The catalog code."),
-                fieldWithPath("name").description("The catalog name."),
-                fieldWithPath("number").description("The catalog number."),
+                fieldWithPath("catalogCode").description("The catalog code."),
                 fieldWithPath("price").description("The price (unit price?)."),
                 fieldWithPath("naturalName").description("Readable name for the catalog."),
                 fieldWithPath("labelCodes").description("The labels of the catalog."),
+                fieldWithPath("productCategory").description("The category this catalog product belongs to."),
                 fieldWithPath("_links").description("<<resources-admin-store-catalog-links, Links>> to other resources")
             )
         ));
@@ -103,6 +103,7 @@ public class AdminStoreCatalogApiDocumentation extends AdminStoreApiDocumentatio
                                 .price("10.99")
                                 .naturalName("Ground pork")
                                 .labelCodes("food,meat,pork")
+                                .productCategory("meat")
                                 .build();
         mockMvc
         .perform(
@@ -115,12 +116,12 @@ public class AdminStoreCatalogApiDocumentation extends AdminStoreApiDocumentatio
         .andDo(document("admin-store-catalog-update-example",
             preprocessRequest(prettyPrint()),
             requestFields(
-                    fieldWithPath("code").description("The catalog code. User cannot change."),
                     fieldWithPath("name").description("The catalog name."),
                     fieldWithPath("number").description("The catalog number."),
                     fieldWithPath("price").description("The price (unit price?)."),
                     fieldWithPath("naturalName").description("Readable name for the catalog."),
-                    fieldWithPath("labelCodes").description("The labels of the catalog.")
+                    fieldWithPath("labelCodes").description("The labels of the catalog."),
+                    fieldWithPath("productCategory").description("The category this catalog product belongs to.")
             )
         ));
     }

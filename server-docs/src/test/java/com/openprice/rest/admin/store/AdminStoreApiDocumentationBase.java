@@ -87,6 +87,6 @@ public abstract class AdminStoreApiDocumentationBase extends AdminApiDocumentati
             .andExpect(status().isOk())
             .andReturn().getResponse()
             .getContentAsString();
-        return JsonPath.read(responseContent, "_embedded.catalogs[0]._links.self.href");
+        return JsonPath.read(responseContent, "_embedded.catalogProducts[0]._links.self.href");
     }
 }

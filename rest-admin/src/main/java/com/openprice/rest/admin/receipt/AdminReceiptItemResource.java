@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import com.openprice.domain.receipt.ReceiptItem;
-import com.openprice.domain.store.Catalog;
+import com.openprice.domain.store.CatalogProduct;
 import com.openprice.domain.store.CatalogRepository;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
@@ -28,7 +28,7 @@ public class AdminReceiptItemResource extends Resource<ReceiptItem> {
     private Boolean userDeleted;
 
     @Getter @Setter
-    private Catalog catalog;
+    private CatalogProduct catalog;
 
     public AdminReceiptItemResource(ReceiptItem resource) {
         super(resource);
@@ -53,7 +53,7 @@ public class AdminReceiptItemResource extends Resource<ReceiptItem> {
             if (StringUtils.hasText(receiptItem.getCatalogCode())) {
                 final StoreChain chain = chainRepository.findByCode(receiptItem.getReceiptResult().getChainCode());
                 if (chain != null) {
-                    final Catalog catalog = catalogRepository.findByChainAndCode(chain, receiptItem.getCatalogCode());
+                    final CatalogProduct catalog = catalogRepository.findByChainAndCatalogCode(chain, receiptItem.getCatalogCode());
                     if (catalog != null) {
                         resource.setCatalog(catalog);
                     }

@@ -12,6 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openprice.domain.common.Address;
+import com.openprice.domain.product.ProductCategory;
+import com.openprice.domain.product.ProductData;
+import com.openprice.domain.product.ProductUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -54,28 +57,29 @@ public class StoreService {
         return storeBranchRepository.save(branch);
     }
 
-    public Catalog createCatalog(final StoreChain chain,
-                                 final String name,
-                                 final String number,
-                                 final String price,
-                                 final String naturalName,
-                                 final String labelCodes) {
-        final Catalog catalog = chain.addCatalog(name, number, price, naturalName, labelCodes);
+    public CatalogProduct createCatalog(final StoreChain chain,
+                                        final String name,
+                                        final String number,
+                                        final String price,
+                                        final String naturalName,
+                                        final String labelCodes,
+                                        final String productCategory) {
+        final CatalogProduct catalog = chain.addCatalogProduct(name, number, price, naturalName, labelCodes, productCategory);
         return catalogRepository.save(catalog);
     }
 
-    public Catalog updateCatalog(final Catalog catalog,
-                                 final String name,
-                                 final String number,
-                                 final String price,
-                                 final String naturalName,
-                                 final String labelCodes) {
-        catalog.setName(name);
-        catalog.setNumber(number);
+    public CatalogProduct updateCatalog(final CatalogProduct catalog,
+                                        final String name,
+                                        final String number,
+                                        final String price,
+                                        final String naturalName,
+                                        final String labelCodes,
+                                        final String productCategory) {
+        catalog.setCatalogCode(ProductUtils.generateCatalogCode(name, number));
         catalog.setPrice(price);
         catalog.setNaturalName(naturalName);
         catalog.setLabelCodes(labelCodes);
-        catalog.setCode(Catalog.generateCatalogCode(name, number));
+        catalog.setProductCategory(ProductCategory.valueOf(productCategory));
         return catalogRepository.save(catalog);
 }
 
@@ -85,37 +89,39 @@ public class StoreService {
 
     /**
      * Load and update catalog list for a store chain.
-     * If catalog not exists in the chain, add it; otherwise, update the catalog.
+     * If catalog product not exists in the chain, add it; otherwise, update the catalog product.
      *
      * TODO: improve performance for large catalog list.
      *
      * @param chain
      * @param catalogs
      */
-    public void loadCatalog(final StoreChain chain, final Catalog[] catalogs) {
+    public void loadCatalog(final StoreChain chain, final ProductData[] productDatas) {
         int newCount = 0;
         int updateCount = 0;
-        for (final Catalog catalog : catalogs) {
-            final Catalog existCatalog = catalogRepository.findByChainAndCode(chain, catalog.getCode());
+        for (final ProductData productData : productDatas) {
+            final CatalogProduct existCatalog = catalogRepository.findByChainAndCatalogCode(chain, productData.getCatalogCode());
             if (existCatalog != null) {
-                existCatalog.setPrice(catalog.getPrice());
-                existCatalog.setNaturalName(catalog.getNaturalName());
-                existCatalog.setLabelCodes(catalog.getLabelCodes());
+                existCatalog.setPrice(productData.getPrice());
+                existCatalog.setNaturalName(productData.getNaturalName());
+                existCatalog.setLabelCodes(productData.getLabelCodes());
+                existCatalog.setProductCategory(ProductCategory.valueOf(productData.getProductCategory()));
                 catalogRepository.save(existCatalog);
                 updateCount++;
             } else {
-                Catalog newCatalog = chain.addCatalog(catalog.getName(),
-                                                      catalog.getNumber(),
-                                                      catalog.getPrice(),
-                                                      catalog.getNaturalName(),
-                                                      catalog.getLabelCodes());
-                catalogRepository.save(newCatalog);
+                CatalogProduct newCatalogProduct = chain.addCatalogProduct(productData.getName(),
+                                                                           productData.getNumber(),
+                                                                           productData.getPrice(),
+                                                                           productData.getNaturalName(),
+                                                                           productData.getLabelCodes(),
+                                                                           productData.getProductCategory());
+                catalogRepository.save(newCatalogProduct);
                 newCount++;
             }
         }
         storeChainRepository.save(chain);
-        log.info("Successfully loaded {} catalogs for store [{}].", catalogs.length, chain.getCode());
-        log.info("{} new catalogs added and {} existing catalogs updated.", newCount, updateCount);
+        log.info("Successfully loaded {} catalog products for store [{}].", productDatas.length, chain.getCode());
+        log.info("{} new catalog products added and {} existing catalog products updated.", newCount, updateCount);
     }
 
     public void loadCatalog(final StoreChain chain, final MultipartFile file) {
@@ -135,7 +141,7 @@ public class StoreService {
 
         InputStreamSource roleResource = new ByteArrayResource(content);
         try {
-            Catalog[] catalogs = mapper.readValue(roleResource.getInputStream(), Catalog[].class);
+            ProductData[] catalogs = mapper.readValue(roleResource.getInputStream(), ProductData[].class);
             loadCatalog(chain, catalogs);
         } catch (IOException ex) {
             log.warn("Parse catalog file error!", ex);

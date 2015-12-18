@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.openprice.domain.account.admin.AdminAccount;
 import com.openprice.domain.account.admin.AdminAccountService;
-import com.openprice.domain.store.Catalog;
+import com.openprice.domain.store.CatalogProduct;
 import com.openprice.domain.store.CatalogRepository;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
@@ -62,9 +62,9 @@ public class AdminCatalogRestController extends AbstractStoreAdminRestController
     public HttpEntity<PagedResources<AdminCatalogResource>> getCatalogs(
             @PathVariable("chainId") final String chainId,
             @PageableDefault(size = UtilConstants.DEFAULT_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
-            final PagedResourcesAssembler<Catalog> assembler) throws ResourceNotFoundException {
+            final PagedResourcesAssembler<CatalogProduct> assembler) throws ResourceNotFoundException {
         final StoreChain chain = loadStoreChainById(chainId);
-        final Page<Catalog> catalogs = catalogRepository.findByChain(chain, pageable);
+        final Page<CatalogProduct> catalogs = catalogRepository.findByChain(chain, pageable);
         return ResponseEntity.ok(assembler.toResource(catalogs, catalogResourceAssembler));
     }
 
@@ -75,7 +75,7 @@ public class AdminCatalogRestController extends AbstractStoreAdminRestController
         // TODO verify user input?
 
         final StoreChain store = loadStoreChainById(chainId);
-        final Catalog catalog = newCatalog(form, store);
+        final CatalogProduct catalog = newCatalog(form, store);
         final URI location = linkTo(methodOn(AdminCatalogRestController.class).getCatalogById(chainId, catalog.getId())).toUri();
         return ResponseEntity.created(location).body(null);
     }
@@ -85,7 +85,7 @@ public class AdminCatalogRestController extends AbstractStoreAdminRestController
             @PathVariable("chainId") final String chainId,
             @PathVariable("catalogId") final String catalogId) throws ResourceNotFoundException {
         final StoreChain store = loadStoreChainById(chainId);
-        final Catalog catalog = loadCatalogByIdAndCheckStore(catalogId, store);
+        final CatalogProduct catalog = loadCatalogByIdAndCheckStore(catalogId, store);
         return ResponseEntity.ok(catalogResourceAssembler.toResource(catalog));
     }
 
@@ -97,13 +97,14 @@ public class AdminCatalogRestController extends AbstractStoreAdminRestController
         // TODO verify user input?
 
         final StoreChain store = loadStoreChainById(chainId);
-        final Catalog catalog = loadCatalogByIdAndCheckStore(catalogId, store);
+        final CatalogProduct catalog = loadCatalogByIdAndCheckStore(catalogId, store);
         storeService.updateCatalog(catalog,
                                    form.getName(),
                                    form.getNumber(),
                                    form.getPrice(),
                                    form.getNaturalName(),
-                                   form.getLabelCodes());
+                                   form.getLabelCodes(),
+                                   form.getProductCategory());
         return ResponseEntity.noContent().build();
     }
 
@@ -112,7 +113,7 @@ public class AdminCatalogRestController extends AbstractStoreAdminRestController
             @PathVariable("chainId") final String chainId,
             @PathVariable("catalogId") final String catalogId) throws ResourceNotFoundException {
         final StoreChain store = loadStoreChainById(chainId);
-        final Catalog catalog = loadCatalogByIdAndCheckStore(catalogId, store);
+        final CatalogProduct catalog = loadCatalogByIdAndCheckStore(catalogId, store);
         catalogRepository.delete(catalog);
         return ResponseEntity.noContent().build();
     }
@@ -133,8 +134,8 @@ public class AdminCatalogRestController extends AbstractStoreAdminRestController
         }
     }
 
-    private Catalog loadCatalogByIdAndCheckStore(final String catalogId, final StoreChain chain) {
-        final Catalog catalog = catalogRepository.findOne(catalogId);
+    private CatalogProduct loadCatalogByIdAndCheckStore(final String catalogId, final StoreChain chain) {
+        final CatalogProduct catalog = catalogRepository.findOne(catalogId);
         if (catalog == null) {
             log.warn("ILLEGAL STORE CATALOG ACCESS! No such store catalog Id: {}.", catalogId);
             throw new ResourceNotFoundException("No store catalog with the id: " + catalogId);
@@ -147,14 +148,15 @@ public class AdminCatalogRestController extends AbstractStoreAdminRestController
     }
 
     @Transactional
-    protected Catalog newCatalog(final AdminCatalogForm form, final StoreChain chain) {
+    protected CatalogProduct newCatalog(final AdminCatalogForm form, final StoreChain chain) {
         final AdminAccount currentAdmin = getCurrentAuthenticatedAdmin();
         log.debug("Admin {} created a new store catalog {} for chain {}", currentAdmin.getUsername(), form.getName(), chain.getName());
-        final Catalog catalog = chain.addCatalog(form.getName(),
-                                                 form.getNumber(),
-                                                 form.getPrice(),
-                                                 form.getNaturalName(),
-                                                 form.getLabelCodes());
+        final CatalogProduct catalog = chain.addCatalogProduct(form.getName(),
+                                                               form.getNumber(),
+                                                               form.getPrice(),
+                                                               form.getNaturalName(),
+                                                               form.getLabelCodes(),
+                                                               form.getProductCategory());
         return catalogRepository.save(catalog);
     }
 

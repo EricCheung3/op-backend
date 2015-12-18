@@ -1,7 +1,7 @@
 = OpenPrice RESTful API Guide
 Yuan Ji;
 :doctype: book
-:toc:
+:toc: left
 :sectanchors:
 :sectlinks:
 :toclevels: 4

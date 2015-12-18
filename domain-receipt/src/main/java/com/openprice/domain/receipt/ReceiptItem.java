@@ -2,6 +2,8 @@ package com.openprice.domain.receipt;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -9,6 +11,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
+import com.openprice.domain.product.ProductCategory;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -43,6 +46,11 @@ public class ReceiptItem extends BaseAuditableEntity {
     @Getter @Setter
     @Column(name="catalog_code")
     private String catalogCode;
+
+    @Getter @Setter
+    @Enumerated(EnumType.STRING)
+    @Column(name="product_category")
+    private ProductCategory productCategory;
 
     @Getter @Setter
     @Column(name="parsed_name")
