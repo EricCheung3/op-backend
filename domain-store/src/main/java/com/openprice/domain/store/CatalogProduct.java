@@ -14,6 +14,7 @@ import com.openprice.domain.BaseAuditableEntity;
 import com.openprice.domain.product.ProductCategory;
 import com.openprice.domain.product.ProductUtils;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -75,4 +76,23 @@ public class CatalogProduct extends BaseAuditableEntity {
         this.catalogCode = ProductUtils.generateCatalogCode(name, number);
     }
 
+    @Builder
+    public static CatalogProduct createTestCatalogProduct(final String id,
+                                                          final StoreChain chain,
+                                                          final String name,
+                                                          final String number,
+                                                          final String price,
+                                                          final String naturalName,
+                                                          final String labelCodes,
+                                                          final ProductCategory productCategory) {
+        final CatalogProduct catalogProduct = new CatalogProduct();
+        catalogProduct.setId(id);
+        catalogProduct.setChain(chain);
+        catalogProduct.setCatalogCode(ProductUtils.generateCatalogCode(name, number));
+        catalogProduct.setPrice(price);
+        catalogProduct.setNaturalName(naturalName);
+        catalogProduct.setLabelCodes(labelCodes);
+        catalogProduct.setProductCategory(productCategory);
+        return catalogProduct;
+    }
 }

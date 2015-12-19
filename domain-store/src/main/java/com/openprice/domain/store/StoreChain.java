@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.openprice.domain.BaseAuditableEntity;
-import com.openprice.domain.product.ProductCategory;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -35,50 +34,17 @@ public class StoreChain extends BaseAuditableEntity {
     StoreChain() {}
 
     /**
-     * Builder method to create a StoreChain with code and name.
+     * Builder method to create a StoreChain with code and name. Should be only used by test code!
      *
      * @param code
      * @param name
      * @return
      */
-    public static StoreChain createStoreChain(final String code, final String name) {
+    public static StoreChain createTestStoreChain(final String id, final String code, final String name) {
         final StoreChain chain = new StoreChain();
+        chain.setId(id);
         chain.setCode(code);
         chain.setName(name);
         return chain;
-    }
-
-    /**
-     * Builder method to create a StoreBranch and add to branches.
-     *
-     * @param name
-     * @return
-     */
-    public StoreBranch addBranch(final String name) {
-        final StoreBranch branch = new StoreBranch();
-        branch.setChain(this);
-        branch.setName(name);
-        return branch;
-    }
-
-    /**
-     * Builder method to create a Catalog and add to catalogs.
-     *
-     * @param name
-     * @return
-     */
-    public CatalogProduct addCatalogProduct(final String name,
-                                            final String number,
-                                            final String price,
-                                            final String naturalName,
-                                            final String labelCodes,
-                                            final String productCategory) {
-        final CatalogProduct catalogProduct = new CatalogProduct(name, number);
-        catalogProduct.setChain(this);
-        catalogProduct.setPrice(price);
-        catalogProduct.setNaturalName(naturalName);
-        catalogProduct.setLabelCodes(labelCodes);
-        catalogProduct.setProductCategory(ProductCategory.valueOf(productCategory));
-        return catalogProduct;
     }
 }

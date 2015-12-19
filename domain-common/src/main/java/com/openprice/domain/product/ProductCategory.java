@@ -47,4 +47,16 @@ public enum ProductCategory {
     public String getLabel() {
         return label;
     }
+
+    public String getCode() {
+        return name();
+    }
+
+    public static ProductCategory findByCode(final String code) {
+        try {
+            return ProductCategory.valueOf(code);
+        } catch (IllegalArgumentException | NullPointerException ex) {
+            return null;
+        }
+    }
 }

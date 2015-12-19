@@ -92,7 +92,8 @@ public class UserAccount extends AbstractAccount {
     }
 
     /**
-     * Static builder method to create a UserAccount object without profile for test purpose. FIXME ???
+     * Static builder method to create a UserAccount object without profile.
+     * Should be only used by test code!
      *
      * @param id
      * @param email

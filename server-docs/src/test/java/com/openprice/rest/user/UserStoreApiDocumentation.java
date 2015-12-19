@@ -26,22 +26,27 @@ import org.springframework.http.MediaType;
 import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.jsonpath.JsonPath;
 import com.openprice.domain.account.user.UserAccount;
+import com.openprice.domain.product.ProductCategory;
 import com.openprice.domain.shopping.ShoppingItemRepository;
 import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.domain.shopping.ShoppingStoreRepository;
-import com.openprice.domain.store.CatalogRepository;
+import com.openprice.domain.store.CatalogProductRepository;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
+import com.openprice.domain.store.StoreService;
 import com.openprice.rest.user.store.ShoppingItemForm;
 import com.openprice.rest.user.store.ShoppingListForm;
 
 public class UserStoreApiDocumentation extends UserApiDocumentationBase {
 
     @Inject
+    protected StoreService storeService;
+
+    @Inject
     StoreChainRepository storeRepository;
 
     @Inject
-    CatalogRepository catalogRepository;
+    CatalogProductRepository catalogRepository;
 
     @Inject
     ShoppingStoreRepository shoppingStoreRepository;
@@ -248,16 +253,27 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
     }
 
     protected void createStores() throws Exception {
-        storeRepository.save(StoreChain.createStoreChain("safeway", "Safeway"));
+        StoreChain rcss = storeService.createStoreChain("rcss", "Real Canadian Superstore");
+        storeService.createStoreBranch(rcss, "Calgary Trail RCSS", "780-430-2769", "", "4821, Calgary Trail", "", "Edmonton", "AB", "", "Canada");
+        storeService.createStoreBranch(rcss, "South Common RCSS", "780-490-3918", "", "1549 9711, 23 AVE NW", "", "Edmonton", "AB", "", "Canada");
+        storeService.createCatalogProduct(rcss, "EGG", "1234", "1.99", "Large Egg", "Food,Egg", ProductCategory.meat);
+        storeService.createCatalogProduct(rcss, "EGG", "1235", "1.59", "Medium Egg", "Food,Egg", ProductCategory.meat);
+        storeService.createCatalogProduct(rcss, "EGG", "1236", "1.29", "Small Egg", "Food,Egg", ProductCategory.meat);
 
-        StoreChain rcss = StoreChain.createStoreChain("rcss", "SuperStore");
-        storeRepository.save(rcss);
-
-        // add catalogs to rcss
-        catalogRepository.save(rcss.addCatalogProduct("egg", "1234", "1.99", "Large Egg", "food,egg", "meat"));
-        catalogRepository.save(rcss.addCatalogProduct("egg", "1235", "1.59", "Medium Egg", "food,egg", "meat"));
-        catalogRepository.save(rcss.addCatalogProduct("egg", "1236", "1.29", "Small Egg", "food,egg", "meat"));
+        StoreChain safeway = storeService.createStoreChain("safeway", "Safeway");
     }
+
+//    protected void createStores() throws Exception {
+//        storeRepository.save(StoreChain.createStoreChain("safeway", "Safeway"));
+//
+//        StoreChain rcss = StoreChain.createStoreChain("rcss", "SuperStore");
+//        storeRepository.save(rcss);
+//
+//        // add catalogs to rcss
+//        catalogRepository.save(rcss.addCatalogProduct("egg", "1234", "1.99", "Large Egg", "food,egg", "meat"));
+//        catalogRepository.save(rcss.addCatalogProduct("egg", "1235", "1.59", "Medium Egg", "food,egg", "meat"));
+//        catalogRepository.save(rcss.addCatalogProduct("egg", "1236", "1.29", "Small Egg", "food,egg", "meat"));
+//    }
 
     protected void deleteStores() throws Exception {
         storeRepository.deleteAll();

@@ -25,7 +25,7 @@ import com.openprice.domain.shopping.ShoppingService;
 import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.domain.shopping.ShoppingStoreRepository;
 import com.openprice.domain.store.CatalogProduct;
-import com.openprice.domain.store.CatalogRepository;
+import com.openprice.domain.store.CatalogProductRepository;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.rest.ResourceNotFoundException;
@@ -38,7 +38,7 @@ import com.openprice.rest.ResourceNotFoundException;
 public class ShoppingStoreRestController extends AbstractUserStoreRestController {
 
     private final StoreChainRepository storeChainRepository;
-    private final CatalogRepository catalogRepository;
+    private final CatalogProductRepository catalogProductRepository;
     private final ShoppingStoreResource.Assembler shoppingStoreResourceAssembler;
 
     @Inject
@@ -46,11 +46,11 @@ public class ShoppingStoreRestController extends AbstractUserStoreRestController
                                        final ShoppingService shoppingService,
                                        final ShoppingStoreRepository shoppingStoreRepository,
                                        final StoreChainRepository storeChainRepository,
-                                       final CatalogRepository catalogRepository,
+                                       final CatalogProductRepository catalogProductRepository,
                                        final ShoppingStoreResource.Assembler shoppingStoreResourceAssembler) {
         super(userAccountService, shoppingService, shoppingStoreRepository);
         this.storeChainRepository = storeChainRepository;
-        this.catalogRepository = catalogRepository;
+        this.catalogProductRepository = catalogProductRepository;
         this.shoppingStoreResourceAssembler = shoppingStoreResourceAssembler;
     }
 
@@ -77,7 +77,7 @@ public class ShoppingStoreRestController extends AbstractUserStoreRestController
         final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
         final StoreChain chain = storeChainRepository.findByCode(store.getChainCode());
         if (chain != null && !StringUtils.isEmpty(query)){
-            return ResponseEntity.ok(catalogRepository.findTop20ByChainAndNaturalNameIgnoreCaseContaining(chain, query));
+            return ResponseEntity.ok(catalogProductRepository.findTop20ByChainAndNaturalNameIgnoreCaseContaining(chain, query));
             // TODO if not found, return product category best matched with query
         }
         return ResponseEntity.ok(Collections.emptyList());

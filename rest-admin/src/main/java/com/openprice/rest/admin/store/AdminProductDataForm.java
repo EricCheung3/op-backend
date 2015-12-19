@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class AdminCatalogForm {
+public class AdminProductDataForm {
 
     private String name;
 

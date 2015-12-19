@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.openprice.common.ApiConstants;
-import com.openprice.domain.store.CatalogRepository;
+import com.openprice.domain.store.CatalogProductRepository;
 import com.openprice.domain.store.StoreBranchRepository;
 import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.rest.admin.AbstractAdminRestApiIntegrationTest;
@@ -21,7 +21,7 @@ public abstract class AbstractAdminStoreRestApiIntegrationTest extends AbstractA
     protected StoreBranchRepository storeBranchRepository;
 
     @Inject
-    protected CatalogRepository catalogRepository;
+    protected CatalogProductRepository catalogRepository;
 
     protected String storeChainsUrl(final SessionFilter sessionFilter) {
         final String chainsLink =

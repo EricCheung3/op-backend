@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 
 import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.store.CatalogProduct;
-import com.openprice.domain.store.CatalogRepository;
+import com.openprice.domain.store.CatalogProductRepository;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.rest.LinkBuilder;
@@ -32,13 +32,13 @@ public class UserReceiptItemResource extends Resource<ReceiptItem> {
     public static class Assembler implements ResourceAssembler<ReceiptItem, UserReceiptItemResource>, UserApiUrls {
 
         private final StoreChainRepository chainRepository;
-        private final CatalogRepository catalogRepository;
+        private final CatalogProductRepository catalogProductRepository;
 
         @Inject
         public Assembler(final StoreChainRepository chainRepository,
-                         final CatalogRepository catalogRepository) {
+                         final CatalogProductRepository catalogProductRepository) {
             this.chainRepository = chainRepository;
-            this.catalogRepository = catalogRepository;
+            this.catalogProductRepository = catalogProductRepository;
         }
 
         @Override
@@ -48,7 +48,7 @@ public class UserReceiptItemResource extends Resource<ReceiptItem> {
             if (StringUtils.hasText(receiptItem.getCatalogCode())) {
                 final StoreChain chain = chainRepository.findByCode(receiptItem.getReceiptResult().getChainCode());
                 if (chain != null) {
-                    final CatalogProduct catalog = catalogRepository.findByChainAndCatalogCode(chain, receiptItem.getCatalogCode());
+                    final CatalogProduct catalog = catalogProductRepository.findByChainAndCatalogCode(chain, receiptItem.getCatalogCode());
                     if (catalog != null) {
                         resource.setCatalog(catalog);
                     }

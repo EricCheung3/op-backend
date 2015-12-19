@@ -51,8 +51,8 @@
         address1="1549 9711, 23 AVE NW" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
     <store_branch id="branch103" version="1" chain_id="chain001" name="Whitemud RCSS" phone="780-450-8328"
         address1="4410, 17 St NW" city="Edmonton" state="AB" country="Canada" created_time="2009-01-01 10:00:01.0000"/>
-    <catalog_product id="chain001cat001" version="1" chain_id="chain001" catalog_code="MILK_1234" natural_name="2% milk" product_category="dairy" created_time="2009-01-01 10:00:01.0000" />
-    <catalog_product id="chain001cat002" version="1" chain_id="chain001" catalog_code="EGG_1235" natural_name="Large Egg" product_category="meat" created_time="2009-01-01 10:00:01.0000" />
+    <catalog_product id="chain001cat001" version="1" chain_id="chain001" catalog_code="MILK_1234" natural_name="2% milk" price="4.99" product_category="dairy" created_time="2009-01-01 10:00:01.0000" />
+    <catalog_product id="chain001cat002" version="1" chain_id="chain001" catalog_code="EGG_1235" natural_name="Large Egg" price="2.99" product_category="meat" created_time="2009-01-01 10:00:01.0000" />
     <catalog_product id="chain001cat003" version="1" chain_id="chain001" catalog_code="PORK" natural_name="Pork Meat" product_category="meat" created_time="2009-01-01 10:00:01.0000" />
     <catalog_product id="chain001cat004" version="1" chain_id="chain001" catalog_code="BREAD" natural_name="Breakfast bread" product_category="bakery" created_time="2009-01-01 10:00:01.0000" />
 

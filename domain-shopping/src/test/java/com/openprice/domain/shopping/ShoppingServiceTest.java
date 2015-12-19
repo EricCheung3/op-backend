@@ -37,9 +37,8 @@ public class ShoppingServiceTest {
     @Test
     public void getShoppingStoreForStoreChain_ShouldReturnExistingShoppingStore() throws Exception {
         final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
-        final StoreChain rcssChain = StoreChain.createStoreChain("rcss", "Superstore");
+        final StoreChain rcssChain = StoreChain.createTestStoreChain("store001", TEST_CHAIN_CODE, "Superstore");
         final ShoppingStore store = new ShoppingStore();
-        store.setId("testShopping");
         when(storeChainRepositoryMock.findByCode(eq(TEST_CHAIN_CODE))).thenReturn(rcssChain);
         when(shoppingStoreRepositoryMock.findByUserAndChainCode(eq(testUser), eq(TEST_CHAIN_CODE))).thenReturn(store);
 
@@ -50,7 +49,7 @@ public class ShoppingServiceTest {
     @Test
     public void getShoppingStoreForStoreChain_ShouldReturnNewShoppingStore_IfNotExist() throws Exception {
         final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
-        final StoreChain rcssChain = StoreChain.createStoreChain("rcss", "Superstore");
+        final StoreChain rcssChain = StoreChain.createTestStoreChain("store001", TEST_CHAIN_CODE, "Superstore");
 
         when(storeChainRepositoryMock.findByCode(eq(TEST_CHAIN_CODE))).thenReturn(rcssChain);
         when(shoppingStoreRepositoryMock.findByUserAndChainCode(eq(testUser), eq(TEST_CHAIN_CODE))).thenReturn(null);

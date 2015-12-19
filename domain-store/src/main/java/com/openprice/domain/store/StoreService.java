@@ -1,20 +1,12 @@
 package com.openprice.domain.store;
 
-import java.io.IOException;
-
 import javax.inject.Inject;
 
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.InputStreamSource;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openprice.domain.common.Address;
 import com.openprice.domain.product.ProductCategory;
 import com.openprice.domain.product.ProductData;
-import com.openprice.domain.product.ProductUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,20 +15,22 @@ import lombok.extern.slf4j.Slf4j;
 public class StoreService {
     private final StoreChainRepository storeChainRepository;
     private final StoreBranchRepository storeBranchRepository;
-    private final CatalogRepository catalogRepository;
+    private final CatalogProductRepository catalogProductRepository;
 
     @Inject
     public StoreService(final StoreChainRepository storeChainRepository,
                         final StoreBranchRepository storeBranchRepository,
-                        final CatalogRepository catalogRepository) {
+                        final CatalogProductRepository catalogProductRepository) {
         this.storeChainRepository = storeChainRepository;
         this.storeBranchRepository = storeBranchRepository;
-        this.catalogRepository = catalogRepository;
+        this.catalogProductRepository = catalogProductRepository;
     }
 
     public StoreChain createStoreChain(final String code,
                                        final String name) {
-        final StoreChain chain = StoreChain.createStoreChain(code, name);
+        final StoreChain chain = new StoreChain();
+        chain.setCode(code);
+        chain.setName(name);
         return storeChainRepository.save(chain);
     }
 
@@ -50,37 +44,41 @@ public class StoreService {
                                          final String state,
                                          final String zip,
                                          final String country) {
-        final StoreBranch branch = chain.addBranch(name);
+        final StoreBranch branch = new StoreBranch();
+        branch.setChain(chain);
+        branch.setName(name);
         branch.setPhone(phone);
         branch.setGstNumber(gstNumber);
         branch.setAddress(new Address(address1, address2, city, state, zip, country));
         return storeBranchRepository.save(branch);
     }
 
-    public CatalogProduct createCatalog(final StoreChain chain,
-                                        final String name,
-                                        final String number,
-                                        final String price,
-                                        final String naturalName,
-                                        final String labelCodes,
-                                        final String productCategory) {
-        final CatalogProduct catalog = chain.addCatalogProduct(name, number, price, naturalName, labelCodes, productCategory);
-        return catalogRepository.save(catalog);
+    public CatalogProduct createCatalogProduct(final StoreChain storeChain,
+                                               final String name,
+                                               final String number,
+                                               final String price,
+                                               final String naturalName,
+                                               final String labelCodes,
+                                               final ProductCategory productCategory) {
+        final CatalogProduct catalogProduct = new CatalogProduct(name, number);
+        catalogProduct.setChain(storeChain);
+        catalogProduct.setPrice(price);
+        catalogProduct.setNaturalName(naturalName);
+        catalogProduct.setLabelCodes(labelCodes);
+        catalogProduct.setProductCategory(productCategory);
+        return catalogProductRepository.save(catalogProduct);
     }
 
-    public CatalogProduct updateCatalog(final CatalogProduct catalog,
-                                        final String name,
-                                        final String number,
-                                        final String price,
-                                        final String naturalName,
-                                        final String labelCodes,
-                                        final String productCategory) {
-        catalog.setCatalogCode(ProductUtils.generateCatalogCode(name, number));
+    public CatalogProduct updateCatalogProduct(final CatalogProduct catalog,
+                                               final String price,
+                                               final String naturalName,
+                                               final String labelCodes,
+                                               final ProductCategory productCategory) {
         catalog.setPrice(price);
         catalog.setNaturalName(naturalName);
         catalog.setLabelCodes(labelCodes);
-        catalog.setProductCategory(ProductCategory.valueOf(productCategory));
-        return catalogRepository.save(catalog);
+        catalog.setProductCategory(productCategory);
+        return catalogProductRepository.save(catalog);
 }
 
     public void deleteAllStores() {
@@ -94,58 +92,32 @@ public class StoreService {
      * TODO: improve performance for large catalog list.
      *
      * @param chain
-     * @param catalogs
+     * @param productDatas product info with correct ProductCategory code
      */
-    public void loadCatalog(final StoreChain chain, final ProductData[] productDatas) {
+    public void batchUpdateCatalog(final StoreChain chain, final ProductData[] productDatas) {
         int newCount = 0;
         int updateCount = 0;
         for (final ProductData productData : productDatas) {
-            final CatalogProduct existCatalog = catalogRepository.findByChainAndCatalogCode(chain, productData.getCatalogCode());
+            final CatalogProduct existCatalog = catalogProductRepository.findByChainAndCatalogCode(chain, productData.getCatalogCode());
             if (existCatalog != null) {
-                existCatalog.setPrice(productData.getPrice());
-                existCatalog.setNaturalName(productData.getNaturalName());
-                existCatalog.setLabelCodes(productData.getLabelCodes());
-                existCatalog.setProductCategory(ProductCategory.valueOf(productData.getProductCategory()));
-                catalogRepository.save(existCatalog);
+                updateCatalogProduct(existCatalog,
+                                     productData.getPrice(),
+                                     productData.getNaturalName(),
+                                     productData.getLabelCodes(),
+                                     ProductCategory.valueOf(productData.getProductCategory()));
                 updateCount++;
             } else {
-                CatalogProduct newCatalogProduct = chain.addCatalogProduct(productData.getName(),
-                                                                           productData.getNumber(),
-                                                                           productData.getPrice(),
-                                                                           productData.getNaturalName(),
-                                                                           productData.getLabelCodes(),
-                                                                           productData.getProductCategory());
-                catalogRepository.save(newCatalogProduct);
+                createCatalogProduct(chain,
+                                     productData.getName(),
+                                     productData.getNumber(),
+                                     productData.getPrice(),
+                                     productData.getNaturalName(),
+                                     productData.getLabelCodes(),
+                                     ProductCategory.valueOf(productData.getProductCategory()));
                 newCount++;
             }
         }
-        storeChainRepository.save(chain);
         log.info("Successfully loaded {} catalog products for store [{}].", productDatas.length, chain.getCode());
         log.info("{} new catalog products added and {} existing catalog products updated.", newCount, updateCount);
-    }
-
-    public void loadCatalog(final StoreChain chain, final MultipartFile file) {
-        log.info("Loading catalog for store [{}] from file '{}'...", chain.getCode(), file.getOriginalFilename());
-
-        byte[] content = null;
-        try {
-            content = file.getBytes();
-        } catch (IOException ex) {
-            log.warn("No content of catalog data to load!");
-            throw new RuntimeException("No catalog content.");
-        }
-
-        // parse json catalog data
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-
-        InputStreamSource roleResource = new ByteArrayResource(content);
-        try {
-            ProductData[] catalogs = mapper.readValue(roleResource.getInputStream(), ProductData[].class);
-            loadCatalog(chain, catalogs);
-        } catch (IOException ex) {
-            log.warn("Parse catalog file error!", ex);
-            throw new RuntimeException("Cannot load catalog json file.");
-        }
     }
 }

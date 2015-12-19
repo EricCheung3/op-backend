@@ -13,6 +13,7 @@ import com.openprice.domain.account.admin.AdminAccount;
 import com.openprice.domain.account.admin.AdminAccountRepository;
 import com.openprice.domain.account.admin.AdminAccountService;
 import com.openprice.domain.account.user.UserAccount;
+import com.openprice.domain.product.ProductCategory;
 import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
@@ -71,11 +72,11 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
     }
 
     protected void createStores() throws Exception {
-        StoreChain chain = storeService.createStoreChain("RCSS", "Real Canadian Superstore");
+        StoreChain chain = storeService.createStoreChain("rcss", "Real Canadian Superstore");
         storeService.createStoreBranch(chain, "Calgary Trail RCSS", "780-430-2769", "", "4821, Calgary Trail", "", "Edmonton", "AB", "", "Canada");
         storeService.createStoreBranch(chain, "South Common RCSS", "780-490-3918", "", "1549 9711, 23 AVE NW", "", "Edmonton", "AB", "", "Canada");
-        storeService.createCatalog(chain, "MILK", "1234", "4.99", "Homo Milk", "Food,Dairy,milk", "dairy");
-        storeService.createCatalog(chain, "EGG", "1235", "2.99", "Free Run Egg", "Food,Egg", "meat");
+        storeService.createCatalogProduct(chain, "MILK", "1234", "4.99", "Homo Milk", "Food,Dairy,milk", ProductCategory.dairy);
+        storeService.createCatalogProduct(chain, "EGG", "1235", "2.99", "Free Run Egg", "Food,Egg", ProductCategory.meat);
     }
 
     protected void deleteStores() throws Exception {

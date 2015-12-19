@@ -15,6 +15,17 @@ import lombok.extern.slf4j.Slf4j;
 public class RestErrorHandler {
 
     /**
+     * Returns 400 Bad Request if user input failed validation.
+     *
+     * @param ex
+     */
+    @ExceptionHandler(InvalidInputException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public void handleInvalidInputException(final AccessDeniedException ex) {
+        log.debug("handling user input invalid");
+    }
+
+    /**
      * Return 404 Not Found if resource cannot be found.
      *
      * @param ex

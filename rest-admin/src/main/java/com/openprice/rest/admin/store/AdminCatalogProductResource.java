@@ -9,18 +9,18 @@ import com.openprice.domain.store.CatalogProduct;
 import com.openprice.rest.LinkBuilder;
 import com.openprice.rest.admin.AdminApiUrls;
 
-public class AdminCatalogResource extends Resource<CatalogProduct> {
+public class AdminCatalogProductResource extends Resource<CatalogProduct> {
 
-    public AdminCatalogResource(CatalogProduct catalog) {
+    public AdminCatalogProductResource(CatalogProduct catalog) {
         super(catalog);
     }
 
     @Component
-    public static class Assembler implements ResourceAssembler<CatalogProduct, AdminCatalogResource>, AdminApiUrls {
+    public static class Assembler implements ResourceAssembler<CatalogProduct, AdminCatalogProductResource>, AdminApiUrls {
 
         @Override
-        public AdminCatalogResource toResource(CatalogProduct catalog) {
-            final AdminCatalogResource resource = new AdminCatalogResource(catalog);
+        public AdminCatalogProductResource toResource(CatalogProduct catalog) {
+            final AdminCatalogProductResource resource = new AdminCatalogProductResource(catalog);
 
             final String[] pairs = {"chainId", catalog.getChain().getId(), "catalogId", catalog.getId()};
             final LinkBuilder linkBuilder = new LinkBuilder(resource);

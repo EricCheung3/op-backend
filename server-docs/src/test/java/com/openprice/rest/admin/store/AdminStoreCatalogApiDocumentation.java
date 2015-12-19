@@ -41,8 +41,8 @@ public class AdminStoreCatalogApiDocumentation extends AdminStoreApiDocumentatio
 
     @Test
     public void adminStoreCatalogCreateExample() throws Exception {
-        final AdminCatalogForm form =
-                AdminCatalogForm.builder()
+        final AdminProductDataForm form =
+                AdminProductDataForm.builder()
                                 .name("Pork")
                                 .number("56789")
                                 .price("10.99")
@@ -96,8 +96,8 @@ public class AdminStoreCatalogApiDocumentation extends AdminStoreApiDocumentatio
 
     @Test
     public void adminStoreBranchUpdateExample() throws Exception {
-        final AdminCatalogForm form =
-                AdminCatalogForm.builder()
+        final AdminProductDataForm form =
+                AdminProductDataForm.builder()
                                 .name("Pork")
                                 .number("56789")
                                 .price("10.99")

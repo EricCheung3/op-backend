@@ -101,8 +101,8 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
     @Test
     public void createCatalog_ShouldCreateNewCatalogForStore() throws Exception {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
-        final AdminCatalogForm form =
-            AdminCatalogForm.builder()
+        final AdminProductDataForm form =
+            AdminProductDataForm.builder()
                             .name("APPLE")
                             .number("3333")
                             .price("1.99")
@@ -151,14 +151,14 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
     public void updateCatalog_ShouldUpdate() throws Exception {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
         final String catalogUrl = catalogUrl(sessionFilter, "chain001", "chain001cat001");
-        final AdminCatalogForm form =
-                AdminCatalogForm.builder()
-                                .name("APPLE")
-                                .number("3333")
-                                .price("1.99")
-                                .naturalName("Apple")
-                                .labelCodes("fruit,apple")
-                                .productCategory("fruit")
+        final AdminProductDataForm form =
+                AdminProductDataForm.builder()
+                                .name("MILK")
+                                .number("1234")
+                                .price("3.99")
+                                .naturalName("Homo Milk")
+                                .labelCodes("food,dairy")
+                                .productCategory("dairy")
                                 .build();
 
         given()
@@ -179,9 +179,9 @@ public class AdminCatalogRestApiIT extends AbstractAdminStoreRestApiIntegrationT
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("id", equalTo("chain001cat001"))
-            .body("catalogCode", equalTo("APPLE_3333"))
-            .body("naturalName", equalTo("Apple"))
-            .body("productCategory", equalTo("fruit"))
+            .body("catalogCode", equalTo("MILK_1234"))
+            .body("naturalName", equalTo("Homo Milk"))
+            .body("productCategory", equalTo("dairy"))
             .body("_links.self.href", endsWith(URL_ADMIN_CHAINS+"/chain001/catalogs/chain001cat001"))
             .body("_links.chain.href", endsWith(URL_ADMIN_CHAINS + "/chain001"))
         ;

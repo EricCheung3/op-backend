@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CatalogRepository extends JpaRepository<CatalogProduct, String> {
+public interface CatalogProductRepository extends JpaRepository<CatalogProduct, String> {
 
     Page<CatalogProduct> findByChain(StoreChain chain, Pageable pageable);
 

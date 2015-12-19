@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 
 import com.openprice.domain.shopping.ShoppingItem;
 import com.openprice.domain.store.CatalogProduct;
-import com.openprice.domain.store.CatalogRepository;
+import com.openprice.domain.store.CatalogProductRepository;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.rest.LinkBuilder;
@@ -32,13 +32,13 @@ public class ShoppingItemResource extends Resource<ShoppingItem> {
     public static class Assembler implements ResourceAssembler<ShoppingItem, ShoppingItemResource>, UserApiUrls {
 
         private final StoreChainRepository chainRepository;
-        private final CatalogRepository catalogRepository;
+        private final CatalogProductRepository catalogProductRepository;
 
         @Inject
         public Assembler(final StoreChainRepository chainRepository,
-                         final CatalogRepository catalogRepository) {
+                         final CatalogProductRepository catalogProductRepository) {
             this.chainRepository = chainRepository;
-            this.catalogRepository = catalogRepository;
+            this.catalogProductRepository = catalogProductRepository;
         }
 
         @Override
@@ -50,7 +50,7 @@ public class ShoppingItemResource extends Resource<ShoppingItem> {
             if (StringUtils.hasText(shoppingItem.getCatalogCode())) {
                 final StoreChain chain = chainRepository.findByCode(shoppingItem.getStore().getChainCode());
                 if (chain != null) {
-                    final CatalogProduct catalog = catalogRepository.findByChainAndCatalogCode(chain, shoppingItem.getCatalogCode());
+                    final CatalogProduct catalog = catalogProductRepository.findByChainAndCatalogCode(chain, shoppingItem.getCatalogCode());
                     if (catalog != null) {
                         resource.setCatalog(catalog);
                     }
