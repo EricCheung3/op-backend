@@ -58,7 +58,7 @@ public class StoreServiceTest {
     @Test
     public void batchUpdateCatalog_ShouldUpdateCatalog_IfExist() throws Exception {
         final StoreChain chain = getTestStoreChain();
-        final CatalogProduct catalog = CatalogProduct.builder()
+        final CatalogProduct catalog = CatalogProduct.testObjectBuilder()
                                                      .id("cata001")
                                                      .chain(chain)
                                                      .name("milk")

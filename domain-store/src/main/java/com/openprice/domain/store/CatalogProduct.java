@@ -25,8 +25,6 @@ import lombok.ToString;
  * <p><b>Notes:</b> Parser will have catalog data in config files. Catalog in database
  * is mostly for user shopping list usage, to display detail shopping item info, like name and price.
  *
- * TODO: remove name and number property, derived them from code in the database.
- *
  */
 @ToString(callSuper=true, exclude={"chain"})
 @SuppressWarnings("serial")
@@ -76,7 +74,7 @@ public class CatalogProduct extends BaseAuditableEntity {
         this.catalogCode = ProductUtils.generateCatalogCode(name, number);
     }
 
-    @Builder
+    @Builder(builderMethodName="testObjectBuilder")
     public static CatalogProduct createTestCatalogProduct(final String id,
                                                           final StoreChain chain,
                                                           final String name,
@@ -85,10 +83,9 @@ public class CatalogProduct extends BaseAuditableEntity {
                                                           final String naturalName,
                                                           final String labelCodes,
                                                           final ProductCategory productCategory) {
-        final CatalogProduct catalogProduct = new CatalogProduct();
+        final CatalogProduct catalogProduct = new CatalogProduct(name, number);
         catalogProduct.setId(id);
         catalogProduct.setChain(chain);
-        catalogProduct.setCatalogCode(ProductUtils.generateCatalogCode(name, number));
         catalogProduct.setPrice(price);
         catalogProduct.setNaturalName(naturalName);
         catalogProduct.setLabelCodes(labelCodes);
