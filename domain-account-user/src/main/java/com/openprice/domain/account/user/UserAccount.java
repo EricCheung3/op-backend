@@ -55,13 +55,13 @@ public class UserAccount extends AbstractAccount {
     @Getter
     private UserProfile profile = new UserProfile();
 
+    UserAccount() {}
+
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
-
-    UserAccount() {}
 
     /**
      * We are using email as unique username.

@@ -1,6 +1,7 @@
 package com.openprice.domain.account.admin;
 
 import java.util.Collection;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -19,8 +20,10 @@ import org.springframework.security.core.GrantedAuthority;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.account.AbstractAccount;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Singular;
 import lombok.ToString;
 
 /**
@@ -71,6 +74,20 @@ public class AdminAccount extends AbstractAccount {
             }
         }
         return false;
+    }
+
+    @Builder(builderMethodName="testObjectBuilder")
+    static AdminAccount createTestAdmin(final String id,
+                                        final String username,
+                                        @Singular final Set<AdminRoleType> roles,
+                                        final String firstName,
+                                        final String lastName) {
+        final AdminAccount adminAccount = new AdminAccount(username);
+        adminAccount.setId(id);
+        adminAccount.getRoles().addAll(roles);
+        adminAccount.getProfile().setFirstName(firstName);
+        adminAccount.getProfile().setLastName(lastName);
+        return adminAccount;
     }
 
 }
