@@ -13,9 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -32,6 +32,11 @@ import com.openprice.parser.simple.SimpleParser;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReceiptServiceTest {
+
+    static final String USER_ID = "user123";
+    static final String USER_EMAIL = "john.doe@email.com";
+    static final String TEST_CONTENT = "test";
+
     @Mock
     ReceiptRepository receiptRepositoryMock;
 
@@ -50,23 +55,15 @@ public class ReceiptServiceTest {
     @Mock
     SimpleParser simpleParser;
 
+    @InjectMocks
     ReceiptService serviceToTest;
-
-    static final String TEST_CONTENT = "test";
-
-    @Before
-    public void setup() throws Exception {
-        serviceToTest = new ReceiptService(receiptRepositoryMock,
-                                           receiptImageRepositoryMock,
-                                           receiptResultRepositoryMock,
-                                           receiptItemRepositoryMock,
-                                           receiptFeedbackRepositoryMock,
-                                           simpleParser);
-    }
 
     @Test
     public void getLatestReceiptParserResult_ShouldGenerateParserResult_IfNotInDatabase() throws Exception {
-        final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
+        final UserAccount testUser = UserAccount.testObjectBuilder()
+                                                .id(USER_ID)
+                                                .email(USER_EMAIL)
+                                                .build();
         final Receipt receipt = Receipt.createReceipt(testUser);
         receipt.setId("receipt123");
 

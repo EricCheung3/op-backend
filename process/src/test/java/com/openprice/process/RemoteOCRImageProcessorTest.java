@@ -47,7 +47,7 @@ public class RemoteOCRImageProcessorTest extends AbstractProcessorTest {
     @Test
     public void processImage_ShouldSaveProcessLog_ReceiptImage_WithSuccessResult() {
         final ReceiptImage image = getTestReceiptImage();
-        final ProcessItem item = new ProcessItem(IMAGE_ID, TEST_USERID, TEST_USERID, new Date());
+        final ProcessItem item = new ProcessItem(IMAGE_ID, TEST_USER_ID, TEST_USER_ID, new Date());
 
         final ImageProcessResult mockResult = new ImageProcessResult(true, TEST_OCR_RESULT, null);
 
@@ -79,7 +79,7 @@ public class RemoteOCRImageProcessorTest extends AbstractProcessorTest {
     @Test
     public void processImage_ShouldSaveProcessLog_ReceiptImage_WithErrorResult() {
         final ReceiptImage image = getTestReceiptImage();
-        final ProcessItem item = new ProcessItem(IMAGE_ID, TEST_USERID, TEST_USERID, new Date());
+        final ProcessItem item = new ProcessItem(IMAGE_ID, TEST_USER_ID, TEST_USER_ID, new Date());
 
         final ImageProcessResult mockResult = new ImageProcessResult(false, null, TEST_OCR_ERROR);
 

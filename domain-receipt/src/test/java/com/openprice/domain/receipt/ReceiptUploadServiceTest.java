@@ -28,6 +28,11 @@ import com.openprice.file.FileSystemService;
 @RunWith(MockitoJUnitRunner.class)
 public class ReceiptUploadServiceTest {
 
+    static final String USER_ID = "user123";
+    static final String USER_EMAIL = "john.doe@email.com";
+    static final String TEST_CONTENT = "test";
+    static final String TEST_OCR = "Superstore";
+
     @Mock
     ReceiptRepository receiptRepositoryMock;
 
@@ -48,9 +53,6 @@ public class ReceiptUploadServiceTest {
     ReceiptUploadService serviceToTest;
 
 
-    static final String TEST_CONTENT = "test";
-    static final String TEST_OCR = "Superstore";
-
     @Before
     public void setup() throws Exception {
         fileSystemService = new FileSystemService(new FileFolderSettings());
@@ -64,7 +66,7 @@ public class ReceiptUploadServiceTest {
     public void uploadImageForNewReceipt_ShouldSaveImageBase64String_andCreateReceipt() throws Exception {
         final byte[] content = TEST_CONTENT.getBytes();
         final String base64String = Base64.getEncoder().encodeToString(content);
-        final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
+        final UserAccount testUser = getTestUserAccount();
 
         when(receiptImageRepositoryMock.save(isA(ReceiptImage.class))).thenAnswer( new Answer<ReceiptImage>() {
             @Override
@@ -107,7 +109,7 @@ public class ReceiptUploadServiceTest {
     @Test
     public void uploadImageForNewReceipt_ShouldSaveImageFile_andCreateReceipt() throws Exception {
         final byte[] content = TEST_CONTENT.getBytes();
-        final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
+        final UserAccount testUser = getTestUserAccount();
 
         when(receiptImageRepositoryMock.save(isA(ReceiptImage.class))).thenAnswer( new Answer<ReceiptImage>() {
             @Override
@@ -152,7 +154,7 @@ public class ReceiptUploadServiceTest {
     @Test
     public void appendImageToReceipt_ShouldSaveImageFile_andUpdateReceipt() throws Exception {
         final byte[] content = TEST_CONTENT.getBytes();
-        final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
+        final UserAccount testUser = getTestUserAccount();
         final Receipt receipt = Receipt.createReceipt(testUser);
 
         when(receiptImageRepositoryMock.save(isA(ReceiptImage.class))).thenAnswer( new Answer<ReceiptImage>() {
@@ -197,7 +199,7 @@ public class ReceiptUploadServiceTest {
     public void appendImageToReceipt_ShouldSaveImageBase64String_andUpdateReceipt() throws Exception {
         final byte[] content = TEST_CONTENT.getBytes();
         final String base64String = Base64.getEncoder().encodeToString(content);
-        final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
+        final UserAccount testUser = getTestUserAccount();
         final Receipt receipt = Receipt.createReceipt(testUser);
 
         when(receiptImageRepositoryMock.save(isA(ReceiptImage.class))).thenAnswer( new Answer<ReceiptImage>() {
@@ -239,7 +241,7 @@ public class ReceiptUploadServiceTest {
     @Test
     public void hackloadImageFileAndOcrResultForNewReceipt_ShouldSaveImageFile_andCreateReceiptWithOcrResult()
             throws Exception {
-        final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
+        final UserAccount testUser = getTestUserAccount();
 
         when(receiptImageRepositoryMock.save(isA(ReceiptImage.class))).thenAnswer( new Answer<ReceiptImage>() {
             @Override
@@ -286,7 +288,7 @@ public class ReceiptUploadServiceTest {
     @Test
     public void hackloadOcrResult_ShouldUpdateReceiptOcrResultAndParse()
             throws Exception {
-        final UserAccount testUser = UserAccount.createTestUser("user23", "123@email.com");
+        final UserAccount testUser = getTestUserAccount();
         final Receipt receipt = Receipt.createReceipt(testUser);
         receipt.setId("receipt123");
 
@@ -303,4 +305,10 @@ public class ReceiptUploadServiceTest {
         assertEquals(TEST_OCR, image.getOcrResult());
     }
 
+    private UserAccount getTestUserAccount() {
+        return UserAccount.testObjectBuilder()
+                          .id(USER_ID)
+                          .email(USER_EMAIL)
+                          .build();
+    }
 }

@@ -1,6 +1,7 @@
 package com.openprice.domain.account.user;
 
 import java.util.Collection;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -19,8 +20,10 @@ import org.springframework.security.core.GrantedAuthority;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.account.AbstractAccount;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Singular;
 import lombok.ToString;
 
 /**
@@ -68,41 +71,18 @@ public class UserAccount extends AbstractAccount {
         return email;
     }
 
-    /**
-     * Static builder method to create a normal UserAccount object with profile from input.
-     * Can be used from self-registration or user management.
-     *
-     * @param email
-     * @param password
-     * @param firstName
-     * @param lastName
-     * @return
-     */
-    public static UserAccount createNormalUser(final String email,
-                                               final String password,
-                                               final String firstName,
-                                               final String lastName) {
+    @Builder(builderMethodName="testObjectBuilder")
+    static UserAccount createTestUser(final String id,
+                                      final String email,
+                                      @Singular final Set<UserRoleType> roles,
+                                      final String firstName,
+                                      final String lastName) {
         final UserAccount userAccount = new UserAccount();
+        userAccount.setId(id);
         userAccount.setEmail(email);
-        userAccount.setPassword(password);
-        userAccount.getRoles().add(UserRoleType.ROLE_USER);
+        userAccount.getRoles().addAll(roles);
         userAccount.getProfile().setFirstName(firstName);
         userAccount.getProfile().setLastName(lastName);
         return userAccount;
-    }
-
-    /**
-     * Static builder method to create a UserAccount object without profile.
-     * Should be only used by test code!
-     *
-     * @param id
-     * @param email
-     * @return
-     */
-    public static UserAccount createTestUser(final String id, final String email) {
-        final UserAccount user = new UserAccount();
-        user.setId(id);
-        user.setEmail(email);
-        return user;
     }
 }

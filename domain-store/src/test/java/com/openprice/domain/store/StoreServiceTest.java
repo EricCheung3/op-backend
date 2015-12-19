@@ -19,6 +19,7 @@ import com.openprice.domain.product.ProductData;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StoreServiceTest {
+
     private static final String TEST_CHAIN_ID = "CHAIN_TEST_ID";
     private static final String TEST_CHAIN_CODE = "test";
     private static final String TEST_CHAIN_NAME = "My TestStore";
@@ -89,7 +90,6 @@ public class StoreServiceTest {
     }
 
     private StoreChain getTestStoreChain() {
-        final StoreChain chain = StoreChain.createTestStoreChain(TEST_CHAIN_ID, TEST_CHAIN_CODE, TEST_CHAIN_NAME);
-        return chain;
+        return StoreChain.createTestStoreChain(TEST_CHAIN_ID, TEST_CHAIN_CODE, TEST_CHAIN_NAME);
     }
 }

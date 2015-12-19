@@ -31,7 +31,7 @@ public class StaticResultImageProcessorTest extends AbstractProcessorTest {
     @Test
     public void processImage_ShouldSaveProcessLog_ReceiptImage_WithStaticResult() {
         final ReceiptImage image = getTestReceiptImage();
-        final ProcessItem item = new ProcessItem(IMAGE_ID, TEST_USERID, TEST_USERID, new Date());
+        final ProcessItem item = new ProcessItem(IMAGE_ID, TEST_USER_ID, TEST_USER_ID, new Date());
 
         when(receiptImageRepositoryMock.findOne(eq(IMAGE_ID))).thenReturn(image);
 

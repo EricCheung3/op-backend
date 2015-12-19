@@ -40,7 +40,12 @@ public class UserAccountService implements UserDetailsService {
                                                            final String firstName,
                                                            final String lastName) {
         final String hashedPassword = passwordEncoder.encode(password);
-        final UserAccount userAccount = UserAccount.createNormalUser(email, hashedPassword, firstName, lastName);
+        final UserAccount userAccount = new UserAccount();
+        userAccount.setEmail(email);
+        userAccount.setPassword(hashedPassword);
+        userAccount.getRoles().add(UserRoleType.ROLE_USER);
+        userAccount.getProfile().setFirstName(firstName);
+        userAccount.getProfile().setLastName(lastName);
         userAccount.setTrustedAccount(false);
         userAccount.setActivated(true);  // Temp solution. FIXME: add activation process
         return userAccountRepository.save(userAccount);
