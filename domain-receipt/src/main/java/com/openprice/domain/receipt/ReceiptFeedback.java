@@ -40,4 +40,9 @@ public class ReceiptFeedback extends BaseAuditableEntity {
     @Column(name="comment")
     private String comment;
 
+    ReceiptFeedback() {}
+
+    ReceiptFeedback(final Receipt receipt) {
+        this.receipt = receipt;
+    }
 }

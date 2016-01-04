@@ -64,8 +64,10 @@ public class ReceiptServiceTest {
                                                 .id(USER_ID)
                                                 .email(USER_EMAIL)
                                                 .build();
-        final Receipt receipt = Receipt.createReceipt(testUser);
-        receipt.setId("receipt123");
+        final Receipt receipt = Receipt.testObjectBuilder()
+                                       .id("receipt123")
+                                       .user(testUser)
+                                       .build();
 
         final ReceiptImage image1 = new ReceiptImage();
         image1.setReceipt(receipt);

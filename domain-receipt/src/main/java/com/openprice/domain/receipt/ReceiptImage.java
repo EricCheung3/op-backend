@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -52,4 +53,20 @@ public class ReceiptImage extends BaseAuditableEntity {
     private String ocrResult;
 
     ReceiptImage() {}
+
+    @Builder(builderMethodName="testObjectBuilder")
+    public static ReceiptImage createTestReceiptImage(final String id,
+                                                      final Receipt receipt,
+                                                      final String fileName,
+                                                      final ProcessStatusType status,
+                                                      final String ocrResult) {
+        final ReceiptImage image = new ReceiptImage();
+        image.setId(id);
+        image.setReceipt(receipt);
+        image.setFileName(fileName);
+        image.setStatus(status);
+        image.setOcrResult(ocrResult);
+        return image;
+    }
+
 }

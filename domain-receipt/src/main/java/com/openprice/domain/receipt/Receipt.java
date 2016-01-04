@@ -17,6 +17,7 @@ import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -43,15 +44,15 @@ public class Receipt extends BaseAuditableEntity {
 
     Receipt() {}
 
-    /**
-     * Builder method to create a new receipt.
-     *
-     * @param user
-     * @return
-     */
-    public static Receipt createReceipt(final UserAccount user) {
-        final Receipt receipt = new Receipt();
-        receipt.setUser(user);
+    Receipt(final UserAccount user) {
+        this.user = user;
+    }
+
+    @Builder(builderMethodName="testObjectBuilder")
+    public static Receipt createTestReceipt(final String id,
+                                            final UserAccount user) {
+        final Receipt receipt = new Receipt(user);
+        receipt.setId(id);
         return receipt;
     }
 
@@ -73,7 +74,7 @@ public class Receipt extends BaseAuditableEntity {
     }
 
     /**
-     * Builder method to create a new <code>ReceiptResult</code> object from parser result <code>ParsedReceipt</code>.
+     * Create a new <code>ReceiptResult</code> object from parser result <code>ParsedReceipt</code>.
      *
      * @param parsedReceipt
      * @return

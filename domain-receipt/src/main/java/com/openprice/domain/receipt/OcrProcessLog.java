@@ -11,6 +11,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * Record image OCR process, who requested OCR process for whose image, at which server, for how long the OCR duration.
+ *
+ * TODO: do we really need this? Can we use application log to analyze the process?
+ *
+ */
 @ToString
 @SuppressWarnings("serial")
 @Entity
@@ -56,5 +62,7 @@ public class OcrProcessLog extends BaseEntity {
     @Getter @Setter
     @Column(name="error_message")
     private String errorMessage;
+
+    public OcrProcessLog() {}
 
 }

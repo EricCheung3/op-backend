@@ -155,7 +155,7 @@ public class ReceiptUploadServiceTest {
     public void appendImageToReceipt_ShouldSaveImageFile_andUpdateReceipt() throws Exception {
         final byte[] content = TEST_CONTENT.getBytes();
         final UserAccount testUser = getTestUserAccount();
-        final Receipt receipt = Receipt.createReceipt(testUser);
+        final Receipt receipt = Receipt.testObjectBuilder().user(testUser).build();
 
         when(receiptImageRepositoryMock.save(isA(ReceiptImage.class))).thenAnswer( new Answer<ReceiptImage>() {
             @Override
@@ -200,7 +200,7 @@ public class ReceiptUploadServiceTest {
         final byte[] content = TEST_CONTENT.getBytes();
         final String base64String = Base64.getEncoder().encodeToString(content);
         final UserAccount testUser = getTestUserAccount();
-        final Receipt receipt = Receipt.createReceipt(testUser);
+        final Receipt receipt = Receipt.testObjectBuilder().user(testUser).build();
 
         when(receiptImageRepositoryMock.save(isA(ReceiptImage.class))).thenAnswer( new Answer<ReceiptImage>() {
             @Override
@@ -289,8 +289,7 @@ public class ReceiptUploadServiceTest {
     public void hackloadOcrResult_ShouldUpdateReceiptOcrResultAndParse()
             throws Exception {
         final UserAccount testUser = getTestUserAccount();
-        final Receipt receipt = Receipt.createReceipt(testUser);
-        receipt.setId("receipt123");
+        final Receipt receipt = Receipt.testObjectBuilder().id("receipt123").user(testUser).build();
 
         final ReceiptImage image = receipt.createImage();
 

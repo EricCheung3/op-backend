@@ -47,7 +47,7 @@ public class ReceiptUploadService {
             log.error("Not a valid base64 encoded data!", ex);
             throw new RuntimeException("Not a valid image content.");
         }
-        final Receipt receipt = receiptRepository.save(Receipt.createReceipt(user));
+        final Receipt receipt = receiptRepository.save(new Receipt(user));
         return saveImage(receipt, content);
     }
 
@@ -60,7 +60,7 @@ public class ReceiptUploadService {
             throw new RuntimeException("No image content.");
         }
 
-        final Receipt receipt = receiptRepository.save(Receipt.createReceipt(user));
+        final Receipt receipt = receiptRepository.save(new Receipt(user));
         return saveImage(receipt, content);
     }
 
@@ -142,7 +142,7 @@ public class ReceiptUploadService {
             throw new RuntimeException("No image content.");
         }
 
-        final Receipt receipt = receiptRepository.save(Receipt.createReceipt(user));
+        final Receipt receipt = receiptRepository.save(new Receipt(user));
         final ReceiptImage receiptImage = saveImage(receipt, content);
 
         try {

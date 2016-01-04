@@ -31,10 +31,12 @@ public abstract class AbstractProcessorTest {
                                                 .id(TEST_USER_ID)
                                                 .email(TEST_USERNAME)
                                                 .build();
-        final Receipt receipt = Receipt.createReceipt(testUser);
-        final ReceiptImage image = receipt.createImage();
-        image.setId(IMAGE_ID);
-        image.setFileName(TEST_FILENAME);
+        final Receipt receipt = Receipt.testObjectBuilder().user(testUser).build();
+        final ReceiptImage image = ReceiptImage.testObjectBuilder()
+                                               .id(IMAGE_ID)
+                                               .receipt(receipt)
+                                               .fileName(TEST_FILENAME)
+                                               .build();
         return image;
     }
 
