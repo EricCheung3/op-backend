@@ -43,13 +43,13 @@ public class UserReceiptResultRestController extends AbstractUserReceiptRestCont
 
     @Inject
     public UserReceiptResultRestController(final UserAccountService userAccountService,
-                                         final ReceiptService receiptService,
-                                         final ReceiptUploadService receiptUploadService,
-                                         final ReceiptRepository receiptRepository,
-                                         final ReceiptItemRepository receiptItemRepository,
-                                         final UserReceiptResultResource.Assembler receiptResultResourceAssembler,
-                                         final UserReceiptItemResource.Assembler receiptItemResourceAssembler,
-                                         final InternalService internalService) {
+                                           final ReceiptService receiptService,
+                                           final ReceiptUploadService receiptUploadService,
+                                           final ReceiptRepository receiptRepository,
+                                           final ReceiptItemRepository receiptItemRepository,
+                                           final UserReceiptResultResource.Assembler receiptResultResourceAssembler,
+                                           final UserReceiptItemResource.Assembler receiptItemResourceAssembler,
+                                           final InternalService internalService) {
         super(userAccountService, receiptService, receiptUploadService, receiptRepository, internalService);
         this.receiptItemRepository = receiptItemRepository;
         this.receiptResultResourceAssembler = receiptResultResourceAssembler;

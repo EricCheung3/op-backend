@@ -44,6 +44,7 @@ public class UserReceiptResultRestApiIT extends AbstractUserRestApiIntegrationTe
             .body("chainCode", equalTo("rcss"))
             .body("branchName", equalTo("Calgary Trail"))
             .body("parsedTotal", equalTo("10.45"))
+            .body("storeName", equalTo("Real Canadian Superstore"))
             .body("_embedded.receiptItems[0].id", equalTo("recItem001"))
             .body("_embedded.receiptItems[0].catalogCode", equalTo("EGG_1235"))
             .body("_embedded.receiptItems[0].parsedName", equalTo("eggs"))

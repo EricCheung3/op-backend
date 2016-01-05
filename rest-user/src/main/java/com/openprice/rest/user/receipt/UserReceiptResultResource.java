@@ -11,6 +11,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -18,6 +19,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptItemRepository;
 import com.openprice.domain.receipt.ReceiptResult;
+import com.openprice.domain.store.StoreChain;
+import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.rest.LinkBuilder;
 import com.openprice.rest.user.UserApiUrls;
 
@@ -25,6 +28,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class UserReceiptResultResource extends Resource<ReceiptResult> {
+
+    @Getter @Setter
+    private String storeName = "[Unknown]";
 
     @Getter
     private List<UserReceiptItemResource> items;
@@ -43,12 +49,15 @@ public class UserReceiptResultResource extends Resource<ReceiptResult> {
 
         private final ReceiptItemRepository receiptItemRepository;
         private final UserReceiptItemResource.Assembler itemResourceAssembler;
+        private final StoreChainRepository storeChainRepository;
 
         @Inject
         public Assembler(final ReceiptItemRepository receiptItemRepository,
-                         final UserReceiptItemResource.Assembler itemResourceAssembler) {
+                         final UserReceiptItemResource.Assembler itemResourceAssembler,
+                         final StoreChainRepository storeChainRepository) {
             this.receiptItemRepository = receiptItemRepository;
             this.itemResourceAssembler = itemResourceAssembler;
+            this.storeChainRepository = storeChainRepository;
         }
 
         @Override
@@ -66,8 +75,12 @@ public class UserReceiptResultResource extends Resource<ReceiptResult> {
                 items.add(itemResourceAssembler.toResource(item));
             }
             resource.getEmbeddedItems().put("receiptItems", items);
-            resource.items = items;
+            resource.items = items;//TODO remove it
 
+            if (!StringUtils.isEmpty(result.getChainCode())) {
+                final StoreChain chain = storeChainRepository.findByCode(result.getChainCode());
+                resource.setStoreName(chain.getName());
+            }
             return resource;
         }
     }

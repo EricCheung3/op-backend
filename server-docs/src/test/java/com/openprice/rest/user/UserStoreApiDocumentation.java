@@ -39,21 +39,6 @@ import com.openprice.rest.user.store.ShoppingListForm;
 
 public class UserStoreApiDocumentation extends UserApiDocumentationBase {
 
-    @Inject
-    protected StoreService storeService;
-
-    @Inject
-    StoreChainRepository storeRepository;
-
-    @Inject
-    CatalogProductRepository catalogRepository;
-
-    @Inject
-    ShoppingStoreRepository shoppingStoreRepository;
-
-    @Inject
-    ShoppingItemRepository shoppingItemRepository;
-
     @Test
     public void storeListExample() throws Exception {
         mockMvc
@@ -236,6 +221,21 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
         ));
     }
 
+    @Inject
+    StoreService storeService;
+
+    @Inject
+    StoreChainRepository storeRepository;
+
+    @Inject
+    CatalogProductRepository catalogRepository;
+
+    @Inject
+    ShoppingStoreRepository shoppingStoreRepository;
+
+    @Inject
+    ShoppingItemRepository shoppingItemRepository;
+
     @Override
     @Before
     public void setUp() throws Exception {
@@ -260,20 +260,8 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
         storeService.createCatalogProduct(rcss, "EGG", "1235", "1.59", "Medium Egg", "Food,Egg", ProductCategory.meat);
         storeService.createCatalogProduct(rcss, "EGG", "1236", "1.29", "Small Egg", "Food,Egg", ProductCategory.meat);
 
-        StoreChain safeway = storeService.createStoreChain("safeway", "Safeway");
+        storeService.createStoreChain("safeway", "Safeway");
     }
-
-//    protected void createStores() throws Exception {
-//        storeRepository.save(StoreChain.createStoreChain("safeway", "Safeway"));
-//
-//        StoreChain rcss = StoreChain.createStoreChain("rcss", "SuperStore");
-//        storeRepository.save(rcss);
-//
-//        // add catalogs to rcss
-//        catalogRepository.save(rcss.addCatalogProduct("egg", "1234", "1.99", "Large Egg", "food,egg", "meat"));
-//        catalogRepository.save(rcss.addCatalogProduct("egg", "1235", "1.59", "Medium Egg", "food,egg", "meat"));
-//        catalogRepository.save(rcss.addCatalogProduct("egg", "1236", "1.29", "Small Egg", "food,egg", "meat"));
-//    }
 
     protected void deleteStores() throws Exception {
         storeRepository.deleteAll();
