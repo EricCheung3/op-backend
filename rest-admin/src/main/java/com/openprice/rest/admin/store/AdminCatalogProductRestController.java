@@ -20,6 +20,7 @@ import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -207,9 +208,13 @@ public class AdminCatalogProductRestController extends AbstractStoreAdminRestCon
         // validate product category
         final Set<String> unknownCategories = new HashSet<>();
         for (ProductData productData : productDatas) {
-            if (ProductCategory.findByCode(productData.getProductCategory()) == null) {
-                log.warn("Upload catalog with invalid product data {}", productData.toString());
+            if (StringUtils.isEmpty(productData.getProductCategory())) {
+                productData.setProductCategory("uncategorized");
+            } else if (ProductCategory.findByCode(productData.getProductCategory().toLowerCase()) == null) {
+                log.warn("Upload catalog file with invalid product category '{}'", productData.getProductCategory());
                 unknownCategories.add(productData.getProductCategory());
+            } else {
+                productData.setProductCategory(productData.getProductCategory().toLowerCase());
             }
         }
         if (!unknownCategories.isEmpty()) {

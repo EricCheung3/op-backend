@@ -34,6 +34,7 @@ CREATE TABLE shopping_item (
     last_modified_time TIMESTAMP,
 
     store_id VARCHAR(50) NOT NULL,
+    product_category VARCHAR(50) NOT NULL,
     catalog_code VARCHAR(255),
     name VARCHAR(255),
 

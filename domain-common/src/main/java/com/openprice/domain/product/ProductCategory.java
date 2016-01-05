@@ -59,4 +59,13 @@ public enum ProductCategory {
             return null;
         }
     }
+
+    public static ProductCategory findByLabel(final String label) {
+        for (ProductCategory productCategory : ProductCategory.values()) {
+            if (productCategory.getLabel().equalsIgnoreCase(label)) {
+                return productCategory;
+            }
+        }
+        return null;
+    }
 }
