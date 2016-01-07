@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
 import com.openprice.domain.account.user.UserAccount;
+import com.openprice.domain.product.ProductCategory;
 import com.openprice.domain.store.StoreChain;
 
 import lombok.Getter;
@@ -101,6 +102,7 @@ public class ShoppingStore extends BaseAuditableEntity {
         item.setStore(this);
         item.setCatalogCode(catalogCode);
         item.setName(name);
+        item.setProductCategory(ProductCategory.uncategorized);
         items.add(item);
         return item;
     }
