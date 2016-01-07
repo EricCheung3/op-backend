@@ -1,22 +1,15 @@
 package com.openprice.domain.shopping;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
 import com.openprice.domain.account.user.UserAccount;
-import com.openprice.domain.product.ProductCategory;
 import com.openprice.domain.store.StoreChain;
 
 import lombok.Getter;
@@ -28,7 +21,7 @@ import lombok.ToString;
  *
  * <p><b>Notes:</b> TODO: It may not have store associated, so it is a generic shopping list with a name.
  */
-@ToString(callSuper=true, exclude={"user", "items"})
+@ToString(callSuper=true, exclude={"user"})
 @SuppressWarnings("serial")
 @Entity
 @Table( name="shopping_store" )
@@ -55,12 +48,6 @@ public class ShoppingStore extends BaseAuditableEntity {
     @Getter @Setter
     @Column(name="display_name")
     private String displayName;
-
-    @Getter @Setter
-    @JsonIgnore
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="store")
-    @OrderBy("name")
-    private List<ShoppingItem> items = new ArrayList<>();
 
     ShoppingStore() {}
 
@@ -89,21 +76,5 @@ public class ShoppingStore extends BaseAuditableEntity {
         store.setUser(user);
         store.setDisplayName(name);
         return store;
-    }
-
-    /**
-     * Builder method to create a <code>ShoppingItem</code> object and add to item list.
-     * @param catalogCode
-     * @param name
-     * @return
-     */
-    public ShoppingItem addItem(final String catalogCode, final String name) {
-        ShoppingItem item = new ShoppingItem();
-        item.setStore(this);
-        item.setCatalogCode(catalogCode);
-        item.setName(name);
-        item.setProductCategory(ProductCategory.uncategorized);
-        items.add(item);
-        return item;
     }
 }

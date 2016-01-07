@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
 import com.openprice.domain.product.ProductCategory;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -39,17 +40,43 @@ public class ShoppingItem extends BaseAuditableEntity {
     private ShoppingStore store;
 
     @Getter @Setter
+    @Column(name="name")
+    private String name;
+
+    /**
+     * Associated catalog product. Comes from user receipt item or search result item.
+     * Maybe null if no product can be associated.
+     */
+    @Getter @Setter
     @Column(name="catalog_code")
     private String catalogCode;
 
+    /**
+     * Category this item belongs to.
+     * Originally come from catalog product it associates with. If no catalog product found, system will
+     * try to find a best match category. Or user can select.
+     * DISCUSS: Back-end algorithm to find match category with user input name or receipt item name.
+     *
+     */
     @Getter @Setter
     @Enumerated(EnumType.STRING)
     @Column(name="product_category")
     private ProductCategory productCategory;
 
-    @Getter @Setter
-    @Column(name="name")
-    private String name;
-
     ShoppingItem() {}
+
+    @Builder(builderMethodName="testObjectBuilder")
+    public static ShoppingItem createTestShoppingItem(final String id,
+                                                      final ShoppingStore store,
+                                                      final String name,
+                                                      final String catalogCode,
+                                                      final ProductCategory productCategory) {
+        final ShoppingItem shoppingItem = new ShoppingItem();
+        shoppingItem.setId(id);
+        shoppingItem.setStore(store);
+        shoppingItem.setName(name);
+        shoppingItem.setCatalogCode(catalogCode);
+        shoppingItem.setProductCategory(productCategory);
+        return shoppingItem;
+    }
 }

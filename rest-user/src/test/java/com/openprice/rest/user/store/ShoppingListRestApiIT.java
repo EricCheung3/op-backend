@@ -77,11 +77,24 @@ public class ShoppingListRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("chainCode", equalTo("rcss"))
             .body("displayName", equalTo("Superstore"))
             .body("_embedded.shoppingItems[0].name", equalTo("bread"))
+            .body("_embedded.shoppingItems[0].catalogCode", equalTo("BREAD"))
+            .body("_embedded.shoppingItems[0].productCategory", equalTo("bakery"))
             .body("_embedded.shoppingItems[1].name", equalTo("eggs"))
+            .body("_embedded.shoppingItems[1].catalogCode", equalTo("EGG_1235"))
+            .body("_embedded.shoppingItems[1].productCategory", equalTo("dairy"))
             .body("_embedded.shoppingItems[2].name", equalTo("jean"))
+            .body("_embedded.shoppingItems[2].catalogCode", equalTo("JEAN"))
+            .body("_embedded.shoppingItems[2].productCategory", equalTo("uncategorized"))
             .body("_embedded.shoppingItems[3].name", equalTo("milk"))
+            .body("_embedded.shoppingItems[3].catalogCode", equalTo("MILK_1234"))
+            .body("_embedded.shoppingItems[3].productCategory", equalTo("dairy"))
             .body("_embedded.shoppingItems[4].name", equalTo("shoes"))
+            .body("_embedded.shoppingItems[4].catalogCode", equalTo("SHOE"))
+            .body("_embedded.shoppingItems[4].productCategory", equalTo("uncategorized"))
             .body("_embedded.shoppingItems[5].name", equalTo("t-shirt"))
+            .body("_embedded.shoppingItems[5].catalogCode", equalTo("T SHIRT"))
+            .body("_embedded.shoppingItems[5].productCategory", equalTo("uncategorized"))
+
         ;
     }
 }

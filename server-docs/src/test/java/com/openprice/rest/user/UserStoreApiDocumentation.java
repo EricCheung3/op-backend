@@ -28,6 +28,7 @@ import com.jayway.jsonpath.JsonPath;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.product.ProductCategory;
 import com.openprice.domain.shopping.ShoppingItemRepository;
+import com.openprice.domain.shopping.ShoppingService;
 import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.domain.shopping.ShoppingStoreRepository;
 import com.openprice.domain.store.CatalogProductRepository;
@@ -225,6 +226,9 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
     StoreService storeService;
 
     @Inject
+    ShoppingService shoppingService;
+
+    @Inject
     StoreChainRepository storeRepository;
 
     @Inject
@@ -259,7 +263,7 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
         storeService.createCatalogProduct(rcss, "EGG", "1234", "1.99", "Large Egg", "Food,Egg", ProductCategory.meat);
         storeService.createCatalogProduct(rcss, "EGG", "1235", "1.59", "Medium Egg", "Food,Egg", ProductCategory.meat);
         storeService.createCatalogProduct(rcss, "EGG", "1236", "1.29", "Small Egg", "Food,Egg", ProductCategory.meat);
-
+        storeService.createCatalogProduct(rcss, "MILK", "1200", "4.99", "2% Milk", "Food,Dairy", ProductCategory.dairy);
         storeService.createStoreChain("safeway", "Safeway");
     }
 
@@ -271,12 +275,12 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
         final UserAccount user = userAccountRepository.findByEmail(USERNAME);
         final StoreChain chain = storeRepository.findByCode("rcss");
         final ShoppingStore store = shoppingStoreRepository.save(ShoppingStore.createShoppingStore(user, chain));
-        shoppingItemRepository.save(store.addItem("MILK", "milk"));
-        shoppingItemRepository.save(store.addItem("Egg", "egg"));
-        shoppingStoreRepository.save(store);
+        shoppingService.addShoppingItemToStore(store, "MILK_1200", "milk");
+        shoppingService.addShoppingItemToStore(store, "EGG_1234", "egg");
     }
 
     protected void deleteShoppingLists() throws Exception {
+        shoppingItemRepository.deleteAll();
         shoppingStoreRepository.deleteAll();
     }
 

@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.openprice.domain.shopping.ShoppingItem;
+import com.openprice.domain.shopping.ShoppingItemRepository;
 import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.rest.LinkBuilder;
 import com.openprice.rest.user.UserApiUrls;
@@ -37,11 +38,14 @@ public class ShoppingStoreResource extends Resource<ShoppingStore> {
     @Component
     public static class Assembler implements ResourceAssembler<ShoppingStore, ShoppingStoreResource>, UserApiUrls {
 
+        private final ShoppingItemRepository shoppingItemRepository;
         private final ShoppingItemResource.Assembler itemResourceAssembler;
 
         @Inject
-        public Assembler(final ShoppingItemResource.Assembler itemResourceAssembler) {
+        public Assembler(final ShoppingItemRepository shoppingItemRepository,
+                         final ShoppingItemResource.Assembler itemResourceAssembler) {
             this.itemResourceAssembler = itemResourceAssembler;
+            this.shoppingItemRepository = shoppingItemRepository;
         }
 
         @Override
@@ -57,7 +61,7 @@ public class ShoppingStoreResource extends Resource<ShoppingStore> {
                        ;
 
             List<ShoppingItemResource> items = new ArrayList<>();
-            for (ShoppingItem item : store.getItems()) {
+            for (ShoppingItem item : shoppingItemRepository.findByStoreOrderByName(store)) {
                 items.add(itemResourceAssembler.toResource(item));
             }
             resource.getEmbeddedItems().put("shoppingItems", items);

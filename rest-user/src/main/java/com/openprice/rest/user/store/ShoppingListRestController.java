@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountService;
-import com.openprice.domain.shopping.ShoppingItem;
-import com.openprice.domain.shopping.ShoppingItemRepository;
 import com.openprice.domain.shopping.ShoppingService;
 import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.domain.shopping.ShoppingStoreRepository;
@@ -30,15 +28,11 @@ import com.openprice.domain.shopping.ShoppingStoreRepository;
 @RestController
 public class ShoppingListRestController extends AbstractUserStoreRestController {
 
-    private final ShoppingItemRepository shoppingItemRepository;
-
     @Inject
     public ShoppingListRestController(final UserAccountService userAccountService,
                                       final ShoppingService shoppingService,
-                                      final ShoppingStoreRepository shoppingStoreRepository,
-                                      final ShoppingItemRepository shoppingItemRepository) {
+                                      final ShoppingStoreRepository shoppingStoreRepository) {
         super(userAccountService, shoppingService, shoppingStoreRepository);
-        this.shoppingItemRepository = shoppingItemRepository;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = URL_USER_SHOPPINGLIST)
@@ -55,8 +49,7 @@ public class ShoppingListRestController extends AbstractUserStoreRestController 
 
         final ShoppingStore store = shoppingService.getShoppingStoreForStoreChain(currentUser, chainCode);
         for (final ShoppingItemForm item : form.getItems()) {
-            final ShoppingItem shoppingItem = store.addItem(item.getCatalogCode(), item.getName());
-            shoppingItemRepository.save(shoppingItem);
+            shoppingService.addShoppingItemToStore(store, item.getCatalogCode(), item.getName());
         }
         return shoppingStoreRepository.save(store);
     }

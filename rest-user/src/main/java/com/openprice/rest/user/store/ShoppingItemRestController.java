@@ -85,7 +85,7 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
             @PathVariable("storeId") final String storeId,
             @PathVariable("itemId") final String itemId,
             @RequestBody final ShoppingItemForm form) throws ResourceNotFoundException {
-        newShoppingItem(storeId, itemId, form);
+        updateShoppingItem(storeId, itemId, form);
         return ResponseEntity.noContent().build();
     }
 
@@ -116,16 +116,14 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
     @Transactional
     private ShoppingItem newShoppingItem(final String storeId, final ShoppingItemForm form) {
         final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
-        final ShoppingItem item = store.addItem(form.getCatalogCode(), form.getName());
-        shoppingItemRepository.save(item);
-        shoppingStoreRepository.save(store);
-        return item;
+        return shoppingService.addShoppingItemToStore(store, form.getCatalogCode(), form.getName());
     }
 
     @Transactional
-    private void newShoppingItem(final String storeId, final String itemId, final ShoppingItemForm form) {
+    private void updateShoppingItem(final String storeId, final String itemId, final ShoppingItemForm form) {
         final ShoppingItem item = getShoppingItemByIdAndCheckStore(storeId, itemId);
         item.setName(form.getName()); // we only allow user update name
+        // TODO add feature to let user change ProductCategory
         shoppingItemRepository.save(item);
     }
 
