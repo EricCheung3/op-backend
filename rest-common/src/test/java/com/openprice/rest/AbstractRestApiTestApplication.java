@@ -73,7 +73,7 @@ public abstract class AbstractRestApiTestApplication extends WebSecurityConfigur
 
     @Bean
     EmailProperties emailProperties() {
-        return new EmailProperties("http://openprice,com",
+        return new EmailProperties("http://openprice.ca",
                                    "OpenPrice Admin",
                                    "admin@openprice.com",
                                    "OpenPrice Team",
