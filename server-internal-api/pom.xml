@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.openprice</groupId>
-        <artifactId>openprice-project</artifactId>
+        <artifactId>op-project</artifactId>
         <version>0.2.0</version>
     </parent>
 
-    <artifactId>openprice-server-internal-api</artifactId>
+    <artifactId>op-server-internal-api</artifactId>
     <packaging>jar</packaging>
 
     <name>Internal RESTful API Server</name>
@@ -22,12 +22,12 @@
         <!-- Rest API Modules -->
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-rest-internal</artifactId>
+            <artifactId>op-rest-internal</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-server-common</artifactId>
+            <artifactId>op-server-common</artifactId>
             <version>${project.version}</version>
         </dependency>
 

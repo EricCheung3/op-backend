@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.openprice</groupId>
-        <artifactId>openprice-project</artifactId>
+        <artifactId>op-project</artifactId>
         <version>0.2.0</version>
     </parent>
 
-    <artifactId>openprice-server-common</artifactId>
+    <artifactId>op-server-common</artifactId>
     <packaging>jar</packaging>
 
     <name>RESTful API Server Common</name>
@@ -17,22 +17,22 @@
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-domain-receipt</artifactId> <!-- TODO: remove it after parser merged into backend -->
+            <artifactId>op-domain-receipt</artifactId> <!-- TODO: remove it after parser merged into backend -->
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-rest-common</artifactId>
+            <artifactId>op-rest-common</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-security</artifactId>
+            <artifactId>op-security</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-email-sendgrid</artifactId>
+            <artifactId>op-email-sendgrid</artifactId>
             <version>${project.version}</version>
         </dependency>
 

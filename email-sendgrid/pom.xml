@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.openprice</groupId>
-        <artifactId>openprice-project</artifactId>
+        <artifactId>op-project</artifactId>
         <version>0.2.0</version>
     </parent>
 
-    <artifactId>openprice-email-sendgrid</artifactId>
+    <artifactId>op-email-sendgrid</artifactId>
     <packaging>jar</packaging>
 
     <name>Sendgrid Service Module</name>
@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-infrastructure</artifactId>
+            <artifactId>op-infrastructure</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

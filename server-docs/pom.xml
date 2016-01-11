@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.openprice</groupId>
-        <artifactId>openprice-project</artifactId>
+        <artifactId>op-project</artifactId>
         <version>0.2.0</version>
     </parent>
 
-    <artifactId>openprice-server-docs</artifactId>
+    <artifactId>op-server-docs</artifactId>
     <packaging>jar</packaging>
 
     <name>REST API Documentation</name>
@@ -21,22 +21,22 @@
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-parser-stores</artifactId>
+            <artifactId>op-parser-stores</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-rest-user</artifactId>
+            <artifactId>op-rest-user</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-rest-admin</artifactId>
+            <artifactId>op-rest-admin</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-security</artifactId>
+            <artifactId>op-security</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -71,7 +71,7 @@
     </dependencies>
 
     <build>
-        <finalName>openprice-api-docs</finalName>
+        <finalName>api-docs</finalName>
 
         <plugins>
             <plugin>

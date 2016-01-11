@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.openprice</groupId>
-        <artifactId>openprice-project</artifactId>
+        <artifactId>op-project</artifactId>
         <version>0.2.0</version>
     </parent>
 
-    <artifactId>openprice-server-ocr</artifactId>
+    <artifactId>op-server-ocr</artifactId>
     <packaging>jar</packaging>
 
     <name>OCR RESTful API Server</name>
@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-rest-ocr</artifactId>
+            <artifactId>op-rest-ocr</artifactId>
             <version>${project.version}</version>
         </dependency>
 

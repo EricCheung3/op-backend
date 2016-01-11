@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.openprice</groupId>
-        <artifactId>openprice-project</artifactId>
+        <artifactId>op-project</artifactId>
         <version>0.2.0</version>
     </parent>
 
-    <artifactId>openprice-server-admin-api</artifactId>
+    <artifactId>op-server-admin-api</artifactId>
     <packaging>jar</packaging>
 
     <name>Admin RESTful API Server</name>
@@ -22,17 +22,17 @@
         <!-- Rest API Modules -->
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-rest-admin</artifactId>
+            <artifactId>op-rest-admin</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-server-common</artifactId>
+            <artifactId>op-server-common</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-parser-stores</artifactId>
+            <artifactId>op-parser-stores</artifactId>
             <version>${project.version}</version>
         </dependency>
 

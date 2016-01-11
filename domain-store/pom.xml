@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.openprice</groupId>
-        <artifactId>openprice-project</artifactId>
+        <artifactId>op-project</artifactId>
         <version>0.2.0</version>
     </parent>
 
-    <artifactId>openprice-domain-store</artifactId>
+    <artifactId>op-domain-store</artifactId>
     <packaging>jar</packaging>
 
     <name>Store Domain Module</name>
@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-domain-common</artifactId>
+            <artifactId>op-domain-common</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

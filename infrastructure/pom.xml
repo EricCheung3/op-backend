@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.openprice</groupId>
-        <artifactId>openprice-project</artifactId>
+        <artifactId>op-project</artifactId>
         <version>0.2.0</version>
     </parent>
 
-    <artifactId>openprice-infrastructure</artifactId>
+    <artifactId>op-infrastructure</artifactId>
     <packaging>jar</packaging>
 
     <name>Infrastructure API Module</name>

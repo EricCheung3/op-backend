@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.openprice</groupId>
-        <artifactId>openprice-project</artifactId>
+        <artifactId>op-project</artifactId>
         <version>0.2.0</version>
     </parent>
 
-    <artifactId>openprice-parser-core</artifactId>
+    <artifactId>op-parser-core</artifactId>
     <packaging>jar</packaging>
 
     <name>Parser Core Module</name>

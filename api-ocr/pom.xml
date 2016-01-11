@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.openprice</groupId>
-        <artifactId>openprice-project</artifactId>
+        <artifactId>op-project</artifactId>
         <version>0.2.0</version>
     </parent>
 
-    <artifactId>openprice-api-ocr</artifactId>
+    <artifactId>op-api-ocr</artifactId>
     <packaging>jar</packaging>
 
     <name>OCR Public API Module</name>
@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-api-common</artifactId>
+            <artifactId>op-api-common</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

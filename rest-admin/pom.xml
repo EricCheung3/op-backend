@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.openprice</groupId>
-        <artifactId>openprice-project</artifactId>
+        <artifactId>op-project</artifactId>
         <version>0.2.0</version>
     </parent>
 
-    <artifactId>openprice-rest-admin</artifactId>
+    <artifactId>op-rest-admin</artifactId>
     <packaging>jar</packaging>
 
     <name>Admin Rest API Module</name>
@@ -17,49 +17,49 @@
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-domain-account-admin</artifactId>
+            <artifactId>op-domain-account-admin</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-domain-account-user</artifactId>
+            <artifactId>op-domain-account-user</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-domain-receipt</artifactId>
+            <artifactId>op-domain-receipt</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-domain-store</artifactId>
+            <artifactId>op-domain-store</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-domain-shopping</artifactId>
+            <artifactId>op-domain-shopping</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-parser-stores</artifactId>
+            <artifactId>op-parser-stores</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-api-internal</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.openprice</groupId>
-            <artifactId>openprice-rest-common</artifactId>
+            <artifactId>op-api-internal</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-rest-common</artifactId>
+            <artifactId>op-rest-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>op-rest-common</artifactId>
             <version>${project.version}</version>
             <type>test-jar</type>
             <scope>test</scope>

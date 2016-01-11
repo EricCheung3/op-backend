@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.openprice</groupId>
-        <artifactId>openprice-project</artifactId>
+        <artifactId>op-project</artifactId>
         <version>0.2.0</version>
     </parent>
 
-    <artifactId>openprice-rest-user</artifactId>
+    <artifactId>op-rest-user</artifactId>
     <packaging>jar</packaging>
 
     <name>User Rest API Module</name>
@@ -17,33 +17,33 @@
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-domain-shopping</artifactId>
+            <artifactId>op-domain-shopping</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-domain-receipt</artifactId>
+            <artifactId>op-domain-receipt</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-parser-stores</artifactId>
+            <artifactId>op-parser-stores</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-api-internal</artifactId>
+            <artifactId>op-api-internal</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-rest-common</artifactId>
+            <artifactId>op-rest-common</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>openprice-rest-common</artifactId>
+            <artifactId>op-rest-common</artifactId>
             <version>${project.version}</version>
             <type>test-jar</type>
             <scope>test</scope>
