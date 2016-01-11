@@ -1,26 +1,20 @@
-docker stop openprice-server-admin-api
-docker rm openprice-server-admin-api
+docker stop op-server-admin-api
+docker rm op-server-admin-api
 
-docker stop openprice-server-web-api
-docker rm openprice-server-web-api
+docker stop op-server-web-api
+docker rm op-server-web-api
 
-docker stop openprice-server-internal-api
-docker rm openprice-server-internal-api
+docker stop op-server-internal-api
+docker rm op-server-internal-api
 
-docker stop openprice-server-ocr-1
-docker rm openprice-server-ocr-1
+docker stop op-server-ocr-1
+docker rm op-server-ocr-1
 
-docker stop openprice-server-ocr-2
-docker rm openprice-server-ocr-2
+docker stop op-server-ocr-2
+docker rm op-server-ocr-2
 
-docker stop openprice-server-docs
-docker rm openprice-server-docs
+docker stop op-server-docs
+docker rm op-server-docs
 
-docker stop openprice-server-admin-ui
-docker rm openprice-server-admin-ui
-
-docker stop openprice-server-web-ui
-docker rm openprice-server-web-ui
-
-docker stop openprice-mysql
-docker rm openprice-mysql
+docker stop op-mysql
+docker rm op-mysql

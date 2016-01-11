@@ -1,11 +1,11 @@
-oproot=~/groundtruth/dev
+gitroot=~/groundtruth/git
 
-cd $oproot/openprice-backend
+cd $gitroot/op-backend
 mvn clean install -Pdev
-cd $oproot/openprice-backend/server-docs
+cd $gitroot/op-backend/server-docs
 mvn docker:build
 
-docker stop openprice-server-docs
-docker rm openprice-server-docs
+docker stop op-server-docs
+docker rm op-server-docs
 
-docker run --name openprice-server-docs -p 8880:8080 -d openprice/openprice-server-docs
+docker run --name op-server-docs -p 8880:8080 -d opgt/op-server-docs
