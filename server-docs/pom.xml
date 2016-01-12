@@ -12,9 +12,10 @@
     <packaging>jar</packaging>
 
     <name>REST API Documentation</name>
+    <description>Spring Rest-docs project to generate Openprice API documentation.</description>
 
     <properties>
-        <start-class>com.openprice.OpenPriceAPIDocsApplication</start-class>
+        <start-class>com.openprice.ApiDocsApplication</start-class>
         <snippetsDirectory>${project.build.directory}/generated-snippets</snippetsDirectory>
     </properties>
 
@@ -66,6 +67,13 @@
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- use h2 as embedded database -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
@@ -142,7 +150,7 @@
                         </goals>
                         <configuration>
                             <outputDirectory>
-                                ${project.build.outputDirectory}/static/docs
+                                ${project.build.outputDirectory}/static
                             </outputDirectory>
                             <resources>
                                 <resource>

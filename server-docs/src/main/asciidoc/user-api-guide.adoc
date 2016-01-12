@@ -12,11 +12,20 @@ Yuan Ji;
 
 This is the RESTful API documentation for OpenPrice User API, used by web-ui application.
 
+[[Authentication]]
+
+User API client can signin to User API through this endpoint: 
+`POST http://104.154.88.206:7800/api/signin`, with content of JSON data:
+
+`{username : 'jiwhiz@gmail.com', password : 'groundtruth'}`
+
+`username` is the end user login ID, should be user's email. 
+
 [[resources-user]]
 == User
 
-The User resource provides the entry point into the service
-of current logged in uer.
+The User resource provides the entry point into the service of current logged in user. Client can access
+the *User* resource through `http://104.154.88.206:7800/api/user`.
 
 
 [[resources-user-access]]
@@ -27,6 +36,10 @@ A `GET` request is used to access the user
 ==== Response structure
 
 include::{snippets}/user-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/user-example/curl-request.adoc[]
 
 ==== Example response
 

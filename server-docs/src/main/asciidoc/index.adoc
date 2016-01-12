@@ -1,7 +1,7 @@
 = OpenPrice RESTful API Getting Started Guide
 Yuan Ji;
 :doctype: book
-:toc:
+:toc: left
 :toclevels: 4
 :source-highlighter: highlightjs
 
@@ -22,20 +22,24 @@ OpenPrice RESTful API is written using http://projects.spring.io/spring-boot[Spr
 makes it easy to get it up and running so that you can start exploring the REST API.
 
 We have DEV environment for front-end developer to use for their Web and mobile app development.
-The entry point is at `http://54.68.144.235/api`.
+The entry point is at `http://104.154.88.206:7800/api`.
 
-You can build and deploy OpenPrice RESTful API Server in Amazon Cloud by following
-[Build and Run Backend Server in AWS](https://bitbucket.org/groundtruthinc/openpriceproj/wiki/Build%20and%20Run%20Backend%20Server%20in%20AWS)
-
-Or you can follow the instruction at openpriceproj repository in Bitbucket to setup a local running server.
-See [Developer Guide](https://bitbucket.org/groundtruthinc/openpriceproj/wiki/DeveloperGuide)
 You can check that the service is up and running by executing a simple request using
 cURL:
 
-include::{snippets}/index/1/curl-request.adoc[]
+`curl http://104.154.88.206:7800/api`
 
 This request should yield the following response:
 
-include::{snippets}/index/1/http-response.adoc[]
+`{"authenticated":false,"currentUser":null,"_links":{"self":{"href":"http://104.154.88.206:7800/api"},"signin":{"href":"http://104.154.88.206:7800/api/signin"},"registration":{"href":"http://104.154.88.206:7800/api/public/registration"},"forgetPassword":{"href":"http://104.154.88.206:7800/api/public/resetPasswordRequests"},"resetPassword":{"href":"http://104.154.88.206:7800/api/public/resetPasswordRequests/{requestId}","templated":true}}}`
 
 Note the `_links` in the JSON response. They are key to navigating the API.
+
+[api-docs]
+= RESTful API Documentations
+
+link:api-guide.html[Public API Documentation]
+
+link:user-api-guide.html[User API Documentation]
+
+link:admin-api-guide.html[Admin API Documentation]

@@ -99,6 +99,10 @@ A `GET` request is used to access the website
 
 include::{snippets}/website-example/response-fields.adoc[]
 
+==== Example request
+
+include::{snippets}/website-example/curl-request.adoc[]
+
 ==== Example response
 
 include::{snippets}/website-example/http-response.adoc[]

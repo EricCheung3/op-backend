@@ -12,11 +12,21 @@ Yuan Ji;
 
 This is the RESTful API documentation for OpenPrice Admin API, used by admin-ui application.
 
+[[Authentication]]
+
+Admin API client can signin to Admin API through this endpoint: 
+`POST http://104.154.88.206:7801/api/signin`, with content of JSON data:
+
+`{username : 'jiwhiz', password : 'groundtruth'}`
+
+
 [[resources-admin]]
 == Admin
 
 The Admin resource provides the entry point into the service
 of current logged in admin.
+The Admin resource provides the entry point into the service of current logged in admin account. Client can access
+the *Admin* resource through `http://104.154.88.206:7801/api/admin`.
 
 
 [[resources-admin-access]]
@@ -27,6 +37,10 @@ A `GET` request is used to access the admin
 ==== Response structure
 
 include::{snippets}/admin-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-example/curl-request.adoc[]
 
 ==== Example response
 

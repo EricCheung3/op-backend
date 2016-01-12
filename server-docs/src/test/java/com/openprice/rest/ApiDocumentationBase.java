@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.openprice.OpenPriceAPIDocsApplication;
+import com.openprice.ApiDocsApplication;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.domain.account.user.UserAccountService;
@@ -28,7 +28,7 @@ import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = OpenPriceAPIDocsApplication.class)
+@SpringApplicationConfiguration(classes = ApiDocsApplication.class)
 @WebIntegrationTest(randomPort = true)
 @ActiveProfiles("dev")
 public abstract class ApiDocumentationBase {
