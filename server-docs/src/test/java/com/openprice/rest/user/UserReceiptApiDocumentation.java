@@ -104,7 +104,6 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
-                //fieldWithPath("images").description("Receipt image list"), // TODO remove it later
                 fieldWithPath("_embedded.receiptImages").description("Receipt image list"),
                 fieldWithPath("needFeedback").description("Whether user can give feedback"),
                 fieldWithPath("_links").description("<<resources-user-receipt-links,Links>> to other resources")
@@ -222,7 +221,6 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
                 fieldWithPath("branchName").description("Recognized store branch name, maybe null"),
                 fieldWithPath("parsedTotal").description("parsed field value for Total"),
                 fieldWithPath("parsedDate").description("parsed field value for Date"),
-                fieldWithPath("items").description("parsed receipt items"), // TODO remove it later
                 fieldWithPath("_embedded.receiptItems").description("parsed receipt items"),
                 fieldWithPath("_links").description("<<resources-user-receipt-parser-result-links, Links>> to other resources")
             )
