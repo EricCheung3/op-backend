@@ -1,6 +1,7 @@
 package com.openprice.domain.shopping;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.when;
@@ -30,15 +31,17 @@ public class ShoppingServiceTest {
     private static final String TEST_CHAIN_CODE = "test";
     private static final String TEST_CHAIN_NAME = "My TestStore";
     private static final String TEST_CATALOG_CODE = "MILK";
+    private static final String TEST_ITEM_ID = "ITEM_TEST_ID";
+    private static final String TEST_ITEM_NAME = "2% Milk";
 
     @Mock
     ShoppingStoreRepository shoppingStoreRepositoryMock;
 
     @Mock
-    ShoppingItemRepository shoppingItemRepositor;
+    ShoppingItemRepository shoppingItemRepositoryMock;
 
     @Mock
-    CatalogProductRepository catalogProductRepository;
+    CatalogProductRepository catalogProductRepositoryMock;
 
     @Mock
     StoreChainRepository storeChainRepositoryMock;
@@ -89,20 +92,6 @@ public class ShoppingServiceTest {
     }
 
     @Test
-    public void addShoppingItemToStore_ShouldAddItemWithUncategoried_WhenEmptyCatalogCode() throws Exception {
-        final UserAccount testUser = getTestUserAccount();
-        final StoreChain rcssChain = getTestStoreChain();
-        final ShoppingStore store = ShoppingStore.createShoppingStore(testUser, rcssChain);
-
-        when(shoppingStoreRepositoryMock.findByUserAndChainCode(eq(testUser), eq(TEST_CHAIN_CODE))).thenReturn(store);
-        when(storeChainRepositoryMock.findByCode(eq(TEST_CHAIN_CODE))).thenReturn(rcssChain);
-
-        ShoppingItem result = serviceToTest.addShoppingItemToStore(store, "", "2% Milk");
-        assertEquals(ProductCategory.uncategorized, result.getProductCategory());
-
-    }
-
-    @Test
     public void addShoppingItemToStore_ShouldAddItemWithCategory() throws Exception {
         final UserAccount testUser = getTestUserAccount();
         final StoreChain rcssChain = getTestStoreChain();
@@ -110,17 +99,124 @@ public class ShoppingServiceTest {
         final CatalogProduct catalogProduct = CatalogProduct.testObjectBuilder()
                                                             .chain(rcssChain)
                                                             .name("MILK")
-                                                            .naturalName("2% Milk")
+                                                            .naturalName(TEST_ITEM_NAME)
                                                             .productCategory(ProductCategory.dairy)
                                                             .build();
 
-        when(shoppingStoreRepositoryMock.findByUserAndChainCode(eq(testUser), eq(TEST_CHAIN_CODE))).thenReturn(store);
         when(storeChainRepositoryMock.findByCode(eq(TEST_CHAIN_CODE))).thenReturn(rcssChain);
-        when(catalogProductRepository.findByChainAndCatalogCode(rcssChain, TEST_CATALOG_CODE)).thenReturn(catalogProduct);
-        ShoppingItem result = serviceToTest.addShoppingItemToStore(store, TEST_CATALOG_CODE, "2% Milk");
+        when(catalogProductRepositoryMock.findByChainAndCatalogCode(rcssChain, TEST_CATALOG_CODE)).thenReturn(catalogProduct);
+        when(shoppingItemRepositoryMock.save(isA(ShoppingItem.class))).thenAnswer( new Answer<ShoppingItem>() {
+            @Override
+            public ShoppingItem answer(InvocationOnMock invocation) throws Throwable {
+                final ShoppingItem item = (ShoppingItem)invocation.getArguments()[0];
+                item.setId(TEST_ITEM_ID);
+                return item;
+            }
+        });
+
+        ShoppingItem result = serviceToTest.addShoppingItemToStore(store, TEST_CATALOG_CODE, TEST_ITEM_NAME, 1);
         assertEquals(TEST_CATALOG_CODE, result.getCatalogCode());
         assertEquals(ProductCategory.dairy, result.getProductCategory());
+        assertEquals(TEST_ITEM_NAME, result.getName());
+        assertEquals(1, result.getNumber());
+    }
 
+    @Test
+    public void addShoppingItemToStore_ShouldIncreaseNumberForExistingItem() throws Exception {
+        final UserAccount testUser = getTestUserAccount();
+        final StoreChain rcssChain = getTestStoreChain();
+        final ShoppingStore store = ShoppingStore.createShoppingStore(testUser, rcssChain);
+        final CatalogProduct catalogProduct = CatalogProduct.testObjectBuilder()
+                                                            .chain(rcssChain)
+                                                            .name("MILK")
+                                                            .naturalName(TEST_ITEM_NAME)
+                                                            .productCategory(ProductCategory.dairy)
+                                                            .build();
+        final ShoppingItem existingItem = ShoppingItem.testObjectBuilder()
+                                                      .catalogCode(TEST_CATALOG_CODE)
+                                                      .name(TEST_ITEM_NAME)
+                                                      .number(1)
+                                                      .productCategory(ProductCategory.dairy)
+                                                      .build();
+
+        when(shoppingItemRepositoryMock.findByStoreAndCatalogCode(store, TEST_CATALOG_CODE)).thenReturn(existingItem);
+        when(storeChainRepositoryMock.findByCode(eq(TEST_CHAIN_CODE))).thenReturn(rcssChain);
+        when(catalogProductRepositoryMock.findByChainAndCatalogCode(rcssChain, TEST_CATALOG_CODE)).thenReturn(catalogProduct);
+        when(shoppingItemRepositoryMock.save(isA(ShoppingItem.class))).thenAnswer( new Answer<ShoppingItem>() {
+            @Override
+            public ShoppingItem answer(InvocationOnMock invocation) throws Throwable {
+                final ShoppingItem item = (ShoppingItem)invocation.getArguments()[0];
+                item.setId(TEST_ITEM_ID);
+                return item;
+            }
+        });
+
+        ShoppingItem result = serviceToTest.addShoppingItemToStore(store, TEST_CATALOG_CODE, TEST_ITEM_NAME, 1);
+        assertEquals(TEST_CATALOG_CODE, result.getCatalogCode());
+        assertEquals(ProductCategory.dairy, result.getProductCategory());
+        assertEquals(TEST_ITEM_NAME, result.getName());
+        assertEquals(2, result.getNumber());
+    }
+
+    @Test
+    public void addShoppingItemToStore_ShouldAddItemWithUncategoried_WhenEmptyCatalogCode() throws Exception {
+        final UserAccount testUser = getTestUserAccount();
+        final StoreChain rcssChain = getTestStoreChain();
+        final ShoppingStore store = ShoppingStore.createShoppingStore(testUser, rcssChain);
+
+        when(shoppingItemRepositoryMock.findByStoreAndNameAndCatalogCodeIsNull(store, TEST_ITEM_NAME)).thenReturn(null);
+        when(shoppingStoreRepositoryMock.findByUserAndChainCode(eq(testUser), eq(TEST_CHAIN_CODE))).thenReturn(store);
+        when(storeChainRepositoryMock.findByCode(eq(TEST_CHAIN_CODE))).thenReturn(rcssChain);
+        when(shoppingItemRepositoryMock.save(isA(ShoppingItem.class))).thenAnswer( new Answer<ShoppingItem>() {
+            @Override
+            public ShoppingItem answer(InvocationOnMock invocation) throws Throwable {
+                final ShoppingItem item = (ShoppingItem)invocation.getArguments()[0];
+                item.setId(TEST_ITEM_ID);
+                return item;
+            }
+        });
+
+        ShoppingItem result = serviceToTest.addShoppingItemToStore(store, "", TEST_ITEM_NAME, 1);
+        assertEquals(ProductCategory.uncategorized, result.getProductCategory());
+        assertEquals(TEST_ITEM_NAME, result.getName());
+        assertEquals(1, result.getNumber());
+    }
+
+    @Test
+    public void addShoppingItemToStore_ShouldIncreaseNumberForExistingItem_WhenEmptyCatalogCode() throws Exception {
+        final UserAccount testUser = getTestUserAccount();
+        final StoreChain rcssChain = getTestStoreChain();
+        final ShoppingStore store = ShoppingStore.createShoppingStore(testUser, rcssChain);
+        final CatalogProduct catalogProduct = CatalogProduct.testObjectBuilder()
+                                                            .chain(rcssChain)
+                                                            .name("MILK")
+                                                            .naturalName(TEST_ITEM_NAME)
+                                                            .productCategory(ProductCategory.dairy)
+                                                            .build();
+        final ShoppingItem existingItem = ShoppingItem.testObjectBuilder()
+                                                      .catalogCode(null)
+                                                      .name(TEST_ITEM_NAME)
+                                                      .number(1)
+                                                      .productCategory(ProductCategory.dairy)
+                                                      .build();
+
+        when(shoppingItemRepositoryMock.findByStoreAndNameAndCatalogCodeIsNull(store, TEST_ITEM_NAME)).thenReturn(existingItem);
+        when(storeChainRepositoryMock.findByCode(eq(TEST_CHAIN_CODE))).thenReturn(rcssChain);
+        when(catalogProductRepositoryMock.findByChainAndCatalogCode(rcssChain, TEST_CATALOG_CODE)).thenReturn(catalogProduct);
+        when(shoppingItemRepositoryMock.save(isA(ShoppingItem.class))).thenAnswer( new Answer<ShoppingItem>() {
+            @Override
+            public ShoppingItem answer(InvocationOnMock invocation) throws Throwable {
+                final ShoppingItem item = (ShoppingItem)invocation.getArguments()[0];
+                item.setId(TEST_ITEM_ID);
+                return item;
+            }
+        });
+
+        ShoppingItem result = serviceToTest.addShoppingItemToStore(store, "", TEST_ITEM_NAME, 1);
+        assertNull(result.getCatalogCode());
+        assertEquals(ProductCategory.dairy, result.getProductCategory());
+        assertEquals(TEST_ITEM_NAME, result.getName());
+        assertEquals(2, result.getNumber());
     }
 
     private UserAccount getTestUserAccount() {

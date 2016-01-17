@@ -116,13 +116,14 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
     @Transactional
     private ShoppingItem newShoppingItem(final String storeId, final ShoppingItemForm form) {
         final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
-        return shoppingService.addShoppingItemToStore(store, form.getCatalogCode(), form.getName());
+        return shoppingService.addShoppingItemToStore(store, form.getCatalogCode(), form.getName(), form.getNumber());
     }
 
     @Transactional
     private void updateShoppingItem(final String storeId, final String itemId, final ShoppingItemForm form) {
         final ShoppingItem item = getShoppingItemByIdAndCheckStore(storeId, itemId);
         item.setName(form.getName()); // we only allow user update name
+        item.setNumber(form.getNumber());
         // TODO add feature to let user change ProductCategory
         shoppingItemRepository.save(item);
     }

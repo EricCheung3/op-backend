@@ -56,7 +56,11 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
     @Test
     public void createShoppingListItem_ShouldAddItem() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-        final ShoppingItemForm form = new ShoppingItemForm("Levis Jean", "CLOTHES");
+        final ShoppingItemForm form = ShoppingItemForm.builder()
+                                                      .name("Levis Jean")
+                                                      .catalogCode("CLOTHES")
+                                                      .number(1)
+                                                      .build();
 
         Response response =
         given()
@@ -119,7 +123,10 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
     public void updateShoppingListItemById_ShouldUpdateItemName() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
         final String itemUrl = userShoppingItemUrl(sessionFilter, "shoppingStore101", "item101");
-        final ShoppingItemForm form = new ShoppingItemForm("2% milk", null);
+        final ShoppingItemForm form = ShoppingItemForm.builder()
+                                                      .name("2% milk")
+                                                      .number(1)
+                                                      .build();
 
         given()
             .filter(sessionFilter)

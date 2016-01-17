@@ -11,4 +11,8 @@ public interface ShoppingItemRepository extends JpaRepository<ShoppingItem, Stri
     Page<ShoppingItem> findByStoreOrderByName(ShoppingStore store, Pageable pageable);
 
     List<ShoppingItem> findByStoreOrderByName(ShoppingStore store);
+
+    ShoppingItem findByStoreAndCatalogCode(ShoppingStore store, String catalogCode);
+
+    ShoppingItem findByStoreAndNameAndCatalogCodeIsNull(ShoppingStore store, String name);
 }
