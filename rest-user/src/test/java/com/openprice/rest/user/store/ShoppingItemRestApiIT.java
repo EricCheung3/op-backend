@@ -95,6 +95,47 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
     }
 
     @Test
+    public void createShoppingListItem_ShouldIncreaseNumber_WhenSameCatalogProduct() {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+        final ShoppingItemForm form = ShoppingItemForm.builder()
+                                                      .name("milk")
+                                                      .catalogCode("MILK_1234")
+                                                      .number(1)
+                                                      .build();
+
+        Response response =
+        given()
+            .filter(sessionFilter)
+            .contentType(ContentType.JSON)
+            .body(form)
+        .when()
+            .post(userShoppingItemsUrl(sessionFilter, "shoppingStore101"))
+            ;
+        response
+        .then()
+            .statusCode(HttpStatus.SC_CREATED)
+        ;
+
+        response =
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(response.getHeader("Location"))
+        ;
+        //response.prettyPrint();
+        response
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("name", equalTo("milk"))
+            .body("catalogCode", equalTo("MILK_1234"))
+            .body("number", equalTo(2))
+            .body("_links.user.href", endsWith("/user"))
+            .body("_links.store.href", endsWith("/user/stores/shoppingStore101"))
+        ;
+    }
+
+    @Test
     public void getShoppingListItemById_ShouldReturnShoppingListItem() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
         Response response =
