@@ -24,7 +24,6 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegrationTest {
 
-
     @Value("classpath:/testFiles/RCSS/CalgaryTrail/2015_02_01_14_17_01.jpg.henryHuang.txt")
     private Resource sampleRCSS_2015_02_01_14_17_01;
 
@@ -140,4 +139,42 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         //assertEquals(fieldValues.get(ReceiptField.).getValue(), "");
         assertEquals("2015/4/4", fieldValues.get(ReceiptField.Date).getValue());
     }
+
+    @Value("classpath:/testFiles/RCSS/CalgaryTrail/2015_07_21_10_50_33.jpg.henryHuang.txt")
+    private Resource sampleRCSS_2015_07_21_10_50_33;
+    @Test
+    public void testRCSS_2015_07_21_10_50_33() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(sampleRCSS_2015_07_21_10_50_33, (line)-> receiptLines.add(line));
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        printResult(receipt);
+
+        final Iterator<Item> iterator=receipt.getItems().iterator();
+        verifyItemParsedValue(iterator.next(), "orange navel 5lb", "5.88", "orange navel 5lb_03338311006");
+        verifyItemParsedValue(iterator.next(), "banana", "1.35", "banana_4011");
+        verifyItemParsedValue(iterator.next(), "cherries red    mrj", "7.29", "cherries red    mrj_4045");
+        verifyItemParsedValue(iterator.next(), "tc baby powder    gmrj", "0.99", "tc baby powder    gmrj_06038379317");
+        verifyItemParsedValue(iterator.next(), "baby bar    gmrj", "2.49", "baby bar    gmrj_06260096070");
+        verifyItemParsedValue(iterator.next(), "plastic bags", "0.05", "plastic bags");
+
+        Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
+        //TODO: check. will this "supersto re" be returned to front-end?
+        assertEquals("supersto re", fieldValues.get(ReceiptField.Chain).getValue());
+
+        assertEquals("2015/6/18", fieldValues.get(ReceiptField.Date).getValue());
+        assertEquals("big on fresh, low on price", fieldValues.get(ReceiptField.Slogan).getValue());
+        assertEquals("01570", fieldValues.get(ReceiptField.StoreID).getValue());
+        assertEquals("4821 calgary trail", fieldValues.get(ReceiptField.AddressLine1).getValue());
+        assertEquals("edmonton", fieldValues.get(ReceiptField.AddressCity).getValue());
+        assertEquals("780-430-2769", fieldValues.get(ReceiptField.Phone).getValue());
+        assertEquals("0.77", fieldValues.get(ReceiptField.GstAmount).getValue());
+        assertEquals("12223-5922 rt0001", fieldValues.get(ReceiptField.GstNumber).getValue());
+        assertEquals("29.97", fieldValues.get(ReceiptField.SubTotal).getValue());
+        assertEquals("30.74", fieldValues.get(ReceiptField.Total).getValue());
+        //assertEquals(fieldValues.get(ReceiptField.).getValue(), "");
+        assertEquals("2015/6/18", fieldValues.get(ReceiptField.Date).getValue());
+
+    }
+
 }

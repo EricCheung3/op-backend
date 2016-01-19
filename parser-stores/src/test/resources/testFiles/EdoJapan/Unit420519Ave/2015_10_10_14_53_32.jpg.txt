@@ -1,0 +1,22 @@
+
+
+Your        Guest       #     is     697
+                 Edo Japan
+          Unit 4 205 - 19th Avenue
+                Edmonton, AB
+               (730) 437-3363
+              GST # 803689020
+               Dine-IN
+        Trans#: 16597    Serv: 100
+       DATE: 10/08/2015 TIME: 12:30:14 PM #Cust:1
+ Quan Description                    Cost
+   1 Kids Chicken & Noodle             $5.39
+   1 Bottle Deposit Charge             $0.10
+   1 recycling Fee $0.03               $0.03
+                 Net Total:            $5.52
+                        GST            $0.28
+                       TIP:            $0.00
+          TOTAL:                   $5.80
+
+Debit                                 $5.80
+

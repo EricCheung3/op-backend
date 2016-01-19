@@ -1,0 +1,102 @@
+SUPERSTORE 
+    RCSS 1570 - 4821 CALGARY TRAIL
+    780-430-2769
+               Big on Fresh, Lm1 on Price
+    ---------TRANS ACTION RECORD------ - --- ---
+    GLOBAL PAYHENTS MERCHANT B 0955971
+    Super-s tore
+    482 1 C alga ry Trail N.U.
+    Ednonton AB
+    SfORE 01570                TERM Z0157016C
+    SL IP B 201200             REG 16
+    RETA IN TH I S COPY FOR YOUR RECORDS
+    ** Pu rchase                        ~*   Chip
+    CARD ~ ~ ' **~**h***80 17                EXP *'/*~
+    Visa C redit
+    REF ~            AU TH~              RESP
+    000000000000                         ISO
+    AID: A00000000310 10
+    TSI         fUR
+    DATE               TIME              AMOUN T
+    06/18/2015         19:54:13          $      30.74
+          NOT COMPL ET ED
+
+
+    - ··-- - ··- - -TRANSACTION RECORD----- - --· ----
+    GL OBAL PAYMENTS MERCH ANT ~ 0955971
+    Supe rstore
+    4821 C al gary frail N.U.
+    ErJnonton AB
+    STORE 01570           TERH Z  015701 6C
+    SLIP # 201201              R EG 16
+       RET AIN THIS COPY FOR YOUR RE CORDS
+    ., Purchase               ~*
+    CARD n                           EXP / h      '*
+    REF ~            AUTH D                RES  P
+    000000000000                           ISO
+    DATE         TIME             AMOUNT
+    06/18/2015   19:54:29         $       30.74
+          NOT COMPLETED
+
+
+    27-PRODUCE
+      0 333 ~ 313000      ORANGE NAVEL 4LB               HRJ       5.88
+      4011                BANANA                         MRJ       1.35
+        0.795 kg@ $1.70/ kg                                 
+      4045           CHERRIES RED                        MRJ       7.29
+        1.11 0 kg @$6.57/kg                                 
+    38-HOME HEALTH
+     06038379317 TC BABY POWDER                         GMRJ      0.99
+     06260015444 J&J BABY WASH                          GMRJ      7.94
+          $3.97 lmt 2. s5.49 ea
+          2 @S3.97 lmt 2                                    
+      06260096070         BABY BAR                       GMRJ      2.49
+      62472151003         SUDOCREM 60G                   GHRJ      3.98
+    41-HOME
+      9                   PLASTIC BAGS                   GRQ       0.05
+    SUBTOTAL                                                    29.97
+)
+          G:GST 5%         15.45    ~   5.000%                     0.77
+    TOTAL                                                       30.74
+    ------- --TRANSACTION        RECORD -- ----
+    GLOB AL PAYMENTS ~E R C H ANT # 0955971
+    Supersto re
+    4821 C algary Trail N.W.
+    Edmo nton fiB
+    STORE 01570                  TERMZ 0157016C
+    SLIP # 201202                REG 16
+    RETAIN THIS COP\' FO  R YOUR RECORDS
+    **  Purchase                  ** ChiP
+    CARD D * * *'"~**' "**80 17       EXP ·'I**
+    Uisa Credit
+    REF ~            RUTH #        RESP 001
+    744001 001 183 029381          ISO 00
+    AID : A000000003 1010
+    TSI F800      TUR 0080001000
+    DATE            TIME               AMOUNT
+    06/18/2015      19:54:50          $     30.74
+                   APPROUED
+    No      S~gneture                   Required
+
+          CR EDIT TN                                              30.74
+                       You could have earned 300
+                   PC points uith President's Choi ce
+                   Financia l MasterCard . APPlY Today
+                          Uis it pcfinancial.ca
+    '' "'***** '~'****'** * * **** ***'***'*****
+                              GST K 12223 -5922 RT0001
+    l HANK 'IOU FOR SHOPPING SUPERSTORE
+    AII.EEil JONES
+    Thank V  ou. Cone Again !
+      S
+    *'UEYOUR      PCFC ARD**
+    TO C OLLECT POINTS!!
+    >*REDEEH H   ERE FOR FREE GROCERIES**
+    DATE: 2015/06/18                                        TIME: 19:54
+    GURJ IT 255                                                  16 20 12
+    ***~******'****** ****************'*'**
+             TELL US HOI-I !IE DID TOD AY !
+          i10NTHLV CHANCES TO WIN $5000
+             UISIT IHJUTOREOP INIO   N. CA
+
+ 
