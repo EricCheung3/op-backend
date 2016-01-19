@@ -1,0 +1,29 @@
+
+
+Your        G u e s t # is 691
+                 Edo Japan
+          Unit 4 205 - 19th Avenue
+                Edmonton, AB
+               (730) 437-3363
+              GST # 808689020
+               Dine-IN
+       Trans#: 16591    Serv: 100
+      DATE: 10/08/2015 TIME: 12:26:47 PM #Cust:1
+
+ Quan Description                Cost
+
+   1   Beef                        $8.09
+   1   Kids Chicken & Noodle       $5.39
+   1   Bottle Deposit Charge       $0.10
+   1   recycling Fee $0.03         $0.03
+   1   Combo Reg pop               $1.89
+
+                 Net Total:       $15.50
+                        GST        $0.78
+                                   $0.02
+                       TIP:        $0.00
+
+         TOTAL:                $16.30
+
+CASH                              $20.00
+

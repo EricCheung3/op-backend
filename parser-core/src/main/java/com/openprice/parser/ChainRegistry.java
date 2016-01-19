@@ -36,47 +36,49 @@ public class ChainRegistry {
         final List<ReceiptLine> lines = receipt.getTopBottomChainMatchingLines();
         //log.debug("TopBottom matching lines:\n"+lines);
         //log.debug("search chains in registry with "+storeChains);
+        log.debug("storeChain lists:");
+        storeChains.forEach(c -> log.debug(c.getCode()));
 
         final Optional<ScoreWithMatchPair<StoreChain>> maxChainMatch =
-            storeChains
-            .stream()
-            .map( chain -> {
-                // score sum for all match identify fields whose matching score is > CHAIN_IDENTIFY_MATCH_THRESHOLD
-                double matchingScoreSum =
-                    lines
-                    .stream()
-                    .filter( line -> StringCommon.countDigitAndChars(line.getCleanText())[1] >= 2)
-                    .map( line -> {
-                        Optional<ScoreWithMatchPair<String>> maxIdentifyMatch =
-                            chain
-                            .getIdentifyFields()
+                storeChains
+                .stream()
+                .map( chain -> {
+                    // score sum for all match identify fields whose matching score is > CHAIN_IDENTIFY_MATCH_THRESHOLD
+                    double matchingScoreSum =
+                            lines
                             .stream()
-                            .map( identify -> {
-                                final String matchingString = identify.trim().toLowerCase();
-                                if (line.getCleanText().contains(matchingString)) { // FIXME may cause problem if item line contains store chain name, such as "T&T"
-                                    return new ScoreWithMatchPair<String>(1.0, line.getNumber(), identify);
+                            .filter( line -> StringCommon.countDigitAndChars(line.getCleanText())[1] >= 2)
+                            .map( line -> {
+                                Optional<ScoreWithMatchPair<String>> maxIdentifyMatch =
+                                        chain
+                                        .getIdentifyFields()
+                                        .stream()
+                                        .map( identify -> {
+                                            final String matchingString = identify.trim().toLowerCase();
+                                            if (line.getCleanText().contains(matchingString)) { // FIXME may cause problem if item line contains store chain name, such as "T&T"
+                                                return new ScoreWithMatchPair<String>(1.0, line.getNumber(), identify);
+                                            }
+                                            return new ScoreWithMatchPair<String>(
+                                                    Levenshtein.compare(line.getCleanText(), matchingString),
+                                                    line.getNumber(),
+                                                    identify);
+                                        })
+                                        .max( Comparator.comparing(ScoreWithMatchPair<String>::getScore) )
+                                        ;
+                                if (maxIdentifyMatch.isPresent()) {
+                                    //log.debug("maxIdentifyMatch score for line '{}' is {}.", line.getCleanText(), maxIdentifyMatch.get().getScore());
+                                    return maxIdentifyMatch.get().getScore();
                                 }
-                                return new ScoreWithMatchPair<String>(
-                                       Levenshtein.compare(line.getCleanText(), matchingString),
-                                       line.getNumber(),
-                                       identify);
+                                return -1.0;
                             })
-                            .max( Comparator.comparing(ScoreWithMatchPair<String>::getScore) )
+                            .filter( score -> score > CHAIN_IDENTIFY_MATCH_THRESHOLD)
+                            .reduce(0.0, Double::sum)
                             ;
-                        if (maxIdentifyMatch.isPresent()) {
-                            //log.debug("maxIdentifyMatch score for line '{}' is {}.", line.getCleanText(), maxIdentifyMatch.get().getScore());
-                            return maxIdentifyMatch.get().getScore();
-                        }
-                        return -1.0;
-                    })
-                    .filter( score -> score > CHAIN_IDENTIFY_MATCH_THRESHOLD)
-                    .reduce(0.0, Double::sum)
-                    ;
-                log.debug("Get matching score {} for chain {}", matchingScoreSum, chain.getCode());
-                return new ScoreWithMatchPair<StoreChain>(matchingScoreSum, -1, chain);
-            })
-            .max( Comparator.comparing(ScoreWithMatchPair<StoreChain>::getScore) )
-            ;
+                    log.debug("Get matching score {} for chain {}", matchingScoreSum, chain.getCode());
+                    return new ScoreWithMatchPair<StoreChain>(matchingScoreSum, -1, chain);
+                })
+                .max( Comparator.comparing(ScoreWithMatchPair<StoreChain>::getScore) )
+                ;
 
         return maxChainMatch.isPresent()? maxChainMatch.get().getMatch() : null;
     }

@@ -1,0 +1,24 @@
+
+
+Your        G u e s t # is 752
+                 Edo Japan
+          Unit 4 205 - 19th Avenue
+                Edmonton, AB
+               (730) 437-3363
+              GST # 808689020
+            Take - Out
+       Trans#: 16752    Serv: 100
+      DATE: 10/08/2015 TIME: 01:24:45 PM #Cust:1
+
+ Quan Description                Cost
+
+   1 Chicken & Shrimp             $11.58
+
+                Net Total:        $11.58
+                       GST         $0.58
+                      TIP:         $0.00
+
+         T O T A L :         $12.16
+
+Visa                              $12.16
+
