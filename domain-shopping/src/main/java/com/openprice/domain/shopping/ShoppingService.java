@@ -56,29 +56,70 @@ public class ShoppingService {
         return shoppingStoreRepository.save(store);
     }
 
+    /**
+     * Adds user input shopping item to store shopping list.
+     * If the item is already in the list (same catalog product, or same name without catalog), it will increase
+     * item quantity number.
+     *
+     * @param store
+     * @param catalogCode
+     * @param name
+     * @param number
+     * @return
+     */
     public ShoppingItem addShoppingItemToStore(final ShoppingStore store,
                                                final String catalogCode,
-                                               final String name) {
-        final ShoppingItem item = new ShoppingItem();
-        item.setStore(store);
-        item.setCatalogCode(catalogCode);
-        item.setName(name);
+                                               final String name,
+                                               final int number) {
+        assert store != null;
+        assert !StringUtils.isEmpty(name);
+        assert number > 0;
+
+        ShoppingItem item;
 
         if (StringUtils.isEmpty(catalogCode)) {
-            // TODO: add algorithm to find best matching ProductCategory by name
-            item.setProductCategory(ProductCategory.uncategorized);
-        } else {
-            final StoreChain chain = storeChainRepository.findByCode(store.getChainCode());
-            final CatalogProduct catalogProduct = catalogProductRepository.findByChainAndCatalogCode(chain, catalogCode);
-            if (catalogProduct != null) {
-                item.setProductCategory(catalogProduct.getProductCategory());
+            item = shoppingItemRepository.findByStoreAndNameAndCatalogCodeIsNull(store, name);
+            if (item != null) {
+                item.setNumber(item.getNumber() + number);
+                log.debug("Add item without catalogCode, and find existing item, "
+                        + "so increase number for shopping item '{}' to {}", name, item.getNumber());
             } else {
-                log.error("SEVERE! Cannot get CatalogProduct by catalog code '{}' in store '{}', something wrong with the database!"
-                        , catalogCode, store.getChainCode());
+                item = new ShoppingItem();
+                item.setStore(store);
+                item.setCatalogCode(null);
+                item.setName(name);
+                item.setNumber(number);
+                // TODO: add algorithm to find best matching ProductCategory by name
                 item.setProductCategory(ProductCategory.uncategorized);
+                log.debug("Add item without catalogCode, and create new item for '{}'", name);
             }
+        } else {
+            item = shoppingItemRepository.findByStoreAndCatalogCode(store, catalogCode);
+            if (item != null) {
+                item.setNumber(item.getNumber() + number);
+                // we only increase number, it will keep previous name/category in case user might have changed it.
+                log.debug("Add item with catalogCode '{}', and find existing item, "
+                        + "so increase number for shopping item '{}' to {}", catalogCode, name, item.getNumber());
+            } else {
+                item = new ShoppingItem();
+                item.setStore(store);
+                item.setCatalogCode(catalogCode);
+                item.setName(name);
+                item.setNumber(number);
+                log.debug("Add item with catalogCode '{}', and create new item for '{}'", catalogCode, name);
+                final StoreChain chain = storeChainRepository.findByCode(store.getChainCode());
+                final CatalogProduct catalogProduct = catalogProductRepository.findByChainAndCatalogCode(chain, catalogCode);
+                if (catalogProduct != null) {
+                    item.setProductCategory(catalogProduct.getProductCategory());
+                } else {
+                    log.error("SEVERE! Cannot get CatalogProduct by catalog code '{}' in store '{}', something wrong with the database!"
+                            , catalogCode, store.getChainCode());
+                    item.setProductCategory(ProductCategory.uncategorized);
+                }
+            }
+
         }
-        shoppingItemRepository.save(item);
+        item = shoppingItemRepository.save(item);
         return item;
     }
 

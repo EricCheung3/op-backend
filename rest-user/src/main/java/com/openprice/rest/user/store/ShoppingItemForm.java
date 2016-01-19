@@ -20,4 +20,6 @@ public class ShoppingItemForm implements Serializable {
     private String name;
 
     private String catalogCode;
+
+    private int number;
 }

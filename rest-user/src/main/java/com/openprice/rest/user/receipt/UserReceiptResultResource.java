@@ -32,9 +32,6 @@ public class UserReceiptResultResource extends Resource<ReceiptResult> {
     @Getter @Setter
     private String storeName = "[Unknown]";
 
-    @Getter
-    private List<UserReceiptItemResource> items;
-
     @JsonInclude(Include.NON_EMPTY)
     @JsonProperty("_embedded")
     @Getter @Setter
@@ -75,7 +72,6 @@ public class UserReceiptResultResource extends Resource<ReceiptResult> {
                 items.add(itemResourceAssembler.toResource(item));
             }
             resource.getEmbeddedItems().put("receiptItems", items);
-            resource.items = items;//TODO remove it
 
             if (!StringUtils.isEmpty(result.getChainCode())) {
                 final StoreChain chain = storeChainRepository.findByCode(result.getChainCode());

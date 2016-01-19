@@ -59,6 +59,9 @@ public class Receipt extends BaseAuditableEntity {
     /**
      * Builder method to create a new receipt image for this receipt with system generated jpg file name.
      *
+     * DISCUSS: In the future we may have to change the algorithm of storing image file. Right now we have the
+     * limitation to store up to 32768 files under one folder.
+     *
      * @return
      */
     public ReceiptImage createImage() {

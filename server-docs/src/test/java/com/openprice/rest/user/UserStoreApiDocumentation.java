@@ -87,8 +87,8 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
         ShoppingListForm form =
             ShoppingListForm.builder()
                             .chainCode("safeway")
-                            .item(ShoppingItemForm.builder().name("milk").catalogCode("MILK").build())
-                            .item(ShoppingItemForm.builder().name("egg").catalogCode("EGG").build())
+                            .item(ShoppingItemForm.builder().name("milk").catalogCode("MILK").number(1).build())
+                            .item(ShoppingItemForm.builder().name("egg").catalogCode("EGG").number(1).build())
                             .build();
 
         mockMvc
@@ -132,6 +132,7 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
                 ShoppingItemForm.builder()
                                 .name("milk")
                                 .catalogCode("MILK")
+                                .number(1)
                                 .build();
         mockMvc
         .perform(
@@ -145,7 +146,8 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
             preprocessRequest(prettyPrint()),
             requestFields(
                 fieldWithPath("name").description("The item name copied from catalog, user can edit."),
-                fieldWithPath("catalogCode").description("The code of catalog product, from parser result.")
+                fieldWithPath("catalogCode").description("The code of catalog product, from parser result."),
+                fieldWithPath("number").description("The number of items user wants to buy, default to 1.")
             )
         ));
     }
@@ -165,6 +167,7 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
                 fieldWithPath("name").description("Shopping Item name, user can edit"),
+                fieldWithPath("number").description("The number of items user wants to buy, default to 1, user can edit"),
                 fieldWithPath("catalogCode").description("Optional catalog code."),
                 fieldWithPath("catalog").description("Catalog object if catalogCode is not null."),
                 fieldWithPath("productCategory").description("The category this item belongs to."),
@@ -178,6 +181,7 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
         final ShoppingItemForm form =
                 ShoppingItemForm.builder()
                                 .name("2% milk")
+                                .number(1)
                                 .build();
         mockMvc
         .perform(
@@ -191,7 +195,8 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
             preprocessRequest(prettyPrint()),
             requestFields(
                 fieldWithPath("name").description("Shopping Item name"),
-                fieldWithPath("catalogCode").description("Catalog code, ignored.")
+                fieldWithPath("catalogCode").description("Catalog code, ignored."),
+                fieldWithPath("number").description("The number of items user wants to buy.")
             )
         ));
     }
@@ -275,8 +280,8 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
         final UserAccount user = userAccountRepository.findByEmail(USERNAME);
         final StoreChain chain = storeRepository.findByCode("rcss");
         final ShoppingStore store = shoppingStoreRepository.save(ShoppingStore.createShoppingStore(user, chain));
-        shoppingService.addShoppingItemToStore(store, "MILK_1200", "milk");
-        shoppingService.addShoppingItemToStore(store, "EGG_1234", "egg");
+        shoppingService.addShoppingItemToStore(store, "MILK_1200", "milk", 1);
+        shoppingService.addShoppingItemToStore(store, "EGG_1234", "egg", 1);
     }
 
     protected void deleteShoppingLists() throws Exception {

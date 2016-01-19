@@ -63,6 +63,10 @@ public class ShoppingItem extends BaseAuditableEntity {
     @Column(name="product_category")
     private ProductCategory productCategory;
 
+    @Getter @Setter
+    @Column(name="number")
+    private int number;
+
     ShoppingItem() {}
 
     @Builder(builderMethodName="testObjectBuilder")
@@ -70,13 +74,15 @@ public class ShoppingItem extends BaseAuditableEntity {
                                                       final ShoppingStore store,
                                                       final String name,
                                                       final String catalogCode,
-                                                      final ProductCategory productCategory) {
+                                                      final ProductCategory productCategory,
+                                                      final int number) {
         final ShoppingItem shoppingItem = new ShoppingItem();
         shoppingItem.setId(id);
         shoppingItem.setStore(store);
         shoppingItem.setName(name);
         shoppingItem.setCatalogCode(catalogCode);
         shoppingItem.setProductCategory(productCategory);
+        shoppingItem.setNumber(number);
         return shoppingItem;
     }
 }
