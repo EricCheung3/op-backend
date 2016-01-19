@@ -79,7 +79,7 @@ public class StoreService {
         catalog.setLabelCodes(labelCodes);
         catalog.setProductCategory(productCategory);
         return catalogProductRepository.save(catalog);
-}
+    }
 
     public void deleteAllStores() {
         storeChainRepository.deleteAll();

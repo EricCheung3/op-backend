@@ -22,11 +22,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openprice.domain.account.user.UserAccountService;
+import com.openprice.domain.product.ProductCategory;
 import com.openprice.domain.shopping.ShoppingItem;
 import com.openprice.domain.shopping.ShoppingItemRepository;
 import com.openprice.domain.shopping.ShoppingService;
 import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.domain.shopping.ShoppingStoreRepository;
+import com.openprice.rest.InvalidInputException;
 import com.openprice.rest.ResourceNotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -66,7 +68,7 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
     @RequestMapping(method = RequestMethod.POST, value = URL_USER_SHOPPING_STORES_STORE_ITEMS)
     public HttpEntity<Void> createStoreShoppingItem(
             @PathVariable("storeId") final String storeId,
-            @RequestBody final ShoppingItemForm form) throws ResourceNotFoundException {
+            @RequestBody final CreateShoppingItemForm form) throws ResourceNotFoundException {
         ShoppingItem item = newShoppingItem(storeId, form);
         final URI location = linkTo(methodOn(ShoppingItemRestController.class).getStoreShoppingItemById(storeId, item.getId())).toUri();
         return ResponseEntity.created(location).body(null);
@@ -84,7 +86,7 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
     public HttpEntity<Void> updateStoreShoppingItemById(
             @PathVariable("storeId") final String storeId,
             @PathVariable("itemId") final String itemId,
-            @RequestBody final ShoppingItemForm form) throws ResourceNotFoundException {
+            @RequestBody final UpdateShoppingItemForm form) throws ResourceNotFoundException {
         updateShoppingItem(storeId, itemId, form);
         return ResponseEntity.noContent().build();
     }
@@ -114,18 +116,21 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
     }
 
     @Transactional
-    private ShoppingItem newShoppingItem(final String storeId, final ShoppingItemForm form) {
+    private ShoppingItem newShoppingItem(final String storeId, final CreateShoppingItemForm form) {
         final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
-        return shoppingService.addShoppingItemToStore(store, form.getCatalogCode(), form.getName(), form.getNumber());
+        return shoppingService.addShoppingItemToStore(store, form.getCatalogCode(), form.getName());
     }
 
     @Transactional
-    private void updateShoppingItem(final String storeId, final String itemId, final ShoppingItemForm form) {
+    private void updateShoppingItem(final String storeId, final String itemId, final UpdateShoppingItemForm form) {
         final ShoppingItem item = getShoppingItemByIdAndCheckStore(storeId, itemId);
-        item.setName(form.getName()); // we only allow user update name
-        item.setNumber(form.getNumber());
-        // TODO add feature to let user change ProductCategory
-        shoppingItemRepository.save(item);
+        final ProductCategory productCategory = ProductCategory.findByCode(form.getCategoryCode());
+        if (productCategory == null) {
+            log.warn("Update Shopping Item with invalid ProductCategory '{}'.", form.getCategoryCode());
+            throw new InvalidInputException("Invalid Product Category code: " + form.getCategoryCode());
+        }
+
+        shoppingService.updateShoppingItem(item, form.getName(), form.getNumber(), productCategory);
     }
 
 }
