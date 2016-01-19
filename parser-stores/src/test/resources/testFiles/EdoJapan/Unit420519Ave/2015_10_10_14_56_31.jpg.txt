@@ -1,0 +1,25 @@
+
+
+Your        G u e s t # Is 671
+                 Edo Japan
+          Unit 4 205 - 19th Avenue
+                Edmonton, AB
+               (730) 437-3353
+              GST # 808689020
+               D1ne-IN
+       Trans#: 15571    Serv: 100
+      DATE: 10/08/2015 TIME: 12:14:52 PM #Cust:1
+
+ Quan Description                Cost
+
+   1 Chicken                       $7.99
+   1 Sub Brown Rice                $0.49
+
+                Net Total:         $8.48
+                       GST         $0.42
+                      TIP:         $0.00
+
+         TOTAL:               $8.90
+
+CASH                               $9.00
+

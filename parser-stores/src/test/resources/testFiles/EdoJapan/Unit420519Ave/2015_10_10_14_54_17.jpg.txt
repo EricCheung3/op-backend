@@ -1,0 +1,25 @@
+
+
+Your      G u e s t # is 709
+               Edo Japan
+        Unit 4 205 - 19th Avenue
+              Edmonton, AB
+             (730) 437-3363
+            GST # 808689020
+             Dine-IN
+     Trans#: 16709    Serv: 100
+     DATE: 10/08/2015 TIME: 12:40:26 PM #Cust:1
+
+Quan Description              Cost
+
+   1 Chicken                    $7.99
+   1 Combo Reg pop              $1.89
+
+               Net Total:       $9.88
+                      GST       $0.49
+                     TIP:       $0.00
+
+        TOTAL               $10.37
+
+MasterCard                     $10.37
+

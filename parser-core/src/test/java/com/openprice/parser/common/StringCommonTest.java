@@ -439,7 +439,7 @@ public class StringCommonTest {
     //TODO consider negative price
     @Test
     public void formatPriceTestA4() throws Exception{
-        assert "-1.73".equals(StringCommon.formatPrice("1.73-")+"");
+        assertEquals("1.73", StringCommon.formatPrice("1.73-"));
         String formatted=StringCommon.formatPrice("'1.73-");
         assertEquals("4.73", formatted);
     }
