@@ -87,6 +87,9 @@ public class SimpleParser {
 
     private List<Item> parseItem(final MatchedRecord matchedRecord, final ReceiptData receipt, final StoreParser parser) throws Exception {
         final int stopLine = Math.min(matchedRecord.itemStopLineNumber(), receipt.getReceiptLines().size());
+        log.debug("black list size is "+parser.getStoreConfig().getCatalogFilter().getBlackList().size());
+        //        parser.getStoreConfig().getCatalogFilter().getBlackList().forEach(line->log.debug(line+"\n"));
+
         return
                 receipt.lines()
                 .filter( line -> !matchedRecord.isFieldLine(line.getNumber()))

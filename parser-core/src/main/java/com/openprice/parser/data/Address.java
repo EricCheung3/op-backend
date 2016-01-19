@@ -1,6 +1,7 @@
 package com.openprice.parser.data;
 
 import com.openprice.parser.common.ParserUtils;
+import com.openprice.parser.common.StringCommon;
 
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +28,11 @@ public class Address {
     }
 
     public static Address defaultAddress() {
-        return new Address("", "", "", "", "", "");
+        return new Address(StringCommon.EMPTY,
+                StringCommon.EMPTY,
+                StringCommon.EMPTY,
+                StringCommon.EMPTY,
+                StringCommon.EMPTY,
+                StringCommon.EMPTY);
     }
 }

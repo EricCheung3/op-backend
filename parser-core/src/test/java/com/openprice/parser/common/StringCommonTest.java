@@ -3,6 +3,9 @@ package com.openprice.parser.common;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 import lombok.extern.slf4j.Slf4j;
@@ -152,4 +155,462 @@ public class StringCommonTest {
         assertTrue(StringCommon.containsOneOnlyOneLetter(":z"));
     }
 
+
+    @Test
+    public void containsOneOnlyOneLetterTest1(){
+        assertTrue(StringCommon.containsOneOnlyOneLetter("a"));
+    }
+
+    @Test
+    public void containsOneOnlyOneLetterTest2(){
+        for(int i=0;i<1000;i++)
+            assertTrue(!StringCommon.containsOneOnlyOneLetter(i+""));
+    }
+
+    @Test
+    public void containsOneOnlyOneLetterTest3(){
+        assertTrue(StringCommon.containsOneOnlyOneLetter("AAAAAAAAAAAAA"));
+    }
+
+    @Test
+    public void containsOneOnlyOneLetterTest4(){
+        assertTrue(!StringCommon.containsOneOnlyOneLetter("@@@@@@@@"));
+    }
+
+
+    @Test
+    public void containsOneOnlyOneLetterTest5(){
+        assertTrue(!StringCommon.containsOneOnlyOneLetter("!!!!!!!!!"));
+    }
+
+    @Test
+    public void containsOneOnlyOneLetterTest6(){
+        assertTrue(!StringCommon.containsOneOnlyOneLetter("@@@@@@"));
+    }
+
+    @Test
+    public void containsOneOnlyOneLetterTest7(){
+        assertTrue(!StringCommon.containsOneOnlyOneLetter("~~~~~~"));
+    }
+
+    @Test
+    public void containsOneOnlyOneLetterTest8(){
+        assertTrue(!StringCommon.containsOneOnlyOneLetter("AAAAaaaaaa"));
+    }
+
+
+    @Test
+    public void numberRatioTest1() throws Exception{
+        assertTrue(Math.abs(StringCommon.numberRatio("abc", "")-1.0)<0.0000001);
+    }
+
+    @Test
+    public void numberRatioTest2() throws Exception{
+        assertTrue(Math.abs(StringCommon.numberRatio("abc1", "1")-1.0)<0.0000001);
+    }
+
+    @Test
+    public void numberRatioTest3() throws Exception{
+        assertTrue(Math.abs(StringCommon.numberRatio("abc10", "1")-0.5)<0.0000001);
+    }
+
+    @Test
+    public void numberRatioTest4() throws Exception{
+        assertTrue(Math.abs(StringCommon.numberRatio("abc", "1")-1)<0.0000001);
+    }
+
+    @Test
+    public void numberRatioTest5() throws Exception{
+        assertTrue(Math.abs(StringCommon.numberRatio("abc1", "12")-1)<0.0000001);
+    }
+    @Test
+    public void getOnlyDigitsTest1()throws Exception{
+        final String s="abd1 2 *3";
+        final String t="123";
+        final String t1=StringCommon.getOnlyDigits(s);
+        assertEquals(t, t1);
+    }
+
+    @Test
+    public void firstCharsSameSetTest1()throws Exception{
+        final String s="CARD";
+        String s2="CARD@XX12!!!!";
+        String s3=StringCommon.firstCharsSameSet(s2, s);
+        log.debug("s3="+s3);
+        assertTrue(s3.equals("CARD"));
+
+        s2="CAR@DXX!2!";
+        s3=StringCommon.firstCharsSameSet(s2, s);
+        log.debug("s3="+s3);
+        assertTrue( s3.equals("CARD"));
+    }
+
+
+    @Test
+    public void filterDigitsTest1() throws Exception{
+        String test="123**<#$.NET@";
+        String result=StringCommon.filterDigits(test);
+        assertTrue(result.equals("**<#$.NET@"));
+
+        test="12**<#$.NET@3";
+        result=StringCommon.filterDigits(test);
+        assertTrue(result.equals("**<#$.NET@"));
+    }
+
+    @Test
+    public void lastDigitsTest1() throws Exception{
+        final String test="afbb1 2 *3";
+        assertTrue(StringCommon.lastDigits(test, 3).equals("123"));
+    }
+
+    @Test
+    public void firstDigitsTest1()throws Exception{
+        final String test="abs1df3a5";
+        assertTrue(StringCommon.firstDigits(test, 3).equals("135"));
+    }
+
+    @Test
+    public void firstDigitsTest2()throws Exception{
+        final String test="abs1df3a5";
+        assertTrue(StringCommon.firstDigits(test, 2).equals("13"));
+    }
+
+    @Test
+    public void firstDigitsTest3()throws Exception{
+        final String test="abs1df3a5";
+        assertTrue(StringCommon.firstDigits(test, 1).equals("1"));
+    }
+
+    @Test
+    public void firstDigitsTest4()throws Exception{
+        final String test="abs1df3a5";
+        assertTrue(StringCommon.firstDigits(test, 0).equals(""));
+    }
+
+    @Test
+    public void firstDigitsTest5()throws Exception{
+        final String test="abs1df3a5";
+        assertTrue(StringCommon.firstDigits(test, -1).equals(""));
+    }
+
+    @Test
+    public void getDigitAndLetterTest1() throws Exception{
+        String str="abc#";
+        String result=StringCommon.getDigitAndLetter(str);
+        assertTrue(result.equals("abc"));
+        str="abc#:";
+        result=StringCommon.getDigitAndLetter(str);
+        assertTrue(result.equals("abc:"));// a bit confusing. is colon allowed?
+    }
+
+    @Test
+    public void removeTrailingCharsTest1() throws Exception{
+        final String test="$3.50 cR";
+        final String formatted=StringCommon.removeTrailingChars(test, "cR");
+        assertTrue(formatted.equals("3.50"));
+        assertTrue( StringCommon.removeTrailingChars("$3.50 R", "cR").equals("3.50"));
+        assertTrue( StringCommon.removeTrailingChars("$3.50 R", "CR").equals("3.50"));
+        assertTrue( StringCommon.removeTrailingChars("$3.50 R", "A").equals("3.50"));
+        assertTrue(StringCommon.removeTrailingChars("$3.50 R", "").equals("3.50"));
+        assertTrue(StringCommon.removeTrailingChars("$3.50 r", "rAB").equals("3.50"));
+        assertTrue(StringCommon.removeTrailingChars("$3.ar0 r", "rAB").equals("3.0"));
+
+        assertTrue(StringCommon.removeTrailingChars("$3", "rAB").equals("3"));
+        assertTrue(StringCommon.removeTrailingChars("", "rAB").equals(""));
+        assertTrue(StringCommon.removeTrailingChars("", "").equals(""));
+    }
+
+    @Test
+    public void fixMinuteSecondTest1() throws Exception{
+        final String time="12:11";
+        assertTrue(StringCommon.fixMinuteSecond(time).equals(time));
+        assertTrue(StringCommon.fixMinuteSecond("12: 11").equals(time));
+        assertTrue(StringCommon.fixMinuteSecond("12 11").equals(time));
+        assertTrue(StringCommon.fixMinuteSecond("12  11").equals(time));
+    }
+
+    @Test
+    public void countDigitAndCharsTest1()throws Exception{
+        int[] count=StringCommon.countDigitAndChars("ab12");
+        assertTrue( count[0]==2 && count[1]==2);
+        count=StringCommon.countDigitAndChars("ab1");
+        assertTrue( count[0]==1 && count[1]==2);
+        count=StringCommon.countDigitAndChars("ab1 23");
+        assertTrue( count[0]==3 && count[1]==2);
+        count=StringCommon.countDigitAndChars("1 23");
+        assertTrue( count[0]==3 && count[1]==0);
+        count=StringCommon.countDigitAndChars("ab");
+        assertTrue( count[0]==0 && count[1]==2);
+    }
+
+    @Test
+    public void formatPriceTest4() throws Exception{
+        final String s="$3.14";
+        assertTrue(StringCommon.formatPrice(s).equals("3.14"));
+    }
+
+    @Test
+    public void formatPriceTest3()throws Exception{
+        final String truth="31.69";
+        String s="-                   $31.69";
+        assertEquals(truth, StringCommon.formatPrice(s));
+        s="-                   31.69";//how about refund?
+        assertEquals(truth, StringCommon.formatPrice(s));
+        s="1                   31.69";
+        assertEquals(truth, StringCommon.formatPrice(s));
+        s="1   assertEquals               $31.69";
+        assertEquals(truth, StringCommon.formatPrice(s));
+    }
+
+    @Test
+    public void formatPriceTest2()throws Exception{
+        String s="7.JJI";
+        assertTrue( StringCommon.ignoreAfterDot(s).equals("7.0"));
+
+        //no effect if no dots
+        assertEquals("701S", StringCommon.ignoreAfterDot("701S"));
+        assertEquals("AAAA", StringCommon.ignoreAfterDot("AAAA"));
+        assertEquals(StringCommon.EMPTY, StringCommon.ignoreAfterDot(""));
+        assertEquals(".0", StringCommon.ignoreAfterDot("."));
+
+        final String truth70="7.";
+        assertEquals(truth70, StringCommon.formatPrice(s));
+        s="7.12J";
+        assertEquals("7.12", StringCommon.formatPrice(s));
+        s="7.JJ";
+        assertEquals(truth70, StringCommon.formatPrice(s));
+        s="7.0J1";
+        assertEquals("7.01", StringCommon.formatPrice(s));
+
+        s="70J1";
+        assertEquals("701", StringCommon.formatPrice(s));
+    }
+
+    @Test
+    public void formatPriceTestA2() throws Exception{
+        final String[] p1=new String[]{"11.580", "11.58 0", "11.58O", "11.58 O",
+                "11. 580", "11 . 580", "11. 58 O", "11 . 58 O"};
+
+        final String truth="11.580";
+        for(int i=0; i<p1.length; i++){
+            String tmp=StringCommon.formatPrice(p1[i]);
+            assertTrue(tmp.equals(truth));
+        }
+    }
+
+    @Test
+    public void formatPriceTestA1() throws Exception{
+        String test="38 99";
+        String truth="38.99";
+        String test1=StringCommon.formatPrice(test);
+        assertTrue(test1.equals(truth));
+
+        test="8 00";
+        truth="8.00";
+        test1=StringCommon.formatPrice(test);
+        assertTrue(test1.equals(truth));
+
+        test="$4 4?";
+        truth="4.42";
+        test1=StringCommon.formatPrice(test);
+        assertTrue(test1.equals(truth));
+
+        test="$4 4";
+        truth="4.4";
+        test1=StringCommon.formatPrice(test);
+        assertTrue(test1.equals(truth));
+
+        test="4 4";
+        truth="4.4";
+        test1=StringCommon.formatPrice(test);
+        assertTrue(test1.equals(truth));
+    }
+
+    @Test
+    public void formatPriceTestA3() throws Exception{
+        String test=StringCommon.formatPrice(".76")+"";
+        assertTrue("0.76".equals(test));
+        test=StringCommon.formatPrice("..76");
+        assertTrue("0.76".equals(test));
+        test=StringCommon.formatPrice("..7.6");
+        assertTrue("7.6".equals(test));
+    }
+
+    //TODO consider negative price
+    @Test
+    public void formatPriceTestA4() throws Exception{
+        assert "-1.73".equals(StringCommon.formatPrice("1.73-")+"");
+        String formatted=StringCommon.formatPrice("'1.73-");
+        assertEquals("4.73", formatted);
+    }
+
+    public static boolean testTarget(String test, double truth) throws Exception{
+        String test1=StringCommon.formatPrice(test);
+        return (Double.valueOf(test1).equals(truth));
+    }
+
+    @Test
+    public void formatPriceTestA5() throws Exception{
+        assertTrue(testTarget("0.07-", 0.07));
+        assertTrue(testTarget("0.07~", 0.07));
+        assertTrue(testTarget("4-99", 4.99));
+        assertTrue(testTarget(".4-99", 4.99));
+        assertTrue(testTarget("4 ' 19", 4.19));
+        assertTrue(testTarget("1 '49", 1.49));
+        assertTrue(testTarget("1' 49", 1.49));
+    }
+
+    @Test
+    public void removeFirstNonSpaceCharsTest1() throws Exception{
+        final String test="A BC D E";
+        final String result=StringCommon.removeFirstNonSpaceChars(test, "ABC");
+        assertEquals(" D E", result);
+        assertEquals(" D E", StringCommon.removeFirstNonSpaceChars(test, "A BC"));
+        assertEquals("DE", StringCommon.removeFirstNonSpaceChars("ABCDE", "A BC"));
+        assertEquals(" C DE", StringCommon.removeFirstNonSpaceChars("AB C DE", "AB"));
+        assertEquals(" CDE", StringCommon.removeFirstNonSpaceChars("AB CDE", "AB"));
+        assertEquals("CD E", StringCommon.removeFirstNonSpaceChars("ABCD E", "AB"));
+        assertEquals("ABCD E", StringCommon.removeFirstNonSpaceChars("ABCD E", ""));
+        log.debug("StringCommon.removeFirstNonSpaceChars output is "+StringCommon.removeFirstNonSpaceChars("A", "AB"));
+        assertEquals(StringCommon.EMPTY, StringCommon.removeFirstNonSpaceChars("A", "AB"));
+        assertEquals(StringCommon.EMPTY, StringCommon.removeFirstNonSpaceChars("", "AB"));
+    }
+
+    @Test
+    public void lastLetter2Test1()throws Exception{
+        final String str="Juice Grape 200ML5Pk $2.49";
+        final int index=StringCommon.lastLetter2(str, str.length()-1);
+        assertEquals('k', str.charAt(index));
+    }
+
+    @Test
+    public void afterLastDollarTest1()throws Exception{
+        final String str="Garden Cocktail 6591200452 $2.79";
+        final String[] namePrice=StringCommon.afterLastDollar(str);
+        assertEquals("2.79", namePrice[1]);
+    }
+
+    @Test
+    public void afterLastDollarTest2()throws Exception{
+        final String str="Garden Cocktail 6591200452 $";
+        final String[] namePrice=StringCommon.afterLastDollar(str);
+        assertEquals(StringCommon.EMPTY, namePrice[1]);
+    }
+
+    //no dollar sign exception
+    @Test(expected=Exception.class)
+    public void afterLastDollarTest3()throws Exception{
+        final String str="Garden Cocktail 6591200452";
+        final String[] namePrice=StringCommon.afterLastDollar(str);
+    }
+
+    @Test
+    public void stringMatchesHeadTest1() throws Exception{
+        String str="ABC";
+        List<String> list=new ArrayList<String>();
+        //list.add("");//head is similar to "AB" by definition of nonspace char from str
+        list.add("A");
+        list.add("AB");
+        list.add("ABC");
+        for(int i=0; i<list.size();i++){
+            assertTrue(StringCommon.stringMatchesHead(str, list.get(i), 1.0));
+        }
+        assertTrue( StringCommon.stringMatchesHead("", "", 1.0));
+    }
+
+    //      @Test
+    //      public void matchScoreTest(){
+    //          log.debug(StringCommon.matchHeadScore("", ""));
+    //      }
+
+    @Test
+    public void twoDigitsBeforeSlashTest1() throws Exception{
+        final String s="dfs01/";
+        String twoDigits=StringCommon.twoDigitsBeforeSlash(s, s.indexOf("/"));
+        assertEquals("01", twoDigits);
+    }
+
+    @Test
+    public void twoDigitsBeforeSlashTest2()throws Exception{
+        final String s="dfs0A1/";
+        String twoDigits=StringCommon.twoDigitsBeforeSlash(s, s.indexOf("/"));
+        assertEquals("01", twoDigits);
+    }
+
+    @Test(expected=StringIndexOutOfBoundsException.class)
+    public void twoDigitsBeforeSlashTest3() throws Exception{
+        final String s="dfs0A1";
+        log.debug(s.indexOf("/")+"");
+        String twoDigits=StringCommon.twoDigitsBeforeSlash(s, -1);
+    }
+
+    @Test(expected=Exception.class)
+    public void twoDigitsBeforeSlashTest4() throws Exception{
+        final String s="dfs0A1";
+        String twoDigits=StringCommon.twoDigitsBeforeSlash(s, 0);
+    }
+
+    @Test(expected=StringIndexOutOfBoundsException.class)
+    public void twoDigitsBeforeSlashTest5() throws Exception{
+        final String s="dfs0A1";
+        String twoDigits=StringCommon.twoDigitsBeforeSlash(s, 10);
+    }
+
+    @Test
+    public void twoDigitsBeforeSlashTest6() throws Exception{
+        final String s="dfs/0A1/";
+        String twoDigits=StringCommon.twoDigitsBeforeSlash(s,
+                s.indexOf("/"));
+        assertTrue(twoDigits.isEmpty());
+    }
+
+    @Test
+    public void twoDigitsBeforeSlashTest7() throws Exception{
+        final String s="1dfs/0A1/";
+        String twoDigits=StringCommon.twoDigitsBeforeSlash(s,
+                s.indexOf("/"));
+        assertEquals("1", twoDigits);
+    }
+
+    @Test
+    public void flattenTest1() throws Exception{
+        List<String> list=new ArrayList<String>();
+        list.add("a");
+        list.add("b");
+        String str=StringCommon.flatten(list, "\n");
+        assertEquals("a\nb", str);
+    }
+
+    @Test
+    public void flattenTest2() throws Exception{
+        List<String> list=new ArrayList<String>();
+        list.add("a");
+        String str=StringCommon.flatten(list, "\n");
+        assertEquals("a", str);
+    }
+
+    @Test
+    public void flattenTest3() throws Exception{
+        List<String> list=new ArrayList<String>();
+        list.add("");
+        String str=StringCommon.flatten(list, "\n");
+        assertEquals("", str);
+    }
+
+    @Test
+    public void flattenTest4() throws Exception{
+        List<String> list=new ArrayList<String>();
+        String str=StringCommon.flatten(list, "\n");
+        assertEquals("", str);
+    }
+
+    @Test
+    public void flattenTest5() throws Exception{
+        List<String> list=new ArrayList<String>();
+        list.add("a");
+        list.add("b");
+        list.add("c");
+        String str=StringCommon.flatten(list, "\n");
+        assertEquals("a\nb\nc", str);
+    }
 }
