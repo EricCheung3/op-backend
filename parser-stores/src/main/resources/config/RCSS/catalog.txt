@@ -203,13 +203,10 @@ pc bistro bowl,05870300897
 pc blk frst ham,06038376567
 pc bm brown eggs,6038375010
 pc bm white eggs,06038374581
-pc charity,*411000426879
 pc club soda,06038312518
 pc cream cheese,06038302200
 pc free chk drum,2852620
 pc ft 3pl 6k,06038378361
-pc grn pc points,53398
-pc grn pc points,53399
 pc honey mustard,06038399354
 pc min wfl bwl,06038304142
 pc org herb lett,06038385451
