@@ -13,24 +13,23 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
-
 import com.openprice.domain.account.user.UserAccount;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReceiptServiceFeedbackTest {
-
+    
     static final Integer TEST_RATING = 0;
     static final String TEST_COMMENT = "test comment";
-
+    
     @Mock
     ReceiptRepository receiptRepositoryMock;
-
+    
     @Mock
     ReceiptFeedbackRepository feedbackRepositoryMock;
-
+    
     @InjectMocks
     ReceiptService serviceToTest;
-
+    
     @Test
     public void addFeedback_ShouldCreateNewFeedbackAndChangeNeedFeedback() throws Exception {
         // prepare
@@ -42,17 +41,17 @@ public class ReceiptServiceFeedbackTest {
         testReceipt.setId("receipt123");
         testReceipt.setUser(testUser);
         testReceipt.setNeedFeedback(true);
-
+        
         when(feedbackRepositoryMock.save(isA(ReceiptFeedback.class))).thenAnswer(new Answer<ReceiptFeedback>() {
             @Override
             public ReceiptFeedback answer(InvocationOnMock invocation) throws Throwable {
                 return (ReceiptFeedback) invocation.getArguments()[0];
             }
         });
-
+        
         // execute
         final ReceiptFeedback feedback = serviceToTest.addFeedback(testReceipt, TEST_RATING, TEST_COMMENT);
-
+        
         // verify
         assertEquals(false, testReceipt.getNeedFeedback());
         assertEquals(testReceipt, feedback.getReceipt());

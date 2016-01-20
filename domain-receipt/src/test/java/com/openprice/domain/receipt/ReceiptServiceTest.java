@@ -89,8 +89,7 @@ public class ReceiptServiceTest {
         final StoreBranch branch = StoreBranch.builder().branchName("Calgary Trail").build();
         final Map<ReceiptField, ValueLine> fieldToValueLine = new HashMap<ReceiptField, ValueLine>();
         fieldToValueLine.put(ReceiptField.Total, ValueLine.builder().line(-1).value("15.00").build());
-        final ParsedReceipt receiptDebug = ParsedReceipt.builder().chain(chain).branch(branch)
-                .fieldToValueMap(fieldToValueLine).items(items).build();
+        final ParsedReceipt receiptDebug = ParsedReceipt.builder().chain(chain).branch(branch).fieldToValueMap(fieldToValueLine).items(items).build();
 
         when(receiptResultRepositoryMock.findFirstByReceiptOrderByCreatedTimeDesc(eq(receipt))).thenReturn(null);
         when(receiptImageRepositoryMock.findByReceiptOrderByCreatedTime(eq(receipt))).thenReturn(images);
