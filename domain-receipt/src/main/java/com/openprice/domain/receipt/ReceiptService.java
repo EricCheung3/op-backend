@@ -121,7 +121,8 @@ public class ReceiptService {
         feedback.setReceipt(receipt);
         feedback.setRating(rating);
         feedback.setComment(comment);
-        receiptFeedbackRepository.save(feedback);
+        
+        feedback = receiptFeedbackRepository.save(feedback);
 
         receipt.setNeedFeedback(false);
         receiptRepository.save(receipt);
