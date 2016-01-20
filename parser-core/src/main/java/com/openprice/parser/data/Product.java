@@ -21,7 +21,6 @@ public class Product {
     private final String number;
 
     private static final int NUM_FIELDS = 2;
-    private static final String SPLITTER = ",";
 
     public static Product emptyProduct()
     {
@@ -47,7 +46,7 @@ public class Product {
     }
 
     public static Product fromString(final String line) {
-        final String[] words=line.split(SPLITTER, -1);
+        final String[] words=line.split(ProductConstant.SPLITTER, -1);
         if(words.length!=NUM_FIELDS){
             throw new RuntimeException("should have "+NUM_FIELDS +" fields at this line: "+line);
         }
@@ -75,9 +74,9 @@ public class Product {
     }
 
     public String toStringForCatalog(){
-        final String name=getName().replaceAll(SPLITTER, StringCommon.EMPTY);
-        final String number=getNumber().replaceAll(SPLITTER, StringCommon.EMPTY);
-        return name + SPLITTER + number;
+        final String name=getName().replaceAll(ProductConstant.SPLITTER, StringCommon.EMPTY);
+        final String number=getNumber().replaceAll(ProductConstant.SPLITTER, StringCommon.EMPTY);
+        return name + ProductConstant.SPLITTER + number;
     }
 
     public String toCatalogCode() {
