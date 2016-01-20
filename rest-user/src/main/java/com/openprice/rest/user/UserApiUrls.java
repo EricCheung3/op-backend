@@ -32,4 +32,5 @@ public interface UserApiUrls {
     String URL_USER_SHOPPING_STORES_STORE_ITEMS_ITEM = "/user/stores/{storeId}/items/{itemId}";
     String URL_USER_SHOPPING_STORES_STORE_CATALOGS = "/user/stores/{storeId}/catalogs{?query}";
 
+    String URL_USER_CATEGORIES = "/user/categories";
 }

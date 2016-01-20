@@ -38,7 +38,8 @@ public class UserAccountResource extends Resource<UserAccount> {
                        .addLink("receipts", URL_USER_RECEIPTS, true, null)
                        .addLink("receipt", URL_USER_RECEIPTS_RECEIPT, false, null)
                        .addLink("stores", URL_USER_SHOPPING_STORES, true, null)
-                       .addLink("store", URL_USER_SHOPPING_STORES_STORE, false, null);
+                       .addLink("store", URL_USER_SHOPPING_STORES_STORE, false, null)
+                       .addLink("categories", URL_USER_CATEGORIES, false, null);
 
             resource.setReceiptsUrl(resource.getLink(Link.REL_SELF).getHref() + "/receipts"); // HACK. Remove it after ABBYY license ok.
             resource.setUploadUrl(resource.getLink("upload").getHref());

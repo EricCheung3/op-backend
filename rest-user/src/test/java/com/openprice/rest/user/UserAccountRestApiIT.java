@@ -121,4 +121,26 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
             ;
     }
 
+    @Test
+    public void getCategories_ShouldReturnAllProductCategories() {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+
+        Response response =
+            given()
+                .filter(sessionFilter)
+            .when()
+                .get(categoriesUrl())
+            ;
+        //response.prettyPrint();
+        response
+            .then()
+                .statusCode(HttpStatus.SC_OK)
+                .contentType(ContentType.JSON)
+                .body("[0].code", equalTo("apparel"))
+                .body("[0].label", equalTo("Apparel"))
+                .body("[35].code", equalTo("wine"))
+                .body("[35].label", equalTo("Wine & Spirits"))
+            ;
+    }
+
 }

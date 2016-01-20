@@ -20,6 +20,10 @@ public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApi
         return ApiConstants.EXTERNAL_API_ROOT + URL_USER_PROFILE;
     }
 
+    protected String categoriesUrl() {
+        return ApiConstants.EXTERNAL_API_ROOT + URL_USER_CATEGORIES;
+    }
+
     protected String userReceiptUploadUrl(final SessionFilter sessionFilter) {
         return given().filter(sessionFilter)
                       .when().get(userUrl())
