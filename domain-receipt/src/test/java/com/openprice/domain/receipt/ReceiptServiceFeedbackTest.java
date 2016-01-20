@@ -19,8 +19,8 @@ import com.openprice.domain.account.user.UserAccount;
 @RunWith(MockitoJUnitRunner.class)
 public class ReceiptServiceFeedbackTest {
 
-    static final Integer rating = 0;
-    static final String comment = "comment";
+    static final Integer TEST_RATING = 0;
+    static final String TEST_COMMENT = "test comment";
 
     @Mock
     ReceiptRepository receiptRepositoryMock;
@@ -38,10 +38,10 @@ public class ReceiptServiceFeedbackTest {
                                                 .id("user123")
                                                 .email("user123@gmail.com")
                                                 .build();
-        final Receipt receipt = new Receipt();
-        receipt.setId("receiptTest");
-        receipt.setUser(testUser);
-        receipt.setNeedFeedback(true);
+        final Receipt testReceipt = new Receipt();
+        testReceipt.setId("receipt123");
+        testReceipt.setUser(testUser);
+        testReceipt.setNeedFeedback(true);
 
         when(feedbackRepositoryMock.save(isA(ReceiptFeedback.class))).thenAnswer(new Answer<ReceiptFeedback>() {
             @Override
@@ -51,14 +51,13 @@ public class ReceiptServiceFeedbackTest {
         });
 
         // execute
-        final ReceiptFeedback feedback = serviceToTest.addFeedback(receipt, rating, comment);
+        final ReceiptFeedback feedback = serviceToTest.addFeedback(testReceipt, TEST_RATING, TEST_COMMENT);
 
         // verify
-        assertEquals(false, receipt.getNeedFeedback());
-        assertEquals(receipt, feedback.getReceipt());
-        assertEquals(rating, feedback.getRating());
-        assertEquals(comment, feedback.getComment());
-
+        assertEquals(false, testReceipt.getNeedFeedback());
+        assertEquals(testReceipt, feedback.getReceipt());
+        assertEquals(TEST_RATING, feedback.getRating());
+        assertEquals(TEST_COMMENT, feedback.getComment());
         verify(feedbackRepositoryMock, times(1)).save(isA(ReceiptFeedback.class));
         verify(receiptRepositoryMock, times(1)).save(isA(Receipt.class));
     }
