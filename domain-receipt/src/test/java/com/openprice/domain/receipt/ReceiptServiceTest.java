@@ -79,7 +79,7 @@ public class ReceiptServiceTest {
         image2.setOcrResult("ocr result2");
         final List<ReceiptImage> images = Arrays.asList(image1, image2);
 
-        final List<String> ocrTextList = Arrays.asList("ocr result1","ocr result2");
+        final List<String> ocrTextList = Arrays.asList("ocr result1", "ocr result2");
 
         final List<Item> items = new ArrayList<>();
         items.add(new Item("milk", "10.99", "1.99", "4.00", "food"));
@@ -94,10 +94,10 @@ public class ReceiptServiceTest {
         when(receiptResultRepositoryMock.findFirstByReceiptOrderByCreatedTimeDesc(eq(receipt))).thenReturn(null);
         when(receiptImageRepositoryMock.findByReceiptOrderByCreatedTime(eq(receipt))).thenReturn(images);
         when(simpleParser.parseOCRResults(eq(ocrTextList))).thenReturn(receiptDebug);
-        when(receiptResultRepositoryMock.save(isA(ReceiptResult.class))).thenAnswer( new Answer<ReceiptResult>() {
+        when(receiptResultRepositoryMock.save(isA(ReceiptResult.class))).thenAnswer(new Answer<ReceiptResult>() {
             @Override
             public ReceiptResult answer(InvocationOnMock invocation) throws Throwable {
-                return (ReceiptResult)invocation.getArguments()[0];
+                return (ReceiptResult) invocation.getArguments()[0];
             }
         });
 

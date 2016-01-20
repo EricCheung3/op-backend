@@ -1,5 +1,8 @@
 package com.openprice.rest.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.http.HttpEntity;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.domain.account.user.UserAccountService;
+import com.openprice.domain.product.ProductCategory;
 
 /**
  * REST API Controller for current user account management.
@@ -58,4 +62,15 @@ public class UserAccountRestController extends AbstractUserRestController {
         userAccountRepository.save(currentUserAccount);
         return ResponseEntity.noContent().build();
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER_CATEGORIES)
+    @Transactional(readOnly=true)
+    public HttpEntity<List<CategoryData>> getCategoryList() {
+        final List<CategoryData> result = new ArrayList<>();
+        for (ProductCategory pc : ProductCategory.values()){
+            result.add(new CategoryData(pc));
+        }
+        return ResponseEntity.ok(result);
+    }
+
 }
