@@ -15,11 +15,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown=true)
 @SuppressWarnings("serial")
-public class ShoppingItemForm implements Serializable {
+public class CreateShoppingItemForm implements Serializable {
 
     private String name;
 
     private String catalogCode;
 
-    private int number;
 }

@@ -40,9 +40,9 @@ public class ShoppingListRestApiIT extends AbstractUserRestApiIntegrationTest {
         final ShoppingListForm form =
             ShoppingListForm.builder()
                             .chainCode("rcss")
-                            .item(ShoppingItemForm.builder().name("t-shirt").catalogCode("T SHIRT").number(1).build())
-                            .item(ShoppingItemForm.builder().name("jean").catalogCode("JEAN").number(1).build())
-                            .item(ShoppingItemForm.builder().name("shoes").catalogCode("SHOE").number(1).build())
+                            .item(CreateShoppingItemForm.builder().name("t-shirt").catalogCode("T SHIRT").build())
+                            .item(CreateShoppingItemForm.builder().name("jean").catalogCode("JEAN").build())
+                            .item(CreateShoppingItemForm.builder().name("shoes").catalogCode("SHOE").build())
                             .build();
 
         response =

@@ -57,30 +57,27 @@ public class ShoppingService {
     }
 
     /**
-     * Adds user input shopping item to store shopping list.
+     * Adds user input shopping item to store shopping list, the number default to 1.
      * If the item is already in the list (same catalog product, or same name without catalog), it will increase
      * item quantity number.
      *
      * @param store
      * @param catalogCode
      * @param name
-     * @param number
      * @return
      */
     public ShoppingItem addShoppingItemToStore(final ShoppingStore store,
                                                final String catalogCode,
-                                               final String name,
-                                               final int number) {
+                                               final String name) {
         assert store != null;
         assert !StringUtils.isEmpty(name);
-        assert number > 0;
 
         ShoppingItem item;
 
         if (StringUtils.isEmpty(catalogCode)) {
             item = shoppingItemRepository.findByStoreAndNameAndCatalogCodeIsNull(store, name);
             if (item != null) {
-                item.setNumber(item.getNumber() + number);
+                item.setNumber(item.getNumber() + 1);
                 log.debug("Add item without catalogCode, and find existing item, "
                         + "so increase number for shopping item '{}' to {}", name, item.getNumber());
             } else {
@@ -88,7 +85,7 @@ public class ShoppingService {
                 item.setStore(store);
                 item.setCatalogCode(null);
                 item.setName(name);
-                item.setNumber(number);
+                item.setNumber(1);
                 // TODO: add algorithm to find best matching ProductCategory by name
                 item.setProductCategory(ProductCategory.uncategorized);
                 log.debug("Add item without catalogCode, and create new item for '{}'", name);
@@ -96,7 +93,7 @@ public class ShoppingService {
         } else {
             item = shoppingItemRepository.findByStoreAndCatalogCode(store, catalogCode);
             if (item != null) {
-                item.setNumber(item.getNumber() + number);
+                item.setNumber(item.getNumber() + 1);
                 // we only increase number, it will keep previous name/category in case user might have changed it.
                 log.debug("Add item with catalogCode '{}', and find existing item, "
                         + "so increase number for shopping item '{}' to {}", catalogCode, name, item.getNumber());
@@ -105,10 +102,10 @@ public class ShoppingService {
                 item.setStore(store);
                 item.setCatalogCode(catalogCode);
                 item.setName(name);
-                item.setNumber(number);
+                item.setNumber(1);
                 log.debug("Add item with catalogCode '{}', and create new item for '{}'", catalogCode, name);
                 final StoreChain chain = storeChainRepository.findByCode(store.getChainCode());
-                final CatalogProduct catalogProduct = catalogProductRepository.findByChainAndCatalogCode(chain, catalogCode);
+                final CatalogProduct catalogProduct = catalogProductRepository.findByChainAndCatalogCode(chain, catalogCode); // TODO load catalog product into cache
                 if (catalogProduct != null) {
                     item.setProductCategory(catalogProduct.getProductCategory());
                 } else {
@@ -123,4 +120,23 @@ public class ShoppingService {
         return item;
     }
 
+    /**
+     * We only allow user to update name, number or category.
+     *
+     * @param item
+     * @param name
+     * @param number
+     * @param productCategory
+     * @return
+     */
+    public ShoppingItem updateShoppingItem(final ShoppingItem item,
+                                           final String name,
+                                           final int number,
+                                           final ProductCategory productCategory) {
+        item.setName(name);
+        item.setNumber(number);
+        item.setProductCategory(productCategory);
+
+        return shoppingItemRepository.save(item);
+    }
 }

@@ -1,8 +1,6 @@
 package com.openprice.rest.user.store;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -10,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Singular;
 
 @Builder
 @Data
@@ -18,9 +15,11 @@ import lombok.Singular;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown=true)
 @SuppressWarnings("serial")
-public class ShoppingListForm implements Serializable {
+public class UpdateShoppingItemForm implements Serializable {
 
-    private String chainCode;
+    private String name;
 
-    @Singular private List<CreateShoppingItemForm> items = new ArrayList<>();
+    private int number;
+
+    private String categoryCode; //should be the code of ProductCategory
 }
