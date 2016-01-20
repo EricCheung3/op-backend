@@ -35,8 +35,9 @@ import com.openprice.domain.store.CatalogProductRepository;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.domain.store.StoreService;
-import com.openprice.rest.user.store.ShoppingItemForm;
+import com.openprice.rest.user.store.CreateShoppingItemForm;
 import com.openprice.rest.user.store.ShoppingListForm;
+import com.openprice.rest.user.store.UpdateShoppingItemForm;
 
 public class UserStoreApiDocumentation extends UserApiDocumentationBase {
 
@@ -87,8 +88,8 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
         ShoppingListForm form =
             ShoppingListForm.builder()
                             .chainCode("safeway")
-                            .item(ShoppingItemForm.builder().name("milk").catalogCode("MILK").number(1).build())
-                            .item(ShoppingItemForm.builder().name("egg").catalogCode("EGG").number(1).build())
+                            .item(CreateShoppingItemForm.builder().name("milk").catalogCode("MILK").build())
+                            .item(CreateShoppingItemForm.builder().name("egg").catalogCode("EGG").build())
                             .build();
 
         mockMvc
@@ -128,12 +129,11 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
 
     @Test
     public void shoppingItemCreateExample() throws Exception {
-        final ShoppingItemForm form =
-                ShoppingItemForm.builder()
-                                .name("milk")
-                                .catalogCode("MILK")
-                                .number(1)
-                                .build();
+        final CreateShoppingItemForm form =
+                CreateShoppingItemForm.builder()
+                                      .name("milk")
+                                      .catalogCode("MILK")
+                                      .build();
         mockMvc
         .perform(
             post(userShoppingItemsUrl())
@@ -146,8 +146,7 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
             preprocessRequest(prettyPrint()),
             requestFields(
                 fieldWithPath("name").description("The item name copied from catalog, user can edit."),
-                fieldWithPath("catalogCode").description("The code of catalog product, from parser result."),
-                fieldWithPath("number").description("The number of items user wants to buy, default to 1.")
+                fieldWithPath("catalogCode").description("The code of catalog product, from parser result.")
             )
         ));
     }
@@ -178,11 +177,12 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
 
     @Test
     public void shoppingItemUpdateExample() throws Exception {
-        final ShoppingItemForm form =
-                ShoppingItemForm.builder()
-                                .name("2% milk")
-                                .number(1)
-                                .build();
+        final UpdateShoppingItemForm form =
+                UpdateShoppingItemForm.builder()
+                                      .name("2% milk")
+                                      .number(1)
+                                      .categoryCode("dairy")
+                                      .build();
         mockMvc
         .perform(
             put(userShoppingItemUrl())
@@ -195,7 +195,7 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
             preprocessRequest(prettyPrint()),
             requestFields(
                 fieldWithPath("name").description("Shopping Item name"),
-                fieldWithPath("catalogCode").description("Catalog code, ignored."),
+                fieldWithPath("categoryCode").description("User changed ProductCategory code."),
                 fieldWithPath("number").description("The number of items user wants to buy.")
             )
         ));
@@ -280,8 +280,8 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
         final UserAccount user = userAccountRepository.findByEmail(USERNAME);
         final StoreChain chain = storeRepository.findByCode("rcss");
         final ShoppingStore store = shoppingStoreRepository.save(ShoppingStore.createShoppingStore(user, chain));
-        shoppingService.addShoppingItemToStore(store, "MILK_1200", "milk", 1);
-        shoppingService.addShoppingItemToStore(store, "EGG_1234", "egg", 1);
+        shoppingService.addShoppingItemToStore(store, "MILK_1200", "milk");
+        shoppingService.addShoppingItemToStore(store, "EGG_1234", "egg");
     }
 
     protected void deleteShoppingLists() throws Exception {

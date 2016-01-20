@@ -1,0 +1,27 @@
+
+
+Your        G u e s t # is 8 3 7
+                 Edo Japan
+          Unit 4 205 - 19th Avenue
+                Edmonton, AB
+               (730) 437-3363
+              GST # 808689020
+               Di n e - I N
+       Trans#: 16337    Serv: 300
+       DATE: 10/08/2015 TIME: 03:38:51 PM #Cust:1
+
+ Quan Description                  Cost
+
+   1 Sizzling Shrimp                 $9.89
+   1 Combo Reg pop                   $1.89
+
+                Net Total:          $11.78
+                       GST           $0.59
+                                   ($0.02)
+                       TIP:          $0.00
+                              __
+         TOTAL:               $12.35
+
+CASH                                $12.35
+DATE:
+TIME:

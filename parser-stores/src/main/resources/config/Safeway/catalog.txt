@@ -109,7 +109,6 @@ buttermilk,5820007838
 butterrnilk,5820007838
 cabbage napa,4552
 cabbage red,4554
-cad day 20x air miles,
 canada dry ginger,
 cantaloupe sm,4049
 carrots 907g,
@@ -261,7 +260,6 @@ hot soup small,2113006680
 humm cocktail oni,
 ice cream 500ml,5877954312
 ice cream s/berry,
-instant savings 15%,
 iogo nomad drink,
 iogo str/ ras/ bl/vn,
 iogo str/rs/cr/bl/bl,
@@ -565,7 +563,6 @@ veggie party platt,
 vegtable mixed,5820314260
 vegtables stir fry,
 vitamin c,6464202078
-vouh discount,
 wafers vanilla flav,
 waffles 280g,6410023962
 waffles bmilk 280g,

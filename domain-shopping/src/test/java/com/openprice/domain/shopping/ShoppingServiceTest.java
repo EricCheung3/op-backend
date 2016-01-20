@@ -114,7 +114,7 @@ public class ShoppingServiceTest {
             }
         });
 
-        ShoppingItem result = serviceToTest.addShoppingItemToStore(store, TEST_CATALOG_CODE, TEST_ITEM_NAME, 1);
+        ShoppingItem result = serviceToTest.addShoppingItemToStore(store, TEST_CATALOG_CODE, TEST_ITEM_NAME);
         assertEquals(TEST_CATALOG_CODE, result.getCatalogCode());
         assertEquals(ProductCategory.dairy, result.getProductCategory());
         assertEquals(TEST_ITEM_NAME, result.getName());
@@ -151,7 +151,7 @@ public class ShoppingServiceTest {
             }
         });
 
-        ShoppingItem result = serviceToTest.addShoppingItemToStore(store, TEST_CATALOG_CODE, TEST_ITEM_NAME, 1);
+        ShoppingItem result = serviceToTest.addShoppingItemToStore(store, TEST_CATALOG_CODE, TEST_ITEM_NAME);
         assertEquals(TEST_CATALOG_CODE, result.getCatalogCode());
         assertEquals(ProductCategory.dairy, result.getProductCategory());
         assertEquals(TEST_ITEM_NAME, result.getName());
@@ -176,7 +176,7 @@ public class ShoppingServiceTest {
             }
         });
 
-        ShoppingItem result = serviceToTest.addShoppingItemToStore(store, "", TEST_ITEM_NAME, 1);
+        ShoppingItem result = serviceToTest.addShoppingItemToStore(store, "", TEST_ITEM_NAME);
         assertEquals(ProductCategory.uncategorized, result.getProductCategory());
         assertEquals(TEST_ITEM_NAME, result.getName());
         assertEquals(1, result.getNumber());
@@ -212,7 +212,7 @@ public class ShoppingServiceTest {
             }
         });
 
-        ShoppingItem result = serviceToTest.addShoppingItemToStore(store, "", TEST_ITEM_NAME, 1);
+        ShoppingItem result = serviceToTest.addShoppingItemToStore(store, "", TEST_ITEM_NAME);
         assertNull(result.getCatalogCode());
         assertEquals(ProductCategory.dairy, result.getProductCategory());
         assertEquals(TEST_ITEM_NAME, result.getName());

@@ -6,6 +6,10 @@ public class ParserUtils {
 
     private static final String SPLITTER = ",";
 
+    public static String getParserRoot(final String chainName){
+        return "/config/"+chainName+"1";
+    }
+
     public static boolean containsSubString(final List<String> skipSub, final String str) throws Exception {
         String noSpace = str.replaceAll("\\s+", "");
         for (int i = 0; i < skipSub.size(); i++) {

@@ -22,8 +22,6 @@ import lombok.Data;
 @Builder
 public class StoreBranch {
     private static final double THRESHOLD = 0.5;
-    private static final int NUMFIELDS = 11;
-    private static final String SPLITTER = ",";
 
     private final Address address;
     private final String branchName;// store branch name
@@ -33,6 +31,17 @@ public class StoreBranch {
     private final String slogan;
 
     private final Map<ReceiptField, String> fieldToValue = new HashMap<ReceiptField, String>();
+
+    public static StoreBranch EmptyStoreBranch(){
+        return StoreBranch.builder()
+                .address(Address.defaultAddress())
+                .branchName(StringCommon.EMPTY)
+                .phone(StringCommon.EMPTY)
+                .storeId(StringCommon.EMPTY)
+                .gstNumber(StringCommon.EMPTY)
+                .slogan(StringCommon.EMPTY)
+                .build();
+    }
 
     /*
      * Private constructor, so can only get StoreBranch from builder or static builder method.
@@ -85,12 +94,12 @@ public class StoreBranch {
      */
     public static StoreBranch fromString(String line, final String slogan) {
         line = line + " ";// handle the last char being comma
-        final String[] w = line.split(SPLITTER);
-        if (w.length != NUMFIELDS) {
+        final String[] w = line.split(StoreBranchConstants.SPLITTER);
+        if (w.length != StoreBranchConstants.NUMFIELDS) {
             for (int i = 0; i < w.length; i++) {
                 System.out.println(w[i]);
             }
-            throw new RuntimeException("this line is expected to have " + NUMFIELDS + " fields separated by " + SPLITTER
+            throw new RuntimeException("this line is expected to have " + StoreBranchConstants.NUMFIELDS + " fields separated by " + StoreBranchConstants.SPLITTER
                     + ", but w.length=" + w.length + ", line is " + line);
         }
         Address add =
@@ -125,8 +134,8 @@ public class StoreBranch {
      */
     public double matchScore(final ReceiptData receipt) {
         double sum = receipt.lines()
-                            .map(line -> matchBranchFieldScoreSum(line.getCleanText()))
-                            .reduce(0.0, (acc, element) -> acc + element);
+                .map(line -> matchBranchFieldScoreSum(line.getCleanText()))
+                .reduce(0.0, (acc, element) -> acc + element);
         return sum;
     }
 
