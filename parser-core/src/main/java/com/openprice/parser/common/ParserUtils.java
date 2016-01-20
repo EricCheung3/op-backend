@@ -2,9 +2,9 @@ package com.openprice.parser.common;
 
 import java.util.List;
 
-public class ParserUtils {
+import com.openprice.parser.data.ProductConstant;
 
-    private static final String SPLITTER = ",";
+public class ParserUtils {
 
     public static String getParserRoot(final String chainName){
         return "/config/"+chainName+"1";
@@ -37,7 +37,7 @@ public class ParserUtils {
             return null;
         }
         str = str.trim();
-        return str.replaceAll(SPLITTER, "");
+        return str.replaceAll(ProductConstant.SPLITTER, "");
     }
 
     public static boolean ignoreLine(final String lineStr) {

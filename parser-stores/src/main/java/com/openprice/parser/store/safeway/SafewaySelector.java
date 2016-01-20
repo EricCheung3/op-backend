@@ -13,6 +13,7 @@ import com.openprice.parser.store.AbstractStoreParserSelector;
 @Service
 public class SafewaySelector extends AbstractStoreParserSelector {
     private Safeway1 safeway1;
+    private static final String SAFEWAY="Safeway";
 
     @Inject
     public SafewaySelector(final ChainRegistry chainRegistry) {
@@ -27,12 +28,12 @@ public class SafewaySelector extends AbstractStoreParserSelector {
 
     @Override
     protected String getParserBaseCode() {
-       return "Safeway";
+        return SAFEWAY;
     }
 
     @Override
     protected void generateParser() {
-        StoreConfig config = loadParserConfig("Safeway1");
+        StoreConfig config = loadParserConfig(SAFEWAY+"1");
         safeway1 = new Safeway1(config, loadPriceParserWithCatalog());
     }
 
