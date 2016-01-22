@@ -127,28 +127,19 @@ public class ReceiptServiceTest {
                                        .user(testUser)
                                        .build();
         
-        final List<Item> items = new ArrayList<>();
-        items.add(new Item("milk", "10.99", "1.99", "4.00", "food"));
-        items.add(new Item("eggs", "4.99", "4.99", "12", "food"));
-        
-        final StoreChain chain = StoreChain.builder().code("rcss").build();
-        final StoreBranch branch = StoreBranch.builder().branchName("Calgary Trail").build();
-        final Map<ReceiptField, ValueLine> fieldToValueLine = new HashMap<ReceiptField, ValueLine>();
-        fieldToValueLine.put(ReceiptField.Total, ValueLine.builder().line(-1).value("15.00").build());
-        final ParsedReceipt parsedReceipt = ParsedReceipt.builder()
-                                                         .chain(chain)
-                                                         .branch(branch)
-                                                         .fieldToValueMap(fieldToValueLine)
-                                                         .items(items)
-                                                         .build();
-        
-        final ReceiptResult receiptResult = receipt.createReceiptResultFromParserResult(parsedReceipt);
+        final ReceiptResult receiptResult = new ReceiptResult();
+        receiptResult.setChainCode("rcss");
+        receiptResult.setBranchName("Calgary Trail");
+        receiptResult.setParsedDate("Date");
+        receiptResult.setParsedTotal("Total");
         
         when(receiptResultRepositoryMock.findFirstByReceiptOrderByCreatedTimeDesc(eq(receipt))).thenReturn(receiptResult);
         
         final ReceiptResult result = serviceToTest.getLatestReceiptResult(receipt);
         assertEquals("rcss", result.getChainCode());
         assertEquals("Calgary Trail", result.getBranchName());
+        assertEquals("Total", result.getParsedTotal());
+        assertEquals("Date", result.getParsedDate());
         verify(receiptResultRepositoryMock, times(0)).save(isA(ReceiptResult.class));
     }
     
