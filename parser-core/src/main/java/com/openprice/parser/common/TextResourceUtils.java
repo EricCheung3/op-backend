@@ -1,9 +1,11 @@
 package com.openprice.parser.common;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -37,7 +39,7 @@ public class TextResourceUtils {
         }
     }
 
-    public static void loadFromInputStream(InputStream is, Consumer<String> lineConsumer) {
+    public static void loadFromInputStream(final InputStream is, Consumer<String> lineConsumer) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is), 1024)) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -55,11 +57,21 @@ public class TextResourceUtils {
         return result;
     }
 
-    public static List<String> loadStringArray(final String fileName){
-        InputStream in=TextResourceUtils.class.getResourceAsStream(fileName);
-        final List<String> result =new ArrayList<>();
-        loadFromInputStream(in, line->result.add(line));
-        return result;
+    public static List<String> loadStringArray(final InputStream is){
+        final List<String> list =new ArrayList<>();
+        loadFromInputStream(is, line->list.add(line));
+        return list;
+    }
+
+    public static List<String> loadStringArray(final String resourceFileName){
+        return loadStringArray(TextResourceUtils.class.getResourceAsStream(resourceFileName));
+    }
+
+    public static List<String> loadStringArrayFromAbolutePath(final Path absoluteFileName)
+            throws Exception{
+        return TextResourceUtils.loadStringArray(new FileInputStream(absoluteFileName.toString()));
     }
 
 }
+
+
