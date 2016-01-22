@@ -1,5 +1,6 @@
 package com.openprice.parser.price;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.openprice.parser.data.Product;
@@ -20,6 +21,21 @@ public class PriceParserWithCatalog {
     Set<Product> catalog;
 
     PriceParser priceParser;
+
+    public static PriceParserWithCatalog withCatalog(final Set<Product> catalog){
+        return PriceParserWithCatalog.builder()
+                .catalog(catalog)
+                .priceParser(new PriceParserFromStringTuple())
+                .build();
+    }
+
+    public static PriceParserWithCatalog emptyCatalog(){
+        return PriceParserWithCatalog
+                .builder()
+                .catalog(new HashSet<Product>())
+                .priceParser(new PriceParserFromStringTuple())
+                .build();
+    }
 
     /**
      * parse a price line using a catalog to find the best matched product for item name and number

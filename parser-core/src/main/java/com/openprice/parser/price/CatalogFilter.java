@@ -15,16 +15,16 @@ public class CatalogFilter {
     List<String> blackList;
     static final double BLACKLIST_THRESHOLD=0.7;
 
-    //not an item name
-    public boolean matchesBlackList(final String name){
-        if( !PriceParserFromStringTuple.isItemName(name))
+    //the string matches the black list
+    public boolean matchesBlackList(final String str){
+        if( !PriceParserFromStringTuple.isItemName(str))
             return true;
-        if(StringCommon.removeAllSpaces(name).length()<=5)
-            return lowercaseNoSpaceMatchList(name, 0.95);
+        if(StringCommon.removeAllSpaces(str).length()<=5)
+            return lowercaseNoSpaceMatchList(str, 0.95);
         try{
-            return lowercaseNoSpaceMatchList(name, BLACKLIST_THRESHOLD);
+            return lowercaseNoSpaceMatchList(str, BLACKLIST_THRESHOLD);
         }catch(Exception e){
-            return blackList.contains(name);
+            return blackList.contains(str);
         }
     }
 
