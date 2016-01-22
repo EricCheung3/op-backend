@@ -60,18 +60,20 @@ public class ReceiptService {
     public ReceiptResult parseOcrResults(final Receipt receipt, final List<String> ocrTextList) {
         try {
             final ParsedReceipt parsedReceipt = simpleParser.parseOCRResults(ocrTextList);
-            ReceiptResult result = receipt.createReceiptResultFromParserResult(parsedReceipt);
-            result = receiptResultRepository.save(result); // has to save ReceiptResult first before saving ReceiptItem
-
-            int lineNumber = 1;
-            for (final Item item : parsedReceipt.getItems()) {
-                final ReceiptItem receiptItem = result.addItem(item.getCatalogCode(), item.getName(), item.getBuyPrice());
-                // FIXME add lineNumber from parser items
-                receiptItem.setLineNumber(lineNumber++);
-                receiptItemRepository.save(receiptItem);
+            if (parsedReceipt != null) {
+                ReceiptResult result = receipt.createReceiptResultFromParserResult(parsedReceipt);
+                result = receiptResultRepository.save(result); // has to save ReceiptResult first before saving ReceiptItem
+    
+                int lineNumber = 1;
+                for (final Item item : parsedReceipt.getItems()) {
+                    final ReceiptItem receiptItem = result.addItem(item.getCatalogCode(), item.getName(), item.getBuyPrice());
+                    // FIXME add lineNumber from parser items
+                    receiptItem.setLineNumber(lineNumber++);
+                    receiptItemRepository.save(receiptItem);
+                }
+                log.debug("SimpleParser returns {} items.", parsedReceipt.getItems().size());
+                return receiptResultRepository.save(result);
             }
-            log.debug("SimpleParser returns {} items.", parsedReceipt.getItems().size());
-            return receiptResultRepository.save(result);
         } catch (Exception ex) {
             log.error("SEVERE: Got exception during parsing ocr text.", ex);
         }
