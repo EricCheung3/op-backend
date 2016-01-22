@@ -55,11 +55,13 @@ public class ReceiptResult extends BaseAuditableEntity {
     ReceiptResult() {}
     
     @Builder(builderMethodName="testObjectBuilder")
-    public static ReceiptResult createTestReceiptResult(final String chainCode,
+    public static ReceiptResult createTestReceiptResult(final Receipt receipt,
+                                                        final String chainCode,
                                                         final String branchName,
                                                         final String total,
                                                         final String date) {
         final ReceiptResult receiptResult = new ReceiptResult();
+        receiptResult.setReceipt(receipt);
         receiptResult.setChainCode(chainCode);
         receiptResult.setBranchName(branchName);
         receiptResult.setParsedTotal(total);

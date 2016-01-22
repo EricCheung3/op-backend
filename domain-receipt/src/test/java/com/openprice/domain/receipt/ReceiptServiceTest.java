@@ -128,6 +128,7 @@ public class ReceiptServiceTest {
                                        .build();
         
         final ReceiptResult receiptResult = ReceiptResult.testObjectBuilder()
+                                                         .receipt(receipt)
                                                          .chainCode("rcss")
                                                          .branchName("Calgary Trail")
                                                          .total("Total")
