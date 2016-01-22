@@ -127,11 +127,12 @@ public class ReceiptServiceTest {
                                        .user(testUser)
                                        .build();
         
-        final ReceiptResult receiptResult = new ReceiptResult();
-        receiptResult.setChainCode("rcss");
-        receiptResult.setBranchName("Calgary Trail");
-        receiptResult.setParsedDate("Date");
-        receiptResult.setParsedTotal("Total");
+        final ReceiptResult receiptResult = ReceiptResult.testObjectBuilder()
+                                                         .chainCode("rcss")
+                                                         .branchName("Calgary Trail")
+                                                         .total("Total")
+                                                         .date("Date")
+                                                         .build();
         
         when(receiptResultRepositoryMock.findFirstByReceiptOrderByCreatedTimeDesc(eq(receipt))).thenReturn(receiptResult);
         
