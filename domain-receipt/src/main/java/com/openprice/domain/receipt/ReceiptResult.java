@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -52,7 +53,22 @@ public class ReceiptResult extends BaseAuditableEntity {
     private String parsedDate;
 
     ReceiptResult() {}
-
+    
+    @Builder(builderMethodName="testObjectBuilder")
+    public static ReceiptResult createTestReceiptResult(final Receipt receipt,
+                                                        final String chainCode,
+                                                        final String branchName,
+                                                        final String total,
+                                                        final String date) {
+        final ReceiptResult receiptResult = new ReceiptResult();
+        receiptResult.setReceipt(receipt);
+        receiptResult.setChainCode(chainCode);
+        receiptResult.setBranchName(branchName);
+        receiptResult.setParsedTotal(total);
+        receiptResult.setParsedDate(date);
+        return receiptResult;
+    }
+    
     /**
      * Builder method to create a ReceiptItem from parser result, and add to item list.
      *
