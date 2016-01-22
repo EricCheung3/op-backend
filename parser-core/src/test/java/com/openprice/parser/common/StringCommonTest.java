@@ -14,6 +14,36 @@ import lombok.extern.slf4j.Slf4j;
 public class StringCommonTest {
 
     @Test
+    public void sortByStringLengthTest2() throws Exception{
+        final List<String> orig=new ArrayList<String>();
+        final String s1="ADC";
+        orig.add(s1);
+        final String s2="ACDW";
+        orig.add(s2);
+        final String s3="ASSSSSS";
+        orig.add(s3);
+        final List<String> sorted=StringCommon.sortByStringLength(orig);
+        assertEquals(s3, sorted.get(0));
+        assertEquals(s2, sorted.get(1));
+        assertEquals(s1, sorted.get(2));
+    }
+
+    @Test
+    public void sortByStringLengthTest1() throws Exception{
+        final List<String> orig=new ArrayList<String>();
+        final String s1="ABC";
+        orig.add(s1);
+        final String s2="ABCDW";
+        orig.add(s2);
+        final String s3="A";
+        orig.add(s3);
+        final List<String> sorted=StringCommon.sortByStringLength(orig);
+        assertEquals(s2, sorted.get(0));
+        assertEquals(s1, sorted.get(1));
+        assertEquals(s3, sorted.get(2));
+    }
+
+    @Test
     public void getOnlyNumbersAndLetters_ShouldReturnOnlyNumberAndLetter() throws Exception {
         final String test1 = "test &*test  ";
         assertEquals("testtest", StringCommon.getOnlyNumbersAndLetters(test1));
