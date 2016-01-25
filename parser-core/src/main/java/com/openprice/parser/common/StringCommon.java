@@ -17,6 +17,13 @@ public class StringCommon {
     public static final String WIDE_SPACES="    ";
 
 
+    public static List<String> sortByStringLength(final List<String> orig){
+        return orig
+                .stream()
+                .sorted((n1, n2)->n2.length() - n1.length())
+                .collect(java.util.stream.Collectors.toList());
+    }
+
     /**
      * prune a String to see if it contains any date substring in the format of
      * AB/CD/EF or AB/CD/20EF
