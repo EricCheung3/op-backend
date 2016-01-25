@@ -60,18 +60,20 @@ public class ReceiptService {
     public ReceiptResult parseOcrResults(final Receipt receipt, final List<String> ocrTextList) {
         try {
             final ParsedReceipt parsedReceipt = simpleParser.parseOCRResults(ocrTextList);
-            ReceiptResult result = receipt.createReceiptResultFromParserResult(parsedReceipt);
-            result = receiptResultRepository.save(result); // has to save ReceiptResult first before saving ReceiptItem
+            if (parsedReceipt != null) {
+                ReceiptResult result = receipt.createReceiptResultFromParserResult(parsedReceipt);
+                result = receiptResultRepository.save(result); // has to save ReceiptResult first before saving ReceiptItem
 
-            int lineNumber = 1;
-            for (final Item item : parsedReceipt.getItems()) {
-                final ReceiptItem receiptItem = result.addItem(item.getCatalogCode(), item.getName(), item.getBuyPrice());
-                // FIXME add lineNumber from parser items
-                receiptItem.setLineNumber(lineNumber++);
-                receiptItemRepository.save(receiptItem);
+                int lineNumber = 1;
+                for (final Item item : parsedReceipt.getItems()) {
+                    final ReceiptItem receiptItem = result.addItem(item.getCatalogCode(), item.getName(), item.getBuyPrice());
+                    // FIXME add lineNumber from parser items
+                    receiptItem.setLineNumber(lineNumber++);
+                    receiptItemRepository.save(receiptItem);
+                }
+                log.debug("SimpleParser returns {} items.", parsedReceipt.getItems().size());
+                return receiptResultRepository.save(result);
             }
-            log.debug("SimpleParser returns {} items.", parsedReceipt.getItems().size());
-            return receiptResultRepository.save(result);
         } catch (Exception ex) {
             log.error("SEVERE: Got exception during parsing ocr text.", ex);
         }
@@ -84,7 +86,7 @@ public class ReceiptService {
         boolean ocrReady = true;
 
         int counter = 0;
-        while (counter++ < 40) {
+        while (counter++ < 60) {
             final List<ReceiptImage> images = receiptImageRepository.findByReceiptOrderByCreatedTime(receipt);
             ocrTextList.clear();
             ocrReady = true;
@@ -101,11 +103,12 @@ public class ReceiptService {
                 break;
             }
             try {
-                Thread.sleep(500);
+                Thread.sleep(1000);
             } catch (Exception ex) {
 
             }
         }
+        log.warn("After checking one minute, no ocr result for receipt.");
         return ocrTextList;
     }
 
@@ -121,7 +124,7 @@ public class ReceiptService {
         feedback.setReceipt(receipt);
         feedback.setRating(rating);
         feedback.setComment(comment);
-        
+
         feedback = receiptFeedbackRepository.save(feedback);
 
         receipt.setNeedFeedback(false);

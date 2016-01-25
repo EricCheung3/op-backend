@@ -1,6 +1,7 @@
 package com.openprice.domain.receipt;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.times;
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -36,6 +38,7 @@ public class ReceiptServiceTest {
     static final String USER_ID = "user123";
     static final String USER_EMAIL = "john.doe@email.com";
     static final String TEST_CONTENT = "test";
+    static final String RECEIPT_ID = "receipt123";
 
     @Mock
     ReceiptRepository receiptRepositoryMock;
@@ -58,27 +61,53 @@ public class ReceiptServiceTest {
     @InjectMocks
     ReceiptService serviceToTest;
 
+
+    private UserAccount testUser;
+    private Receipt receipt;
+    private ReceiptImage image1;
+    private ReceiptImage image2;
+    private ReceiptImage image3;
+    private ReceiptResult receiptResult;
+    
+    
+    @Before
+    public void setup() {
+        testUser = UserAccount.testObjectBuilder()
+                              .id(USER_ID)
+                              .email(USER_EMAIL)
+                              .build();
+        receipt = Receipt.testObjectBuilder()
+                         .id(RECEIPT_ID)
+                         .user(testUser)
+                         .build();
+        image1 = ReceiptImage.testObjectBuilder()
+                             .receipt(receipt)
+                             .fileName("test1")
+                             .ocrResult("ocr result1")
+                             .build();
+        image2 = ReceiptImage.testObjectBuilder()
+                             .receipt(receipt)
+                             .fileName("test2")
+                             .ocrResult("ocr result2")
+                             .build();
+        image3 = ReceiptImage.testObjectBuilder()
+                             .receipt(receipt)
+                             .fileName("test3")
+                             .ocrResult(null)
+                             .build();
+        
+        receiptResult = ReceiptResult.testObjectBuilder()
+                                     .receipt(receipt)
+                                     .chainCode("rcss")
+                                     .branchName("Calgary Trail")
+                                     .total("Total")
+                                     .date("Date")
+                                     .build();
+    }
     @Test
     public void getLatestReceiptParserResult_ShouldGenerateParserResult_IfNotInDatabase() throws Exception {
-        final UserAccount testUser = UserAccount.testObjectBuilder()
-                                                .id(USER_ID)
-                                                .email(USER_EMAIL)
-                                                .build();
-        final Receipt receipt = Receipt.testObjectBuilder()
-                                       .id("receipt123")
-                                       .user(testUser)
-                                       .build();
 
-        final ReceiptImage image1 = new ReceiptImage();
-        image1.setReceipt(receipt);
-        image1.setFileName("test1");
-        image1.setOcrResult("ocr result1");
-        final ReceiptImage image2 = new ReceiptImage();
-        image2.setReceipt(receipt);
-        image2.setFileName("test2");
-        image2.setOcrResult("ocr result2");
         final List<ReceiptImage> images = Arrays.asList(image1, image2);
-
         final List<String> ocrTextList = Arrays.asList("ocr result1", "ocr result2");
 
         final List<Item> items = new ArrayList<>();
@@ -89,7 +118,12 @@ public class ReceiptServiceTest {
         final StoreBranch branch = StoreBranch.builder().branchName("Calgary Trail").build();
         final Map<ReceiptField, ValueLine> fieldToValueLine = new HashMap<ReceiptField, ValueLine>();
         fieldToValueLine.put(ReceiptField.Total, ValueLine.builder().line(-1).value("15.00").build());
-        final ParsedReceipt receiptDebug = ParsedReceipt.builder().chain(chain).branch(branch).fieldToValueMap(fieldToValueLine).items(items).build();
+        final ParsedReceipt receiptDebug = ParsedReceipt.builder()
+                                                        .chain(chain)
+                                                        .branch(branch)
+                                                        .fieldToValueMap(fieldToValueLine)
+                                                        .items(items)
+                                                        .build();
 
         when(receiptResultRepositoryMock.findFirstByReceiptOrderByCreatedTimeDesc(eq(receipt))).thenReturn(null);
         when(receiptImageRepositoryMock.findByReceiptOrderByCreatedTime(eq(receipt))).thenReturn(images);
@@ -107,4 +141,35 @@ public class ReceiptServiceTest {
         verify(receiptItemRepositoryMock, times(2)).save(isA(ReceiptItem.class));
 
     }
+    
+    //test if there are parser results in database.
+    @Test
+    public void getLatestReceiptParserResult_ShouldReturnLatestResult() throws Exception {
+        
+        when(receiptResultRepositoryMock.findFirstByReceiptOrderByCreatedTimeDesc(eq(receipt))).thenReturn(receiptResult);
+        
+        final ReceiptResult result = serviceToTest.getLatestReceiptResult(receipt);
+        assertEquals("rcss", result.getChainCode());
+        assertEquals("Calgary Trail", result.getBranchName());
+        assertEquals("Total", result.getParsedTotal());
+        assertEquals("Date", result.getParsedDate());
+        verify(receiptResultRepositoryMock, times(0)).save(isA(ReceiptResult.class));
+    }
+    
+    @Test
+    public void getLatestReceiptParserResult_ShouldReturnNull_IfReceiptImageOCRIsEmpty() throws Exception {
+
+        final List<ReceiptImage> images = Arrays.asList(image1, image3);
+        final List<String> ocrTextList = Arrays.asList("ocr result1", null);
+
+        when(receiptResultRepositoryMock.findFirstByReceiptOrderByCreatedTimeDesc(eq(receipt))).thenReturn(null);
+        when(receiptImageRepositoryMock.findByReceiptOrderByCreatedTime(eq(receipt))).thenReturn(images);
+        when(simpleParser.parseOCRResults(eq(ocrTextList))).thenReturn(null);
+        
+        final ReceiptResult result = serviceToTest.getLatestReceiptResult(receipt);
+        assertNull(result);
+        verify(receiptImageRepositoryMock, times(0)).save(isA(ReceiptImage.class));
+        verify(receiptResultRepositoryMock, times(0)).save(isA(ReceiptResult.class));
+    }
+    
 }

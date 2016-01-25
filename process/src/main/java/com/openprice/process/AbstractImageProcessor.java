@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class AbstractImageProcessor implements ImageProcessor {
 
     private final String name;
-    private final FileSystemService fileSystemService;
+    protected final FileSystemService fileSystemService;
     private final OcrProcessLogRepository ocrProcessLogRepository;
     private final ReceiptImageRepository receiptImageRepository;
 
