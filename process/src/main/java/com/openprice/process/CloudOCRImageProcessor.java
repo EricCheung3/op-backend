@@ -25,7 +25,7 @@ public class CloudOCRImageProcessor extends AbstractImageProcessor {
                                   final CloudOcrService cloudOcrService,
                                   final OcrProcessLogRepository ocrProcessLogRepository,
                                   final ReceiptImageRepository receiptImageRepository) {
-        super("Cloud SDK", fileSystemService, ocrProcessLogRepository, receiptImageRepository);
+        super("ABBYY Cloud SDK", fileSystemService, ocrProcessLogRepository, receiptImageRepository);
         this.cloudOcrService = cloudOcrService;
     }
 
