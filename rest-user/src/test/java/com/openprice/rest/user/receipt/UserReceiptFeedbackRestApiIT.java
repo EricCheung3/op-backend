@@ -110,7 +110,7 @@ public class UserReceiptFeedbackRestApiIT extends AbstractUserRestApiIntegration
     }
     
     @Test
-    public void addReceiptFeedback_ShouldReurn403BadForbidden_WhenReceiptNotBelongToCurrentLoginUser() {
+    public void addReceiptFeedback_ShouldReurn403Forbidden_WhenReceiptNotBelongToCurrentLoginUser() {
 
         given()
             .filter(sessionFilter2)
