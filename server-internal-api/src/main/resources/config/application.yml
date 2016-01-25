@@ -24,7 +24,7 @@ application:
             virtual: false
             imageRootFolder: /groundtruth/images
         process:
-            cloudEngine: true
-            numberOfServers: 1
+            cloudEngineEnabled: true
+            numberOfServers: 3
             cloudApplicationId: JiwhizOCR
             cloudPassword: a+4O1z0k9PbPWlXavy+42++g
