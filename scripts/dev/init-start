@@ -11,15 +11,17 @@ mvn clean install -P prod
 docker run --name op-mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=openprice -e MYSQL_USER=openprice -e MYSQL_PASSWORD=openprice -d mysql:5.6
 
 # OCR Image Processing Server, used by Internal API Server only
-cd $gitroot/op-backend/server-ocr
-mvn docker:build
-docker run --name op-server-ocr-1 -e SERVER_NAME=OCR001 -e SPRING_PROFILES_ACTIVE=fake_ocr -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link op-mysql:mysql -d opgt/op-server-ocr
-docker run --name op-server-ocr-2 -e SERVER_NAME=OCR002 -e SPRING_PROFILES_ACTIVE=fake_ocr -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link op-mysql:mysql -d opgt/op-server-ocr
+# disable now becasue we are using ABBYY Cloud OCR SDK
+#cd $gitroot/op-backend/server-ocr
+#mvn docker:build
+#docker run --name op-server-ocr-1 -e SERVER_NAME=OCR001 -e SPRING_PROFILES_ACTIVE=fake_ocr -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link op-mysql:mysql -d opgt/op-server-ocr
+#docker run --name op-server-ocr-2 -e SERVER_NAME=OCR002 -e SPRING_PROFILES_ACTIVE=fake_ocr -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link op-mysql:mysql -d opgt/op-server-ocr
 
 # Internal RESTful API Server, internal usage only
 cd $gitroot/op-backend/server-internal-api
 mvn docker:build
-docker run --name op-server-internal-api -e SERVER_NAME=INTAPI -e SPRING_PROFILES_ACTIVE=sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link op-mysql:mysql --link op-server-ocr-1:op-server-ocr-1 --link op-server-ocr-2:op-server-ocr-2 -d opgt/op-server-internal-api
+#docker run --name op-server-internal-api -e SERVER_NAME=INTAPI -e SPRING_PROFILES_ACTIVE=sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link op-mysql:mysql --link op-server-ocr-1:op-server-ocr-1 --link op-server-ocr-2:op-server-ocr-2 -d opgt/op-server-internal-api
+docker run --name op-server-internal-api -e SERVER_NAME=INTAPI -e SPRING_PROFILES_ACTIVE=sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link op-mysql:mysql -d opgt/op-server-internal-api
 
 # Web RESTful API Server, for Web UI
 cd $gitroot/op-backend/server-web-api
@@ -42,7 +44,7 @@ docker run --name op-server-docs -p 8880:8080 -d opgt/op-server-docs
 cd $gitroot/op-admin-ui
 git pull
 
-gulp build --env localdocker
+gulp build --env development
 cd $gitroot/op-admin-ui/docker
 docker build -t opgt/op-server-admin-ui .
 docker run --name op-server-admin-ui -p 8081:80 -d opgt/op-server-admin-ui
