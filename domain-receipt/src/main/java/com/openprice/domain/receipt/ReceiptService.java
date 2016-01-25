@@ -55,6 +55,11 @@ public class ReceiptService {
 
         log.debug("No receipt result yet for receipt {}, call parser to generate...", receipt.getId());
         final List<String> ocrTextList = loadOcrResults(receipt);
+        if (ocrTextList.size() == 0) {
+            log.debug("Cannot load OCR result for receipt {}.", receipt.getId());
+            return null;
+        }
+
         return parseOcrResults(receipt, ocrTextList);
     }
 
@@ -109,8 +114,8 @@ public class ReceiptService {
             }
 
             if (ocrReady) {
-                log.debug("After checking {} times, get ocr result for receipt.", counter);
-                break;
+                log.info("After checking {} times, get ocr result for receipt.", counter);
+                return ocrTextList;
             }
 
             try {
