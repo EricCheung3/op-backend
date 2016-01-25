@@ -10,6 +10,8 @@ import lombok.Data;
 @Data
 public class ProcessSettings {
 
+    private boolean cloudEngineEnabled = false;
+
     private List<ServiceSettings> ocrServers = new ArrayList<>();
 
     private String serverPrefix;
@@ -17,4 +19,10 @@ public class ProcessSettings {
     private int serverPort = 7901;  // default to 7901 for OCR Server port
 
     private int numberOfServers = 0;
+
+    private String cloudApplicationId;
+
+    private String cloudPassword;
+
+
 }

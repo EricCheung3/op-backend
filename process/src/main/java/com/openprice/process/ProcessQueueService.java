@@ -18,6 +18,7 @@ import com.openprice.domain.receipt.OcrProcessLogRepository;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.file.FileSystemService;
 import com.openprice.ocr.client.OcrService;
+import com.openprice.process.abbyy.CloudOcrService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,13 +49,17 @@ public class ProcessQueueService {
     public void init() {
         log.info("init ProcessQueueService...");
 
-        if ( StringUtils.hasText(processSettings.getServerPrefix()) && processSettings.getNumberOfServers() > 0) {
+        if(processSettings.isCloudEngineEnabled()) {
             for (int i=1; i<=processSettings.getNumberOfServers(); i++) {
-                startConsumer(new ServiceSettings(processSettings.getServerPrefix() + i, processSettings.getServerPort()));
+                startCloudSDKConsumer(processSettings.getCloudApplicationId(), processSettings.getCloudPassword());
+            }
+        } else if ( StringUtils.hasText(processSettings.getServerPrefix()) && processSettings.getNumberOfServers() > 0) {
+            for (int i=1; i<=processSettings.getNumberOfServers(); i++) {
+                startInternalOCREngineConsumer(new ServiceSettings(processSettings.getServerPrefix() + i, processSettings.getServerPort()));
             }
         } else if (!processSettings.getOcrServers().isEmpty()) {
             for (final ServiceSettings settings : processSettings.getOcrServers()) {
-                startConsumer(settings);
+                startInternalOCREngineConsumer(settings);
             }
         } else {
             final ImageProcessor p = new StaticResultImageProcessor(fileSystemService,
@@ -67,7 +72,7 @@ public class ProcessQueueService {
         }
     }
 
-    private void startConsumer(final ServiceSettings settings) {
+    private void startInternalOCREngineConsumer(final ServiceSettings settings) {
         final OcrService ocrService = new OcrService(settings);
         final RemoteOCRImageProcessor p = new RemoteOCRImageProcessor(settings.getServerHost(),
                                                                       ocrService,
@@ -77,7 +82,19 @@ public class ProcessQueueService {
         final ProcessQueueConsumer consumer = new ProcessQueueConsumer(queue, p);
         consumers.add(consumer);
         new Thread(consumer).start();
-        log.info("Started image queue consumer with remote OCR image processor {}.", p.getName());
+        log.debug("Started image queue consumer with remote OCR image processor {}.", p.getName());
+    }
+
+    private void startCloudSDKConsumer(final String applicaitonId, final String password) {
+        final CloudOcrService cloudOcrService = new CloudOcrService(applicaitonId, password);
+        final CloudOCRImageProcessor p = new CloudOCRImageProcessor(fileSystemService,
+                                                                    cloudOcrService,
+                                                                    processLogRepository,
+                                                                    receiptImageRepository);
+        final ProcessQueueConsumer consumer = new ProcessQueueConsumer(queue, p);
+        consumers.add(consumer);
+        new Thread(consumer).start();
+        log.debug("Started image queue consumer with ABBYY Cloud SDK service.");
     }
 
     @PreDestroy()

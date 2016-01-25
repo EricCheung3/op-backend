@@ -63,7 +63,7 @@ public class ReceiptService {
             if (parsedReceipt != null) {
                 ReceiptResult result = receipt.createReceiptResultFromParserResult(parsedReceipt);
                 result = receiptResultRepository.save(result); // has to save ReceiptResult first before saving ReceiptItem
-    
+
                 int lineNumber = 1;
                 for (final Item item : parsedReceipt.getItems()) {
                     final ReceiptItem receiptItem = result.addItem(item.getCatalogCode(), item.getName(), item.getBuyPrice());
@@ -86,7 +86,7 @@ public class ReceiptService {
         boolean ocrReady = true;
 
         int counter = 0;
-        while (counter++ < 40) {
+        while (counter++ < 60) {
             final List<ReceiptImage> images = receiptImageRepository.findByReceiptOrderByCreatedTime(receipt);
             ocrTextList.clear();
             ocrReady = true;
@@ -103,11 +103,12 @@ public class ReceiptService {
                 break;
             }
             try {
-                Thread.sleep(500);
+                Thread.sleep(1000);
             } catch (Exception ex) {
 
             }
         }
+        log.warn("After checking one minute, no ocr result for receipt.");
         return ocrTextList;
     }
 
@@ -123,7 +124,7 @@ public class ReceiptService {
         feedback.setReceipt(receipt);
         feedback.setRating(rating);
         feedback.setComment(comment);
-        
+
         feedback = receiptFeedbackRepository.save(feedback);
 
         receipt.setNeedFeedback(false);
