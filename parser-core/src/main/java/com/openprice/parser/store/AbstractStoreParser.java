@@ -14,6 +14,7 @@ import com.openprice.parser.common.DateParserUtils;
 import com.openprice.parser.common.Levenshtein;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Item;
+import com.openprice.parser.data.Product;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.parser.price.ProductPrice;
@@ -126,13 +127,18 @@ public abstract class AbstractStoreParser implements StoreParser {
     @Override
     public Item parseItemLine(String lineString) {
         if (priceParserWithCatalog == null) {
-            return new Item(lineString);
+            return Item.builder()
+                    .product(Product.builder()
+                            .name(lineString).build()).build();
         }
-        ProductPrice price = priceParserWithCatalog.parsePriceLine(lineString);
-        if (price.isEmpty()) {
+        ProductPrice pPrice = priceParserWithCatalog.parsePriceLine(lineString);
+        if (pPrice.isEmpty()) {
             return null; // new Item(lineString);
         }
-        return new Item(price.getProduct().getName(), price.getPrice(), price.getProduct().toCatalogCode());
+        return Item.builder()
+                .product(pPrice.getProduct())
+                .buyPrice(pPrice.getPrice())
+                .build();
     }
 
 

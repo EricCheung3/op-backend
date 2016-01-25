@@ -105,8 +105,8 @@ public class SimpleParser {
                 .map( line -> parser.parseItemLine(line.getCleanText()))
                 .filter( item ->
                 item != null &&
-                !item.getName().isEmpty() &&
-                !parser.getStoreConfig().getCatalogFilter().matchesBlackList(item.getName())
+                !item.getProduct().getName().isEmpty() &&
+                !parser.getStoreConfig().getCatalogFilter().matchesBlackList(item.getProduct().getName())
                         )
                 .collect(Collectors.toList())
                 ;

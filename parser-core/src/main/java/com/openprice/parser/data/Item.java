@@ -1,43 +1,37 @@
 package com.openprice.parser.data;
-import lombok.Data;
+import com.openprice.parser.common.StringCommon;
+
+import lombok.Builder;
+import lombok.Value;
 
 /**
  *
  * item and prices in a receipt.
  * Each item may have one or two prices. If it's two prices, then it's a item soldby weight; otherwise it's sold by quantity and has just one price.
  */
-@Data
+@Value
+@Builder
 public class Item {
-    private String name;//item name
-    private String buyPrice;//price spent on the item; can be a unit price or the price of several units (kg)
-    private String unitPrice;//unit price of the item (usually in kilogram)
-    private String weight;//weight of the item bought
-    private String category;//category of the item
-    private String regPrice;//regular price
-    private String saving;//savings
-    private String catalogCode;
+    Product product;
 
-    public Item(final String name) {
-        this.name = name;
-    }
+    String buyPrice;//price spent on the item; can be a unit price or the price of several units (kg)
+    String unitPrice;//unit price of the item (usually in kilogram)
+    String weight;//weight of the item bought
+    String category;//category of the item
+    String regPrice;//regular price
+    String saving;//savings
 
-    public Item(final String name, final String buyPrice) {
-        this.name = name;
-        this.buyPrice = buyPrice;
-    }
-
-    public Item(final String name, final String buyPrice, final String catalogCode) {
-        this.name = name;
-        this.buyPrice = buyPrice;
-        this.catalogCode = catalogCode;
-    }
-
-    public Item(final String name, final String buyPrice, final String unitPrice, final String weight, final String category) {
-        this.name = name;
-        this.buyPrice = buyPrice;
-        this.unitPrice = unitPrice;
-        this.weight = weight;
-        this.category = category;
+    public static Item fromNameBuyPUnitPWeightCategory(final String name, final String buyPrice,
+            final String unitPrice, final String weight, final String category) {
+        return Item.builder()
+                .product(Product.builder().name(name).number(StringCommon.EMPTY).build())
+                .buyPrice(buyPrice)
+                .unitPrice(unitPrice)
+                .weight(weight)
+                .category(category)
+                .regPrice(StringCommon.EMPTY)
+                .saving(StringCommon.EMPTY)
+                .build();
     }
 }
 

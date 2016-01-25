@@ -17,15 +17,15 @@ public class AbstractReceiptParserIntegrationTest {
     protected SimpleParser simpleParser;
 
     protected void verifyItemParsedValue(final Item item, final String name, final String value, final String catalogCode) {
-        assertEquals(name, item.getName());
+        assertEquals(name, item.getProduct().getName());
         assertEquals(value, item.getBuyPrice());
-        assertEquals(catalogCode, item.getCatalogCode());
+        assertEquals(catalogCode, item.getProduct().toCatalogCode());
     }
 
     protected void printResult(ParsedReceipt receipt) {
         for (Item item : receipt.getItems()) {
-            System.out.println("verifyItemParsedValue(iterator.next(), \""+item.getName() + "\", \""+
-                    item.getBuyPrice()+ "\", \""+ item.getCatalogCode() + "\");");
+            System.out.println("verifyItemParsedValue(iterator.next(), \""+item.getProduct().getName() + "\", \""+
+                    item.getBuyPrice()+ "\", \""+ item.getProduct().toCatalogCode() + "\");");
         }
         System.out.println("\n=====================\nFields parsed:");
         for (ReceiptField field : receipt.getFieldToValueMap().keySet()) {

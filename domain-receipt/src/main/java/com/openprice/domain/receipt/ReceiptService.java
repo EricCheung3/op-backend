@@ -26,11 +26,11 @@ public class ReceiptService {
 
     @Inject
     public ReceiptService(final ReceiptRepository receiptRepository,
-                          final ReceiptImageRepository receiptImageRepository,
-                          final ReceiptResultRepository receiptResultRepository,
-                          final ReceiptItemRepository receiptItemRepository,
-                          final ReceiptFeedbackRepository receiptFeedbackRepository,
-                          final SimpleParser simpleParser) {
+            final ReceiptImageRepository receiptImageRepository,
+            final ReceiptResultRepository receiptResultRepository,
+            final ReceiptItemRepository receiptItemRepository,
+            final ReceiptFeedbackRepository receiptFeedbackRepository,
+            final SimpleParser simpleParser) {
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
         this.receiptResultRepository = receiptResultRepository;
@@ -66,7 +66,7 @@ public class ReceiptService {
 
                 int lineNumber = 1;
                 for (final Item item : parsedReceipt.getItems()) {
-                    final ReceiptItem receiptItem = result.addItem(item.getCatalogCode(), item.getName(), item.getBuyPrice());
+                    final ReceiptItem receiptItem = result.addItem(item.getProduct().toCatalogCode(), item.getProduct().getName(), item.getBuyPrice());
                     // FIXME add lineNumber from parser items
                     receiptItem.setLineNumber(lineNumber++);
                     receiptItemRepository.save(receiptItem);
