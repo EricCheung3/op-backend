@@ -1,5 +1,6 @@
 package com.openprice.parser.price;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.openprice.parser.common.Levenshtein;
@@ -14,6 +15,17 @@ public class CatalogFilter {
 
     List<String> blackList;
     static final double BLACKLIST_THRESHOLD=0.7;
+
+    public static CatalogFilter fromList(final List<String> bk){
+        return CatalogFilter
+                .builder()
+                .blackList(StringCommon.sortByStringLength(bk))
+                .build();
+    }
+
+    public static CatalogFilter emptyFilter(){
+        return fromList(new ArrayList<String>());
+    }
 
     //the string matches the black list
     public boolean matchesBlackList(final String str){
