@@ -34,6 +34,10 @@ public class SimpleParser {
 
     public ParsedReceipt parseOCRResults(final List<String> ocrTextList) throws Exception {
         final ReceiptData receipt = ReceiptData.fromOCRResults(ocrTextList);
+        if (receipt.getReceiptLines().size() == 0) {
+            log.warn("No receipt data to parse.");
+            return null;
+        }
         return parseReceiptData(receipt);
     }
 
