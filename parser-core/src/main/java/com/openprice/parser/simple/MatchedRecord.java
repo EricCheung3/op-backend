@@ -18,6 +18,7 @@ import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * quick look up fieldName and line matching relationships. it's actually like
@@ -26,6 +27,7 @@ import lombok.Data;
  * Can be mapped to the same field --- a field can appear in multiple lines.
  */
 @Data
+@Slf4j
 public class MatchedRecord {
     // mapping line number to FieldNameAddressLines that is matched by the line
     private final Map<Integer, Set<ReceiptField>> lineToField = new HashMap<Integer, Set<ReceiptField>>();
@@ -77,6 +79,10 @@ public class MatchedRecord {
                 .map( field -> fieldToValueLine.get(field) )
                 .filter( value -> value != null )
                 .min( Comparator.comparing(ValueLine::getLine) );
+        //the results will be contain lines in the footer--usually noisy
+        if(!stopLine.isPresent())
+            log.warn("no stop line (total, gst, subtotal) detected. results are likely noisy");
+
         return stopLine.isPresent()? stopLine.get().getLine() : Integer.MAX_VALUE;
     }
 
@@ -125,6 +131,7 @@ public class MatchedRecord {
             if (fieldNameIsMatched(field)) {
                 continue;
             }
+
             final List<String> headerPatterns = config.getFieldHeaderMatchStrings(field);
             if (headerPatterns == null || headerPatterns.isEmpty()) {
                 continue;
@@ -133,6 +140,7 @@ public class MatchedRecord {
             receipt.lines()
             .filter( line -> line.getCleanText().length() > 1 )
             .filter( line -> !isFieldLine(line.getNumber()) )
+            .filter(line -> !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer", config.similarityThresholdOfTwoStrings()))//otherwide this could match the total line
             .filter( line -> {
                 Optional<Double> maxScore =
                         headerPatterns.stream()
@@ -142,7 +150,6 @@ public class MatchedRecord {
             })
             .forEach( line -> putFieldLine(field, line.getNumber(), parser.parseField(field, line)))
             ;
-
         }
     }
 

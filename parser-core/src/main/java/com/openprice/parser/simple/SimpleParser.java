@@ -66,6 +66,7 @@ public class SimpleParser {
         final MatchedRecord matchedRecord = new MatchedRecord();
         matchedRecord.matchToBranch(receipt, branch);
         matchedRecord.matchToHeader(receipt, parser.getStoreConfig(), parser);
+
         //globally finding the date string
         if (matchedRecord.getFieldToValueLine().get(ReceiptField.Date) == null ||
                 matchedRecord.getFieldToValueLine().get(ReceiptField.Date).getValue().isEmpty()){
