@@ -5,12 +5,15 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.apache.http.HttpStatus;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -30,12 +33,23 @@ public class UserReceiptFeedbackRestApiIT extends AbstractUserRestApiIntegration
     @Inject
     private ReceiptFeedbackRepository receiptFeedbackRepository;
 
+    private String TEST_RECEIPT_ID;
+    private String TEST_RECEIPT_ID_INVALID;
+    private SessionFilter sessionFilter;
+    private SessionFilter sessionFilter2;
+    private String receiptUrl;
+    
+    @Before
+    public void setup() {
+        TEST_RECEIPT_ID = "receipt002";
+        TEST_RECEIPT_ID_INVALID = "invalid";
+        sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+        sessionFilter2 = login(TEST_USERNAME_JANE_DOE);
+        receiptUrl = userReceiptUrl(sessionFilter, TEST_RECEIPT_ID);
+    }
     @Test
     public void addReceiptFeedback_ShouldAddFeedbackToReceipt_AndSetNeedFeedbackToFalse() {
-        final String RECEIPT_ID = "receipt002";
-        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-        final String receiptUrl = userReceiptUrl(sessionFilter, RECEIPT_ID);
-        final String feedbackUrl = userReceiptFeedbackUrl(sessionFilter, RECEIPT_ID);
+        final String feedbackUrl = userReceiptFeedbackUrl(sessionFilter, TEST_RECEIPT_ID);
 
         given()
             .filter(sessionFilter)
@@ -44,7 +58,7 @@ public class UserReceiptFeedbackRestApiIT extends AbstractUserRestApiIntegration
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            .body("id", equalTo(RECEIPT_ID))
+            .body("id", equalTo(TEST_RECEIPT_ID))
             .body("needFeedback", equalTo(true))
         ;
 
@@ -67,16 +81,48 @@ public class UserReceiptFeedbackRestApiIT extends AbstractUserRestApiIntegration
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            .body("id", equalTo(RECEIPT_ID))
+            .body("id", equalTo(TEST_RECEIPT_ID))
             .body("needFeedback", equalTo(false))
         ;
 
         // check database
-        Receipt receipt = receiptRepository.findOne(RECEIPT_ID);
+        Receipt receipt = receiptRepository.findOne(TEST_RECEIPT_ID);
         assertNotNull(receipt);
         assertFalse(receipt.getNeedFeedback());
         List<ReceiptFeedback> feedbacks = receiptFeedbackRepository.findByReceiptOrderByCreatedTime(receipt);
         assertEquals(1, feedbacks.size());
     }
+    
+    @Test
+    public void addReceiptFeedback_ShouldReturn404NotFound_WhenInvalidReceiptId() {
+        final String receiptUrl = userReceiptUrl(sessionFilter, TEST_RECEIPT_ID_INVALID);
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(receiptUrl)
+        .then()
+            .statusCode(HttpStatus.SC_NOT_FOUND)
+        ;
+        
+        // check database
+        Receipt receipt = receiptRepository.findOne(TEST_RECEIPT_ID_INVALID);
+        assertNull(receipt);
+    }
+    
+    @Test
+    public void addReceiptFeedback_ShouldReurn403Forbidden_WhenReceiptNotBelongToCurrentLoginUser() {
 
+        given()
+            .filter(sessionFilter2)
+        .when()
+            .get(receiptUrl)
+        .then()
+            .statusCode(HttpStatus.SC_FORBIDDEN)
+        ;
+        
+        // check database
+        Receipt receipt = receiptRepository.findOne(TEST_RECEIPT_ID);
+        assertTrue(receipt.getNeedFeedback());
+    }
+    
 }
