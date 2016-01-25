@@ -82,7 +82,7 @@ public class ProcessQueueService {
         final ProcessQueueConsumer consumer = new ProcessQueueConsumer(queue, p);
         consumers.add(consumer);
         new Thread(consumer).start();
-        log.info("Started image queue consumer with remote OCR image processor {}.", p.getName());
+        log.debug("Started image queue consumer with remote OCR image processor {}.", p.getName());
     }
 
     private void startCloudSDKConsumer(final String applicaitonId, final String password) {
@@ -94,7 +94,7 @@ public class ProcessQueueService {
         final ProcessQueueConsumer consumer = new ProcessQueueConsumer(queue, p);
         consumers.add(consumer);
         new Thread(consumer).start();
-        log.info("Started image queue consumer with ABBYY Cloud SDK service.");
+        log.debug("Started image queue consumer with ABBYY Cloud SDK service.");
     }
 
     @PreDestroy()
