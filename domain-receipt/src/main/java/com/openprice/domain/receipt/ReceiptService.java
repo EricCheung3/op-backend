@@ -26,11 +26,11 @@ public class ReceiptService {
 
     @Inject
     public ReceiptService(final ReceiptRepository receiptRepository,
-            final ReceiptImageRepository receiptImageRepository,
-            final ReceiptResultRepository receiptResultRepository,
-            final ReceiptItemRepository receiptItemRepository,
-            final ReceiptFeedbackRepository receiptFeedbackRepository,
-            final SimpleParser simpleParser) {
+                          final ReceiptImageRepository receiptImageRepository,
+                          final ReceiptResultRepository receiptResultRepository,
+                          final ReceiptItemRepository receiptItemRepository,
+                          final ReceiptFeedbackRepository receiptFeedbackRepository,
+                          final SimpleParser simpleParser) {
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
         this.receiptResultRepository = receiptResultRepository;
