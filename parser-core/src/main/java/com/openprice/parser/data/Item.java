@@ -35,6 +35,10 @@ public class Item {
         this.product=p;
     }
 
+    public static Item emptyItem(){
+        return new Item(Product.emptyProduct());
+    }
+
     public static Item fromNameOnly(final String name){
         return new Item(Product.fromNameOnly(name));
     }

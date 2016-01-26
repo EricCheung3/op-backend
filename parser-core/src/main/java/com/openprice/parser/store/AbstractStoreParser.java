@@ -130,7 +130,7 @@ public abstract class AbstractStoreParser implements StoreParser {
         }
         ProductPrice pPrice = priceParserWithCatalog.parsePriceLine(lineString);
         if (pPrice.isEmpty()) {
-            return null; // new Item(lineString);
+            return Item.emptyItem();
         }
         return Item.fromProductPrice(pPrice);
     }
