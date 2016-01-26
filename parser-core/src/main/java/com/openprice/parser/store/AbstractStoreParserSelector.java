@@ -39,6 +39,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     static final String IDENTIFY_FIELD_FILE_NAME = "identify.txt";
     static final String CATALOG_FILE_NAME = "catalog.txt";
     static final String CATALOG_BLACK_LIST_FILE_NAME="notCatalogItemNames.txt";
+    static final String CATALOG_NOTATION_FILE_NAME="notations.txt";
 
     static final String SKIP_BEFORE_FILE_NAME = "skipBeforeItemsFinish.txt";
     static final String SKIP_AFTER_FILE_NAME = "skipAfterItemsFinish.txt";
@@ -119,6 +120,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         try{
             category=TextResourceUtils.loadStringArray(getStoreConfigResource(CATEGORY_FILE_NAME));
         }catch(Exception e){
+            log.warn("cannot load "+CATEGORY_FILE_NAME);
             category=new ArrayList<String>();
         }
 
@@ -126,6 +128,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         try{
             skipBefore=TextResourceUtils.loadStringArray(getParserConfigResource(parserName, SKIP_BEFORE_FILE_NAME));
         }catch(Exception e){
+            log.warn("cannot load "+SKIP_BEFORE_FILE_NAME);
             skipBefore=new ArrayList<String>();
         }
 
@@ -133,15 +136,31 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         try{
             skipAfter=TextResourceUtils.loadStringArray(getParserConfigResource(parserName, SKIP_AFTER_FILE_NAME));
         }catch(Exception e){
+            log.warn("cannot load "+SKIP_AFTER_FILE_NAME);
             skipAfter=new ArrayList<String>();
+        }
+
+        List<String> notations=null;
+        try{
+            notations=TextResourceUtils.loadStringArray(getParserConfigResource(parserName, CATALOG_NOTATION_FILE_NAME));
+        }catch(Exception e){
+            log.warn("cannot load "+CATALOG_NOTATION_FILE_NAME);
+            notations=new ArrayList<String>();
         }
 
         List<String> blackList=null;
         try{
             blackList=TextResourceUtils.loadStringArray(getStoreConfigResource(CATALOG_BLACK_LIST_FILE_NAME));
         }catch(Exception e){
+            log.warn("cannot load "+CATALOG_BLACK_LIST_FILE_NAME);
             blackList=new ArrayList<String>();
         }
+
+        //we don't want these to be item names
+        blackList.addAll(category);
+        blackList.addAll(skipBefore);
+        blackList.addAll(skipAfter);
+        blackList.addAll(notations);
 
         return new StoreConfig(
                 configProp,
