@@ -143,6 +143,7 @@ public class ReceiptServiceTest {
     }
 
     //test if there are parser results in database.
+
     @Test
     public void getLatestReceiptParserResult_ShouldReturnLatestResult() throws Exception {
 
@@ -170,6 +171,20 @@ public class ReceiptServiceTest {
         assertNull(result);
         verify(receiptImageRepositoryMock, times(0)).save(isA(ReceiptImage.class));
         verify(receiptResultRepositoryMock, times(0)).save(isA(ReceiptResult.class));
+    }
+
+    @Test
+    public void getLatestReceiptParserResult_ShouldReturnNull_IfNoImage() throws Exception {
+
+        final List<ReceiptImage> images = new ArrayList<>();
+        final List<String> ocrTextList = Arrays.asList("ocr result1", null);
+
+        when(receiptResultRepositoryMock.findFirstByReceiptOrderByCreatedTimeDesc(eq(receipt))).thenReturn(null);
+        when(receiptImageRepositoryMock.findByReceiptOrderByCreatedTime(eq(receipt))).thenReturn(images);
+        when(simpleParser.parseOCRResults(eq(ocrTextList))).thenReturn(null);
+
+        final ReceiptResult result = serviceToTest.getLatestReceiptResult(receipt);
+        assertNull(result);
     }
 
 }

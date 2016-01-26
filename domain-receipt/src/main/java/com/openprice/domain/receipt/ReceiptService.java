@@ -44,17 +44,23 @@ public class ReceiptService {
      * If no parser result yet, try to query ocr result for all receipt images and call Simple Parser.
      *
      * @param receipt
-     * @return
+     * @return null if no parser result after waiting 1 mins
      */
     public ReceiptResult getLatestReceiptResult(final Receipt receipt) {
         final ReceiptResult result = receiptResultRepository.findFirstByReceiptOrderByCreatedTimeDesc(receipt);
 
-        if (result == null) {
-            log.debug("No receipt result yet for receipt {}, call parser to generate...", receipt.getId());
-            final List<String> ocrTextList = loadOcrResults(receipt);
-            return parseOcrResults(receipt, ocrTextList);
+        if (result != null) {
+            return result;
         }
-        return result;
+
+        log.debug("No receipt result yet for receipt {}, call parser to generate...", receipt.getId());
+        final List<String> ocrTextList = loadOcrResults(receipt);
+        if (ocrTextList == null || ocrTextList.size() == 0) {
+            log.debug("Cannot load OCR result for receipt {}.", receipt.getId());
+            return null;
+        }
+
+        return parseOcrResults(receipt, ocrTextList);
     }
 
     public ReceiptResult parseOcrResults(final Receipt receipt, final List<String> ocrTextList) {
@@ -73,42 +79,32 @@ public class ReceiptService {
                 }
                 log.debug("SimpleParser returns {} items.", parsedReceipt.getItems().size());
                 return receiptResultRepository.save(result);
+            } else {
+                return null;
             }
         } catch (Exception ex) {
             log.error("SEVERE: Got exception during parsing ocr text.", ex);
+            return null;
         }
 
-        return null;
     }
 
-    public List<String> loadOcrResults(final Receipt receipt) {
+    private List<String> loadOcrResults(final Receipt receipt) {
         final List<String> ocrTextList = new ArrayList<>();
-        boolean ocrReady = true;
+        final List<ReceiptImage> images = receiptImageRepository.findByReceiptOrderByCreatedTime(receipt);
+        if (images.size() == 0) {
+            log.error("No images in database for receipt {}.", receipt.getId());
+            return null;
+        }
 
-        int counter = 0;
-        while (counter++ < 60) {
-            final List<ReceiptImage> images = receiptImageRepository.findByReceiptOrderByCreatedTime(receipt);
-            ocrTextList.clear();
-            ocrReady = true;
-            for (final ReceiptImage image : images) {
-                if (StringUtils.hasText(image.getOcrResult())) {
-                    ocrTextList.add(image.getOcrResult());
-                } else {
-                    ocrReady = false;
-                    break;
-                }
-            }
-            if (ocrReady) {
-                log.debug("After checking {} times, get ocr result for receipt.", counter);
-                break;
-            }
-            try {
-                Thread.sleep(1000);
-            } catch (Exception ex) {
-
+        for (final ReceiptImage image : images) {
+            if (StringUtils.hasText(image.getOcrResult())) {
+                ocrTextList.add(image.getOcrResult());
+            } else {
+                log.debug("No ocr result for receipt image.");
+                return null;
             }
         }
-        log.warn("After checking one minute, no ocr result for receipt.");
         return ocrTextList;
     }
 

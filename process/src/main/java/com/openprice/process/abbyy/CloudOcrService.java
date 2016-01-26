@@ -34,7 +34,7 @@ public class CloudOcrService {
             if (task.getStatus() == Task.TaskStatus.Completed) {
                 log.debug("Downloading OCR result..");
                 String result = restClient.downloadResult(task);
-                log.debug("Result from Cloud is \n"+result);
+                log.info("Result from ABBYY Cloud SDK is \n"+result);
                 return new ImageProcessResult(true, result, null);
             } else if (task.getStatus() == Task.TaskStatus.NotEnoughCredits) {
                 log.error("Not enough credits to process document. "
