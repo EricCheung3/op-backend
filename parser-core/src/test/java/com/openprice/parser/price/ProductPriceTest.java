@@ -12,15 +12,7 @@ public class ProductPriceTest {
     //test default for boolean is false
     @Test
     public void test1() throws Exception{
-        ProductPrice pPrice=ProductPrice.builder().price("1.0").build();
-        assertTrue(!pPrice.isProductIsInCatalog());
-    }
-
-    @Test
-    public void test2() throws Exception{
-        ProductPrice pPrice=ProductPrice.builder()
-                .product(Product.emptyProduct())
-                .price("1.0").build();
+        ProductPrice pPrice=new ProductPrice(Product.emptyProduct(), "1.0", false);
         assertTrue(!pPrice.isProductIsInCatalog());
     }
 
