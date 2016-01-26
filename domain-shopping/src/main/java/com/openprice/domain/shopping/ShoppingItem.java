@@ -37,6 +37,9 @@ public class ShoppingItem extends BaseAuditableEntity {
     @JsonIgnore
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="store_id")
+    @org.hibernate.annotations.OnDelete(
+        action = org.hibernate.annotations.OnDeleteAction.CASCADE
+    )
     private ShoppingStore store;
 
     @Getter @Setter

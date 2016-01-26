@@ -4,6 +4,9 @@ import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertNull;
+
+import javax.inject.Inject;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
@@ -12,11 +15,21 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
+import com.openprice.domain.shopping.ShoppingItem;
+import com.openprice.domain.shopping.ShoppingItemRepository;
+import com.openprice.domain.shopping.ShoppingStore;
+import com.openprice.domain.shopping.ShoppingStoreRepository;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
 @DatabaseSetup("classpath:/data/testData.xml")
 public class ShoppingStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
+
+    @Inject
+    ShoppingStoreRepository shoppingStoreRepository;
+
+    @Inject
+    ShoppingItemRepository shoppingItemRepository;
 
     @Test
     public void getCurrentUserShoppingStores_ShouldReturnAllUserShoppingStores() {
@@ -33,7 +46,7 @@ public class ShoppingStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("page.size", equalTo(10))
-            .body("page.totalElements", equalTo(2))
+            .body("page.totalElements", equalTo(3))
             .body("page.totalPages", equalTo(1))
             .body("page.number", equalTo(0))
             .body("_embedded.shoppingStores[0].id", equalTo("shoppingStore102"))
@@ -41,6 +54,8 @@ public class ShoppingStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("_embedded.shoppingStores[0].displayName", equalTo("Safeway"))
             .body("_embedded.shoppingStores[1].id", equalTo("shoppingStore101"))
             .body("_embedded.shoppingStores[1].chainCode", equalTo("rcss"))
+            .body("_embedded.shoppingStores[2].id", equalTo("shoppingStore103"))
+            .body("_embedded.shoppingStores[2].displayName", equalTo("Unknown"))
         ;
     }
 
@@ -117,5 +132,33 @@ public class ShoppingStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
             .contentType(ContentType.JSON)
             .body("", hasSize(0))
         ;
+    }
+
+    @Test
+    public void deleteUserShoppingStoreById_ShouldDeleteShoppingStoreAndItems() {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+        final String shoppingStoreUrl = userShoppingStoreUrl(sessionFilter, "shoppingStore103");
+
+        given()
+            .filter(sessionFilter)
+        .when()
+            .delete(shoppingStoreUrl)
+        .then()
+            .statusCode(HttpStatus.SC_NO_CONTENT)
+        ;
+
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(shoppingStoreUrl)
+        .then()
+            .statusCode(HttpStatus.SC_NOT_FOUND)
+        ;
+
+        // check shopping store and item record
+        ShoppingStore store = shoppingStoreRepository.findOne("shoppingStore103");
+        assertNull(store);
+        ShoppingItem item = shoppingItemRepository.findOne("item301");
+        assertNull(item);
     }
 }

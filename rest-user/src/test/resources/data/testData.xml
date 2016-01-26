@@ -48,10 +48,12 @@
     
     <shopping_store id="shoppingStore101" version="1" user_account_id="user001" chain_code="rcss" display_name="Superstore" created_time="2009-01-02 10:00:01.0000"/>
     <shopping_store id="shoppingStore102" version="1" user_account_id="user001" chain_code="safeway" display_name="Safeway" created_time="2009-01-02 10:00:01.0000"/>
+    <shopping_store id="shoppingStore103" version="1" user_account_id="user001" display_name="Unknown" created_time="2009-01-02 10:00:01.0000"/>
     
     <shopping_item id="item101" version="1" store_id="shoppingStore101" catalog_code="MILK_1234" name="milk" product_category="dairy" number="1" created_time="2009-01-01 10:00:01.0000"/>
     <shopping_item id="item102" version="1" store_id="shoppingStore101" catalog_code="EGG_1235" name="eggs" product_category="dairy" number="1" created_time="2009-01-01 10:01:01.0000"/>
     <shopping_item id="item103" version="1" store_id="shoppingStore101" catalog_code="BREAD" name="bread" product_category="bakery" number="1" created_time="2009-01-01 10:02:01.0000"/>
+    <shopping_item id="item301" version="1" store_id="shoppingStore103" name="bread" product_category="bakery" number="1" created_time="2009-01-01 10:02:01.0000"/>
 
     <!-- Receipt image for receipt002 with ocr result -->
     <receipt_image id="receipt002image001" version="1" receipt_id="receipt002" status="SCANNED" created_time="2009-01-01 10:00:01.0000"

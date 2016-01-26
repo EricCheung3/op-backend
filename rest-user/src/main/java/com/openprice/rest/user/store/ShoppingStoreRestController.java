@@ -83,4 +83,13 @@ public class ShoppingStoreRestController extends AbstractUserStoreRestController
         return ResponseEntity.ok(Collections.emptyList());
     }
 
+    @RequestMapping(method = RequestMethod.DELETE, value = URL_USER_SHOPPING_STORES_STORE)
+    public HttpEntity<Void> deleteUserShoppingStoreById(
+            @PathVariable("storeId") final String storeId) throws ResourceNotFoundException {
+        final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
+        shoppingStoreRepository.delete(store);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
