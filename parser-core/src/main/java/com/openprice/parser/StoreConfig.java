@@ -31,7 +31,7 @@ public class StoreConfig {
         this.category = category;
         this.skipBefore = skipBefore;
         this.skipAfter = skipAfter;
-        this.catalogFilter=CatalogFilter.builder().blackList(blackList).build();
+        this.catalogFilter=CatalogFilter.fromList(blackList);
     }
 
     //a substring pattern of the quantity price line (sell by numbers of items)
