@@ -155,7 +155,7 @@ public class ReceiptServiceTest {
         verify(receiptResultRepositoryMock, times(0)).save(isA(ReceiptResult.class));
     }
 
-    //@Test
+    @Test
     public void getLatestReceiptParserResult_ShouldReturnNull_IfReceiptImageOCRIsEmpty() throws Exception {
 
         final List<ReceiptImage> images = Arrays.asList(image1, image3);
@@ -171,7 +171,7 @@ public class ReceiptServiceTest {
         verify(receiptResultRepositoryMock, times(0)).save(isA(ReceiptResult.class));
     }
 
-    //@Test
+    @Test
     public void getLatestReceiptParserResult_ShouldReturnNull_IfNoImage() throws Exception {
 
         final List<ReceiptImage> images = new ArrayList<>();

@@ -55,7 +55,7 @@ public class ReceiptService {
 
         log.debug("No receipt result yet for receipt {}, call parser to generate...", receipt.getId());
         final List<String> ocrTextList = loadOcrResults(receipt);
-        if (ocrTextList.size() == 0) {
+        if (ocrTextList == null || ocrTextList.size() == 0) {
             log.debug("Cannot load OCR result for receipt {}.", receipt.getId());
             return null;
         }
@@ -89,42 +89,22 @@ public class ReceiptService {
 
     }
 
-    public List<String> loadOcrResults(final Receipt receipt) {
+    private List<String> loadOcrResults(final Receipt receipt) {
         final List<String> ocrTextList = new ArrayList<>();
-        boolean ocrReady = true;
+        final List<ReceiptImage> images = receiptImageRepository.findByReceiptOrderByCreatedTime(receipt);
+        if (images.size() == 0) {
+            log.error("No images in database for receipt {}.", receipt.getId());
+            return null;
+        }
 
-        int counter = 0;
-        while (counter++ < 60) {
-            ocrTextList.clear();
-            ocrReady = true;
-
-            final List<ReceiptImage> images = receiptImageRepository.findByReceiptOrderByCreatedTime(receipt);
-            if (images.size() == 0) {
-                log.error("No images in database for receipt {}.", receipt.getId());
-                return ocrTextList;
-            }
-
-            for (final ReceiptImage image : images) {
-                if (StringUtils.hasText(image.getOcrResult())) {
-                    ocrTextList.add(image.getOcrResult());
-                } else {
-                    ocrReady = false;
-                    break;
-                }
-            }
-
-            if (ocrReady) {
-                log.info("After checking {} times, get ocr result for receipt.", counter);
-                return ocrTextList;
-            }
-
-            try {
-                Thread.sleep(1000);
-            } catch (Exception ex) {
-
+        for (final ReceiptImage image : images) {
+            if (StringUtils.hasText(image.getOcrResult())) {
+                ocrTextList.add(image.getOcrResult());
+            } else {
+                log.debug("No ocr result for receipt image.");
+                return null;
             }
         }
-        log.warn("After checking one minute, no ocr result for receipt.");
         return ocrTextList;
     }
 
