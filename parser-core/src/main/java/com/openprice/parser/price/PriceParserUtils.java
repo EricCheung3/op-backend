@@ -20,6 +20,7 @@ public class PriceParserUtils {
      * 057197 77953 ROOSTER RICE
      * into 05719777953 and ROOSTER RICE
      */
+    //TODO: this is not used yet.
     public static NumberName numberNameSplitter(final String str){
         String[] words=str.trim().split("\\s+");
         int boundary=-1;
