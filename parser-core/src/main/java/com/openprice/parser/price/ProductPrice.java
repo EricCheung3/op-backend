@@ -12,7 +12,7 @@ public class ProductPrice {
     String price=StringCommon.EMPTY;
     boolean productIsInCatalog=false; //from a matched product in catalog or not
 
-    private ProductPrice(final Product product, final String price){
+    public ProductPrice(final Product product, final String price){
         this.product=product;
         this.price=price;
     }
