@@ -6,7 +6,6 @@ import java.util.List;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Item;
-import com.openprice.parser.data.Product;
 
 /**
  * A very simple receipt parser to parse items from receipt lines.
@@ -31,9 +30,7 @@ public class GenericParser {
             }
 
             if (isItem(name))
-                items.add(Item.builder()
-                              .product(Product.fromNameOnly(name))
-                              .build());
+                items.add(Item.fromNameOnly(name));
         }
         return ParsedReceipt.builder().items(items).build();
     }
