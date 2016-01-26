@@ -74,8 +74,15 @@ public class Product {
     }
 
     public String toStringForCatalog(){
-        final String name=getName().replaceAll(ProductConstant.SPLITTER, StringCommon.EMPTY);
-        final String number=getNumber().replaceAll(ProductConstant.SPLITTER, StringCommon.EMPTY);
+        String name, number;
+        if(getName()==null)
+            name=StringCommon.EMPTY;
+        else
+            name=getName().replaceAll(ProductConstant.SPLITTER, StringCommon.EMPTY);
+        if(getNumber()==null)
+            number=StringCommon.EMPTY;
+        else
+            number=getNumber().replaceAll(ProductConstant.SPLITTER, StringCommon.EMPTY);
         return name + ProductConstant.SPLITTER + number;
     }
 
