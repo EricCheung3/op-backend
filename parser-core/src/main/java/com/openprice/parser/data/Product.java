@@ -16,9 +16,16 @@ import lombok.extern.slf4j.Slf4j;
 public class Product {
 
     private final String name;
-    private String number="";
+    private String number=StringCommon.EMPTY;
 
+    //catalog code splitter
+    private static final String CATALOG_CODE_SPLITTER="_";
+
+    //number of fields when splitting a string containing a product
     private static final int NUM_FIELDS = 2;
+
+    //splitter of name and number in receipt
+    private static final String SPLITTER_IN_RECEIPT=" ";
 
     private Product(String name){
         this.name=name;
@@ -70,9 +77,6 @@ public class Product {
         }
     }
 
-    //splitter of number and receipt in receipt
-    private static final String SPLITTER_IN_RECEIPT=" ";
-
     public String toStringNameFirst(){
         return name+SPLITTER_IN_RECEIPT+ number;
     }
@@ -91,7 +95,7 @@ public class Product {
         if (StringUtils.isEmpty(number)) {
             return name;
         }
-        return name+"_"+number;
+        return name + CATALOG_CODE_SPLITTER + number;
     }
 
 }
