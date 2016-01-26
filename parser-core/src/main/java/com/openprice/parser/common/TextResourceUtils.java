@@ -27,7 +27,7 @@ public class TextResourceUtils {
         }
 
     }
-    public static void loadFromTextResource(Resource resource, Consumer<String> lineConsumer) {
+    public static void loadFromTextResource(Resource resource, Consumer<String> lineConsumer) throws Exception{
         try (BufferedReader br = new BufferedReader(new InputStreamReader(resource.getInputStream()), 1024)) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -51,7 +51,7 @@ public class TextResourceUtils {
         }
     }
 
-    public static List<String> loadStringArray(Resource resource) {
+    public static List<String> loadStringArray(Resource resource) throws Exception{
         final List<String> result = new ArrayList<>();
         TextResourceUtils.loadFromTextResource(resource, (line)-> result.add(line));
         return result;
