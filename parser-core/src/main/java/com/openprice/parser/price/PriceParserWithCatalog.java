@@ -5,36 +5,32 @@ import java.util.Set;
 
 import com.openprice.parser.data.Product;
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  *  parse a receipt line with catalog to have product, and price
  *
  */
-@Value
-@Builder
+@Data
 @Slf4j
 public class PriceParserWithCatalog {
 
-    Set<Product> catalog;
-
     PriceParser priceParser;
 
+    Set<Product> catalog = new HashSet<Product>();
+
+    public PriceParserWithCatalog(final PriceParser parser, final Set<Product>  catalog){
+        this.priceParser=parser;
+        this.catalog=catalog;
+    }
+
     public static PriceParserWithCatalog withCatalog(final Set<Product> catalog){
-        return PriceParserWithCatalog.builder()
-                .catalog(catalog)
-                .priceParser(new PriceParserFromStringTuple())
-                .build();
+        return  new PriceParserWithCatalog(new PriceParserFromStringTuple(), catalog);
     }
 
     public static PriceParserWithCatalog emptyCatalog(){
-        return PriceParserWithCatalog
-                .builder()
-                .catalog(new HashSet<Product>())
-                .priceParser(new PriceParserFromStringTuple())
-                .build();
+        return PriceParserWithCatalog.withCatalog(new HashSet<Product>());
     }
 
     /**
