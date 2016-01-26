@@ -76,9 +76,9 @@ public class MatchedRecord {
     public int itemStopLineNumber() {
         Optional<ValueLine> stopLine =
                 Stream.of(ReceiptField.GstAmount, ReceiptField.Total, ReceiptField.SubTotal)
-                .map( field -> fieldToValueLine.get(field) )
-                .filter( value -> value != null )
-                .min( Comparator.comparing(ValueLine::getLine) );
+                      .map( field -> fieldToValueLine.get(field) )
+                      .filter( value -> value != null )
+                      .min( Comparator.comparing(ValueLine::getLine) );
         //the results will be contain lines in the footer--usually noisy
         if(!stopLine.isPresent())
             log.warn("no stop line (total, gst, subtotal) detected. results are likely noisy");
@@ -113,11 +113,10 @@ public class MatchedRecord {
 
     public void matchToBranch(final ReceiptData receipt, final StoreBranch storeBranch) {
         receipt.lines()
-        .filter( line -> line.getCleanText().length() > 2 )
-        .map( line -> storeBranch.maxFieldMatchScore(line) )
-        .filter( lineScore -> lineScore.getScore() > 0.5)
-        .forEach( lineScore -> putFieldLine(lineScore.getField(), lineScore.getReceiptLine().getNumber(), lineScore.getValue()));
-        ;
+               .filter( line -> line.getCleanText().length() > 2 )
+               .map( line -> storeBranch.maxFieldMatchScore(line) )
+               .filter( lineScore -> lineScore.getScore() > 0.5)
+               .forEach( lineScore -> putFieldLine(lineScore.getField(), lineScore.getReceiptLine().getNumber(), lineScore.getValue()));
         //
         //        System.out.println("After matchToBranch, parsed fields are :");
         //        for (ReceiptField field : fieldToValueLine.keySet()) {
@@ -138,12 +137,13 @@ public class MatchedRecord {
             }
 
             receipt.lines()
-            .filter( line -> line.getCleanText().length() > 1 )
-            .filter( line -> !isFieldLine(line.getNumber()) )
-            .filter(line -> !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer", config.similarityThresholdOfTwoStrings()))//otherwide this could match the total line
-            .filter( line -> {
+                   .filter( line -> line.getCleanText().length() > 1 )
+                   .filter( line -> !isFieldLine(line.getNumber()) )
+                   .filter(line -> !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer", config.similarityThresholdOfTwoStrings()))//otherwide this could match the total line
+                   .filter( line -> {
                 Optional<Double> maxScore =
-                        headerPatterns.stream()
+                        headerPatterns
+                        .stream()
                         .map( header -> StringCommon.matchStringToHeader(line.getCleanText(), header) )
                         .max( Comparator.comparing(score -> score) );
                 return maxScore.isPresent() && maxScore.get() > config.similarityThresholdOfTwoStrings();

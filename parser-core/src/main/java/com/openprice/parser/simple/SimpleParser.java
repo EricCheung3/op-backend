@@ -82,7 +82,8 @@ public class SimpleParser {
         // parse items
         List<Item> items = parseItem(matchedRecord, receipt, parser);
 
-        return ParsedReceipt.builder()
+        return ParsedReceipt
+                .builder()
                 .chain(chain)
                 .branch(branch)
                 .items(items)
@@ -97,19 +98,16 @@ public class SimpleParser {
 
         return
                 receipt.lines()
-                .filter( line -> !matchedRecord.isFieldLine(line.getNumber()))
-                .filter( line -> line.getNumber() < stopLine)
-                .filter( line ->
-                !ListCommon.matchList(parser.getStoreConfig().getSkipBefore(), line.getCleanText(), parser.getStoreConfig().similarityThresholdOfTwoStrings())
+                       .filter( line -> !matchedRecord.isFieldLine(line.getNumber()))
+                       .filter( line -> line.getNumber() < stopLine)
+                       .filter( line -> !ListCommon.matchList(parser.getStoreConfig().getSkipBefore(), line.getCleanText(),
+                                        parser.getStoreConfig().similarityThresholdOfTwoStrings()))
+                       .map( line -> parser.parseItemLine(line.getCleanText()))
+                       .filter( item -> item != null &&
+                                        !item.getProduct().getName().isEmpty() &&
+                                        !parser.getStoreConfig().getCatalogFilter().matchesBlackList(item.getProduct().getName())
                         )
-                .map( line -> parser.parseItemLine(line.getCleanText()))
-                .filter( item ->
-                item != null &&
-                !item.getProduct().getName().isEmpty() &&
-                !parser.getStoreConfig().getCatalogFilter().matchesBlackList(item.getProduct().getName())
-                        )
-                .collect(Collectors.toList())
-                ;
+                       .collect(Collectors.toList());
         // TODO stop if match skipAfter strings
     }
 
