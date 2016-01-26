@@ -32,8 +32,8 @@ public class GenericParser {
 
             if (isItem(name))
                 items.add(Item.builder()
-                        .product(Product.builder()
-                                .name(name).build()).build());
+                              .product(Product.fromNameOnly(name))
+                              .build());
         }
         return ParsedReceipt.builder().items(items).build();
     }

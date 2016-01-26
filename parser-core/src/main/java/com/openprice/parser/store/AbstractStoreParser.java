@@ -128,8 +128,8 @@ public abstract class AbstractStoreParser implements StoreParser {
     public Item parseItemLine(String lineString) {
         if (priceParserWithCatalog == null) {
             return Item.builder()
-                    .product(Product.builder()
-                            .name(lineString).build()).build();
+                       .product(Product.fromNameOnly(lineString))
+                       .build();
         }
         ProductPrice pPrice = priceParserWithCatalog.parsePriceLine(lineString);
         if (pPrice.isEmpty()) {
@@ -140,6 +140,4 @@ public abstract class AbstractStoreParser implements StoreParser {
                 .buyPrice(pPrice.getPrice())
                 .build();
     }
-
-
 }

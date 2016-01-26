@@ -24,7 +24,7 @@ public class Item {
     public static Item fromNameBuyPUnitPWeightCategory(final String name, final String buyPrice,
             final String unitPrice, final String weight, final String category) {
         return Item.builder()
-                .product(Product.builder().name(name).number(StringCommon.EMPTY).build())
+                .product(Product.fromNameOnly(name))
                 .buyPrice(buyPrice)
                 .unitPrice(unitPrice)
                 .weight(weight)

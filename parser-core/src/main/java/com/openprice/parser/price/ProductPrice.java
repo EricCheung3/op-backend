@@ -35,10 +35,7 @@ public class ProductPrice {
             }
         }
 
-        final Product product=Product.builder()
-                .name(itemName.trim())
-                .number(itemNumber.trim())
-                .build();
+        final Product product=Product.fromNameNumber(itemName.trim(), itemNumber.trim());
         try{
             return ProductPrice.builder()
                     .product(product)
