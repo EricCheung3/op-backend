@@ -117,7 +117,7 @@ public class ReceiptServiceTest {
         final StoreChain chain = StoreChain.builder().code("rcss").build();
         final StoreBranch branch = StoreBranch.builder().branchName("Calgary Trail").build();
         final Map<ReceiptField, ValueLine> fieldToValueLine = new HashMap<ReceiptField, ValueLine>();
-        fieldToValueLine.put(ReceiptField.Total, ValueLine.builder().line(-1).value("15.00").build());
+        fieldToValueLine.put(ReceiptField.Total, new ValueLine("15.00", -1));
         final ParsedReceipt receiptDebug = ParsedReceipt.builder()
                                                         .chain(chain)
                                                         .branch(branch)

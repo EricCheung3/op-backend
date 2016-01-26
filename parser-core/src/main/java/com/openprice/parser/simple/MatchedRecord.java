@@ -105,7 +105,7 @@ public class MatchedRecord {
      */
     public void putFieldLine(final ReceiptField fName, final int lineNumber, final String value) {
         putFieldLine(fName, lineNumber);
-        fieldToValueLine.put(fName,  ValueLine.builder().line(lineNumber).value(value).build());
+        fieldToValueLine.put(fName,  new ValueLine(value, lineNumber));
     }
     public void putFieldLine(final ReceiptField fName, final ValueLine valueLine) {
         putFieldLine(fName, valueLine.getLine(), valueLine.getValue());
