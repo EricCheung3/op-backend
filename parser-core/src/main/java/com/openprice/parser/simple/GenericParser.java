@@ -33,7 +33,7 @@ public class GenericParser {
             if (isItem(name))
                 items.add(Item.fromNameOnly(name));
         }
-        return ParsedReceipt.builder().items(items).build();
+        return ParsedReceipt.fromChainItemsMapBranch(chain, items, map, branch) ParsedReceipt.builder().items(items).build();
     }
 
     public static boolean isItem(final String name) {

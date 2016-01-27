@@ -31,7 +31,12 @@ public class StoreChain {
        return new StoreChain(code, selector);
     }
 
-    private StoreChain(final String code,
+    public static StoreChain genericStoreChain(final String code){
+        return fromCodeAndParserSelector(code, new DummySelector());
+    }
+
+    private StoreChain(
+            final String code,
             final StoreParserSelector selector,
             final List<String> categories,
             final List<String> identifyFields,
@@ -43,7 +48,8 @@ public class StoreChain {
         this.branches=branches;
     }
 
-    public static StoreChain fromCodeSelectorCategoriesFieldsBranches(final String code,
+    public static StoreChain fromCodeSelectorCategoriesFieldsBranches(
+            final String code,
             final StoreParserSelector selector,
             final List<String> categories,
             final List<String> identifyFields,

@@ -22,7 +22,16 @@ public class StoreConfig {
     @Getter
     private final CatalogFilter catalogFilter;
 
-    public StoreConfig(final Properties prop,
+    public static StoreConfig fromPropCategorySkipBeforeAfterBlack(
+            final Properties prop,
+            final List<String> category,
+            final List<String> skipBefore,
+            final List<String> skipAfter,
+            final List<String> blackList){
+        return new StoreConfig(prop, category, skipBefore, skipAfter, blackList);
+    }
+
+    private StoreConfig(final Properties prop,
             final List<String> category,
             final List<String> skipBefore,
             final List<String> skipAfter,

@@ -25,6 +25,9 @@ import lombok.extern.slf4j.Slf4j;
 public class ChainRegistry {
     private static final double CHAIN_IDENTIFY_MATCH_THRESHOLD = 0.8;
 
+  //this is should be consistent with the name of generic store in parser-stores
+    private static final String GENERIC_CHAIN_CODE="Generic";
+
     @Getter
     private final List<StoreChain> storeChains = Collections.synchronizedList(new ArrayList<>());
 
