@@ -81,15 +81,12 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         TextResourceUtils.loadFromTextResource(getStoreConfigResource(BRANCH_FILE_NAME),
                 (line)-> branches.add(StoreBranch.fromString(line, baseConfig.getProperty("Slogan")))); // FIXME why slogan?
 
-        chain =
-                StoreChain
-                .builder()
-                .code(getParserBaseCode().toLowerCase()) // TODO maybe use lower case in all places?
-                .categories(TextResourceUtils.loadStringArray(getStoreConfigResource(CATEGORY_FILE_NAME)))
-                .identifyFields(TextResourceUtils.loadStringArray(getStoreConfigResource(IDENTIFY_FIELD_FILE_NAME)))
-                .branches(branches)
-                .selector(this)
-                .build();
+        chain = StoreChain.fromCodeSelectorCategoriesFieldsBranches(
+                        getParserBaseCode().toLowerCase(), // TODO maybe use lower case in all places?
+                        this,
+                        TextResourceUtils.loadStringArray(getStoreConfigResource(CATEGORY_FILE_NAME)),
+                        TextResourceUtils.loadStringArray(getStoreConfigResource(IDENTIFY_FIELD_FILE_NAME)),
+                        branches);
         chainRegistry.addChain(chain);
     }
 

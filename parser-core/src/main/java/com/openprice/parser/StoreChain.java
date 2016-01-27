@@ -1,12 +1,12 @@
 package com.openprice.parser;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
 import com.openprice.parser.data.ScoreWithMatchPair;
 
-import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -14,13 +14,42 @@ import lombok.Data;
  *
  */
 @Data
-@Builder
 public class StoreChain {
-    private final String code;
-    private final List<String> categories;
-    private final List<String> identifyFields;
-    private final List<StoreBranch> branches;
-    private final StoreParserSelector selector;
+    final String code;
+    final StoreParserSelector selector;
+
+    List<String> categories=new ArrayList<String>();
+    List<String> identifyFields=new ArrayList<String>();
+    List<StoreBranch> branches=new ArrayList<StoreBranch>();
+
+    private StoreChain(final String code, final StoreParserSelector selector){
+        this.code=code;
+        this.selector=selector;
+    }
+
+    public static StoreChain fromCodeAndParserSelector(final String code, final StoreParserSelector selector){
+       return new StoreChain(code, selector);
+    }
+
+    private StoreChain(final String code,
+            final StoreParserSelector selector,
+            final List<String> categories,
+            final List<String> identifyFields,
+            final List<StoreBranch> branches) {
+        this.code=code;
+        this.selector=selector;
+        this.categories=categories;
+        this.identifyFields=identifyFields;
+        this.branches=branches;
+    }
+
+    public static StoreChain fromCodeSelectorCategoriesFieldsBranches(final String code,
+            final StoreParserSelector selector,
+            final List<String> categories,
+            final List<String> identifyFields,
+            final List<StoreBranch> branches){
+        return new StoreChain(code, selector, categories, identifyFields, branches);
+    }
 
     public StoreBranch matchBranchByScoreSum(final ReceiptData receipt) {
         Optional<ScoreWithMatchPair<StoreBranch>> maxBranchMatch =
