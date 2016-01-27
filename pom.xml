@@ -59,8 +59,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <docker.image.prefix>opgt</docker.image.prefix>
 
-        <hibernate.version>5.0.3.Final</hibernate.version>
-        <handy-uri-templates.version>2.1.0</handy-uri-templates.version>
+        <hibernate.version>5.0.7.Final</hibernate.version>
+        <handy-uri-templates.version>2.1.3</handy-uri-templates.version>
         <jjwt.version>0.6.0</jjwt.version>
         <google-jimfs.version>1.0</google-jimfs.version>
         <evo-inflector.version>1.2.1</evo-inflector.version>
