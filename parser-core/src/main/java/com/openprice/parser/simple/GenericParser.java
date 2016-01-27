@@ -8,9 +8,10 @@ import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Item;
 
 /**
- * A very simple receipt parser to parse items from receipt lines.
- * Stop when reached "Total" or "Subtotal" line.
- *
+ * A generic receipt parser to parse items from receipt lines.
+ * 1. Stop when reached "Total" or "Subtotal" line.
+ * 2. It should detect Date, Total/subtotal/Gst, phone, address
+ * 3. it should be able parse item and prices
  */
 public class GenericParser {
 
