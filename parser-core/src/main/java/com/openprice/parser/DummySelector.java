@@ -8,6 +8,10 @@ import com.openprice.parser.data.Product;
 import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.parser.simple.Generic1;
 
+
+/**
+ * Dummy in the sense that it should never be used for data operations.
+ */
 public class DummySelector implements StoreParserSelector{
 
     @Override

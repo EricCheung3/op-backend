@@ -145,7 +145,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         blackList.addAll(skipAfter);
         blackList.addAll(notations);
 
-        return new StoreConfig(
+        return StoreConfig.fromPropCategorySkipBeforeAfterBlack(
                 configProp,
                 category,
                 skipBefore,

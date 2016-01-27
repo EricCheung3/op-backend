@@ -51,8 +51,9 @@ public class SimpleParser {
         final StoreChain chain = chainRegistry.findBestMatchedChain(receipt);
         if (chain == null) {
             log.warn("Cannot find matching store chain!");
+            final StoreChain genericChain=;
 //            final GenericParser parser = new GenericParser();
-            return Generic1.parse(receipt);
+            return Generic1.parse(genericChain, receipt);
         }
         log.info("Parse receipt and find matcing chain {}", chain.getCode());
 
@@ -85,7 +86,10 @@ public class SimpleParser {
         return ParsedReceipt.fromChainItemsMapBranch(chain, items, matchedRecord.getFieldToValueLine(), branch);
     }
 
-    private List<Item> parseItem(final MatchedRecord matchedRecord, final ReceiptData receipt, final StoreParser parser) throws Exception {
+    public static List<Item> parseItem(
+            final MatchedRecord matchedRecord,
+            final ReceiptData receipt,
+            final StoreParser parser) throws Exception {
         final int stopLine = Math.min(matchedRecord.itemStopLineNumber(), receipt.getReceiptLines().size());
         log.debug("black list size is "+parser.getStoreConfig().getCatalogFilter().getBlackList().size());
         //        parser.getStoreConfig().getCatalogFilter().getBlackList().forEach(line->log.debug(line+"\n"));

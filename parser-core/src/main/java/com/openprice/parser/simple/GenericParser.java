@@ -1,11 +1,16 @@
 package com.openprice.parser.simple;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.StoreBranch;
+import com.openprice.parser.StoreChain;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Item;
+import com.openprice.parser.data.ReceiptField;
+import com.openprice.parser.data.ValueLine;
 
 /**
  * A generic receipt parser to parse items from receipt lines.
@@ -33,7 +38,11 @@ public class GenericParser {
             if (isItem(name))
                 items.add(Item.fromNameOnly(name));
         }
-        return ParsedReceipt.fromChainItemsMapBranch(chain, items, map, branch) ParsedReceipt.builder().items(items).build();
+        return ParsedReceipt.fromChainItemsMapBranch(
+                StoreChain.genericStoreChain(StringCommon.EMPTY),
+                items,
+                new HashMap<ReceiptField, ValueLine>(),
+                StoreBranch.EmptyStoreBranch());
     }
 
     public static boolean isItem(final String name) {

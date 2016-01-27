@@ -8,6 +8,8 @@ import java.util.Properties;
 
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptData;
+import com.openprice.parser.StoreBranch;
+import com.openprice.parser.StoreChain;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.common.DateParserUtils;
@@ -60,7 +62,8 @@ public class Generic1 extends AbstractStoreParser {
         return new Generic1(config, PriceParserWithCatalog.withCatalog(new HashSet<Product>()));
     }
 
-    public static ParsedReceipt parse(final ReceiptData receipt){
+    public static ParsedReceipt parse(final StoreChain genericChain, final ReceiptData receipt)
+        throws Exception{
         final Generic1 generic=selectParser(receipt);
         // match fields
         final MatchedRecord matchedRecord = new MatchedRecord();
@@ -75,9 +78,9 @@ public class Generic1 extends AbstractStoreParser {
         }
 
         // parse items
-        List<Item> items = parseItem(matchedRecord, receipt, generic);
+        List<Item> items = SimpleParser.parseItem(matchedRecord, receipt, generic);
 
-        return ParsedReceipt.fromChainItemsMapBranch(chain, items, matchedRecord.getFieldToValueLine(), branch);
+        return ParsedReceipt.fromChainItemsMapBranch(genericChain, items, matchedRecord.getFieldToValueLine(), StoreBranch.EmptyStoreBranch());
     }
 
 
