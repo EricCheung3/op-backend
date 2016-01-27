@@ -1,12 +1,15 @@
-package com.openprice.parser;
+package com.openprice.parser.generic;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Properties;
 
+import com.openprice.parser.ReceiptData;
+import com.openprice.parser.StoreConfig;
+import com.openprice.parser.StoreParser;
+import com.openprice.parser.StoreParserSelector;
 import com.openprice.parser.data.Product;
 import com.openprice.parser.price.PriceParserWithCatalog;
-import com.openprice.parser.simple.Generic1;
 
 
 /**

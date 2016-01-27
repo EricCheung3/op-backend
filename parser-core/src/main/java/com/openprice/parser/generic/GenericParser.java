@@ -1,4 +1,4 @@
-package com.openprice.parser.simple;
+package com.openprice.parser.generic;
 
 import java.util.ArrayList;
 import java.util.HashMap;

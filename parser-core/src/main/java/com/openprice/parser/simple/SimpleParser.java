@@ -19,6 +19,7 @@ import com.openprice.parser.common.ListCommon;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
+import com.openprice.parser.generic.Generic1;
 
 import lombok.extern.slf4j.Slf4j;
 

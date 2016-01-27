@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.openprice.parser.data.ScoreWithMatchPair;
+import com.openprice.parser.generic.DummySelector;
 
 import lombok.Data;
 
@@ -65,5 +66,4 @@ public class StoreChain {
                     ;
         return maxBranchMatch.isPresent()? maxBranchMatch.get().getMatch() : null;
     }
-
 }

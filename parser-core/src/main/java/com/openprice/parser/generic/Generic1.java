@@ -1,4 +1,4 @@
-package com.openprice.parser.simple;
+package com.openprice.parser.generic;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +19,8 @@ import com.openprice.parser.data.Product;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.price.PriceParserWithCatalog;
+import com.openprice.parser.simple.MatchedRecord;
+import com.openprice.parser.simple.SimpleParser;
 import com.openprice.parser.store.AbstractStoreParser;
 import com.openprice.parser.store.ConfigFiles;
 
