@@ -20,8 +20,7 @@ public class Item {
     String regPrice=StringCommon.EMPTY;//regular price
     String saving=StringCommon.EMPTY;//savings
 
-    private Item(final Product product, final String buy, final String unitP, final String weight,
-            final String category, final String regP, final String saving){
+    private Item(final Product product, final String buy, final String unitP, final String weight, final String category, final String regP, final String saving){
         this.product=product;
         this.buyPrice=buy;
         this.unitPrice=unitP;
@@ -52,10 +51,8 @@ public class Item {
         return new Item(pp.getProduct(), pp.getPrice());
     }
 
-    public static Item fromNameBuyPUnitPWeightCategory(final String name, final String buyPrice,
-            final String unitPrice, final String weight, final String category) {
-        return new Item(Product.fromNameOnly(name), buyPrice, unitPrice,
-                weight, category, StringCommon.EMPTY, StringCommon.EMPTY);
+    public static Item fromNameBuyPUnitPWeightCategory(final String name, final String buyPrice, final String unitPrice, final String weight, final String category) {
+        return new Item(Product.fromNameOnly(name), buyPrice, unitPrice, weight, category, StringCommon.EMPTY, StringCommon.EMPTY);
     }
 }
 

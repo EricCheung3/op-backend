@@ -125,13 +125,13 @@ public abstract class AbstractStoreParser implements StoreParser {
 
     @Override
     public Item parseItemLine(String lineString) {
-        if (priceParserWithCatalog == null) {
+        if (priceParserWithCatalog == null)
             return Item.fromNameOnly(lineString);
-        }
+
         ProductPrice pPrice = priceParserWithCatalog.parsePriceLine(lineString);
-        if (pPrice.isEmpty()) {
+        if (pPrice.isEmpty())
             return Item.emptyItem();
-        }
+
         return Item.fromProductPrice(pPrice);
     }
 }
