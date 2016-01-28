@@ -21,7 +21,6 @@ import com.openprice.parser.store.rcss.RCSSSelector;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 public class RCSSSelectorTest extends ParserSelectorIntegrationTest{
@@ -53,7 +52,6 @@ public class RCSSSelectorTest extends ParserSelectorIntegrationTest{
         final StoreConfig config=parser.getStoreConfig();
         assertNotNull(config);
     }
-
 
     @Test
     public void storeConfigBlackListIsNotEmpty() throws Exception{

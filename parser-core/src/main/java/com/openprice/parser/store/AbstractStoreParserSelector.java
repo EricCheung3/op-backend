@@ -44,7 +44,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     @Override
     public void afterPropertiesSet() throws Exception {
         try {
-            baseConfig.load(getStoreConfigResource(ConfigFiles.CONFIG_PROPERTY_FILE_NAME));
+            baseConfig.load(getChainResource(ConfigFiles.CONFIG_PROPERTY_FILE_NAME));
         } catch (IOException ex) {
             log.warn("Cannot load config.properties for RCSS store chain!");
         }
@@ -56,15 +56,15 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     private void registerStoreChainFromStoreConfig() throws Exception{
         // load branch
         List<StoreBranch> branches = new ArrayList<>();
-        TextResourceUtils.loadFromInputStream(getStoreConfigResource(ConfigFiles.BRANCH_FILE_NAME),
+        TextResourceUtils.loadFromInputStream(getChainResource(ConfigFiles.BRANCH_FILE_NAME),
                 line ->
                     branches.add(StoreBranch.fromString(line, baseConfig.getProperty("Slogan")))); // FIXME why slogan?
 
         chain = StoreChain.fromCodeSelectorCategoriesFieldsBranches(
                         getParserBaseCode().toLowerCase(), // TODO maybe use lower case in all places?
                         this,
-                        TextResourceUtils.loadStringArray(getStoreConfigResource(ConfigFiles.CATEGORY_FILE_NAME)),
-                        TextResourceUtils.loadStringArray(getStoreConfigResource(ConfigFiles.IDENTIFY_FIELD_FILE_NAME)),
+                        TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.CATEGORY_FILE_NAME)),
+                        TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.IDENTIFY_FIELD_FILE_NAME)),
                         branches);
         chainRegistry.addChain(chain);
     }
@@ -80,21 +80,25 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
      */
     protected abstract void generateParser();
 
-    protected InputStream getParserConfigResource(final String parserName, final String filename) {
+    private InputStream getChainParserResource(final String parserName, final String filename) {
         return AbstractStoreParserSelector.class.getResourceAsStream(ConfigFiles.getFileUnderChainParser(getParserBaseCode(), parserName, filename));
+    }
+
+    private InputStream getChainResource(final String filename) {
+        return AbstractStoreParserSelector.class.getResourceAsStream(ConfigFiles.getFileUnderChain(getParserBaseCode(), filename));
     }
 
     protected StoreConfig loadParserConfig(final String parserName) {
         Properties configProp = new Properties(baseConfig);
         try {
-            configProp.load(getParserConfigResource(parserName, ConfigFiles.HEADER_CONFIG_FILE_NAME));
+            configProp.load(getChainParserResource(parserName, ConfigFiles.HEADER_CONFIG_FILE_NAME));
         } catch (IOException ex) {
             log.error("Cannot load headerConfig.properties for store parser {}!", parserName);
         }
 
         List<String> category=null;
         try{
-            category=TextResourceUtils.loadStringArray(getStoreConfigResource(ConfigFiles.CATEGORY_FILE_NAME));
+            category=TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.CATEGORY_FILE_NAME));
         }catch(Exception e){
             log.warn("cannot load "+ConfigFiles.CATEGORY_FILE_NAME);
             category=new ArrayList<String>();
@@ -102,7 +106,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
 
         List<String> skipBefore=null;
         try{
-            skipBefore=TextResourceUtils.loadStringArray(getParserConfigResource(parserName, ConfigFiles.SKIP_BEFORE_FILE_NAME));
+            skipBefore=TextResourceUtils.loadStringArray(getChainParserResource(parserName, ConfigFiles.SKIP_BEFORE_FILE_NAME));
         }catch(Exception e){
             log.warn("cannot load "+ConfigFiles.SKIP_BEFORE_FILE_NAME);
             skipBefore=new ArrayList<String>();
@@ -110,7 +114,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
 
         List<String> skipAfter=null;
         try{
-            skipAfter=TextResourceUtils.loadStringArray(getParserConfigResource(parserName, ConfigFiles.SKIP_AFTER_FILE_NAME));
+            skipAfter=TextResourceUtils.loadStringArray(getChainParserResource(parserName, ConfigFiles.SKIP_AFTER_FILE_NAME));
         }catch(Exception e){
             log.warn("cannot load "+ConfigFiles.SKIP_AFTER_FILE_NAME);
             skipAfter=new ArrayList<String>();
@@ -118,7 +122,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
 
         List<String> notations=null;
         try{
-            notations=TextResourceUtils.loadStringArray(getParserConfigResource(parserName, ConfigFiles.CATALOG_NOTATION_FILE_NAME));
+            notations=TextResourceUtils.loadStringArray(getChainParserResource(parserName, ConfigFiles.CATALOG_NOTATION_FILE_NAME));
         }catch(Exception e){
             log.warn("cannot load "+ConfigFiles.CATALOG_NOTATION_FILE_NAME);
             notations=new ArrayList<String>();
@@ -126,7 +130,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
 
         List<String> blackList=null;
         try{
-            blackList=TextResourceUtils.loadStringArray(getStoreConfigResource(ConfigFiles.CATALOG_BLACK_LIST_FILE_NAME));
+            blackList=TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.CATALOG_BLACK_LIST_FILE_NAME));
         }catch(Exception e){
             log.warn("cannot load "+ConfigFiles.CATALOG_BLACK_LIST_FILE_NAME);
             blackList=new ArrayList<String>();
@@ -147,10 +151,6 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
                 );
     }
 
-    private InputStream getStoreConfigResource(final String filename) {
-        return AbstractStoreParserSelector.class.getResourceAsStream(ConfigFiles.getFileUnderChain(getParserBaseCode(), filename));
-    }
-
     /**
      * generate a parser with catalog
      * @return a parser with a catalog if the corresponding file is read in successfully; otherwise return an empty catalog
@@ -158,7 +158,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     protected PriceParserWithCatalog loadPriceParserWithCatalog() {
         final Set<Product> catalog=new HashSet<Product>();
         try{
-            TextResourceUtils.loadFromInputStream(getStoreConfigResource(ConfigFiles.CATALOG_FILE_NAME),
+            TextResourceUtils.loadFromInputStream(getChainResource(ConfigFiles.CATALOG_FILE_NAME),
                 line -> {
                     if (!StringUtils.isEmpty(line)) {
                         catalog.add(Product.fromString(line));
