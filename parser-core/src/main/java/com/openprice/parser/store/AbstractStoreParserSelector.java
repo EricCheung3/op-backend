@@ -43,7 +43,6 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        // load base config
         try {
             baseConfig.load(getStoreConfigResource(ConfigFiles.CONFIG_PROPERTY_FILE_NAME));
         } catch (IOException ex) {
