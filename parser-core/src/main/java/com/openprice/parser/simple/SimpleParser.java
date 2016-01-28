@@ -55,7 +55,6 @@ public class SimpleParser {
             log.warn("Cannot find matching store chain!");
             final GenericChains chains=new GenericChains("/config/chain.list");
             final String genericChainCode=chains.findChain(receipt.getOriginalLines());
-//            final GenericParser parser = new GenericParser();
             return Generic1.parse(StoreChain.genericStoreChain(genericChainCode), receipt);
         }
         log.info("Parse receipt and find matcing chain {}", chain.getCode());

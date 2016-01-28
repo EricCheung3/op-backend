@@ -25,9 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 public class ChainRegistry {
     private static final double CHAIN_IDENTIFY_MATCH_THRESHOLD = 0.8;
 
-  //this is should be consistent with the name of generic store in parser-stores
-    private static final String GENERIC_CHAIN_CODE="Generic";
-
     @Getter
     private final List<StoreChain> storeChains = Collections.synchronizedList(new ArrayList<>());
 
@@ -39,8 +36,8 @@ public class ChainRegistry {
         final List<ReceiptLine> lines = receipt.getTopBottomChainMatchingLines();
         //log.debug("TopBottom matching lines:\n"+lines);
         //log.debug("search chains in registry with "+storeChains);
-        log.debug("storeChain lists.size="+storeChains.size()+":");
-        storeChains.forEach(c -> log.debug(c.getCode()));
+        log.warn("storeChain lists.size="+storeChains.size()+":");
+        storeChains.forEach(c -> log.warn(c.getCode()));
 
         final Optional<ScoreWithMatchPair<StoreChain>> maxChainMatch =
                 storeChains

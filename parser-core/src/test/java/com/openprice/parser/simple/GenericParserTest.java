@@ -21,7 +21,7 @@ import com.openprice.parser.common.TextResourceUtils;
 @SpringApplicationConfiguration(classes = {StoreParserTestApplication.class})
 public class GenericParserTest {
     @Value("classpath:/testFiles/unknown/2015_02_09_11_34_51.jpg.hengshuai.txt")
-    private Resource sampleReceipt;
+    private Resource edoJapan1;
 
     @Inject
     SimpleParser simpleParser;
@@ -29,7 +29,7 @@ public class GenericParserTest {
     @Test
     public void testUnknown_EdoJapan() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(sampleReceipt, (line)-> receiptLines.add(line));
+        TextResourceUtils.loadFromTextResource(edoJapan1, (line)-> receiptLines.add(line));
 
         assertTrue(receiptLines.size() > 0);
 
