@@ -118,7 +118,7 @@ public class GenericChains {
   public static ChainLine matchedIdentityName(final String chainLine, final String receiptLine) throws Exception{
       String[] chainLineFields = chainLine.split(CHAINLINE_SPLITTER);
       if(chainLineFields.length != 4)
-          throw new Exception("chainLineFields should have 4 fields");
+          throw new Exception("chainLineFields should have 4 fields, but it's "+chainLineFields.length);
 
       String[] names = chainLineFields[1].trim().split(SECONDLEVEL_SPLITTER);
       double maxScore = -1, score = 0;

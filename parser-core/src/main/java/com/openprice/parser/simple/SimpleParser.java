@@ -53,7 +53,7 @@ public class SimpleParser {
         final StoreChain chain = chainRegistry.findBestMatchedChain(receipt);
         if (chain == null) {
             log.warn("Cannot find matching store chain!");
-            final GenericChains chains=new GenericChains("/config/chain.list");
+            final GenericChains chains=new GenericChains("/config/Generic/chain.list");
             final String genericChainCode=chains.findChain(receipt.getOriginalLines());
             return Generic1.parse(StoreChain.genericStoreChain(genericChainCode), receipt);
         }
