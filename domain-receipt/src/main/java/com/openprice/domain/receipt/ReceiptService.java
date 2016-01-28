@@ -41,10 +41,9 @@ public class ReceiptService {
 
     /**
      * Return latest parser result of ReceiptResult object for the receipt in the database.
-     * If no parser result yet, try to query ocr result for all receipt images and call Simple Parser.
      *
      * @param receipt
-     * @return null if no parser result after waiting 1 mins
+     * @return null if no parser result in database, which means images are still under processing, or error
      */
     public ReceiptResult getLatestReceiptResult(final Receipt receipt) {
         final ReceiptResult result = receiptResultRepository.findFirstByReceiptOrderByCreatedTimeDesc(receipt);
@@ -60,10 +59,10 @@ public class ReceiptService {
             return null;
         }
 
-        return parseOcrResults(receipt, ocrTextList);
+        return parseOcrAndSaveResults(receipt, ocrTextList);
     }
 
-    public ReceiptResult parseOcrResults(final Receipt receipt, final List<String> ocrTextList) {
+    public ReceiptResult parseOcrAndSaveResults(final Receipt receipt, final List<String> ocrTextList) {
         try {
             final ParsedReceipt parsedReceipt = simpleParser.parseOCRResults(ocrTextList);
             if (parsedReceipt != null) {

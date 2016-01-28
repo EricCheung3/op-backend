@@ -132,8 +132,8 @@ public class ReceiptUploadService {
      * @return
      */
     public ReceiptImage hackloadImageFileAndOcrResultForNewReceipt(final UserAccount user,
-                                                              final MultipartFile image,
-                                                              final MultipartFile ocr) {
+                                                                   final MultipartFile image,
+                                                                   final MultipartFile ocr) {
         byte[] content = null;
         try {
             content = image.getBytes();
@@ -172,7 +172,7 @@ public class ReceiptUploadService {
             receiptImage.setOcrResult(ocrText);
             receiptImage.setStatus(ProcessStatusType.SCANNED);
             receiptImageRepository.save(receiptImage);
-            receiptService.parseOcrResults(receipt, Arrays.asList(ocrText));
+            receiptService.parseOcrAndSaveResults(receipt, Arrays.asList(ocrText));
             log.info("Hackloaded OCR result into receipt {} and parsed the result.", receipt.getId());
         } catch (IOException ex) {
             log.error("No content of OCR result to save!");

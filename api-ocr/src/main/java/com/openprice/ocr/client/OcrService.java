@@ -21,7 +21,7 @@ public class OcrService extends AbstractService {
          try{
              return restTemplate.postForObject(getOcrServiceUrl(), request, ImageProcessResult.class);
          } catch (Exception ex) {
-             log.error("Got error while call OCR RESTful API", ex);
+             log.error("SEVERE: Got error while call OCR RESTful API", ex);
              return new ImageProcessResult(false, null, "Error while call OCR API "+ex.getMessage());
          }
     }

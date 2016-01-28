@@ -25,7 +25,10 @@ public class StaticResultImageProcessorTest extends AbstractProcessorTest {
 
     @Before
     public void setup() throws Exception {
-        processorToTest = new StaticResultImageProcessor(fileSystemService, processLogRepositoryMock, receiptImageRepositoryMock);
+        processorToTest = new StaticResultImageProcessor(fileSystemService,
+                                                         processLogRepositoryMock,
+                                                         receiptImageRepositoryMock,
+                                                         0);
     }
 
     @Test

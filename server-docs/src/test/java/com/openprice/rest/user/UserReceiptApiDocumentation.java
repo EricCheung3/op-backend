@@ -20,6 +20,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -383,6 +384,8 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
             image.setOcrResult(ocrResult);
             receiptImageRepository.save(image);
         }
+        // trigger parser
+        receiptService.parseOcrAndSaveResults(receipt, Arrays.asList(ocrResult));
     }
 
     protected void deleteReceipts() throws Exception {

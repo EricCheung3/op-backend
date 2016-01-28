@@ -64,7 +64,8 @@ public class ProcessQueueService {
         } else {
             final ImageProcessor p = new StaticResultImageProcessor(fileSystemService,
                                                                     processLogRepository,
-                                                                    receiptImageRepository);
+                                                                    receiptImageRepository,
+                                                                    processSettings.getWaitSeconds());
             final ProcessQueueConsumer consumer = new ProcessQueueConsumer(queue, p);
             consumers.add(consumer);
             new Thread(consumer).start();

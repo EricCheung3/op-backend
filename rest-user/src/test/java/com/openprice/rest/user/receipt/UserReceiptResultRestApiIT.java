@@ -58,7 +58,7 @@ public class UserReceiptResultRestApiIT extends AbstractUserRestApiIntegrationTe
         ;
     }
 
-    @Test
+    //@Test
     public void getUserReceiptResult_ShouldGenerateReceiptResultThroughParser_IfNotExist() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 

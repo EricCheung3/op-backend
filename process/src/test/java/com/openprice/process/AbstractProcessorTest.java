@@ -1,5 +1,12 @@
 package com.openprice.process;
 
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+
 import org.mockito.Mock;
 
 import com.openprice.domain.account.user.UserAccount;
@@ -12,6 +19,7 @@ import com.openprice.file.FileSystemService;
 
 public abstract class AbstractProcessorTest {
     protected final String IMAGE_ID = "image001";
+    protected static final String TEST_CONTENT = "test";
     protected final String TEST_USERNAME = "tester@openprice,com";
     protected final String TEST_USER_ID = "user001";
     protected final String TEST_FILENAME = "2015_09_09_12_30_10_001.jpg";
@@ -37,6 +45,15 @@ public abstract class AbstractProcessorTest {
                                                .receipt(receipt)
                                                .fileName(TEST_FILENAME)
                                                .build();
+
+        final Path imageFile = fileSystemService.getReceiptImageSubFolder(TEST_USER_ID).resolve(image.getFileName());
+        try (final OutputStream out = new BufferedOutputStream(Files.newOutputStream(imageFile, StandardOpenOption.CREATE_NEW)))
+        {
+            out.write(TEST_CONTENT.getBytes());
+        } catch (IOException ex) {
+            throw new RuntimeException("System Error! Cannot save image.", ex);
+        }
+
         return image;
     }
 

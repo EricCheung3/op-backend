@@ -1,5 +1,8 @@
 package com.openprice.process;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import javax.transaction.Transactional;
 
 import com.openprice.domain.receipt.OcrProcessLog;
@@ -34,6 +37,26 @@ public abstract class AbstractImageProcessor implements ImageProcessor {
     public String getName() {
         return name;
     }
+
+    @Override
+    public void processImage(ProcessItem item) {
+        final long start = System.currentTimeMillis();
+        final Path imageFile = fileSystemService.getReceiptImageFolder().resolve(getImageFilePath(item));
+
+        if (Files.notExists(imageFile)) {
+            log.error("Cannot open image file {}, please check file system.", imageFile.toString());
+            throw new RuntimeException("Image file not exist: " + imageFile.toString());
+        }
+        log.debug("Start processing image {} saved at {} by calling Cloud OCR SDK...",
+                item.getImageId(), imageFile.toString());
+        final ImageProcessResult result = getImageProcessResult(imageFile.toString());
+        final long duration = System.currentTimeMillis() - start;
+        log.info("Finish processing image {} with cloud SDK, took {} milli-seconds.",
+                item.getImageId(), duration);
+        saveProcessResult(item, result, start, duration);
+    }
+
+    protected abstract ImageProcessResult getImageProcessResult(String filePath);
 
     @Transactional(value = Transactional.TxType.REQUIRES_NEW)
     protected String getImageFilePath(final ProcessItem item) {
@@ -73,6 +96,8 @@ public abstract class AbstractImageProcessor implements ImageProcessor {
         }
         ocrProcessLogRepository.save(processLog);
         receiptImageRepository.save(image);
+
+        // check if all images are OCRed, call parser
     }
 
 }

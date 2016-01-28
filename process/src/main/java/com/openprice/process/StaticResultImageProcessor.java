@@ -22,14 +22,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StaticResultImageProcessor extends AbstractImageProcessor {
 
-    static final String OCR_RESULT_FILE_PATH = "ocrResult.txt";
+    private static final String OCR_RESULT_FILE_PATH = "ocrResult.txt";
 
     private final String staticResult;
 
+    private final int waitSeconds;
+
     public StaticResultImageProcessor(final FileSystemService fileSystemService,
                                       final OcrProcessLogRepository ocrProcessLogRepository,
-                                      final ReceiptImageRepository receiptImageRepository) {
+                                      final ReceiptImageRepository receiptImageRepository,
+                                      final int waitSeconds) {
         super("Static", fileSystemService, ocrProcessLogRepository, receiptImageRepository);
+        this.waitSeconds = waitSeconds;
 
         try {
             Resource resource = new ClassPathResource(OCR_RESULT_FILE_PATH);
@@ -42,8 +46,16 @@ public class StaticResultImageProcessor extends AbstractImageProcessor {
     }
 
     @Override
-    public void processImage(final ProcessItem item) {
-        saveProcessResult(item, new ImageProcessResult(true, staticResult, null), System.currentTimeMillis(), 0l);
+    protected ImageProcessResult getImageProcessResult(String imageFilePath) {
+
+        if (waitSeconds > 0) {
+            try {
+                Thread.sleep(1000 * waitSeconds);
+            } catch (Exception ex) {}
+        }
+
+        return new ImageProcessResult(true, staticResult, null);
     }
+
 
 }
