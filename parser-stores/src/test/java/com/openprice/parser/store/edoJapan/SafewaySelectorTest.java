@@ -64,4 +64,15 @@ public class SafewaySelectorTest extends ParserSelectorIntegrationTest{
         log.debug("config.getCatalogFilter().getBlackList().size()="+config.getCatalogFilter().getBlackList().size());
         assertTrue(config.getCatalogFilter().getBlackList().size()>0);
     }
+
+    @Test
+    public void storeConfig1() throws Exception{
+        ReceiptData data=ReceiptData.fromContentLines(atLeast5Lines);
+        final StoreParser parser=selector.selectParser(data);
+        final StoreConfig config=parser.getStoreConfig();
+
+        System.out.println("config.refExample()"+config.refExample());
+        System.out.println("config.getProp().entrySet().size()"+config.getProp().entrySet().size());
+        System.out.println("config.similarityOfTwoStrings="+config.similarityThresholdOfTwoStrings());
+    }
 }

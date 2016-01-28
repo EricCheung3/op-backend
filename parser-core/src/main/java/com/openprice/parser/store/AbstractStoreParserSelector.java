@@ -45,6 +45,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     public void afterPropertiesSet() throws Exception {
         try {
             baseConfig.load(getChainResource(ConfigFiles.CONFIG_PROPERTY_FILE_NAME));
+            log.debug("baseConfig.entrySet().size()="+baseConfig.entrySet().size());
         } catch (IOException ex) {
             log.warn("Cannot load config.properties for RCSS store chain!");
         }
@@ -89,9 +90,12 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     }
 
     protected StoreConfig loadParserConfig(final String parserName) {
-        Properties configProp = new Properties(baseConfig);
+        Properties allConfig = new Properties();
         try {
-            configProp.load(getChainParserResource(parserName, ConfigFiles.HEADER_CONFIG_FILE_NAME));
+            allConfig.load(getChainParserResource(parserName, ConfigFiles.HEADER_CONFIG_FILE_NAME));
+            System.out.println("allConfig.size"+allConfig.entrySet().size());
+            allConfig.putAll(baseConfig);
+            System.out.println("allConfig.size"+allConfig.entrySet().size());
         } catch (IOException ex) {
             log.error("Cannot load headerConfig.properties for store parser {}!", parserName);
         }
@@ -143,7 +147,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         blackList.addAll(notations);
 
         return StoreConfig.fromPropCategorySkipBeforeAfterBlack(
-                configProp,
+                allConfig,
                 category,
                 skipBefore,
                 skipAfter,
