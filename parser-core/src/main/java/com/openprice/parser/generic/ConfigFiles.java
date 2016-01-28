@@ -72,34 +72,34 @@ public class ConfigFiles {
         return getChainRoot(chain)+parser+"/"+CATALOG_NOTATION_FILE_NAME;
     }
     public static String notationFile(final String chain){
-        return CONFIG_PATH_PREFIX +chain +"/" + CATALOG_NOTATION_FILE_NAME;
+        return getChainRoot(chain) + CATALOG_NOTATION_FILE_NAME;
     }
 
     public static String skipBeforeFile(final String chain, final String parser){
-        return CONFIG_PATH_PREFIX+chain+"/"+parser+"/"+SKIP_BEFORE_FILE_NAME;
+        return getChainRoot(chain)+parser+"/"+SKIP_BEFORE_FILE_NAME;
     }
     public static String skipBeforeFile(final String chain){
-        return CONFIG_PATH_PREFIX +chain +"/" + SKIP_BEFORE_FILE_NAME;
+        return getChainRoot(chain) + SKIP_BEFORE_FILE_NAME;
     }
 
     public static String skipAfterFile(final String chain, final String parser){
-        return CONFIG_PATH_PREFIX+chain+"/"+parser+"/"+SKIP_AFTER_FILE_NAME;
+        return getChainRoot(chain)+parser+"/"+SKIP_AFTER_FILE_NAME;
     }
     public static String skipAfterFile(final String chain){
-        return CONFIG_PATH_PREFIX +chain +"/" + SKIP_AFTER_FILE_NAME;
+        return getChainRoot(chain) + SKIP_AFTER_FILE_NAME;
     }
 
     public static String configPropertyFile(final String chain, final String parser){
-        return CONFIG_PATH_PREFIX+chain+"/"+parser+"/"+BASE_CONFIG_FILE_NAME;
+        return getChainRoot(chain)+parser+"/"+BASE_CONFIG_FILE_NAME;
     }
     public static String configPropertyFile(final String chain){
-        return CONFIG_PATH_PREFIX +chain +"/" + BASE_CONFIG_FILE_NAME;
+        return getChainRoot(chain) + BASE_CONFIG_FILE_NAME;
     }
 
     public static String headerFile(final String chain, final String parser){
-        return CONFIG_PATH_PREFIX+chain+"/"+parser+"/"+HEADER_CONFIG_FILE_NAME;
+        return getChainRoot(chain)+parser+"/"+HEADER_CONFIG_FILE_NAME;
     }
     public static String headerFile(final String chain){
-        return CONFIG_PATH_PREFIX +chain +"/" + HEADER_CONFIG_FILE_NAME;
+        return getChainRoot(chain) + HEADER_CONFIG_FILE_NAME;
     }
 }
