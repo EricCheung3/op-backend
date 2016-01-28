@@ -1,6 +1,7 @@
 package com.openprice.parser.store;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -8,9 +9,6 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.context.ResourceLoaderAware;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.StringUtils;
 
 import com.openprice.parser.ChainRegistry;
@@ -32,10 +30,10 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-public abstract class AbstractStoreParserSelector implements StoreParserSelector, InitializingBean, ResourceLoaderAware {
+public abstract class AbstractStoreParserSelector implements StoreParserSelector, InitializingBean {
 
     private final ChainRegistry chainRegistry;
-    private ResourceLoader resourceLoader;
+//    private ResourceLoader resourceLoader;
 
     protected final Properties baseConfig = new Properties();
     protected StoreChain chain;
@@ -44,16 +42,16 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         this.chainRegistry = chainRegistry;
     }
 
-    @Override
-    public void setResourceLoader(ResourceLoader resourceLoader) {
-        this.resourceLoader = resourceLoader;
-    }
+//    @Override
+//    public void setResourceLoader(ResourceLoader resourceLoader) {
+//        this.resourceLoader = resourceLoader;
+//    }
 
     @Override
     public void afterPropertiesSet() throws Exception {
         // load base config
         try {
-            baseConfig.load(getStoreConfigResource(ConfigFiles.BASE_CONFIG_FILE_NAME).getInputStream());
+            baseConfig.load(getStoreConfigResource(ConfigFiles.BASE_CONFIG_FILE_NAME));
         } catch (IOException ex) {
             log.warn("Cannot load config.properties for RCSS store chain!");
         }
@@ -65,8 +63,9 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     private void registerStoreChainFromStoreConfig() throws Exception{
         // load branch
         List<StoreBranch> branches = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(getStoreConfigResource(ConfigFiles.BRANCH_FILE_NAME),
-                (line)-> branches.add(StoreBranch.fromString(line, baseConfig.getProperty("Slogan")))); // FIXME why slogan?
+        TextResourceUtils.loadFromInputStream(getStoreConfigResource(ConfigFiles.BRANCH_FILE_NAME),
+                line ->
+                    branches.add(StoreBranch.fromString(line, baseConfig.getProperty("Slogan")))); // FIXME why slogan?
 
         chain = StoreChain.fromCodeSelectorCategoriesFieldsBranches(
                         getParserBaseCode().toLowerCase(), // TODO maybe use lower case in all places?
@@ -88,15 +87,15 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
      */
     protected abstract void generateParser();
 
-    protected Resource getParserConfigResource(final String parserName, final String filename) {
+    protected InputStream getParserConfigResource(final String parserName, final String filename) {
 //        return resourceLoader.getResource(ConfigFiles.CONFIG_PATH_PREFIX + getParserBaseCode() + "/" + parserName + "/" + filename);
-        return resourceLoader.getResource(ConfigFiles.getFileUnderChainParser(getParserBaseCode(), parserName, filename));
+        return AbstractStoreParserSelector.class.getResourceAsStream(ConfigFiles.getFileUnderChainParser(getParserBaseCode(), parserName, filename));
     }
 
     protected StoreConfig loadParserConfig(final String parserName) {
         Properties configProp = new Properties(baseConfig);
         try {
-            configProp.load(getParserConfigResource(parserName, ConfigFiles.HEADER_CONFIG_FILE_NAME).getInputStream());
+            configProp.load(getParserConfigResource(parserName, ConfigFiles.HEADER_CONFIG_FILE_NAME));
         } catch (IOException ex) {
             log.error("Cannot load headerConfig.properties for store parser {}!", parserName);
         }
@@ -157,9 +156,9 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     }
 
     //use class.getInputAsStream?
-    private Resource getStoreConfigResource(final String filename) {
+    private InputStream getStoreConfigResource(final String filename) {
         //return resourceLoader.getResource(ConfigFiles.CONFIG_PATH_PREFIX + getParserBaseCode() + "/" + filename);
-        return resourceLoader.getResource(ConfigFiles.getFileUnderChain(getParserBaseCode(), filename));
+        return AbstractStoreParserSelector.class.getResourceAsStream(ConfigFiles.getFileUnderChain(getParserBaseCode(), filename));
     }
 
     /**
@@ -169,7 +168,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     protected PriceParserWithCatalog loadPriceParserWithCatalog() {
         final Set<Product> catalog=new HashSet<Product>();
         try{
-            TextResourceUtils.loadFromTextResource(getStoreConfigResource(ConfigFiles.CATALOG_FILE_NAME),
+            TextResourceUtils.loadFromInputStream(getStoreConfigResource(ConfigFiles.CATALOG_FILE_NAME),
                 line -> {
                     if (!StringUtils.isEmpty(line)) {
                         catalog.add(Product.fromString(line));
