@@ -33,7 +33,6 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class AbstractStoreParserSelector implements StoreParserSelector, InitializingBean {
 
     private final ChainRegistry chainRegistry;
-//    private ResourceLoader resourceLoader;
 
     protected final Properties baseConfig = new Properties();
     protected StoreChain chain;
@@ -41,11 +40,6 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     public AbstractStoreParserSelector(final ChainRegistry chainRegistry) {
         this.chainRegistry = chainRegistry;
     }
-
-//    @Override
-//    public void setResourceLoader(ResourceLoader resourceLoader) {
-//        this.resourceLoader = resourceLoader;
-//    }
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -88,7 +82,6 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     protected abstract void generateParser();
 
     protected InputStream getParserConfigResource(final String parserName, final String filename) {
-//        return resourceLoader.getResource(ConfigFiles.CONFIG_PATH_PREFIX + getParserBaseCode() + "/" + parserName + "/" + filename);
         return AbstractStoreParserSelector.class.getResourceAsStream(ConfigFiles.getFileUnderChainParser(getParserBaseCode(), parserName, filename));
     }
 
@@ -155,9 +148,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
                 );
     }
 
-    //use class.getInputAsStream?
     private InputStream getStoreConfigResource(final String filename) {
-        //return resourceLoader.getResource(ConfigFiles.CONFIG_PATH_PREFIX + getParserBaseCode() + "/" + filename);
         return AbstractStoreParserSelector.class.getResourceAsStream(ConfigFiles.getFileUnderChain(getParserBaseCode(), filename));
     }
 
@@ -177,7 +168,6 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         }catch(Exception e){
             return PriceParserWithCatalog.withCatalog(new HashSet<Product>());
         }
-        //return PriceParserWithCatalog.builder().catalog(catalog).priceParser(new PriceParserFromStringTuple()).build();
         return PriceParserWithCatalog.withCatalog(catalog);
     }
 }
