@@ -20,7 +20,7 @@ public class DummySelector implements StoreParserSelector{
     @Override
     public StoreParser selectParser(ReceiptData receipt) {
         // TODO Auto-generated method stub
-        return new Generic1(StoreConfig.fromPropCategorySkipBeforeAfterBlack(
+        return new GenericParser(StoreConfig.fromPropCategorySkipBeforeAfterBlack(
                 new Properties(),
                 new ArrayList<String>(),
                 new ArrayList<String>(),

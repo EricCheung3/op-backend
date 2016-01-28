@@ -37,7 +37,7 @@ public class ChainRegistry {
         //log.debug("TopBottom matching lines:\n"+lines);
         //log.debug("search chains in registry with "+storeChains);
         log.warn("storeChain lists.size="+storeChains.size()+":");
-        storeChains.forEach(c -> log.warn(c.getCode()));
+        storeChains.forEach(c -> log.info(c.getCode()));
 
         final Optional<ScoreWithMatchPair<StoreChain>> maxChainMatch =
                 storeChains

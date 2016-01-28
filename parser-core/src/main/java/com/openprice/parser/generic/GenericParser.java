@@ -1,60 +1,89 @@
 package com.openprice.parser.generic;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 
 import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.ReceiptData;
 import com.openprice.parser.StoreBranch;
 import com.openprice.parser.StoreChain;
-import com.openprice.parser.common.StringCommon;
+import com.openprice.parser.StoreConfig;
+import com.openprice.parser.StoreParser;
+import com.openprice.parser.common.DateParserUtils;
+import com.openprice.parser.common.TextResourceUtils;
 import com.openprice.parser.data.Item;
+import com.openprice.parser.data.Product;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
+import com.openprice.parser.price.PriceParserWithCatalog;
+import com.openprice.parser.simple.MatchedRecord;
+import com.openprice.parser.simple.SimpleParser;
+import com.openprice.parser.store.AbstractStoreParser;
+import com.openprice.parser.store.ConfigFiles;
 
-/**
- * A generic receipt parser to parse items from receipt lines.
- * 1. Stop when reached "Total" or "Subtotal" line.
- * 2. It should detect Date, Total/subtotal/Gst, phone, address
- * 3. it should be able parse item and prices
- */
-public class GenericParser {
+import lombok.extern.slf4j.Slf4j;
 
-    public ParsedReceipt parse(final List<String> lines) throws Exception {
-        final List<Item> items = new ArrayList<>();
-        for (int i = 0; i < lines.size(); i++) {
-            String name = lines.get(i).trim();
-            String lower = name.toLowerCase();
+@Slf4j
+public class GenericParser extends AbstractStoreParser {
 
-            // stop items when reaching the total line
-            if (StringCommon.stringMatchesHead(lower, "total", 0.6)) {
-                break;
-            }
+    public GenericParser(final StoreConfig config,
+            final PriceParserWithCatalog priceParserWithCatalog) {
+        super(config, priceParserWithCatalog);
 
-            if (StringCommon.stringMatchesHead(lower, "subtotal", 0.6)) {
-                break;
-            }
-
-            if (isItem(name))
-                items.add(Item.fromNameOnly(name));
-        }
-        return ParsedReceipt.fromChainItemsMapBranch(
-                StoreChain.genericStoreChain(StringCommon.EMPTY),
-                items,
-                new HashMap<ReceiptField, ValueLine>(),
-                StoreBranch.EmptyStoreBranch());
+        // register field parsers
+        fieldParsers.put(ReceiptField.GstAmount,  line -> parseItemPrice(line.getCleanText(), config.priceTail()));
+        fieldParsers.put(ReceiptField.SubTotal,  line -> parseItemPrice(line.getCleanText(), config.priceTail()));
+        fieldParsers.put(ReceiptField.Total,  line -> parseTotal(line.getCleanText()));
+        fieldParsers.put(ReceiptField.Date,  line -> parseDate(line));
     }
 
-    public static boolean isItem(final String name) {
-        final String noSpace = StringCommon.removeAllSpaces(name);
-        if (noSpace.length() <= 1)
-            return false;
-
-        int[] count = StringCommon.countDigitAndAlphabets(noSpace);
-        if (count[1] < 1) {
-            return false;
+    public static GenericParser selectParser(ReceiptData receipt) {
+        List<String> blackList=null;
+        try{
+            blackList=TextResourceUtils.loadStringArray("/config/Generic/"+ConfigFiles.CATALOG_BLACK_LIST_FILE_NAME);
+        }catch(Exception e){
+            log.warn("cannot load "+ConfigFiles.CATALOG_BLACK_LIST_FILE_NAME);
+            blackList=new ArrayList<String>();
         }
-        return !StringCommon.containsOneOnlyOneLetter(noSpace);
+        final Properties prop = new Properties();
+        try{
+            prop.load(StoreParser.class.getResourceAsStream("/config/Generic/Generic1/"+ConfigFiles.HEADER_CONFIG_FILE_NAME));
+        }catch (IOException ex) {
+            log.warn("Cannot load config.properties for Generic store chain!");
+        }
+
+        final StoreConfig config=StoreConfig.fromPropCategorySkipBeforeAfterBlack(
+                prop,
+                new ArrayList<String>(),
+                new ArrayList<String>(),
+                new ArrayList<String>(),
+                blackList);
+        return new GenericParser(config, PriceParserWithCatalog.withCatalog(new HashSet<Product>()));
     }
+
+    public static ParsedReceipt parse(final StoreChain genericChain, final ReceiptData receipt)
+        throws Exception{
+        final GenericParser generic=selectParser(receipt);
+        // match fields
+        final MatchedRecord matchedRecord = new MatchedRecord();
+        matchedRecord.matchToHeader(receipt, generic.getStoreConfig(), generic);
+
+        //globally finding the date string
+        if (matchedRecord.getFieldToValueLine().get(ReceiptField.Date) == null ||
+                matchedRecord.getFieldToValueLine().get(ReceiptField.Date).getValue().isEmpty()){
+            log.debug("date header not found: searching date string globally.");
+            final ValueLine dateVL=DateParserUtils.findDateStringAfterLine(receipt.getOriginalLines(), 0);
+            matchedRecord.putFieldLine(ReceiptField.Date, dateVL);
+        }
+
+        // parse items
+        List<Item> items = SimpleParser.parseItem(matchedRecord, receipt, generic);
+
+        return ParsedReceipt.fromChainItemsMapBranch(genericChain, items, matchedRecord.getFieldToValueLine(), StoreBranch.EmptyStoreBranch());
+    }
+
 
 }

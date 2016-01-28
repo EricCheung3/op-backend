@@ -19,8 +19,9 @@ import com.openprice.parser.common.ListCommon;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
-import com.openprice.parser.generic.Generic1;
+import com.openprice.parser.generic.CheapParser;
 import com.openprice.parser.generic.GenericChains;
+import com.openprice.parser.generic.GenericParser;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,10 +53,17 @@ public class SimpleParser {
         // find chain first
         final StoreChain chain = chainRegistry.findBestMatchedChain(receipt);
         if (chain == null) {
-            log.warn("Cannot find matching store chain!");
-            final GenericChains chains=new GenericChains("/config/Generic/chain.list");
-            final String genericChainCode=chains.findChain(receipt.getOriginalLines());
-            return Generic1.parse(StoreChain.genericStoreChain(genericChainCode), receipt);
+            log.warn("No specific parser for this chain yet!");
+            try{
+                final GenericChains chains=new GenericChains("/config/Generic/chain.list");
+                final String genericChainCode=chains.findChain(receipt.getOriginalLines());
+                log.info("genericChainCode="+genericChainCode);
+                return GenericParser.parse(StoreChain.genericStoreChain(genericChainCode), receipt);
+            }catch(Exception ex){
+                ex.printStackTrace();
+                log.warn("exception in calling generic parser. now call cheapParser!");
+                return new CheapParser().parse(receipt.getOriginalLines());
+            }
         }
         log.info("Parse receipt and find matcing chain {}", chain.getCode());
 
