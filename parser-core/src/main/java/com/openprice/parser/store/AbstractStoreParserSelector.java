@@ -45,7 +45,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     public void afterPropertiesSet() throws Exception {
         // load base config
         try {
-            baseConfig.load(getStoreConfigResource(ConfigFiles.BASE_CONFIG_FILE_NAME));
+            baseConfig.load(getStoreConfigResource(ConfigFiles.CONFIG_PROPERTY_FILE_NAME));
         } catch (IOException ex) {
             log.warn("Cannot load config.properties for RCSS store chain!");
         }

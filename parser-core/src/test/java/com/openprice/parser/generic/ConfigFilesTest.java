@@ -109,12 +109,12 @@ public class ConfigFilesTest {
 
     @Test
     public void configPropertyTest1(){
-        assertEquals(ConfigFiles.CONFIG_PATH_PREFIX+CHAIN+"/"+PARSER+"/"+ConfigFiles.BASE_CONFIG_FILE_NAME,
+        assertEquals(ConfigFiles.CONFIG_PATH_PREFIX+CHAIN+"/"+PARSER+"/"+ConfigFiles.CONFIG_PROPERTY_FILE_NAME,
                 ConfigFiles.configPropertyFile(CHAIN, PARSER));
     }
     @Test
     public void configPropertyTest2(){
-        assertEquals(ConfigFiles.CONFIG_PATH_PREFIX+CHAIN+"/"+ConfigFiles.BASE_CONFIG_FILE_NAME,
+        assertEquals(ConfigFiles.CONFIG_PATH_PREFIX+CHAIN+"/"+ConfigFiles.CONFIG_PROPERTY_FILE_NAME,
                 ConfigFiles.configPropertyFile(CHAIN));
     }
 

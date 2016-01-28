@@ -19,7 +19,7 @@ public class ConfigFiles {
     public static final String SKIP_BEFORE_FILE_NAME = "skipBeforeItemsFinish.txt";
     public static final String SKIP_AFTER_FILE_NAME = "skipAfterItemsFinish.txt";
 
-    public static final String BASE_CONFIG_FILE_NAME = "config.properties";
+    public static final String CONFIG_PROPERTY_FILE_NAME = "config.properties";
     public static final String HEADER_CONFIG_FILE_NAME = "headerConfig.properties";
 
     private static String getChainRoot(final String chain){
@@ -90,10 +90,10 @@ public class ConfigFiles {
     }
 
     public static String configPropertyFile(final String chain, final String parser){
-        return getChainRoot(chain)+parser+"/"+BASE_CONFIG_FILE_NAME;
+        return getChainRoot(chain)+parser+"/"+CONFIG_PROPERTY_FILE_NAME;
     }
     public static String configPropertyFile(final String chain){
-        return getChainRoot(chain) + BASE_CONFIG_FILE_NAME;
+        return getChainRoot(chain) + CONFIG_PROPERTY_FILE_NAME;
     }
 
     public static String headerFile(final String chain, final String parser){
