@@ -21,6 +21,8 @@ public class GenericChains {
     private final static String CHAINLINE_SPLITTER = ":";
     private final static String SECONDLEVEL_SPLITTER = ",";// the splitter used inside a field between :
 
+    private static final double CHAIN_SIMILARITY_SCORE=0.7;
+
     final List<String> chainLines;
 
     public GenericChains(final List<String> chainList){
@@ -31,7 +33,7 @@ public class GenericChains {
         this(TextResourceUtils.loadStringArray(resourceFile));
     }
 
-  public String findChain(final List<String> lines) throws Exception {
+  public String findChain(final List<String> lines){
       if (lines == null || lines.isEmpty())
           return StringCommon.EMPTY;
 
@@ -63,6 +65,11 @@ public class GenericChains {
       StringDouble chainEnd = chainNameSearch(lines, end - NUM_SEARCHED_LINES_AT_END, end);
       log.debug("#####searching from head: chain=" + chainBegin.getStr() + ", score=" + chainBegin.getValue());
       log.debug("#####searching from End: chain=" + chainEnd.getStr() + ", score=" + chainEnd.getValue());
+
+      if(chainEnd.getValue()<CHAIN_SIMILARITY_SCORE && chainBegin.getValue()<CHAIN_SIMILARITY_SCORE){
+          return StringCommon.EMPTY;
+      }
+
       if (chainEnd.getValue() > chainBegin.getValue())
           return chainEnd.getStr();
       else
@@ -75,7 +82,7 @@ public class GenericChains {
  * @param end the end line number
  * @return an StringDouble object, the first is matched chain name, the second is the score
  */
-    private StringDouble chainNameSearch(final List<String> lines, final int begin, final int end) throws Exception {
+    private StringDouble chainNameSearch(final List<String> lines, final int begin, final int end) {
         double maxScore = -1;
         String chainName = "";
         for (int i = Math.max(0, begin); i <= Math.min(lines.size() - 1, end); i++) {
@@ -85,7 +92,12 @@ public class GenericChains {
                 continue;
 
             for (int c = 0; c < chainLines.size(); c++) {
-                final ChainLine chainLine = matchedIdentityName(chainLines.get(c), line);
+                ChainLine chainLine = null;
+                try{
+                    chainLine=matchedIdentityName(chainLines.get(c), line);
+                }catch(Exception ex){
+                    log.warn(ex.getMessage()+" for chain line "+chainLines.get(c));
+                }
                 String cha = chainLine.identityField();
                 double score = chainLine.matchScore();
                 if (score > maxScore) {

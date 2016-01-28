@@ -11,6 +11,21 @@ import com.openprice.parser.common.StringCommon;
 
 public class GenericChainsTest {
 
+
+    @Test
+    public void noMatchShouldReturnEmptyChainName() throws Exception{
+        final List<String> chainLines=new ArrayList<String>();
+        chainLines.add("76:Quizino's Subs:Restaurant:QuizinosSubs");
+        chainLines.add("81:SAFEWAY,Safeway:Grocery,Health:Safeway");
+        chainLines.add("82:Saje West Edmonton:Health:SajeWestEdmonton");
+        chainLines.add("83:Save-on-foods:Grocery:SaveOnFoods");
+        GenericChains chains=new GenericChains(chainLines);
+        final List<String> receipt=new ArrayList<String>();
+        receipt.add("Not meant to be a chain name XXXVDSDFSDSDFSDSADSDFSAF");
+        String quizino=chains.findChain(receipt);
+        assertEquals(StringCommon.EMPTY, quizino);
+    }
+
     @Test
     public void emptyReceiptShouldReturnEmptyChainString() throws Exception{
         final List<String> chainLines=new ArrayList<String>();
