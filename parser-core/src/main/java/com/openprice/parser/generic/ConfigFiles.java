@@ -21,5 +21,73 @@ public class ConfigFiles {
     public static final String BASE_CONFIG_FILE_NAME = "config.properties";
     public static final String HEADER_CONFIG_FILE_NAME = "headerConfig.properties";
 
+    public static String blackListFile(final String chain, final String parser){
+        return CONFIG_PATH_PREFIX+chain+"/"+parser+"/"+CATALOG_BLACK_LIST_FILE_NAME;
+    }
+    public static String blackListFile(final String chain){
+        return CONFIG_PATH_PREFIX +chain +"/" + CATALOG_BLACK_LIST_FILE_NAME;
+    }
 
+    public static String branchFile(final String chain, final String parser){
+        return CONFIG_PATH_PREFIX+chain+"/"+parser+"/"+BRANCH_FILE_NAME;
+    }
+    public static String branchFile(final String chain){
+        return CONFIG_PATH_PREFIX+chain+"/"+BRANCH_FILE_NAME;
+    }
+
+    public static String categoryFile(final String chain, final String parser){
+        return CONFIG_PATH_PREFIX+chain+"/"+parser+"/"+CATEGORY_FILE_NAME;
+    }
+    public static String categoryFile(final String chain){
+        return CONFIG_PATH_PREFIX +chain +"/" + CATEGORY_FILE_NAME;
+    }
+
+    public static String catalogFile(final String chain, final String parser){
+        return CONFIG_PATH_PREFIX+chain+"/"+parser+"/"+CATALOG_FILE_NAME;
+    }
+    public static String catalogFile(final String chain){
+        return CONFIG_PATH_PREFIX +chain +"/" + CATALOG_FILE_NAME;
+    }
+
+    public static String identifyFile(final String chain, final String parser){
+        return CONFIG_PATH_PREFIX+chain+"/"+parser+"/"+IDENTIFY_FIELD_FILE_NAME;
+    }
+    public static String identifyFile(final String chain){
+        return CONFIG_PATH_PREFIX +chain +"/" + IDENTIFY_FIELD_FILE_NAME;
+    }
+
+    public static String notationFile(final String chain, final String parser){
+        return CONFIG_PATH_PREFIX+chain+"/"+parser+"/"+CATALOG_NOTATION_FILE_NAME;
+    }
+    public static String notationFile(final String chain){
+        return CONFIG_PATH_PREFIX +chain +"/" + CATALOG_NOTATION_FILE_NAME;
+    }
+
+    public static String skipBeforeFile(final String chain, final String parser){
+        return CONFIG_PATH_PREFIX+chain+"/"+parser+"/"+SKIP_BEFORE_FILE_NAME;
+    }
+    public static String skipBeforeFile(final String chain){
+        return CONFIG_PATH_PREFIX +chain +"/" + SKIP_BEFORE_FILE_NAME;
+    }
+
+    public static String skipAfterFile(final String chain, final String parser){
+        return CONFIG_PATH_PREFIX+chain+"/"+parser+"/"+SKIP_AFTER_FILE_NAME;
+    }
+    public static String skipAfterFile(final String chain){
+        return CONFIG_PATH_PREFIX +chain +"/" + SKIP_AFTER_FILE_NAME;
+    }
+
+    public static String configPropertyFile(final String chain, final String parser){
+        return CONFIG_PATH_PREFIX+chain+"/"+parser+"/"+BASE_CONFIG_FILE_NAME;
+    }
+    public static String configPropertyFile(final String chain){
+        return CONFIG_PATH_PREFIX +chain +"/" + BASE_CONFIG_FILE_NAME;
+    }
+
+    public static String headerFile(final String chain, final String parser){
+        return CONFIG_PATH_PREFIX+chain+"/"+parser+"/"+HEADER_CONFIG_FILE_NAME;
+    }
+    public static String headerFile(final String chain){
+        return CONFIG_PATH_PREFIX +chain +"/" + HEADER_CONFIG_FILE_NAME;
+    }
 }

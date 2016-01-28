@@ -75,7 +75,7 @@ public class GenericChains {
  * @param end the end line number
  * @return an StringDouble object, the first is matched chain name, the second is the score
  */
-    public StringDouble chainNameSearch(final List<String> lines, final int begin, final int end) throws Exception {
+    private StringDouble chainNameSearch(final List<String> lines, final int begin, final int end) throws Exception {
         double maxScore = -1;
         String chainName = "";
         for (int i = Math.max(0, begin); i <= Math.min(lines.size() - 1, end); i++) {
@@ -115,7 +115,7 @@ public class GenericChains {
    *            raw receiptLine
    * @return a ChainLine object
    */
-  public static ChainLine matchedIdentityName(final String chainLine, final String receiptLine) throws Exception{
+  private static ChainLine matchedIdentityName(final String chainLine, final String receiptLine) throws Exception{
       String[] chainLineFields = chainLine.split(CHAINLINE_SPLITTER);
       if(chainLineFields.length != 4)
           throw new Exception("chainLineFields should have 4 fields, but it's "+chainLineFields.length);
