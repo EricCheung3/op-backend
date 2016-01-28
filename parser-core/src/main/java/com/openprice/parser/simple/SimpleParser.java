@@ -20,6 +20,7 @@ import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.generic.Generic1;
+import com.openprice.parser.generic.GenericChains;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,9 +53,10 @@ public class SimpleParser {
         final StoreChain chain = chainRegistry.findBestMatchedChain(receipt);
         if (chain == null) {
             log.warn("Cannot find matching store chain!");
-            final StoreChain genericChain=;
+            final GenericChains chains=new GenericChains("/config/chain.list");
+            final String genericChainCode=chains.findChain(receipt.getOriginalLines());
 //            final GenericParser parser = new GenericParser();
-            return Generic1.parse(genericChain, receipt);
+            return Generic1.parse(StoreChain.genericStoreChain(genericChainCode), receipt);
         }
         log.info("Parse receipt and find matcing chain {}", chain.getCode());
 
