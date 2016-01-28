@@ -38,8 +38,9 @@ public class RemoteOCRImageProcessorTest extends AbstractProcessorTest {
     @Before
     public void setup() throws Exception {
         processorToTest = new RemoteOCRImageProcessor(TEST_SERVER_NAME,
-                                                      ocrServiceMock,
                                                       fileSystemService,
+                                                      ocrServiceMock,
+                                                      receiptServiceMock,
                                                       processLogRepositoryMock,
                                                       receiptImageRepositoryMock);
     }

@@ -40,6 +40,43 @@ public class ReceiptService {
     }
 
     /**
+     * Whenever we have receipt image processed (scanned by OCR engine), we call this function to parse all scanned
+     * images with successful OCR result.
+     *
+     * @param receipt
+     * @return
+     */
+    public Receipt parseScannedReceiptImages(final Receipt receipt) {
+        final Long unscannedImageCount =
+                receiptImageRepository.countByReceiptAndStatus(receipt, ProcessStatusType.UPLOADED);
+        if (unscannedImageCount > 0) {
+            receipt.setStatus(ReceiptStatusType.WAIT_FOR_RESULT);
+            return receiptRepository.save(receipt);
+        }
+
+        final List<ReceiptImage> scannedImages =
+                receiptImageRepository.findByReceiptAndStatusOrderByCreatedTime(receipt,
+                                                                                ProcessStatusType.SCANNED);
+        if (scannedImages.size() == 0) {
+            if (receiptImageRepository.countByReceiptAndStatus(receipt, ProcessStatusType.SCANNED_ERR) > 0) {
+                receipt.setStatus(ReceiptStatusType.OCR_ERROR);
+                return receiptRepository.save(receipt);
+            }
+        }
+
+        final List<String> ocrTextList = new ArrayList<>();
+        for (final ReceiptImage image : scannedImages) {
+            if (StringUtils.hasText(image.getOcrResult())) {
+                ocrTextList.add(image.getOcrResult());
+            }
+        }
+
+        ReceiptResult result = parseOcrAndSaveResults(receipt, ocrTextList);
+        receipt.setStatus( (result == null) ? ReceiptStatusType.PARSER_ERROR : ReceiptStatusType.HAS_RESULT);
+        return receiptRepository.save(receipt);
+    }
+
+    /**
      * Return latest parser result of ReceiptResult object for the receipt in the database.
      *
      * @param receipt

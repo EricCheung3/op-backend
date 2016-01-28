@@ -106,6 +106,7 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
                 fieldWithPath("_embedded.receiptImages").description("Receipt image list"),
+                fieldWithPath("status").description("Receipt process status, can be WAIT_FOR_RESULT, OCR_ERROR, PARSER_ERROR, HAS_RESULT"),
                 fieldWithPath("needFeedback").description("Whether user can give feedback"),
                 fieldWithPath("_links").description("<<resources-user-receipt-links,Links>> to other resources")
             )

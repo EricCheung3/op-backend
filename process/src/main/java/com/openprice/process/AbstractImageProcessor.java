@@ -10,6 +10,7 @@ import com.openprice.domain.receipt.OcrProcessLogRepository;
 import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
+import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.file.FileSystemService;
 import com.openprice.ocr.api.ImageProcessResult;
 
@@ -19,16 +20,19 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class AbstractImageProcessor implements ImageProcessor {
 
     private final String name;
-    protected final FileSystemService fileSystemService;
+    private final FileSystemService fileSystemService;
+    private final ReceiptService receiptService;
     private final OcrProcessLogRepository ocrProcessLogRepository;
     private final ReceiptImageRepository receiptImageRepository;
 
     public AbstractImageProcessor(final String name,
                                   final FileSystemService fileSystemService,
+                                  final ReceiptService receiptService,
                                   final OcrProcessLogRepository ocrProcessLogRepository,
                                   final ReceiptImageRepository receiptImageRepository) {
         this.name = name;
         this.fileSystemService = fileSystemService;
+        this.receiptService = receiptService;
         this.ocrProcessLogRepository = ocrProcessLogRepository;
         this.receiptImageRepository = receiptImageRepository;
     }
@@ -51,15 +55,17 @@ public abstract class AbstractImageProcessor implements ImageProcessor {
                 item.getImageId(), imageFile.toString());
         final ImageProcessResult result = getImageProcessResult(imageFile.toString());
         final long duration = System.currentTimeMillis() - start;
-        log.info("Finish processing image {} with cloud SDK, took {} milli-seconds.",
-                item.getImageId(), duration);
+        log.info("Finish processing image {} with {}, took {} milli-seconds.",
+                item.getImageId(), name, duration);
         saveProcessResult(item, result, start, duration);
+
+        parseResult(item);
     }
 
     protected abstract ImageProcessResult getImageProcessResult(String filePath);
 
     @Transactional(value = Transactional.TxType.REQUIRES_NEW)
-    protected String getImageFilePath(final ProcessItem item) {
+    private String getImageFilePath(final ProcessItem item) {
         final ReceiptImage image = receiptImageRepository.findOne(item.getImageId());
         if (image == null) {
             log.warn("Image '{}' was deleted when ocr process started!", item.getImageId());
@@ -69,7 +75,10 @@ public abstract class AbstractImageProcessor implements ImageProcessor {
     }
 
     @Transactional(value = Transactional.TxType.REQUIRES_NEW)
-    protected void saveProcessResult(final ProcessItem item, final ImageProcessResult result, final long start, final long duration) {
+    private void saveProcessResult(final ProcessItem item,
+                                   final ImageProcessResult result,
+                                   final long start,
+                                   final long duration) {
         final ReceiptImage image = receiptImageRepository.findOne(item.getImageId());
         if (image == null) {
             log.warn("Image '{}' was deleted when ocr process finished!", item.getImageId());
@@ -96,8 +105,16 @@ public abstract class AbstractImageProcessor implements ImageProcessor {
         }
         ocrProcessLogRepository.save(processLog);
         receiptImageRepository.save(image);
-
-        // check if all images are OCRed, call parser
     }
 
+    @Transactional(value = Transactional.TxType.REQUIRES_NEW)
+    private void parseResult(final ProcessItem item) {
+        final ReceiptImage imageProcessed = receiptImageRepository.findOne(item.getImageId());
+        if (imageProcessed == null) {
+            log.error("Image '{}' was deleted when parsing ocr result!", item.getImageId()); // that should not happen?
+            return;
+        }
+
+        receiptService.parseScannedReceiptImages(imageProcessed.getReceipt());
+    }
 }

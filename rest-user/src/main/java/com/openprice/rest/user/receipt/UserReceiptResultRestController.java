@@ -65,7 +65,6 @@ public class UserReceiptResultRestController extends AbstractUserReceiptRestCont
             @PathVariable("receiptId") final String receiptId) {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         final ReceiptResult result = receiptResultRepository.findFirstByReceiptOrderByCreatedTimeDesc(receipt);
-        //receiptService.getLatestReceiptResult(receipt);
 
         if (result == null) {
             throw new ResourceNotFoundException("Cannot load parser result!");

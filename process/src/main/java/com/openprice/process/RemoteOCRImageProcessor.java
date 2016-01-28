@@ -2,6 +2,7 @@ package com.openprice.process;
 
 import com.openprice.domain.receipt.OcrProcessLogRepository;
 import com.openprice.domain.receipt.ReceiptImageRepository;
+import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.file.FileSystemService;
 import com.openprice.ocr.api.ImageProcessResult;
 import com.openprice.ocr.client.OcrService;
@@ -11,11 +12,12 @@ public class RemoteOCRImageProcessor extends AbstractImageProcessor {
     private final OcrService ocrService;
 
     public RemoteOCRImageProcessor(final String serverName,
-                                   final OcrService ocrService,
                                    final FileSystemService fileSystemService,
+                                   final OcrService ocrService,
+                                   final ReceiptService receiptService,
                                    final OcrProcessLogRepository ocrProcessLogRepository,
                                    final ReceiptImageRepository receiptImageRepository) {
-        super(serverName, fileSystemService, ocrProcessLogRepository, receiptImageRepository);
+        super(serverName, fileSystemService, receiptService, ocrProcessLogRepository, receiptImageRepository);
         this.ocrService = ocrService;
     }
 

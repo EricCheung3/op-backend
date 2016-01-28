@@ -55,6 +55,7 @@ public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
                 fieldWithPath("_embedded.receiptImages").description("Receipt image list"),
+                fieldWithPath("status").description("Receipt process status, can be WAIT_FOR_RESULT, OCR_ERROR, PARSER_ERROR, HAS_RESULT"),
                 fieldWithPath("needFeedback").description("Whether user can give feedback"),
                 fieldWithPath("user").description("Receipt owner display name"),
                 fieldWithPath("uploadTimestamp").description("ISO 8601 formatted timestamp when user uploaded the receipt"),

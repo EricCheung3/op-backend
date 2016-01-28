@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -39,6 +41,11 @@ public class Receipt extends BaseAuditableEntity {
     private UserAccount user;
 
     @Getter @Setter
+    @Enumerated(EnumType.STRING)
+    @Column(name="status")
+    private ReceiptStatusType status;
+
+    @Getter @Setter
     @Column(name="need_feedback")
     private Boolean needFeedback = true;
 
@@ -46,6 +53,7 @@ public class Receipt extends BaseAuditableEntity {
 
     Receipt(final UserAccount user) {
         this.user = user;
+        this.status = ReceiptStatusType.WAIT_FOR_RESULT;
     }
 
     @Builder(builderMethodName="testObjectBuilder")
