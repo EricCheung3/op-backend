@@ -23,6 +23,8 @@ public class CloudOcrService {
         try {
             // upload image file
             Task task = restClient.processImage(imageFilePath, settings);
+            log.info("Start task {} for image {}.", task.getId(), imageFilePath);
+
             // wait for completion
             while (task.isTaskActive()) {
                 Thread.sleep(1000);
@@ -34,19 +36,20 @@ public class CloudOcrService {
             if (task.getStatus() == Task.TaskStatus.Completed) {
                 log.debug("Downloading OCR result..");
                 String result = restClient.downloadResult(task);
-                log.info("Result from ABBYY Cloud SDK is \n"+result);
+                log.debug("Result from ABBYY Cloud SDK is \n"+result);
+                restClient.deleteTask(task.getId());
                 return new ImageProcessResult(true, result, null);
             } else if (task.getStatus() == Task.TaskStatus.NotEnoughCredits) {
-                log.error("Not enough credits to process document. "
+                log.warn("ABBYY: Not enough credits to process document. "
                         + "Please add more pages to your application's account.");
                 return new ImageProcessResult(false, null, "No credits");
             } else {
-                log.error("SEVERE: Cloud OCR SDK Task failed, the status is "+task.getStatus().toString());
+                log.warn("ABBYY: Cloud OCR SDK Task '{}' failed, the status is {}.", task.getId(), task.getStatus().toString());
                 return new ImageProcessResult(false, null, "Failed task "+task.getStatus().toString());
             }
 
         } catch (Exception ex) {
-            log.error("Got exception while calling Cloud OCR SDK.", ex);
+            log.error("SEVERE: ABBYY: Got exception while calling Cloud OCR SDK.", ex);
             return new ImageProcessResult(false, null, ex.getMessage());
 
         }
