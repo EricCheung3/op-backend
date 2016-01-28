@@ -50,7 +50,7 @@ public class DateParserUtils {
             final String dateString=pruneDateString(origLines.get(i));
             if(dateString.isEmpty()) continue;
             try{
-                return ValueLine.builder().value(formatDateString(toDate(dateString))).line(i).build();
+                return new ValueLine(formatDateString(toDate(dateString)), i);
             }catch(Exception e){
                 log.debug("dateString="+dateString+", toDate(dateString) error.");
             }

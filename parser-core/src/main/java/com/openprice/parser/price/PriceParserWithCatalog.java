@@ -5,36 +5,32 @@ import java.util.Set;
 
 import com.openprice.parser.data.Product;
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  *  parse a receipt line with catalog to have product, and price
  *
  */
-@Value
-@Builder
+@Data
 @Slf4j
 public class PriceParserWithCatalog {
 
-    Set<Product> catalog;
-
     PriceParser priceParser;
 
+    Set<Product> catalog = new HashSet<Product>();
+
+    public PriceParserWithCatalog(final PriceParser parser, final Set<Product>  catalog){
+        this.priceParser=parser;
+        this.catalog=catalog;
+    }
+
     public static PriceParserWithCatalog withCatalog(final Set<Product> catalog){
-        return PriceParserWithCatalog.builder()
-                .catalog(catalog)
-                .priceParser(new PriceParserFromStringTuple())
-                .build();
+        return  new PriceParserWithCatalog(new PriceParserFromStringTuple(), catalog);
     }
 
     public static PriceParserWithCatalog emptyCatalog(){
-        return PriceParserWithCatalog
-                .builder()
-                .catalog(new HashSet<Product>())
-                .priceParser(new PriceParserFromStringTuple())
-                .build();
+        return PriceParserWithCatalog.withCatalog(new HashSet<Product>());
     }
 
     /**
@@ -65,11 +61,7 @@ public class PriceParserWithCatalog {
         }
 
         if( !matched.isEmpty() && !pPrice4.isEmpty()){
-            return ProductPrice.builder()
-                    .product(matched)
-                    .productIsInCatalog(true)
-                    .price(pPrice4.getPrice())
-                    .build();
+            return new ProductPrice(matched, pPrice4.getPrice(), true);
         }
 
         //not matched but pPrice4 is good
@@ -86,11 +78,7 @@ public class PriceParserWithCatalog {
             log.warn("line="+ line+", fromThreeStrings: "+e.getMessage());
         }
         if( !matched.isEmpty() && !pPrice3.isEmpty()){
-            return ProductPrice.builder()
-                    .product(matched)
-                    .productIsInCatalog(true)
-                    .price(pPrice3.getPrice())
-                    .build();
+            return new ProductPrice(matched, pPrice3.getPrice(), true);
         }
 
         //not matched but pPrice3 is good
@@ -107,11 +95,7 @@ public class PriceParserWithCatalog {
             log.warn("line="+ line+",fromTwoStrings: "+e.getMessage());
         }
         if( !matched.isEmpty() && !pPrice2.isEmpty()){
-            return ProductPrice.builder()
-                    .product(matched)
-                    .productIsInCatalog(true)
-                    .price(pPrice2.getPrice())
-                    .build();
+            return new ProductPrice(matched, pPrice2.getPrice(), true);
         }
 
         if(pPrice2!=null &&  !pPrice2.isEmpty()) return pPrice2;

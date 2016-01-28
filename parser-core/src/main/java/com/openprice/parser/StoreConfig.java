@@ -22,7 +22,16 @@ public class StoreConfig {
     @Getter
     private final CatalogFilter catalogFilter;
 
-    public StoreConfig(final Properties prop,
+    public static StoreConfig fromPropCategorySkipBeforeAfterBlack(
+            final Properties prop,
+            final List<String> category,
+            final List<String> skipBefore,
+            final List<String> skipAfter,
+            final List<String> blackList){
+        return new StoreConfig(prop, category, skipBefore, skipAfter, blackList);
+    }
+
+    private StoreConfig(final Properties prop,
             final List<String> category,
             final List<String> skipBefore,
             final List<String> skipAfter,
@@ -31,7 +40,7 @@ public class StoreConfig {
         this.category = category;
         this.skipBefore = skipBefore;
         this.skipAfter = skipAfter;
-        this.catalogFilter=CatalogFilter.builder().blackList(blackList).build();
+        this.catalogFilter=CatalogFilter.fromList(blackList);
     }
 
     //a substring pattern of the quantity price line (sell by numbers of items)

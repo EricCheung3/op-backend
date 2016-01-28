@@ -19,6 +19,9 @@ import com.openprice.parser.common.ListCommon;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
+import com.openprice.parser.generic.CheapParser;
+import com.openprice.parser.generic.GenericChains;
+import com.openprice.parser.generic.GenericParser;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -50,9 +53,17 @@ public class SimpleParser {
         // find chain first
         final StoreChain chain = chainRegistry.findBestMatchedChain(receipt);
         if (chain == null) {
-            log.warn("Cannot find matching store chain!");
-            final GenericParser parser = new GenericParser();
-            return parser.parse(receipt.getOriginalLines());
+            log.warn("No specific parser for this chain yet!");
+            try{
+                final GenericChains chains=new GenericChains("/config/Generic/chain.list");
+                final String genericChainCode=chains.findChain(receipt.getOriginalLines());
+                log.info("genericChainCode="+genericChainCode);
+                return GenericParser.parse(StoreChain.genericStoreChain(genericChainCode), receipt);
+            }catch(Exception ex){
+                ex.printStackTrace();
+                log.warn("exception in calling generic parser. now call cheapParser!");
+                return new CheapParser().parse(receipt.getOriginalLines());
+            }
         }
         log.info("Parse receipt and find matcing chain {}", chain.getCode());
 
@@ -70,6 +81,7 @@ public class SimpleParser {
         final MatchedRecord matchedRecord = new MatchedRecord();
         matchedRecord.matchToBranch(receipt, branch);
         matchedRecord.matchToHeader(receipt, parser.getStoreConfig(), parser);
+
         //globally finding the date string
         if (matchedRecord.getFieldToValueLine().get(ReceiptField.Date) == null ||
                 matchedRecord.getFieldToValueLine().get(ReceiptField.Date).getValue().isEmpty()){
@@ -81,34 +93,29 @@ public class SimpleParser {
         // parse items
         List<Item> items = parseItem(matchedRecord, receipt, parser);
 
-        return ParsedReceipt.builder()
-                .chain(chain)
-                .branch(branch)
-                .items(items)
-                .fieldToValueMap(matchedRecord.getFieldToValueLine())
-                .build();
+        return ParsedReceipt.fromChainItemsMapBranch(chain, items, matchedRecord.getFieldToValueLine(), branch);
     }
 
-    private List<Item> parseItem(final MatchedRecord matchedRecord, final ReceiptData receipt, final StoreParser parser) throws Exception {
+    public static List<Item> parseItem(
+            final MatchedRecord matchedRecord,
+            final ReceiptData receipt,
+            final StoreParser parser) throws Exception {
         final int stopLine = Math.min(matchedRecord.itemStopLineNumber(), receipt.getReceiptLines().size());
         log.debug("black list size is "+parser.getStoreConfig().getCatalogFilter().getBlackList().size());
         //        parser.getStoreConfig().getCatalogFilter().getBlackList().forEach(line->log.debug(line+"\n"));
 
         return
                 receipt.lines()
-                .filter( line -> !matchedRecord.isFieldLine(line.getNumber()))
-                .filter( line -> line.getNumber() < stopLine)
-                .filter( line ->
-                !ListCommon.matchList(parser.getStoreConfig().getSkipBefore(), line.getCleanText(), parser.getStoreConfig().similarityThresholdOfTwoStrings())
+                       .filter( line -> !matchedRecord.isFieldLine(line.getNumber()))
+                       .filter( line -> line.getNumber() < stopLine)
+                       .filter( line -> !ListCommon.matchList(parser.getStoreConfig().getSkipBefore(), line.getCleanText(),
+                                        parser.getStoreConfig().similarityThresholdOfTwoStrings()))
+                       .map( line -> parser.parseItemLine(line.getCleanText()))
+                       .filter( item -> item != null &&
+                                        !item.getProduct().getName().isEmpty() &&
+                                        !parser.getStoreConfig().getCatalogFilter().matchesBlackList(item.getProduct().getName())
                         )
-                .map( line -> parser.parseItemLine(line.getCleanText()))
-                .filter( item ->
-                item != null &&
-                !item.getName().isEmpty() &&
-                !parser.getStoreConfig().getCatalogFilter().matchesBlackList(item.getName())
-                        )
-                .collect(Collectors.toList())
-                ;
+                       .collect(Collectors.toList());
         // TODO stop if match skipAfter strings
     }
 

@@ -16,12 +16,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.common.TextResourceUtils;
+import com.openprice.parser.data.Item;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {StoreParserTestApplication.class})
-public class GenericParserTest {
+public class CheapParserTest {
     @Value("classpath:/testFiles/unknown/2015_02_09_11_34_51.jpg.hengshuai.txt")
-    private Resource sampleReceipt;
+    private Resource edoJapan1;
 
     @Inject
     SimpleParser simpleParser;
@@ -29,16 +30,21 @@ public class GenericParserTest {
     @Test
     public void testUnknown_EdoJapan() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(sampleReceipt, (line)-> receiptLines.add(line));
+        TextResourceUtils.loadFromTextResource(edoJapan1, (line)-> receiptLines.add(line));
 
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parse(receiptLines);
         assertTrue(receipt.getItems().size() > 0);
-//        System.out.println("Items parsed:");
-//        for (Item item : receipt.getItems()) {
-//            System.out.println(item.getName());
-//        }
+        System.out.println("Items parsed:");
+        for (Item item : receipt.getItems()) {
+            System.out.println(item.getProduct());
+        }
+
+        receipt.getFieldToValueMap()
+        .entrySet()
+        .forEach(e->System.out.println(e.getKey()+"->"+e.getValue()));
+
 
     }
 

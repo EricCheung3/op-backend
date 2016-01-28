@@ -1,18 +1,26 @@
-package com.openprice.parser.simple;
+package com.openprice.parser.generic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.StoreBranch;
+import com.openprice.parser.StoreChain;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Item;
+import com.openprice.parser.data.ReceiptField;
+import com.openprice.parser.data.ValueLine;
 
 /**
- * A very simple receipt parser to parse items from receipt lines.
- * Stop when reached "Total" or "Subtotal" line.
+ * A generic receipt parser to parse items from receipt lines.
+ * 1. Stop when reached "Total" or "Subtotal" line.
+ * 2. It should detect Date, Total/subtotal/Gst, phone, address
+ * 3. it should be able parse item and prices
  *
  */
-public class GenericParser {
+//TODO add date and total recognition?
+public class CheapParser {
 
     public ParsedReceipt parse(final List<String> lines) throws Exception {
         final List<Item> items = new ArrayList<>();
@@ -30,15 +38,17 @@ public class GenericParser {
             }
 
             if (isItem(name))
-                items.add(new Item(name));
+                items.add(Item.fromNameOnly(name));
         }
-
-        return ParsedReceipt.builder().items(items).build();
-
+        return ParsedReceipt.fromChainItemsMapBranch(
+                StoreChain.genericStoreChain(StringCommon.EMPTY),
+                items,
+                new HashMap<ReceiptField, ValueLine>(),
+                StoreBranch.EmptyStoreBranch());
     }
 
     public static boolean isItem(final String name) {
-        final String noSpace = name.replaceAll("\\s+", "");
+        final String noSpace = StringCommon.removeAllSpaces(name);
         if (noSpace.length() <= 1)
             return false;
 

@@ -3,18 +3,25 @@ package com.openprice.parser.price;
 import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Product;
 
-import lombok.Builder;
-import lombok.Value;
-import lombok.extern.slf4j.Slf4j;
+import lombok.Data;
 
-@Value
-@Builder
-@Slf4j
+@Data
 public class ProductPrice {
 
-    Product product;
-    String price;
-    boolean productIsInCatalog; //from a matched product in catalog or not
+    Product product=Product.emptyProduct();
+    String price=StringCommon.EMPTY;
+    boolean productIsInCatalog=false; //from a matched product in catalog or not
+
+    public ProductPrice(final Product product, final String price){
+        this.product=product;
+        this.price=price;
+    }
+
+    public ProductPrice(final Product product, final String price,
+            final boolean productIsInCatalog){
+        this(product, price);
+        this.productIsInCatalog=productIsInCatalog;
+    }
 
     public static ProductPrice fromNameCut(String itemName,
             String itemNumber, final String price){
@@ -35,20 +42,11 @@ public class ProductPrice {
             }
         }
 
-        final Product product=Product.builder()
-                .name(itemName.trim())
-                .number(itemNumber.trim())
-                .build();
+        final Product product=Product.fromNameNumber(itemName.trim(), itemNumber.trim());
         try{
-            return ProductPrice.builder()
-                    .product(product)
-                    .price(StringCommon.formatPrice(price.trim()))
-                    .build();
+            return new ProductPrice(product, StringCommon.formatPrice(price.trim()));
         }catch(Exception e){
-            return ProductPrice.builder()
-                    .product(product)
-                    .price(price.trim())
-                    .build();
+            return new ProductPrice(product, price.trim());
         }
     }
 
@@ -107,11 +105,7 @@ public class ProductPrice {
     }
 
     public static ProductPrice emptyValue(){
-        return ProductPrice.builder()
-                .product(Product.emptyProduct())
-                .price(StringCommon.EMPTY)
-                .productIsInCatalog(false)
-                .build();
+        return new ProductPrice(Product.emptyProduct(), StringCommon.EMPTY, false);
     }
 
     public String getName(){return product.getName();}

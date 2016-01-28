@@ -48,13 +48,13 @@ public class ReceiptData {
 
     public static ReceiptData fromOCRResults(final List<String> ocrTextList) throws Exception {
         log.debug("get {} ocr Text.", ocrTextList.size());
-        final List<String> lines = new ArrayList<>();
+        final List<String> allLines = new ArrayList<>();
         for (final String ocrText : ocrTextList) {
             //log.debug("ocr result:\n" + ocrText);
-            lines.addAll(java.util.Arrays.asList(ocrText.split("\n")));
+            allLines.addAll(java.util.Arrays.asList(ocrText.split("\n")));
         }
-        log.debug("get {} lines of text from ocr result.", lines.size());
-        return fromContentLines(lines);
+        log.debug("get {} lines of text from ocr result.", allLines.size());
+        return fromContentLines(allLines);
     }
 
     public ReceiptLine getLine(final int lineNumber) {

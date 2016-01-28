@@ -9,6 +9,7 @@ import lombok.Data;
  */
 @Data
 @Builder
+//TODO not used yet.
 public class Warning{
     final int line;//line number of the message
     final String message;

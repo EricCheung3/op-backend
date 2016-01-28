@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.openprice.parser.common.StringCommon;
-import com.openprice.parser.data.NumberName;
 import com.openprice.parser.data.Product;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,8 @@ public class PriceParserUtils {
      * 057197 77953 ROOSTER RICE
      * into 05719777953 and ROOSTER RICE
      */
-    public static NumberName numberNameSplitter(final String str){
+    //TODO: this is not used yet.
+    public static TwoStrings numberNameSplitter(final String str){
         String[] words=str.trim().split("\\s+");
         int boundary=-1;
         for(int i=0;i<words.length;i++){
@@ -32,7 +32,7 @@ public class PriceParserUtils {
             }
         }
         if(boundary<0){
-            return NumberName.builder().number(StringCommon.EMPTY).name(str).build();
+            return new TwoStrings(StringCommon.EMPTY, str);
         }
         String num="";
         for(int i=0;i<boundary;i++){
@@ -43,7 +43,7 @@ public class PriceParserUtils {
         for(int i=boundary;i<words.length;i++){
             name += " " + words[i];
         }
-        return NumberName.builder().number(num.trim()).name(name.trim()).build();
+        return new TwoStrings(num.trim(), name.trim());
     }
 
     /**

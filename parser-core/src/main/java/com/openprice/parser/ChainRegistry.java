@@ -36,8 +36,8 @@ public class ChainRegistry {
         final List<ReceiptLine> lines = receipt.getTopBottomChainMatchingLines();
         //log.debug("TopBottom matching lines:\n"+lines);
         //log.debug("search chains in registry with "+storeChains);
-        log.debug("storeChain lists:");
-        storeChains.forEach(c -> log.debug(c.getCode()));
+        log.warn("storeChain lists.size="+storeChains.size()+":");
+        storeChains.forEach(c -> log.info(c.getCode()));
 
         final Optional<ScoreWithMatchPair<StoreChain>> maxChainMatch =
                 storeChains
@@ -77,8 +77,8 @@ public class ChainRegistry {
                     log.debug("Get matching score {} for chain {}", matchingScoreSum, chain.getCode());
                     return new ScoreWithMatchPair<StoreChain>(matchingScoreSum, -1, chain);
                 })
-                .max( Comparator.comparing(ScoreWithMatchPair<StoreChain>::getScore) )
-                ;
+                .filter(pair -> pair.getScore() > CHAIN_IDENTIFY_MATCH_THRESHOLD)
+                .max( Comparator.comparing(ScoreWithMatchPair<StoreChain>::getScore) );
 
         return maxChainMatch.isPresent()? maxChainMatch.get().getMatch() : null;
     }

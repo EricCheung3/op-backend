@@ -111,19 +111,14 @@ public class ReceiptServiceTest {
         final List<String> ocrTextList = Arrays.asList("ocr result1", "ocr result2");
 
         final List<Item> items = new ArrayList<>();
-        items.add(new Item("milk", "10.99", "1.99", "4.00", "food"));
-        items.add(new Item("eggs", "4.99", "4.99", "12", "food"));
+        items.add(Item.fromNameBuyPUnitPWeightCategory("milk", "10.99", "1.99", "4.00", "food"));
+        items.add(Item.fromNameBuyPUnitPWeightCategory("eggs", "4.99", "4.99", "12", "food"));
 
-        final StoreChain chain = StoreChain.builder().code("rcss").build();
+        final StoreChain chain = StoreChain.genericStoreChain("rcss");
         final StoreBranch branch = StoreBranch.builder().branchName("Calgary Trail").build();
         final Map<ReceiptField, ValueLine> fieldToValueLine = new HashMap<ReceiptField, ValueLine>();
-        fieldToValueLine.put(ReceiptField.Total, ValueLine.builder().line(-1).value("15.00").build());
-        final ParsedReceipt receiptDebug = ParsedReceipt.builder()
-                                                        .chain(chain)
-                                                        .branch(branch)
-                                                        .fieldToValueMap(fieldToValueLine)
-                                                        .items(items)
-                                                        .build();
+        fieldToValueLine.put(ReceiptField.Total, new ValueLine("15.00", -1));
+        final ParsedReceipt receiptDebug = ParsedReceipt.fromChainItemsMapBranch(chain, items, fieldToValueLine, branch);
 
         when(receiptResultRepositoryMock.findFirstByReceiptOrderByCreatedTimeDesc(eq(receipt))).thenReturn(null);
         when(receiptImageRepositoryMock.findByReceiptOrderByCreatedTime(eq(receipt))).thenReturn(images);
@@ -141,6 +136,8 @@ public class ReceiptServiceTest {
         verify(receiptItemRepositoryMock, times(2)).save(isA(ReceiptItem.class));
 
     }
+
+    //test if there are parser results in database.
 
     @Test
     public void getLatestReceiptParserResult_ShouldReturnLatestResult() throws Exception {

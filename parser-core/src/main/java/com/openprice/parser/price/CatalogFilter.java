@@ -6,21 +6,20 @@ import java.util.List;
 import com.openprice.parser.common.Levenshtein;
 import com.openprice.parser.common.StringCommon;
 
-import lombok.Builder;
 import lombok.Value;
 
-@Builder
 @Value
 public class CatalogFilter {
 
     List<String> blackList;
     static final double BLACKLIST_THRESHOLD=0.7;
 
+    private CatalogFilter(final List<String> blackList){
+        this.blackList=blackList;
+    }
+
     public static CatalogFilter fromList(final List<String> bk){
-        return CatalogFilter
-                .builder()
-                .blackList(StringCommon.sortByStringLength(bk))
-                .build();
+        return new CatalogFilter(StringCommon.sortByStringLength(bk));
     }
 
     public static CatalogFilter emptyFilter(){
