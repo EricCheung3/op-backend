@@ -17,7 +17,9 @@ import com.openprice.parser.data.ValueLine;
  * 1. Stop when reached "Total" or "Subtotal" line.
  * 2. It should detect Date, Total/subtotal/Gst, phone, address
  * 3. it should be able parse item and prices
+ *
  */
+//TODO add date and total recognition?
 public class CheapParser {
 
     public ParsedReceipt parse(final List<String> lines) throws Exception {

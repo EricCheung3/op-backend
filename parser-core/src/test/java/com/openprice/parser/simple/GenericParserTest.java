@@ -41,6 +41,11 @@ public class GenericParserTest {
             System.out.println(item.getProduct());
         }
 
+        receipt.getFieldToValueMap()
+        .entrySet()
+        .forEach(e->System.out.println(e.getKey()+"->"+e.getValue()));
+
+
     }
 
 }

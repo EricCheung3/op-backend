@@ -1,4 +1,4 @@
-package com.openprice.parser.store;
+package com.openprice.parser.generic;
 
 
 /**

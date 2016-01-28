@@ -23,7 +23,7 @@ public class GenericChains {
 
     final List<String> chainLines;
 
-    private GenericChains(final List<String> chainList){
+    public GenericChains(final List<String> chainList){
         this.chainLines=chainList;
     }
 
@@ -122,7 +122,7 @@ public class GenericChains {
 
       String[] names = chainLineFields[1].trim().split(SECONDLEVEL_SPLITTER);
       double maxScore = -1, score = 0;
-      String matchedIdentityName = "";//
+      String matchedIdentityName = "";
       for (int i = 0; i < names.length; i++) {
           String rLine = receiptLine.toLowerCase();
           String cName = names[i].toLowerCase();

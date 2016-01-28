@@ -22,7 +22,6 @@ import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.parser.simple.MatchedRecord;
 import com.openprice.parser.simple.SimpleParser;
 import com.openprice.parser.store.AbstractStoreParser;
-import com.openprice.parser.store.ConfigFiles;
 
 import lombok.extern.slf4j.Slf4j;
 
