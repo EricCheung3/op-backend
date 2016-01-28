@@ -157,6 +157,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
 
     //use class.getInputAsStream?
     private Resource getStoreConfigResource(final String filename) {
+        //return resourceLoader.getResource(ConfigFiles.CONFIG_PATH_PREFIX + getParserBaseCode() + "/" + filename);
         return resourceLoader.getResource(ConfigFiles.CONFIG_PATH_PREFIX + getParserBaseCode() + "/" + filename);
     }
 

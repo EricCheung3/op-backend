@@ -10,6 +10,16 @@ public class ConfigFilesTest {
     private static final String PARSER="Safeway1";
 
     @Test
+    public void getFileUnderChainTest(){
+        assertEquals(ConfigFiles.CONFIG_PATH_PREFIX+CHAIN+"/1.txt", ConfigFiles.getFileUnderChain(CHAIN, "1.txt"));
+    }
+
+    @Test
+    public void getFileUnderChainParserTest(){
+        assertEquals(ConfigFiles.CONFIG_PATH_PREFIX+CHAIN+"/"+PARSER+"/1.txt", ConfigFiles.getFileUnderChainParser(CHAIN, PARSER, "1.txt"));
+    }
+
+    @Test
     public void blackListTest1(){
         assertEquals(ConfigFiles.CONFIG_PATH_PREFIX+CHAIN+"/"+PARSER+"/"+ConfigFiles.CATALOG_BLACK_LIST_FILE_NAME,
                 ConfigFiles.blackListFile(CHAIN, PARSER));
