@@ -114,7 +114,7 @@ public class ReceiptServiceTest {
         items.add(Item.fromNameBuyPUnitPWeightCategory("milk", "10.99", "1.99", "4.00", "food"));
         items.add(Item.fromNameBuyPUnitPWeightCategory("eggs", "4.99", "4.99", "12", "food"));
 
-        final StoreChain chain = StoreChain.builder().code("rcss").build();
+        final StoreChain chain = StoreChain.genericStoreChain("rcss");
         final StoreBranch branch = StoreBranch.builder().branchName("Calgary Trail").build();
         final Map<ReceiptField, ValueLine> fieldToValueLine = new HashMap<ReceiptField, ValueLine>();
         fieldToValueLine.put(ReceiptField.Total, new ValueLine("15.00", -1));

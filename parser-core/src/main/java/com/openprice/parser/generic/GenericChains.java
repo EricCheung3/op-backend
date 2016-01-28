@@ -14,17 +14,17 @@ import lombok.extern.slf4j.Slf4j;
 public class GenericChains {
 
     // use a large values to search all lines from the end
-    private static final int MAX_SEARCHED_LINES_END = 6;
-    private static final int MAX_SEARCHED_LINES_BEGIN = 6;
+    private static final int NUM_SEARCHED_LINES_AT_END = 6;
+    private static final int NUM_SEARCHED_LINES_AT_BEGIN = 6;
 
 //  // splitter used in a line in file chain.list
     private final static String CHAINLINE_SPLITTER = ":";
     private final static String SECONDLEVEL_SPLITTER = ",";// the splitter used inside a field between :
 
-    final List<String> chainList;
+    final List<String> chainLines;
 
     private GenericChains(final List<String> chainList){
-        this.chainList=chainList;
+        this.chainLines=chainList;
     }
 
     public GenericChains(final String resourceFile){
@@ -47,7 +47,7 @@ public class GenericChains {
       }
 
       // fast mode: searching a few number of lines from beginning.
-      StringDouble chainBegin = chainNameSearch(lines, begin, begin + MAX_SEARCHED_LINES_BEGIN);
+      StringDouble chainBegin = chainNameSearch(lines, begin, begin + NUM_SEARCHED_LINES_AT_BEGIN);
       if (chainBegin.getValue() > 0.75)
           return chainBegin.getStr();
 
@@ -60,7 +60,7 @@ public class GenericChains {
               break;
           }
       }
-      StringDouble chainEnd = chainNameSearch(lines, end - MAX_SEARCHED_LINES_END, end);
+      StringDouble chainEnd = chainNameSearch(lines, end - NUM_SEARCHED_LINES_AT_END, end);
       log.debug("#####searching from head: chain=" + chainBegin.getStr() + ", score=" + chainBegin.getValue());
       log.debug("#####searching from End: chain=" + chainEnd.getStr() + ", score=" + chainEnd.getValue());
       if (chainEnd.getValue() > chainBegin.getValue())
@@ -71,18 +71,12 @@ public class GenericChains {
 
   /*
  * detect which chain the store between begin and end
- *
  * @param begin the begin line number
- *
  * @param end the end line number
- *
- * @return a Chain object, the first is matched chain name, the second is
- * the score, the third is the line number matched.
+ * @return an StringDouble object, the first is matched chain name, the second is the score
  */
     public StringDouble chainNameSearch(final List<String> lines, final int begin, final int end) throws Exception {
         double maxScore = -1;
-        String matchedIdentityName = "";
-        String matchedLine = "";
         String chainName = "";
         for (int i = Math.max(0, begin); i <= Math.min(lines.size() - 1, end); i++) {
             final String line = lines.get(i).trim();
@@ -90,15 +84,12 @@ public class GenericChains {
             if (counts[1] < 2)
                 continue;
 
-            for (int c = 0; c < chainList.size(); c++) {
-                // nSCP is short for nameScoreCatParserFound
-                final ChainLine chainLine = matchedIdentityName(chainList.get(c), line);
+            for (int c = 0; c < chainLines.size(); c++) {
+                final ChainLine chainLine = matchedIdentityName(chainLines.get(c), line);
                 String cha = chainLine.identityField();
                 double score = chainLine.matchScore();
                 if (score > maxScore) {
                     maxScore = score;
-                    matchedIdentityName = cha;
-                    matchedLine = line;
                     chainName = chainLine.chainName();
                 }
 
@@ -111,14 +102,7 @@ public class GenericChains {
                 }
             }
         }
-        // logger.debug("approximate chain found is "+matched+",
-        // score="+maxScore
-        // +", line is "+lines.get(found));
-        final StringDouble chain = new StringDouble(chainName, maxScore);
-        log.debug("matched line=" + matchedLine + "match identity field =" + matchedIdentityName + ",leven score="
-                + maxScore);
-        log.debug("matched chain:\n" + chain);
-        return chain;
+        return new StringDouble(chainName, maxScore);
     }
 
     /**
