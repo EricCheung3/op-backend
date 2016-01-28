@@ -93,9 +93,12 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         Properties allConfig = new Properties();
         try {
             allConfig.load(getChainParserResource(parserName, ConfigFiles.HEADER_CONFIG_FILE_NAME));
-            System.out.println("allConfig.size"+allConfig.entrySet().size());
+            //System.out.println("allConfig.size"+allConfig.size());
+            final int size1=allConfig.size();
             allConfig.putAll(baseConfig);
-            System.out.println("allConfig.size"+allConfig.entrySet().size());
+            final int size2=allConfig.size();
+            if(size2!=size1+baseConfig.size())
+                log.warn("there are repeating properties in the two config files for parser "+parserName);
         } catch (IOException ex) {
             log.error("Cannot load headerConfig.properties for store parser {}!", parserName);
         }

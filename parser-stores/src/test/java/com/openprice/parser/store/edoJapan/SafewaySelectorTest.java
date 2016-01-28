@@ -66,13 +66,14 @@ public class SafewaySelectorTest extends ParserSelectorIntegrationTest{
     }
 
     @Test
-    public void storeConfig1() throws Exception{
+    public void configHeaderAndPropertiesTest() throws Exception{
         ReceiptData data=ReceiptData.fromContentLines(atLeast5Lines);
         final StoreParser parser=selector.selectParser(data);
         final StoreConfig config=parser.getStoreConfig();
+        //it's not in the config files, so it's null
+        //System.out.println("config.refExample()"+config.refExample());
 
-        System.out.println("config.refExample()"+config.refExample());
-        System.out.println("config.getProp().entrySet().size()"+config.getProp().entrySet().size());
-        System.out.println("config.similarityOfTwoStrings="+config.similarityThresholdOfTwoStrings());
+        //System.out.println("config.getProp().entrySet().size()"+config.getProp().entrySet().size());
+        //System.out.println("config.similarityOfTwoStrings="+config.similarityThresholdOfTwoStrings());
     }
 }
