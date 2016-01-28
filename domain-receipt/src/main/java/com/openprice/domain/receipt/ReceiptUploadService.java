@@ -1,11 +1,7 @@
 package com.openprice.domain.receipt;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.Base64;
 
@@ -108,16 +104,7 @@ public class ReceiptUploadService {
 
     private ReceiptImage saveImage(final Receipt receipt, final byte[] content) {
         final ReceiptImage image = receipt.createImage();
-        final Path imageFile = getImageFile(image);
-
-        try (final OutputStream out = new BufferedOutputStream(Files.newOutputStream(imageFile, StandardOpenOption.CREATE_NEW)))
-        {
-            out.write(content);
-        } catch (IOException ex) {
-            log.error("Cannot save receipt image to image folder at '{}', please check server file system!", imageFile.toString());
-            throw new RuntimeException("System Error! Cannot save image.", ex); //TODO design exceptions
-        }
-
+        final Path imageFile = fileSystemService.saveReceiptImage(receipt.getUser().getId(), image.getFileName(), content);
         image.setStatus(ProcessStatusType.UPLOADED);
         log.debug("Save uploaded receipt image to {}.", imageFile);
         return receiptImageRepository.save(image);

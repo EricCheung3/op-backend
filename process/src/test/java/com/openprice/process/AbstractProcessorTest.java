@@ -1,12 +1,5 @@
 package com.openprice.process;
 
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-
 import org.mockito.Mock;
 
 import com.openprice.domain.account.user.UserAccount;
@@ -46,14 +39,7 @@ public abstract class AbstractProcessorTest {
                                                .fileName(TEST_FILENAME)
                                                .build();
 
-        final Path imageFile = fileSystemService.getReceiptImageSubFolder(TEST_USER_ID).resolve(image.getFileName());
-        try (final OutputStream out = new BufferedOutputStream(Files.newOutputStream(imageFile, StandardOpenOption.CREATE_NEW)))
-        {
-            out.write(TEST_CONTENT.getBytes());
-        } catch (IOException ex) {
-            throw new RuntimeException("System Error! Cannot save image.", ex);
-        }
-
+        fileSystemService.saveReceiptImage(TEST_USER_ID, image.getFileName(), TEST_CONTENT.getBytes());
         return image;
     }
 
