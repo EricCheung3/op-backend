@@ -6,7 +6,8 @@ package com.openprice.parser.generic;
  */
 public class ConfigFiles {
 
-    public static final String CONFIG_PATH_PREFIX = "classpath:config/";
+//    public static final String CONFIG_PATH_PREFIX = "classpath:config/";
+    public static final String CONFIG_PATH_PREFIX = "/config/";
 
     public static final String BRANCH_FILE_NAME = "branch.csv";
     public static final String CATEGORY_FILE_NAME = "category.txt";

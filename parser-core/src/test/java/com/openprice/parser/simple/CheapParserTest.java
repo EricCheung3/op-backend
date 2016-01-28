@@ -20,7 +20,7 @@ import com.openprice.parser.data.Item;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {StoreParserTestApplication.class})
-public class GenericParserTest {
+public class CheapParserTest {
     @Value("classpath:/testFiles/unknown/2015_02_09_11_34_51.jpg.hengshuai.txt")
     private Resource edoJapan1;
 

@@ -89,7 +89,8 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     protected abstract void generateParser();
 
     protected Resource getParserConfigResource(final String parserName, final String filename) {
-        return resourceLoader.getResource(ConfigFiles.CONFIG_PATH_PREFIX + getParserBaseCode() + "/" + parserName + "/" + filename);
+//        return resourceLoader.getResource(ConfigFiles.CONFIG_PATH_PREFIX + getParserBaseCode() + "/" + parserName + "/" + filename);
+        return resourceLoader.getResource(ConfigFiles.getFileUnderChainParser(getParserBaseCode(), parserName, filename));
     }
 
     protected StoreConfig loadParserConfig(final String parserName) {
@@ -158,7 +159,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     //use class.getInputAsStream?
     private Resource getStoreConfigResource(final String filename) {
         //return resourceLoader.getResource(ConfigFiles.CONFIG_PATH_PREFIX + getParserBaseCode() + "/" + filename);
-        return resourceLoader.getResource(ConfigFiles.CONFIG_PATH_PREFIX + getParserBaseCode() + "/" + filename);
+        return resourceLoader.getResource(ConfigFiles.getFileUnderChain(getParserBaseCode(), filename));
     }
 
     /**

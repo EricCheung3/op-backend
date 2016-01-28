@@ -42,14 +42,14 @@ public class GenericParser extends AbstractStoreParser {
     public static GenericParser selectParser(ReceiptData receipt) {
         List<String> blackList=null;
         try{
-            blackList=TextResourceUtils.loadStringArray("/config/Generic/"+ConfigFiles.CATALOG_BLACK_LIST_FILE_NAME);
+            blackList=TextResourceUtils.loadStringArray(ConfigFiles.blackListFile("Generic"));
         }catch(Exception e){
             log.warn("cannot load "+ConfigFiles.CATALOG_BLACK_LIST_FILE_NAME);
             blackList=new ArrayList<String>();
         }
         final Properties prop = new Properties();
         try{
-            prop.load(StoreParser.class.getResourceAsStream("/config/Generic/Generic1/"+ConfigFiles.HEADER_CONFIG_FILE_NAME));
+            prop.load(StoreParser.class.getResourceAsStream(ConfigFiles.headerFile("Generic", "Generic1")));
         }catch (IOException ex) {
             log.warn("Cannot load config.properties for Generic store chain!");
         }
