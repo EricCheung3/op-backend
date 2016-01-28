@@ -57,7 +57,7 @@
 57:Lotto 649:Lottery:Lotto649
 58:Luky 97:Grocery:Luky97
 59:Mac@:Cosmetics:Mac
-60:McDonald:Restaurant:McDonald
+60:McDonald's:Restaurant:McDonald
 61:Meadowbrook Husky market:Auto:MeadowbrookHuskymarket
 62:Merle Norman Cosmetics:Cosmetics:MerleNormanCosmetics
 63:Naan-O-licious:Restaurant:NaanOlicious
@@ -112,3 +112,4 @@
 112:Winners:Department:Winners
 113:XS Cargo:Grocery:XSCargo
 114:Yellow Cab:Taxi:YellowCab
+115:Subway:Restaurant:Subway

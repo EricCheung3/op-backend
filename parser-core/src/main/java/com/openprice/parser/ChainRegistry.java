@@ -77,8 +77,8 @@ public class ChainRegistry {
                     log.debug("Get matching score {} for chain {}", matchingScoreSum, chain.getCode());
                     return new ScoreWithMatchPair<StoreChain>(matchingScoreSum, -1, chain);
                 })
-                .max( Comparator.comparing(ScoreWithMatchPair<StoreChain>::getScore) )
-                ;
+                .filter(pair -> pair.getScore() > CHAIN_IDENTIFY_MATCH_THRESHOLD)
+                .max( Comparator.comparing(ScoreWithMatchPair<StoreChain>::getScore) );
 
         return maxChainMatch.isPresent()? maxChainMatch.get().getMatch() : null;
     }
