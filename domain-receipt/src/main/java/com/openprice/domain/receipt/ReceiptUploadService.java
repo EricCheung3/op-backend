@@ -19,17 +19,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ReceiptUploadService {
 
-    private final ReceiptService receiptService;
+    private final ReceiptParsingService receiptParsingService;
     private final ReceiptRepository receiptRepository;
     private final ReceiptImageRepository receiptImageRepository;
     private final FileSystemService fileSystemService;
 
     @Inject
-    public ReceiptUploadService(final ReceiptService receiptService,
+    public ReceiptUploadService(final ReceiptParsingService receiptParsingService,
                                 final ReceiptRepository receiptRepository,
                                 final ReceiptImageRepository receiptImageRepository,
                                 final FileSystemService fileSystemService) {
-        this.receiptService = receiptService;
+        this.receiptParsingService = receiptParsingService;
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
         this.fileSystemService = fileSystemService;
@@ -159,7 +159,7 @@ public class ReceiptUploadService {
             receiptImage.setOcrResult(ocrText);
             receiptImage.setStatus(ProcessStatusType.SCANNED);
             receiptImageRepository.save(receiptImage);
-            receiptService.parseOcrAndSaveResults(receipt, Arrays.asList(ocrText));
+            receiptParsingService.parseOcrAndSaveResults(receipt, Arrays.asList(ocrText));
             log.info("Hackloaded OCR result into receipt {} and parsed the result.", receipt.getId());
         } catch (IOException ex) {
             log.error("No content of OCR result to save!");

@@ -40,7 +40,7 @@ public class RemoteOCRImageProcessorTest extends AbstractProcessorTest {
         processorToTest = new RemoteOCRImageProcessor(TEST_SERVER_NAME,
                                                       fileSystemService,
                                                       ocrServiceMock,
-                                                      receiptServiceMock,
+                                                      receiptParsingServiceMock,
                                                       processLogRepositoryMock,
                                                       receiptImageRepositoryMock);
     }

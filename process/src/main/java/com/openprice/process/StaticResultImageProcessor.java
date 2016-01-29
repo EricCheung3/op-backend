@@ -10,7 +10,7 @@ import org.springframework.core.io.Resource;
 import com.google.common.io.CharStreams;
 import com.openprice.domain.receipt.OcrProcessLogRepository;
 import com.openprice.domain.receipt.ReceiptImageRepository;
-import com.openprice.domain.receipt.ReceiptService;
+import com.openprice.domain.receipt.ReceiptParsingService;
 import com.openprice.file.FileSystemService;
 import com.openprice.ocr.api.ImageProcessResult;
 
@@ -30,11 +30,11 @@ public class StaticResultImageProcessor extends AbstractImageProcessor {
     private final int waitSeconds;
 
     public StaticResultImageProcessor(final FileSystemService fileSystemService,
-                                      final ReceiptService receiptService,
+                                      final ReceiptParsingService receiptParsingService,
                                       final OcrProcessLogRepository ocrProcessLogRepository,
                                       final ReceiptImageRepository receiptImageRepository,
                                       final int waitSeconds) {
-        super("Static", fileSystemService, receiptService, ocrProcessLogRepository, receiptImageRepository);
+        super("Static", fileSystemService, receiptParsingService, ocrProcessLogRepository, receiptImageRepository);
         this.waitSeconds = waitSeconds;
 
         try {

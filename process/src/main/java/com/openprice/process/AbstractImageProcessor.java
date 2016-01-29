@@ -10,7 +10,7 @@ import com.openprice.domain.receipt.OcrProcessLogRepository;
 import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
-import com.openprice.domain.receipt.ReceiptService;
+import com.openprice.domain.receipt.ReceiptParsingService;
 import com.openprice.file.FileSystemService;
 import com.openprice.ocr.api.ImageProcessResult;
 
@@ -21,18 +21,18 @@ public abstract class AbstractImageProcessor implements ImageProcessor {
 
     private final String name;
     private final FileSystemService fileSystemService;
-    private final ReceiptService receiptService;
+    private final ReceiptParsingService receiptParsingService;
     private final OcrProcessLogRepository ocrProcessLogRepository;
     private final ReceiptImageRepository receiptImageRepository;
 
     public AbstractImageProcessor(final String name,
                                   final FileSystemService fileSystemService,
-                                  final ReceiptService receiptService,
+                                  final ReceiptParsingService receiptParsingService,
                                   final OcrProcessLogRepository ocrProcessLogRepository,
                                   final ReceiptImageRepository receiptImageRepository) {
         this.name = name;
         this.fileSystemService = fileSystemService;
-        this.receiptService = receiptService;
+        this.receiptParsingService = receiptParsingService;
         this.ocrProcessLogRepository = ocrProcessLogRepository;
         this.receiptImageRepository = receiptImageRepository;
     }
@@ -115,6 +115,6 @@ public abstract class AbstractImageProcessor implements ImageProcessor {
             return;
         }
 
-        receiptService.parseScannedReceiptImages(imageProcessed.getReceipt());
+        receiptParsingService.parseScannedReceiptImages(imageProcessed.getReceipt());
     }
 }

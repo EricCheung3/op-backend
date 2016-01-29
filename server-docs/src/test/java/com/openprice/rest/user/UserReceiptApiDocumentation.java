@@ -386,7 +386,7 @@ public class UserReceiptApiDocumentation extends UserApiDocumentationBase {
             receiptImageRepository.save(image);
         }
         // trigger parser
-        receiptService.parseOcrAndSaveResults(receipt, Arrays.asList(ocrResult));
+        receiptParsingService.parseOcrAndSaveResults(receipt, Arrays.asList(ocrResult));
     }
 
     protected void deleteReceipts() throws Exception {

@@ -46,7 +46,7 @@ public class ReceiptUploadServiceTest {
     MultipartFile ocrMock;
 
     @Mock
-    ReceiptService receiptServiceMock;
+    ReceiptParsingService receiptParsingServiceMock;
 
     FileSystemService fileSystemService;
 
@@ -56,7 +56,7 @@ public class ReceiptUploadServiceTest {
     @Before
     public void setup() throws Exception {
         fileSystemService = new FileSystemService(new FileFolderSettings());
-        serviceToTest = new ReceiptUploadService(receiptServiceMock,
+        serviceToTest = new ReceiptUploadService(receiptParsingServiceMock,
                                                  receiptRepositoryMock,
                                                  receiptImageRepositoryMock,
                                                  fileSystemService);

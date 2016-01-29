@@ -7,7 +7,7 @@ import com.openprice.domain.receipt.OcrProcessLogRepository;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
-import com.openprice.domain.receipt.ReceiptService;
+import com.openprice.domain.receipt.ReceiptParsingService;
 import com.openprice.file.FileFolderSettings;
 import com.openprice.file.FileSystemService;
 
@@ -21,7 +21,7 @@ public abstract class AbstractProcessorTest {
     protected final String TEST_OCR_ERROR = "OCR Error";
 
     @Mock
-    protected ReceiptService receiptServiceMock;
+    protected ReceiptParsingService receiptParsingServiceMock;
 
     @Mock
     protected OcrProcessLogRepository processLogRepositoryMock;
