@@ -25,7 +25,7 @@ import com.openprice.parser.simple.SimpleParser;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class UnknownStoresTest extends AbstractReceiptParserIntegrationTest {
+public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
     @Inject
     SimpleParser simpleParser;
