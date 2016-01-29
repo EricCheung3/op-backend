@@ -42,9 +42,8 @@ public class CheapParserTest {
         }
 
         receipt.getFieldToValueMap()
-        .entrySet()
-        .forEach(e->System.out.println(e.getKey()+"->"+e.getValue()));
-
+               .entrySet()
+               .forEach(e->System.out.println(e.getKey()+"->"+e.getValue()));
 
     }
 

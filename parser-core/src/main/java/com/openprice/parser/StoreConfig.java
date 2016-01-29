@@ -12,8 +12,10 @@ import lombok.Getter;
 
 public class StoreConfig {
     private static final String SPLITTER=",";//splitter in the lines of the config.properties file
+    @Getter
     private final Properties prop;
 
+    @Getter
     private final List<String> category;
     @Getter
     private final List<String> skipBefore;
@@ -119,7 +121,6 @@ public class StoreConfig {
     public int widthLowerBound()throws NumberFormatException{
         return Integer.valueOf(prop.getProperty("WidthLowerBound"));
     }
-
 
     private List<String> splitLine(final String headerName){
         String lineStr=prop.getProperty(headerName);
