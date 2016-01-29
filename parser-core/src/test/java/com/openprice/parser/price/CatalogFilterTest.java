@@ -26,5 +26,7 @@ public class CatalogFilterTest {
         assertTrue(!filter.matchesBlackList("W@@!!A"));
         assertTrue(!filter.matchesBlackList("WT    ORGANIC ZUCCHINI"));
     }
+
+
 }
 

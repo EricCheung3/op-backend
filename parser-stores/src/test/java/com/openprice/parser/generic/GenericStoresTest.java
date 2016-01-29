@@ -25,7 +25,7 @@ import com.openprice.parser.simple.SimpleParser;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class UnknownStoresTest extends AbstractReceiptParserIntegrationTest {
+public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
     @Inject
     SimpleParser simpleParser;
@@ -43,6 +43,34 @@ public class UnknownStoresTest extends AbstractReceiptParserIntegrationTest {
         ParsedReceipt receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
         assertEquals("Tim Hortons", receipt.getChain().getCode());
+
+        Iterator<Item> iterator = receipt.getItems().iterator();
+        assertEquals(3,receipt.getItems().size());
+        verifyItemParsedValue(iterator.next(), "med tea latte", "2.84", "med tea latte");
+        verifyItemParsedValue(iterator.next(), "green tea", "0.00", "green tea");
+        verifyItemParsedValue(iterator.next(), "med latte", "2.59", "med latte");
+
+//        // verify parsed fields
+        Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
+        assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "5.43");
+
+        //TODO
+//        assertEquals(StringCommon.EMPTY, fieldValues.get(ReceiptField.Date).getValue());//this receipt has no date string
+    }
+
+    @Value("classpath:/testFiles/Generic/2015_05_02_21_56_44.jpg.momingzhen160_removeChainName.txt")
+    private Resource timHortons2;
+
+    @Test
+    public void testReceipt1ChainNameRemovedThenReturnEmptyChainNameAndDateTotol() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(timHortons2, (line)-> receiptLines.add(line));
+
+        assertTrue(receiptLines.size() > 0);
+
+        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        printResult(receipt);
+        assertEquals("", receipt.getChain().getCode());
 
         Iterator<Item> iterator = receipt.getItems().iterator();
         assertEquals(3,receipt.getItems().size());
@@ -104,11 +132,8 @@ public class UnknownStoresTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("McDonald's", receipt.getChain().getCode());
 
         Iterator<Item> iterator = receipt.getItems().iterator();
-        assertEquals(4,receipt.getItems().size());
+        assertEquals(2,receipt.getItems().size());
 
-        //TODO the first two are noise
-        verifyItemParsedValue(iterator.next(), "sale    #04kw1dbv67", "", "sale    #04kw1dbv67");
-        verifyItemParsedValue(iterator.next(), "qty item    total", "", "qty item    total");
         verifyItemParsedValue(iterator.next(), "1 blueberry muffin", "1.69", "1 blueberry muffin");
         verifyItemParsedValue(iterator.next(), "1 m latte", "1.50", "1 m latte");
 
@@ -133,12 +158,10 @@ public class UnknownStoresTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("Subway", receipt.getChain().getCode());
 
         Iterator<Item> iterator = receipt.getItems().iterator();
-        assertEquals(2,receipt.getItems().size());
+        assertEquals(1,receipt.getItems().size());
 
-        verifyItemParsedValue(iterator.next(), "qty size item    price", "", "qty size item    price");
         verifyItemParsedValue(iterator.next(), "2    soup rtu 8oz soup", "5.00", "2    soup rtu 8oz soup");
 
-//        // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
         assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "5.00");
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "5.25");
