@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -16,10 +17,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 
 import com.openprice.domain.receipt.OcrProcessLog;
 import com.openprice.domain.receipt.ProcessStatusType;
+import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.ocr.api.ImageProcessResult;
 import com.openprice.ocr.client.OcrService;
@@ -54,6 +58,12 @@ public class RemoteOCRImageProcessorTest extends AbstractProcessorTest {
 
         when(ocrServiceMock.processUserReceiptImage(anyString())).thenReturn(mockResult);
         when(receiptImageRepositoryMock.findOne(eq(IMAGE_ID))).thenReturn(image);
+        when(receiptParsingServiceMock.parseScannedReceiptImages(isA(Receipt.class))).thenAnswer(new Answer<Receipt>() {
+            @Override
+            public Receipt answer(InvocationOnMock invocation) throws Throwable {
+                return (Receipt) invocation.getArguments()[0];
+            }
+        });
 
         processorToTest.processImage(item);
 
@@ -86,6 +96,12 @@ public class RemoteOCRImageProcessorTest extends AbstractProcessorTest {
 
         when(ocrServiceMock.processUserReceiptImage(anyString())).thenReturn(mockResult);
         when(receiptImageRepositoryMock.findOne(eq(IMAGE_ID))).thenReturn(image);
+        when(receiptParsingServiceMock.parseScannedReceiptImages(isA(Receipt.class))).thenAnswer(new Answer<Receipt>() {
+            @Override
+            public Receipt answer(InvocationOnMock invocation) throws Throwable {
+                return (Receipt) invocation.getArguments()[0];
+            }
+        });
 
         processorToTest.processImage(item);
 

@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import com.openprice.domain.receipt.OcrProcessLog;
 import com.openprice.domain.receipt.OcrProcessLogRepository;
 import com.openprice.domain.receipt.ProcessStatusType;
+import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptParsingService;
@@ -51,15 +52,13 @@ public abstract class AbstractImageProcessor implements ImageProcessor {
             log.error("Cannot open image file {}, please check file system.", imageFile.toString());
             throw new RuntimeException("Image file not exist: " + imageFile.toString());
         }
-        log.debug("Start processing image {} saved at {} by calling Cloud OCR SDK...",
-                item.getImageId(), imageFile.toString());
+        log.debug("Start processing image {} saved at {} by calling {}...",
+                item.getImageId(), imageFile.toString(), name);
         final ImageProcessResult result = getImageProcessResult(imageFile.toString());
         final long duration = System.currentTimeMillis() - start;
         log.info("Finish processing image {} with {}, took {} milli-seconds.",
                 item.getImageId(), name, duration);
         saveProcessResult(item, result, start, duration);
-
-        parseResult(item);
     }
 
     protected abstract ImageProcessResult getImageProcessResult(String filePath);
@@ -105,16 +104,11 @@ public abstract class AbstractImageProcessor implements ImageProcessor {
         }
         ocrProcessLogRepository.save(processLog);
         receiptImageRepository.save(image);
-    }
 
-    @Transactional(value = Transactional.TxType.REQUIRES_NEW)
-    private void parseResult(final ProcessItem item) {
-        final ReceiptImage imageProcessed = receiptImageRepository.findOne(item.getImageId());
-        if (imageProcessed == null) {
-            log.error("Image '{}' was deleted when parsing ocr result!", item.getImageId()); // that should not happen?
-            return;
-        }
+        Receipt receipt = image.getReceipt();
+        log.info("After OCR process, receipt status is : "+receipt.getStatus()); // for test purpose to see what happens in Cloud. TODO change to debug
+        receipt = receiptParsingService.parseScannedReceiptImages(receipt);
+        log.info("After parsing, receipt status is : "+receipt.getStatus()); // for test purpose to see what happens in Cloud. TODO change to debug
 
-        receiptParsingService.parseScannedReceiptImages(imageProcessed.getReceipt());
     }
 }

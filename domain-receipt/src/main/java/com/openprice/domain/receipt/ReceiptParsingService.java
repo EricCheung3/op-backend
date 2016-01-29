@@ -1,5 +1,7 @@
 package com.openprice.domain.receipt;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +74,16 @@ public class ReceiptParsingService {
         }
 
         ReceiptResult result = parseOcrAndSaveResults(receipt, ocrTextList);
-        receipt.setStatus( (result == null) ? ReceiptStatusType.PARSER_ERROR : ReceiptStatusType.HAS_RESULT);
+
+        if (result != null) {
+            receipt.setStatus(ReceiptStatusType.HAS_RESULT);
+            final LocalDate receiptDate = getReceiptDate(result.getParsedDate());
+            if (receiptDate != null) {
+                receipt.setReceiptDate(receiptDate);
+            }
+        } else{
+            receipt.setStatus(ReceiptStatusType.PARSER_ERROR);
+        }
         return receiptRepository.save(receipt);
     }
 
@@ -100,6 +111,23 @@ public class ReceiptParsingService {
             return null;
         }
 
+    }
+
+    LocalDate getReceiptDate(final String parsedDate) {
+        if (!StringUtils.isEmpty(parsedDate)) {
+            String[] splitDateStrings = parsedDate.split("/");
+            if (splitDateStrings.length == 3) {
+                try {
+                    return LocalDate.of(Integer.parseInt(splitDateStrings[0]),
+                                        Month.of(Integer.parseInt(splitDateStrings[1])),
+                                        Integer.parseInt(splitDateStrings[2]));
+                } catch (Exception ex) {
+                    log.error("Cannot set receipt date from parsed date from simple parser: '{}'", parsedDate);
+                }
+            }
+        }
+
+        return null;
     }
 
 }

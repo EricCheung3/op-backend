@@ -18,4 +18,6 @@ public interface ReceiptRepository extends JpaRepository<Receipt, String> {
 
     Page<Receipt> findByUserOrderByCreatedTimeDesc(UserAccount user, Pageable pageable);
 
+    Page<Receipt> findByUserOrderByReceiptDateDesc(UserAccount user, Pageable pageable);
+
 }

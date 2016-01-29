@@ -17,7 +17,7 @@ public class ProcessQueueConsumer implements Runnable {
 
     @Override
     public void run() {
-        log.info("Process Queue Consumer started for processor {}.", imageProcessor.getName());
+        log.info("Process Queue Consumer started for processor '{}'.", imageProcessor.getName());
         while (true) {
             try {
                 ProcessItem item = queue.take();
@@ -31,6 +31,6 @@ public class ProcessQueueConsumer implements Runnable {
                 log.error("SEVERE!!! got exception during image processing.", ex);
             }
         }
-        log.info("Process Queue Consumer stopped for processor {}.", imageProcessor.getName());
+        log.info("Process Queue Consumer stopped for processor '{}'.", imageProcessor.getName());
     }
 }

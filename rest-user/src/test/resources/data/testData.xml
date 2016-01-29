@@ -12,25 +12,25 @@
     <user_role user_account_id="user002" role="ROLE_USER"/>
     <user_role user_account_id="user003" role="ROLE_USER"/>
 
-    <receipt id="receipt001" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 10:00:01.0000"/>
-    <receipt id="receipt002" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 11:00:01.0000"/>
-    <receipt id="receipt003" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 12:00:01.0000"/>
-    <receipt id="receipt004" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 13:00:01.0000"/>
-    <receipt id="receipt005" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 14:00:01.0000"/>
-    <receipt id="receipt006" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 15:00:01.0000"/>
-    <receipt id="receipt007" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 16:00:01.0000"/>
-    <receipt id="receipt008" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 17:00:01.0000"/>
-    <receipt id="receipt009" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 18:00:01.0000"/>
-    <receipt id="receipt010" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 19:00:01.0000"/>
-    <receipt id="receipt011" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 20:00:01.0000"/>
-    <receipt id="receipt012" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 21:00:01.0000"/>
-    <receipt id="receipt013" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 22:00:01.0000"/>
-    <receipt id="receipt014" version="1" user_account_id="user001" need_feedback="1" created_time="2009-01-01 23:00:01.0000"/>
+    <receipt id="receipt001" version="1" user_account_id="user001" status="WAIT_FOR_RESULT" receipt_date="2009-01-01" need_feedback="1" created_time="2009-01-01 10:00:01.0000"/>
+    <receipt id="receipt002" version="1" user_account_id="user001" status="WAIT_FOR_RESULT" receipt_date="2009-01-02" need_feedback="1" created_time="2009-01-01 11:00:01.0000"/>
+    <receipt id="receipt003" version="1" user_account_id="user001" status="WAIT_FOR_RESULT" receipt_date="2009-01-03" need_feedback="1" created_time="2009-01-01 12:00:01.0000"/>
+    <receipt id="receipt004" version="1" user_account_id="user001" status="WAIT_FOR_RESULT" receipt_date="2009-01-04" need_feedback="1" created_time="2009-01-01 13:00:01.0000"/>
+    <receipt id="receipt005" version="1" user_account_id="user001" status="WAIT_FOR_RESULT" receipt_date="2009-01-05" need_feedback="1" created_time="2009-01-01 14:00:01.0000"/>
+    <receipt id="receipt006" version="1" user_account_id="user001" status="WAIT_FOR_RESULT" receipt_date="2009-01-06" need_feedback="1" created_time="2009-01-01 15:00:01.0000"/>
+    <receipt id="receipt007" version="1" user_account_id="user001" status="WAIT_FOR_RESULT" receipt_date="2009-01-07" need_feedback="1" created_time="2009-01-01 16:00:01.0000"/>
+    <receipt id="receipt008" version="1" user_account_id="user001" status="WAIT_FOR_RESULT" receipt_date="2009-01-08" need_feedback="1" created_time="2009-01-01 17:00:01.0000"/>
+    <receipt id="receipt009" version="1" user_account_id="user001" status="WAIT_FOR_RESULT" receipt_date="2009-01-09" need_feedback="1" created_time="2009-01-01 18:00:01.0000"/>
+    <receipt id="receipt010" version="1" user_account_id="user001" status="WAIT_FOR_RESULT" receipt_date="2009-01-10" need_feedback="1" created_time="2009-01-01 19:00:01.0000"/>
+    <receipt id="receipt011" version="1" user_account_id="user001" status="WAIT_FOR_RESULT" receipt_date="2009-01-11" need_feedback="1" created_time="2009-01-01 20:00:01.0000"/>
+    <receipt id="receipt012" version="1" user_account_id="user001" status="WAIT_FOR_RESULT" receipt_date="2009-01-12" need_feedback="1" created_time="2009-01-01 21:00:01.0000"/>
+    <receipt id="receipt013" version="1" user_account_id="user001" status="WAIT_FOR_RESULT" receipt_date="2009-01-13" need_feedback="1" created_time="2009-01-01 22:00:01.0000"/>
+    <receipt id="receipt014" version="1" user_account_id="user001" status="WAIT_FOR_RESULT" receipt_date="2009-01-14" need_feedback="1" created_time="2009-01-01 23:00:01.0000"/>
 
-    <receipt_image id="image001" version="1" receipt_id="receipt001" status="UPLOADED" created_time="2009-01-01 10:00:01.0000"/>
-    <receipt_image id="image002" version="1" receipt_id="receipt001" status="UPLOADED" created_time="2009-01-01 10:02:01.0000"/>
-    <receipt_image id="image003" version="1" receipt_id="receipt001" status="UPLOADED" created_time="2009-01-01 10:01:01.0000"/>
-    <receipt_image id="image004" version="1" receipt_id="receipt001" status="UPLOADED" created_time="2009-01-01 10:03:01.0000"/>
+    <receipt_image id="image001" version="1" receipt_id="receipt001" status="UPLOADED" file_name="test.jpg" created_time="2009-01-01 10:00:01.0000"/>
+    <receipt_image id="image002" version="1" receipt_id="receipt001" status="UPLOADED" file_name="test.jpg" created_time="2009-01-01 10:02:01.0000"/>
+    <receipt_image id="image003" version="1" receipt_id="receipt001" status="UPLOADED" file_name="test.jpg" created_time="2009-01-01 10:01:01.0000"/>
+    <receipt_image id="image004" version="1" receipt_id="receipt001" status="UPLOADED" file_name="test.jpg" created_time="2009-01-01 10:03:01.0000"/>
 
     <store_chain id="store001" version="1" code="rcss" name="Real Canadian Superstore" created_time="2009-01-02 10:00:01.0000"/>
     <store_chain id="store002" version="1" code="safeway" name="Safeway" created_time="2009-01-01 10:00:01.0000"/>
@@ -56,7 +56,7 @@
     <shopping_item id="item301" version="1" store_id="shoppingStore103" name="bread" product_category="bakery" number="1" created_time="2009-01-01 10:02:01.0000"/>
 
     <!-- Receipt image for receipt002 with ocr result -->
-    <receipt_image id="receipt002image001" version="1" receipt_id="receipt002" status="SCANNED" created_time="2009-01-01 10:00:01.0000"
+    <receipt_image id="receipt002image001" version="1" receipt_id="receipt002" status="SCANNED" file_name="test.jpg" created_time="2009-01-01 10:00:01.0000"
     ocr_result="
 RCSS 1570 - 4821 CA.GARV mil&#10;
 700-430-2769&#10;

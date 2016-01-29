@@ -8,6 +8,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -204,5 +206,13 @@ public class ReceiptParsingServiceTest {
         verify(receiptImageRepositoryMock, times(1)).findByReceiptAndStatusOrderByCreatedTime(eq(receipt), eq(ProcessStatusType.SCANNED));
         verify(receiptRepositoryMock, times(1)).save(isA(Receipt.class));
 
+    }
+
+    @Test
+    public void getReceiptDate_ShouldReturnLocalDate() throws Exception {
+        LocalDate receiptDate = serviceToTest.getReceiptDate("2016/1/1");
+        assertEquals(2016, receiptDate.getYear());
+        assertEquals(Month.JANUARY, receiptDate.getMonth());
+        assertEquals(1, receiptDate.getDayOfMonth());
     }
 }
