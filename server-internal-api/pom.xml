@@ -19,7 +19,11 @@
     </properties>
 
     <dependencies>
-        <!-- Rest API Modules -->
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>op-parser-stores</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
             <artifactId>op-rest-internal</artifactId>
