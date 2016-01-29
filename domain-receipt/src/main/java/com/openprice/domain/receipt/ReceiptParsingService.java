@@ -12,6 +12,8 @@ import org.springframework.util.StringUtils;
 
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.data.Item;
+import com.openprice.parser.data.ReceiptField;
+import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.simple.SimpleParser;
 
 import lombok.extern.slf4j.Slf4j;
@@ -91,6 +93,8 @@ public class ReceiptParsingService {
         try {
             final ParsedReceipt parsedReceipt = simpleParser.parseOCRResults(ocrTextList);
             if (parsedReceipt != null) {
+                logParsedResult(parsedReceipt); // TODO remove it after we have admin UI to display
+
                 ReceiptResult result = receipt.createReceiptResultFromParserResult(parsedReceipt);
                 result = receiptResultRepository.save(result); // has to save ReceiptResult first before saving ReceiptItem
 
@@ -109,6 +113,34 @@ public class ReceiptParsingService {
         } catch (Exception ex) {
             log.error("SEVERE: Got exception during parsing ocr text.", ex);
             return null;
+        }
+
+    }
+
+    private void logParsedResult(final ParsedReceipt parsedReceipt) {
+        if (parsedReceipt.getChain() != null) {
+            log.info("    recognized store chain code - '{}'", parsedReceipt.getChain().getCode());
+        }
+        if (parsedReceipt.getBranch() != null) {
+            log.info("    recognized branch name - '{}'", parsedReceipt.getBranch().getBranchName());
+        }
+        final ValueLine parsedDateValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Date);
+        if (parsedDateValue != null) {
+            log.info("    parsed Date - '{}'", parsedDateValue.getValue());
+        } else {
+            log.info("    no Date found!");
+        }
+        final ValueLine parsedTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Total);
+        if (parsedTotalValue != null) {
+            log.info("    parsed Total - '{}'", parsedTotalValue.getValue());
+        } else {
+            log.info("    no Total found!");
+        }
+        final ValueLine parsedSubTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.SubTotal);
+        if (parsedSubTotalValue != null) {
+            log.info("    parsed SubTotal - '{}'", parsedSubTotalValue.getValue());
+        } else {
+            log.info("    no SubTotal found!");
         }
 
     }
