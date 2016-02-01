@@ -27,6 +27,7 @@ import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
 @DatabaseSetup("classpath:/data/testData.xml")
 public class UserReceiptFeedbackRestApiIT extends AbstractUserRestApiIntegrationTest {
+
     @Inject
     private ReceiptRepository receiptRepository;
 
@@ -38,7 +39,7 @@ public class UserReceiptFeedbackRestApiIT extends AbstractUserRestApiIntegration
     private SessionFilter sessionFilter;
     private SessionFilter sessionFilter2;
     private String receiptUrl;
-    
+
     @Before
     public void setup() {
         TEST_RECEIPT_ID = "receipt002";
@@ -92,7 +93,7 @@ public class UserReceiptFeedbackRestApiIT extends AbstractUserRestApiIntegration
         List<ReceiptFeedback> feedbacks = receiptFeedbackRepository.findByReceiptOrderByCreatedTime(receipt);
         assertEquals(1, feedbacks.size());
     }
-    
+
     @Test
     public void addReceiptFeedback_ShouldReturn404NotFound_WhenInvalidReceiptId() {
         final String receiptUrl = userReceiptUrl(sessionFilter, TEST_RECEIPT_ID_INVALID);
@@ -103,12 +104,12 @@ public class UserReceiptFeedbackRestApiIT extends AbstractUserRestApiIntegration
         .then()
             .statusCode(HttpStatus.SC_NOT_FOUND)
         ;
-        
+
         // check database
         Receipt receipt = receiptRepository.findOne(TEST_RECEIPT_ID_INVALID);
         assertNull(receipt);
     }
-    
+
     @Test
     public void addReceiptFeedback_ShouldReurn403Forbidden_WhenReceiptNotBelongToCurrentLoginUser() {
 
@@ -119,10 +120,10 @@ public class UserReceiptFeedbackRestApiIT extends AbstractUserRestApiIntegration
         .then()
             .statusCode(HttpStatus.SC_FORBIDDEN)
         ;
-        
+
         // check database
         Receipt receipt = receiptRepository.findOne(TEST_RECEIPT_ID);
         assertTrue(receipt.getNeedFeedback());
     }
-    
+
 }
