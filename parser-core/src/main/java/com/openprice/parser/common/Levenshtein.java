@@ -1,21 +1,42 @@
 package com.openprice.parser.common;
 
+import java.util.Comparator;
+
 /**
  * //http://www.codeproject.com/Articles/162790/Fuzzy-String-Matching-with-Edit-Distance
  */
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+
+import com.openprice.parser.generic.StringDouble;
 
 //http://www.codeproject.com/Articles/162790/Fuzzy-String-Matching-with-Edit-Distance
 public class Levenshtein
 {
-    //TODO List? Collections?
+    //TODO: if no value is present, an exception will be thrown, is this what you want?
     public static String mostSimilarInSet(final String key, final Set<String> set){
         return set.stream().reduce((p1,p2) ->
         Levenshtein.compare(StringCommon.removeAllSpaces(p1), StringCommon.removeAllSpaces(key)) >
         Levenshtein.compare(StringCommon.removeAllSpaces(p2), StringCommon.removeAllSpaces(key))
         ? p1:p2).get();
+    }
+
+    public static double mostSimilarScoreInSet(final String key, final Set<String> set){
+         Optional<Double> maxDouble=set
+               .stream()
+               .map(str -> Levenshtein.compare(StringCommon.removeAllSpaces(str),
+                                               StringCommon.removeAllSpaces(key)))
+               .max(Comparator.comparing(d->d));
+         if(maxDouble.isPresent())
+              return  maxDouble.get();
+         return 0.0;
+    }
+
+    public static StringDouble mostSimilarStringDoubleInSet(final String key, final Set<String> set) throws Exception{
+        final String match=mostSimilarInSet(key, set);
+        return new StringDouble(match, Levenshtein.compare(StringCommon.removeAllSpaces(match), StringCommon.removeAllSpaces(key)));
     }
 
     //the string matches the list
