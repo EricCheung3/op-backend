@@ -13,6 +13,9 @@ import lombok.Data;
 public class Item {
     private final Product product;
 
+    String productCategory=StringCommon.EMPTY;//our internally productCategory (corresponding to icon name)
+    boolean inCatalog=false;
+
     String buyPrice=StringCommon.EMPTY;//price spent on the item; can be a unit price or the price of several units (kg)
     String unitPrice=StringCommon.EMPTY;//unit price of the item (usually in kilogram)
     String weight=StringCommon.EMPTY;//weight of the item bought
@@ -47,8 +50,14 @@ public class Item {
         this.buyPrice=buyPrice;
     }
 
+    private Item (final Product p, final String buyPrice, final boolean inCatalog){
+        this.product=p;
+        this.buyPrice=buyPrice;
+        this.inCatalog=inCatalog;
+    }
+
     public static Item fromProductPrice (final ProductPrice pp){
-        return new Item(pp.getProduct(), pp.getPrice());
+        return new Item(pp.getProduct(), pp.getPrice(), pp.isProductIsInCatalog());
     }
 
     public static Item fromNameBuyPUnitPWeightCategory(final String name, final String buyPrice, final String unitPrice, final String weight, final String category) {
