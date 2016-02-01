@@ -24,5 +24,5 @@ public class ProcessSettings {
 
     private String cloudPassword;
 
-
+    private int waitSeconds = 0;
 }

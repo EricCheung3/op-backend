@@ -1,6 +1,7 @@
 package com.openprice.domain.receipt;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isA;
@@ -46,7 +47,7 @@ public class ReceiptUploadServiceTest {
     MultipartFile ocrMock;
 
     @Mock
-    ReceiptService receiptServiceMock;
+    ReceiptParsingService receiptParsingServiceMock;
 
     FileSystemService fileSystemService;
 
@@ -56,7 +57,7 @@ public class ReceiptUploadServiceTest {
     @Before
     public void setup() throws Exception {
         fileSystemService = new FileSystemService(new FileFolderSettings());
-        serviceToTest = new ReceiptUploadService(receiptServiceMock,
+        serviceToTest = new ReceiptUploadService(receiptParsingServiceMock,
                                                  receiptRepositoryMock,
                                                  receiptImageRepositoryMock,
                                                  fileSystemService);
@@ -90,13 +91,15 @@ public class ReceiptUploadServiceTest {
 
         final ReceiptImage image = serviceToTest.uploadImageForNewReceipt(testUser, base64String);
 
-        //receipt image has been saved
+        // receipt image has been saved
         assertEquals("image123", image.getId());
         assertEquals(ProcessStatusType.UPLOADED, image.getStatus());
 
-        //receipt has correct data
+        // receipt has correct data
         assertEquals("receipt123", image.getReceipt().getId());
         assertEquals(testUser, image.getReceipt().getUser());
+        assertEquals(ReceiptStatusType.WAIT_FOR_RESULT, image.getReceipt().getStatus());
+        assertNotNull(image.getReceipt().getReceiptDate());
 
         // check file exists and content is the same as test content
         final Path imageFile = fileSystemService.getReceiptImageSubFolder(testUser.getId()).resolve(image.getFileName());
@@ -142,6 +145,8 @@ public class ReceiptUploadServiceTest {
         //receipt has correct data
         assertEquals("receipt123", image.getReceipt().getId());
         assertEquals(testUser, image.getReceipt().getUser());
+        assertEquals(ReceiptStatusType.WAIT_FOR_RESULT, image.getReceipt().getStatus());
+        assertNotNull(image.getReceipt().getReceiptDate());
 
         // check file exists and content is the same as test content
         final Path imageFile = fileSystemService.getReceiptImageSubFolder(testUser.getId()).resolve(image.getFileName());

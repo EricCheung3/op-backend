@@ -7,10 +7,6 @@ package com.openprice.domain.receipt;
 public enum ProcessStatusType {
     CREATED,
     UPLOADED,
-    QUEUED,
-    STARTED,
     SCANNED,
-    SCANNED_ERR,
-    PARSED,
-    VALIDATED
+    SCANNED_ERR
 }

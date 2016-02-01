@@ -1,10 +1,13 @@
 package com.openprice.domain.receipt;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -39,6 +42,15 @@ public class Receipt extends BaseAuditableEntity {
     private UserAccount user;
 
     @Getter @Setter
+    @Column(name="receipt_date", nullable=false)
+    private LocalDate receiptDate; // default to upload date, and changed to parsed date after successful processing.
+
+    @Getter @Setter
+    @Enumerated(EnumType.STRING)
+    @Column(name="status", nullable=false)
+    private ReceiptStatusType status;
+
+    @Getter @Setter
     @Column(name="need_feedback")
     private Boolean needFeedback = true;
 
@@ -46,13 +58,19 @@ public class Receipt extends BaseAuditableEntity {
 
     Receipt(final UserAccount user) {
         this.user = user;
+        this.status = ReceiptStatusType.WAIT_FOR_RESULT;
+        this.receiptDate = LocalDate.now();
     }
 
     @Builder(builderMethodName="testObjectBuilder")
     public static Receipt createTestReceipt(final String id,
-                                            final UserAccount user) {
+                                            final UserAccount user,
+                                            final ReceiptStatusType status) {
         final Receipt receipt = new Receipt(user);
         receipt.setId(id);
+        if (status != null) {
+            receipt.setStatus(status);
+        }
         return receipt;
     }
 

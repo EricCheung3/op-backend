@@ -24,8 +24,8 @@ import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.account.user.UserResetPasswordRequestRepository;
 import com.openprice.domain.receipt.ReceiptImageRepository;
+import com.openprice.domain.receipt.ReceiptParsingService;
 import com.openprice.domain.receipt.ReceiptRepository;
-import com.openprice.domain.receipt.ReceiptService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ApiDocsApplication.class)
@@ -48,7 +48,7 @@ public abstract class ApiDocumentationBase {
     protected UserAccountRepository userAccountRepository;
 
     @Inject
-    protected ReceiptService receiptService;
+    protected ReceiptParsingService receiptParsingService;
 
     @Inject
     protected ReceiptRepository receiptRepository;

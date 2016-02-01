@@ -21,6 +21,7 @@ import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptItemRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptResult;
+import com.openprice.domain.receipt.ReceiptResultRepository;
 import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.domain.receipt.ReceiptUploadService;
 import com.openprice.internal.client.InternalService;
@@ -37,6 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserReceiptResultRestController extends AbstractUserReceiptRestController {
 
+    private final ReceiptResultRepository receiptResultRepository;
     private final ReceiptItemRepository receiptItemRepository;
     private final UserReceiptResultResource.Assembler receiptResultResourceAssembler;
     private final UserReceiptItemResource.Assembler receiptItemResourceAssembler;
@@ -46,11 +48,13 @@ public class UserReceiptResultRestController extends AbstractUserReceiptRestCont
                                            final ReceiptService receiptService,
                                            final ReceiptUploadService receiptUploadService,
                                            final ReceiptRepository receiptRepository,
+                                           final ReceiptResultRepository receiptResultRepository,
                                            final ReceiptItemRepository receiptItemRepository,
                                            final UserReceiptResultResource.Assembler receiptResultResourceAssembler,
                                            final UserReceiptItemResource.Assembler receiptItemResourceAssembler,
                                            final InternalService internalService) {
         super(userAccountService, receiptService, receiptUploadService, receiptRepository, internalService);
+        this.receiptResultRepository = receiptResultRepository;
         this.receiptItemRepository = receiptItemRepository;
         this.receiptResultResourceAssembler = receiptResultResourceAssembler;
         this.receiptItemResourceAssembler = receiptItemResourceAssembler;
@@ -60,7 +64,7 @@ public class UserReceiptResultRestController extends AbstractUserReceiptRestCont
     public HttpEntity<UserReceiptResultResource> getUserReceiptResult(
             @PathVariable("receiptId") final String receiptId) {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
-        final ReceiptResult result = receiptService.getLatestReceiptResult(receipt);
+        final ReceiptResult result = receiptResultRepository.findFirstByReceiptOrderByCreatedTimeDesc(receipt);
 
         if (result == null) {
             throw new ResourceNotFoundException("Cannot load parser result!");
@@ -83,7 +87,11 @@ public class UserReceiptResultRestController extends AbstractUserReceiptRestCont
             @PageableDefault(size = UtilConstants.MAX_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<ReceiptItem> assembler) {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
-        final ReceiptResult result = receiptService.getLatestReceiptResult(receipt);
+        final ReceiptResult result = receiptResultRepository.findFirstByReceiptOrderByCreatedTimeDesc(receipt);
+        if (result == null) {
+            throw new ResourceNotFoundException("Cannot load parser result!");
+        }
+
         final Page<ReceiptItem> items = receiptItemRepository.findByReceiptResultAndIgnoredIsFalseOrderByLineNumber(result, pageable);
         return ResponseEntity.ok(assembler.toResource(items, receiptItemResourceAssembler));
     }

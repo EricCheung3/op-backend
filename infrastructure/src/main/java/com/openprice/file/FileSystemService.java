@@ -1,11 +1,14 @@
 package com.openprice.file;
 
+import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
@@ -71,5 +74,16 @@ public class FileSystemService {
 
     public String getPathSeparator() {
         return fileSystem.getSeparator();
+    }
+
+    public Path saveReceiptImage(final String subFolderName, final String fileName, final byte[] content) {
+        final Path imageFile = getReceiptImageSubFolder(subFolderName).resolve(fileName);
+        try (final OutputStream out = new BufferedOutputStream(Files.newOutputStream(imageFile, StandardOpenOption.CREATE_NEW)))
+        {
+            out.write(content);
+        } catch (IOException ex) {
+            throw new RuntimeException("System Error! Cannot save image.", ex);
+        }
+        return imageFile;
     }
 }

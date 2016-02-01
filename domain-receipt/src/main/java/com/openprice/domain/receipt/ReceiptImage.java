@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -31,7 +30,7 @@ public class ReceiptImage extends BaseAuditableEntity {
 
     @Getter @Setter
     @JsonIgnore
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="receipt_id")
     @org.hibernate.annotations.OnDelete(
         action = org.hibernate.annotations.OnDeleteAction.CASCADE
@@ -39,12 +38,12 @@ public class ReceiptImage extends BaseAuditableEntity {
     private Receipt receipt;
 
     @Getter @Setter
-    @Column(name="file_name")
+    @Column(name="file_name", nullable=false)
     private String fileName;
 
     @Getter @Setter
     @Enumerated(EnumType.STRING)
-    @Column(name="status")
+    @Column(name="status", nullable=false)
     private ProcessStatusType status;
 
     @Getter @Setter

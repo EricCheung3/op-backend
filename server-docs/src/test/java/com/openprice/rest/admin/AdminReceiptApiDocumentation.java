@@ -55,6 +55,8 @@ public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
                 fieldWithPath("_embedded.receiptImages").description("Receipt image list"),
+                fieldWithPath("status").description("Receipt process status, can be WAIT_FOR_RESULT, OCR_ERROR, PARSER_ERROR, HAS_RESULT"),
+                fieldWithPath("receiptDate").description("Date of receipt, default to upload date, change to shopping date after processing"),
                 fieldWithPath("needFeedback").description("Whether user can give feedback"),
                 fieldWithPath("user").description("Receipt owner display name"),
                 fieldWithPath("uploadTimestamp").description("ISO 8601 formatted timestamp when user uploaded the receipt"),
@@ -111,6 +113,7 @@ public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
                 fieldWithPath("ocrResult").description("Receipt image ocr process result"),
                 fieldWithPath("fileName").description("Receipt image file name"),
                 fieldWithPath("downloadUrl").description("Receipt image JPEG file download URL"),
+                fieldWithPath("base64Url").description("Receipt image bas64 data download URL"),
                 fieldWithPath("_links").description("<<resources-admin-receipt-image-retrieve-links,Links>> to other resources")
             )
         ));

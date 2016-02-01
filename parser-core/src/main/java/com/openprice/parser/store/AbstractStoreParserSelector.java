@@ -47,7 +47,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
             baseConfig.load(getChainResource(ConfigFiles.CONFIG_PROPERTY_FILE_NAME));
             log.debug("baseConfig.entrySet().size()="+baseConfig.entrySet().size());
         } catch (IOException ex) {
-            log.warn("Cannot load config.properties for RCSS store chain!");
+            log.warn("Cannot load config.properties for {} store chain!", getParserBaseCode());
         }
 
         registerStoreChainFromStoreConfig();
@@ -107,7 +107,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         try{
             category=TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.CATEGORY_FILE_NAME));
         }catch(Exception e){
-            log.warn("cannot load "+ConfigFiles.CATEGORY_FILE_NAME);
+            log.warn("cannot load {} for {} store chain.", ConfigFiles.CATEGORY_FILE_NAME, getParserBaseCode());
             category=new ArrayList<String>();
         }
 
@@ -115,7 +115,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         try{
             skipBefore=TextResourceUtils.loadStringArray(getChainParserResource(parserName, ConfigFiles.SKIP_BEFORE_FILE_NAME));
         }catch(Exception e){
-            log.warn("cannot load "+ConfigFiles.SKIP_BEFORE_FILE_NAME);
+            log.warn("cannot load {} for {} store chain.", ConfigFiles.SKIP_BEFORE_FILE_NAME, getParserBaseCode());
             skipBefore=new ArrayList<String>();
         }
 
@@ -123,7 +123,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         try{
             skipAfter=TextResourceUtils.loadStringArray(getChainParserResource(parserName, ConfigFiles.SKIP_AFTER_FILE_NAME));
         }catch(Exception e){
-            log.warn("cannot load "+ConfigFiles.SKIP_AFTER_FILE_NAME);
+            log.warn("cannot load {} for {} store chain.", ConfigFiles.SKIP_AFTER_FILE_NAME, getParserBaseCode());
             skipAfter=new ArrayList<String>();
         }
 
@@ -131,7 +131,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         try{
             notations=TextResourceUtils.loadStringArray(getChainParserResource(parserName, ConfigFiles.CATALOG_NOTATION_FILE_NAME));
         }catch(Exception e){
-            log.warn("cannot load "+ConfigFiles.CATALOG_NOTATION_FILE_NAME);
+            log.warn("cannot load {} for {} store chain.", ConfigFiles.CATALOG_NOTATION_FILE_NAME, getParserBaseCode());
             notations=new ArrayList<String>();
         }
 
@@ -139,7 +139,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         try{
             blackList=TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.CATALOG_BLACK_LIST_FILE_NAME));
         }catch(Exception e){
-            log.warn("cannot load "+ConfigFiles.CATALOG_BLACK_LIST_FILE_NAME);
+            log.warn("cannot load {} for {} store chain.", ConfigFiles.CATALOG_BLACK_LIST_FILE_NAME, getParserBaseCode());
             blackList=new ArrayList<String>();
         }
 

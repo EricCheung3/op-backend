@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
-import org.springframework.hateoas.core.Relation;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,7 +24,6 @@ import com.openprice.rest.admin.AdminApiUrls;
 import lombok.Getter;
 import lombok.Setter;
 
-@Relation(value = "result", collectionRelation = "results")
 public class AdminReceiptResultResource extends Resource<ReceiptResult> {
 
     @JsonInclude(Include.NON_EMPTY)

@@ -1,11 +1,7 @@
 package com.openprice.domain.receipt;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.Base64;
 
@@ -23,17 +19,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ReceiptUploadService {
 
-    private final ReceiptService receiptService;
+    private final ReceiptParsingService receiptParsingService;
     private final ReceiptRepository receiptRepository;
     private final ReceiptImageRepository receiptImageRepository;
     private final FileSystemService fileSystemService;
 
     @Inject
-    public ReceiptUploadService(final ReceiptService receiptService,
+    public ReceiptUploadService(final ReceiptParsingService receiptParsingService,
                                 final ReceiptRepository receiptRepository,
                                 final ReceiptImageRepository receiptImageRepository,
                                 final FileSystemService fileSystemService) {
-        this.receiptService = receiptService;
+        this.receiptParsingService = receiptParsingService;
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
         this.fileSystemService = fileSystemService;
@@ -108,16 +104,7 @@ public class ReceiptUploadService {
 
     private ReceiptImage saveImage(final Receipt receipt, final byte[] content) {
         final ReceiptImage image = receipt.createImage();
-        final Path imageFile = getImageFile(image);
-
-        try (final OutputStream out = new BufferedOutputStream(Files.newOutputStream(imageFile, StandardOpenOption.CREATE_NEW)))
-        {
-            out.write(content);
-        } catch (IOException ex) {
-            log.error("Cannot save receipt image to image folder at '{}', please check server file system!", imageFile.toString());
-            throw new RuntimeException("System Error! Cannot save image.", ex); //TODO design exceptions
-        }
-
+        final Path imageFile = fileSystemService.saveReceiptImage(receipt.getUser().getId(), image.getFileName(), content);
         image.setStatus(ProcessStatusType.UPLOADED);
         log.debug("Save uploaded receipt image to {}.", imageFile);
         return receiptImageRepository.save(image);
@@ -132,8 +119,8 @@ public class ReceiptUploadService {
      * @return
      */
     public ReceiptImage hackloadImageFileAndOcrResultForNewReceipt(final UserAccount user,
-                                                              final MultipartFile image,
-                                                              final MultipartFile ocr) {
+                                                                   final MultipartFile image,
+                                                                   final MultipartFile ocr) {
         byte[] content = null;
         try {
             content = image.getBytes();
@@ -172,7 +159,7 @@ public class ReceiptUploadService {
             receiptImage.setOcrResult(ocrText);
             receiptImage.setStatus(ProcessStatusType.SCANNED);
             receiptImageRepository.save(receiptImage);
-            receiptService.parseOcrResults(receipt, Arrays.asList(ocrText));
+            receiptParsingService.parseOcrAndSaveResults(receipt, Arrays.asList(ocrText));
             log.info("Hackloaded OCR result into receipt {} and parsed the result.", receipt.getId());
         } catch (IOException ex) {
             log.error("No content of OCR result to save!");

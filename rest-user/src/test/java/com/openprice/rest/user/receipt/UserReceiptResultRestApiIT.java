@@ -3,7 +3,6 @@ package com.openprice.rest.user.receipt;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertTrue;
 
 import javax.inject.Inject;
@@ -44,6 +43,7 @@ public class UserReceiptResultRestApiIT extends AbstractUserRestApiIntegrationTe
             .body("chainCode", equalTo("rcss"))
             .body("branchName", equalTo("Calgary Trail"))
             .body("parsedTotal", equalTo("10.45"))
+            .body("parsedDate", equalTo("2015/11/11"))
             .body("storeName", equalTo("Real Canadian Superstore"))
             .body("_embedded.receiptItems[0].id", equalTo("recItem001"))
             .body("_embedded.receiptItems[0].catalogCode", equalTo("EGG_1235"))
@@ -59,39 +59,14 @@ public class UserReceiptResultRestApiIT extends AbstractUserRestApiIntegrationTe
     }
 
     @Test
-    public void getUserReceiptResult_ShouldGenerateReceiptResultThroughParser_IfNotExist() throws Exception {
+    public void getUserReceiptResult_ShouldReturn404NotFound_IfNotExist() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-
-        Response response =
-                given()
-                    .filter(sessionFilter)
-                .when()
-                    .get(userReceiptResultUrl(sessionFilter, "receipt002"))
-                ;
-        //response.prettyPrint();
-        response
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(userReceiptResultUrl(sessionFilter, "receipt002"))
         .then()
-            .statusCode(HttpStatus.SC_OK)
-            .contentType(ContentType.JSON)
-            .body("chainCode", equalTo("rcss"))
-            .body("branchName", equalTo("Calgary Trail"))
-            .body("parsedTotal", equalTo("104.73"))
-            .body("_embedded.receiptItems[0].catalogCode", equalTo("k dgon cook    wine    mrj_690294490073"))
-            .body("_embedded.receiptItems[0].parsedName", equalTo("k dgon cook    wine    mrj"))
-            .body("_embedded.receiptItems[0].parsedPrice", equalTo("2.69"))
-            .body("_embedded.receiptItems[0].catalog", nullValue())
-            .body("_embedded.receiptItems[1].catalogCode", equalTo("rooster garlic_06038388591"))
-            .body("_embedded.receiptItems[1].parsedName", equalTo("rooster garlic"))
-            .body("_embedded.receiptItems[1].parsedPrice", equalTo("0.68"))
-            .body("_embedded.receiptItems[1].catalog", nullValue())
-            .body("_embedded.receiptItems[2].catalogCode", equalTo("ducks fr7n    mrj_2021000"))
-            .body("_embedded.receiptItems[2].parsedName", equalTo("ducks fr7n    mrj"))
-            .body("_embedded.receiptItems[2].parsedPrice", equalTo("15.23"))
-            .body("_embedded.receiptItems[2].catalog", nullValue())
-            .body("_embedded.receiptItems[3].catalogCode", equalTo("hairtail_77016160104"))
-            .body("_embedded.receiptItems[3].parsedName", equalTo("hairtail"))
-            .body("_embedded.receiptItems[3].parsedPrice", equalTo("7.36"))
-            .body("_embedded.receiptItems[3].catalog", nullValue())
+            .statusCode(HttpStatus.SC_NOT_FOUND)
         ;
     }
 

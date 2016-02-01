@@ -51,11 +51,12 @@ public class AdminUserReceiptApiDocumentation extends AdminApiDocumentationBase 
                 linkWithRel("user").description("The <<resources-admin-user, Admin User resource>>, owner of this receipt"),
                 linkWithRel("images").description("<<resources-admin-user-receipt-images, Link>> to receipt images"),
                 linkWithRel("image").description("<<resources-admin-user-receipt-image, Link>> to receipt image")
-                //linkWithRel("items").description("<<resources-admin-user-receipt-items, Link>> to receipt items")
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
                 fieldWithPath("_embedded.receiptImages").description("Receipt image list"),
+                fieldWithPath("status").description("Receipt process status, can be WAIT_FOR_RESULT, OCR_ERROR, PARSER_ERROR, HAS_RESULT"),
+                fieldWithPath("receiptDate").description("Date of receipt, default to upload date, change to shopping date after processing"),
                 fieldWithPath("needFeedback").description("Whether user can give feedback."),
                 fieldWithPath("_links").description("<<resources-admin-user-receipt-links,Links>> to other resources")
             )

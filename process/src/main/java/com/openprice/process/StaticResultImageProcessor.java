@@ -10,6 +10,7 @@ import org.springframework.core.io.Resource;
 import com.google.common.io.CharStreams;
 import com.openprice.domain.receipt.OcrProcessLogRepository;
 import com.openprice.domain.receipt.ReceiptImageRepository;
+import com.openprice.domain.receipt.ReceiptParsingService;
 import com.openprice.file.FileSystemService;
 import com.openprice.ocr.api.ImageProcessResult;
 
@@ -22,14 +23,19 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StaticResultImageProcessor extends AbstractImageProcessor {
 
-    static final String OCR_RESULT_FILE_PATH = "ocrResult.txt";
+    private static final String OCR_RESULT_FILE_PATH = "ocrResult.txt";
 
     private final String staticResult;
 
+    private final int waitSeconds;
+
     public StaticResultImageProcessor(final FileSystemService fileSystemService,
+                                      final ReceiptParsingService receiptParsingService,
                                       final OcrProcessLogRepository ocrProcessLogRepository,
-                                      final ReceiptImageRepository receiptImageRepository) {
-        super("Static", fileSystemService, ocrProcessLogRepository, receiptImageRepository);
+                                      final ReceiptImageRepository receiptImageRepository,
+                                      final int waitSeconds) {
+        super("Static", fileSystemService, receiptParsingService, ocrProcessLogRepository, receiptImageRepository);
+        this.waitSeconds = waitSeconds;
 
         try {
             Resource resource = new ClassPathResource(OCR_RESULT_FILE_PATH);
@@ -42,8 +48,14 @@ public class StaticResultImageProcessor extends AbstractImageProcessor {
     }
 
     @Override
-    public void processImage(final ProcessItem item) {
-        saveProcessResult(item, new ImageProcessResult(true, staticResult, null), System.currentTimeMillis(), 0l);
+    protected ImageProcessResult getImageProcessResult(String imageFilePath) {
+        if (waitSeconds > 0) {
+            try {
+                Thread.sleep(1000 * waitSeconds);
+            } catch (Exception ex) {}
+        }
+
+        return new ImageProcessResult(true, staticResult, null);
     }
 
 }

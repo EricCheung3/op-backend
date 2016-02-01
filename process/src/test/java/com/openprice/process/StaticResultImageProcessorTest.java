@@ -2,6 +2,7 @@ package com.openprice.process;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -12,10 +13,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 
 import com.openprice.domain.receipt.OcrProcessLog;
 import com.openprice.domain.receipt.ProcessStatusType;
+import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -25,7 +29,11 @@ public class StaticResultImageProcessorTest extends AbstractProcessorTest {
 
     @Before
     public void setup() throws Exception {
-        processorToTest = new StaticResultImageProcessor(fileSystemService, processLogRepositoryMock, receiptImageRepositoryMock);
+        processorToTest = new StaticResultImageProcessor(fileSystemService,
+                                                         receiptParsingServiceMock,
+                                                         processLogRepositoryMock,
+                                                         receiptImageRepositoryMock,
+                                                         0);
     }
 
     @Test
@@ -34,6 +42,12 @@ public class StaticResultImageProcessorTest extends AbstractProcessorTest {
         final ProcessItem item = new ProcessItem(IMAGE_ID, TEST_USER_ID, TEST_USER_ID, new Date());
 
         when(receiptImageRepositoryMock.findOne(eq(IMAGE_ID))).thenReturn(image);
+        when(receiptParsingServiceMock.parseScannedReceiptImages(isA(Receipt.class))).thenAnswer(new Answer<Receipt>() {
+            @Override
+            public Receipt answer(InvocationOnMock invocation) throws Throwable {
+                return (Receipt) invocation.getArguments()[0];
+            }
+        });
 
         processorToTest.processImage(item);
 
@@ -49,7 +63,6 @@ public class StaticResultImageProcessorTest extends AbstractProcessorTest {
             verify(receiptImageRepositoryMock, times(1)).save(argument.capture());
             assertEquals(IMAGE_ID, argument.getValue().getId());
             assertEquals(ProcessStatusType.SCANNED, argument.getValue().getStatus());
-            // TODO verify parser result items. wait for the parser code finish
         }
     }
 }

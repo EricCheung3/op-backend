@@ -2,7 +2,6 @@ package com.openprice.domain.receipt;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -28,7 +27,7 @@ public class ReceiptItem extends BaseAuditableEntity {
 
     @Getter @Setter
     @JsonIgnore
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="receipt_result_id")
     @org.hibernate.annotations.OnDelete(
         action = org.hibernate.annotations.OnDeleteAction.CASCADE
@@ -42,7 +41,7 @@ public class ReceiptItem extends BaseAuditableEntity {
 
     @Getter @Setter
     @Column(name="catalog_code")
-    private String catalogCode;
+    private String catalogCode; // optional
 
 //    @Getter @Setter
 //    @Enumerated(EnumType.STRING)

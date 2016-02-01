@@ -2,7 +2,6 @@ package com.openprice.domain.receipt;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -29,7 +28,7 @@ public class ReceiptResult extends BaseAuditableEntity {
 
     @Getter @Setter
     @JsonIgnore
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="receipt_id")
     @org.hibernate.annotations.OnDelete(
         action = org.hibernate.annotations.OnDeleteAction.CASCADE
@@ -53,7 +52,7 @@ public class ReceiptResult extends BaseAuditableEntity {
     private String parsedDate;
 
     ReceiptResult() {}
-    
+
     @Builder(builderMethodName="testObjectBuilder")
     public static ReceiptResult createTestReceiptResult(final Receipt receipt,
                                                         final String chainCode,
@@ -68,7 +67,7 @@ public class ReceiptResult extends BaseAuditableEntity {
         receiptResult.setParsedDate(date);
         return receiptResult;
     }
-    
+
     /**
      * Builder method to create a ReceiptItem from parser result, and add to item list.
      *

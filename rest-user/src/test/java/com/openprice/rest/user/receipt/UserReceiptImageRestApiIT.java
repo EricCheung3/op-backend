@@ -23,12 +23,14 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
+import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
 @DatabaseSetup("classpath:/data/testData.xml")
 public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTest {
+
     @Value("classpath:/data/sample1.txt")
     private Resource sampleReceipt1;
 
@@ -57,11 +59,14 @@ public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTes
             .body("page.totalElements", equalTo(4))
             .body("page.totalPages", equalTo(1))
             .body("page.number", equalTo(0))
-            .body("_embedded.receiptImages[0].id", equalTo("image001"))
-            //.body("_embedded.receiptImages[0].status", equalTo(ProcessStatusType.UPLOADED.name()))
-            .body("_embedded.receiptImages[1].id", equalTo("image003"))
-            .body("_embedded.receiptImages[2].id", equalTo("image002"))
-            .body("_embedded.receiptImages[3].id", equalTo("image004"))
+            .body("_embedded.receiptImages[0].id", equalTo("rec001image001"))
+            .body("_embedded.receiptImages[0].status", equalTo(ProcessStatusType.SCANNED.name()))
+            .body("_embedded.receiptImages[1].id", equalTo("rec001image003"))
+            .body("_embedded.receiptImages[1].status", equalTo(ProcessStatusType.SCANNED.name()))
+            .body("_embedded.receiptImages[2].id", equalTo("rec001image002"))
+            .body("_embedded.receiptImages[2].status", equalTo(ProcessStatusType.SCANNED.name()))
+            .body("_embedded.receiptImages[3].id", equalTo("rec001image004"))
+            .body("_embedded.receiptImages[3].status", equalTo(ProcessStatusType.SCANNED.name()))
         ;
     }
 
@@ -145,7 +150,7 @@ public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTes
     @Test
     public void deleteUserReceiptImageById_ShouldDeleteReceiptImage() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-        final String imageUrl = userReceiptImageUrl(sessionFilter, "receipt001", "image001");
+        final String imageUrl = userReceiptImageUrl(sessionFilter, "receipt001", "rec001image001");
 
         given()
             .filter(sessionFilter)
@@ -164,7 +169,7 @@ public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTes
         ;
 
         // check image record
-        ReceiptImage image = receiptImageRepository.findOne("image001");
+        ReceiptImage image = receiptImageRepository.findOne("rec001image001");
         assertNull(image);
     }
 

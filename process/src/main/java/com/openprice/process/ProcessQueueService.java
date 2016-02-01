@@ -16,6 +16,7 @@ import org.springframework.util.StringUtils;
 import com.openprice.common.client.ServiceSettings;
 import com.openprice.domain.receipt.OcrProcessLogRepository;
 import com.openprice.domain.receipt.ReceiptImageRepository;
+import com.openprice.domain.receipt.ReceiptParsingService;
 import com.openprice.file.FileSystemService;
 import com.openprice.ocr.client.OcrService;
 import com.openprice.process.abbyy.CloudOcrService;
@@ -31,18 +32,21 @@ public class ProcessQueueService {
     private final OcrProcessLogRepository processLogRepository;
     private final ReceiptImageRepository receiptImageRepository;
     private final FileSystemService fileSystemService;
+    private final ReceiptParsingService receiptParsingService;
 
     @Inject
     public ProcessQueueService(final ProcessSettings processSettings,
                                final OcrProcessLogRepository processLogRepository,
                                final ReceiptImageRepository receiptImageRepository,
-                               final FileSystemService fileSystemService) {
+                               final FileSystemService fileSystemService,
+                               final ReceiptParsingService receiptParsingService) {
         this.queue = new LinkedBlockingQueue<>();
         this.consumers = new ArrayList<>();
         this.processSettings = processSettings;
         this.processLogRepository = processLogRepository;
         this.receiptImageRepository = receiptImageRepository;
         this.fileSystemService = fileSystemService;
+        this.receiptParsingService = receiptParsingService;
     }
 
     @PostConstruct
@@ -63,8 +67,10 @@ public class ProcessQueueService {
             }
         } else {
             final ImageProcessor p = new StaticResultImageProcessor(fileSystemService,
+                                                                    receiptParsingService,
                                                                     processLogRepository,
-                                                                    receiptImageRepository);
+                                                                    receiptImageRepository,
+                                                                    processSettings.getWaitSeconds());
             final ProcessQueueConsumer consumer = new ProcessQueueConsumer(queue, p);
             consumers.add(consumer);
             new Thread(consumer).start();
@@ -75,8 +81,9 @@ public class ProcessQueueService {
     private void startInternalOCREngineConsumer(final ServiceSettings settings) {
         final OcrService ocrService = new OcrService(settings);
         final RemoteOCRImageProcessor p = new RemoteOCRImageProcessor(settings.getServerHost(),
-                                                                      ocrService,
                                                                       fileSystemService,
+                                                                      ocrService,
+                                                                      receiptParsingService,
                                                                       processLogRepository,
                                                                       receiptImageRepository);
         final ProcessQueueConsumer consumer = new ProcessQueueConsumer(queue, p);
@@ -89,6 +96,7 @@ public class ProcessQueueService {
         final CloudOcrService cloudOcrService = new CloudOcrService(applicaitonId, password);
         final CloudOCRImageProcessor p = new CloudOCRImageProcessor(fileSystemService,
                                                                     cloudOcrService,
+                                                                    receiptParsingService,
                                                                     processLogRepository,
                                                                     receiptImageRepository);
         final ProcessQueueConsumer consumer = new ProcessQueueConsumer(queue, p);
