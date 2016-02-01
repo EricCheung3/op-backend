@@ -119,6 +119,8 @@ public class UserReceiptResource extends Resource<Receipt> {
                         resource.setStoreName(chain.getName());
                         resource.setChainCode(chainCode);
                     }
+
+                    resource.setTotal(result.getParsedTotal());
                 }
             }
 
