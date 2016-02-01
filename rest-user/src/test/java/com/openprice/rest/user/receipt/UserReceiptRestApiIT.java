@@ -87,6 +87,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("receiptDate[2]", equalTo(1))
             .body("status", equalTo("HAS_RESULT"))
             .body("needFeedback", equalTo(true))
+            .body("chainCode", equalTo("rcss"))
             .body("storeName", equalTo("Real Canadian Superstore"))
             .body("total", nullValue())
             .body("_embedded.receiptImages[0].id", equalTo("rec001image001"))
