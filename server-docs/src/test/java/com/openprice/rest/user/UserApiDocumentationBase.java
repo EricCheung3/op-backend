@@ -9,8 +9,8 @@ public abstract class UserApiDocumentationBase extends ApiDocumentationBase impl
         return ApiConstants.EXTERNAL_API_ROOT + URL_USER;
     }
 
-    protected String userProfileUrl() {
-        return ApiConstants.EXTERNAL_API_ROOT + URL_USER_PROFILE;
-    }
+//    protected String userProfileUrl() {
+//        return ApiConstants.EXTERNAL_API_ROOT + URL_USER_PROFILE;
+//    }
 
 }

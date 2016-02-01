@@ -19,6 +19,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
+import com.openprice.common.ApiConstants;
+
 public class UserApiDocumentation extends UserApiDocumentationBase {
 
     @Test
@@ -118,6 +120,10 @@ public class UserApiDocumentation extends UserApiDocumentationBase {
     @After
     public void teardown() throws Exception {
         deleteTestUser();
+    }
+
+    private String userProfileUrl() {
+        return ApiConstants.EXTERNAL_API_ROOT + URL_USER_PROFILE;
     }
 
 }
