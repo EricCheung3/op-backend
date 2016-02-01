@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
-import org.springframework.hateoas.core.Relation;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,7 +23,6 @@ import com.openprice.rest.user.UserApiUrls;
 
 import lombok.Getter;
 
-@Relation(value = "receipt") // TODO why doing this?
 public class UserReceiptResource extends Resource<Receipt> {
 
     @JsonInclude(Include.NON_EMPTY)
