@@ -113,6 +113,7 @@ public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
                 fieldWithPath("ocrResult").description("Receipt image ocr process result"),
                 fieldWithPath("fileName").description("Receipt image file name"),
                 fieldWithPath("downloadUrl").description("Receipt image JPEG file download URL"),
+                fieldWithPath("base64Url").description("Receipt image bas64 data download URL"),
                 fieldWithPath("_links").description("<<resources-admin-receipt-image-retrieve-links,Links>> to other resources")
             )
         ));
