@@ -32,7 +32,6 @@ import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
-import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.domain.receipt.ReceiptUploadService;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.rest.UtilConstants;
@@ -48,7 +47,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AdminUserReceiptRestController extends AbstractUserAdminRestController {
 
-    private final ReceiptService receiptService;
     private final ReceiptUploadService receiptUploadService;
     private final ReceiptRepository receiptRepository;
     private final ReceiptImageRepository receiptImageRepository;
@@ -59,14 +57,12 @@ public class AdminUserReceiptRestController extends AbstractUserAdminRestControl
     public AdminUserReceiptRestController(final AdminAccountService adminAccountService,
                                           final UserAccountService userAccountService,
                                           final UserAccountRepository userAccountRepository,
-                                          final ReceiptService receiptService,
                                           final ReceiptUploadService receiptUploadService,
                                           final ReceiptRepository receiptRepository,
                                           final ReceiptImageRepository receiptImageRepository,
                                           final AdminUserReceiptResource.Assembler receiptResourceAssembler,
                                           final AdminUserReceiptImageResource.Assembler receiptImageResourceAssembler) {
         super(adminAccountService, userAccountService, userAccountRepository);
-        this.receiptService = receiptService;
         this.receiptUploadService = receiptUploadService;
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
