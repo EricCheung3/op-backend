@@ -29,8 +29,12 @@ public class SimpleCategoryPredictor implements CategoryPredictorInterface{
     @Getter
     private final Map<String, Set<String>> categoryToNames;
 
+
     public static SimpleCategoryPredictor fromConfig(){
         final List<String> lines=TextResourceUtils.loadStringArray(CATEGORY_CLASSES_FILE);
+
+        //verify the categories are the same as icon names.
+        final Set<String> categories=TextResourceUtils.loadStringArray("/config/icons.txt");
         return new SimpleCategoryPredictor(lines);
     }
 
