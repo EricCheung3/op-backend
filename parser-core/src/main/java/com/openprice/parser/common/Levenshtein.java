@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import com.openprice.parser.generic.StringDouble;
-
 //http://www.codeproject.com/Articles/162790/Fuzzy-String-Matching-with-Edit-Distance
 public class Levenshtein
 {
@@ -32,11 +30,6 @@ public class Levenshtein
          if(maxDouble.isPresent())
               return  maxDouble.get();
          return 0.0;
-    }
-
-    public static StringDouble mostSimilarStringDoubleInSet(final String key, final Set<String> set) throws Exception{
-        final String match=mostSimilarInSet(key, set);
-        return new StringDouble(match, Levenshtein.compare(StringCommon.removeAllSpaces(match), StringCommon.removeAllSpaces(key)));
     }
 
     //the string matches the list
