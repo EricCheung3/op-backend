@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.openprice.parser.common.ConversionCommon;
 import com.openprice.parser.common.Levenshtein;
 import com.openprice.parser.common.TextResourceUtils;
 import com.openprice.parser.generic.StringDouble;
@@ -29,13 +30,26 @@ public class SimpleCategoryPredictor implements CategoryPredictorInterface{
     @Getter
     private final Map<String, Set<String>> categoryToNames;
 
-
-    public static SimpleCategoryPredictor fromConfig(){
+    public static SimpleCategoryPredictor fromConfig() throws Exception{
         final List<String> lines=TextResourceUtils.loadStringArray(CATEGORY_CLASSES_FILE);
 
         //verify the categories are the same as icon names.
-        final Set<String> categories=TextResourceUtils.loadStringArray("/config/icons.txt");
-        return new SimpleCategoryPredictor(lines);
+        final Set<String> allCategories=ConversionCommon
+                .removeEmptyLinesCommentLines(TextResourceUtils.loadStringArray("/config/icons.txt"), "#")
+                .stream()
+                .collect(Collectors.toSet());
+        final SimpleCategoryPredictor simple=new SimpleCategoryPredictor(lines);
+        if(!allCategories.containsAll(simple.getCategoryToNames().keySet())){
+            log.warn("Not-allowed-categories are:");
+            simple
+            .getCategoryToNames()
+            .keySet()
+            .stream()
+            .filter(k -> !allCategories.contains(k))
+            .forEachOrdered(outlier->log.warn(outlier));
+            throw new Exception("The file "+CATEGORY_CLASSES_FILE+" contains categories that do not have a corresponding icon name.");
+        }
+        return simple;
     }
 
     //note the cateogry itself is also counted as a "name"

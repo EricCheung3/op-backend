@@ -2,7 +2,7 @@ apparel:lacepencil,sportwear,jean,pant,leathr,
 babyitems:snug nb,kids,snug dry,
 babyfood:gerber,
 bakery:bread,pie,croissant,cake,puffs,muffin,rusks,flouh,pancake,wheatlets,focaccia,
-beverage:juice,bev,tea,soda,aquafina,	
+beverages:juice,bev,tea,soda,aquafina,	
 canned:crushd
 cereal:cheerios,kshi hny,oats,oatmeal,
 cleaningsupplies:tide,

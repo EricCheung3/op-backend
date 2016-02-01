@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SimpleCategoryPredictorTest {
 
-    private final SimpleCategoryPredictor simplePredictorFromConfig=SimpleCategoryPredictor.fromConfig();
+    private SimpleCategoryPredictor simplePredictorFromConfig;
+
+    @Before
+    public void init() throws Exception{
+        simplePredictorFromConfig=SimpleCategoryPredictor.fromConfig();
+    }
 
     @Test
     public void test1() throws Exception{
@@ -26,7 +32,7 @@ public class SimpleCategoryPredictorTest {
         lines.add("apparel:lacepencil, sportwear");
         lines.add("babyitems:snug nb,kids, snug dry ");
         final SimpleCategoryPredictor simple=new SimpleCategoryPredictor(lines);
-        log.debug(simple.toString());
+//        log.debug(simple.toString());
         assertEquals(3, simple.getCategoryToNames().size());
 
         assertEquals(2, simple.getCategoryToNames().get("babyfood").size());

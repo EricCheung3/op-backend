@@ -14,7 +14,6 @@ import org.junit.Test;
 
 public class ConversionCommonTest {
 
-
     @Test
     public void lowercaseListTest1() throws Exception{
         final List<String> orig=new ArrayList<String>();
