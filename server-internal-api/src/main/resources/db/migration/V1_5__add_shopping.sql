@@ -44,12 +44,12 @@ CREATE TABLE shopping_item (
 
 CREATE INDEX idx_shopping_item_1
     ON shopping_item(store_id);
-    
+CREATE INDEX idx_shopping_item_2
+    ON shopping_item(catalog_code);
+
 ALTER TABLE shopping_item
     ADD CONSTRAINT fk_shopping_item_store
     FOREIGN KEY (store_id)
-    REFERENCES shopping_store(id);
-
-CREATE INDEX idx_shopping_item_2
-    ON shopping_item(catalog_code);
+    REFERENCES shopping_store(id)
+    ON DELETE CASCADE;
 
