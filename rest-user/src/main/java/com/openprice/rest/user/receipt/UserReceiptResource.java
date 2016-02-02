@@ -116,8 +116,10 @@ public class UserReceiptResource extends Resource<Receipt> {
                     final String chainCode = result.getChainCode();
                     if (!StringUtils.isEmpty(chainCode)) {
                         final StoreChain chain = storeChainRepository.findByCode(chainCode);
-                        resource.setStoreName(chain.getName());
-                        resource.setChainCode(chainCode);
+                        if (chain != null) {
+                            resource.setStoreName(chain.getName());
+                            resource.setChainCode(chainCode);
+                        }
                     }
 
                     resource.setTotal(result.getParsedTotal());
