@@ -42,7 +42,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
         ParsedReceipt receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
-        assertEquals("Tim Hortons", receipt.getChain().getCode());
+        assertEquals("timhortons", receipt.getChain().getCode());
 
         Iterator<Item> iterator = receipt.getItems().iterator();
         assertEquals(3,receipt.getItems().size());
@@ -50,7 +50,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         verifyItemParsedValue(iterator.next(), "green tea", "0.00", "");
         verifyItemParsedValue(iterator.next(), "med latte", "2.59", "");
 
-//        // verify parsed fields
+        // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
         assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "5.43");
 
@@ -78,7 +78,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         verifyItemParsedValue(iterator.next(), "green tea", "0.00", "");
         verifyItemParsedValue(iterator.next(), "med latte", "2.59", "");
 
-//        // verify parsed fields
+        // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
         assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "5.43");
 
@@ -98,7 +98,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
         ParsedReceipt receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
-        assertEquals("Nofrills", receipt.getChain().getCode());
+        assertEquals("nofrills", receipt.getChain().getCode());
 
         Iterator<Item> iterator = receipt.getItems().iterator();
         assertEquals(7,receipt.getItems().size());
@@ -111,7 +111,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         verifyItemParsedValue(iterator.next(), "onion yellow 3lb    r", "1.47", "");
         verifyItemParsedValue(iterator.next(), "pco crt 2lb", "2.47", "");
 
-//        // verify parsed fields
+        // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
         assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "21.43");
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "21.43");
@@ -120,6 +120,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
     @Value("classpath:/testFiles/Generic/2015_07_03_16_42_52.jpg.haipeng.txt")
     private Resource mcDonalds1;
+
     @Test
     public void testReceipt3() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
@@ -129,7 +130,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
         ParsedReceipt receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
-        assertEquals("McDonald's", receipt.getChain().getCode());
+        assertEquals("mcdonald", receipt.getChain().getCode());
 
         Iterator<Item> iterator = receipt.getItems().iterator();
         assertEquals(2,receipt.getItems().size());
@@ -137,7 +138,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         verifyItemParsedValue(iterator.next(), "1 blueberry muffin", "1.69", "");
         verifyItemParsedValue(iterator.next(), "1 m latte", "1.50", "");
 
-//        // verify parsed fields
+        // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
         assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "3.19");
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "3.35");
@@ -155,7 +156,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
         ParsedReceipt receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
-        assertEquals("Subway", receipt.getChain().getCode());
+        assertEquals("subway", receipt.getChain().getCode());
 
         Iterator<Item> iterator = receipt.getItems().iterator();
         assertEquals(1,receipt.getItems().size());
@@ -167,8 +168,5 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "5.25");
         assertEquals("2015/10/8", fieldValues.get(ReceiptField.Date).getValue());//this receipt has no date string
     }
-
-
-
 
 }

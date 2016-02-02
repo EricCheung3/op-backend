@@ -49,7 +49,7 @@ public class GenericChainsTest {
         final List<String> receipt=new ArrayList<String>();
         receipt.add("Quizino's Subs");
         String quizino=chains.findChain(receipt);
-        assertEquals("Quizino's Subs", quizino);
+        assertEquals("QuizinosSubs", quizino);
     }
 
     @Test
@@ -63,7 +63,7 @@ public class GenericChainsTest {
         final List<String> receipt=new ArrayList<String>();
         receipt.add("SAFEWAY");
         String store=chains.findChain(receipt);
-        assertEquals("SAFEWAY", store);
+        assertEquals("Safeway", store);
     }
 
     @Test
@@ -77,6 +77,6 @@ public class GenericChainsTest {
         final List<String> receipt=new ArrayList<String>();
         receipt.add("safeway");
         String store=chains.findChain(receipt);
-        assertEquals("SAFEWAY", store);
+        assertEquals("Safeway", store);
     }
 }

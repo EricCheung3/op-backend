@@ -76,12 +76,12 @@ public class GenericChains {
           return chainBegin.getStr();
   }
 
-  /*
- * detect which chain the store between begin and end
- * @param begin the begin line number
- * @param end the end line number
- * @return an StringDouble object, the first is matched chain name, the second is the score
- */
+    /*
+     * detect which chain the store between begin and end
+     * @param begin the begin line number
+     * @param end the end line number
+     * @return an StringDouble object, the first is matched chain name, the second is the score
+     */
     private StringDouble chainNameSearch(final List<String> lines, final int begin, final int end) {
         double maxScore = -1;
         String chainName = "";
@@ -93,22 +93,22 @@ public class GenericChains {
 
             for (int c = 0; c < chainLines.size(); c++) {
                 ChainLine chainLine = null;
-                try{
+                try {
                     chainLine=matchedIdentityName(chainLines.get(c), line);
-                }catch(Exception ex){
+                } catch(Exception ex) {
                     log.warn(ex.getMessage()+" for chain line "+chainLines.get(c));
                 }
                 String cha = chainLine.identityField();
                 double score = chainLine.matchScore();
                 if (score > maxScore) {
                     maxScore = score;
-                    chainName = chainLine.chainName();
+                    chainName = chainLine.parserClassName(); //chainLine.chainName();
                 }
 
                 //return early to speedup
                 if (Math.abs(1.0 - score) < 0.02) {
-                    log.debug("line=" + line + "match identity field =" + cha + ",leven score=" + score);
-                    final StringDouble matchedChain=new StringDouble(chainName, score);
+                    log.debug("line='" + line + "', match identity field ='" + cha + "', leven score=" + score);
+                    final StringDouble matchedChain = new StringDouble(chainName, score);
                     log.debug("matched chain:\n" + matchedChain);
                     return matchedChain;
                 }
