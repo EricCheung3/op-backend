@@ -25,7 +25,6 @@ public class SimpleCategoryPredictorTest {
         simplePredictorFromConfig=SimpleCategoryPredictor.fromConfig();
     }
 
-
     @Test
     public void test1() throws Exception{
         final List<String> lines=new ArrayList<String>();
@@ -85,6 +84,8 @@ public class SimpleCategoryPredictorTest {
         assertEquals("deli", simplePredictorFromConfig.mostMatchingCategory("ham"));
         assertEquals("deli", simplePredictorFromConfig.mostMatchingCategory("ha"));
 
+        assertTrue(simplePredictorFromConfig.getCategoryToNames().keySet().contains("cleaningsupplies"));
+        assertTrue(simplePredictorFromConfig.getCategoryToNames().get("cleaningsupplies").contains("tide"));
         assertEquals("cleaningsupplies", simplePredictorFromConfig.mostMatchingCategoryForDebug("tide smpl lq hec"));
     }
 
