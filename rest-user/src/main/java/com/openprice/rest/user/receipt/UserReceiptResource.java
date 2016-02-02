@@ -37,6 +37,9 @@ import lombok.extern.slf4j.Slf4j;
 public class UserReceiptResource extends Resource<Receipt> {
 
     @Getter @Setter
+    private String chainCode = "generic";
+
+    @Getter @Setter
     private String storeName = "[Unknown]";
 
     @Getter @Setter
@@ -110,10 +113,14 @@ public class UserReceiptResource extends Resource<Receipt> {
                     }
                     resource.getEmbedded().put("receiptItems", items);
 
-                    if (!StringUtils.isEmpty(result.getChainCode())) {
-                        final StoreChain chain = storeChainRepository.findByCode(result.getChainCode());
+                    final String chainCode = result.getChainCode();
+                    if (!StringUtils.isEmpty(chainCode)) {
+                        final StoreChain chain = storeChainRepository.findByCode(chainCode);
                         resource.setStoreName(chain.getName());
+                        resource.setChainCode(chainCode);
                     }
+
+                    resource.setTotal(result.getParsedTotal());
                 }
             }
 
