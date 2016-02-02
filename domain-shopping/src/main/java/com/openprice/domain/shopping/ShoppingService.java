@@ -11,6 +11,7 @@ import com.openprice.domain.store.CatalogProduct;
 import com.openprice.domain.store.CatalogProductRepository;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
+import com.openprice.parser.category.CategoryPredictorInterface;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,16 +22,19 @@ public class ShoppingService {
     private final ShoppingItemRepository shoppingItemRepository;
     private final StoreChainRepository storeChainRepository;
     private final CatalogProductRepository catalogProductRepository;
+    private final CategoryPredictorInterface categoryPredictor;
 
     @Inject
     public ShoppingService(final ShoppingStoreRepository shoppingStoreRepository,
                            final ShoppingItemRepository shoppingItemRepository,
                            final StoreChainRepository storeChainRepository,
-                           final CatalogProductRepository catalogProductRepository) {
+                           final CatalogProductRepository catalogProductRepository,
+                           final CategoryPredictorInterface categoryPredictor) {
         this.shoppingStoreRepository = shoppingStoreRepository;
         this.shoppingItemRepository = shoppingItemRepository;
         this.storeChainRepository = storeChainRepository;
         this.catalogProductRepository = catalogProductRepository;
+        this.categoryPredictor = categoryPredictor;
     }
 
     /**
@@ -86,8 +90,7 @@ public class ShoppingService {
                 item.setCatalogCode(null);
                 item.setName(name);
                 item.setNumber(1);
-                // TODO: add algorithm to find best matching ProductCategory by name
-                item.setProductCategory(ProductCategory.uncategorized);
+                item.setProductCategory(predictCategoryByName(name));
                 log.debug("Add item without catalogCode, and create new item for '{}'", name);
             }
         } else {
@@ -138,5 +141,12 @@ public class ShoppingService {
         item.setProductCategory(productCategory);
 
         return shoppingItemRepository.save(item);
+    }
+
+    private ProductCategory predictCategoryByName(final String name) {
+        final String predictedCategoryCode = categoryPredictor.mostMatchingCategory(name);
+        log.debug("CategoryPredictor returns category code {} for name '{}'", predictedCategoryCode, name);
+        final ProductCategory category = ProductCategory.findByCode(predictedCategoryCode);
+        return (category == null) ? ProductCategory.uncategorized : category;
     }
 }

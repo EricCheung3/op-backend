@@ -21,6 +21,7 @@ import com.openprice.domain.store.CatalogProduct;
 import com.openprice.domain.store.CatalogProductRepository;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
+import com.openprice.parser.category.CategoryPredictorInterface;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ShoppingServiceTest {
@@ -45,6 +46,9 @@ public class ShoppingServiceTest {
 
     @Mock
     StoreChainRepository storeChainRepositoryMock;
+
+    @Mock
+    CategoryPredictorInterface categoryPredictorMock;
 
     @InjectMocks
     ShoppingService serviceToTest;
@@ -178,6 +182,31 @@ public class ShoppingServiceTest {
 
         ShoppingItem result = serviceToTest.addShoppingItemToStore(store, "", TEST_ITEM_NAME);
         assertEquals(ProductCategory.uncategorized, result.getProductCategory());
+        assertEquals(TEST_ITEM_NAME, result.getName());
+        assertEquals(1, result.getNumber());
+    }
+
+    @Test
+    public void addShoppingItemToStore_ShouldAddItemWithCategory_WhenEmptyCatalogCodeAndCategoryPredictorWorks() throws Exception {
+        final UserAccount testUser = getTestUserAccount();
+        final StoreChain rcssChain = getTestStoreChain();
+        final ShoppingStore store = ShoppingStore.createShoppingStore(testUser, rcssChain);
+
+        when(categoryPredictorMock.mostMatchingCategory(eq(TEST_ITEM_NAME))).thenReturn(ProductCategory.dairy.getCode());
+        when(shoppingItemRepositoryMock.findByStoreAndNameAndCatalogCodeIsNull(store, TEST_ITEM_NAME)).thenReturn(null);
+        when(shoppingStoreRepositoryMock.findByUserAndChainCode(eq(testUser), eq(TEST_CHAIN_CODE))).thenReturn(store);
+        when(storeChainRepositoryMock.findByCode(eq(TEST_CHAIN_CODE))).thenReturn(rcssChain);
+        when(shoppingItemRepositoryMock.save(isA(ShoppingItem.class))).thenAnswer( new Answer<ShoppingItem>() {
+            @Override
+            public ShoppingItem answer(InvocationOnMock invocation) throws Throwable {
+                final ShoppingItem item = (ShoppingItem)invocation.getArguments()[0];
+                item.setId(TEST_ITEM_ID);
+                return item;
+            }
+        });
+
+        ShoppingItem result = serviceToTest.addShoppingItemToStore(store, "", TEST_ITEM_NAME);
+        assertEquals(ProductCategory.dairy, result.getProductCategory());
         assertEquals(TEST_ITEM_NAME, result.getName());
         assertEquals(1, result.getNumber());
     }

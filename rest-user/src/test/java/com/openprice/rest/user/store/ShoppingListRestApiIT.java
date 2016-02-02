@@ -2,6 +2,7 @@ package com.openprice.rest.user.store;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertEquals;
 
 import org.apache.http.HttpStatus;
@@ -43,6 +44,7 @@ public class ShoppingListRestApiIT extends AbstractUserRestApiIntegrationTest {
                             .item(CreateShoppingItemForm.builder().name("t-shirt").catalogCode("T SHIRT").build())
                             .item(CreateShoppingItemForm.builder().name("jean").catalogCode("JEAN").build())
                             .item(CreateShoppingItemForm.builder().name("shoes").catalogCode("SHOE").build())
+                            .item(CreateShoppingItemForm.builder().name("nuts").build())
                             .build();
 
         response =
@@ -92,14 +94,18 @@ public class ShoppingListRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("_embedded.shoppingItems[3].catalogCode", equalTo("MILK_1234"))
             .body("_embedded.shoppingItems[3].productCategory", equalTo("dairy"))
             .body("_embedded.shoppingItems[3].number", equalTo(1))
-            .body("_embedded.shoppingItems[4].name", equalTo("shoes"))
-            .body("_embedded.shoppingItems[4].catalogCode", equalTo("SHOE"))
-            .body("_embedded.shoppingItems[4].productCategory", equalTo("uncategorized"))
+            .body("_embedded.shoppingItems[4].name", equalTo("nuts"))
+            .body("_embedded.shoppingItems[4].catalogCode", nullValue())
+            .body("_embedded.shoppingItems[4].productCategory", equalTo("nuts"))
             .body("_embedded.shoppingItems[4].number", equalTo(1))
-            .body("_embedded.shoppingItems[5].name", equalTo("t-shirt"))
-            .body("_embedded.shoppingItems[5].catalogCode", equalTo("T SHIRT"))
+            .body("_embedded.shoppingItems[5].name", equalTo("shoes"))
+            .body("_embedded.shoppingItems[5].catalogCode", equalTo("SHOE"))
             .body("_embedded.shoppingItems[5].productCategory", equalTo("uncategorized"))
             .body("_embedded.shoppingItems[5].number", equalTo(1))
+            .body("_embedded.shoppingItems[6].name", equalTo("t-shirt"))
+            .body("_embedded.shoppingItems[6].catalogCode", equalTo("T SHIRT"))
+            .body("_embedded.shoppingItems[6].productCategory", equalTo("uncategorized"))
+            .body("_embedded.shoppingItems[6].number", equalTo(1))
 
         ;
     }

@@ -17,6 +17,8 @@ import com.openprice.mail.EmailProperties;
 import com.openprice.mail.EmailService;
 import com.openprice.mail.sendgrid.SendgridEmailService;
 import com.openprice.mail.stub.DummyEmailService;
+import com.openprice.parser.category.CategoryPredictorInterface;
+import com.openprice.parser.category.SimpleCategoryPredictor;
 
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
@@ -57,6 +59,11 @@ public abstract class AbstractApiApplication {
     @Bean @Profile("sendgrid")
     public EmailProperties emailProperties(AbstractApplicationSettings settings) {
         return settings.getEmail();
+    }
+
+    @Bean
+    public CategoryPredictorInterface categoryPredictor() {
+        return SimpleCategoryPredictor.fromConfig();
     }
 
     /**
