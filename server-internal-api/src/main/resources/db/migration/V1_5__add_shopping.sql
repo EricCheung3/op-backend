@@ -36,7 +36,8 @@ CREATE TABLE shopping_item (
     store_id VARCHAR(50) NOT NULL,
     product_category VARCHAR(50) NOT NULL,
     catalog_code VARCHAR(255),
-    name VARCHAR(255),
+    name VARCHAR(255) NOT NULL,
+    number INTEGER NOT NULL,
 
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;

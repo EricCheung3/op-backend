@@ -7,6 +7,8 @@ CREATE TABLE receipt (
     last_modified_time TIMESTAMP,
 
     user_account_id VARCHAR(50) NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    receipt_date DATE NOT NULL,
     need_feedback BOOLEAN,
 
     PRIMARY KEY (id)

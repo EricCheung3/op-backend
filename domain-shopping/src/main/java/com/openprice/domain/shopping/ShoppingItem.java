@@ -42,7 +42,7 @@ public class ShoppingItem extends BaseAuditableEntity {
     private ShoppingStore store;
 
     @Getter @Setter
-    @Column(name="name")
+    @Column(name="name", nullable=false)
     private String name;
 
     /**
@@ -62,11 +62,11 @@ public class ShoppingItem extends BaseAuditableEntity {
      */
     @Getter @Setter
     @Enumerated(EnumType.STRING)
-    @Column(name="product_category")
+    @Column(name="product_category", nullable=false)
     private ProductCategory productCategory;
 
     @Getter @Setter
-    @Column(name="number")
+    @Column(name="number", nullable=false)
     private int number;
 
     ShoppingItem() {}
