@@ -24,6 +24,7 @@ import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.product.ProductCategory;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
+import com.openprice.domain.receipt.ReceiptStatusType;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.domain.store.StoreService;
@@ -118,6 +119,8 @@ public abstract class UserReceiptApiDocumentationBase extends UserApiDocumentati
         }
         // trigger parser
         receiptParsingService.parseOcrAndSaveResults(receipt, Arrays.asList(ocrResult));
+        receipt.setStatus(ReceiptStatusType.HAS_RESULT);
+        receiptRepository.save(receipt);
     }
 
     protected void deleteReceipts() throws Exception {

@@ -81,6 +81,7 @@ public class UserReceiptApiDocumentation extends UserReceiptApiDocumentationBase
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
                 fieldWithPath("_embedded.receiptImages").description("Receipt image list"),
+                fieldWithPath("_embedded.receiptItems").description("Receipt parsed item list"),
                 fieldWithPath("status").description("Receipt process status, can be WAIT_FOR_RESULT, OCR_ERROR, PARSER_ERROR, HAS_RESULT"),
                 fieldWithPath("receiptDate").description("Date of receipt, default to upload date, change to shopping date after processing"),
                 fieldWithPath("total").description("Total price from parser, null if no result yet."),
