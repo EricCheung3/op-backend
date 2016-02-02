@@ -17,6 +17,10 @@ public class ProductPrice {
         this.price=price;
     }
 
+    public static ProductPrice fromNameOnly(final String name){
+        return new ProductPrice(Product.fromNameOnly(name), StringCommon.EMPTY);
+    }
+
     public ProductPrice(final Product product, final String price,
             final boolean productIsInCatalog){
         this(product, price);
@@ -113,5 +117,11 @@ public class ProductPrice {
 
     public boolean isEmpty(){
         return product.isEmpty() && price.isEmpty();
+    }
+
+    public String toCatalogCode(){
+        if(productIsInCatalog)
+            return product.toCatalogCode();
+        return StringCommon.EMPTY;
     }
 }
