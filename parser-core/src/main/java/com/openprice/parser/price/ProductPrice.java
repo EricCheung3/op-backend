@@ -120,6 +120,8 @@ public class ProductPrice {
     }
 
     public String toCatalogCode(){
-        return product.toCatalogCode();
+        if(productIsInCatalog)
+            return product.toCatalogCode();
+        return StringCommon.EMPTY;
     }
 }
