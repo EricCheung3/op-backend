@@ -81,7 +81,22 @@ public class SimpleCategoryPredictor implements CategoryPredictorInterface{
                     final double score = Levenshtein.mostSimilarScoreInSet(queryName, e.getValue());
                     return new StringDouble(e.getKey(), score);})
                 .reduce((p1,p2) -> p1.getValue()>p2.getValue()? p1:p2)
-                .get().getStr();
+                .get()
+                .getStr();
+    }
+
+    //for debugging mostMatchingCategory, which also gives the matched name in the result
+    public String mostMatchingCategoryForDebug(String queryName) {
+        return categoryToNames
+                .entrySet()
+                .stream()
+                .map(e->{
+                    final double score = Levenshtein.mostSimilarScoreInSet(queryName, e.getValue());
+                    final String matchedName = Levenshtein.mostSimilarInSet(queryName, e.getValue());
+                    return new StringDouble(matchedName+":"+e.getKey(), score);})
+                .reduce((p1,p2) -> p1.getValue()>p2.getValue()? p1:p2)
+                .get()
+                .getStr();
     }
 
     @Override
