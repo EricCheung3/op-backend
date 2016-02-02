@@ -40,12 +40,12 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         // verify result of items
         Iterator<Item> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "rstr instnt ndle", "0.98", "rstr instnt ndle_05719775555");
-        verifyItemParsedValue(iterator.next(), "table salt    mrj", "1.99", "table salt    mrj_06601007023");
+        verifyItemParsedValue(iterator.next(), "table salt    mrj", "1.99", "");
         verifyItemParsedValue(iterator.next(), "garden wafer", "2.56", "garden wafer_08978200269");
         verifyItemParsedValue(iterator.next(), "rice stick", "1.08", "rice stick_693491804007");
         //verifyItemParsedValue(iterator.next(), "deposit 1", "0.25", "deposit 1");
         verifyItemParsedValue(iterator.next(), "cntry hvst brd", "2.98", "cntry hvst brd_06340004440");
-        verifyItemParsedValue(iterator.next(), "(2)9    plastic bags    grq", "0.10", "(2)9    plastic bags    grq");
+        verifyItemParsedValue(iterator.next(), "(2)9    plastic bags    grq", "0.10", "");
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
@@ -73,12 +73,12 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parse(receiptLines);
-        //printResult(receipt);
+        printResult(receipt);
 
         // verify result of items
         Iterator<Item> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "opo squash", "2.80", "opo squash_3141");
-        verifyItemParsedValue(iterator.next(), "chinese cabbage    mrj", "1.43", "chinese cabbage    mrj_4552");
+        verifyItemParsedValue(iterator.next(), "chinese cabbage    mrj", "1.43", "");
         verifyItemParsedValue(iterator.next(), "muffin lemn cran", "4.87", "muffin lemn cran_06038387812");
         verifyItemParsedValue(iterator.next(), "plastic bags", "0.05", "plastic bags");
 
@@ -153,9 +153,9 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         final Iterator<Item> iterator=receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "orange navel 5lb", "5.88", "orange navel 5lb_03338311006");
         verifyItemParsedValue(iterator.next(), "banana", "1.35", "banana_4011");
-        verifyItemParsedValue(iterator.next(), "cherries red    mrj", "7.29", "cherries red    mrj_4045");
-        verifyItemParsedValue(iterator.next(), "tc baby powder    gmrj", "0.99", "tc baby powder    gmrj_06038379317");
-        verifyItemParsedValue(iterator.next(), "baby bar    gmrj", "2.49", "baby bar    gmrj_06260096070");
+        verifyItemParsedValue(iterator.next(), "cherries red    mrj", "7.29", "");
+        verifyItemParsedValue(iterator.next(), "tc baby powder    gmrj", "0.99", "");
+        verifyItemParsedValue(iterator.next(), "baby bar    gmrj", "2.49", "");
         verifyItemParsedValue(iterator.next(), "plastic bags", "0.05", "plastic bags");
 
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
