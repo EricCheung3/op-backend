@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.category.CategoryPredictorInterface;
+import com.openprice.parser.category.SimpleCategoryPredictor;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
@@ -27,6 +29,7 @@ public class ReceiptParsingService {
     private final ReceiptResultRepository receiptResultRepository;
     private final ReceiptItemRepository receiptItemRepository;
     private final SimpleParser simpleParser;
+    private final CategoryPredictorInterface categoryPredictor;
 
     @Inject
     public ReceiptParsingService(final ReceiptRepository receiptRepository,
@@ -39,6 +42,7 @@ public class ReceiptParsingService {
         this.receiptResultRepository = receiptResultRepository;
         this.receiptItemRepository = receiptItemRepository;
         this.simpleParser = simpleParser;
+        this.categoryPredictor=SimpleCategoryPredictor.fromConfig();
     }
 
     /**
@@ -100,6 +104,7 @@ public class ReceiptParsingService {
 
                 int lineNumber = 1;
                 for (final Item item : parsedReceipt.getItems()) {
+                    final String predictedProductCategory=categoryPredictor.mostMatchingCategory(item.getProduct().getName());
                     final ReceiptItem receiptItem = result.addItem(item.getProduct().toCatalogCode(), item.getProduct().getName(), item.getBuyPrice());
                     // FIXME add lineNumber from parser items
                     receiptItem.setLineNumber(lineNumber++);

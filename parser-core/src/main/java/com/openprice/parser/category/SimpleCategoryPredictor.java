@@ -30,7 +30,7 @@ public class SimpleCategoryPredictor implements CategoryPredictorInterface{
     @Getter
     private final Map<String, Set<String>> categoryToNames;
 
-    public static SimpleCategoryPredictor fromConfig() throws Exception{
+    public static SimpleCategoryPredictor fromConfig(){
         final List<String> lines=TextResourceUtils.loadStringArray(CATEGORY_CLASSES_FILE);
 
         //verify the categories are the same as icon names.
@@ -47,7 +47,7 @@ public class SimpleCategoryPredictor implements CategoryPredictorInterface{
             .stream()
             .filter(k -> !allCategories.contains(k))
             .forEachOrdered(outlier->log.warn(outlier));
-            throw new Exception("The file "+CATEGORY_CLASSES_FILE+" contains categories that do not have a corresponding icon name.");
+            //throw new Exception("The file "+CATEGORY_CLASSES_FILE+" contains categories that do not have a corresponding icon name.");
         }
         return simple;
     }
