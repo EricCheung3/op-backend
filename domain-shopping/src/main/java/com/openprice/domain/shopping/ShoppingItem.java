@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -35,7 +34,7 @@ public class ShoppingItem extends BaseAuditableEntity {
 
     @Getter @Setter
     @JsonIgnore
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="store_id")
     @org.hibernate.annotations.OnDelete(
         action = org.hibernate.annotations.OnDeleteAction.CASCADE
