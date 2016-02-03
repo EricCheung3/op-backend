@@ -21,7 +21,7 @@ import com.openprice.domain.store.CatalogProduct;
 import com.openprice.domain.store.CatalogProductRepository;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
-import com.openprice.parser.category.CategoryPredictorInterface;
+import com.openprice.predictor.CategoryPredictor;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ShoppingServiceTest {
@@ -48,7 +48,7 @@ public class ShoppingServiceTest {
     StoreChainRepository storeChainRepositoryMock;
 
     @Mock
-    CategoryPredictorInterface categoryPredictorMock;
+    CategoryPredictor categoryPredictorMock;
 
     @InjectMocks
     ShoppingService serviceToTest;

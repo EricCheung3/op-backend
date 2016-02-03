@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.openprice.common.TextResourceUtils;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

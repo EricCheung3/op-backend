@@ -27,7 +27,7 @@
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>op-parser-core</artifactId>
+            <artifactId>op-parser-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         

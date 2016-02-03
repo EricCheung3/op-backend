@@ -1,0 +1,145 @@
+[ {
+  "code" : "apparel",
+  "name" : "Apparel",
+  "identity" : ""
+}, {
+  "code" : "babyfood",
+  "name" : "Baby Food",
+  "identity" : ""
+}, {
+  "code" : "babyitems",
+  "name" : "Baby Items",
+  "identity" : ""
+}, {
+  "code" : "bakery",
+  "name" : "Bakery",
+  "identity" : ""
+}, {
+  "code" : "baking",
+  "name" : "Baking",
+  "identity" : ""
+}, {
+  "code" : "beverages",
+  "name" : "Beverages",
+  "identity" : ""
+}, {
+  "code" : "canned",
+  "name" : "Canned & Packaged",
+  "identity" : ""
+}, {
+  "code" : "cereal",
+  "name" : "Breakfast & Cereal",
+  "identity" : ""
+}, {
+  "code" : "cleaningsupplies",
+  "name" : "Cleaning Supplies",
+  "identity" : ""
+}, {
+  "code" : "dairy",
+  "name" : "Dairy & Egg",
+  "identity" : ""
+}, {
+  "code" : "deli",
+  "name" : "Deli",
+  "identity" : ""
+}, {
+  "code" : "entertainment",
+  "name" : "Entertainment",
+  "identity" : ""
+}, {
+  "code" : "floral",
+  "name" : "Floral",
+  "identity" : ""
+}, {
+  "code" : "frozen",
+  "name" : "Frozen",
+  "identity" : ""
+}, {
+  "code" : "fruit",
+  "name" : "Fruits",
+  "identity" : ""
+}, {
+  "code" : "grains",
+  "name" : "Beans, Grains & Rice",
+  "identity" : ""
+}, {
+  "code" : "health",
+  "name" : "Health & Beauty",
+  "identity" : ""
+}, {
+  "code" : "home",
+  "name" : "Home",
+  "identity" : ""
+}, {
+  "code" : "international",
+  "name" : "International & Ethnic",
+  "identity" : ""
+}, {
+  "code" : "jams",
+  "name" : "Jams & Preserves",
+  "identity" : ""
+}, {
+  "code" : "meat",
+  "name" : "Meat",
+  "identity" : ""
+}, {
+  "code" : "nuts",
+  "name" : "Nuts & Dried Fruit",
+  "identity" : ""
+}, {
+  "code" : "oil",
+  "name" : "Oil & Vinegar",
+  "identity" : ""
+}, {
+  "code" : "papergoods",
+  "name" : "Paper Goods",
+  "identity" : ""
+}, {
+  "code" : "pasta",
+  "name" : "Pasta & Noodles",
+  "identity" : ""
+}, {
+  "code" : "personalitems",
+  "name" : "Personal Care",
+  "identity" : ""
+}, {
+  "code" : "petfood",
+  "name" : "Pet Food",
+  "identity" : ""
+}, {
+  "code" : "pharmacy",
+  "name" : "Pharmacy",
+  "identity" : ""
+}, {
+  "code" : "sauces",
+  "name" : "Condiments & Sauces",
+  "identity" : ""
+}, {
+  "code" : "seafood",
+  "name" : "Seafood",
+  "identity" : ""
+}, {
+  "code" : "snacks",
+  "name" : "Snacks",
+  "identity" : ""
+}, {
+  "code" : "soup",
+  "name" : "Soups & Broth",
+  "identity" : ""
+}, {
+  "code" : "spices",
+  "name" : "Spices",
+  "identity" : ""
+}, {
+  "code" : "uncategorized",
+  "name" : "Uncategorized",
+  "identity" : ""
+}, {
+  "code" : "vegetables",
+  "name" : "Vegetables",
+  "identity" : ""
+}, {
+  "code" : "wine",
+  "name" : "Wine & Spirits",
+  "identity" : ""
+} ]

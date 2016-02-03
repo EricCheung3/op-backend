@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.openprice</groupId>
+        <artifactId>op-project</artifactId>
+        <version>0.3.0</version>
+    </parent>
+
+    <artifactId>op-metadata</artifactId>
+    <packaging>jar</packaging>
+
+    <name>System Metadata Module</name>
+    <description>OpenPrice system metadata used by parser and domain modules.</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>op-common-utils</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

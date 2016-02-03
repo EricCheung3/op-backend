@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 
+import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.StoreBranch;
@@ -13,7 +14,6 @@ import com.openprice.parser.StoreChain;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.common.DateParserUtils;
-import com.openprice.parser.common.TextResourceUtils;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.Product;
 import com.openprice.parser.data.ReceiptField;

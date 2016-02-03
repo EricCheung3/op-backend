@@ -42,7 +42,8 @@ CREATE INDEX idx_store_branch_1
 ALTER TABLE store_branch
     ADD CONSTRAINT fk_store_branch_store_chain
     FOREIGN KEY (chain_id)
-    REFERENCES store_chain(id);
+    REFERENCES store_chain(id)
+    ON DELETE CASCADE;
 
 CREATE TABLE catalog_product (
     id VARCHAR(50),
@@ -71,5 +72,6 @@ ALTER TABLE catalog_product
 ALTER TABLE catalog_product
     ADD CONSTRAINT fk_catalog_store_chain
     FOREIGN KEY (chain_id)
-    REFERENCES store_chain(id);
+    REFERENCES store_chain(id)
+    ON DELETE CASCADE;
 

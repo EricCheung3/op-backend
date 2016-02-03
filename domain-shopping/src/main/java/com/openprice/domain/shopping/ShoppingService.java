@@ -11,7 +11,7 @@ import com.openprice.domain.store.CatalogProduct;
 import com.openprice.domain.store.CatalogProductRepository;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
-import com.openprice.parser.category.CategoryPredictorInterface;
+import com.openprice.predictor.CategoryPredictor;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,14 +22,14 @@ public class ShoppingService {
     private final ShoppingItemRepository shoppingItemRepository;
     private final StoreChainRepository storeChainRepository;
     private final CatalogProductRepository catalogProductRepository;
-    private final CategoryPredictorInterface categoryPredictor;
+    private final CategoryPredictor categoryPredictor;
 
     @Inject
     public ShoppingService(final ShoppingStoreRepository shoppingStoreRepository,
                            final ShoppingItemRepository shoppingItemRepository,
                            final StoreChainRepository storeChainRepository,
                            final CatalogProductRepository catalogProductRepository,
-                           final CategoryPredictorInterface categoryPredictor) {
+                           final CategoryPredictor categoryPredictor) {
         this.shoppingStoreRepository = shoppingStoreRepository;
         this.shoppingItemRepository = shoppingItemRepository;
         this.storeChainRepository = storeChainRepository;
