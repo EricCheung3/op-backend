@@ -21,8 +21,8 @@ import com.openprice.internal.client.InternalService;
 import com.openprice.mail.EmailProperties;
 import com.openprice.mail.EmailService;
 import com.openprice.mail.stub.DummyEmailService;
-import com.openprice.parser.category.CategoryPredictorInterface;
 import com.openprice.parser.category.SimpleCategoryPredictor;
+import com.openprice.predictor.CategoryPredictor;
 
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
@@ -78,7 +78,7 @@ public class ApiDocsApplication {
     }
 
     @Bean
-    public CategoryPredictorInterface categoryPredictor() {
+    public CategoryPredictor categoryPredictor() {
         return SimpleCategoryPredictor.fromConfig();
     }
 

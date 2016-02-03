@@ -11,16 +11,17 @@ import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.common.ConversionCommon;
 import com.openprice.parser.common.Levenshtein;
 import com.openprice.parser.generic.StringDouble;
+import com.openprice.predictor.CategoryPredictor;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-/*
+/**
  * simple predictor for productCategory,
  * This uses best matched category from categoryClasses.txt
  */
 @Slf4j
-public class SimpleCategoryPredictor implements CategoryPredictorInterface{
+public class SimpleCategoryPredictor implements CategoryPredictor {
 
     private static final String CATEGORY_CLASSES_FILE="/config/categoryClasses.txt";
     private static final String CATEGORY_CLASSES_FILE_SPLITTER=":";
