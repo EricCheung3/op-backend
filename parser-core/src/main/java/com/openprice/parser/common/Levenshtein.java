@@ -15,23 +15,27 @@ public class Levenshtein
 {
     //TODO: if no value is present, an exception will be thrown, is this what you want?
     public static String mostSimilarInSet(final String key, final Set<String> set){
-        return set.stream().reduce((p1,p2) ->
+//        return set.stream().reduce((p1,p2) ->
 //        Levenshtein.compare(StringCommon.removeAllSpaces(p1), StringCommon.removeAllSpaces(key)) >
 //        Levenshtein.compare(StringCommon.removeAllSpaces(p2), StringCommon.removeAllSpaces(key))
 //        ? p1:p2).get();
 
-        Levenshtein.compare(StringCommon.removeAllSpaces(key), StringCommon.removeAllSpaces(p1)) >
-        Levenshtein.compare(StringCommon.removeAllSpaces(key), StringCommon.removeAllSpaces(p2))
+        return set.stream().reduce((p1,p2) ->
+        StringCommon.matchStringToSubStringTwoWay(key, p1) >
+        StringCommon.matchStringToSubStringTwoWay(key, p2)
         ? p1:p2).get();
     }
 
     public static double mostSimilarScoreInSet(final String key, final Set<String> set){
-         Optional<Double> maxDouble=set
+        set.stream()
+           .forEach(str ->
+               System.out.println("key="+key+", candidate="+str+", score="+StringCommon.matchStringToSubString(key,str)));
+
+        Optional<Double> maxDouble=set
                .stream()
 //               .map(str -> Levenshtein.compare(StringCommon.removeAllSpaces(str),
 //                                               StringCommon.removeAllSpaces(key)))
-               .map(str -> Levenshtein.compare(StringCommon.removeAllSpaces(key),
-                       StringCommon.removeAllSpaces(str)))
+               .map(str -> StringCommon.matchStringToSubStringTwoWay(key,str))
                .max(Comparator.comparing(d->d));
          if(maxDouble.isPresent())
               return  maxDouble.get();
