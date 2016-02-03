@@ -8,21 +8,16 @@
         <version>0.3.0</version>
     </parent>
 
-    <artifactId>op-system-loader</artifactId>
+    <artifactId>op-metadata</artifactId>
     <packaging>jar</packaging>
 
-    <name>System Data Loader Module</name>
-    <description>OpenPrice system data loader utils to load/update store data in database.</description>
+    <name>System Metadata Module</name>
+    <description>OpenPrice system metadata used by parser and domain modules.</description>
 
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>op-parser-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.openprice</groupId>
-            <artifactId>op-domain-store</artifactId>
+            <artifactId>op-common-utils</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
