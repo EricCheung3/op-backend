@@ -1,0 +1,576 @@
+[ {
+  "code" : "aw",
+  "name" : "A&W",
+  "identity" : "A&W",
+  "category" : "Restaurant"
+}, {
+  "code" : "albertahealthservices",
+  "name" : "Alberta Health Services",
+  "identity" : "Alberta Health Services",
+  "category" : "Parking"
+}, {
+  "code" : "americanapparel",
+  "name" : "American Apparel",
+  "identity" : "American Apparel",
+  "category" : "Clothes"
+}, {
+  "code" : "aquagiant",
+  "name" : "Aquagiant",
+  "identity" : "Aquagiant",
+  "category" : "Aquarium"
+}, {
+  "code" : "arbys",
+  "name" : "Arby's",
+  "identity" : "Arby's",
+  "category" : "Restaurant"
+}, {
+  "code" : "armynavydept",
+  "name" : "Army & Navy Dept",
+  "identity" : "Army & Navy Dept",
+  "category" : "Clothes"
+}, {
+  "code" : "artisanrestocafe",
+  "name" : "Artisan Resto-Cafe",
+  "identity" : "Artisan Resto-Cafe",
+  "category" : "Restaurant"
+}, {
+  "code" : "baseline",
+  "name" : "Baseline",
+  "identity" : "Baseline",
+  "category" : "Liquor"
+}, {
+  "code" : "bestbuy",
+  "name" : "Best Buy",
+  "identity" : "Best Buy",
+  "category" : "Electronics"
+}, {
+  "code" : "bigals",
+  "name" : "Big AL's",
+  "identity" : "Big AL's",
+  "category" : "Aquarium"
+}, {
+  "code" : "blushlaneorganicmarket",
+  "name" : "Blush Lane Organic Market",
+  "identity" : "Blush Lane Organic Market",
+  "category" : "Grocery"
+}, {
+  "code" : "bostonpizza",
+  "name" : "Boston Pizza",
+  "identity" : "Boston Pizza",
+  "category" : "Restaurant"
+}, {
+  "code" : "bouclair",
+  "name" : "Bouclair",
+  "identity" : "Bouclair",
+  "category" : "Furniture"
+}, {
+  "code" : "burgerking",
+  "name" : "Burger King",
+  "identity" : "Burger King",
+  "category" : "Restaurant"
+}, {
+  "code" : "calvinklein",
+  "name" : "Calvin Klein",
+  "identity" : "Calvin Klein",
+  "category" : "Clothes"
+}, {
+  "code" : "canadiantire",
+  "name" : "Canadian Tire",
+  "identity" : "Canadian Tire",
+  "category" : "Hardware"
+}, {
+  "code" : "chapters",
+  "name" : "Chapters",
+  "identity" : "Chapters",
+  "category" : "Book store"
+}, {
+  "code" : "chickenscratch",
+  "name" : "Chicken Scratch",
+  "identity" : "Chicken Scratch",
+  "category" : "Restaurant"
+}, {
+  "code" : "cineplex",
+  "name" : "Cineplex",
+  "identity" : "Cineplex",
+  "category" : "Cinema"
+}, {
+  "code" : "cora",
+  "name" : "Cora",
+  "identity" : "Cora",
+  "category" : "Restaurant"
+}, {
+  "code" : "costco",
+  "name" : "Costco",
+  "identity" : "Costco",
+  "category" : "Grocery"
+}, {
+  "code" : "costocandadliquor",
+  "name" : "Costo Candad Liquor",
+  "identity" : "Costo Candad Liquor",
+  "category" : "Liquor"
+}, {
+  "code" : "culturecraze",
+  "name" : "Culture Craze",
+  "identity" : "Culture Craze",
+  "category" : "Jewellery"
+}, {
+  "code" : "dadeo",
+  "name" : "Dadeo",
+  "identity" : "Dadeo",
+  "category" : "Restaurant"
+}, {
+  "code" : "davidstea",
+  "name" : "Davids Tea",
+  "identity" : "Davids Tea",
+  "category" : "Tea"
+}, {
+  "code" : "deervalleyco-op",
+  "name" : "Deer Valley Co-op",
+  "identity" : "Deer Valley Co-op",
+  "category" : "Gas"
+}, {
+  "code" : "deliciousphorestaurant",
+  "name" : "Delicious Pho Restaurant",
+  "identity" : "Delicious Pho Restaurant",
+  "category" : "Restaurant"
+}, {
+  "code" : "deltaartanddraftingsupplies",
+  "name" : "Delta Art and Drafting Supplies",
+  "identity" : "Delta Art and Drafting Supplies",
+  "category" : "Arts"
+}, {
+  "code" : "diaryqueen",
+  "name" : "Diary Queen",
+  "identity" : "Diary Queen",
+  "category" : "Restaurant"
+}, {
+  "code" : "dollartree",
+  "name" : "Dollar Tree",
+  "identity" : "Dollar Tree",
+  "category" : "Grocery"
+}, {
+  "code" : "dollarama",
+  "name" : "Dollarama",
+  "identity" : "Dollarama",
+  "category" : "Grocery"
+}, {
+  "code" : "esso",
+  "name" : "ESSO",
+  "identity" : "ESSO",
+  "category" : "Gas"
+}, {
+  "code" : "edmontonclassic",
+  "name" : "Edmonton Classic",
+  "identity" : "Edmonton Classic",
+  "category" : "Health"
+}, {
+  "code" : "edmontonfasteners",
+  "name" : "Edmonton Fasteners",
+  "identity" : "Edmonton Fasteners",
+  "category" : "Hardware"
+}, {
+  "code" : "edojapan",
+  "name" : "Edo Japan",
+  "identity" : "Edo Japan",
+  "category" : "Restaurant"
+}, {
+  "code" : "elsafadisupermarket",
+  "name" : "Elsafadi Supermarket",
+  "identity" : "Elsafadi Supermarket",
+  "category" : "Grocery"
+}, {
+  "code" : "fasgas",
+  "name" : "FAS GAS CALMAR SERVICE",
+  "identity" : "FAS GAS CALMAR SERVICE,Fas Gas",
+  "category" : "Gas"
+}, {
+  "code" : "fatburger",
+  "name" : "Fatburger",
+  "identity" : "Fatburger",
+  "category" : "Restaurant"
+}, {
+  "code" : "futureshop",
+  "name" : "Future Shop",
+  "identity" : "Future Shop",
+  "category" : "Electronics"
+}, {
+  "code" : "gap",
+  "name" : "Gap",
+  "identity" : "Gap",
+  "category" : "Clothes"
+}, {
+  "code" : "greyhound",
+  "name" : "Greyhound",
+  "identity" : "Greyhound",
+  "category" : "Travel"
+}, {
+  "code" : "hmv",
+  "name" : "HMV",
+  "identity" : "HMV",
+  "category" : "Movies"
+}, {
+  "code" : "hairstudiokoss",
+  "name" : "Hair Studio K-OSS",
+  "identity" : "Hair Studio K-OSS",
+  "category" : "Hair"
+}, {
+  "code" : "harveys",
+  "name" : "Harvey's",
+  "identity" : "Harvey's",
+  "category" : "Restaurant"
+}, {
+  "code" : "hudsonsbay",
+  "name" : "Hudson's Bay",
+  "identity" : "Hudson's Bay",
+  "category" : "Department"
+}, {
+  "code" : "husky",
+  "name" : "Husky",
+  "identity" : "Husky",
+  "category" : "Gas"
+}, {
+  "code" : "impark",
+  "name" : "Impark",
+  "identity" : "Impark",
+  "category" : "Parking"
+}, {
+  "code" : "jysk",
+  "name" : "JYSK",
+  "identity" : "JYSK",
+  "category" : "Department"
+}, {
+  "code" : "juliosbarrio",
+  "name" : "Julio's Barrio",
+  "identity" : "Julio's Barrio",
+  "category" : "Restaurant"
+}, {
+  "code" : "leehouserestaurant",
+  "name" : "Lee House Restaurant",
+  "identity" : "Lee House Restaurant",
+  "category" : "Restaurant"
+}, {
+  "code" : "lifestylecig",
+  "name" : "Lifestyle CIG",
+  "identity" : "Lifestyle CIG",
+  "category" : "Cigarette"
+}, {
+  "code" : "liquordepot",
+  "name" : "Liquor Depot",
+  "identity" : "Liquor Depot",
+  "category" : "liquor"
+}, {
+  "code" : "littlecaesarspizza",
+  "name" : "Little Caesar's Pizza",
+  "identity" : "Little Caesar's Pizza",
+  "category" : "Restaurant"
+}, {
+  "code" : "localpubliceatery",
+  "name" : "Local Public Eatery",
+  "identity" : "Local Public Eatery",
+  "category" : "Restaurant"
+}, {
+  "code" : "londondrugs",
+  "name" : "London Drugs",
+  "identity" : "London Drugs",
+  "category" : "Pharmacy"
+}, {
+  "code" : "longmcquadeltd",
+  "name" : "Long & McQuade LTD",
+  "identity" : "Long & McQuade LTD",
+  "category" : "Music"
+}, {
+  "code" : "lotto649",
+  "name" : "Lotto 649",
+  "identity" : "Lotto 649",
+  "category" : "Lottery"
+}, {
+  "code" : "luky97",
+  "name" : "Luky 97",
+  "identity" : "Luky 97",
+  "category" : "Grocery"
+}, {
+  "code" : "mac",
+  "name" : "Mac@",
+  "identity" : "Mac@",
+  "category" : "Cosmetics"
+}, {
+  "code" : "mcdonald",
+  "name" : "McDonald's",
+  "identity" : "McDonald's",
+  "category" : "Restaurant"
+}, {
+  "code" : "meadowbrookhuskymarket",
+  "name" : "Meadowbrook Husky market",
+  "identity" : "Meadowbrook Husky market",
+  "category" : "Auto"
+}, {
+  "code" : "merlenormancosmetics",
+  "name" : "Merle Norman Cosmetics",
+  "identity" : "Merle Norman Cosmetics",
+  "category" : "Cosmetics"
+}, {
+  "code" : "naanolicious",
+  "name" : "Naan-O-licious",
+  "identity" : "Naan-O-licious",
+  "category" : "Restaurant"
+}, {
+  "code" : "newyorkfries",
+  "name" : "New York Fries",
+  "identity" : "New York Fries",
+  "category" : "Restaurant"
+}, {
+  "code" : "nofrills",
+  "name" : "Nofrills",
+  "identity" : "Nofrills,BRYAN &ALISON 'S nofrills,",
+  "category" : "Grocery"
+}, {
+  "code" : "nomyasushi",
+  "name" : "Nomya Sushi",
+  "identity" : "Nomya Sushi",
+  "category" : "Restaurant"
+}, {
+  "code" : "olivegarden",
+  "name" : "Olive Garden",
+  "identity" : "Olive Garden",
+  "category" : "Restaurant"
+}, {
+  "code" : "parklink",
+  "name" : "ParkLink",
+  "identity" : "ParkLink",
+  "category" : "Parking"
+}, {
+  "code" : "partsource",
+  "name" : "PartSource",
+  "identity" : "PartSource",
+  "category" : "Auto"
+}, {
+  "code" : "petland",
+  "name" : "Pet Land",
+  "identity" : "Pet Land",
+  "category" : "Pet"
+}, {
+  "code" : "petsmart",
+  "name" : "PetSmart",
+  "identity" : "PetSmart",
+  "category" : "Pet"
+}, {
+  "code" : "petro-canada",
+  "name" : "Petro-Canada",
+  "identity" : "Petro-Canada",
+  "category" : "Gas"
+}, {
+  "code" : "pizza73",
+  "name" : "Pizza 73",
+  "identity" : "Pizza 73",
+  "category" : "Restaurant"
+}, {
+  "code" : "planetorganic",
+  "name" : "Planet Organic",
+  "identity" : "Planet Organic",
+  "category" : "Grocery"
+}, {
+  "code" : "purdyschocolatier",
+  "name" : "Purdys Chocolatier",
+  "identity" : "Purdys Chocolatier",
+  "category" : "Chocolate"
+}, {
+  "code" : "quizinossubs",
+  "name" : "Quizino's Subs",
+  "identity" : "Quizino's Subs",
+  "category" : "Restaurant"
+}, {
+  "code" : "rcls",
+  "name" : "RCLS",
+  "identity" : "RCLS, LiquorStore",
+  "category" : "Liquor"
+}, {
+  "code" : "rexall",
+  "name" : "Rexall",
+  "identity" : "Rexall",
+  "category" : "Drug"
+}, {
+  "code" : "ricebowldeluxe",
+  "name" : "Rice Bowl Deluxe",
+  "identity" : "Rice Bowl Deluxe",
+  "category" : "Restaurant"
+}, {
+  "code" : "royalpizza",
+  "name" : "Royal Pizza",
+  "identity" : "Royal Pizza",
+  "category" : "Restaurant"
+}, {
+  "code" : "safeway",
+  "name" : "SAFEWAY",
+  "identity" : "SAFEWAY,Safeway",
+  "category" : "Grocery,Health"
+}, {
+  "code" : "sajewestedmonton",
+  "name" : "Saje West Edmonton",
+  "identity" : "Saje West Edmonton",
+  "category" : "Health"
+}, {
+  "code" : "saveonfoods",
+  "name" : "Save-on-foods",
+  "identity" : "Save-on-foods",
+  "category" : "Grocery"
+}, {
+  "code" : "searshealthcenters",
+  "name" : "Sears Health Centers",
+  "identity" : "Sears Health Centers",
+  "category" : "Health"
+}, {
+  "code" : "sears",
+  "name" : "Sears",
+  "identity" : "Sears",
+  "category" : "Department"
+}, {
+  "code" : "shellcanada",
+  "name" : "Shell Canada",
+  "identity" : "Shell Canada",
+  "category" : "Gas"
+}, {
+  "code" : "shoemasters",
+  "name" : "ShoeMasters",
+  "identity" : "ShoeMasters",
+  "category" : "Shoes"
+}, {
+  "code" : "shoppersdrugmart",
+  "name" : "Shoppers Drugmart",
+  "identity" : "Shoppers Drugmart",
+  "category" : "Pharmacy"
+}, {
+  "code" : "shoppers",
+  "name" : "Shoppers",
+  "identity" : "Shoppers",
+  "category" : "Pharmacy"
+}, {
+  "code" : "sobeysliquor",
+  "name" : "Sobeys Liquor",
+  "identity" : "Sobeys Liquor",
+  "category" : "Liquor"
+}, {
+  "code" : "sobeys",
+  "name" : "Sobeys",
+  "identity" : "Sobeys",
+  "category" : "Grocery"
+}, {
+  "code" : "sololiquor",
+  "name" : "Solo Liquor",
+  "identity" : "Solo Liquor",
+  "category" : "liquor"
+}, {
+  "code" : "sportchek",
+  "name" : "Sport Chek",
+  "identity" : "Sport Chek",
+  "category" : "Sports"
+}, {
+  "code" : "staplescanada",
+  "name" : "Staples Canada",
+  "identity" : "Staples Canada",
+  "category" : "Office"
+}, {
+  "code" : "starbuckscoffeecanada",
+  "name" : "Starbucks Coffee Canada",
+  "identity" : "Starbucks Coffee Canada",
+  "category" : "Coffee"
+}, {
+  "code" : "superstoregasbar",
+  "name" : "Superstore Gasbar",
+  "identity" : "Superstore Gasbar",
+  "category" : "Gas"
+}, {
+  "code" : "rcss",
+  "name" : "Superstore",
+  "identity" : "Superstore,RCSS Superstore",
+  "category" : "Grocery"
+}, {
+  "code" : "supplysurgeant",
+  "name" : "Supply Surgeant",
+  "identity" : "Supply Surgeant",
+  "category" : "Millitary"
+}, {
+  "code" : "tt",
+  "name" : "T&T",
+  "identity" : "T&T",
+  "category" : "Grocery"
+}, {
+  "code" : "target",
+  "name" : "Target",
+  "identity" : "Target",
+  "category" : "Grocery"
+}, {
+  "code" : "thaiexpress",
+  "name" : "Thai Express",
+  "identity" : "Thai Express",
+  "category" : "Restaurant"
+}, {
+  "code" : "homedepot",
+  "name" : "The Home Depot",
+  "identity" : "The Home Depot, more saving more doing",
+  "category" : "Home improvement"
+}, {
+  "code" : "thepintpublichouse",
+  "name" : "The Pint Public House",
+  "identity" : "The Pint Public House",
+  "category" : "Restaurant"
+}, {
+  "code" : "theupsstore",
+  "name" : "The UPS Store",
+  "identity" : "The UPS Store",
+  "category" : "Delivery"
+}, {
+  "code" : "timhortons",
+  "name" : "Tim Hortons",
+  "identity" : "Tim Hortons",
+  "category" : "Restaurant"
+}, {
+  "code" : "toysrus",
+  "name" : "Toysrus",
+  "identity" : "Toysrus",
+  "category" : "Kids"
+}, {
+  "code" : "tzinwinetapas",
+  "name" : "Tzin Wine & Tapas",
+  "identity" : "Tzin Wine & Tapas",
+  "category" : "Restaurant"
+}, {
+  "code" : "ups",
+  "name" : "UPS",
+  "identity" : "UPS",
+  "category" : "Delivery"
+}, {
+  "code" : "walmart",
+  "name" : "Walmart",
+  "identity" : "Walmart",
+  "category" : "Grocery"
+}, {
+  "code" : "wendysstore",
+  "name" : "Wendy's Store",
+  "identity" : "Wendy's Store",
+  "category" : "Restaurant"
+}, {
+  "code" : "wildwing",
+  "name" : "Wild Wing",
+  "identity" : "Wild Wing",
+  "category" : "Restaurant"
+}, {
+  "code" : "winners",
+  "name" : "Winners",
+  "identity" : "Winners",
+  "category" : "Department"
+}, {
+  "code" : "xscargo",
+  "name" : "XS Cargo",
+  "identity" : "XS Cargo",
+  "category" : "Grocery"
+}, {
+  "code" : "yellowcab",
+  "name" : "Yellow Cab",
+  "identity" : "Yellow Cab",
+  "category" : "Taxi"
+}, {
+  "code" : "subway",
+  "name" : "Subway",
+  "identity" : "Subway",
+  "category" : "Restaurant"
+} ]

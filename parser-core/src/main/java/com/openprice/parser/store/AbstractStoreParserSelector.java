@@ -11,12 +11,12 @@ import java.util.Set;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.StringUtils;
 
+import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.StoreBranch;
 import com.openprice.parser.StoreChain;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParserSelector;
-import com.openprice.parser.common.TextResourceUtils;
 import com.openprice.parser.data.Product;
 import com.openprice.parser.generic.ConfigFiles;
 import com.openprice.parser.price.PriceParserWithCatalog;

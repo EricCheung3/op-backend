@@ -8,28 +8,17 @@
         <version>0.3.0</version>
     </parent>
 
-    <artifactId>op-parser-core</artifactId>
+    <artifactId>op-parser-api</artifactId>
     <packaging>jar</packaging>
 
-    <name>Parser Core Module</name>
-    <description>OpenPrice parser core module of common parser code.</description>
+    <name>Parser API Module</name>
+    <description>OpenPrice shared code for parser and loader.</description>
 
     <dependencies>
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
-        </dependency>
-        
-        <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>op-parser-api</artifactId>
+            <artifactId>op-common-utils</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
     </dependencies>
 </project>

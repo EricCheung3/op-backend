@@ -1,0 +1,7 @@
+
+spring:
+    jpa:
+        database: H2
+        show-sql: false
+        hibernate:
+            ddl-auto: create-drop

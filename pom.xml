@@ -22,7 +22,9 @@
         <module>infrastructure</module>
         <module>email-sendgrid</module>
         <module>security</module>
+        <module>common-utils</module>
 
+        <module>parser-api</module>
         <module>parser-core</module>
         <module>parser-stores</module>
 
@@ -37,6 +39,7 @@
         <module>domain-store</module>
         <module>domain-shopping</module>
         <module>process</module>
+        <module>system-loader</module>
 
         <module>rest-common</module>
         <module>rest-internal</module>

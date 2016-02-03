@@ -20,6 +20,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.jsonpath.JsonPath;
 import com.openprice.common.ApiConstants;
+import com.openprice.common.TextResourceUtils;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.product.ProductCategory;
 import com.openprice.domain.receipt.Receipt;
@@ -28,7 +29,6 @@ import com.openprice.domain.receipt.ReceiptStatusType;
 import com.openprice.domain.store.StoreChain;
 import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.domain.store.StoreService;
-import com.openprice.parser.common.TextResourceUtils;
 import com.openprice.rest.user.UserApiDocumentationBase;
 
 public abstract class UserReceiptApiDocumentationBase extends UserApiDocumentationBase {

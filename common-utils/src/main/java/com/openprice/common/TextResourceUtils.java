@@ -1,4 +1,4 @@
-package com.openprice.parser.common;
+package com.openprice.common;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -73,5 +73,3 @@ public class TextResourceUtils {
     }
 
 }
-
-
