@@ -101,6 +101,8 @@ public class SimpleCategoryPredictorTest {
 
         assertEquals("vegetables", simplePredictorFromConfig.mostMatchingCategory("ginger"));
         assertEquals("beverages", simplePredictorFromConfig.mostMatchingCategory("gingerale"));
+
+        assertEquals("vegetables", simplePredictorFromConfig.mostMatchingCategory("eggplant lng"));
     }
 
     @Test

@@ -34,7 +34,8 @@ public class SimpleCategoryPredictor implements CategoryPredictor {
     private final Map<String, Set<String>> categoryToNames;
 
     public static SimpleCategoryPredictor fromConfig(){
-        final List<String> lines=TextResourceUtils.loadStringArray(CATEGORY_CLASSES_FILE);
+        final List<String> lines=ConversionCommon
+                .removeEmptyLinesCommentLines(TextResourceUtils.loadStringArray(CATEGORY_CLASSES_FILE), "#");
 
         //verify the categories are the same as icon names.
         final Set<String> allCategories=ConversionCommon
