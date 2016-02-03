@@ -83,7 +83,7 @@ public class SimpleCategoryPredictor implements CategoryPredictorInterface{
                 .reduce((p1,p2) -> {
                     if(p1.getValue()>p2.getValue()) return p1;
                     if(p2.getValue()>p1.getValue()) return p2;
-                    //return the longer one if tie
+                    //return the longer one if tie, remove spaces?
                     if(p1.getStr().length()>p2.getStr().length()) return p1;
                     return p2;
                 })

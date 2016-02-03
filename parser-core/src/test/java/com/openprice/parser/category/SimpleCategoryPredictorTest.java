@@ -96,4 +96,9 @@ public class SimpleCategoryPredictorTest {
         assertEquals("cleaningsupplies", simplePredictorFromConfig.mostMatchingCategory("tide smpl lq hec"));
     }
 
+    @Test
+    public void tieShouldReturnLongerMatch() throws Exception{
+        assertEquals("dairy", simplePredictorFromConfig.mostMatchingCategory("egg"));
+        assertEquals("vegetables", simplePredictorFromConfig.mostMatchingCategory("eggplant"));
+    }
 }
