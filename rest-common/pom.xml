@@ -30,6 +30,13 @@
             <artifactId>op-api-common</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>op-metadata</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.openprice</groupId>
             <artifactId>op-parser-core</artifactId>

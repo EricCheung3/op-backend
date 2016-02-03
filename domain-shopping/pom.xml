@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>op-domain-store</artifactId>
+            <artifactId>op-metadata</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

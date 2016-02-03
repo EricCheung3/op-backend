@@ -124,13 +124,15 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
     @Transactional
     private void updateShoppingItem(final String storeId, final String itemId, final UpdateShoppingItemForm form) {
         final ShoppingItem item = getShoppingItemByIdAndCheckStore(storeId, itemId);
+
+        // FIXME change to use metadata
         final ProductCategory productCategory = ProductCategory.findByCode(form.getCategoryCode());
         if (productCategory == null) {
             log.warn("Update Shopping Item with invalid ProductCategory '{}'.", form.getCategoryCode());
             throw new InvalidInputException("Invalid Product Category code: " + form.getCategoryCode());
         }
 
-        shoppingService.updateShoppingItem(item, form.getName(), form.getNumber(), productCategory);
+        shoppingService.updateShoppingItem(item, form.getName(), form.getNumber(), form.getCategoryCode());
     }
 
 }

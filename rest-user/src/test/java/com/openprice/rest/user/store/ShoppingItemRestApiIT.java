@@ -38,24 +38,21 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("_embedded.shoppingItems[0].id", equalTo("item103"))
             .body("_embedded.shoppingItems[0].name", equalTo("bread"))
             .body("_embedded.shoppingItems[0].number", equalTo(1))
-            .body("_embedded.shoppingItems[0].productCategory", equalTo("bakery"))
+            .body("_embedded.shoppingItems[0].categoryCode", equalTo("bakery"))
             .body("_embedded.shoppingItems[0].catalogCode", equalTo("BREAD"))
-            .body("_embedded.shoppingItems[0].catalog.catalogCode", equalTo("BREAD"))
-            .body("_embedded.shoppingItems[0].catalog.price", equalTo("2.99"))
+            .body("_embedded.shoppingItems[0].catalog", nullValue())
             .body("_embedded.shoppingItems[1].id", equalTo("item102"))
             .body("_embedded.shoppingItems[1].name", equalTo("eggs"))
             .body("_embedded.shoppingItems[1].number", equalTo(1))
-            .body("_embedded.shoppingItems[1].productCategory", equalTo("dairy"))
+            .body("_embedded.shoppingItems[1].categoryCode", equalTo("dairy"))
             .body("_embedded.shoppingItems[1].catalogCode", equalTo("EGG_1235"))
-            .body("_embedded.shoppingItems[1].catalog.catalogCode", equalTo("EGG_1235"))
-            .body("_embedded.shoppingItems[1].catalog.price", equalTo("1.99"))
+            .body("_embedded.shoppingItems[1].catalog", nullValue())
             .body("_embedded.shoppingItems[2].id", equalTo("item101"))
             .body("_embedded.shoppingItems[2].name", equalTo("milk"))
             .body("_embedded.shoppingItems[2].number", equalTo(1))
-            .body("_embedded.shoppingItems[2].productCategory", equalTo("dairy"))
+            .body("_embedded.shoppingItems[2].categoryCode", equalTo("dairy"))
             .body("_embedded.shoppingItems[2].catalogCode", equalTo("MILK_1234"))
-            .body("_embedded.shoppingItems[2].catalog.catalogCode", equalTo("MILK_1234"))
-            .body("_embedded.shoppingItems[2].catalog.price", equalTo("4.99"))
+            .body("_embedded.shoppingItems[2].catalog", nullValue())
         ;
     }
 
@@ -158,10 +155,9 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("id", equalTo("item101"))
             .body("name", equalTo("milk"))
             .body("number", equalTo(1))
-            .body("productCategory", equalTo("dairy"))
+            .body("categoryCode", equalTo("dairy"))
             .body("catalogCode", equalTo("MILK_1234"))
-            .body("catalog.labelCodes", equalTo("food,milk"))
-            .body("catalog.price", equalTo("4.99"))
+            .body("catalog", nullValue()) // not matching store metadata
             .body("_links.self.href", endsWith("/user/stores/shoppingStore101/items/item101"))
             .body("_links.user.href", endsWith("/user"))
             .body("_links.store.href", endsWith("/user/stores/shoppingStore101"))
@@ -195,7 +191,7 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
         .when()
             .get(itemUrl)
         ;
-        //response.prettyPrint();
+        response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
@@ -203,10 +199,9 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("id", equalTo("item101"))
             .body("name", equalTo("2% milk"))
             .body("number", equalTo(2))
-            .body("productCategory", equalTo("meat"))
+            .body("categoryCode", equalTo("meat"))
             .body("catalogCode", equalTo("MILK_1234"))
-            .body("catalog.labelCodes", equalTo("food,milk"))
-            .body("catalog.price", equalTo("4.99"))
+            .body("catalog", nullValue()) // not matching store metadata
             .body("_links.self.href", endsWith("/user/stores/shoppingStore101/items/item101"))
             .body("_links.user.href", endsWith("/user"))
             .body("_links.store.href", endsWith("/user/stores/shoppingStore101"))

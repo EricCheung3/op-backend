@@ -1,6 +1,8 @@
 package com.openprice.store;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import com.openprice.store.data.StoreChainData;
 
@@ -13,7 +15,7 @@ public class StoreChain {
 
     private final List<StoreBranch> branches;
 
-    private final List<CatalogProduct> products;
+    private final Map<String, CatalogProduct> productMap;
 
     public String getCode() {
         return storeChainData.getCode();
@@ -27,7 +29,11 @@ public class StoreChain {
         return branches;
     }
 
-    public List<CatalogProduct> getProducts() {
-        return products;
+    public Collection<CatalogProduct> getProducts() {
+        return productMap.values();
+    }
+
+    public CatalogProduct getCatalogProductByCode(final String catalogCode) {
+        return productMap.get(catalogCode);
     }
 }

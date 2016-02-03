@@ -61,7 +61,7 @@ public class MetadataLoader {
 
         for (StoreChainData chain : storeChains) {
             final List<StoreBranch> branches = loadStoreBranches(chain.getCode());
-            final List<CatalogProduct> products = loadCatalogProducts(chain.getCode(), categoryMap);
+            final Map<String, CatalogProduct> products = loadCatalogProducts(chain.getCode(), categoryMap);
             chainMapBuilder.put(chain.getCode(), new StoreChain(chain, branches, products));
         }
 
@@ -81,8 +81,8 @@ public class MetadataLoader {
         return branchListBuilder.build();
     }
 
-    static List<CatalogProduct> loadCatalogProducts(final String chainCode, final Map<String, ProductCategory> categoryMap) {
-        final ImmutableList.Builder<CatalogProduct> productListBuilder = new ImmutableList.Builder<>();
+    static Map<String, CatalogProduct> loadCatalogProducts(final String chainCode, final Map<String, ProductCategory> categoryMap) {
+        final ImmutableMap.Builder<String, CatalogProduct> productListBuilder = new ImmutableMap.Builder<>();
         final String catalogFileName = "/" + chainCode + CATALOG_DATA_JSON;
         final ProductData[] products = loadFromJsonResource(catalogFileName, ProductData[].class);
 
@@ -100,7 +100,7 @@ public class MetadataLoader {
                 if (category == null) {
                     throw new RuntimeException("Invalid category code found at " + catalogFileName + " for " + product);
                 }
-                productListBuilder.add(new CatalogProduct(product, category));
+                productListBuilder.put(code, new CatalogProduct(product, category));
             }
         }
 
