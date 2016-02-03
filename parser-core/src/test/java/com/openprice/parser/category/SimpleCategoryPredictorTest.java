@@ -66,8 +66,7 @@ public class SimpleCategoryPredictorTest {
     @Test
     public void configTestFruits() throws Exception{
 
-        //TODO it matched "apparel"; better match apple.
-        //assertEquals("fruit", simplePredictorFromConfig.mostMatchingCategoryForDebug("app"));
+        assertEquals("fruit", simplePredictorFromConfig.mostMatchingCategory("apl"));
 
         assertEquals("fruit", simplePredictorFromConfig.mostMatchingCategory("appl"));
         assertEquals("fruit", simplePredictorFromConfig.mostMatchingCategory("apple"));
@@ -80,8 +79,7 @@ public class SimpleCategoryPredictorTest {
     public void configTestDeli() throws Exception{
         assertEquals("deli", simplePredictorFromConfig.mostMatchingCategory("smokehouse"));
 
-        //TODO: it probably matched shower by mistake
-//        assertEquals("deli", simplePredictorFromConfig.mostMatchingCategory("smoke"));
+        assertEquals("deli", simplePredictorFromConfig.mostMatchingCategory("smoke"));
 
         assertEquals("deli", simplePredictorFromConfig.mostMatchingCategory("ham"));
 
@@ -101,4 +99,23 @@ public class SimpleCategoryPredictorTest {
         assertEquals("dairy", simplePredictorFromConfig.mostMatchingCategory("egg"));
         assertEquals("vegetables", simplePredictorFromConfig.mostMatchingCategory("eggplant"));
     }
+
+    @Test
+    public void tieShouldReturnLongerMatchSpaceDoesntMatter() throws Exception{
+        assertEquals("dairy", simplePredictorFromConfig.mostMatchingCategory("eg g"));
+        assertEquals("vegetables", simplePredictorFromConfig.mostMatchingCategory("   e ggp lant"));
+    }
+
+    @Test
+    public void testTie() throws Exception{
+        final List<String> lines=new ArrayList<String>();
+        lines.add("categoryAB:AB");
+        lines.add("categoryA:A");
+        lines.add("categoryB:B");
+        final SimpleCategoryPredictor simple=new SimpleCategoryPredictor(lines);
+        assertEquals("categoryA", simple.mostMatchingCategory("A"));
+        assertEquals("categoryB", simple.mostMatchingCategory("B"));
+        assertEquals("categoryAB", simple.mostMatchingCategory("AB"));
+    }
+
 }

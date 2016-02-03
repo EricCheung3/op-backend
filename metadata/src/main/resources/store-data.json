@@ -481,7 +481,7 @@
 }, {
   "code" : "rcss",
   "name" : "Superstore",
-  "identity" : "Superstore,RCSS Superstore",
+  "identity" : "Superstore,RCSS Superstore, ",
   "category" : "Grocery"
 }, {
   "code" : "supplysurgeant",
