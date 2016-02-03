@@ -2,6 +2,7 @@ package com.openprice.rest.admin.receipt;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.nullValue;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
@@ -97,15 +98,15 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
             .body("_embedded.receiptItems[0].id", equalTo("recItem003"))
             .body("_embedded.receiptItems[0].parsedName", equalTo("pork"))
             .body("_embedded.receiptItems[0].parsedPrice", equalTo("5.99"))
-            .body("_embedded.receiptItems[0].catalog.id", equalTo("chain001cat003"))
+            .body("_embedded.receiptItems[0].catalog", nullValue())
             .body("_embedded.receiptItems[1].id", equalTo("recItem001"))
             .body("_embedded.receiptItems[1].parsedName", equalTo("eggs"))
             .body("_embedded.receiptItems[1].parsedPrice", equalTo("1.99"))
-            .body("_embedded.receiptItems[1].catalog.id", equalTo("chain001cat002"))
+            .body("_embedded.receiptItems[1].catalog", nullValue())
             .body("_embedded.receiptItems[2].id", equalTo("recItem002"))
             .body("_embedded.receiptItems[2].parsedName", equalTo("milk"))
             .body("_embedded.receiptItems[2].parsedPrice", equalTo("4.99"))
-            .body("_embedded.receiptItems[2].catalog.id", equalTo("chain001cat001"))
+            .body("_embedded.receiptItems[2].catalog", nullValue())
         ;
     }
 
@@ -128,7 +129,7 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
             .body("displayName", equalTo("eggs"))
             .body("parsedPrice", equalTo("1.99"))
             .body("displayPrice", equalTo("1.99"))
-            .body("catalog.id", equalTo("chain001cat002"))
+            .body("catalog", nullValue())
         ;
     }
 

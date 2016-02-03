@@ -32,11 +32,6 @@
         </dependency>
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>op-domain-store</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.openprice</groupId>
             <artifactId>op-domain-shopping</artifactId>
             <version>${project.version}</version>
         </dependency>
