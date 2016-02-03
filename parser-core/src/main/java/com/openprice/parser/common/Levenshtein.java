@@ -27,9 +27,9 @@ public class Levenshtein
     }
 
     public static double mostSimilarScoreInSet(final String key, final Set<String> set){
-        set.stream()
-           .forEach(str ->
-               System.out.println("key="+key+", candidate="+str+", score="+StringCommon.matchStringToSubString(key,str)));
+//        set.stream()
+//           .forEach(str ->
+//               System.out.println("key="+key+", candidate="+str+", score="+StringCommon.matchStringToSubString(key,str)));
 
         Optional<Double> maxDouble=set
                .stream()
