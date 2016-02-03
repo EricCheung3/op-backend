@@ -202,7 +202,7 @@ public class UserReceiptUploadRestApiIT extends AbstractUserRestApiIntegrationTe
         ;
     }
 
-    @Test
+    //@Test
     public void hackloadOcrResult_ShouldUpdateReceiptImageOcrResult() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 

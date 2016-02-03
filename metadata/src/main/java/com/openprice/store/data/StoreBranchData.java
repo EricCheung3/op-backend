@@ -1,4 +1,4 @@
-package com.openprice.store;
+package com.openprice.store.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
