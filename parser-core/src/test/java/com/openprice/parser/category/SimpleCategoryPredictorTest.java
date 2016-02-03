@@ -98,6 +98,9 @@ public class SimpleCategoryPredictorTest {
     public void tieShouldReturnLongerMatch() throws Exception{
         assertEquals("dairy", simplePredictorFromConfig.mostMatchingCategory("egg"));
         assertEquals("vegetables", simplePredictorFromConfig.mostMatchingCategory("eggplant"));
+
+        assertEquals("vegetables", simplePredictorFromConfig.mostMatchingCategory("ginger"));
+        assertEquals("beverages", simplePredictorFromConfig.mostMatchingCategory("gingerale"));
     }
 
     @Test
