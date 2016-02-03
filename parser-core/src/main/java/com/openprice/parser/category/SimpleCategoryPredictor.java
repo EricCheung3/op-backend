@@ -11,7 +11,6 @@ import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.common.ConversionCommon;
 import com.openprice.parser.common.Levenshtein;
 import com.openprice.parser.common.StringCommon;
-import com.openprice.parser.generic.StringDouble;
 import com.openprice.parser.price.ThreeStrings;
 import com.openprice.predictor.CategoryPredictor;
 
@@ -76,8 +75,7 @@ public class SimpleCategoryPredictor implements CategoryPredictor {
         );
     }
 
-    @Override
-    public String mostMatchingCategory(String queryName) {
+    public ThreeStrings mostMatchingCategoryReturnThree(String queryName) {
         return categoryToNames
                 .entrySet()
                 .stream()
@@ -101,22 +99,12 @@ public class SimpleCategoryPredictor implements CategoryPredictor {
                         return s1.length()<s2.length()?p1:p2;
                     return s1.length()>s2.length()?p1:p2;//prefer longer one is assumed to be more likely to be correct
                 })
-                .get()
-                .getFirst();
+                .get();
     }
 
-    //for debugging mostMatchingCategory, which also gives the matched name in the result
-    public String mostMatchingCategoryForDebug(String queryName) {
-        return categoryToNames
-                .entrySet()
-                .stream()
-                .map(e->{
-                    final double score = Levenshtein.mostSimilarScoreInSet(queryName, e.getValue());
-                    final String matchedName = Levenshtein.mostSimilarInSet(queryName, e.getValue());
-                    return new StringDouble(matchedName+":"+e.getKey(), score);})
-                .reduce((p1,p2) -> p1.getValue()>p2.getValue()? p1:p2)
-                .get()
-                .getStr();
+    @Override
+    public String mostMatchingCategory(String queryName) {
+       return mostMatchingCategoryReturnThree(queryName).getFirst();
     }
 
     @Override
