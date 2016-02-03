@@ -1,0 +1,89 @@
+[ {
+  "name" : "Calgary Trail",
+  "phone" : "780-430-2769",
+  "storeId" : "01570",
+  "gstNumber" : "12223-5922 RT0001",
+  "address1" : "4821 Calgary Trail",
+  "address2" : "",
+  "city" : "Edmonton",
+  "state" : "AB",
+  "postCode" : "",
+  "country" : "Canada"
+}, {
+  "name" : "Clareview",
+  "phone" : "780-472-4727",
+  "storeId" : "",
+  "gstNumber" : "12223-5922 RT0001",
+  "address1" : "4950 137 AVE NW",
+  "address2" : "",
+  "city" : "Edmonton",
+  "state" : "AB",
+  "postCode" : "",
+  "country" : "Canada"
+}, {
+  "name" : "Northwest",
+  "phone" : "780-406-3768",
+  "storeId" : "",
+  "gstNumber" : "12223-5922 RT0001",
+  "address1" : "12350 137 AVE NW",
+  "address2" : "",
+  "city" : "Edmonton",
+  "state" : "AB",
+  "postCode" : "",
+  "country" : "Canada"
+}, {
+  "name" : "South Common",
+  "phone" : "780-490-3918",
+  "storeId" : "01549",
+  "gstNumber" : "12223-5922 RT0001",
+  "address1" : "9711 23 AVE NW",
+  "address2" : "",
+  "city" : "Edmonton",
+  "state" : "AB",
+  "postCode" : "",
+  "country" : "Canada"
+}, {
+  "name" : "Edmonton West",
+  "phone" : "780-486-8452",
+  "storeId" : "",
+  "gstNumber" : "12223-5922 RT0001",
+  "address1" : "1573-17303 Sony Plain Rd NW",
+  "address2" : "",
+  "city" : "Edmonton",
+  "state" : "AB",
+  "postCode" : "",
+  "country" : "Canada"
+}, {
+  "name" : "Kingsway",
+  "phone" : "780-733-1400",
+  "storeId" : "",
+  "gstNumber" : "12223-5922 RT0001",
+  "address1" : "11541 Kingsway Avenue",
+  "address2" : "",
+  "city" : "Edmonton",
+  "state" : "AB",
+  "postCode" : "",
+  "country" : "Canada"
+}, {
+  "name" : "Whitemud",
+  "phone" : "780-450-8328",
+  "storeId" : "",
+  "gstNumber" : "12223-5922 RT0001",
+  "address1" : "4410 17 St NW",
+  "address2" : "",
+  "city" : "Edmonton",
+  "state" : "AB",
+  "postCode" : "",
+  "country" : "Canada"
+}, {
+  "name" : "Windermere",
+  "phone" : "780-438-9235",
+  "storeId" : "",
+  "gstNumber" : "12223-5922 RT0001",
+  "address1" : "1155 Windermere Way SW",
+  "address2" : "",
+  "city" : "Edmonton",
+  "state" : "AB",
+  "postCode" : "",
+  "country" : "Canada"
+} ]
