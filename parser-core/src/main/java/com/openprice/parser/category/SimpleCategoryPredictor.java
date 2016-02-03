@@ -80,7 +80,13 @@ public class SimpleCategoryPredictor implements CategoryPredictorInterface{
                 .map(e->{
                     final double score = Levenshtein.mostSimilarScoreInSet(queryName, e.getValue());
                     return new StringDouble(e.getKey(), score);})
-                .reduce((p1,p2) -> p1.getValue()>p2.getValue()? p1:p2)
+                .reduce((p1,p2) -> {
+                    if(p1.getValue()>p2.getValue()) return p1;
+                    if(p2.getValue()>p1.getValue()) return p2;
+                    //return the longer one if tie
+                    if(p1.getStr().length()>p2.getStr().length()) return p1;
+                    return p2;
+                })
                 .get()
                 .getStr();
     }
