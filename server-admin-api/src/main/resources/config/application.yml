@@ -16,9 +16,9 @@ application:
     settings:
         email:
             systemName: GroundTruth Inc.
-            systemEmail: no-reply@openprice.com
+            systemEmail: no-reply@theopenprice.com
             adminName: Open Price
-            adminEmail: admin@openprice.com
+            adminEmail: jiwhiz@gmail.com
         internal:
             serverHost: op-server-internal-api
             serverPort: 8080

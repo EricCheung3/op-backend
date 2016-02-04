@@ -18,7 +18,7 @@ application:
             systemName: GroundTruth Inc.
             systemEmail: no-reply@theopenprice.com
             adminName: Open Price
-            adminEmail: yuan.ji@jiwhiz.com
+            adminEmail: jiwhiz@gmail.com
             webServerUrl: http://104.154.88.206:8080
         file:
             virtual: false
