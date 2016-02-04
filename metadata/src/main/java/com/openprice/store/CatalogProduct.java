@@ -28,8 +28,8 @@ public class CatalogProduct {
         return productData.getNaturalName();
     }
 
-    public ProductCategory getProductCategory() {
-        return productCategory;
+    public String getCategoryCode() {
+        return productCategory.getCode();
     }
 
 

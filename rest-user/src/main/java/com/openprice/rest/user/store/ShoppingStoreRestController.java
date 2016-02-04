@@ -1,6 +1,5 @@
 package com.openprice.rest.user.store;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -25,6 +24,7 @@ import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.domain.shopping.ShoppingStoreRepository;
 import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.store.CatalogProduct;
+import com.openprice.store.StoreMetadata;
 
 /**
  * REST API Controller for current user shopping list store management.
@@ -33,14 +33,17 @@ import com.openprice.store.CatalogProduct;
 @RestController
 public class ShoppingStoreRestController extends AbstractUserStoreRestController {
 
+    private final StoreMetadata storeMetadata;
     private final ShoppingStoreResource.Assembler shoppingStoreResourceAssembler;
 
     @Inject
     public ShoppingStoreRestController(final UserAccountService userAccountService,
                                        final ShoppingService shoppingService,
+                                       final StoreMetadata storeMetadata,
                                        final ShoppingStoreRepository shoppingStoreRepository,
                                        final ShoppingStoreResource.Assembler shoppingStoreResourceAssembler) {
         super(userAccountService, shoppingService, shoppingStoreRepository);
+        this.storeMetadata = storeMetadata;
         this.shoppingStoreResourceAssembler = shoppingStoreResourceAssembler;
     }
 
@@ -64,15 +67,8 @@ public class ShoppingStoreRestController extends AbstractUserStoreRestController
     public HttpEntity<List<CatalogProduct>> searchCatalogsForStoreChain(
             @PathVariable("storeId") final String storeId,
             @RequestParam("query") String query) throws ResourceNotFoundException {
-        // FIXME implment search in StoreMetadata
-
-//        final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
-//        final StoreChain chain = storeChainRepository.findByCode(store.getChainCode());
-//        if (chain != null && !StringUtils.isEmpty(query)){
-//            return ResponseEntity.ok(catalogProductRepository.findTop20ByChainAndNaturalNameIgnoreCaseContaining(chain, query));
-//            // TODO if not found, return product category best matched with query
-//        }
-        return ResponseEntity.ok(Collections.emptyList());
+        final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
+        return ResponseEntity.ok(storeMetadata.findMatchingProducts(query, store.getChainCode(), 20));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = URL_USER_SHOPPING_STORES_STORE)

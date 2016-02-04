@@ -12,9 +12,9 @@ public class CatalogSearchTest {
     @Test
     public void findMatchingProducts_rcssTest() throws Exception {
         StoreMetadata metadata = MetadataLoader.loadMetadata();
-         List<CatalogProduct> result = metadata.findMatchingProducts("appls", metadata.getStoreChainByCode("rcss"), 10);
+         List<CatalogProduct> result = metadata.findMatchingProducts("appls", "rcss", 10);
 
-         //result.stream().forEach( p -> System.out.println(p.getNaturalName()));
+         result.stream().forEach( p -> System.out.println(p.getNaturalName()));
          assertTrue(result.size() > 0);
          assertEquals("Apples", result.get(0).getNaturalName());
     }

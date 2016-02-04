@@ -1,6 +1,7 @@
 package com.openprice.store;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -36,14 +37,18 @@ public class StoreMetadata {
         double s;
     }
     public List<CatalogProduct> findMatchingProducts(final String query,
-                                                     final StoreChain storeChain,
+                                                     final String chainCode,
                                                      final int returnCount) {
+        final StoreChain storeChain = getStoreChainByCode(chainCode);
+        if (storeChain == null) {
+            return Collections.emptyList();
+        }
         return storeChain
                 .getProducts()
                 .stream()
                 .map(p -> {
                         Set<String> s = new HashSet<>(Arrays.asList(p.getNaturalName().split("\\s+")));
-                        double score = Levenshtein.mostSimilarScoreInSet(query, s);
+                        double score = Levenshtein.mostSimilarScoreInSetLevenshtein(query, s);
                         return new ProductWithScore(p, score);
                 })
                 .filter(ps -> ps.s > 0.5)
