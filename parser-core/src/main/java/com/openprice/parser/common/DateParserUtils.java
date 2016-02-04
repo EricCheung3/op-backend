@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.openprice.common.StringCommon;
 import com.openprice.parser.data.ValueLine;
 
 import lombok.Getter;

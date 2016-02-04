@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedReceipt;
-import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;

@@ -1,6 +1,6 @@
 package com.openprice.parser.price;
 
-import com.openprice.parser.common.StringCommon;
+import com.openprice.common.StringCommon;
 
 import lombok.extern.slf4j.Slf4j;
 

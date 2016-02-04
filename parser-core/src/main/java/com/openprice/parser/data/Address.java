@@ -1,7 +1,7 @@
 package com.openprice.parser.data;
 
+import com.openprice.common.StringCommon;
 import com.openprice.parser.common.ParserUtils;
-import com.openprice.parser.common.StringCommon;
 
 import lombok.Builder;
 import lombok.Data;

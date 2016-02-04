@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.openprice.parser.common.StringCommon;
+import com.openprice.common.StringCommon;
 
 public class GenericChainsTest {
 
