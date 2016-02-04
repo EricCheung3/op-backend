@@ -22,7 +22,10 @@
         <module>infrastructure</module>
         <module>email-sendgrid</module>
         <module>security</module>
+        <module>common-utils</module>
+        <module>metadata</module>
 
+        <module>parser-api</module>
         <module>parser-core</module>
         <module>parser-stores</module>
 
@@ -34,7 +37,6 @@
         <module>domain-account-user</module>
         <module>domain-account-admin</module>
         <module>domain-receipt</module>
-        <module>domain-store</module>
         <module>domain-shopping</module>
         <module>process</module>
 
@@ -64,7 +66,7 @@
         <jjwt.version>0.6.0</jjwt.version>
         <google-jimfs.version>1.0</google-jimfs.version>
         <evo-inflector.version>1.2.1</evo-inflector.version>
-        <guava.version>18.0</guava.version>
+        <guava.version>19.0</guava.version>
         <lombok.version>1.16.6</lombok.version>
         <dbunit.version>2.5.1</dbunit.version>
         <spring-test-dbunit.version>1.2.1</spring-test-dbunit.version>

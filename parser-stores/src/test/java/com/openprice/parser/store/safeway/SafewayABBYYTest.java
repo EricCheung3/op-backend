@@ -16,9 +16,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.common.StringCommon;
-import com.openprice.parser.common.TextResourceUtils;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
@@ -41,17 +41,15 @@ public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parse(receiptLines);
-        //printResult(receipt);
+        printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
         assertEquals(5,receipt.getItems().size());
-        verifyItemParsedValue(iterator.next(), "chicken bbq roasted", "9.0", "chicken bbq roasted");
-        verifyItemParsedValue(iterator.next(), "clabatta buns 4pk", "2.50", "clabatta buns 4pk");
-        verifyItemParsedValue(iterator.next(), "clabatta buns 4pk", "2.50", "clabatta buns 4pk");
-        verifyItemParsedValue(iterator.next(), "spinach bunch", "1.49", "spinach bunch_4090");
+        verifyItemParsedValue(iterator.next(), "chicken bbq roasted", "9.0", "");
+        verifyItemParsedValue(iterator.next(), "clabatta buns 4pk", "2.50", "");
+        verifyItemParsedValue(iterator.next(), "clabatta buns 4pk", "2.50", "");
+        verifyItemParsedValue(iterator.next(), "spinach bunch", "1.49", "");
         verifyItemParsedValue(iterator.next(), "lucerne who1e mi1k4l", "3.79", "lucerne who1e mi1k4l");
-        //verifyItemParsedValue(iterator.next(), "+ehc", "0.08", "+ehc_76910 dp");
-        //     verifyItemParsedValue(iterator.next(), "♦deposit", "0.25", "♦deposit_96460 dp");
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();

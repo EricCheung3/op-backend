@@ -6,31 +6,32 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.openprice.domain.account.user.UserAccount;
-import com.openprice.domain.product.ProductCategory;
-import com.openprice.domain.store.CatalogProduct;
-import com.openprice.domain.store.CatalogProductRepository;
-import com.openprice.domain.store.StoreChain;
-import com.openprice.domain.store.StoreChainRepository;
+import com.openprice.predictor.CategoryPredictor;
+import com.openprice.store.CatalogProduct;
+import com.openprice.store.ProductCategory;
+import com.openprice.store.StoreChain;
+import com.openprice.store.StoreMetadata;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class ShoppingService {
+
+    private final StoreMetadata storeMetadata;
     private final ShoppingStoreRepository shoppingStoreRepository;
     private final ShoppingItemRepository shoppingItemRepository;
-    private final StoreChainRepository storeChainRepository;
-    private final CatalogProductRepository catalogProductRepository;
+    private final CategoryPredictor categoryPredictor;
 
     @Inject
-    public ShoppingService(final ShoppingStoreRepository shoppingStoreRepository,
+    public ShoppingService(final StoreMetadata storeMetadata,
+                           final ShoppingStoreRepository shoppingStoreRepository,
                            final ShoppingItemRepository shoppingItemRepository,
-                           final StoreChainRepository storeChainRepository,
-                           final CatalogProductRepository catalogProductRepository) {
+                           final CategoryPredictor categoryPredictor) {
+        this.storeMetadata = storeMetadata;
         this.shoppingStoreRepository = shoppingStoreRepository;
         this.shoppingItemRepository = shoppingItemRepository;
-        this.storeChainRepository = storeChainRepository;
-        this.catalogProductRepository = catalogProductRepository;
+        this.categoryPredictor = categoryPredictor;
     }
 
     /**
@@ -42,7 +43,7 @@ public class ShoppingService {
      * @return new store if not exist, existing store if already in database.
      */
     public ShoppingStore getShoppingStoreForStoreChain(final UserAccount user, final String chainCode) {
-        final StoreChain chain = storeChainRepository.findByCode(chainCode);
+        final StoreChain chain = storeMetadata.getStoreChainByCode(chainCode);
         if (chain == null) {
             throw new IllegalArgumentException("Invalid store chain code "+chainCode);
         }
@@ -86,8 +87,7 @@ public class ShoppingService {
                 item.setCatalogCode(null);
                 item.setName(name);
                 item.setNumber(1);
-                // TODO: add algorithm to find best matching ProductCategory by name
-                item.setProductCategory(ProductCategory.uncategorized);
+                item.setCategoryCode(predictCategoryByName(name));
                 log.debug("Add item without catalogCode, and create new item for '{}'", name);
             }
         } else {
@@ -104,14 +104,14 @@ public class ShoppingService {
                 item.setName(name);
                 item.setNumber(1);
                 log.debug("Add item with catalogCode '{}', and create new item for '{}'", catalogCode, name);
-                final StoreChain chain = storeChainRepository.findByCode(store.getChainCode());
-                final CatalogProduct catalogProduct = catalogProductRepository.findByChainAndCatalogCode(chain, catalogCode); // TODO load catalog product into cache
+                final StoreChain chain = storeMetadata.getStoreChainByCode(store.getChainCode());
+                final CatalogProduct catalogProduct = chain.getCatalogProductByCode(catalogCode);
                 if (catalogProduct != null) {
-                    item.setProductCategory(catalogProduct.getProductCategory());
+                    item.setCategoryCode(catalogProduct.getProductCategory().getCode());
                 } else {
-                    log.error("SEVERE! Cannot get CatalogProduct by catalog code '{}' in store '{}', something wrong with the database!"
+                    log.error("SEVERE! Cannot get CatalogProduct by catalog code '{}' in store chain '{}', something wrong with the database!"
                             , catalogCode, store.getChainCode());
-                    item.setProductCategory(ProductCategory.uncategorized);
+                    item.setCategoryCode(ProductCategory.UNCATEGORIZED);
                 }
             }
 
@@ -132,11 +132,23 @@ public class ShoppingService {
     public ShoppingItem updateShoppingItem(final ShoppingItem item,
                                            final String name,
                                            final int number,
-                                           final ProductCategory productCategory) {
+                                           final String categoryCode) {
         item.setName(name);
         item.setNumber(number);
-        item.setProductCategory(productCategory);
-
+        item.setCategoryCode(categoryCode);
         return shoppingItemRepository.save(item);
+    }
+
+    private String predictCategoryByName(final String name) {
+        final String predictedCategoryCode = categoryPredictor.mostMatchingCategory(name);
+        log.debug("CategoryPredictor returns category code {} for name '{}'", predictedCategoryCode, name);
+
+        final ProductCategory category = storeMetadata.getProductCategoryByCode(predictedCategoryCode);
+        if (category == null) {
+            log.error("SEVERE: CategoryPredictor return invalid category code {}! "
+                    + "Check store metadata and CategoryPredictor code", predictedCategoryCode);
+            return ProductCategory.UNCATEGORIZED;
+        }
+        return predictedCategoryCode;
     }
 }

@@ -54,7 +54,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
 
     @RequestMapping(method = RequestMethod.GET, value = URL_USER_RECEIPTS)
     public HttpEntity<PagedResources<UserReceiptResource>> getCurrentUserReceipts(
-            @PageableDefault(size = 3, page = 0) final Pageable pageable,
+            @PageableDefault(size = 10, page = 0) final Pageable pageable,
             final PagedResourcesAssembler<Receipt> assembler) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
         final Page<Receipt> receipts = receiptRepository.findByUserOrderByReceiptDateDesc(currentUser, pageable);

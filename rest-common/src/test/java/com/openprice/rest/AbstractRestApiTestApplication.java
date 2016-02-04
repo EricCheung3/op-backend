@@ -30,6 +30,10 @@ import com.openprice.file.FileSystemService;
 import com.openprice.mail.EmailProperties;
 import com.openprice.mail.EmailService;
 import com.openprice.mail.stub.DummyEmailService;
+import com.openprice.parser.category.SimpleCategoryPredictor;
+import com.openprice.predictor.CategoryPredictor;
+import com.openprice.store.MetadataLoader;
+import com.openprice.store.StoreMetadata;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -72,12 +76,22 @@ public abstract class AbstractRestApiTestApplication extends WebSecurityConfigur
     }
 
     @Bean
-    EmailProperties emailProperties() {
+    public EmailProperties emailProperties() {
         return new EmailProperties("http://openprice.ca",
                                    "OpenPrice Admin",
                                    "admin@openprice.com",
                                    "OpenPrice Team",
                                    "noreply@openprice.com");
+    }
+
+    @Bean
+    public CategoryPredictor categoryPredictor() {
+        return SimpleCategoryPredictor.fromConfig();
+    }
+
+    @Bean
+    public StoreMetadata storeMetadata() {
+        return MetadataLoader.loadMetadata();
     }
 
     @PostConstruct

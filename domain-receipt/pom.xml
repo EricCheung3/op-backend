@@ -20,6 +20,8 @@
             <artifactId>op-domain-account-user</artifactId>
             <version>${project.version}</version>
         </dependency>
+        
+        <!-- TODO change to op-parser-api after parser refactoring -->
         <dependency>
             <groupId>com.openprice</groupId>
             <artifactId>op-parser-core</artifactId>

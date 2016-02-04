@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -43,11 +44,11 @@ public class ReceiptItem extends BaseAuditableEntity {
     @Column(name="catalog_code")
     private String catalogCode; // optional
 
+    // TODO save category code
 //    @Getter @Setter
-//    @Enumerated(EnumType.STRING)
 //    @Column(name="product_category")
-//    private ProductCategory productCategory;
-//
+//    private String categoryCode;
+
     @Getter @Setter
     @Column(name="parsed_name")
     private String parsedName;
@@ -70,4 +71,28 @@ public class ReceiptItem extends BaseAuditableEntity {
     private Boolean ignored = false;
 
     ReceiptItem() {}
+
+    @Builder(builderMethodName="testObjectBuilder")
+    public static ReceiptItem createTestReceiptItem(final String id,
+                                                    final ReceiptResult receiptResult,
+                                                    final Integer lineNumber,
+                                                    final String catalogCode,
+                                                    //final ProductCategory productCategory,
+                                                    final String parsedName,
+                                                    final String displayName,
+                                                    final String parsedPrice,
+                                                    final String displayPrice) {
+        final ReceiptItem item = new ReceiptItem();
+        item.setId(id);
+        item.setReceiptResult(receiptResult);
+        item.setLineNumber(lineNumber);
+        item.setCatalogCode(catalogCode);
+        //item.setProductCategory(productCategory);
+        item.setParsedName(parsedName);
+        item.setDisplayName(displayName);
+        item.setParsedPrice(parsedPrice);
+        item.setDisplayPrice(displayPrice);
+        return item;
+    }
+
 }

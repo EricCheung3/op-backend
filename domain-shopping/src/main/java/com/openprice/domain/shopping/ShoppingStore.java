@@ -2,7 +2,6 @@ package com.openprice.domain.shopping;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -10,7 +9,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
 import com.openprice.domain.account.user.UserAccount;
-import com.openprice.domain.store.StoreChain;
+import com.openprice.store.StoreChain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +28,7 @@ public class ShoppingStore extends BaseAuditableEntity {
 
     @Getter @Setter
     @JsonIgnore
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="user_account_id")
     private UserAccount user;
 

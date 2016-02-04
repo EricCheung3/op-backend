@@ -20,8 +20,7 @@ public class WebApiApplication extends AbstractApiApplication {
     }
 
     @Bean
-    InternalService internalService(final WebApiApplicationSettings settings) {
+    public InternalService internalService(final WebApiApplicationSettings settings) {
         return new InternalService(settings.getInternal());
     }
-
 }

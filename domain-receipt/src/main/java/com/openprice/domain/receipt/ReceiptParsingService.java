@@ -100,9 +100,13 @@ public class ReceiptParsingService {
 
                 int lineNumber = 1;
                 for (final Item item : parsedReceipt.getItems()) {
-                    final ReceiptItem receiptItem = result.addItem(item.getProduct().toCatalogCode(), item.getProduct().getName(), item.getBuyPrice());
+                    final ReceiptItem receiptItem = result.addItem(item.getProduct().toCatalogCode(),
+                                                                   item.getProduct().getName(),
+                                                                   item.getBuyPrice());
                     // FIXME add lineNumber from parser items
                     receiptItem.setLineNumber(lineNumber++);
+                    log.info("Parsed Item: catalogCode='{}', parsedName='{}', parsedPrice='{}'.",
+                            receiptItem.getCatalogCode(), receiptItem.getParsedName(), receiptItem.getParsedPrice()); // TODO remove it after admin UI can display
                     receiptItemRepository.save(receiptItem);
                 }
                 log.debug("SimpleParser returns {} items.", parsedReceipt.getItems().size());

@@ -19,7 +19,8 @@ public class AbstractReceiptParserIntegrationTest {
     protected void verifyItemParsedValue(final Item item, final String name, final String value, final String catalogCode) {
         assertEquals(name, item.getProduct().getName());
         assertEquals(value, item.getBuyPrice());
-        assertEquals(catalogCode, item.getProduct().toCatalogCode());
+        if(item.getProduct().isProductIsInCatalog())
+            assertEquals(catalogCode, item.getProduct().toCatalogCode());
     }
 
     protected void printResult(ParsedReceipt receipt) {

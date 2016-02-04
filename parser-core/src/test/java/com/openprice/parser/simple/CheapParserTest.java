@@ -14,8 +14,8 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedReceipt;
-import com.openprice.parser.common.TextResourceUtils;
 import com.openprice.parser.data.Item;
 
 @RunWith(SpringJUnit4ClassRunner.class)

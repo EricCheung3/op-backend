@@ -24,5 +24,12 @@
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
+        
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>op-parser-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
     </dependencies>
 </project>

@@ -35,10 +35,8 @@ public interface AdminApiUrls {
     String URL_ADMIN_RECEIPTS_RECEIPT_FEEDBACKS_FEEDBACK = "/admin/receipts/{receiptId}/feedbacks/{feedbackId}";
     
     String URL_ADMIN_CHAINS = "/admin/chains";
-    String URL_ADMIN_CHAINS_CHAIN = "/admin/chains/{chainId}";
-    String URL_ADMIN_CHAINS_CHAIN_BRANCHES = "/admin/chains/{chainId}/branches";
-    String URL_ADMIN_CHAINS_CHAIN_BRANCHES_BRANCH = "/admin/chains/{chainId}/branches/{branchId}";
-    String URL_ADMIN_CHAINS_CHAIN_CATALOGS = "/admin/chains/{chainId}/catalogs";
-    String URL_ADMIN_CHAINS_CHAIN_CATALOGS_CATALOG = "/admin/chains/{chainId}/catalogs/{catalogId}";
-    String URL_ADMIN_CHAINS_CHAIN_CATALOGS_UPLOAD = "/admin/chains/{chainId}/catalogs/upload";
+    String URL_ADMIN_CHAINS_CHAIN = "/admin/chains/{chainCode}";
+    String URL_ADMIN_CHAINS_CHAIN_BRANCHES = "/admin/chains/{chainCode}/branches";
+    String URL_ADMIN_CHAINS_CHAIN_CATALOGS = "/admin/chains/{chainCode}/catalogs";
+    String URL_ADMIN_CHAINS_CHAIN_CATALOGS_CATALOG = "/admin/chains/{chainCode}/catalogs/{catalogCode}";
 }

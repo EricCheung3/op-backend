@@ -9,8 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Arrays;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.junit.After;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,55 +18,28 @@ import org.springframework.mock.web.MockMultipartFile;
 import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.jsonpath.JsonPath;
 import com.openprice.common.ApiConstants;
+import com.openprice.common.TextResourceUtils;
 import com.openprice.domain.account.user.UserAccount;
-import com.openprice.domain.product.ProductCategory;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
-import com.openprice.domain.store.StoreChain;
-import com.openprice.domain.store.StoreChainRepository;
-import com.openprice.domain.store.StoreService;
-import com.openprice.parser.common.TextResourceUtils;
+import com.openprice.domain.receipt.ReceiptStatusType;
 import com.openprice.rest.user.UserApiDocumentationBase;
 
 public abstract class UserReceiptApiDocumentationBase extends UserApiDocumentationBase {
-
-    @Inject
-    StoreService storeService;
-
-    @Inject
-    StoreChainRepository storeRepository;
 
     @Override
     @Before
     public void setUp() throws Exception {
         super.setUp();
         createTestUser();
-        createStores();
         createReceipts();
     }
 
     @After
     public void teardown() throws Exception {
         deleteReceipts();
-        deleteStores();
         deleteTestUser();
     }
-
-    protected void createStores() throws Exception {
-        StoreChain rcss = storeService.createStoreChain("rcss", "Real Canadian Superstore");
-        storeService.createStoreBranch(rcss, "Calgary Trail RCSS", "780-430-2769", "", "4821, Calgary Trail", "", "Edmonton", "AB", "", "Canada");
-        storeService.createStoreBranch(rcss, "South Common RCSS", "780-490-3918", "", "1549 9711, 23 AVE NW", "", "Edmonton", "AB", "", "Canada");
-        storeService.createCatalogProduct(rcss, "EGG", "1234", "1.99", "Large Egg", "Food,Egg", ProductCategory.meat);
-        storeService.createCatalogProduct(rcss, "EGG", "1235", "1.59", "Medium Egg", "Food,Egg", ProductCategory.meat);
-        storeService.createCatalogProduct(rcss, "EGG", "1236", "1.29", "Small Egg", "Food,Egg", ProductCategory.meat);
-
-        storeService.createStoreChain("safeway", "Safeway");
-    }
-
-    protected void deleteStores() throws Exception {
-        storeRepository.deleteAll();
-    }
-
 
     @Value("classpath:/ocrResult.txt")
     private Resource ocrResultResource;
@@ -118,6 +89,8 @@ public abstract class UserReceiptApiDocumentationBase extends UserApiDocumentati
         }
         // trigger parser
         receiptParsingService.parseOcrAndSaveResults(receipt, Arrays.asList(ocrResult));
+        receipt.setStatus(ReceiptStatusType.HAS_RESULT);
+        receiptRepository.save(receipt);
     }
 
     protected void deleteReceipts() throws Exception {

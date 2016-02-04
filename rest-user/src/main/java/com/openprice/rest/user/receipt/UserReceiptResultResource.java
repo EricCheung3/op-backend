@@ -19,10 +19,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptItemRepository;
 import com.openprice.domain.receipt.ReceiptResult;
-import com.openprice.domain.store.StoreChain;
-import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.rest.LinkBuilder;
 import com.openprice.rest.user.UserApiUrls;
+import com.openprice.store.StoreChain;
+import com.openprice.store.StoreMetadata;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -44,17 +44,17 @@ public class UserReceiptResultResource extends Resource<ReceiptResult> {
     @Component
     public static class Assembler implements ResourceAssembler<ReceiptResult, UserReceiptResultResource>, UserApiUrls {
 
+        private final StoreMetadata storeMetadata;
         private final ReceiptItemRepository receiptItemRepository;
         private final UserReceiptItemResource.Assembler itemResourceAssembler;
-        private final StoreChainRepository storeChainRepository;
 
         @Inject
-        public Assembler(final ReceiptItemRepository receiptItemRepository,
-                         final UserReceiptItemResource.Assembler itemResourceAssembler,
-                         final StoreChainRepository storeChainRepository) {
+        public Assembler(final StoreMetadata storeMetadata,
+                         final ReceiptItemRepository receiptItemRepository,
+                         final UserReceiptItemResource.Assembler itemResourceAssembler) {
+            this.storeMetadata = storeMetadata;
             this.receiptItemRepository = receiptItemRepository;
             this.itemResourceAssembler = itemResourceAssembler;
-            this.storeChainRepository = storeChainRepository;
         }
 
         @Override
@@ -74,7 +74,7 @@ public class UserReceiptResultResource extends Resource<ReceiptResult> {
             resource.getEmbeddedItems().put("receiptItems", items);
 
             if (!StringUtils.isEmpty(result.getChainCode())) {
-                final StoreChain chain = storeChainRepository.findByCode(result.getChainCode());
+                final StoreChain chain = storeMetadata.getStoreChainByCode(result.getChainCode());
                 resource.setStoreName(chain.getName());
             }
             return resource;

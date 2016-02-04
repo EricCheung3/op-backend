@@ -3,7 +3,6 @@ package com.openprice.rest.user.receipt;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertNull;
 
 import javax.inject.Inject;
@@ -47,9 +46,9 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            .body("page.size", equalTo(3))
+            .body("page.size", equalTo(10))
             .body("page.totalElements", equalTo(14))
-            .body("page.totalPages", equalTo(5))
+            .body("page.totalPages", equalTo(2))
             .body("page.number", equalTo(0))
             .body("_embedded.receipts[0].id", equalTo("receipt014"))
             .body("_embedded.receipts[1].id", equalTo("receipt013"))
@@ -87,8 +86,9 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("receiptDate[2]", equalTo(1))
             .body("status", equalTo("HAS_RESULT"))
             .body("needFeedback", equalTo(true))
-            .body("storeName", equalTo("Real Canadian Superstore"))
-            .body("total", nullValue())
+            .body("chainCode", equalTo("rcss"))
+            .body("storeName", equalTo("Superstore"))
+            .body("total", equalTo("10.45"))
             .body("_embedded.receiptImages[0].id", equalTo("rec001image001"))
             .body("_embedded.receiptImages[0].status", equalTo(ProcessStatusType.SCANNED.name()))
             .body("_embedded.receiptImages[1].id", equalTo("rec001image003"))

@@ -31,6 +31,18 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>op-metadata</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.openprice</groupId>
+            <artifactId>op-parser-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- spring hateoas for restful api -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

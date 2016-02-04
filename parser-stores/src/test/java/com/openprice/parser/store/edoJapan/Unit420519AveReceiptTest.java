@@ -14,8 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedReceipt;
-import com.openprice.parser.common.TextResourceUtils;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
@@ -40,7 +40,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 
         // verify result of items
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "1 premium drink", "2.69", "1 premium drink");
+        verifyItemParsedValue(iterator.next(), "1 premium drink", "2.69", "");
 
         // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
@@ -69,7 +69,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 
         //        verify result of items
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "1 #5 chicken &beef", "8.59", "1 #5 chicken &beef");
+        verifyItemParsedValue(iterator.next(), "1 #5 chicken &beef", "8.59", "");
         //
         //        // verify parsed fields
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
@@ -100,10 +100,10 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "1    sizzling shrimp", "9.89", "1    sizzling shrimp");
-        verifyItemParsedValue(iterator.next(), "1    sub brown rice", "0.49", "1    sub brown rice");
-        verifyItemParsedValue(iterator.next(), "1    chicken", "7.99", "1    chicken");
-        verifyItemParsedValue(iterator.next(), "1    sub brown rice", "0.49", "1    sub brown rice");
+        verifyItemParsedValue(iterator.next(), "1    sizzling shrimp", "9.89", "");
+        verifyItemParsedValue(iterator.next(), "1    sub brown rice", "0.49", "");
+        verifyItemParsedValue(iterator.next(), "1    chicken", "7.99", "");
+        verifyItemParsedValue(iterator.next(), "1    sub brown rice", "0.49", "");
 
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "19.80");
@@ -126,7 +126,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "1 kids chicken & noodle", "5.39", "1 kids chicken & noodle");
+        verifyItemParsedValue(iterator.next(), "1 kids chicken & noodle", "5.39", "");
 
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "5.80");
@@ -149,8 +149,8 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "1 sizzling shrimp", "9.89", "1 sizzling shrimp");
-        verifyItemParsedValue(iterator.next(), "1 combo reg pop", "1.89", "1 combo reg pop");
+        verifyItemParsedValue(iterator.next(), "1 sizzling shrimp", "9.89", "");
+        verifyItemParsedValue(iterator.next(), "1 combo reg pop", "1.89", "");
 
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "12.35");
@@ -173,8 +173,8 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "1 chicken", "7.99", "1 chicken");
-        verifyItemParsedValue(iterator.next(), "1 combo reg pop", "1.89", "1 combo reg pop");
+        verifyItemParsedValue(iterator.next(), "1 chicken", "7.99", "");
+        verifyItemParsedValue(iterator.next(), "1 combo reg pop", "1.89", "");
 
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "10.37");
@@ -197,7 +197,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "1 chicken & shrimp", "11.58", "1 chicken & shrimp");
+        verifyItemParsedValue(iterator.next(), "1 chicken & shrimp", "11.58", "");
 
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "11.58");
@@ -224,10 +224,10 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "2    regular pop", "4.18", "2    regular pop");
-        verifyItemParsedValue(iterator.next(), "1    beef & shrimp bento", "14.38", "1    beef & shrimp bento");
-        verifyItemParsedValue(iterator.next(), "1    beef yakisoba bento", "11.79", "1    beef yakisoba bento");
-        verifyItemParsedValue(iterator.next(), "1    2 spring roll", "2.69", "1    2 spring roll");
+        verifyItemParsedValue(iterator.next(), "2    regular pop", "4.18", "");
+        verifyItemParsedValue(iterator.next(), "1    beef & shrimp bento", "14.38", "");
+        verifyItemParsedValue(iterator.next(), "1    beef yakisoba bento", "11.79", "");
+        verifyItemParsedValue(iterator.next(), "1    2 spring roll", "2.69", "");
 
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "34.70");
@@ -250,9 +250,9 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "1    beef", "8.09", "1    beef");
-        verifyItemParsedValue(iterator.next(), "1    kids chicken & noodle", "5.39", "1    kids chicken & noodle");
-        verifyItemParsedValue(iterator.next(), "1    combo reg pop", "1.89", "1    combo reg pop");
+        verifyItemParsedValue(iterator.next(), "1    beef", "8.09", "");
+        verifyItemParsedValue(iterator.next(), "1    kids chicken & noodle", "5.39", "");
+        verifyItemParsedValue(iterator.next(), "1    combo reg pop", "1.89", "");
 
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "16.30");
@@ -275,8 +275,8 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "1 chicken", "7.99", "1 chicken");
-        verifyItemParsedValue(iterator.next(), "1 sub brown rice", "0.49", "1 sub brown rice");
+        verifyItemParsedValue(iterator.next(), "1 chicken", "7.99", "");
+        verifyItemParsedValue(iterator.next(), "1 sub brown rice", "0.49", "");
 
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "8.90");
@@ -299,8 +299,8 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "1 chicken", "7.99", "1 chicken");
-        verifyItemParsedValue(iterator.next(), "1 sub brown rice", "0.49", "1 sub brown rice");
+        verifyItemParsedValue(iterator.next(), "1 chicken", "7.99", "");
+        verifyItemParsedValue(iterator.next(), "1 sub brown rice", "0.49", "");
 
         Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
         assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "8.90");

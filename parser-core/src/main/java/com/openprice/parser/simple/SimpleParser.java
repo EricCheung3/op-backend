@@ -56,7 +56,7 @@ public class SimpleParser {
             log.warn("No specific parser for this chain yet!");
             try{
                 final GenericChains chains=new GenericChains("/config/Generic/chain.list");
-                final String genericChainCode=chains.findChain(receipt.getOriginalLines());
+                final String genericChainCode=chains.findChain(receipt.getOriginalLines()).toLowerCase();
                 log.info("genericChainCode="+genericChainCode);
                 return GenericParser.parse(StoreChain.genericStoreChain(genericChainCode), receipt);
             }catch(Exception ex){
