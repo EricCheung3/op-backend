@@ -2,6 +2,7 @@ package com.openprice.parser.common;
 
 import java.util.List;
 
+import com.openprice.common.StringCommon;
 import com.openprice.parser.data.ValueLine;
 
 import lombok.extern.slf4j.Slf4j;

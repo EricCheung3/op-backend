@@ -7,10 +7,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.openprice.common.Levenshtein;
+import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.common.ConversionCommon;
-import com.openprice.parser.common.Levenshtein;
-import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.price.ThreeStrings;
 import com.openprice.predictor.CategoryPredictor;
 

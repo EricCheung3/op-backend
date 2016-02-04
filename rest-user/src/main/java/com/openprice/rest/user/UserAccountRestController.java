@@ -1,7 +1,6 @@
 package com.openprice.rest.user;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import javax.inject.Inject;
 
@@ -16,7 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.domain.account.user.UserAccountService;
-import com.openprice.domain.product.ProductCategory;
+import com.openprice.store.ProductCategory;
+import com.openprice.store.StoreMetadata;
 
 /**
  * REST API Controller for current user account management.
@@ -25,14 +25,17 @@ import com.openprice.domain.product.ProductCategory;
 @RestController
 public class UserAccountRestController extends AbstractUserRestController {
 
+    private final StoreMetadata storeMetadata;
     private final UserAccountRepository userAccountRepository;
     private final UserAccountResource.Assembler userAccountResourceAssembler;
 
     @Inject
     public UserAccountRestController(final UserAccountService userAccountService,
+                                     final StoreMetadata storeMetadata,
                                      final UserAccountRepository userAccountRepository,
                                      final UserAccountResource.Assembler userAccountResourceAssembler) {
         super(userAccountService);
+        this.storeMetadata = storeMetadata;
         this.userAccountRepository = userAccountRepository;
         this.userAccountResourceAssembler = userAccountResourceAssembler;
     }
@@ -65,12 +68,8 @@ public class UserAccountRestController extends AbstractUserRestController {
 
     @RequestMapping(method = RequestMethod.GET, value = URL_USER_CATEGORIES)
     @Transactional(readOnly=true)
-    public HttpEntity<List<CategoryData>> getCategoryList() {
-        final List<CategoryData> result = new ArrayList<>();
-        for (ProductCategory pc : ProductCategory.values()){
-            result.add(new CategoryData(pc));
-        }
-        return ResponseEntity.ok(result);
+    public HttpEntity<Collection<ProductCategory>> getCategoryList() {
+        return ResponseEntity.ok(storeMetadata.getCategoryMap().values());
     }
 
 }

@@ -1,4 +1,4 @@
-package com.openprice.parser.common;
+package com.openprice.common;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,16 +23,6 @@ public class StringCommon {
                 .sorted((n1, n2)->n2.length() - n1.length())
                 .collect(java.util.stream.Collectors.toList());
     }
-
-    /**
-     * prune a String to see if it contains any date substring in the format of
-     * AB/CD/EF or AB/CD/20EF
-     * where all A-F are digits
-     * if yes, return it,
-     * else return empty String
-     * @param str
-     * @return
-     */
 
     /**
      *
@@ -818,3 +808,4 @@ public class StringCommon {
     }
 
 }
+

@@ -9,11 +9,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import com.openprice.common.StringCommon;
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.StoreBranch;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
-import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
 

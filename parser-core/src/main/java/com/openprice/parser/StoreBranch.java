@@ -5,8 +5,8 @@ import java.util.Map;
 
 import org.springframework.util.StringUtils;
 
+import com.openprice.common.StringCommon;
 import com.openprice.parser.common.ParserUtils;
-import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Address;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ReceiptLineWithScore;

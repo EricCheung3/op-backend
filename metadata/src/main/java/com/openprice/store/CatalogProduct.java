@@ -20,15 +20,17 @@ public class CatalogProduct {
         return catalogCode;
     }
 
-    public String getName() {
-        return productData.getName();
+    public String getPrice() {
+        return productData.getPrice();
     }
 
-    public String getNumber() {
-        return productData.getNumber();
+    public String getNaturalName() {
+        return productData.getNaturalName();
     }
 
     public ProductCategory getProductCategory() {
         return productCategory;
     }
+
+
 }

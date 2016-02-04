@@ -2,7 +2,7 @@ package com.openprice.parser.data;
 
 import org.springframework.util.StringUtils;
 
-import com.openprice.parser.common.StringCommon;
+import com.openprice.common.StringCommon;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;

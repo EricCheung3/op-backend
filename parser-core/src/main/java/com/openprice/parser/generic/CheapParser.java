@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.openprice.common.StringCommon;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.StoreBranch;
 import com.openprice.parser.StoreChain;
-import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;

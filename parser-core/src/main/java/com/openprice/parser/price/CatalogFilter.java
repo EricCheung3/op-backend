@@ -3,8 +3,8 @@ package com.openprice.parser.price;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.openprice.parser.common.Levenshtein;
-import com.openprice.parser.common.StringCommon;
+import com.openprice.common.Levenshtein;
+import com.openprice.common.StringCommon;
 
 import lombok.Value;
 

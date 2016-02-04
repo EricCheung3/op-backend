@@ -107,7 +107,7 @@ public class ShoppingService {
                 final StoreChain chain = storeMetadata.getStoreChainByCode(store.getChainCode());
                 final CatalogProduct catalogProduct = chain.getCatalogProductByCode(catalogCode);
                 if (catalogProduct != null) {
-                    item.setCategoryCode(catalogCode);
+                    item.setCategoryCode(catalogProduct.getProductCategory().getCode());
                 } else {
                     log.error("SEVERE! Cannot get CatalogProduct by catalog code '{}' in store chain '{}', something wrong with the database!"
                             , catalogCode, store.getChainCode());

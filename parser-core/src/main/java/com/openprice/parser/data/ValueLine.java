@@ -1,6 +1,6 @@
 package com.openprice.parser.data;
 
-import com.openprice.parser.common.StringCommon;
+import com.openprice.common.StringCommon;
 
 import lombok.Data;
 

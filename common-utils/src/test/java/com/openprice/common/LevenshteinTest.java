@@ -1,9 +1,12 @@
-package com.openprice.parser.common;
+package com.openprice.common;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -11,6 +14,36 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class LevenshteinTest{
+
+    @Test(expected=Exception.class)
+    public void mostSimilarInSetTestNoSuchElementException() throws Exception{
+        Set<String> set= new HashSet<String>();
+        Levenshtein.mostSimilarInSet("ABC", set);
+    }
+
+    @Test
+    public void mostSimilarInSetTestFindItself() throws Exception{
+        Set<String> set= new HashSet<String>();
+        set.add("ABC");
+        assertEquals("ABC", Levenshtein.mostSimilarInSet("ABC", set));
+    }
+
+    //TODO: find longer one?
+//    @Test
+//    public void mostSimilarInSetTestFindABNotA() throws Exception{
+//        Set<String> set= new HashSet<String>();
+//        set.add("AB");
+//        set.add("A");
+//        assertEquals("AB", Levenshtein.mostSimilarInSet("ABC", set));
+//    }
+
+    @Test
+    public void mostSimilarInSetTestFindANotD() throws Exception{
+        Set<String> set= new HashSet<String>();
+        set.add("A");
+        set.add("D");
+        assertEquals("A", Levenshtein.mostSimilarInSet("ABC", set));
+    }
 
     @Test
     public void test1(){
