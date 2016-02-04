@@ -11,7 +11,7 @@ cleaningsupplies:tide,scrubbub,spraynwash
 dairy:milk,cheese,egg,beatrice,tofu,butter,but,margarine,yogurt,cream,lactantia,iogo,armstrng,mozzarella,minigo,naturegg,
 deli:ham,salmi,smokehouse,danone,egg&sausg
 frozen:eggo,
-fruit:banana,pear,apple,avocado,papaya,blueberries,raspberries,pnaple,pineapple,orange,peach,grape,lemon,longan,strawberries,blubry,blueberry, plum,mango,mandarin,watermelon, seedless, sdls,asparagus,apl rd,rd del,cherries,fuji,
+fruit:banana,pear,apple,avocado,papaya,blueberries,raspberries,pnaple,pineapple,orange,peach,grape,lemon,longan,strawberries,blubry,blueberry, plum,mango,mandarin,watermelon, seedless, sdls,asparagus,apl rd,rd del,cherries,fuji,rhubarb,pomegranate,melon
 health:skinfix,after bite,acne,
 frozen:dumpling,
 grains:rice,
@@ -24,7 +24,7 @@ pasta:spaghetti,noodles,rigate,rice stick,lasagn,
 papergoods:magazine,book,paper
 pharmacy:tylenol,
 personalitems:soap,wash,colgt,thpste,pads,flosser,shower,tooth,conditioner,
-seafood:fillets,scallops,fish,tilapia,hairtail,tentacles,catfish,astringent,
+seafood:salmon,fillets,scallops,fish,tilapia,hairtail,tentacles,catfish,astringent,
 sauces:heinz,hellmans,sauce,ceasar,coleslaw,mustard,salsa,dressing,hollandaise,
 soup:soup
 spices:rosemary,

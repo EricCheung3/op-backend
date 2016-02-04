@@ -21,9 +21,13 @@ public class Levenshtein
 //        ? p1:p2).get();
 
         return set.stream().reduce((p1,p2) ->
-        StringCommon.matchStringToSubStringTwoWay(key, p1) >
-        StringCommon.matchStringToSubStringTwoWay(key, p2)
+        StringCommon.matchStringToSubString(key, p1) >
+        StringCommon.matchStringToSubString(key, p2)
         ? p1:p2).get();
+//        return set.stream().reduce((p1,p2) ->
+//        StringCommon.matchStringToSubStringTwoWay(key, p1) >
+//        StringCommon.matchStringToSubStringTwoWay(key, p2)
+//        ? p1:p2).get();
     }
 
     public static double mostSimilarScoreInSet(final String key, final Set<String> set){
@@ -35,7 +39,8 @@ public class Levenshtein
                .stream()
 //               .map(str -> Levenshtein.compare(StringCommon.removeAllSpaces(str),
 //                                               StringCommon.removeAllSpaces(key)))
-               .map(str -> StringCommon.matchStringToSubStringTwoWay(key,str))
+//               .map(str -> StringCommon.matchStringToSubStringTwoWay(key,str))
+               .map(str -> StringCommon.matchStringToSubString(key,str))
                .max(Comparator.comparing(d->d));
          if(maxDouble.isPresent())
               return  maxDouble.get();
