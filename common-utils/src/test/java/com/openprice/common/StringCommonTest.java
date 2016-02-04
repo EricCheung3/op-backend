@@ -1,4 +1,4 @@
-package com.openprice.parser.common;
+package com.openprice.common;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

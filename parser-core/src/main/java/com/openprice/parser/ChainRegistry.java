@@ -8,8 +8,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.openprice.parser.common.Levenshtein;
-import com.openprice.parser.common.StringCommon;
+import com.openprice.common.Levenshtein;
+import com.openprice.common.StringCommon;
 import com.openprice.parser.data.ScoreWithMatchPair;
 
 import lombok.Getter;

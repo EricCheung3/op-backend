@@ -7,12 +7,12 @@ import java.util.function.Function;
 
 import org.springframework.util.StringUtils;
 
+import com.openprice.common.Levenshtein;
+import com.openprice.common.StringCommon;
 import com.openprice.parser.ReceiptLine;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.common.DateParserUtils;
-import com.openprice.parser.common.Levenshtein;
-import com.openprice.parser.common.StringCommon;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.price.PriceParserWithCatalog;

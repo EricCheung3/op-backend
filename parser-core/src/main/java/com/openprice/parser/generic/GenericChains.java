@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.openprice.common.Levenshtein;
+import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
-import com.openprice.parser.common.Levenshtein;
-import com.openprice.parser.common.StringCommon;
 
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
