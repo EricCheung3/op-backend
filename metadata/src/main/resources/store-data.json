@@ -628,11 +628,6 @@
   "name" : "Wegmans",
   "identity" : "Wegmans",
   "category" : "Grocery"
-},  {
-  "code" : "traderjoes",
-  "name" : "Trader Joe's",
-  "identity" : "Trader Joe's",
-  "category" : "Grocery"
 }, {
   "code" : "publix",
   "name" : "Publix",
