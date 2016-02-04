@@ -38,7 +38,7 @@ public class AdminReceiptResource extends Resource<Receipt> {
     @JsonProperty("_embedded")
     @Getter
     private Map<String, List<AdminReceiptImageResource>> embeddedImages = new HashMap<>();
-
+    
     public AdminReceiptResource(final Receipt resource) {
         super(resource);
     }
@@ -68,6 +68,7 @@ public class AdminReceiptResource extends Resource<Receipt> {
             for (ReceiptImage image : receiptImageRepository.findByReceiptOrderByCreatedTime(receipt)) {
                 images.add(imageResourceAssembler.toResource(image));
             }
+            
             resource.getEmbeddedImages().put("receiptImages", images);
 
             final String[] pairs = {"receiptId", receipt.getId()};
@@ -77,6 +78,8 @@ public class AdminReceiptResource extends Resource<Receipt> {
                        .addLink("image", URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE, false, pairs)
                        .addLink("results", URL_ADMIN_RECEIPTS_RECEIPT_RESULTS,  true, pairs)
                        .addLink("result", URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT, false, pairs)
+                       .addLink("feedbacks", URL_ADMIN_RECEIPTS_RECEIPT_FEEDBACKS, true, pairs)
+                       .addLink("feedback", URL_ADMIN_RECEIPTS_RECEIPT_FEEDBACKS_FEEDBACK, false, pairs)
                        ;
 
             return resource;
