@@ -25,10 +25,10 @@ import com.openprice.domain.receipt.ReceiptItemRepository;
 import com.openprice.domain.receipt.ReceiptResult;
 import com.openprice.domain.receipt.ReceiptResultRepository;
 import com.openprice.domain.receipt.ReceiptStatusType;
-import com.openprice.domain.store.StoreChain;
-import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.rest.LinkBuilder;
 import com.openprice.rest.user.UserApiUrls;
+import com.openprice.store.StoreChain;
+import com.openprice.store.StoreMetadata;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -58,24 +58,24 @@ public class UserReceiptResource extends Resource<Receipt> {
     @Slf4j
     public static class Assembler implements ResourceAssembler<Receipt, UserReceiptResource>, UserApiUrls {
 
+        private final StoreMetadata storeMetadata;
         private final ReceiptImageRepository receiptImageRepository;
         private final ReceiptResultRepository receiptResultRepository;
         private final ReceiptItemRepository receiptItemRepository;
-        private final StoreChainRepository storeChainRepository;
         private final UserReceiptImageResource.Assembler imageResourceAssembler;
         private final UserReceiptItemResource.Assembler itemResourceAssembler;
 
         @Inject
-        public Assembler(final ReceiptImageRepository receiptImageRepository,
+        public Assembler(final StoreMetadata storeMetadata,
+                         final ReceiptImageRepository receiptImageRepository,
                          final ReceiptResultRepository receiptResultRepository,
                          final ReceiptItemRepository receiptItemRepository,
-                         final StoreChainRepository storeChainRepository,
                          final UserReceiptItemResource.Assembler itemResourceAssembler,
                          final UserReceiptImageResource.Assembler imageResourceAssembler) {
+            this.storeMetadata = storeMetadata;
             this.receiptImageRepository = receiptImageRepository;
             this.receiptResultRepository = receiptResultRepository;
             this.receiptItemRepository = receiptItemRepository;
-            this.storeChainRepository = storeChainRepository;
             this.itemResourceAssembler = itemResourceAssembler;
             this.imageResourceAssembler = imageResourceAssembler;
         }
@@ -115,7 +115,7 @@ public class UserReceiptResource extends Resource<Receipt> {
 
                     final String chainCode = result.getChainCode();
                     if (!StringUtils.isEmpty(chainCode)) {
-                        final StoreChain chain = storeChainRepository.findByCode(chainCode);
+                        final StoreChain chain = storeMetadata.getStoreChainByCode(chainCode);
                         if (chain != null) {
                             resource.setStoreName(chain.getName());
                             resource.setChainCode(chainCode);

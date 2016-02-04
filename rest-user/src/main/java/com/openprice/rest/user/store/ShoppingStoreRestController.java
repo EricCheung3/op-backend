@@ -12,7 +12,6 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,11 +23,8 @@ import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.shopping.ShoppingService;
 import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.domain.shopping.ShoppingStoreRepository;
-import com.openprice.domain.store.CatalogProduct;
-import com.openprice.domain.store.CatalogProductRepository;
-import com.openprice.domain.store.StoreChain;
-import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.rest.ResourceNotFoundException;
+import com.openprice.store.CatalogProduct;
 
 /**
  * REST API Controller for current user shopping list store management.
@@ -37,20 +33,14 @@ import com.openprice.rest.ResourceNotFoundException;
 @RestController
 public class ShoppingStoreRestController extends AbstractUserStoreRestController {
 
-    private final StoreChainRepository storeChainRepository;
-    private final CatalogProductRepository catalogProductRepository;
     private final ShoppingStoreResource.Assembler shoppingStoreResourceAssembler;
 
     @Inject
     public ShoppingStoreRestController(final UserAccountService userAccountService,
                                        final ShoppingService shoppingService,
                                        final ShoppingStoreRepository shoppingStoreRepository,
-                                       final StoreChainRepository storeChainRepository,
-                                       final CatalogProductRepository catalogProductRepository,
                                        final ShoppingStoreResource.Assembler shoppingStoreResourceAssembler) {
         super(userAccountService, shoppingService, shoppingStoreRepository);
-        this.storeChainRepository = storeChainRepository;
-        this.catalogProductRepository = catalogProductRepository;
         this.shoppingStoreResourceAssembler = shoppingStoreResourceAssembler;
     }
 
@@ -74,12 +64,14 @@ public class ShoppingStoreRestController extends AbstractUserStoreRestController
     public HttpEntity<List<CatalogProduct>> searchCatalogsForStoreChain(
             @PathVariable("storeId") final String storeId,
             @RequestParam("query") String query) throws ResourceNotFoundException {
-        final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
-        final StoreChain chain = storeChainRepository.findByCode(store.getChainCode());
-        if (chain != null && !StringUtils.isEmpty(query)){
-            return ResponseEntity.ok(catalogProductRepository.findTop20ByChainAndNaturalNameIgnoreCaseContaining(chain, query));
-            // TODO if not found, return product category best matched with query
-        }
+        // FIXME implment search in StoreMetadata
+
+//        final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
+//        final StoreChain chain = storeChainRepository.findByCode(store.getChainCode());
+//        if (chain != null && !StringUtils.isEmpty(query)){
+//            return ResponseEntity.ok(catalogProductRepository.findTop20ByChainAndNaturalNameIgnoreCaseContaining(chain, query));
+//            // TODO if not found, return product category best matched with query
+//        }
         return ResponseEntity.ok(Collections.emptyList());
     }
 

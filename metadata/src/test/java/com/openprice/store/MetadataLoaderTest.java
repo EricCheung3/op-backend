@@ -14,7 +14,7 @@ public class MetadataLoaderTest {
         {
             assertEquals(36, metadata.getCategoryMap().size());
 
-            ProductCategory uncategorized = metadata.getProductCategoryByCode("uncategorized");
+            ProductCategory uncategorized = metadata.getProductCategoryByCode(ProductCategory.UNCATEGORIZED);
             assertNotNull(uncategorized);
             assertEquals("Uncategorized", uncategorized.getLabel());
         }

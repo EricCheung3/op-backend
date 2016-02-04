@@ -37,7 +37,6 @@
         <module>domain-account-user</module>
         <module>domain-account-admin</module>
         <module>domain-receipt</module>
-        <module>domain-store</module>
         <module>domain-shopping</module>
         <module>process</module>
 

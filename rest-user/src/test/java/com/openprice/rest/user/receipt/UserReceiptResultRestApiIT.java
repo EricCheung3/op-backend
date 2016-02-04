@@ -3,6 +3,7 @@ package com.openprice.rest.user.receipt;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertTrue;
 
 import javax.inject.Inject;
@@ -44,17 +45,17 @@ public class UserReceiptResultRestApiIT extends AbstractUserRestApiIntegrationTe
             .body("branchName", equalTo("Calgary Trail"))
             .body("parsedTotal", equalTo("10.45"))
             .body("parsedDate", equalTo("2015/11/11"))
-            .body("storeName", equalTo("Real Canadian Superstore"))
+            .body("storeName", equalTo("Superstore"))
             .body("_embedded.receiptItems[0].id", equalTo("recItem001"))
             .body("_embedded.receiptItems[0].catalogCode", equalTo("EGG_1235"))
             .body("_embedded.receiptItems[0].parsedName", equalTo("eggs"))
             .body("_embedded.receiptItems[0].parsedPrice", equalTo("1.99"))
-            .body("_embedded.receiptItems[0].catalog.catalogCode", equalTo("EGG_1235"))
+            .body("_embedded.receiptItems[0].catalog", nullValue())
             .body("_embedded.receiptItems[1].id", equalTo("recItem003"))
             .body("_embedded.receiptItems[1].catalogCode", equalTo("PORK"))
             .body("_embedded.receiptItems[1].parsedName", equalTo("pork"))
             .body("_embedded.receiptItems[1].parsedPrice", equalTo("5.99"))
-            .body("_embedded.receiptItems[1].catalog.catalogCode", equalTo("PORK"))
+            .body("_embedded.receiptItems[1].catalog", nullValue())
         ;
     }
 
@@ -92,11 +93,11 @@ public class UserReceiptResultRestApiIT extends AbstractUserRestApiIntegrationTe
             .body("_embedded.receiptItems[0].id", equalTo("recItem001"))
             .body("_embedded.receiptItems[0].parsedName", equalTo("eggs"))
             .body("_embedded.receiptItems[0].parsedPrice", equalTo("1.99"))
-            .body("_embedded.receiptItems[0].catalog.id", equalTo("store001cat002"))
+            .body("_embedded.receiptItems[0].catalog", nullValue())
             .body("_embedded.receiptItems[1].id", equalTo("recItem003"))
             .body("_embedded.receiptItems[1].parsedName", equalTo("pork"))
             .body("_embedded.receiptItems[1].parsedPrice", equalTo("5.99"))
-            .body("_embedded.receiptItems[1].catalog.id", equalTo("store001cat003"))
+            .body("_embedded.receiptItems[1].catalog", nullValue())
         ;
     }
 
@@ -119,7 +120,7 @@ public class UserReceiptResultRestApiIT extends AbstractUserRestApiIntegrationTe
             .body("displayName", equalTo("eggs"))
             .body("parsedPrice", equalTo("1.99"))
             .body("displayPrice", equalTo("1.99"))
-            .body("catalog.id", equalTo("store001cat002"))
+            .body("catalog", nullValue())
         ;
     }
 

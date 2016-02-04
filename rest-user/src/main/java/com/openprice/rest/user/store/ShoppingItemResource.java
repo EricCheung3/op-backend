@@ -9,12 +9,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import com.openprice.domain.shopping.ShoppingItem;
-import com.openprice.domain.store.CatalogProduct;
-import com.openprice.domain.store.CatalogProductRepository;
-import com.openprice.domain.store.StoreChain;
-import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.rest.LinkBuilder;
 import com.openprice.rest.user.UserApiUrls;
+import com.openprice.store.CatalogProduct;
+import com.openprice.store.StoreChain;
+import com.openprice.store.StoreMetadata;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -31,14 +30,11 @@ public class ShoppingItemResource extends Resource<ShoppingItem> {
     @Component
     public static class Assembler implements ResourceAssembler<ShoppingItem, ShoppingItemResource>, UserApiUrls {
 
-        private final StoreChainRepository chainRepository;
-        private final CatalogProductRepository catalogProductRepository;
+        private final StoreMetadata storeMetadata;
 
         @Inject
-        public Assembler(final StoreChainRepository chainRepository,
-                         final CatalogProductRepository catalogProductRepository) {
-            this.chainRepository = chainRepository;
-            this.catalogProductRepository = catalogProductRepository;
+        public Assembler(final StoreMetadata storeMetadata) {
+            this.storeMetadata = storeMetadata;
         }
 
         @Override
@@ -48,9 +44,9 @@ public class ShoppingItemResource extends Resource<ShoppingItem> {
             final ShoppingItemResource resource = new ShoppingItemResource(shoppingItem);
 
             if (StringUtils.hasText(shoppingItem.getCatalogCode())) {
-                final StoreChain chain = chainRepository.findByCode(shoppingItem.getStore().getChainCode());
-                if (chain != null) {
-                    final CatalogProduct catalog = catalogProductRepository.findByChainAndCatalogCode(chain, shoppingItem.getCatalogCode());
+                final StoreChain storeChain = storeMetadata.getStoreChainByCode(shoppingItem.getStore().getChainCode());
+                if (storeChain != null) {
+                    final CatalogProduct catalog = storeChain.getCatalogProductByCode(shoppingItem.getCatalogCode());
                     if (catalog != null) {
                         resource.setCatalog(catalog);
                     }

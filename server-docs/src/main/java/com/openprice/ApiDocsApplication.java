@@ -23,6 +23,8 @@ import com.openprice.mail.EmailService;
 import com.openprice.mail.stub.DummyEmailService;
 import com.openprice.parser.category.SimpleCategoryPredictor;
 import com.openprice.predictor.CategoryPredictor;
+import com.openprice.store.MetadataLoader;
+import com.openprice.store.StoreMetadata;
 
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
@@ -81,6 +83,12 @@ public class ApiDocsApplication {
     public CategoryPredictor categoryPredictor() {
         return SimpleCategoryPredictor.fromConfig();
     }
+
+    @Bean
+    public StoreMetadata storeMetadata() {
+        return MetadataLoader.loadMetadata();
+    }
+
 
     @EnableWebSecurity
     public static class SecurityConfig extends WebSecurityConfigurerAdapter {

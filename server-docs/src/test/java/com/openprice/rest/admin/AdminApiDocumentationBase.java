@@ -13,12 +13,9 @@ import com.openprice.domain.account.admin.AdminAccount;
 import com.openprice.domain.account.admin.AdminAccountRepository;
 import com.openprice.domain.account.admin.AdminAccountService;
 import com.openprice.domain.account.user.UserAccount;
-import com.openprice.domain.product.ProductCategory;
 import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
-import com.openprice.domain.store.StoreChain;
-import com.openprice.domain.store.StoreService;
 import com.openprice.rest.ApiDocumentationBase;
 
 public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
@@ -29,9 +26,6 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
 
     @Inject
     protected AdminAccountRepository adminAccountRepository;
-
-    @Inject
-    protected StoreService storeService;
 
     protected String createTestAdmin() throws Exception {
         adminAccountService.createAdminAccount(ADMINNAME, "password", "John", "Doe", "john.doe@email.com", "VP Marketing");
@@ -69,18 +63,6 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
         for (final Receipt receipt : receiptRepository.findByUser(user)) {
             receiptRepository.delete(receipt);
         }
-    }
-
-    protected void createStores() throws Exception {
-        StoreChain chain = storeService.createStoreChain("rcss", "Real Canadian Superstore");
-        storeService.createStoreBranch(chain, "Calgary Trail RCSS", "780-430-2769", "", "4821, Calgary Trail", "", "Edmonton", "AB", "", "Canada");
-        storeService.createStoreBranch(chain, "South Common RCSS", "780-490-3918", "", "1549 9711, 23 AVE NW", "", "Edmonton", "AB", "", "Canada");
-        storeService.createCatalogProduct(chain, "MILK", "1234", "4.99", "Homo Milk", "Food,Dairy,milk", ProductCategory.dairy);
-        storeService.createCatalogProduct(chain, "EGG", "1235", "2.99", "Free Run Egg", "Food,Egg", ProductCategory.meat);
-    }
-
-    protected void deleteStores() throws Exception {
-        storeService.deleteAllStores();
     }
 
     protected String adminUrl() {

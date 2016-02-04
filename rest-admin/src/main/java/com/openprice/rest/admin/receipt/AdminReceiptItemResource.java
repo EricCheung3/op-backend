@@ -9,12 +9,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import com.openprice.domain.receipt.ReceiptItem;
-import com.openprice.domain.store.CatalogProduct;
-import com.openprice.domain.store.CatalogProductRepository;
-import com.openprice.domain.store.StoreChain;
-import com.openprice.domain.store.StoreChainRepository;
 import com.openprice.rest.LinkBuilder;
 import com.openprice.rest.admin.AdminApiUrls;
+import com.openprice.store.CatalogProduct;
+import com.openprice.store.StoreChain;
+import com.openprice.store.StoreMetadata;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -36,14 +35,11 @@ public class AdminReceiptItemResource extends Resource<ReceiptItem> {
 
     @Component
     public static class Assembler implements ResourceAssembler<ReceiptItem, AdminReceiptItemResource>, AdminApiUrls {
-        private final StoreChainRepository chainRepository;
-        private final CatalogProductRepository catalogProductRepository;
+        private final StoreMetadata storeMetadata;
 
         @Inject
-        public Assembler(final StoreChainRepository chainRepository,
-                         final CatalogProductRepository catalogProductRepository) {
-            this.chainRepository = chainRepository;
-            this.catalogProductRepository = catalogProductRepository;
+        public Assembler(final StoreMetadata storeMetadata) {
+            this.storeMetadata = storeMetadata;
         }
 
         @Override
@@ -51,9 +47,9 @@ public class AdminReceiptItemResource extends Resource<ReceiptItem> {
             final AdminReceiptItemResource resource = new AdminReceiptItemResource(receiptItem);
 
             if (StringUtils.hasText(receiptItem.getCatalogCode())) {
-                final StoreChain chain = chainRepository.findByCode(receiptItem.getReceiptResult().getChainCode());
-                if (chain != null) {
-                    final CatalogProduct catalog = catalogProductRepository.findByChainAndCatalogCode(chain, receiptItem.getCatalogCode());
+                final StoreChain storeChain = storeMetadata.getStoreChainByCode(receiptItem.getReceiptResult().getChainCode());
+                if (storeChain != null) {
+                    final CatalogProduct catalog = storeChain.getCatalogProductByCode(receiptItem.getCatalogCode());
                     if (catalog != null) {
                         resource.setCatalog(catalog);
                     }

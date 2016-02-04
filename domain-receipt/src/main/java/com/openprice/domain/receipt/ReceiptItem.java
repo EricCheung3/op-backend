@@ -44,10 +44,10 @@ public class ReceiptItem extends BaseAuditableEntity {
     @Column(name="catalog_code")
     private String catalogCode; // optional
 
+    // TODO save category code
 //    @Getter @Setter
-//    @Enumerated(EnumType.STRING)
 //    @Column(name="product_category")
-//    private ProductCategory productCategory;
+//    private String categoryCode;
 
     @Getter @Setter
     @Column(name="parsed_name")

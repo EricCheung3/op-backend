@@ -2,15 +2,12 @@ package com.openprice.domain.shopping;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
-import com.openprice.domain.product.ProductCategory;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -57,13 +54,10 @@ public class ShoppingItem extends BaseAuditableEntity {
      * Category this item belongs to.
      * Originally come from catalog product it associates with. If no catalog product found, system will
      * try to find a best match category. Or user can select.
-     * DISCUSS: Back-end algorithm to find match category with user input name or receipt item name.
-     *
      */
     @Getter @Setter
-    @Enumerated(EnumType.STRING)
     @Column(name="product_category", nullable=false)
-    private ProductCategory productCategory;
+    private String categoryCode;
 
     @Getter @Setter
     @Column(name="number", nullable=false)
@@ -76,14 +70,14 @@ public class ShoppingItem extends BaseAuditableEntity {
                                                       final ShoppingStore store,
                                                       final String name,
                                                       final String catalogCode,
-                                                      final ProductCategory productCategory,
+                                                      final String categoryCode,
                                                       final int number) {
         final ShoppingItem shoppingItem = new ShoppingItem();
         shoppingItem.setId(id);
         shoppingItem.setStore(store);
         shoppingItem.setName(name);
         shoppingItem.setCatalogCode(catalogCode);
-        shoppingItem.setProductCategory(productCategory);
+        shoppingItem.setCategoryCode(categoryCode);
         shoppingItem.setNumber(number);
         return shoppingItem;
     }
