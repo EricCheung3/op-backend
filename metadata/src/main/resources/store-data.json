@@ -623,9 +623,51 @@
   "name" : "Rona",
   "identity" : "Rona",
   "category" : "Home Improvement"
+},  {
+  "code" : "wegmans",
+  "name" : "Wegmans",
+  "identity" : "Wegmans",
+  "category" : "Grocery"
+},  {
+  "code" : "traderjoes",
+  "name" : "Trader Joe's",
+  "identity" : "Trader Joe's",
+  "category" : "Grocery"
 }, {
+  "code" : "publix",
+  "name" : "Publix",
+  "identity" : "Publix",
+  "category" : "Grocery"
+}, {
+  "code" : "sproutsfarmersmarket",
+  "name" : "Sprouts Farmers Market",
+  "identity" : "Sprouts Farmers Market",
+  "category" : "Grocery"
+},{
   "code" : "gianttiger",
   "name" : "Giant Tiger",
   "identity" : "Giant Tiger",
   "category" : "Discount,Grocery"
-} ]
+},{
+  "code" : "marketbasket",
+  "name" : "Market Basket",
+  "identity" : "Market Basket",
+  "category" : "Grocery"
+},{
+  "code" : "raleys",
+  "name" : "Raley's",
+  "identity" : "Raley's",
+  "category" : "Grocery"
+},{
+  "code" : "fairwaystores",
+  "name" : "Fairway Stores",
+  "identity" : "Fairway Stores",
+  "category" : "Grocery"
+},{
+  "code" : "staterbros",
+  "name" : "Stater Bros",
+  "identity" : "Stater Bros",
+  "category" : "Grocery"
+}  ]
+
+
