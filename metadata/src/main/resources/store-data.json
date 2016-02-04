@@ -589,11 +589,6 @@
   "identity" : "Food Basics",
   "category" : "Grocery"
 }, {
-  "code" : "smartfinal",
-  "name" : "Smart & Final",
-  "identity" : "Smart & Final",
-  "category" : "Grocery"
-}, {
   "code" : "nobhill",
   "name" : "Nob Hill Foods",
   "identity" : "Nob Hill Foods",
