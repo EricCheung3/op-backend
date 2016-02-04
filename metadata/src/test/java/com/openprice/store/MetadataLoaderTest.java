@@ -2,13 +2,77 @@ package com.openprice.store;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.openprice.store.data.StoreChainData;
+
 public class MetadataLoaderTest {
+
+    @Test(expected=Exception.class)
+    public void exceptionThrownIfCodeStartsWithNumber() throws Exception{
+        final StoreChainData ex1=StoreChainData.builder().code("1A").name("1 A").category("afddfa").identity("afd").build();
+        final StoreChainData ex2=StoreChainData.builder().code("A").name("1 A").category("afddfa").identity("afd").build();
+        final StoreChainData[] example=new StoreChainData[]{ex1, ex2};
+        MetadataLoader.validateStoreChainData(example);
+    }
+
+    @Test(expected=Exception.class)
+    public void exceptionThrownIfCodeHasSpaces1() throws Exception{
+        final StoreChainData ex1=StoreChainData.builder().code("1 A").name("1 A").category("afddfa").identity("afd").build();
+        final StoreChainData[] example=new StoreChainData[]{ex1};
+        MetadataLoader.validateStoreChainData(example);
+    }
+
+    @Test(expected=Exception.class)
+    public void exceptionThrownIfCodeHasSpaces2() throws Exception{
+        final StoreChainData ex1=StoreChainData.builder().code(" 1A").name("1 A").category("afddfa").identity("afd").build();
+        final StoreChainData[] example=new StoreChainData[]{ex1};
+        MetadataLoader.validateStoreChainData(example);
+    }
+
+    @Test(expected=Exception.class)
+    public void exceptionThrownIfCodeHasSpaces3() throws Exception{
+        final StoreChainData ex1=StoreChainData.builder().code("1A ").name("1 A").category("afddfa").identity("afd").build();
+        final StoreChainData[] example=new StoreChainData[]{ex1};
+        MetadataLoader.validateStoreChainData(example);
+    }
+
+    @Test(expected=Exception.class)
+    public void exceptionThrownIfCodeIsNotLowerCased() throws Exception{
+        final StoreChainData ex1=StoreChainData.builder().code("1 A").name("1 A").category("afddfa").identity("afd").build();
+        final StoreChainData[] example=new StoreChainData[]{ex1};
+        MetadataLoader.validateStoreChainData(example);
+    }
+
+    @Test(expected=Exception.class)
+    public void exceptionThrownIfCodeRepeats() throws Exception{
+        final StoreChainData ex1=StoreChainData.builder().code("AA").name("A A").category("afddfa").identity("afd").build();
+        final StoreChainData ex2=StoreChainData.builder().code("AA").name("AA").category("afddfa").identity("afd").build();
+        final StoreChainData[] example=new StoreChainData[]{ex1, ex2};
+        MetadataLoader.validateStoreChainData(example);
+    }
+
+    @Test(expected=Exception.class)
+    public void exceptionThrownIfChainRepeats() throws Exception{
+        final StoreChainData ex1=StoreChainData.builder().code("AA").name("A A").category("afddfa").identity("afd").build();
+        final StoreChainData ex1Copy=StoreChainData.builder().code("AA").name("A A").category("afddfa").identity("afd").build();
+        final StoreChainData[] example=new StoreChainData[]{ex1, ex1Copy};
+        MetadataLoader.validateStoreChainData(example);
+    }
+
+    @Test
+    public void validateNoException() throws Exception{
+        final StoreChainData ex1=StoreChainData.builder().code("aa").name("A A").category("afddfa").identity("afd").build();
+        final StoreChainData ex2=StoreChainData.builder().code("bb").name("BB").category("afddfa").identity("afd").build();
+        final StoreChainData[] example=new StoreChainData[]{ex1, ex2};
+        assertTrue(MetadataLoader.validateStoreChainData(example));
+    }
+
     @Test
     public void loadMetadata_ShouldLoadStoreDb() throws Exception {
-        StoreMetadata metadata = MetadataLoader.loadMetadata();
+        final StoreMetadata metadata = MetadataLoader.loadMetadata();
 
         // verify product category
         {

@@ -1,26 +1,32 @@
+#should avoid adding short words
 apparel:lacepencil,sportwear,jean,pant,leathr,
 babyitems:snug nb,kids,snug dry,
 babyfood:gerber,
-bakery:bread,pie,croissant,cake,puffs,muffin,rusks,flouh,pancake,wheatlets,focaccia,
-beverages:juice,bev,tea,soda,aquafina,	
+bakery:bread,pie,croissant,cake,puffs,muffin,rusks,flouh,pancake,wheatlets,focaccia,buns,sndwch,sandwich,cheesecake,grssini,toast
+baking:hot/choc,
+beverages:juice,bev,tea,soda,aquafina,drnk,drink,gingerale,pepsi,coke,	spring water,redbull,tropicana,canada dry ginger,
 canned:crushd
 cereal:cheerios,kshi hny,oats,oatmeal,
-cleaningsupplies:tide,
-dairy:milk,cheese,egg,beatrice,tofu,butter,but,margarine,yogurt,cream,lactantia,
-deli:ham,salmi,smokehouse,
-fruit:banana,pear,apple,avocado,papaya,blueberries,raspberries,pnaple,pineapple,orange,peach,,grape,lemon,longan,strawberries,blubry,blueberry, plum,mango,mandarin,watermelon, seedless, sdls,
+cleaningsupplies:tide,scrubbub,spraynwash
+dairy:milk,cheese,egg,beatrice,tofu,butter,but,margarine,yogurt,cream,lactantia,iogo,armstrng,mozzarella,minigo,naturegg,
+deli:ham,salmi,smokehouse,danone,egg&sausg
+frozen:kellogg eggo,
+fruit:banana,pear,apple,avocado,papaya,blueberries,raspberries,pnaple,pineapple,orange,peach,grape,lemon,longan,strawberries,blubry,blueberry, plum,mango,mandarin,watermelon, seedless, sdls,asparagus,apl rd,rd del,cherries,fuji,rhubarb,pomegranate,melon
 health:skinfix,after bite,acne,
 frozen:dumpling,
 grains:rice,
-home:battery,chair,hanger,spear,bags,scraper,hula hoop,puzzle,tool,ziploc,
-meat:steak,chick,duck,pork,beef,chkn,bonless,lamb,halal,chop,tenderloin,wiener,
+home:battery,chair,hanger,spear,bags,scraper,hula hoop,puzzle,tool,ziploc,cap,
+jams:jam,
+meat:steak,chick,duck,pork,beef,chkn,bonless,lamb,halal,chop,tenderloin,wiener,rib eye,eye stk,outside round,round roast,chckn oven,oven roasted,
 nuts:almond,cashew,nuts,peanut,raisins,chestnuts,
 oil:oil,
 pasta:spaghetti,noodles,rigate,rice stick,lasagn,
-papergoods:magazine,book
+papergoods:magazine,book,paper
+pharmacy:tylenol,
 personalitems:soap,wash,colgt,thpste,pads,flosser,shower,tooth,conditioner,
-seafood:fillets,scallops,fish,tilapia,hairtail,tentacles,catfish,astringent,
-sauces:heinz,hellmans,sauce,ceasar,coleslaw,mustard,
+seafood:salmon,fillets,scallops,fish,tilapia,hairtail,tentacles,catfish,astringent,
+sauces:heinz,hellmans,sauce,ceasar,coleslaw,mustard,salsa,dressing,hollandaise,
+soup:soup
 spices:rosemary,
-snacks:pudding,flakes,chocolate,choc,macaroon,wafer,puffs,crackr,crackers,pocky,trident,crsp,crisp,
-vegetables:spinach,pepper,onion,carrot,taro roots,potato,tomato,bean,broccoli,cilantro,corn,cucumber,dong gua,eggplant,garlic,peas,ginger,root,kale,salad,mushroom,okra,squash,cauliflower,pumpkin,parsley, romaine heart,lettuce, zucchini,herb,sprout,
+snacks:dip,pudding,flakes,chocolate,choc,macaroon,wafer,puffs,crackr,crackers,pocky,trident,crsp,crisp,tostitos,chips,patties
+vegetables:spinach,pepper,pep grn,grn swt,onion,carrot,taro roots,potato,tomato,bean,broccoli,cilantro,corn,cucumber,dong gua,eggplant,garlic,peas,ginger,root,kale,salad,mushroom,okra,squash,cauliflower,pumpkin,parsley, romaine heart,lettuce, zucchini,herb,sprout,radish,parsnips,tom vine,

@@ -77,7 +77,7 @@ public class StringCommonTest {
     public void scoreIs0IfSubStringIsLonger(){
         final String line=" 138         NN PEACH HALVES      HRJ       3. 00";
         final String subString="06038364438 nn peach halves";
-        final double score=StringCommon.bestSliceMatching(line, subString);
+        final double score=StringCommon.matchStringToSubString(line, subString);
         System.out.println("score="+score);
     }
 
@@ -85,7 +85,7 @@ public class StringCommonTest {
     public void bestSliceMatchingTest2(){
         final String line="8.2540144065pepgrnswt4ctmrj2.98";
         final String subString="4065peppergreenswt";
-        final double score=StringCommon.bestSliceMatching(line, subString);
+        final double score=StringCommon.matchStringToSubString(line, subString);
         System.out.println("score="+score);
     }
 

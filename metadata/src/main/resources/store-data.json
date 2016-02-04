@@ -147,12 +147,12 @@
   "code" : "dollartree",
   "name" : "Dollar Tree",
   "identity" : "Dollar Tree",
-  "category" : "Grocery"
+  "category" : "Discount,Grocery"
 }, {
   "code" : "dollarama",
   "name" : "Dollarama",
   "identity" : "Dollarama",
-  "category" : "Grocery"
+  "category" : "Discount, Grocery"
 }, {
   "code" : "esso",
   "name" : "ESSO",
@@ -481,7 +481,7 @@
 }, {
   "code" : "rcss",
   "name" : "Superstore",
-  "identity" : "Superstore,RCSS Superstore",
+  "identity" : "Superstore,RCSS Superstore, ",
   "category" : "Grocery"
 }, {
   "code" : "supplysurgeant",
@@ -573,4 +573,96 @@
   "name" : "Subway",
   "identity" : "Subway",
   "category" : "Restaurant"
-} ]
+}, {
+  "code" : "traderjoes",
+  "name" : "Trader Joe's",
+  "identity" : "Trader Joe's",
+  "category" : "Grocery"
+}, {
+  "code" : "walgreens",
+  "name" : "Walgreens",
+  "identity" : "Walgreens",
+  "category" : "Pharmacy"
+}, {
+  "code" : "foodbasics",
+  "name" : "Food Basics",
+  "identity" : "Food Basics",
+  "category" : "Grocery"
+}, {
+  "code" : "nobhill",
+  "name" : "Nob Hill Foods",
+  "identity" : "Nob Hill Foods",
+  "category" : "Grocery"
+}, {
+  "code" : "smartfinal",
+  "name" : "Smart & Final",
+  "identity" : "Smart & Final",
+  "category" : "Grocery"
+}, {
+  "code" : "wholefoods",
+  "name" : "Whole Foods Market",
+  "identity" : "Whole Foods Market",
+  "category" : "Grocery"
+}, {
+  "code" : "kohls",
+  "name" : "Kohl's",
+  "identity" : "Kohl's",
+  "category" : "Department"
+}, {
+  "code" : "bedbathbeyond",
+  "name" : "Bed Bath & Beyond",
+  "identity" : "Bed Bath & Beyond",
+  "category" : "Home furnishings"
+}, {
+  "code" : "ikea",
+  "name" : "Ikea",
+  "identity" : "Ikea",
+  "category" : "Home furnishings"
+}, {
+  "code" : "rona",
+  "name" : "Rona",
+  "identity" : "Rona",
+  "category" : "Home Improvement"
+},  {
+  "code" : "wegmans",
+  "name" : "Wegmans",
+  "identity" : "Wegmans",
+  "category" : "Grocery"
+}, {
+  "code" : "publix",
+  "name" : "Publix",
+  "identity" : "Publix",
+  "category" : "Grocery"
+}, {
+  "code" : "sproutsfarmersmarket",
+  "name" : "Sprouts Farmers Market",
+  "identity" : "Sprouts Farmers Market",
+  "category" : "Grocery"
+},{
+  "code" : "gianttiger",
+  "name" : "Giant Tiger",
+  "identity" : "Giant Tiger",
+  "category" : "Discount,Grocery"
+},{
+  "code" : "marketbasket",
+  "name" : "Market Basket",
+  "identity" : "Market Basket",
+  "category" : "Grocery"
+},{
+  "code" : "raleys",
+  "name" : "Raley's",
+  "identity" : "Raley's",
+  "category" : "Grocery"
+},{
+  "code" : "fairwaystores",
+  "name" : "Fairway Stores",
+  "identity" : "Fairway Stores",
+  "category" : "Grocery"
+},{
+  "code" : "staterbros",
+  "name" : "Stater Bros",
+  "identity" : "Stater Bros",
+  "category" : "Grocery"
+}  ]
+
+

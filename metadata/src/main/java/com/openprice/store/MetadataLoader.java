@@ -1,6 +1,7 @@
 package com.openprice.store;
 
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -52,20 +53,42 @@ public class MetadataLoader {
         return categoryMapBuilder.build();
     }
 
-    static Map<String, StoreChain> loadStoreChains(final Map<String, ProductCategory> categoryMap) {
+    static Map<String, StoreChain> loadStoreChains(final Map<String, ProductCategory> categoryMap){
         final ImmutableMap.Builder<String, StoreChain> chainMapBuilder = new ImmutableMap.Builder<>();
         final StoreChainData[] storeChains = loadFromJsonResource(STORE_DATA_JSON, StoreChainData[].class);
+        validateStoreChainData(storeChains);
         if (storeChains == null) {
             throw new RuntimeException("No store chain data at "+STORE_DATA_JSON);
         }
-
         for (StoreChainData chain : storeChains) {
             final List<StoreBranch> branches = loadStoreBranches(chain.getCode());
             final Map<String, CatalogProduct> products = loadCatalogProducts(chain.getCode(), categoryMap);
             chainMapBuilder.put(chain.getCode(), new StoreChain(chain, branches, products));
         }
-
         return chainMapBuilder.build();
+    }
+
+    /**
+     * validate store chains are well-formatted and nonRepeating, etc. see
+     * https://github.com/opgt/op-backend/wiki/Store-Meta-data:-store-date.json
+     */
+    static boolean validateStoreChainDataList(final List<StoreChainData> data){
+        final Set<String> codeSet=new HashSet<String>();
+        for(StoreChainData chain:data){
+            if(chain.getCode().contains("\\s+"))
+                throw new RuntimeException("chain "+chain+"'s code should not contain spaces:"+chain.getCode());
+            if(!chain.getCode().toLowerCase().equals(chain.getCode()))
+                throw new RuntimeException("chain "+chain+"'s code is not lowercased:"+chain.getCode());
+            if(Character.isDigit(chain.getCode().charAt(0)))
+                throw new RuntimeException("chain "+chain+"'s code should not starts with a digit:"+chain.getCode());
+            if(codeSet.contains(chain.getCode()))
+                throw new RuntimeException("repeating code. either a repeating chain or this chain's code has been used already:"+chain.getCode());
+            codeSet.add(chain.getCode());
+        }
+        return true;
+    }
+    public static boolean validateStoreChainData(final StoreChainData[] data) {
+        return validateStoreChainDataList(Arrays.asList(data));
     }
 
     static List<StoreBranch> loadStoreBranches(final String chainCode) {
@@ -74,7 +97,7 @@ public class MetadataLoader {
         final StoreBranchData[] storeBranches = loadFromJsonResource(branchFileName, StoreBranchData[].class);
         if (storeBranches != null) {
             for(final StoreBranchData branch : storeBranches) {
-                // any validation???
+                //TODO any validation???
                 branchListBuilder.add(new StoreBranch(branch));
             }
         }
