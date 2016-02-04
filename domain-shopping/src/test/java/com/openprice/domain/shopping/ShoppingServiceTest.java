@@ -123,7 +123,7 @@ public class ShoppingServiceTest {
         assertEquals(TEST_CATALOG_CODE, result.getCatalogCode());
         assertEquals(TEST_ITEM_NAME, result.getName());
         assertEquals(1, result.getNumber());
-        assertEquals(TEST_CATALOG_CODE, result.getCatalogCode());
+        assertEquals("dairy", result.getCategoryCode());
         verify(shoppingItemRepositoryMock, times(1)).findByStoreAndCatalogCode(eq(store), eq(TEST_CATALOG_CODE));
         verify(shoppingItemRepositoryMock, times(1)).save(isA(ShoppingItem.class));
         verify(storeMetadataMock, times(1)).getStoreChainByCode(eq(TEST_CHAIN_CODE));
