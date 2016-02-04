@@ -7,12 +7,10 @@ import java.util.Map;
 import com.openprice.store.data.StoreChainData;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 @AllArgsConstructor
 public class StoreChain {
 
-    @Getter
     private final StoreChainData storeChainData;
 
     private final List<StoreBranch> branches;
