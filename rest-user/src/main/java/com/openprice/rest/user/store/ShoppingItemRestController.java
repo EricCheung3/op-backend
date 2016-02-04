@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openprice.domain.account.user.UserAccountService;
-import com.openprice.domain.product.ProductCategory;
 import com.openprice.domain.shopping.ShoppingItem;
 import com.openprice.domain.shopping.ShoppingItemRepository;
 import com.openprice.domain.shopping.ShoppingService;
@@ -30,6 +29,8 @@ import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.domain.shopping.ShoppingStoreRepository;
 import com.openprice.rest.InvalidInputException;
 import com.openprice.rest.ResourceNotFoundException;
+import com.openprice.store.ProductCategory;
+import com.openprice.store.StoreMetadata;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,16 +42,19 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ShoppingItemRestController extends AbstractUserStoreRestController {
 
+    private final StoreMetadata storeMetadata;
     private final ShoppingItemRepository shoppingItemRepository;
     private final ShoppingItemResource.Assembler shoppingItemResourceAssembler;
 
     @Inject
     public ShoppingItemRestController(final UserAccountService userAccountService,
                                       final ShoppingService shoppingService,
+                                      final StoreMetadata storeMetadata,
                                       final ShoppingStoreRepository shoppingStoreRepository,
                                       final ShoppingItemRepository shoppingItemRepository,
                                       final ShoppingItemResource.Assembler shoppingItemResourceAssembler) {
         super(userAccountService, shoppingService, shoppingStoreRepository);
+        this.storeMetadata = storeMetadata;
         this.shoppingItemRepository = shoppingItemRepository;
         this.shoppingItemResourceAssembler = shoppingItemResourceAssembler;
     }
@@ -125,10 +129,9 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
     private void updateShoppingItem(final String storeId, final String itemId, final UpdateShoppingItemForm form) {
         final ShoppingItem item = getShoppingItemByIdAndCheckStore(storeId, itemId);
 
-        // FIXME change to use metadata
-        final ProductCategory productCategory = ProductCategory.findByCode(form.getCategoryCode());
+        final ProductCategory productCategory = storeMetadata.getProductCategoryByCode(form.getCategoryCode());
         if (productCategory == null) {
-            log.warn("Update Shopping Item with invalid ProductCategory '{}'.", form.getCategoryCode());
+            log.warn("Update Shopping Item with invalid categoryCode '{}'.", form.getCategoryCode());
             throw new InvalidInputException("Invalid Product Category code: " + form.getCategoryCode());
         }
 
