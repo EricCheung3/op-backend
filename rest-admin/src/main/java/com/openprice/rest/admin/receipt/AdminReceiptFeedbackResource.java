@@ -26,7 +26,7 @@ public class AdminReceiptFeedbackResource extends Resource<ReceiptFeedback>{
                                     "feedbackId", feedback.getId()};
 
             final LinkBuilder linkbuilder = new LinkBuilder(resource);
-            linkbuilder.addLink(Link.REL_SELF, URL_ADMIN_RECEIPTS_RECEIPT_FEEDBACKS_FEEDBACK, true, pairs)
+            linkbuilder.addLink(Link.REL_SELF, URL_ADMIN_RECEIPTS_RECEIPT_FEEDBACKS_FEEDBACK, false, pairs)
                        .addLink("receipt", URL_ADMIN_RECEIPTS_RECEIPT, false, pairs)
                        ;
             

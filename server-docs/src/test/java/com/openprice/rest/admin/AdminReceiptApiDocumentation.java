@@ -50,7 +50,9 @@ public class AdminReceiptApiDocumentation extends AdminApiDocumentationBase {
                 linkWithRel("images").description("<<resources-admin-receipt-images, Link>> to receipt images"),
                 linkWithRel("image").description("<<resources-admin-receipt-image, Link>> to receipt image"),
                 linkWithRel("results").description("<<resources-admin-receipt-results, Link>> to receipt results"),
-                linkWithRel("result").description("<<resources-admin-receipt-result, Link>> to receipt result")
+                linkWithRel("result").description("<<resources-admin-receipt-result, Link>> to receipt result"),
+                linkWithRel("feedbacks").description("<<resources-admin-receipt-feedbacks, Link>> to receipt feedbacks"),
+                linkWithRel("feedback").description("<<resources-admin-receipt-feedback, Link>> to receipt feedback")
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),

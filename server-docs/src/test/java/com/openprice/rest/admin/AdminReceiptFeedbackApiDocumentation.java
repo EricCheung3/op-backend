@@ -32,7 +32,7 @@ public class AdminReceiptFeedbackApiDocumentation extends AdminApiDocumentationB
                 linkWithRel("self").description("The self link")
             ),
             responseFields(
-                fieldWithPath("_embedded.receiptFeedbacks").description("An array of <<resources-admin-receipt-feedbacks, Admin Receipt feedback resources>>"),
+                fieldWithPath("_embedded.receiptFeedbacks").description("An array of <<resources-admin-receipt-feedback, Admin Receipt feedback resources>>"),
                 fieldWithPath("page").description("Pagination data"),
                 fieldWithPath("_links").description("<<resources-admin-receipt-feedback-links,Links>> to other resources")
             )
@@ -54,7 +54,7 @@ public class AdminReceiptFeedbackApiDocumentation extends AdminApiDocumentationB
                 fieldWithPath("id").description("Primary ID"),
                 fieldWithPath("rating").description("Receipt rating"),
                 fieldWithPath("comment").description("Receipt comment"),
-                fieldWithPath("_link").description("<<resources-admin-receipt-feedback-retrieve-links,Links>> to other resources")
+                fieldWithPath("_links").description("<<resources-admin-receipt-feedback-retrieve-links,Links>> to other resources")
                 
             )
         ));
@@ -81,19 +81,30 @@ public class AdminReceiptFeedbackApiDocumentation extends AdminApiDocumentationB
 
     @After
     public void teardown() throws Exception {
+        deleteReceipts();
         deleteTestAdmin();
         deleteTestUser();
-        deleteReceipts();
     }
     
-    private String getReceiptFeedbacksUrl() throws Exception {
+    private String getReceiptsUrl() throws Exception {
         final String responseContent =
             mockMvc
             .perform(get(adminUrl()).with(user(ADMINNAME)))
             .andExpect(status().isOk())
             .andReturn().getResponse()
             .getContentAsString();
-        final String feedbacksLink = JsonPath.read(responseContent, "_links.feedbacks.href");
+        final String receiptsLink = JsonPath.read(responseContent, "_links.receipts.href");
+        return UriTemplate.fromTemplate(receiptsLink).set("page", null).set("size", null).set("sort", null).expand();
+    }
+    
+    private String getReceiptFeedbacksUrl() throws Exception {
+        final String responseContent =
+            mockMvc
+            .perform(get(getReceiptsUrl()).with(user(ADMINNAME)))
+            .andExpect(status().isOk())
+            .andReturn().getResponse()
+            .getContentAsString();
+        final String feedbacksLink = JsonPath.read(responseContent, "_embedded.receipts[0]._links.feedbacks.href");
         return UriTemplate.fromTemplate(feedbacksLink).set("page", null).set("size", null).set("sort", null).expand();
     }
     
@@ -104,6 +115,7 @@ public class AdminReceiptFeedbackApiDocumentation extends AdminApiDocumentationB
             .andExpect(status().isOk())
             .andReturn().getResponse()
             .getContentAsString();
+//        System.out.println(responseContent);
         return JsonPath.read(responseContent, "_embedded.receiptFeedbacks[0]._links.self.href");
     }
 }
