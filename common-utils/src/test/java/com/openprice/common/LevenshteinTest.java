@@ -15,17 +15,43 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LevenshteinTest{
 
-    @Test(expected=Exception.class)
-    public void mostSimilarInSetTestNoSuchElementException() throws Exception{
+    @Test(expected=IllegalArgumentException.class)
+    public void mostSimilarInSetTwoWayTestException() throws Exception{
         Set<String> set= new HashSet<String>();
-        Levenshtein.mostSimilarInSet("ABC", set);
+        Levenshtein.mostSimilarInSetTwoWay("ABC", set);
+    }
+    @Test(expected=IllegalArgumentException.class)
+    public void mostSimilarInSetOneWayTestException() throws Exception{
+        Set<String> set= new HashSet<String>();
+        Levenshtein.mostSimilarInSetOneWay("ABC", set);
+    }
+    @Test(expected=IllegalArgumentException.class)
+    public void mostSimilarInSetLevenshteinTestException() throws Exception{
+        Set<String> set= new HashSet<String>();
+        Levenshtein.mostSimilarInSetLevenshtein("ABC", set);
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void mostSimilarInSetScoreTwoWayTestException() throws Exception{
+        Set<String> set= new HashSet<String>();
+        Levenshtein.mostSimilarScoreInSetTwoWay("ABC", set);
+    }
+    @Test(expected=IllegalArgumentException.class)
+    public void mostSimilarScoreInSetOneWayTestException() throws Exception{
+        Set<String> set= new HashSet<String>();
+        Levenshtein.mostSimilarScoreInSetOneWay("ABC", set);
+    }
+    @Test(expected=IllegalArgumentException.class)
+    public void mostSimilarScoreInSetLevenshteinTestException() throws Exception{
+        Set<String> set= new HashSet<String>();
+        Levenshtein.mostSimilarScoreInSetLevenshtein("ABC", set);
     }
 
     @Test
     public void mostSimilarInSetTestFindItself() throws Exception{
         Set<String> set= new HashSet<String>();
         set.add("ABC");
-        assertEquals("ABC", Levenshtein.mostSimilarInSet("ABC", set));
+        assertEquals("ABC", Levenshtein.mostSimilarInSetTwoWay("ABC", set));
     }
 
     //TODO: find longer one?
@@ -42,7 +68,7 @@ public class LevenshteinTest{
         Set<String> set= new HashSet<String>();
         set.add("A");
         set.add("D");
-        assertEquals("A", Levenshtein.mostSimilarInSet("ABC", set));
+        assertEquals("A", Levenshtein.mostSimilarInSetTwoWay("ABC", set));
     }
 
     @Test
