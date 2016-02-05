@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.openprice.parser.ChainRegistry;
+import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.ReceiptFieldType;
@@ -17,7 +18,6 @@ import com.openprice.parser.StoreParser;
 import com.openprice.parser.StoreParserSelector;
 import com.openprice.parser.common.DateParserUtils;
 import com.openprice.parser.common.ListCommon;
-import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.generic.CheapParser;
 import com.openprice.parser.generic.GenericChains;
@@ -91,12 +91,12 @@ public class SimpleParser {
         }
 
         // parse items
-        List<Item> items = parseItem(matchedRecord, receipt, parser);
+        List<ParsedItem> items = parseItem(matchedRecord, receipt, parser);
 
         return ParsedReceiptImpl.fromChainItemsMapBranch(chain, items, matchedRecord.getFieldToValueLine(), branch);
     }
 
-    public static List<Item> parseItem(
+    public static List<ParsedItem> parseItem(
             final MatchedRecord matchedRecord,
             final ReceiptData receipt,
             final StoreParser parser) throws Exception {
@@ -112,8 +112,8 @@ public class SimpleParser {
                                         parser.getStoreConfig().similarityThresholdOfTwoStrings()))
                        .map( line -> parser.parseItemLine(line.getCleanText()))
                        .filter( item -> item != null &&
-                                        !item.getProduct().getName().isEmpty() &&
-                                        !parser.getStoreConfig().getCatalogFilter().matchesBlackList(item.getProduct().getName())
+                                        !item.getParsedName().isEmpty() &&
+                                        !parser.getStoreConfig().getCatalogFilter().matchesBlackList(item.getParsedName())
                         )
                        .collect(Collectors.toList());
         // TODO stop if match skipAfter strings
