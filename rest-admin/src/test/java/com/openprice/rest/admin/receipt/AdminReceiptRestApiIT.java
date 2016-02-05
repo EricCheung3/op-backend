@@ -51,7 +51,7 @@ public class AdminReceiptRestApiIT extends AbstractAdminReceiptRestApiIntegratio
             .when()
                 .get(receiptUrl(sessionFilter, "receipt001"))
             ;
-//        response.prettyPrint();
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
@@ -64,7 +64,6 @@ public class AdminReceiptRestApiIT extends AbstractAdminReceiptRestApiIntegratio
             .body("_links.feedbacks.href", endsWith(URL_ADMIN_RECEIPTS + "/receipt001/feedbacks" + UtilConstants.PAGINATION_TEMPLATES))
             .body("_links.feedback.href", endsWith(URL_ADMIN_RECEIPTS + "/receipt001/feedbacks/{feedbackId}"))
         ;
-        //TODO test images, feedback
     }
 
     @Test
