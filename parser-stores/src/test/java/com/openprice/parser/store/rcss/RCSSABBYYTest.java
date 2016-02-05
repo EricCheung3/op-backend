@@ -15,7 +15,7 @@ import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedField;
 import com.openprice.parser.ParsedItem;
-import com.openprice.parser.ParsedReceiptImpl;
+import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
@@ -28,7 +28,7 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
     public void testRCSS_2015_02_01_14_17_01TheCommentedItemsAreAllGone() throws Exception {
         final String ocrResult = TextResourceUtils.loadTextResource(sampleRCSS_2015_11_11_calgarytrail);
 
-        ParsedReceiptImpl receipt = simpleParser.parseOCRResults(java.util.Arrays.asList(ocrResult));
+        ParsedReceipt receipt = simpleParser.parseReceiptOcrResult(java.util.Arrays.asList(ocrResult));
         printResult(receipt);
 
         // verify result of items

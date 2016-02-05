@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedItem;
-import com.openprice.parser.ParsedReceiptImpl;
+import com.openprice.parser.ParsedReceipt;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {StoreParserTestApplication.class})
@@ -34,7 +34,7 @@ public class CheapParserTest {
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         assertTrue(receipt.getItems().size() > 0);
         System.out.println("Items parsed:");
         for (ParsedItem item : receipt.getItems()) {

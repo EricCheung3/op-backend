@@ -126,6 +126,7 @@ public class ReceiptParsingServiceTest {
         verify(receiptRepositoryMock, times(1)).save(isA(Receipt.class));
     }
 
+//TODO not passed.
 //    @Test
 //    public void parseScannedReceiptImages_ShouldSetReceiptToHasResult_IfScannedImagesCanParse() throws Exception {
 //        final List<ParsedItem> items = new ArrayList<>();
@@ -178,7 +179,7 @@ public class ReceiptParsingServiceTest {
         when(receiptImageRepositoryMock.countByReceiptAndStatus(eq(receipt), eq(ProcessStatusType.UPLOADED))).thenReturn(0l);
         when(receiptImageRepositoryMock.findByReceiptAndStatusOrderByCreatedTime(eq(receipt), eq(ProcessStatusType.SCANNED)))
             .thenReturn(Arrays.asList(image1, image2, image3));
-        when(simpleParserMock.parseOCRResults(anyObject())).thenReturn(null);
+        when(simpleParserMock.parseReceiptOcrResult(anyObject())).thenReturn(null);
         when(receiptRepositoryMock.save(isA(Receipt.class))).thenAnswer(new Answer<Receipt>() {
             @Override
             public Receipt answer(InvocationOnMock invocation) throws Throwable {

@@ -36,7 +36,7 @@ public class ReceiptData {
     public static ReceiptData fromContentLines(final List<String> lines) throws Exception {
         ReceiptData f = new ReceiptData(lines);
         if (lines.size() < MIN_NUMBER_LINES) {
-            throw new RuntimeException("Receipt is too short, only has " + lines.size() + " lines.");
+            throw new Exception("Receipt is too short, only has " + lines.size() + " lines.");
         }
         return f;
     }

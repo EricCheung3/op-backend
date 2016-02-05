@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedField;
 import com.openprice.parser.ParsedItem;
-import com.openprice.parser.ParsedReceiptImpl;
+import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
@@ -34,7 +34,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         //printResult(receipt);
 
         // verify result of items
@@ -72,7 +72,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         printResult(receipt);
 
         // verify result of items
@@ -105,7 +105,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         //printResult(receipt);
 
         // verify result of items
@@ -147,7 +147,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         final List<String> receiptLines = new ArrayList<>();
         TextResourceUtils.loadFromTextResource(sampleRCSS_2015_07_21_10_50_33, (line)-> receiptLines.add(line));
         assertTrue(receiptLines.size() > 0);
-        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         printResult(receipt);
 
         final Iterator<ParsedItem> iterator=receipt.getItems().iterator();

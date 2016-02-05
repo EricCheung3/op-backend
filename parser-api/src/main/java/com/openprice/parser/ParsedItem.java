@@ -8,6 +8,7 @@ public interface ParsedItem {
     /**
      * Product item name the parser found out. Must not be empty.
      *
+     *
      * @return
      */
     String getParsedName();
@@ -29,6 +30,7 @@ public interface ParsedItem {
     /**
      * Line number for this item in the original receipt OCR result text.
      * If multiple lines, return the first line number.
+     * -1 if not found
      *
      * @return
      */

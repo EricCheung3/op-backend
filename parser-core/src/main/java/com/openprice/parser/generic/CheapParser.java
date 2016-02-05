@@ -8,7 +8,6 @@ import com.openprice.common.StringCommon;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.StoreBranch;
 import com.openprice.parser.StoreChain;
 import com.openprice.parser.data.ParsedItemImpl;
 import com.openprice.parser.data.ValueLine;
@@ -45,7 +44,7 @@ public class CheapParser {
                 StoreChain.genericStoreChain(StringCommon.EMPTY),
                 items,
                 new HashMap<ReceiptFieldType, ValueLine>(),
-                StoreBranch.EmptyStoreBranch());
+                StringCommon.EMPTY);
     }
 
     public static boolean isItem(final String name) {

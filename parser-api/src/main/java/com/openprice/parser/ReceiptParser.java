@@ -13,5 +13,5 @@ public interface ReceiptParser {
      * @param ocrTextList list of strings from OCR result text.
      * @return null if ocrTextList is null or it has less than 5 lines of string.
      */
-    ParsedReceipt parseReceiptOcrResult(List<String> ocrTextList);
+    ParsedReceipt parseReceiptOcrResult(final List<String> ocrTextList);
 }

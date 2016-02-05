@@ -4,9 +4,6 @@ import com.openprice.common.StringCommon;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.price.ProductPrice;
 
-import lombok.Data;
-
-@Data
 public class ParsedItemImpl implements ParsedItem{
 
     private final String parsedName;
@@ -41,17 +38,40 @@ public class ParsedItemImpl implements ParsedItem{
         return fromNameOnly(StringCommon.EMPTY);
     }
 
-    //TODO linenumber?
-    public static ParsedItemImpl fromProductPrice(final ProductPrice pPrice){
+    public static ParsedItemImpl fromProductPriceLineNumber(final ProductPrice pPrice, final int lineNumber){
         return new ParsedItemImpl(
-                pPrice.getName(),
-                pPrice.getPrice(),
-                pPrice.toCatalogCode(),
-                -1);
+                    pPrice.getName(),
+                    pPrice.getPrice(),
+                    pPrice.toCatalogCode(),
+                    lineNumber);
     }
 
-//    @Override
-//    public String getCatalogCode(){
-//        return "";
-//    }
+    @Override
+    public String getParsedName() {
+        if(parsedName==null || parsedName.isEmpty())
+            return null;
+        return parsedName;
+    }
+
+    @Override
+    public String getParsedBuyPrice() {
+        if(parsedBuyPrice==null || parsedBuyPrice.isEmpty())
+            return null;
+        return parsedBuyPrice;
+    }
+
+    @Override
+    public String getCatalogCode() {
+        if(catalogCode==null || catalogCode.isEmpty())
+            return null;
+        return catalogCode;
+    }
+
+    @Override
+    public int getLineNumber() {
+        if(lineNumber<0)
+            return -1;
+        return lineNumber;
+    }
+
 }

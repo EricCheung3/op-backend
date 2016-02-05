@@ -6,12 +6,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 
+import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.StoreBranch;
 import com.openprice.parser.StoreChain;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
@@ -20,13 +20,13 @@ import com.openprice.parser.data.Product;
 import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.parser.simple.MatchedRecord;
-import com.openprice.parser.simple.SimpleParser;
+import com.openprice.parser.simple.SimpleParserUtils;
 import com.openprice.parser.store.AbstractStoreParser;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class GenericParser extends AbstractStoreParser {
+public class GenericParser extends AbstractStoreParser{
 
     public GenericParser(final StoreConfig config,
             final PriceParserWithCatalog priceParserWithCatalog) {
@@ -79,10 +79,10 @@ public class GenericParser extends AbstractStoreParser {
         }
 
         // parse items
-        List<ParsedItem> items = SimpleParser.parseItem(matchedRecord, receipt, generic);
-
-        return ParsedReceiptImpl.fromChainItemsMapBranch(genericChain, items, matchedRecord.getFieldToValueLine(), StoreBranch.EmptyStoreBranch());
+        List<ParsedItem> items = SimpleParserUtils.parseItems(matchedRecord, receipt, generic);
+        return ParsedReceiptImpl.fromChainItemsMapBranch(genericChain, items, matchedRecord.getFieldToValueLine(), StringCommon.EMPTY);
     }
+
 
 
 }

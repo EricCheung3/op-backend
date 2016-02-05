@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedField;
 import com.openprice.parser.ParsedItem;
-import com.openprice.parser.ParsedReceiptImpl;
+import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
@@ -34,7 +34,7 @@ public class RCSSSouthCommonReceiptTest extends AbstractReceiptParserIntegration
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         //printResult(receipt);
 
         // verify result of items
@@ -77,7 +77,7 @@ public class RCSSSouthCommonReceiptTest extends AbstractReceiptParserIntegration
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         //printResult(receipt);
 
         // verify result of items

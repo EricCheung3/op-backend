@@ -1,5 +1,6 @@
 package com.openprice.parser;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -11,26 +12,23 @@ public class ParsedReceiptImpl implements ParsedReceipt{
     final StoreChain chain;
     final List<ParsedItem> items;
     final Map<ReceiptFieldType, ValueLine> fieldToValueMap;
+    final String branchName;
 
-    StoreBranch branch=StoreBranch.EmptyStoreBranch();
-
-    private ParsedReceiptImpl(final StoreChain chain, final List<ParsedItem> items, final  Map<ReceiptFieldType, ValueLine> map){
+    private ParsedReceiptImpl(final StoreChain chain, final List<ParsedItem> items, final  Map<ReceiptFieldType, ValueLine> map, final String branchName){
         this.chain=chain;
         this.items=items;
         this.fieldToValueMap=map;
+        this.branchName=branchName;
     }
 
-    private ParsedReceiptImpl(final StoreChain chain, final List<ParsedItem> items, final  Map<ReceiptFieldType, ValueLine> map, final StoreBranch branch){
-        this(chain, items, map);
-        this.branch=branch;
-    }
-
-    public static ParsedReceiptImpl fromChainItemsMapBranch(final StoreChain chain, final List<ParsedItem> items, final  Map<ReceiptFieldType, ValueLine> map, final StoreBranch branch){
+    public static ParsedReceiptImpl fromChainItemsMapBranch(final StoreChain chain, final List<ParsedItem> items, final  Map<ReceiptFieldType, ValueLine> map, final String branch){
         return new ParsedReceiptImpl(chain, items, map, branch);
     }
 
     @Override
     public String getChainCode() {
+        if(chain.getCode()==null || chain.getCode().isEmpty())
+            return null;
         return chain.getCode();
     }
 
@@ -49,11 +47,13 @@ public class ParsedReceiptImpl implements ParsedReceipt{
 
     @Override
     public List<ParsedItem> getItems() {
+        if(items==null)
+            return new ArrayList<ParsedItem>();
         return items;
     }
 
     @Override
     public String getBranchName() {
-        return branch.getBranchName();
+        return branchName;
     }
 }

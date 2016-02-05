@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 
 import com.openprice.parser.ParsedItem;
-import com.openprice.parser.ParsedReceiptImpl;
+import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.simple.SimpleParser;
 
@@ -22,7 +22,7 @@ public class AbstractReceiptParserIntegrationTest {
         assertEquals(catalogCode, item.getCatalogCode());
     }
 
-    protected void printResult(ParsedReceiptImpl receipt) {
+    protected void printResult(ParsedReceipt receipt) {
         for (ParsedItem item : receipt.getItems()) {
             System.out.println("verifyItemParsedValue(iterator.next(), \""+item.getParsedName() + "\", \""+
                     item.getParsedBuyPrice()+ "\", \""+ item.getCatalogCode() + "\");");

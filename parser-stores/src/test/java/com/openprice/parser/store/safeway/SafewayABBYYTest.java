@@ -20,7 +20,7 @@ import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedField;
 import com.openprice.parser.ParsedItem;
-import com.openprice.parser.ParsedReceiptImpl;
+import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.simple.SimpleParser;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
@@ -40,7 +40,7 @@ public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         printResult(receipt);
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
@@ -69,7 +69,7 @@ public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
         final List<String> receiptLines = new ArrayList<>();
         TextResourceUtils.loadFromTextResource(receiptWithNoDateHeader, (line)-> receiptLines.add(line));
         assertTrue(receiptLines.size() > 0);
-        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         assertEquals("2015/2/27", receipt.getFields().get(ReceiptFieldType.Date).getFieldValue());
     }
 
