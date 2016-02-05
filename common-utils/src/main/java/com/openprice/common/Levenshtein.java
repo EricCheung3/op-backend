@@ -12,21 +12,56 @@ import java.util.Set;
  */
 public class Levenshtein
 {
-    //TODO: if no value is present, an exception will be thrown, is this what you want?
-    public static String mostSimilarInSet(final String key, final Set<String> set) {
-        return set.stream()
-                  .reduce( (p1,p2) ->
-            (Levenshtein.compare(StringCommon.removeAllSpaces(p1), StringCommon.removeAllSpaces(key)) >
-             Levenshtein.compare(StringCommon.removeAllSpaces(p2), StringCommon.removeAllSpaces(key))) ? p1:p2 )
-                  .get();
+    public static String mostSimilarInSetLevenshtein(final String key, final Set<String> set)
+            throws IllegalArgumentException{
+        if(set.size()==0) throw new IllegalArgumentException("set.size should not be 0.");
+        return set.stream().reduce((p1,p2) ->
+            Levenshtein.compare(StringCommon.removeAllSpaces(p1), StringCommon.removeAllSpaces(key)) >
+            Levenshtein.compare(StringCommon.removeAllSpaces(p2), StringCommon.removeAllSpaces(key)) ? p1:p2).get();
+  }
+
+    public static String mostSimilarInSetOneWay(final String key, final Set<String> set) throws IllegalArgumentException{
+        if(set.size()==0) throw new IllegalArgumentException("set.size should not be 0.");
+        return set.stream().reduce((p1,p2) ->
+            StringCommon.matchStringToSubString(key, p1) > StringCommon.matchStringToSubString(key, p2) ? p1:p2).get();
+  }
+
+    public static String mostSimilarInSetTwoWay(final String key, final Set<String> set) throws IllegalArgumentException{
+        if(set.size()==0) throw new IllegalArgumentException("set.size should not be 0.");
+        return set.stream().reduce((p1,p2) ->
+            StringCommon.matchStringToSubStringTwoWay(key, p1) >
+            StringCommon.matchStringToSubStringTwoWay(key, p2) ? p1:p2).get();
     }
 
-    public static double mostSimilarScoreInSet(final String key, final Set<String> set) {
-         Optional<Double> maxDouble =
-             set.stream()
-                .map(str -> Levenshtein.compare(StringCommon.removeAllSpaces(str),
-                                                StringCommon.removeAllSpaces(key)))
-                .max(Comparator.comparing(d->d));
+    public static double mostSimilarScoreInSetTwoWay(final String key, final Set<String> set) throws IllegalArgumentException{
+        if(set.size()==0) throw new IllegalArgumentException("set.size should not be 0.");
+        Optional<Double> maxDouble=set
+               .stream()
+               .map(str -> StringCommon.matchStringToSubStringTwoWay(key,str))
+               .max(Comparator.comparing(d->d));
+         if(maxDouble.isPresent())
+              return  maxDouble.get();
+         return 0.0;
+    }
+
+    public static double mostSimilarScoreInSetOneWay(final String key, final Set<String> set) throws IllegalArgumentException{
+        if(set.size()==0) throw new IllegalArgumentException("set.size should not be 0.");
+        Optional<Double> maxDouble=set
+               .stream()
+               .map(str -> StringCommon.matchStringToSubString(key,str))
+               .max(Comparator.comparing(d->d));
+         if(maxDouble.isPresent())
+              return  maxDouble.get();
+         return 0.0;
+    }
+
+    public static double mostSimilarScoreInSetLevenshtein(final String key, final Set<String> set) throws IllegalArgumentException{
+        if(set.size()==0) throw new IllegalArgumentException("set.size should not be 0.");
+        Optional<Double> maxDouble=set
+               .stream()
+               .map(str -> Levenshtein.compare(StringCommon.removeAllSpaces(str),
+                                               StringCommon.removeAllSpaces(key)))
+               .max(Comparator.comparing(d->d));
          if(maxDouble.isPresent())
               return  maxDouble.get();
          return 0.0;

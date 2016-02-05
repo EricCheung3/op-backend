@@ -62,15 +62,15 @@ public class StringCommon {
     // Untested
 
     /**
-     * it is assumed that line is always longer than subStr
+     * Note it is assumed that line is always longer than subStr
      *
      * @param line
      * @param subStr
-     *            a address field value like "4821" which is line1 value in
+     *            an address field value like "4821" which is line1 value in
      *            address;
      * @return
      */
-    public static double bestSliceMatching(String line, String subStr) {
+    public static double matchStringToSubString(String line, String subStr) {
         line = removeAllSpaces(line).toLowerCase();
         subStr = removeAllSpaces(subStr).toLowerCase();
         if (line.isEmpty() || subStr.isEmpty() || line.length() < subStr.length()) {
@@ -88,9 +88,15 @@ public class StringCommon {
         return scoreMax;
     }
 
+    //two-way. symmetric
+    public static double matchStringToSubStringTwoWay(final String str1, final String str2){
+        return Math.max(matchStringToSubString(str1, str2),
+                        matchStringToSubString(str2, str1));
+    }
+
     // penalized if both of line and subStr contains lots of numbers
     public static double bestSliceMatchingWithNumberPenalized(String line, String subStr) {
-        return bestSliceMatching(line, subStr) * numberRatio(line, subStr);
+        return matchStringToSubString(line, subStr) * numberRatio(line, subStr);
     }
 
     // only

@@ -95,7 +95,7 @@ public class ShoppingStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
         ;
     }
 
-    //@Test
+    @Test
     public void searchCatalogsForStoreChain_ShouldReturnMatchingCatalogFromRcss() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
         final Response response =
@@ -109,14 +109,12 @@ public class ShoppingStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
         .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
-            .body("[0].id", equalTo("store001cat002"))
-            .body("[0].catalogCode", equalTo("EGG_1235"))
-            .body("[0].categoryCode", equalTo("meat"))
+            .body("[0].categoryCode", equalTo("dairy"))
         ;
 
     }
 
-    //@Test
+    @Test
     public void searchCatalogsForStoreChain_ShouldReturnEmpty_IfQueryEmpty() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
         final Response response =

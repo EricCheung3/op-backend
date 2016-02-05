@@ -8,9 +8,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.openprice.common.Levenshtein;
+import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.common.ConversionCommon;
-import com.openprice.parser.generic.StringDouble;
+import com.openprice.parser.price.ThreeStrings;
 import com.openprice.predictor.CategoryPredictor;
 
 import lombok.Getter;
@@ -32,7 +33,8 @@ public class SimpleCategoryPredictor implements CategoryPredictor {
     private final Map<String, Set<String>> categoryToNames;
 
     public static SimpleCategoryPredictor fromConfig(){
-        final List<String> lines=TextResourceUtils.loadStringArray(CATEGORY_CLASSES_FILE);
+        final List<String> lines=ConversionCommon
+                .removeEmptyLinesCommentLines(TextResourceUtils.loadStringArray(CATEGORY_CLASSES_FILE), "#");
 
         //verify the categories are the same as icon names.
         final Set<String> allCategories=ConversionCommon
@@ -73,16 +75,36 @@ public class SimpleCategoryPredictor implements CategoryPredictor {
         );
     }
 
-    @Override
-    public String mostMatchingCategory(String queryName) {
+    public ThreeStrings mostMatchingCategoryReturnThree(String queryName) {
         return categoryToNames
                 .entrySet()
                 .stream()
                 .map(e->{
-                    final double score = Levenshtein.mostSimilarScoreInSet(queryName, e.getValue());
-                    return new StringDouble(e.getKey(), score);})
-                .reduce((p1,p2) -> p1.getValue()>p2.getValue()? p1:p2)
-                .get().getStr();
+                    final double score = Levenshtein.mostSimilarScoreInSetTwoWay(queryName, e.getValue());
+                    final String matchedName = Levenshtein.mostSimilarInSetTwoWay(queryName, e.getValue());
+                    return new ThreeStrings(e.getKey(), matchedName, score+StringCommon.EMPTY);})
+                .reduce((p1,p2) -> {
+                    if(Double.valueOf(p1.getThird()) > Double.valueOf(p2.getThird())) return p1;
+                    if(Double.valueOf(p2.getThird()) > Double.valueOf(p1.getThird())) return p2;
+                    final String s1=StringCommon.removeAllSpaces(p1.getSecond());
+                    final String s2=StringCommon.removeAllSpaces(p2.getSecond());
+                    final String q=StringCommon.removeAllSpaces(queryName);
+
+                    //tie breaking
+                    if(q.length()==s1.length()) return p1;
+                    if(q.length()==s2.length()) return p2;
+                    if(q.length()>s1.length() && q.length()>s2.length())
+                        return s1.length()>s2.length()?p1:p2;
+                    if(q.length()<s1.length() && q.length()<s2.length())
+                        return s1.length()<s2.length()?p1:p2;
+                    return s1.length()>s2.length()?p1:p2;//prefer longer one is assumed to be more likely to be correct
+                })
+                .get();
+    }
+
+    @Override
+    public String mostMatchingCategory(String queryName) {
+       return mostMatchingCategoryReturnThree(queryName).getFirst();
     }
 
     @Override

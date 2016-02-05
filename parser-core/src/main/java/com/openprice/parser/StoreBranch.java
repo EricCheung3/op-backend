@@ -173,7 +173,7 @@ public class StoreBranch {
         ReceiptField matchedField=null;
         final String lowerStr=line.getCleanText().toLowerCase();
         for(ReceiptField fName : fieldToValue.keySet()) {
-            double score= StringCommon.bestSliceMatching(lowerStr, fieldToValue.get(fName));
+            double score= StringCommon.matchStringToSubString(lowerStr, fieldToValue.get(fName));
             if(score>scoreMax){
                 scoreMax=score;
                 matchedField=fName;

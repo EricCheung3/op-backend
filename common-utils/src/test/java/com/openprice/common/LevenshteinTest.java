@@ -1,9 +1,12 @@
 package com.openprice.common;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -11,6 +14,62 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class LevenshteinTest{
+
+    @Test(expected=IllegalArgumentException.class)
+    public void mostSimilarInSetTwoWayTestException() throws Exception{
+        Set<String> set= new HashSet<String>();
+        Levenshtein.mostSimilarInSetTwoWay("ABC", set);
+    }
+    @Test(expected=IllegalArgumentException.class)
+    public void mostSimilarInSetOneWayTestException() throws Exception{
+        Set<String> set= new HashSet<String>();
+        Levenshtein.mostSimilarInSetOneWay("ABC", set);
+    }
+    @Test(expected=IllegalArgumentException.class)
+    public void mostSimilarInSetLevenshteinTestException() throws Exception{
+        Set<String> set= new HashSet<String>();
+        Levenshtein.mostSimilarInSetLevenshtein("ABC", set);
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void mostSimilarInSetScoreTwoWayTestException() throws Exception{
+        Set<String> set= new HashSet<String>();
+        Levenshtein.mostSimilarScoreInSetTwoWay("ABC", set);
+    }
+    @Test(expected=IllegalArgumentException.class)
+    public void mostSimilarScoreInSetOneWayTestException() throws Exception{
+        Set<String> set= new HashSet<String>();
+        Levenshtein.mostSimilarScoreInSetOneWay("ABC", set);
+    }
+    @Test(expected=IllegalArgumentException.class)
+    public void mostSimilarScoreInSetLevenshteinTestException() throws Exception{
+        Set<String> set= new HashSet<String>();
+        Levenshtein.mostSimilarScoreInSetLevenshtein("ABC", set);
+    }
+
+    @Test
+    public void mostSimilarInSetTestFindItself() throws Exception{
+        Set<String> set= new HashSet<String>();
+        set.add("ABC");
+        assertEquals("ABC", Levenshtein.mostSimilarInSetTwoWay("ABC", set));
+    }
+
+    //TODO: find longer one?
+//    @Test
+//    public void mostSimilarInSetTestFindABNotA() throws Exception{
+//        Set<String> set= new HashSet<String>();
+//        set.add("AB");
+//        set.add("A");
+//        assertEquals("AB", Levenshtein.mostSimilarInSet("ABC", set));
+//    }
+
+    @Test
+    public void mostSimilarInSetTestFindANotD() throws Exception{
+        Set<String> set= new HashSet<String>();
+        set.add("A");
+        set.add("D");
+        assertEquals("A", Levenshtein.mostSimilarInSetTwoWay("ABC", set));
+    }
 
     @Test
     public void test1(){
