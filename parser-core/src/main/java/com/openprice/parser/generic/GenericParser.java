@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.openprice.common.TextResourceUtils;
+import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.ReceiptFieldType;
@@ -15,7 +16,6 @@ import com.openprice.parser.StoreChain;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.common.DateParserUtils;
-import com.openprice.parser.data.Item;
 import com.openprice.parser.data.Product;
 import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.price.PriceParserWithCatalog;
@@ -79,7 +79,7 @@ public class GenericParser extends AbstractStoreParser {
         }
 
         // parse items
-        List<Item> items = SimpleParser.parseItem(matchedRecord, receipt, generic);
+        List<ParsedItem> items = SimpleParser.parseItem(matchedRecord, receipt, generic);
 
         return ParsedReceiptImpl.fromChainItemsMapBranch(genericChain, items, matchedRecord.getFieldToValueLine(), StoreBranch.EmptyStoreBranch());
     }

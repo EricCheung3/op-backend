@@ -5,11 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.openprice.common.StringCommon;
+import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreBranch;
 import com.openprice.parser.StoreChain;
-import com.openprice.parser.data.Item;
+import com.openprice.parser.data.ParsedItemImpl;
 import com.openprice.parser.data.ValueLine;
 
 /**
@@ -23,7 +24,7 @@ import com.openprice.parser.data.ValueLine;
 public class CheapParser {
 
     public ParsedReceiptImpl parse(final List<String> lines) throws Exception {
-        final List<Item> items = new ArrayList<>();
+        final List<ParsedItem> items = new ArrayList<ParsedItem>();
         for (int i = 0; i < lines.size(); i++) {
             String name = lines.get(i).trim();
             String lower = name.toLowerCase();
@@ -38,7 +39,7 @@ public class CheapParser {
             }
 
             if (isItem(name))
-                items.add(Item.fromNameOnly(name));
+                items.add(ParsedItemImpl.fromNameOnly(name));
         }
         return ParsedReceiptImpl.fromChainItemsMapBranch(
                 StoreChain.genericStoreChain(StringCommon.EMPTY),
