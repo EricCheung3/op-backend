@@ -475,6 +475,65 @@ include::{snippets}/admin-receipt-image-retrieve-example/links.adoc[]
 
 
 
+[[resources-admin-receipt-feedbacks]]
+== Admin Receipt Feedbacks
+
+Admin Receipt Feedbacks resource is used to manage list of feedbacks belonging to one receipt.
+
+
+[[resources-admin-receipt-feedback-list]]
+=== List Admin Receipt Feedbacks
+
+A `GET` request will list all of the feedbacks from a specific receipt.
+
+==== Response structure
+
+include::{snippets}/admin-receipt-feedback-list-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-receipt-feedback-list-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-receipt-feedback-list-example/http-response.adoc[]
+
+[[resources-user-receipt-feedback-list-links]]
+==== Links
+
+include::{snippets}/admin-receipt-feedback-list-example/links.adoc[]
+
+
+
+[[resources-admin-receipt-feedback]]
+== Admin Receipt Feedback
+
+Admin Receipt Feedback resource is to manage one feedback of specific receipt.
+
+[[resources-admin-receipt-feedback-retrieve]]
+=== Get admin-managed receipt feedback
+
+A `GET` request is used to retrieve a receipt feedback data for existing receipt
+
+==== Response structure
+
+include::{snippets}/admin-receipt-feedback-retrieve-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-receipt-feedback-retrieve-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-receipt-feedback-retrieve-example/http-response.adoc[]
+
+[[resources-user-receipt-feedback-links]]
+==== Links
+
+include::{snippets}/admin-receipt-feedback-retrieve-example/links.adoc[]
+
+
+
 [[resources-admin-store-chains]]
 == Admin Store Chains Resource
 

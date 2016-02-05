@@ -82,5 +82,21 @@ public abstract class AbstractAdminReceiptRestApiIntegrationTest extends Abstrac
                    .then().extract().path("_links.item.href");
         return UriTemplate.fromTemplate(itemLink).set("itemId", itemId).expand();
     }
+    
+    protected String receiptFeedbacksUrl(final SessionFilter sessionFilter, final String receiptId) {
+        final String feedbacksLink =
+            given().filter(sessionFilter)
+                   .when().get(receiptUrl(sessionFilter, receiptId))
+                   .then().extract().path("_links.feedbacks.href");
+        return UriTemplate.fromTemplate(feedbacksLink).set("page", null).set("size", null).set("sort", null).expand();
+    }
+    
+    protected String receiptFeedbackUrl(final SessionFilter sessionFilter, final String receiptId, final String feedbackId) {
+        final String feedbackLink =
+            given().filter(sessionFilter)
+                   .when().get(receiptUrl(sessionFilter, receiptId))
+                   .then().extract().path("_links.feedback.href");
+        return UriTemplate.fromTemplate(feedbackLink).set("feedbackId", feedbackId).expand();
+    }
 
 }

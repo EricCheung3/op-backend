@@ -15,7 +15,10 @@ import com.openprice.domain.account.admin.AdminAccountService;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.Receipt;
+import com.openprice.domain.receipt.ReceiptFeedback;
+import com.openprice.domain.receipt.ReceiptFeedbackRepository;
 import com.openprice.domain.receipt.ReceiptImage;
+import com.openprice.domain.receipt.ReceiptService;
 import com.openprice.rest.ApiDocumentationBase;
 
 public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
@@ -26,6 +29,12 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
 
     @Inject
     protected AdminAccountRepository adminAccountRepository;
+    
+    @Inject
+    protected ReceiptFeedbackRepository receiptFeedbackRepository;
+    
+    @Inject
+    protected ReceiptService receiptService;
 
     protected String createTestAdmin() throws Exception {
         adminAccountService.createAdminAccount(ADMINNAME, "password", "John", "Doe", "john.doe@email.com", "VP Marketing");
@@ -56,6 +65,15 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
         image.setStatus(ProcessStatusType.UPLOADED);
         receiptImageRepository.save(image);
 
+        // add two feedback to one receipt (second one)
+        receiptService = new ReceiptService(receiptRepository, receiptFeedbackRepository);
+        final ReceiptFeedback feedback = receiptService.addFeedback(receipt, 5, "Excellent!");
+        receiptFeedbackRepository.save(feedback);
+
+        receipt = receiptRepository.findOne(receipt.getId());
+        receipt.setNeedFeedback(true);
+        final ReceiptFeedback feedback2 = receiptService.addFeedback(receipt, 4, "Good!");
+        receiptFeedbackRepository.save(feedback2);
     }
 
     protected void deleteReceipts() throws Exception {

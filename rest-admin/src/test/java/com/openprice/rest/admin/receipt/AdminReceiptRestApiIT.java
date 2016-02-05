@@ -61,8 +61,9 @@ public class AdminReceiptRestApiIT extends AbstractAdminReceiptRestApiIntegratio
             .body("_links.self.href", endsWith(URL_ADMIN_RECEIPTS+"/receipt001"))
             .body("_links.images.href", endsWith(URL_ADMIN_RECEIPTS + "/receipt001/images" + UtilConstants.PAGINATION_TEMPLATES))
             .body("_links.image.href", endsWith(URL_ADMIN_RECEIPTS + "/receipt001/images/{imageId}"))
+            .body("_links.feedbacks.href", endsWith(URL_ADMIN_RECEIPTS + "/receipt001/feedbacks" + UtilConstants.PAGINATION_TEMPLATES))
+            .body("_links.feedback.href", endsWith(URL_ADMIN_RECEIPTS + "/receipt001/feedbacks/{feedbackId}"))
         ;
-        //TODO test images, feedback
     }
 
     @Test
