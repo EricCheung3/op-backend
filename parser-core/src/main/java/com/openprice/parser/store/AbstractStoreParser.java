@@ -9,12 +9,13 @@ import org.springframework.util.StringUtils;
 
 import com.openprice.common.Levenshtein;
 import com.openprice.common.StringCommon;
+import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.ReceiptLine;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.common.DateParserUtils;
-import com.openprice.parser.data.Item;
+import com.openprice.parser.data.ParsedItemImpl;
 import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.parser.price.ProductPrice;
 
@@ -124,14 +125,14 @@ public abstract class AbstractStoreParser implements StoreParser {
     }
 
     @Override
-    public Item parseItemLine(String lineString) {
+    public ParsedItem parseItemLine(String lineString) {
         if (priceParserWithCatalog == null)
-            return Item.fromNameOnly(lineString);
+            return ParsedItemImpl.fromNameOnly(lineString);
 
         ProductPrice pPrice = priceParserWithCatalog.parsePriceLine(lineString);
         if (pPrice.isEmpty())
-            return Item.emptyItem();
+            return ParsedItemImpl.emptyItem();
 
-        return Item.fromProductPrice(pPrice);
+        return ParsedItemImpl.fromProductPrice(pPrice);
     }
 }
