@@ -15,7 +15,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.openprice.common.TextResourceUtils;
-import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ValueLine;
@@ -35,7 +35,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
         // verify result of items
@@ -64,7 +64,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
         //        verify result of items
@@ -96,7 +96,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
@@ -122,7 +122,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
@@ -145,7 +145,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
@@ -169,7 +169,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
@@ -193,7 +193,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
@@ -220,7 +220,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
@@ -246,7 +246,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
@@ -271,7 +271,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();
@@ -295,7 +295,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
         Iterator<Item> iterator = receipt.getItems().iterator();

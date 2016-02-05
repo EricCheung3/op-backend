@@ -17,7 +17,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.openprice.common.TextResourceUtils;
-import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ValueLine;
@@ -40,7 +40,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
         assertEquals("timhortons", receipt.getChain().getCode());
 
@@ -68,7 +68,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
         assertEquals("", receipt.getChain().getCode());
 
@@ -96,7 +96,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
         assertEquals("nofrills", receipt.getChain().getCode());
 
@@ -128,7 +128,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
         assertEquals("mcdonald", receipt.getChain().getCode());
 
@@ -154,7 +154,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
+        ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
         assertEquals("subway", receipt.getChain().getCode());
 

@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.openprice.parser.ChainRegistry;
-import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreBranch;
@@ -35,7 +35,7 @@ public class SimpleParser {
         this.chainRegistry = chainRegistry;
     }
 
-    public ParsedReceipt parseOCRResults(final List<String> ocrTextList) throws Exception {
+    public ParsedReceiptImpl parseOCRResults(final List<String> ocrTextList) throws Exception {
         final ReceiptData receipt = ReceiptData.fromOCRResults(ocrTextList);
         if (receipt.getReceiptLines().size() == 0) {
             log.warn("No receipt data to parse.");
@@ -44,12 +44,12 @@ public class SimpleParser {
         return parseReceiptData(receipt);
     }
 
-    public ParsedReceipt parse(final List<String> lines) throws Exception {
+    public ParsedReceiptImpl parse(final List<String> lines) throws Exception {
         final ReceiptData receipt = ReceiptData.fromContentLines(lines);
         return parseReceiptData(receipt);
     }
 
-    private ParsedReceipt parseReceiptData(final ReceiptData receipt) throws Exception {
+    private ParsedReceiptImpl parseReceiptData(final ReceiptData receipt) throws Exception {
         // find chain first
         final StoreChain chain = chainRegistry.findBestMatchedChain(receipt);
         if (chain == null) {
@@ -93,7 +93,7 @@ public class SimpleParser {
         // parse items
         List<Item> items = parseItem(matchedRecord, receipt, parser);
 
-        return ParsedReceipt.fromChainItemsMapBranch(chain, items, matchedRecord.getFieldToValueLine(), branch);
+        return ParsedReceiptImpl.fromChainItemsMapBranch(chain, items, matchedRecord.getFieldToValueLine(), branch);
     }
 
     public static List<Item> parseItem(

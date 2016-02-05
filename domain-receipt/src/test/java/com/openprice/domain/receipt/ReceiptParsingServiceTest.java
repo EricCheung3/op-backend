@@ -27,7 +27,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import com.openprice.domain.account.user.UserAccount;
-import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreBranch;
 import com.openprice.parser.StoreChain;
@@ -146,7 +146,7 @@ public class ReceiptParsingServiceTest {
         final StoreBranch branch = StoreBranch.builder().branchName("Calgary Trail").build();
         final Map<ReceiptFieldType, ValueLine> fieldToValueLine = new HashMap<ReceiptFieldType, ValueLine>();
         fieldToValueLine.put(ReceiptFieldType.Total, new ValueLine("15.00", -1));
-        final ParsedReceipt receiptDebug = ParsedReceipt.fromChainItemsMapBranch(chain, items, fieldToValueLine, branch);
+        final ParsedReceiptImpl receiptDebug = ParsedReceiptImpl.fromChainItemsMapBranch(chain, items, fieldToValueLine, branch);
 
         when(receiptImageRepositoryMock.countByReceiptAndStatus(eq(receipt), eq(ProcessStatusType.UPLOADED))).thenReturn(0l);
         when(receiptImageRepositoryMock.findByReceiptAndStatusOrderByCreatedTime(eq(receipt), eq(ProcessStatusType.SCANNED)))

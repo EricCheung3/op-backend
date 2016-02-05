@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
 import com.openprice.domain.account.user.UserAccount;
-import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.data.ValueLine;
 
@@ -100,7 +100,7 @@ public class Receipt extends BaseAuditableEntity {
      * @param parsedReceipt
      * @return
      */
-    public ReceiptResult createReceiptResultFromParserResult(final ParsedReceipt parsedReceipt) {
+    public ReceiptResult createReceiptResultFromParserResult(final ParsedReceiptImpl parsedReceipt) {
         final ReceiptResult result = new ReceiptResult();
         result.setReceipt(this);
         if (parsedReceipt.getChain() != null) {

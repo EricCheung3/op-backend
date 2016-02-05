@@ -10,7 +10,7 @@ import lombok.Data;
  * Each item may have one or two prices. If it's two prices, then it's a item soldby weight; otherwise it's sold by quantity and has just one price.
  */
 @Data
-public class Item {
+public class Item{
     private final ProductPrice product;
 
     private final String productCategory;//our internally productCategory (corresponding to icon name)

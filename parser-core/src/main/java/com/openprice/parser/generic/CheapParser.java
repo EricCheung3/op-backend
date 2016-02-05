@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreBranch;
 import com.openprice.parser.StoreChain;
@@ -22,7 +22,7 @@ import com.openprice.parser.data.ValueLine;
 //TODO add date and total recognition?
 public class CheapParser {
 
-    public ParsedReceipt parse(final List<String> lines) throws Exception {
+    public ParsedReceiptImpl parse(final List<String> lines) throws Exception {
         final List<Item> items = new ArrayList<>();
         for (int i = 0; i < lines.size(); i++) {
             String name = lines.get(i).trim();
@@ -40,7 +40,7 @@ public class CheapParser {
             if (isItem(name))
                 items.add(Item.fromNameOnly(name));
         }
-        return ParsedReceipt.fromChainItemsMapBranch(
+        return ParsedReceiptImpl.fromChainItemsMapBranch(
                 StoreChain.genericStoreChain(StringCommon.EMPTY),
                 items,
                 new HashMap<ReceiptFieldType, ValueLine>(),

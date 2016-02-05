@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ValueLine;
@@ -91,7 +91,7 @@ public class ReceiptParsingService {
 
     public ReceiptResult parseOcrAndSaveResults(final Receipt receipt, final List<String> ocrTextList) {
         try {
-            final ParsedReceipt parsedReceipt = simpleParser.parseOCRResults(ocrTextList);
+            final ParsedReceiptImpl parsedReceipt = simpleParser.parseOCRResults(ocrTextList);
             if (parsedReceipt != null) {
                 logParsedResult(parsedReceipt); // TODO remove it after we have admin UI to display
 
@@ -121,7 +121,7 @@ public class ReceiptParsingService {
 
     }
 
-    private void logParsedResult(final ParsedReceipt parsedReceipt) {
+    private void logParsedResult(final ParsedReceiptImpl parsedReceipt) {
         if (parsedReceipt.getChain() != null) {
             log.info("    recognized store chain code - '{}'", parsedReceipt.getChain().getCode());
         }

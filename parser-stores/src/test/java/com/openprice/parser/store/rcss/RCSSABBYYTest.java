@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
-import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.ValueLine;
@@ -28,7 +28,7 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
     public void testRCSS_2015_02_01_14_17_01TheCommentedItemsAreAllGone() throws Exception {
         final String ocrResult = TextResourceUtils.loadTextResource(sampleRCSS_2015_11_11_calgarytrail);
 
-        ParsedReceipt receipt = simpleParser.parseOCRResults(java.util.Arrays.asList(ocrResult));
+        ParsedReceiptImpl receipt = simpleParser.parseOCRResults(java.util.Arrays.asList(ocrResult));
         printResult(receipt);
 
         // verify result of items
