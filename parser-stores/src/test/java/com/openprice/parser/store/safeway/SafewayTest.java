@@ -17,10 +17,10 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.openprice.common.TextResourceUtils;
+import com.openprice.parser.ParsedField;
+import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.simple.SimpleParser;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
@@ -42,7 +42,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         //printResult(receipt);
 
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "sevengrain salad", "7.199", "sevengrain salad");
         verifyItemParsedValue(iterator.next(), "hot soup small", "2.999", "hot soup small_2113006680");
         verifyItemParsedValue(iterator.next(), "for baby summer veg", "1.19", "for baby summer veg");
@@ -51,14 +51,14 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         //verifyItemParsedValue(iterator.next(), "=>free item", "1.19", "=>free item");
 
         // verify parsed fields
-        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptFieldType.AddressLine1).getValue(), "100a 5015");
-        //assertEquals(fieldValues.get(ReceiptField.AddressCity).getValue(), "edmonton");
-        assertEquals(fieldValues.get(ReceiptFieldType.Phone).getValue(), "780-435-5132");
-        assertEquals(fieldValues.get(ReceiptFieldType.GstNumber).getValue(), "817093735");
-        assertEquals(fieldValues.get(ReceiptFieldType.SubTotal).getValue(), "14.36");
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "14.87");
-        assertEquals("2015/2/27", fieldValues.get(ReceiptFieldType.Date).getValue());
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals("100a 5015", fieldValues.get(ReceiptFieldType.AddressLine1).getFieldValue());
+        //assertEquals(fieldValues.get(ReceiptField.AddressCity).getFieldValue(), "edmonton");
+        assertEquals("780-435-5132", fieldValues.get(ReceiptFieldType.Phone).getFieldValue());
+        assertEquals("817093735", fieldValues.get(ReceiptFieldType.GstNumber).getFieldValue());
+        assertEquals("14.36", fieldValues.get(ReceiptFieldType.SubTotal).getFieldValue());
+        assertEquals("14.87", fieldValues.get(ReceiptFieldType.Total).getFieldValue());
+        assertEquals("2015/2/27", fieldValues.get(ReceiptFieldType.Date).getFieldValue());
 
     }
 
@@ -75,7 +75,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         //printResult(receipt);
 
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "danone strawberry", "5.87", "danone strawberry");
         // verifyItemParsedValue(iterator.next(), "deposit", "0.80", "deposit");
         verifyItemParsedValue(iterator.next(), "iogo nomad drink", "2.199", "iogo nomad drink");

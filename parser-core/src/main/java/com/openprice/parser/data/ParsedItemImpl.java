@@ -14,11 +14,23 @@ public class ParsedItemImpl implements ParsedItem{
     private final String catalogCode;
     private final int lineNumber;
 
-    public ParsedItemImpl(final String name, final String price, final String code, final int line){
+    private ParsedItemImpl(
+            final String name,
+            final String price,
+            final String code,
+            final int line){
         this.parsedName=name;
         this.parsedBuyPrice=price;
         this.catalogCode=code;
         this.lineNumber=line;
+    }
+
+    public static ParsedItemImpl fromNamePriceCodeLine(
+            final String name,
+            final String price,
+            final String code,
+            final int line){
+        return new ParsedItemImpl(name, price, code, line);
     }
 
     public static ParsedItemImpl fromNameOnly(final String lineString){

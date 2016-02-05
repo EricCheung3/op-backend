@@ -15,10 +15,10 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.openprice.common.TextResourceUtils;
+import com.openprice.parser.ParsedField;
+import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -38,7 +38,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         //printResult(receipt);
 
         // verify result of items
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "rstr instnt ndle", "0.98", "rstr instnt ndle_05719775555");
         verifyItemParsedValue(iterator.next(), "table salt    mrj", "1.99", "");
         verifyItemParsedValue(iterator.next(), "garden wafer", "2.56", "garden wafer_08978200269");
@@ -48,17 +48,17 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         verifyItemParsedValue(iterator.next(), "(2)9    plastic bags    grq", "0.10", "");
 
         // verify parsed fields
-        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptFieldType.Slogan).getValue(), "big on fresh, low on price");
-        assertEquals(fieldValues.get(ReceiptFieldType.StoreID).getValue(), "01570");
-        assertEquals(fieldValues.get(ReceiptFieldType.AddressLine1).getValue(), "4821 calgary trail");
-        assertEquals(fieldValues.get(ReceiptFieldType.AddressCity).getValue(), "edmonton");
-        assertEquals(fieldValues.get(ReceiptFieldType.Phone).getValue(), "780-430-2769");
-        assertEquals(fieldValues.get(ReceiptFieldType.GstNumber).getValue(), "12223-5922 rt0001");
-        assertEquals(fieldValues.get(ReceiptFieldType.SubTotal).getValue(), "14.47");
-        //assertEquals(fieldValues.get(ReceiptField.GstAmount).getValue(), "0.01");  // FIXME ??
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "14.48");
-        assertEquals("2015/1/18", fieldValues.get(ReceiptFieldType.Date).getValue());
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(fieldValues.get(ReceiptFieldType.Slogan).getFieldValue(), "big on fresh, low on price");
+        assertEquals(fieldValues.get(ReceiptFieldType.StoreID).getFieldValue(), "01570");
+        assertEquals(fieldValues.get(ReceiptFieldType.AddressLine1).getFieldValue(), "4821 calgary trail");
+        assertEquals(fieldValues.get(ReceiptFieldType.AddressCity).getFieldValue(), "edmonton");
+        assertEquals(fieldValues.get(ReceiptFieldType.Phone).getFieldValue(), "780-430-2769");
+        assertEquals(fieldValues.get(ReceiptFieldType.GstNumber).getFieldValue(), "12223-5922 rt0001");
+        assertEquals(fieldValues.get(ReceiptFieldType.SubTotal).getFieldValue(), "14.47");
+        //assertEquals(fieldValues.get(ReceiptField.GstAmount).getFieldValue(), "0.01");  // FIXME ??
+        assertEquals(fieldValues.get(ReceiptFieldType.Total).getFieldValue(), "14.48");
+        assertEquals("2015/1/18", fieldValues.get(ReceiptFieldType.Date).getFieldValue());
 
     }
 
@@ -76,23 +76,23 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         printResult(receipt);
 
         // verify result of items
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "opo squash", "2.80", "opo squash_3141");
         verifyItemParsedValue(iterator.next(), "chinese cabbage    mrj", "1.43", "");
         verifyItemParsedValue(iterator.next(), "muffin lemn cran", "4.87", "muffin lemn cran_06038387812");
         verifyItemParsedValue(iterator.next(), "plastic bags", "0.05", "plastic bags");
 
         // verify parsed fields
-        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptFieldType.Slogan).getValue(), "big on fresh, low on price");
-        assertEquals(fieldValues.get(ReceiptFieldType.StoreID).getValue(), "01570");
-        assertEquals(fieldValues.get(ReceiptFieldType.AddressLine1).getValue(), "4821 calgary trail");
-        assertEquals(fieldValues.get(ReceiptFieldType.AddressCity).getValue(), "edmonton");
-        assertEquals(fieldValues.get(ReceiptFieldType.Phone).getValue(), "780-430-2769");
-        assertEquals(fieldValues.get(ReceiptFieldType.GstNumber).getValue(), "12223-5922 rt0001");
-        assertEquals(fieldValues.get(ReceiptFieldType.SubTotal).getValue(), "9.15");
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "9.15");
-        assertEquals("2014/12/3", fieldValues.get(ReceiptFieldType.Date).getValue());
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(fieldValues.get(ReceiptFieldType.Slogan).getFieldValue(), "big on fresh, low on price");
+        assertEquals(fieldValues.get(ReceiptFieldType.StoreID).getFieldValue(), "01570");
+        assertEquals(fieldValues.get(ReceiptFieldType.AddressLine1).getFieldValue(), "4821 calgary trail");
+        assertEquals(fieldValues.get(ReceiptFieldType.AddressCity).getFieldValue(), "edmonton");
+        assertEquals(fieldValues.get(ReceiptFieldType.Phone).getFieldValue(), "780-430-2769");
+        assertEquals(fieldValues.get(ReceiptFieldType.GstNumber).getFieldValue(), "12223-5922 rt0001");
+        assertEquals(fieldValues.get(ReceiptFieldType.SubTotal).getFieldValue(), "9.15");
+        assertEquals(fieldValues.get(ReceiptFieldType.Total).getFieldValue(), "9.15");
+        assertEquals("2014/12/3", fieldValues.get(ReceiptFieldType.Date).getFieldValue());
     }
 
     @Value("classpath:/testFiles/RCSS/CalgaryTrail/2015_04_04_22_22_32.jpg.jingwang.txt")
@@ -109,7 +109,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         //printResult(receipt);
 
         // verify result of items
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "orange juice", "3.98", "orange juice_04850001964");
         // verifyItemParsedValue(iterator.next(), "deposit 1", "0.25", "deposit 1");
         //verifyItemParsedValue(iterator.next(), "deposit 1", "0.25", "deposit 1");
@@ -127,17 +127,17 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         verifyItemParsedValue(iterator.next(), "croissant cp", "5.00", "croissant cp_46036330079");
 
         // verify parsed fields
-        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptFieldType.Slogan).getValue(), "big on fresh, low on price");
-        assertEquals(fieldValues.get(ReceiptFieldType.StoreID).getValue(), "01570");
-        assertEquals(fieldValues.get(ReceiptFieldType.AddressLine1).getValue(), "4821 calgary trail");
-        assertEquals(fieldValues.get(ReceiptFieldType.AddressCity).getValue(), "edmonton");
-        assertEquals(fieldValues.get(ReceiptFieldType.Phone).getValue(), "780-430-2769");
-        assertEquals(fieldValues.get(ReceiptFieldType.GstNumber).getValue(), "12223-5922 rt0001");
-        assertEquals(fieldValues.get(ReceiptFieldType.SubTotal).getValue(), "116.71");
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "116.71");
-        //assertEquals(fieldValues.get(ReceiptField.).getValue(), "");
-        assertEquals("2015/4/4", fieldValues.get(ReceiptFieldType.Date).getValue());
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(fieldValues.get(ReceiptFieldType.Slogan).getFieldValue(), "big on fresh, low on price");
+        assertEquals(fieldValues.get(ReceiptFieldType.StoreID).getFieldValue(), "01570");
+        assertEquals(fieldValues.get(ReceiptFieldType.AddressLine1).getFieldValue(), "4821 calgary trail");
+        assertEquals(fieldValues.get(ReceiptFieldType.AddressCity).getFieldValue(), "edmonton");
+        assertEquals(fieldValues.get(ReceiptFieldType.Phone).getFieldValue(), "780-430-2769");
+        assertEquals(fieldValues.get(ReceiptFieldType.GstNumber).getFieldValue(), "12223-5922 rt0001");
+        assertEquals(fieldValues.get(ReceiptFieldType.SubTotal).getFieldValue(), "116.71");
+        assertEquals(fieldValues.get(ReceiptFieldType.Total).getFieldValue(), "116.71");
+        //assertEquals(fieldValues.get(ReceiptField.).getFieldValue(), "");
+        assertEquals("2015/4/4", fieldValues.get(ReceiptFieldType.Date).getFieldValue());
     }
 
     @Value("classpath:/testFiles/RCSS/CalgaryTrail/2015_07_21_10_50_33.jpg.henryHuang.txt")
@@ -150,7 +150,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
-        final Iterator<Item> iterator=receipt.getItems().iterator();
+        final Iterator<ParsedItem> iterator=receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "orange navel 5lb", "5.88", "orange navel 5lb_03338311006");
         verifyItemParsedValue(iterator.next(), "banana", "1.35", "banana_4011");
         verifyItemParsedValue(iterator.next(), "cherries red    mrj", "7.29", "");
@@ -158,22 +158,22 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         verifyItemParsedValue(iterator.next(), "baby bar    gmrj", "2.49", "");
         verifyItemParsedValue(iterator.next(), "plastic bags", "0.05", "plastic bags");
 
-        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         //TODO: check. will this "supersto re" be returned to front-end?
-        assertEquals("supersto re", fieldValues.get(ReceiptFieldType.Chain).getValue());
+        assertEquals("supersto re", fieldValues.get(ReceiptFieldType.Chain).getFieldValue());
 
-        assertEquals("2015/6/18", fieldValues.get(ReceiptFieldType.Date).getValue());
-        assertEquals("big on fresh, low on price", fieldValues.get(ReceiptFieldType.Slogan).getValue());
-        assertEquals("01570", fieldValues.get(ReceiptFieldType.StoreID).getValue());
-        assertEquals("4821 calgary trail", fieldValues.get(ReceiptFieldType.AddressLine1).getValue());
-        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getValue());
-        assertEquals("780-430-2769", fieldValues.get(ReceiptFieldType.Phone).getValue());
-        assertEquals("0.77", fieldValues.get(ReceiptFieldType.GstAmount).getValue());
-        assertEquals("12223-5922 rt0001", fieldValues.get(ReceiptFieldType.GstNumber).getValue());
-        assertEquals("29.97", fieldValues.get(ReceiptFieldType.SubTotal).getValue());
-        assertEquals("30.74", fieldValues.get(ReceiptFieldType.Total).getValue());
-        //assertEquals(fieldValues.get(ReceiptField.).getValue(), "");
-        assertEquals("2015/6/18", fieldValues.get(ReceiptFieldType.Date).getValue());
+        assertEquals("2015/6/18", fieldValues.get(ReceiptFieldType.Date).getFieldValue());
+        assertEquals("big on fresh, low on price", fieldValues.get(ReceiptFieldType.Slogan).getFieldValue());
+        assertEquals("01570", fieldValues.get(ReceiptFieldType.StoreID).getFieldValue());
+        assertEquals("4821 calgary trail", fieldValues.get(ReceiptFieldType.AddressLine1).getFieldValue());
+        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getFieldValue());
+        assertEquals("780-430-2769", fieldValues.get(ReceiptFieldType.Phone).getFieldValue());
+        assertEquals("0.77", fieldValues.get(ReceiptFieldType.GstAmount).getFieldValue());
+        assertEquals("12223-5922 rt0001", fieldValues.get(ReceiptFieldType.GstNumber).getFieldValue());
+        assertEquals("29.97", fieldValues.get(ReceiptFieldType.SubTotal).getFieldValue());
+        assertEquals("30.74", fieldValues.get(ReceiptFieldType.Total).getFieldValue());
+        //assertEquals(fieldValues.get(ReceiptField.).getFieldValue(), "");
+        assertEquals("2015/6/18", fieldValues.get(ReceiptFieldType.Date).getFieldValue());
 
     }
 

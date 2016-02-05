@@ -6,9 +6,9 @@ import javax.inject.Inject;
 
 import org.springframework.boot.test.SpringApplicationConfiguration;
 
+import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.data.Item;
 import com.openprice.parser.simple.SimpleParser;
 
 @SpringApplicationConfiguration(classes = {StoreParserTestApplication.class})
@@ -16,21 +16,20 @@ public class AbstractReceiptParserIntegrationTest {
     @Inject
     protected SimpleParser simpleParser;
 
-    protected void verifyItemParsedValue(final Item item, final String name, final String value, final String catalogCode) {
-        assertEquals(name, item.getProduct().getName());
-        assertEquals(value, item.getBuyPrice());
-        if(item.getProduct().isProductIsInCatalog())
-            assertEquals(catalogCode, item.getProduct().toCatalogCode());
+    protected void verifyItemParsedValue(final ParsedItem item, final String name, final String value, final String catalogCode) {
+        assertEquals(name, item.getParsedName());
+        assertEquals(value, item.getParsedBuyPrice());
+        assertEquals(catalogCode, item.getCatalogCode());
     }
 
     protected void printResult(ParsedReceiptImpl receipt) {
-        for (Item item : receipt.getItems()) {
-            System.out.println("verifyItemParsedValue(iterator.next(), \""+item.getProduct().getName() + "\", \""+
-                    item.getBuyPrice()+ "\", \""+ item.getProduct().toCatalogCode() + "\");");
+        for (ParsedItem item : receipt.getItems()) {
+            System.out.println("verifyItemParsedValue(iterator.next(), \""+item.getParsedName() + "\", \""+
+                    item.getParsedBuyPrice()+ "\", \""+ item.getCatalogCode() + "\");");
         }
         System.out.println("\n=====================\nFields parsed:");
-        for (ReceiptFieldType field : receipt.getFieldToValueMap().keySet()) {
-            System.out.println(field.name() + " : " + receipt.getFieldToValueMap().get(field).getValue());
+        for (ReceiptFieldType field : receipt.getFields().keySet()) {
+            System.out.println(field.name() + " : " + receipt.getFields().get(field).getFieldValue());
         }
     }
 }

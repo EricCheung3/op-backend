@@ -15,10 +15,10 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.openprice.common.TextResourceUtils;
+import com.openprice.parser.ParsedField;
+import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -39,18 +39,18 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         printResult(receipt);
 
         // verify result of items
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "1 premium drink", "2.69", "");
 
         // verify parsed fields
-        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "3.01");
-        assertEquals("2015/2/1", fieldValues.get(ReceiptFieldType.Date).getValue());
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(fieldValues.get(ReceiptFieldType.Total).getFieldValue(), "3.01");
+        assertEquals("2015/2/1", fieldValues.get(ReceiptFieldType.Date).getFieldValue());
 
         //TODO: these are not correct yet. branch finding is wrong.
-        //        assertEquals("edmonton", fieldValues.get(ReceiptField.AddressCity).getValue());
-        //        assertEquals("0.14", fieldValues.get(ReceiptField.GstAmount).getValue());
-        //        assertEquals("122977044", fieldValues.get(ReceiptField.GstNumber).getValue());
+        //        assertEquals("edmonton", fieldValues.get(ReceiptField.AddressCity).getFieldValue());
+        //        assertEquals("0.14", fieldValues.get(ReceiptField.GstAmount).getFieldValue());
+        //        assertEquals("122977044", fieldValues.get(ReceiptField.GstNumber).getFieldValue());
 
     }
 
@@ -68,22 +68,22 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         printResult(receipt);
 
         //        verify result of items
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "1 #5 chicken &beef", "8.59", "");
         //
         //        // verify parsed fields
-        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "9.02");
-        assertEquals("2015/2/12", fieldValues.get(ReceiptFieldType.Date).getValue());
-        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getValue());
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(fieldValues.get(ReceiptFieldType.Total).getFieldValue(), "9.02");
+        assertEquals("2015/2/12", fieldValues.get(ReceiptFieldType.Date).getFieldValue());
+        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getFieldValue());
 
         //TODO: this is not good
-        assertEquals("5015", fieldValues.get(ReceiptFieldType.AddressLine1).getValue());
-        assertEquals(11, fieldValues.get(ReceiptFieldType.AddressLine1).getLine());//it thinks 2015 matches 5015.
+        assertEquals("5015", fieldValues.get(ReceiptFieldType.AddressLine1).getFieldValue());
+        assertEquals(11, fieldValues.get(ReceiptFieldType.AddressLine1).getLineNumber());//it thinks 2015 matches 5015.
 
         //TODO: these are not correct yet.
-        //        assertEquals("0.43", fieldValues.get(ReceiptField.GstAmount).getValue());
-        //        assertEquals("122977044", fieldValues.get(ReceiptField.GstNumber).getValue());
+        //        assertEquals("0.43", fieldValues.get(ReceiptField.GstAmount).getFieldValue());
+        //        assertEquals("122977044", fieldValues.get(ReceiptField.GstNumber).getFieldValue());
     }
 
     @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_10_10_14_53_28.jpg.txt")
@@ -99,17 +99,17 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "1    sizzling shrimp", "9.89", "");
         verifyItemParsedValue(iterator.next(), "1    sub brown rice", "0.49", "");
         verifyItemParsedValue(iterator.next(), "1    chicken", "7.99", "");
         verifyItemParsedValue(iterator.next(), "1    sub brown rice", "0.49", "");
 
-        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "19.80");
-        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getValue());
-        assertEquals("780-437-3363", fieldValues.get(ReceiptFieldType.Phone).getValue());
-        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getValue());
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(fieldValues.get(ReceiptFieldType.Total).getFieldValue(), "19.80");
+        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getFieldValue());
+        assertEquals("780-437-3363", fieldValues.get(ReceiptFieldType.Phone).getFieldValue());
+        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getFieldValue());
     }
 
     @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_10_10_14_53_32.jpg.txt")
@@ -125,14 +125,14 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "1 kids chicken & noodle", "5.39", "");
 
-        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "5.80");
-        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getValue());
-        assertEquals("780-437-3363", fieldValues.get(ReceiptFieldType.Phone).getValue());
-        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getValue());
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(fieldValues.get(ReceiptFieldType.Total).getFieldValue(), "5.80");
+        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getFieldValue());
+        assertEquals("780-437-3363", fieldValues.get(ReceiptFieldType.Phone).getFieldValue());
+        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getFieldValue());
     }
 
     @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_10_10_14_53_56.jpg.txt")
@@ -148,15 +148,15 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "1 sizzling shrimp", "9.89", "");
         verifyItemParsedValue(iterator.next(), "1 combo reg pop", "1.89", "");
 
-        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "12.35");
-        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getValue());
-        assertEquals("780-437-3363", fieldValues.get(ReceiptFieldType.Phone).getValue());
-        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getValue());
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(fieldValues.get(ReceiptFieldType.Total).getFieldValue(), "12.35");
+        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getFieldValue());
+        assertEquals("780-437-3363", fieldValues.get(ReceiptFieldType.Phone).getFieldValue());
+        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getFieldValue());
     }
 
     @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_10_10_14_54_17.jpg.txt")
@@ -172,15 +172,15 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "1 chicken", "7.99", "");
         verifyItemParsedValue(iterator.next(), "1 combo reg pop", "1.89", "");
 
-        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "10.37");
-        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getValue());
-        assertEquals("780-437-3363", fieldValues.get(ReceiptFieldType.Phone).getValue());
-        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getValue());
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(fieldValues.get(ReceiptFieldType.Total).getFieldValue(), "10.37");
+        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getFieldValue());
+        assertEquals("780-437-3363", fieldValues.get(ReceiptFieldType.Phone).getFieldValue());
+        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getFieldValue());
     }
 
     @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_10_10_14_55_19.jpg.txt")
@@ -196,17 +196,17 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "1 chicken & shrimp", "11.58", "");
 
-        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "11.58");
-        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getValue());
-        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getValue());
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(fieldValues.get(ReceiptFieldType.Total).getFieldValue(), "11.58");
+        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getFieldValue());
+        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getFieldValue());
 
         //TODO: Why it didn't detect the phone--because it didn't find the right branch.
         //(730) 437-3363
-        //        assertEquals("780-437-3363", fieldValues.get(ReceiptField.Phone).getValue());
+        //        assertEquals("780-437-3363", fieldValues.get(ReceiptField.Phone).getFieldValue());
     }
 
 
@@ -223,17 +223,17 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "2    regular pop", "4.18", "");
         verifyItemParsedValue(iterator.next(), "1    beef & shrimp bento", "14.38", "");
         verifyItemParsedValue(iterator.next(), "1    beef yakisoba bento", "11.79", "");
         verifyItemParsedValue(iterator.next(), "1    2 spring roll", "2.69", "");
 
-        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "34.70");
-        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getValue());
-        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getValue());
-        assertEquals("780-437-3363", fieldValues.get(ReceiptFieldType.Phone).getValue());
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(fieldValues.get(ReceiptFieldType.Total).getFieldValue(), "34.70");
+        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getFieldValue());
+        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getFieldValue());
+        assertEquals("780-437-3363", fieldValues.get(ReceiptFieldType.Phone).getFieldValue());
     }
 
     @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_10_10_14_56_27.jpg.txt")
@@ -249,16 +249,16 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "1    beef", "8.09", "");
         verifyItemParsedValue(iterator.next(), "1    kids chicken & noodle", "5.39", "");
         verifyItemParsedValue(iterator.next(), "1    combo reg pop", "1.89", "");
 
-        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "16.30");
-        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getValue());
-        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getValue());
-        assertEquals("780-437-3363", fieldValues.get(ReceiptFieldType.Phone).getValue());
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(fieldValues.get(ReceiptFieldType.Total).getFieldValue(), "16.30");
+        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getFieldValue());
+        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getFieldValue());
+        assertEquals("780-437-3363", fieldValues.get(ReceiptFieldType.Phone).getFieldValue());
     }
 
     @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_10_10_14_56_31.jpg.txt")
@@ -274,15 +274,15 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "1 chicken", "7.99", "");
         verifyItemParsedValue(iterator.next(), "1 sub brown rice", "0.49", "");
 
-        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "8.90");
-        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getValue());
-        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getValue());
-        assertEquals("780-437-3363", fieldValues.get(ReceiptFieldType.Phone).getValue());
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals("8.90", fieldValues.get(ReceiptFieldType.Total).getFieldValue());
+        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getFieldValue());
+        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getFieldValue());
+        assertEquals("780-437-3363", fieldValues.get(ReceiptFieldType.Phone).getFieldValue());
     }
 
     @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_10_10_14_56_31.jpg.txt")
@@ -298,15 +298,15 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         ParsedReceiptImpl receipt = simpleParser.parse(receiptLines);
         printResult(receipt);
 
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "1 chicken", "7.99", "");
         verifyItemParsedValue(iterator.next(), "1 sub brown rice", "0.49", "");
 
-        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "8.90");
-        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getValue());
-        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getValue());
-        assertEquals("780-437-3363", fieldValues.get(ReceiptFieldType.Phone).getValue());
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals("8.90", fieldValues.get(ReceiptFieldType.Total).getFieldValue());
+        assertEquals("2015/10/8", fieldValues.get(ReceiptFieldType.Date).getFieldValue());
+        assertEquals("edmonton", fieldValues.get(ReceiptFieldType.AddressCity).getFieldValue());
+        assertEquals("780-437-3363", fieldValues.get(ReceiptFieldType.Phone).getFieldValue());
     }
 
 

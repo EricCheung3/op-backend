@@ -29,4 +29,6 @@ public interface ParsedReceipt {
      */
     Map<ReceiptFieldType, ParsedField> getFields();
 
+    String getBranchName();
+
 }

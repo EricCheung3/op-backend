@@ -10,10 +10,9 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.simple.SimpleParser;
 
 import lombok.extern.slf4j.Slf4j;
@@ -99,10 +98,10 @@ public class ReceiptParsingService {
                 result = receiptResultRepository.save(result); // has to save ReceiptResult first before saving ReceiptItem
 
                 int lineNumber = 1;
-                for (final Item item : parsedReceipt.getItems()) {
-                    final ReceiptItem receiptItem = result.addItem(item.getProduct().toCatalogCode(),
-                                                                   item.getProduct().getName(),
-                                                                   item.getBuyPrice());
+                for (final ParsedItem item : parsedReceipt.getItems()) {
+                    final ReceiptItem receiptItem = result.addItem(item.getCatalogCode(),
+                                                                   item.getParsedName(),
+                                                                   item.getParsedBuyPrice());
                     // FIXME add lineNumber from parser items
                     receiptItem.setLineNumber(lineNumber++);
                     log.info("Parsed Item: catalogCode='{}', parsedName='{}', parsedPrice='{}'.",
@@ -122,31 +121,30 @@ public class ReceiptParsingService {
     }
 
     private void logParsedResult(final ParsedReceiptImpl parsedReceipt) {
-        if (parsedReceipt.getChain() != null) {
-            log.info("    recognized store chain code - '{}'", parsedReceipt.getChain().getCode());
+        if (parsedReceipt.getChainCode() != null) {
+            log.info("    recognized store chain code - '{}'", parsedReceipt.getChainCode());
         }
-        if (parsedReceipt.getBranch() != null) {
-            log.info("    recognized branch name - '{}'", parsedReceipt.getBranch().getBranchName());
+        if (parsedReceipt.getBranchName() != null) {
+            log.info("    recognized branch name - '{}'", parsedReceipt.getBranchName());
         }
-        final ValueLine parsedDateValue = parsedReceipt.getFieldToValueMap().get(ReceiptFieldType.Date);
-        if (parsedDateValue != null) {
-            log.info("    parsed Date - '{}'", parsedDateValue.getValue());
+        final String dateValue = parsedReceipt.getFields().get(ReceiptFieldType.Date).getFieldValue();
+        if (dateValue != null) {
+            log.info("    parsed Date - '{}'", dateValue);
         } else {
             log.info("    no Date found!");
         }
-        final ValueLine parsedTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptFieldType.Total);
-        if (parsedTotalValue != null) {
-            log.info("    parsed Total - '{}'", parsedTotalValue.getValue());
+        final String totalValue = parsedReceipt.getFields().get(ReceiptFieldType.Total).getFieldValue();
+        if (totalValue != null) {
+            log.info("    parsed Total - '{}'", totalValue);
         } else {
             log.info("    no Total found!");
         }
-        final ValueLine parsedSubTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptFieldType.SubTotal);
-        if (parsedSubTotalValue != null) {
-            log.info("    parsed SubTotal - '{}'", parsedSubTotalValue.getValue());
+        final String subTotalValue = parsedReceipt.getFields().get(ReceiptFieldType.SubTotal).getFieldValue();
+        if (subTotalValue != null) {
+            log.info("    parsed SubTotal - '{}'", subTotalValue);
         } else {
             log.info("    no SubTotal found!");
         }
-
     }
 
     LocalDate getReceiptDate(final String parsedDate) {

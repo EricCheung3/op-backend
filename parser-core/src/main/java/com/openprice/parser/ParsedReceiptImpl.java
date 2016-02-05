@@ -51,4 +51,9 @@ public class ParsedReceiptImpl implements ParsedReceipt{
     public List<ParsedItem> getItems() {
         return items;
     }
+
+    @Override
+    public String getBranchName() {
+        return branch.getBranchName();
+    }
 }

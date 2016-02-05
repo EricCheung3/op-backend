@@ -13,10 +13,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
+import com.openprice.parser.ParsedField;
+import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -32,7 +32,7 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
         printResult(receipt);
 
         // verify result of items
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyItemParsedValue(iterator.next(), "yelw calros", "rice", "");
         verifyItemParsedValue(iterator.next(), "k dgon cook    wine    mrj", "2.69", "");
         verifyItemParsedValue(iterator.next(), "rooster garlic", "0.68", "rooster garlic_06038388591");
@@ -43,13 +43,13 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
         verifyItemParsedValue(iterator.next(), "hairtail", "7.36", "hairtail_77016160104");
 
         // verify parsed fields
-        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        //        assertEquals(fieldValues.get(ReceiptField.Chain).getValue(), "Superstore");
-        assertEquals(fieldValues.get(ReceiptFieldType.Slogan).getValue(), "big on fresh, low on price");
-        assertEquals(fieldValues.get(ReceiptFieldType.StoreID).getValue(), "01570");
-        assertEquals(fieldValues.get(ReceiptFieldType.SubTotal).getValue(), "104.73");
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "104.73");
-        assertEquals(StringCommon.EMPTY, fieldValues.get(ReceiptFieldType.Date).getValue());//this receipt has no date
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        //        assertEquals(fieldValues.get(ReceiptField.Chain).getFieldValue(), "Superstore");
+        assertEquals(fieldValues.get(ReceiptFieldType.Slogan).getFieldValue(), "big on fresh, low on price");
+        assertEquals(fieldValues.get(ReceiptFieldType.StoreID).getFieldValue(), "01570");
+        assertEquals(fieldValues.get(ReceiptFieldType.SubTotal).getFieldValue(), "104.73");
+        assertEquals(fieldValues.get(ReceiptFieldType.Total).getFieldValue(), "104.73");
+        assertEquals(StringCommon.EMPTY, fieldValues.get(ReceiptFieldType.Date).getFieldValue());//this receipt has no date
 
     }
 }
