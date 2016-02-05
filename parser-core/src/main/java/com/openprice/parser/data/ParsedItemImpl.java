@@ -18,4 +18,6 @@ public class ParsedItemImpl implements ParsedItem{
         this.catalogCode=code;
         this.lineNumber=line;
     }
+
+
 }
