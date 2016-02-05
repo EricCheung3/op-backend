@@ -9,6 +9,7 @@ import java.util.Properties;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptData;
+import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreBranch;
 import com.openprice.parser.StoreChain;
 import com.openprice.parser.StoreConfig;
@@ -16,7 +17,6 @@ import com.openprice.parser.StoreParser;
 import com.openprice.parser.common.DateParserUtils;
 import com.openprice.parser.data.Item;
 import com.openprice.parser.data.Product;
-import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.parser.simple.MatchedRecord;
@@ -33,10 +33,10 @@ public class GenericParser extends AbstractStoreParser {
         super(config, priceParserWithCatalog);
 
         // register field parsers
-        fieldParsers.put(ReceiptField.GstAmount,  line -> parseItemPrice(line.getCleanText(), config.priceTail()));
-        fieldParsers.put(ReceiptField.SubTotal,  line -> parseItemPrice(line.getCleanText(), config.priceTail()));
-        fieldParsers.put(ReceiptField.Total,  line -> parseTotal(line.getCleanText()));
-        fieldParsers.put(ReceiptField.Date,  line -> parseDate(line));
+        fieldParsers.put(ReceiptFieldType.GstAmount,  line -> parseItemPrice(line.getCleanText(), config.priceTail()));
+        fieldParsers.put(ReceiptFieldType.SubTotal,  line -> parseItemPrice(line.getCleanText(), config.priceTail()));
+        fieldParsers.put(ReceiptFieldType.Total,  line -> parseTotal(line.getCleanText()));
+        fieldParsers.put(ReceiptFieldType.Date,  line -> parseDate(line));
     }
 
     public static GenericParser selectParser(ReceiptData receipt) {
@@ -71,11 +71,11 @@ public class GenericParser extends AbstractStoreParser {
         matchedRecord.matchToHeader(receipt, generic.getStoreConfig(), generic);
 
         //globally finding the date string
-        if (matchedRecord.getFieldToValueLine().get(ReceiptField.Date) == null ||
-                matchedRecord.getFieldToValueLine().get(ReceiptField.Date).getValue().isEmpty()){
+        if (matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date) == null ||
+                matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date).getValue().isEmpty()){
             log.debug("date header not found: searching date string globally.");
             final ValueLine dateVL=DateParserUtils.findDateStringAfterLine(receipt.getOriginalLines(), 0);
-            matchedRecord.putFieldLine(ReceiptField.Date, dateVL);
+            matchedRecord.putFieldLine(ReceiptFieldType.Date, dateVL);
         }
 
         // parse items

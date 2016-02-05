@@ -9,12 +9,12 @@ import org.springframework.util.StringUtils;
 
 import com.openprice.common.Levenshtein;
 import com.openprice.common.StringCommon;
+import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.ReceiptLine;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.common.DateParserUtils;
 import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.parser.price.ProductPrice;
 
@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class AbstractStoreParser implements StoreParser {
     protected final StoreConfig config;
     protected final PriceParserWithCatalog priceParserWithCatalog;
-    protected final Map<ReceiptField, Function<ReceiptLine, String>> fieldParsers = new HashMap<>();
+    protected final Map<ReceiptFieldType, Function<ReceiptLine, String>> fieldParsers = new HashMap<>();
 
     public AbstractStoreParser(final StoreConfig config,
             final PriceParserWithCatalog priceParserWithCatalog) {
@@ -38,7 +38,7 @@ public abstract class AbstractStoreParser implements StoreParser {
     }
 
     @Override
-    public final String parseField(ReceiptField field, ReceiptLine line) {
+    public final String parseField(ReceiptFieldType field, ReceiptLine line) {
         Function<ReceiptLine, String> fieldParser = fieldParsers.get(field);
         if (fieldParser == null) {
             return line.getCleanText();

@@ -18,8 +18,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.simple.SimpleParser;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
@@ -51,14 +51,14 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         //verifyItemParsedValue(iterator.next(), "=>free item", "1.19", "=>free item");
 
         // verify parsed fields
-        Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptField.AddressLine1).getValue(), "100a 5015");
+        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
+        assertEquals(fieldValues.get(ReceiptFieldType.AddressLine1).getValue(), "100a 5015");
         //assertEquals(fieldValues.get(ReceiptField.AddressCity).getValue(), "edmonton");
-        assertEquals(fieldValues.get(ReceiptField.Phone).getValue(), "780-435-5132");
-        assertEquals(fieldValues.get(ReceiptField.GstNumber).getValue(), "817093735");
-        assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "14.36");
-        assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "14.87");
-        assertEquals("2015/2/27", fieldValues.get(ReceiptField.Date).getValue());
+        assertEquals(fieldValues.get(ReceiptFieldType.Phone).getValue(), "780-435-5132");
+        assertEquals(fieldValues.get(ReceiptFieldType.GstNumber).getValue(), "817093735");
+        assertEquals(fieldValues.get(ReceiptFieldType.SubTotal).getValue(), "14.36");
+        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "14.87");
+        assertEquals("2015/2/27", fieldValues.get(ReceiptFieldType.Date).getValue());
 
     }
 

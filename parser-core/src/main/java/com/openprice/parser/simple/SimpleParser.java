@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptData;
+import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreBranch;
 import com.openprice.parser.StoreChain;
 import com.openprice.parser.StoreParser;
@@ -17,7 +18,6 @@ import com.openprice.parser.StoreParserSelector;
 import com.openprice.parser.common.DateParserUtils;
 import com.openprice.parser.common.ListCommon;
 import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.generic.CheapParser;
 import com.openprice.parser.generic.GenericChains;
@@ -83,11 +83,11 @@ public class SimpleParser {
         matchedRecord.matchToHeader(receipt, parser.getStoreConfig(), parser);
 
         //globally finding the date string
-        if (matchedRecord.getFieldToValueLine().get(ReceiptField.Date) == null ||
-                matchedRecord.getFieldToValueLine().get(ReceiptField.Date).getValue().isEmpty()){
+        if (matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date) == null ||
+                matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date).getValue().isEmpty()){
             log.debug("date header not found: searching date string globally.");
             final ValueLine dateVL=DateParserUtils.findDateStringAfterLine(receipt.getOriginalLines(), 0);
-            matchedRecord.putFieldLine(ReceiptField.Date, dateVL);
+            matchedRecord.putFieldLine(ReceiptFieldType.Date, dateVL);
         }
 
         // parse items

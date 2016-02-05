@@ -19,8 +19,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.simple.SimpleParser;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
@@ -52,14 +52,14 @@ public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
         verifyItemParsedValue(iterator.next(), "lucerne who1e mi1k4l", "3.79", "lucerne who1e mi1k4l");
 
         // verify parsed fields
-        Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
+        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
         //        assertEquals(fieldValues.get(ReceiptField.AddressLine1).getValue(), "100a 5015");
         //        assertEquals(fieldValues.get(ReceiptField.AddressCity).getValue(), "edmonton");
-        assertEquals(fieldValues.get(ReceiptField.Phone).getValue(), "780-435-5132");
-        assertEquals(fieldValues.get(ReceiptField.GstNumber).getValue(), "817093735");
-        assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "22.59");
-        assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "23.09");
-        assertEquals(StringCommon.EMPTY, fieldValues.get(ReceiptField.Date).getValue());//this receipt has no date string
+        assertEquals(fieldValues.get(ReceiptFieldType.Phone).getValue(), "780-435-5132");
+        assertEquals(fieldValues.get(ReceiptFieldType.GstNumber).getValue(), "817093735");
+        assertEquals(fieldValues.get(ReceiptFieldType.SubTotal).getValue(), "22.59");
+        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "23.09");
+        assertEquals(StringCommon.EMPTY, fieldValues.get(ReceiptFieldType.Date).getValue());//this receipt has no date string
     }
 
     @Value("classpath:/testFiles/Safeway/abbyy/receiptWithNoDateHeader.txt")
@@ -70,7 +70,7 @@ public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
         TextResourceUtils.loadFromTextResource(receiptWithNoDateHeader, (line)-> receiptLines.add(line));
         assertTrue(receiptLines.size() > 0);
         ParsedReceipt receipt = simpleParser.parse(receiptLines);
-        assertEquals("2015/2/27", receipt.getFieldToValueMap().get(ReceiptField.Date).getValue());
+        assertEquals("2015/2/27", receipt.getFieldToValueMap().get(ReceiptFieldType.Date).getValue());
     }
 
 }

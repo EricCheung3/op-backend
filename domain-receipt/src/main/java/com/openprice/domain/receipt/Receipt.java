@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.parser.ParsedReceipt;
-import com.openprice.parser.data.ReceiptField;
+import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.data.ValueLine;
 
 import lombok.Builder;
@@ -109,11 +109,11 @@ public class Receipt extends BaseAuditableEntity {
         if (parsedReceipt.getBranch() != null) {
             result.setBranchName(parsedReceipt.getBranch().getBranchName());
         }
-        final ValueLine parsedTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Total);
+        final ValueLine parsedTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptFieldType.Total);
         if (parsedTotalValue != null) {
             result.setParsedTotal(parsedTotalValue.getValue());
         }
-        final ValueLine parsedDateValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Date);
+        final ValueLine parsedDateValue = parsedReceipt.getFieldToValueMap().get(ReceiptFieldType.Date);
         if (parsedDateValue != null) {
             result.setParsedDate(parsedDateValue.getValue());
         }

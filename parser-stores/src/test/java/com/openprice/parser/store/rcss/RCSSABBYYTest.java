@@ -14,8 +14,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
@@ -43,13 +43,13 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
         verifyItemParsedValue(iterator.next(), "hairtail", "7.36", "hairtail_77016160104");
 
         // verify parsed fields
-        Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
+        Map<ReceiptFieldType, ValueLine> fieldValues = receipt.getFieldToValueMap();
         //        assertEquals(fieldValues.get(ReceiptField.Chain).getValue(), "Superstore");
-        assertEquals(fieldValues.get(ReceiptField.Slogan).getValue(), "big on fresh, low on price");
-        assertEquals(fieldValues.get(ReceiptField.StoreID).getValue(), "01570");
-        assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "104.73");
-        assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "104.73");
-        assertEquals(StringCommon.EMPTY, fieldValues.get(ReceiptField.Date).getValue());//this receipt has no date
+        assertEquals(fieldValues.get(ReceiptFieldType.Slogan).getValue(), "big on fresh, low on price");
+        assertEquals(fieldValues.get(ReceiptFieldType.StoreID).getValue(), "01570");
+        assertEquals(fieldValues.get(ReceiptFieldType.SubTotal).getValue(), "104.73");
+        assertEquals(fieldValues.get(ReceiptFieldType.Total).getValue(), "104.73");
+        assertEquals(StringCommon.EMPTY, fieldValues.get(ReceiptFieldType.Date).getValue());//this receipt has no date
 
     }
 }

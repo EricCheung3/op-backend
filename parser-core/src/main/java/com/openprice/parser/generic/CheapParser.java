@@ -6,10 +6,10 @@ import java.util.List;
 
 import com.openprice.common.StringCommon;
 import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreBranch;
 import com.openprice.parser.StoreChain;
 import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
 
 /**
@@ -43,7 +43,7 @@ public class CheapParser {
         return ParsedReceipt.fromChainItemsMapBranch(
                 StoreChain.genericStoreChain(StringCommon.EMPTY),
                 items,
-                new HashMap<ReceiptField, ValueLine>(),
+                new HashMap<ReceiptFieldType, ValueLine>(),
                 StoreBranch.EmptyStoreBranch());
     }
 

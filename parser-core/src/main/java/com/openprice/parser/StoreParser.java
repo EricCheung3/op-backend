@@ -1,7 +1,6 @@
 package com.openprice.parser;
 
 import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ReceiptField;
 
 public interface StoreParser {
 
@@ -11,7 +10,7 @@ public interface StoreParser {
      */
     StoreConfig getStoreConfig();
 
-    String parseField(ReceiptField field, ReceiptLine receiptLine);
+    String parseField(ReceiptFieldType field, ReceiptLine receiptLine);
 
     Item parseItemLine(String lineString);
 }

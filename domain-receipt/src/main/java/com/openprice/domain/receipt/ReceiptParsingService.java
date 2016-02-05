@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.openprice.parser.ParsedReceipt;
+import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.simple.SimpleParser;
 
@@ -128,19 +128,19 @@ public class ReceiptParsingService {
         if (parsedReceipt.getBranch() != null) {
             log.info("    recognized branch name - '{}'", parsedReceipt.getBranch().getBranchName());
         }
-        final ValueLine parsedDateValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Date);
+        final ValueLine parsedDateValue = parsedReceipt.getFieldToValueMap().get(ReceiptFieldType.Date);
         if (parsedDateValue != null) {
             log.info("    parsed Date - '{}'", parsedDateValue.getValue());
         } else {
             log.info("    no Date found!");
         }
-        final ValueLine parsedTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Total);
+        final ValueLine parsedTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptFieldType.Total);
         if (parsedTotalValue != null) {
             log.info("    parsed Total - '{}'", parsedTotalValue.getValue());
         } else {
             log.info("    no Total found!");
         }
-        final ValueLine parsedSubTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.SubTotal);
+        final ValueLine parsedSubTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptFieldType.SubTotal);
         if (parsedSubTotalValue != null) {
             log.info("    parsed SubTotal - '{}'", parsedSubTotalValue.getValue());
         } else {
