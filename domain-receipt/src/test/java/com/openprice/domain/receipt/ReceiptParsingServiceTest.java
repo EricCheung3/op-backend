@@ -31,7 +31,7 @@ import com.openprice.parser.ParsedField;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.simple.SimpleParser;
+import com.openprice.parser.ReceiptParser;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReceiptParsingServiceTest {
@@ -57,7 +57,7 @@ public class ReceiptParsingServiceTest {
     ReceiptFeedbackRepository receiptFeedbackRepositoryMock;
 
     @Mock
-    SimpleParser simpleParserMock;
+    ReceiptParser receiptParserMock;
 
     @InjectMocks
     ReceiptParsingService serviceToTest;
@@ -213,7 +213,7 @@ public class ReceiptParsingServiceTest {
         when(receiptImageRepositoryMock.countByReceiptAndStatus(eq(receipt), eq(ProcessStatusType.UPLOADED))).thenReturn(0l);
         when(receiptImageRepositoryMock.findByReceiptAndStatusOrderByCreatedTime(eq(receipt), eq(ProcessStatusType.SCANNED)))
             .thenReturn(Arrays.asList(image1, image2, image3));
-        when(simpleParserMock.parseReceiptOcrResult(anyObject())).thenReturn(parsedReceipt);
+        when(receiptParserMock.parseReceiptOcrResult(anyObject())).thenReturn(parsedReceipt);
         when(receiptResultRepositoryMock.save(isA(ReceiptResult.class))).thenAnswer(new Answer<ReceiptResult>() {
             @Override
             public ReceiptResult answer(InvocationOnMock invocation) throws Throwable {
@@ -250,7 +250,7 @@ public class ReceiptParsingServiceTest {
         when(receiptImageRepositoryMock.countByReceiptAndStatus(eq(receipt), eq(ProcessStatusType.UPLOADED))).thenReturn(0l);
         when(receiptImageRepositoryMock.findByReceiptAndStatusOrderByCreatedTime(eq(receipt), eq(ProcessStatusType.SCANNED)))
             .thenReturn(Arrays.asList(image1, image2, image3));
-        when(simpleParserMock.parseReceiptOcrResult(anyObject())).thenReturn(null);
+        when(receiptParserMock.parseReceiptOcrResult(anyObject())).thenReturn(null);
         when(receiptRepositoryMock.save(isA(Receipt.class))).thenAnswer(new Answer<Receipt>() {
             @Override
             public Receipt answer(InvocationOnMock invocation) throws Throwable {

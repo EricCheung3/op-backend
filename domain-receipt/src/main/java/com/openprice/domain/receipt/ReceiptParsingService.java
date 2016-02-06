@@ -13,7 +13,7 @@ import org.springframework.util.StringUtils;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.simple.SimpleParser;
+import com.openprice.parser.ReceiptParser;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,19 +25,19 @@ public class ReceiptParsingService {
     private final ReceiptImageRepository receiptImageRepository;
     private final ReceiptResultRepository receiptResultRepository;
     private final ReceiptItemRepository receiptItemRepository;
-    private final SimpleParser simpleParser;
+    private final ReceiptParser receiptParser;
 
     @Inject
     public ReceiptParsingService(final ReceiptRepository receiptRepository,
                                  final ReceiptImageRepository receiptImageRepository,
                                  final ReceiptResultRepository receiptResultRepository,
                                  final ReceiptItemRepository receiptItemRepository,
-                                 final SimpleParser simpleParser) {
+                                 final ReceiptParser receiptParser) {
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
         this.receiptResultRepository = receiptResultRepository;
         this.receiptItemRepository = receiptItemRepository;
-        this.simpleParser = simpleParser;
+        this.receiptParser = receiptParser;
     }
 
     /**
@@ -90,7 +90,7 @@ public class ReceiptParsingService {
 
     public ReceiptResult parseOcrAndSaveResults(final Receipt receipt, final List<String> ocrTextList) {
         try {
-            final ParsedReceipt parsedReceipt = simpleParser.parseReceiptOcrResult(ocrTextList);
+            final ParsedReceipt parsedReceipt = receiptParser.parseReceiptOcrResult(ocrTextList);
             if (parsedReceipt != null) {
                 logParsedResult(parsedReceipt); // TODO remove it after we have admin UI to display
 
