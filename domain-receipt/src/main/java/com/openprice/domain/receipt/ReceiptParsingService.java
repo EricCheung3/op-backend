@@ -96,19 +96,15 @@ public class ReceiptParsingService {
 
                 ReceiptResult result = receipt.createReceiptResultFromParserResult(parsedReceipt);
                 result = receiptResultRepository.save(result); // has to save ReceiptResult first before saving ReceiptItem
-
-                int lineNumber = 1;
                 for (final ParsedItem item : parsedReceipt.getItems()) {
                     final ReceiptItem receiptItem = result.addItem(item.getCatalogCode(),
                                                                    item.getParsedName(),
-                                                                   item.getParsedBuyPrice());
-                    // FIXME add lineNumber from parser items
-                    receiptItem.setLineNumber(lineNumber++);
-                    log.info("Parsed Item: catalogCode='{}', parsedName='{}', parsedPrice='{}'.",
-                            receiptItem.getCatalogCode(), receiptItem.getParsedName(), receiptItem.getParsedPrice()); // TODO remove it after admin UI can display
+                                                                   item.getParsedBuyPrice(),
+                                                                   item.getLineNumber());
+                    log.info("Parsed Item: {}.", receiptItem); // TODO remove it after admin UI can display
                     receiptItemRepository.save(receiptItem);
                 }
-                log.debug("SimpleParser returns {} items.", parsedReceipt.getItems().size());
+                log.debug("ReceiptParser returns {} items.", parsedReceipt.getItems().size());
                 return receiptResultRepository.save(result);
             } else {
                 return null;
@@ -127,21 +123,18 @@ public class ReceiptParsingService {
         if (parsedReceipt.getBranchName() != null) {
             log.info("    recognized branch name - '{}'", parsedReceipt.getBranchName());
         }
-        final String dateValue = parsedReceipt.getFields().get(ReceiptFieldType.Date).getFieldValue();
-        if (dateValue != null) {
-            log.info("    parsed Date - '{}'", dateValue);
+        if (parsedReceipt.getFields().get(ReceiptFieldType.Date) != null) {
+            log.info("    parsed Date - '{}'", parsedReceipt.getFields().get(ReceiptFieldType.Date).getFieldValue());
         } else {
             log.info("    no Date found!");
         }
-        final String totalValue = parsedReceipt.getFields().get(ReceiptFieldType.Total).getFieldValue();
-        if (totalValue != null) {
-            log.info("    parsed Total - '{}'", totalValue);
+        if (parsedReceipt.getFields().get(ReceiptFieldType.Total) != null) {
+            log.info("    parsed Total - '{}'", parsedReceipt.getFields().get(ReceiptFieldType.Total).getFieldValue());
         } else {
             log.info("    no Total found!");
         }
-        final String subTotalValue = parsedReceipt.getFields().get(ReceiptFieldType.SubTotal).getFieldValue();
-        if (subTotalValue != null) {
-            log.info("    parsed SubTotal - '{}'", subTotalValue);
+        if (parsedReceipt.getFields().get(ReceiptFieldType.SubTotal) != null) {
+            log.info("    parsed SubTotal - '{}'", parsedReceipt.getFields().get(ReceiptFieldType.SubTotal).getFieldValue());
         } else {
             log.info("    no SubTotal found!");
         }
