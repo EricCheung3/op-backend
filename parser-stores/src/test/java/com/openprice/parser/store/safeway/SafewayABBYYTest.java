@@ -41,15 +41,15 @@ public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
-        printResult(receipt);
+        //printResult(receipt);
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         assertEquals(5,receipt.getItems().size());
-        verifyItemParsedValue(iterator.next(), "chicken bbq roasted", "9.0", "");
-        verifyItemParsedValue(iterator.next(), "clabatta buns 4pk", "2.50", "");
-        verifyItemParsedValue(iterator.next(), "clabatta buns 4pk", "2.50", "");
-        verifyItemParsedValue(iterator.next(), "spinach bunch", "1.49", "");
-        verifyItemParsedValue(iterator.next(), "lucerne who1e mi1k4l", "3.79", "lucerne who1e mi1k4l");
+        verifyItemParsedValue(iterator.next(), "chicken bbq roasted", "9.0", null, 6);
+        verifyItemParsedValue(iterator.next(), "clabatta buns 4pk", "2.50", null, 8);
+        verifyItemParsedValue(iterator.next(), "clabatta buns 4pk", "2.50", null, 10);
+        verifyItemParsedValue(iterator.next(), "spinach bunch", "1.49", null, 11);
+        verifyItemParsedValue(iterator.next(), "lucerne who1e mi1k4l", "3.79", "lucerne who1e mi1k4l", 12);
 
         // verify parsed fields
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();

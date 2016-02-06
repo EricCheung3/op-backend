@@ -43,12 +43,11 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         //printResult(receipt);
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "sevengrain salad", "7.199", "sevengrain salad");
-        verifyItemParsedValue(iterator.next(), "hot soup small", "2.999", "hot soup small_2113006680");
-        verifyItemParsedValue(iterator.next(), "for baby summer veg", "1.19", "for baby summer veg");
-        verifyItemParsedValue(iterator.next(), "samosas beef", "2.99", "samosas beef_24586100000");
-        verifyItemParsedValue(iterator.next(), "for baby carrots", "1.19", "for baby carrots");
-        //verifyItemParsedValue(iterator.next(), "=>free item", "1.19", "=>free item");
+        verifyItemParsedValue(iterator.next(), "sevengrain salad", "7.199", "sevengrain salad", 8);
+        verifyItemParsedValue(iterator.next(), "hot soup small", "2.999", "hot soup small_2113006680", 9);
+        verifyItemParsedValue(iterator.next(), "for baby summer veg", "1.19", "for baby summer veg", 10);
+        verifyItemParsedValue(iterator.next(), "samosas beef", "2.99", "samosas beef_24586100000", 11);
+        verifyItemParsedValue(iterator.next(), "for baby carrots", "1.19", "for baby carrots", 12);
 
         // verify parsed fields
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
@@ -76,27 +75,16 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         //printResult(receipt);
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "danone strawberry", "5.87", "danone strawberry");
-        // verifyItemParsedValue(iterator.next(), "deposit", "0.80", "deposit");
-        verifyItemParsedValue(iterator.next(), "iogo nomad drink", "2.199", "iogo nomad drink");
-        // verifyItemParsedValue(iterator.next(), "deposit", "0.10", "deposit");
-        verifyItemParsedValue(iterator.next(), "pastry bulk", "1.299", "pastry bulk");
-        verifyItemParsedValue(iterator.next(), "wt    bulk minibits cook", "0.89", "wt    bulk minibits cook");
-        verifyItemParsedValue(iterator.next(), "cucumber", "1.29", "cucumber");
-        //verifyItemParsedValue(iterator.next(), "regprice", ".38", "regprice");
-        //verifyItemParsedValue(iterator.next(), "savings", ".38", "savings");
-        verifyItemParsedValue(iterator.next(), "6 qty    corn on cob", "3.00", "6 qty    corn on cob");
-        //verifyItemParsedValue(iterator.next(), "regprice", "5.31", "regprice");
-        //verifyItemParsedValue(iterator.next(), "savings", "2.31", "savings");
-        verifyItemParsedValue(iterator.next(), "2 qty    organic avocados", "5.38", "2 qty    organic avocados");
-        verifyItemParsedValue(iterator.next(), "butter lettuce", "3.49", "butter lettuce");
-        verifyItemParsedValue(iterator.next(), "2 qty    organic strawberry", "8.98", "2 qty    organic strawberry");
-        verifyItemParsedValue(iterator.next(), "4\"rose w/hat pick", "6.999", "4\"rose w/hat pick");
-        //verifyItemParsedValue(iterator.next(), "regprice", "7.99", "regprice");
-        //verifyItemParsedValue(iterator.next(), "savings", "1.00", "savings");
-        //verifyItemParsedValue(iterator.next(), "change", "0.00", "change");
-        //verifyItemParsedValue(iterator.next(), "b.", "", "b._5/12/14 12:55 0877 08 029l");
-        //verifyItemParsedValue(iterator.next(), "savings", "3.72", "savings");
+        verifyItemParsedValue(iterator.next(), "danone strawberry", "5.87", "danone strawberry", 6);
+        verifyItemParsedValue(iterator.next(), "iogo nomad drink", "2.199", "iogo nomad drink", 9);
+        verifyItemParsedValue(iterator.next(), "pastry bulk", "1.299", "pastry bulk", 13);
+        verifyItemParsedValue(iterator.next(), "wt    bulk minibits cook", "0.89", "wt    bulk minibits cook", 15);
+        verifyItemParsedValue(iterator.next(), "cucumber", "1.29", "cucumber", 17);
+        verifyItemParsedValue(iterator.next(), "6 qty    corn on cob", "3.00", "6 qty    corn on cob", 21);
+        verifyItemParsedValue(iterator.next(), "2 qty    organic avocados", "5.38", "2 qty    organic avocados", 24);
+        verifyItemParsedValue(iterator.next(), "butter lettuce", "3.49", "butter lettuce", 25);
+        verifyItemParsedValue(iterator.next(), "2 qty    organic strawberry", "8.98", "2 qty    organic strawberry", 26);
+        verifyItemParsedValue(iterator.next(), "4\"rose w/hat pick", "6.999", "4\"rose w/hat pick", 28);
 
     }
 }

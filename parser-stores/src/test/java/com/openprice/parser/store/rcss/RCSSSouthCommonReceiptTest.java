@@ -39,19 +39,19 @@ public class RCSSSouthCommonReceiptTest extends AbstractReceiptParserIntegration
 
         // verify result of items
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "rooster rice", "25.78", "rooster rice_05719777953");
-        verifyItemParsedValue(iterator.next(), "van bircrm mx", "3.50", "van bircrm mx");
-        verifyItemParsedValue(iterator.next(), "cm dis prncs cnd", "2.99", "cm dis prncs cnd");
-        verifyItemParsedValue(iterator.next(), "cm scribblers ha", "4.49", "cm scribblers ha");
-        verifyItemParsedValue(iterator.next(), "dh fc starter", "2.79", "dh fc starter");
-        verifyItemParsedValue(iterator.next(), "after bite kids", "4.99", "after bite kids");
-        verifyItemParsedValue(iterator.next(), "c&c astringent", "6.49", "c&c astringent");
-        verifyItemParsedValue(iterator.next(), "acne wash", "8.49", "acne wash");
-        verifyItemParsedValue(iterator.next(), "st ives vanilla", "2.98", "st ives vanilla");
-        verifyItemParsedValue(iterator.next(), "shower creme sof", "3.93", "shower creme sof");
-        verifyItemParsedValue(iterator.next(), "wlin cpck dcrtng", "5.04", "wlin cpck dcrtng");
-        verifyItemParsedValue(iterator.next(), "hp jar scraper", "5.00", "hp jar scraper");
-        verifyItemParsedValue(iterator.next(), "measure cup    gmrj", "4.29", "");
+        verifyItemParsedValue(iterator.next(), "rooster rice", "25.78", "rooster rice_05719777953", 5);
+        verifyItemParsedValue(iterator.next(), "van bircrm mx", "3.50", "van bircrm mx", 7);
+        verifyItemParsedValue(iterator.next(), "cm dis prncs cnd", "2.99", "cm dis prncs cnd", 8);
+        verifyItemParsedValue(iterator.next(), "cm scribblers ha", "4.49", "cm scribblers ha", 9);
+        verifyItemParsedValue(iterator.next(), "dh fc starter", "2.79", "dh fc starter", 10);
+        verifyItemParsedValue(iterator.next(), "after bite kids", "4.99", "after bite kids", 12);
+        verifyItemParsedValue(iterator.next(), "c&c astringent", "6.49", "c&c astringent", 14);
+        verifyItemParsedValue(iterator.next(), "acne wash", "8.49", "acne wash", 15);
+        verifyItemParsedValue(iterator.next(), "st ives vanilla", "2.98", "st ives vanilla", 16);
+        verifyItemParsedValue(iterator.next(), "shower creme sof", "3.93", "shower creme sof", 17);
+        verifyItemParsedValue(iterator.next(), "wlin cpck dcrtng", "5.04", "wlin cpck dcrtng", 19);
+        verifyItemParsedValue(iterator.next(), "hp jar scraper", "5.00", "hp jar scraper", 20);
+        verifyItemParsedValue(iterator.next(), "measure cup    gmrj", "4.29", null, 21);
 
         // verify parsed fields
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
@@ -82,13 +82,13 @@ public class RCSSSouthCommonReceiptTest extends AbstractReceiptParserIntegration
 
         // verify result of items
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "chap ic snde sd", "4.99", "chap ic snde sd_06294200366");
-        verifyItemParsedValue(iterator.next(), "shana naan", "1.99", "shana naan_06457970003");
-        verifyItemParsedValue(iterator.next(), "shana lacha para", "1.99", "shana lacha para_503003900298");
-        verifyItemParsedValue(iterator.next(), "wfz dmp rd rice", "8.97", "wfz dmp rd rice_690761966247");
-        verifyItemParsedValue(iterator.next(), "banana", "4.36", "banana_4011");
-        verifyItemParsedValue(iterator.next(), "tilapia whole", "8.87", "tilapia whole_2121080");
-        verifyItemParsedValue(iterator.next(), "fzn tilapia", "4.01", "fzn tilapia_2863070");
+        verifyItemParsedValue(iterator.next(), "chap ic snde sd", "4.99", "chap ic snde sd_06294200366", 8);
+        verifyItemParsedValue(iterator.next(), "shana naan", "1.99", "shana naan_06457970003", 9);
+        verifyItemParsedValue(iterator.next(), "shana lacha para", "1.99", "shana lacha para_503003900298", 10);
+        verifyItemParsedValue(iterator.next(), "wfz dmp rd rice", "8.97", "wfz dmp rd rice_690761966247", 11);
+        verifyItemParsedValue(iterator.next(), "banana", "4.36", "banana_4011", 14);
+        verifyItemParsedValue(iterator.next(), "tilapia whole", "8.87", "tilapia whole_2121080", 17);
+        verifyItemParsedValue(iterator.next(), "fzn tilapia", "4.01", "fzn tilapia_2863070", 18);
 
         // verify parsed fields
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
