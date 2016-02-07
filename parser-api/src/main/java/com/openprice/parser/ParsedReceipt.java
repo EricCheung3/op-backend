@@ -17,6 +17,12 @@ public interface ParsedReceipt {
     String getChainCode();
 
     /**
+     * The store branch name parser found.
+     * @return
+     */
+    String getBranchName();
+
+    /**
      * ParsedItem list the parser can find in the receipt text.
      *
      * @return might be empty list.
@@ -28,7 +34,5 @@ public interface ParsedReceipt {
      * @return
      */
     Map<ReceiptFieldType, ParsedField> getFields();
-
-    String getBranchName();
 
 }

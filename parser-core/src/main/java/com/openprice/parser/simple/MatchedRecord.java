@@ -117,11 +117,11 @@ public class MatchedRecord {
                .map( line -> storeBranch.maxFieldMatchScore(line) )
                .filter( lineScore -> lineScore.getScore() > 0.5)
                .forEach( lineScore -> putFieldLine(lineScore.getField(), lineScore.getReceiptLine().getNumber(), lineScore.getValue()));
-        //
-        //        System.out.println("After matchToBranch, parsed fields are :");
-        //        for (ReceiptField field : fieldToValueLine.keySet()) {
-        //            System.out.println(field.name() + " at line "+fieldToValueLine.get(field).getLine() + " : " + fieldToValueLine.get(field).getValue() );
-        //        }
+
+//                System.out.println("$$$$$$  After matchToBranch, parsed fields are :");
+//                for (ReceiptFieldType field : fieldToValueLine.keySet()) {
+//                    System.out.println("'"+ field.name() + "' at line "+fieldToValueLine.get(field).getLine() + " : " + fieldToValueLine.get(field).getValue() );
+//                }
 
     }
 

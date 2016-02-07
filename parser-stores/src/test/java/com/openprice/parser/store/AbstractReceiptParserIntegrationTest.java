@@ -42,6 +42,9 @@ public class AbstractReceiptParserIntegrationTest {
     }
 
     protected void printResult(ParsedReceipt receipt) {
+        System.out.println("Receipt parser result: store chain code='" + receipt.getChainCode() +
+                "', branh is '" + receipt.getBranchName() + "'.");
+        System.out.println("===================== Items parsed:");
         for (ParsedItem item : receipt.getItems()) {
             if(item.getCatalogCode()!=null)
                 System.out.println("verifyParsedItem(iterator.next(), \""+item.getParsedName() + "\", \""+
@@ -50,7 +53,7 @@ public class AbstractReceiptParserIntegrationTest {
                 System.out.println("verifyParsedItem(iterator.next(), \""+item.getParsedName() + "\", \""+
                         item.getParsedBuyPrice()+ "\", "+ item.getCatalogCode() + ", "+ item.getLineNumber()+ ");");
         }
-        System.out.println("\n=====================\nFields parsed:");
+        System.out.println("===================== Fields parsed:");
         for (ReceiptFieldType field : receipt.getFields().keySet()) {
             System.out.println("verifyParsedField(fieldValues, ReceiptFieldType."+ field +", \""
                     + receipt.getFields().get(field).getFieldValue() +"\","

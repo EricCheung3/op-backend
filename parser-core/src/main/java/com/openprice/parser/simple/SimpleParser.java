@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class SimpleParser implements ReceiptParser{
+public class SimpleParser implements ReceiptParser {
     private final ChainRegistry chainRegistry;
 
     @Inject
@@ -36,7 +36,7 @@ public class SimpleParser implements ReceiptParser{
     }
 
     @Override
-    public ParsedReceipt parseReceiptOcrResult(final List<String> ocrTextList){
+    public ParsedReceipt parseReceiptOcrResult(final List<String> ocrTextList) {
         try{
             final ReceiptData receipt = ReceiptData.fromOCRResults(ocrTextList);
             if (receipt.getReceiptLines().size() == 0) {
@@ -56,13 +56,12 @@ public class SimpleParser implements ReceiptParser{
         if (chain == null) {
             log.warn("No specific parser for this chain yet!");
             try{
-                final GenericChains chains=new GenericChains("/config/Generic/chain.list");
-                final String genericChainCode=chains.findChain(receipt.getOriginalLines()).toLowerCase();
+                final GenericChains chains = new GenericChains("/config/Generic/chain.list");
+                final String genericChainCode = chains.findChain(receipt.getOriginalLines()).toLowerCase();
                 log.info("genericChainCode="+genericChainCode);
                 return GenericParser.parse(StoreChain.genericStoreChain(genericChainCode), receipt);
-            }catch(Exception ex){
-                ex.printStackTrace();
-                log.warn("exception in calling generic parser. now call cheapParser!");
+            } catch(Exception ex) {
+                log.warn("exception in calling generic parser: {}. now call cheapParser!", ex.getMessage());
                 return new CheapParser().parse(receipt.getOriginalLines());
             }
         }

@@ -170,12 +170,12 @@ public class StoreBranch {
     public ReceiptLineWithScore maxFieldMatchScore(final ReceiptLine line) {
         double scoreMax=-1;
         ReceiptFieldType matchedField=null;
-        final String lowerStr=line.getCleanText().toLowerCase();
+        final String lowerStr = line.getCleanText().toLowerCase();
         for(ReceiptFieldType fName : fieldToValue.keySet()) {
             double score= StringCommon.matchStringToSubString(lowerStr, fieldToValue.get(fName));
-            if(score>scoreMax){
-                scoreMax=score;
-                matchedField=fName;
+            if (score > scoreMax) {
+                scoreMax = score;
+                matchedField = fName;
             }
         }
         return new ReceiptLineWithScore(scoreMax, matchedField, line, fieldToValue.get(matchedField));
