@@ -118,7 +118,6 @@ public class ReceiptParsingService {
             log.error("SEVERE: Got exception during parsing ocr text.", ex);
             return null;
         }
-
     }
 
     private void logParsedResult(final ParsedReceipt parsedReceipt) {

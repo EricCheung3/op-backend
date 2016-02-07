@@ -46,9 +46,9 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         assertEquals(3,receipt.getItems().size());
-        verifyItemParsedValue(iterator.next(), "med tea latte", "2.84", null, 5);
-        verifyItemParsedValue(iterator.next(), "green tea", "0.00", null, 6);
-        verifyItemParsedValue(iterator.next(), "med latte", "2.59", null, 7);
+        verifyParsedItem(iterator.next(), "med tea latte", "2.84", null, 5);
+        verifyParsedItem(iterator.next(), "green tea", "0.00", null, 6);
+        verifyParsedItem(iterator.next(), "med latte", "2.59", null, 7);
 
         // verify parsed fields
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
@@ -74,9 +74,9 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         assertEquals(3,receipt.getItems().size());
-        verifyItemParsedValue(iterator.next(), "med tea latte", "2.84", null, 5);
-        verifyItemParsedValue(iterator.next(), "green tea", "0.00", null, 6);
-        verifyItemParsedValue(iterator.next(), "med latte", "2.59", null, 7);
+        verifyParsedItem(iterator.next(), "med tea latte", "2.84", null, 5);
+        verifyParsedItem(iterator.next(), "green tea", "0.00", null, 6);
+        verifyParsedItem(iterator.next(), "med latte", "2.59", null, 7);
 
         // verify parsed fields
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
@@ -102,13 +102,13 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         assertEquals(7,receipt.getItems().size());
-        verifyItemParsedValue(iterator.next(), "no name all purp", "5.99", null, 7);
-        verifyItemParsedValue(iterator.next(), "red del. apples", null, null, 9);
-        verifyItemParsedValue(iterator.next(), "pear bartlett", "2.43", null, 11);
-        verifyItemParsedValue(iterator.next(), "mango red", "1.67", null, 13);
-        verifyItemParsedValue(iterator.next(), "pto russet 1olb    r", "3.97", null, 14);
-        verifyItemParsedValue(iterator.next(), "onion yellow 3lb    r", "1.47", null, 15);
-        verifyItemParsedValue(iterator.next(), "pco crt 2lb", "2.47", null, 17);
+        verifyParsedItem(iterator.next(), "no name all purp", "5.99", null, 7);
+        verifyParsedItem(iterator.next(), "red del. apples", null, null, 9);
+        verifyParsedItem(iterator.next(), "pear bartlett", "2.43", null, 11);
+        verifyParsedItem(iterator.next(), "mango red", "1.67", null, 13);
+        verifyParsedItem(iterator.next(), "pto russet 1olb    r", "3.97", null, 14);
+        verifyParsedItem(iterator.next(), "onion yellow 3lb    r", "1.47", null, 15);
+        verifyParsedItem(iterator.next(), "pco crt 2lb", "2.47", null, 17);
 
         // verify parsed fields
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
@@ -134,8 +134,8 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         assertEquals(2,receipt.getItems().size());
 
-        verifyItemParsedValue(iterator.next(), "1 blueberry muffin", "1.69", null, 15);
-        verifyItemParsedValue(iterator.next(), "1 m latte", "1.50", null, 16);
+        verifyParsedItem(iterator.next(), "1 blueberry muffin", "1.69", null, 15);
+        verifyParsedItem(iterator.next(), "1 m latte", "1.50", null, 16);
 
         // verify parsed fields
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
@@ -160,7 +160,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         assertEquals(1,receipt.getItems().size());
 
-        verifyItemParsedValue(iterator.next(), "2    soup rtu 8oz soup", "5.00", null, 12);
+        verifyParsedItem(iterator.next(), "2    soup rtu 8oz soup", "5.00", null, 12);
 
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(fieldValues.get(ReceiptFieldType.SubTotal).getFieldValue(), "5.00");

@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedField;
 import com.openprice.parser.ParsedItem;
@@ -45,21 +44,26 @@ public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         assertEquals(5,receipt.getItems().size());
-        verifyItemParsedValue(iterator.next(), "chicken bbq roasted", "9.0", null, 6);
-        verifyItemParsedValue(iterator.next(), "clabatta buns 4pk", "2.50", null, 8);
-        verifyItemParsedValue(iterator.next(), "clabatta buns 4pk", "2.50", null, 10);
-        verifyItemParsedValue(iterator.next(), "spinach bunch", "1.49", null, 11);
-        verifyItemParsedValue(iterator.next(), "lucerne who1e mi1k4l", "3.79", "lucerne who1e mi1k4l", 12);
+        verifyParsedItem(iterator.next(), "chicken bbq roasted", "9.0", null, 6);
+        verifyParsedItem(iterator.next(), "clabatta buns 4pk", "2.50", null, 8);
+        verifyParsedItem(iterator.next(), "clabatta buns 4pk", "2.50", null, 10);
+        verifyParsedItem(iterator.next(), "spinach bunch", "1.49", null, 11);
+        verifyParsedItem(iterator.next(), "lucerne who1e mi1k4l", "3.79", "lucerne who1e mi1k4l", 12);
 
         // verify parsed fields
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        //        assertEquals(fieldValues.get(ReceiptField.AddressLine1).getFieldValue(), "100a 5015");
-        //        assertEquals(fieldValues.get(ReceiptField.AddressCity).getFieldValue(), "edmonton");
-        assertEquals(fieldValues.get(ReceiptFieldType.Phone).getFieldValue(), "780-435-5132");
-        assertEquals(fieldValues.get(ReceiptFieldType.GstNumber).getFieldValue(), "817093735");
-        assertEquals(fieldValues.get(ReceiptFieldType.SubTotal).getFieldValue(), "22.59");
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getFieldValue(), "23.09");
-        assertEquals(StringCommon.EMPTY, fieldValues.get(ReceiptFieldType.Date).getFieldValue());//this receipt has no date string
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "23.09",18);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressCity, "edmonton",2);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreBranch, "safeway©",0);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "0.50",17);
+        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "served by: sco 22",5);
+        verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "number of items",21);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "817093735",4);
+        //TODO carrots matches card!
+        verifyParsedField(fieldValues, ReceiptFieldType.Card, "carrots 21b       3338366001       $1.99",15);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-435-5132",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "22.59",16);
     }
 
     @Value("classpath:/testFiles/Safeway/abbyy/receiptWithNoDateHeader.txt")

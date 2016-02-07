@@ -1,7 +1,5 @@
 package com.openprice.parser.store.rcss;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.Iterator;
 import java.util.Map;
 
@@ -11,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedField;
 import com.openprice.parser.ParsedItem;
@@ -32,22 +29,23 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
         //printResult(receipt);
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "yelw calros", "rice", null, 8);
-        verifyItemParsedValue(iterator.next(), "k dgon cook    wine    mrj", "2.69", null, 11);
-        verifyItemParsedValue(iterator.next(), "rooster garlic", "0.68", "rooster garlic_06038388591", 17);
-        verifyItemParsedValue(iterator.next(), "banana", "mftj", "banana_4011", 18);
-        verifyItemParsedValue(iterator.next(), "onion green", "067", "onion green_4068", 20);
-        verifyItemParsedValue(iterator.next(), "ducks fr7n    mrj", "15.23", null, 22);
-        verifyItemParsedValue(iterator.next(), "ducks frzh    mrj", "16.81", null, 23);
-        verifyItemParsedValue(iterator.next(), "hairtail", "7.36", "hairtail_77016160104", 25);
+        verifyParsedItem(iterator.next(), "yelw calros", "rice", null, 8);
+        verifyParsedItem(iterator.next(), "k dgon cook    wine    mrj", "2.69", null, 11);
+        verifyParsedItem(iterator.next(), "rooster garlic", "0.68", "rooster garlic_06038388591", 17);
+        verifyParsedItem(iterator.next(), "banana", "mftj", "banana_4011", 18);
+        verifyParsedItem(iterator.next(), "onion green", "067", "onion green_4068", 20);
+        verifyParsedItem(iterator.next(), "ducks fr7n    mrj", "15.23", null, 22);
+        verifyParsedItem(iterator.next(), "ducks frzh    mrj", "16.81", null, 23);
+        verifyParsedItem(iterator.next(), "hairtail", "7.36", "hairtail_77016160104", 25);
 
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        //        assertEquals(fieldValues.get(ReceiptField.Chain).getFieldValue(), "Superstore");
-        assertEquals(fieldValues.get(ReceiptFieldType.Slogan).getFieldValue(), "big on fresh, low on price");
-        assertEquals(fieldValues.get(ReceiptFieldType.StoreID).getFieldValue(), "01570");
-        assertEquals(fieldValues.get(ReceiptFieldType.SubTotal).getFieldValue(), "104.73");
-        assertEquals(fieldValues.get(ReceiptFieldType.Total).getFieldValue(), "104.73");
-        assertEquals(StringCommon.EMPTY, fieldValues.get(ReceiptFieldType.Date).getFieldValue());//this receipt has no date
-
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "01570",13);
+        verifyParsedField(fieldValues, ReceiptFieldType.Recycle, "ecology fee                                      0.08",14);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "104.73",29);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-430-2769",2);
+        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "big on fresh, low on price",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "104.73",27);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "card#;",5);
     }
 }
