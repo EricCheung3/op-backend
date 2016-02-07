@@ -21,7 +21,7 @@ application:
             systemName: GroundTruth Inc.
             systemEmail: no-reply@theopenprice.com
             adminName: Open Price
-            adminEmail: jiwhiz@gmail.com
+            adminEmail: admin@theopenprice.com
             webServerUrl: http://104.154.88.206:8080
         internal:
             serverHost: op-server-internal-api
