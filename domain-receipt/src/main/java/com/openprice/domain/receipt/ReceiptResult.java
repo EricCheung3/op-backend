@@ -76,7 +76,10 @@ public class ReceiptResult extends BaseAuditableEntity {
      * @param parsedPrice
      * @return
      */
-    ReceiptItem addItem(final String catalogCode, final String parsedName, final String parsedPrice) {
+    ReceiptItem addItem(final String catalogCode,
+                        final String parsedName,
+                        final String parsedPrice,
+                        final int lineNumber) {
         final ReceiptItem item = new ReceiptItem();
         item.setReceiptResult(this);
         item.setCatalogCode(catalogCode);
@@ -84,6 +87,7 @@ public class ReceiptResult extends BaseAuditableEntity {
         item.setDisplayName(parsedName);
         item.setParsedPrice(parsedPrice);
         item.setDisplayPrice(parsedPrice);
+        item.setLineNumber(lineNumber);
         return item;
     }
 }

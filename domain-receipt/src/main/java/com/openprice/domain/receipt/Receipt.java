@@ -108,13 +108,11 @@ public class Receipt extends BaseAuditableEntity {
         if (parsedReceipt.getBranchName() != null) {
             result.setBranchName(parsedReceipt.getBranchName());
         }
-        final String parsedTotalValue = parsedReceipt.getFields().get(ReceiptFieldType.Total).getFieldValue();
-        if (parsedTotalValue != null) {
-            result.setParsedTotal(parsedTotalValue);
+        if (parsedReceipt.getFields().get(ReceiptFieldType.Total) != null) {
+            result.setParsedTotal(parsedReceipt.getFields().get(ReceiptFieldType.Total).getFieldValue());
         }
-        final String parsedDateValue = parsedReceipt.getFields().get(ReceiptFieldType.Date).getFieldValue();
-        if (parsedDateValue != null) {
-            result.setParsedDate(parsedDateValue);
+        if (parsedReceipt.getFields().get(ReceiptFieldType.Date) != null) {
+            result.setParsedDate(parsedReceipt.getFields().get(ReceiptFieldType.Date).getFieldValue());
         }
         return result;
     }
