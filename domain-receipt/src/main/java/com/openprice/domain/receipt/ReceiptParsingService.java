@@ -97,13 +97,14 @@ public class ReceiptParsingService {
                 ReceiptResult result = receipt.createReceiptResultFromParserResult(parsedReceipt);
                 result = receiptResultRepository.save(result); // has to save ReceiptResult first before saving ReceiptItem
 
-                int lineNumber = 1;
+//                int lineNumber = 1;
                 for (final ParsedItem item : parsedReceipt.getItems()) {
                     final ReceiptItem receiptItem = result.addItem(item.getCatalogCode(),
                                                                    item.getParsedName(),
                                                                    item.getParsedBuyPrice());
                     // FIXME add lineNumber from parser items
-                    receiptItem.setLineNumber(lineNumber++);
+//                    receiptItem.setLineNumber(lineNumber++);
+                    receiptItem.setLineNumber(item.getLineNumber());
                     log.info("Parsed Item: catalogCode='{}', parsedName='{}', parsedPrice='{}'.",
                             receiptItem.getCatalogCode(), receiptItem.getParsedName(), receiptItem.getParsedPrice()); // TODO remove it after admin UI can display
                     receiptItemRepository.save(receiptItem);

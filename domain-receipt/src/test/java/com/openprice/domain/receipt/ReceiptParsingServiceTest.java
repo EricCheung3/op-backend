@@ -130,19 +130,21 @@ public class ReceiptParsingServiceTest {
 //    @Test
 //    public void parseScannedReceiptImages_ShouldSetReceiptToHasResult_IfScannedImagesCanParse() throws Exception {
 //        final List<ParsedItem> items = new ArrayList<>();
-//        items.add(Item.fromNamePriceCodeLine("milk", "10.99", "", "4.00", "food"));
-//        items.add(Item("eggs", "4.99", "4.99", "12", "food"));
+////        items.add(Item.fromNamePriceCodeLine("milk", "10.99", "", "4.00", "food"));
+////        items.add(Item.fromNamePriceCodeLine("eggs", "4.99", "4.99", "12", "food"));
+//        items.add(ParsedItemImpl.fromNamePriceCodeLine("milk", "10.99", "", 0));
+//        items.add(ParsedItemImpl.fromNamePriceCodeLine("eggs", "4.99", "4.99", 1));
 //
 //        final StoreChain chain = StoreChain.genericStoreChain("rcss");
 //        final StoreBranch branch = StoreBranch.builder().branchName("Calgary Trail").build();
 //        final Map<ReceiptFieldType, ValueLine> fieldToValueLine = new HashMap<ReceiptFieldType, ValueLine>();
 //        fieldToValueLine.put(ReceiptFieldType.Total, new ValueLine("15.00", -1));
-//        final ParsedReceiptImpl receiptDebug = ParsedReceiptImpl.fromChainItemsMapBranch(chain, items, fieldToValueLine, branch);
+//        final ParsedReceiptImpl receiptDebug = ParsedReceiptImpl.fromChainItemsMapBranch(chain, items, fieldToValueLine, branch.getBranchName());
 //
 //        when(receiptImageRepositoryMock.countByReceiptAndStatus(eq(receipt), eq(ProcessStatusType.UPLOADED))).thenReturn(0l);
 //        when(receiptImageRepositoryMock.findByReceiptAndStatusOrderByCreatedTime(eq(receipt), eq(ProcessStatusType.SCANNED)))
 //            .thenReturn(Arrays.asList(image1, image2, image3));
-//        when(simpleParserMock.parseOCRResults(anyObject())).thenReturn(receiptDebug);
+//        when(simpleParserMock.parseReceiptOcrResult(anyObject())).thenReturn(receiptDebug);
 //        when(receiptResultRepositoryMock.save(isA(ReceiptResult.class))).thenAnswer(new Answer<ReceiptResult>() {
 //            @Override
 //            public ReceiptResult answer(InvocationOnMock invocation) throws Throwable {
