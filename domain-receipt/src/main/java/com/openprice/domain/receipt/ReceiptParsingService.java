@@ -10,11 +10,10 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceipt;
-import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ReceiptField;
-import com.openprice.parser.data.ValueLine;
-import com.openprice.parser.simple.SimpleParser;
+import com.openprice.parser.ReceiptFieldType;
+import com.openprice.parser.ReceiptParser;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,19 +25,19 @@ public class ReceiptParsingService {
     private final ReceiptImageRepository receiptImageRepository;
     private final ReceiptResultRepository receiptResultRepository;
     private final ReceiptItemRepository receiptItemRepository;
-    private final SimpleParser simpleParser;
+    private final ReceiptParser receiptParser;
 
     @Inject
     public ReceiptParsingService(final ReceiptRepository receiptRepository,
                                  final ReceiptImageRepository receiptImageRepository,
                                  final ReceiptResultRepository receiptResultRepository,
                                  final ReceiptItemRepository receiptItemRepository,
-                                 final SimpleParser simpleParser) {
+                                 final ReceiptParser receiptParser) {
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
         this.receiptResultRepository = receiptResultRepository;
         this.receiptItemRepository = receiptItemRepository;
-        this.simpleParser = simpleParser;
+        this.receiptParser = receiptParser;
     }
 
     /**
@@ -91,25 +90,21 @@ public class ReceiptParsingService {
 
     public ReceiptResult parseOcrAndSaveResults(final Receipt receipt, final List<String> ocrTextList) {
         try {
-            final ParsedReceipt parsedReceipt = simpleParser.parseOCRResults(ocrTextList);
+            final ParsedReceipt parsedReceipt = receiptParser.parseReceiptOcrResult(ocrTextList);
             if (parsedReceipt != null) {
                 logParsedResult(parsedReceipt); // TODO remove it after we have admin UI to display
 
                 ReceiptResult result = receipt.createReceiptResultFromParserResult(parsedReceipt);
                 result = receiptResultRepository.save(result); // has to save ReceiptResult first before saving ReceiptItem
-
-                int lineNumber = 1;
-                for (final Item item : parsedReceipt.getItems()) {
-                    final ReceiptItem receiptItem = result.addItem(item.getProduct().toCatalogCode(),
-                                                                   item.getProduct().getName(),
-                                                                   item.getBuyPrice());
-                    // FIXME add lineNumber from parser items
-                    receiptItem.setLineNumber(lineNumber++);
-                    log.info("Parsed Item: catalogCode='{}', parsedName='{}', parsedPrice='{}'.",
-                            receiptItem.getCatalogCode(), receiptItem.getParsedName(), receiptItem.getParsedPrice()); // TODO remove it after admin UI can display
+                for (final ParsedItem item : parsedReceipt.getItems()) {
+                    final ReceiptItem receiptItem = result.addItem(item.getCatalogCode(),
+                                                                   item.getParsedName(),
+                                                                   item.getParsedBuyPrice(),
+                                                                   item.getLineNumber());
+                    log.info("Parsed Item: {}.", receiptItem); // TODO remove it after admin UI can display
                     receiptItemRepository.save(receiptItem);
                 }
-                log.debug("SimpleParser returns {} items.", parsedReceipt.getItems().size());
+                log.debug("ReceiptParser returns {} items.", parsedReceipt.getItems().size());
                 return receiptResultRepository.save(result);
             } else {
                 return null;
@@ -118,35 +113,30 @@ public class ReceiptParsingService {
             log.error("SEVERE: Got exception during parsing ocr text.", ex);
             return null;
         }
-
     }
 
     private void logParsedResult(final ParsedReceipt parsedReceipt) {
-        if (parsedReceipt.getChain() != null) {
-            log.info("    recognized store chain code - '{}'", parsedReceipt.getChain().getCode());
+        if (parsedReceipt.getChainCode() != null) {
+            log.info("    recognized store chain code - '{}'", parsedReceipt.getChainCode());
         }
-        if (parsedReceipt.getBranch() != null) {
-            log.info("    recognized branch name - '{}'", parsedReceipt.getBranch().getBranchName());
+        if (parsedReceipt.getBranchName() != null) {
+            log.info("    recognized branch name - '{}'", parsedReceipt.getBranchName());
         }
-        final ValueLine parsedDateValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Date);
-        if (parsedDateValue != null) {
-            log.info("    parsed Date - '{}'", parsedDateValue.getValue());
+        if (parsedReceipt.getFields().get(ReceiptFieldType.Date) != null) {
+            log.info("    parsed Date - '{}'", parsedReceipt.getFields().get(ReceiptFieldType.Date).getFieldValue());
         } else {
             log.info("    no Date found!");
         }
-        final ValueLine parsedTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Total);
-        if (parsedTotalValue != null) {
-            log.info("    parsed Total - '{}'", parsedTotalValue.getValue());
+        if (parsedReceipt.getFields().get(ReceiptFieldType.Total) != null) {
+            log.info("    parsed Total - '{}'", parsedReceipt.getFields().get(ReceiptFieldType.Total).getFieldValue());
         } else {
             log.info("    no Total found!");
         }
-        final ValueLine parsedSubTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.SubTotal);
-        if (parsedSubTotalValue != null) {
-            log.info("    parsed SubTotal - '{}'", parsedSubTotalValue.getValue());
+        if (parsedReceipt.getFields().get(ReceiptFieldType.SubTotal) != null) {
+            log.info("    parsed SubTotal - '{}'", parsedReceipt.getFields().get(ReceiptFieldType.SubTotal).getFieldValue());
         } else {
             log.info("    no SubTotal found!");
         }
-
     }
 
     LocalDate getReceiptDate(final String parsedDate) {
@@ -162,7 +152,6 @@ public class ReceiptParsingService {
                 }
             }
         }
-
         return null;
     }
 

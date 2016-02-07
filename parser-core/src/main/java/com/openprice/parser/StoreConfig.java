@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.price.CatalogFilter;
 
 import lombok.Getter;
@@ -129,7 +128,7 @@ public class StoreConfig {
         return result;
     }
 
-    public List<String> getFieldHeaderMatchStrings(final ReceiptField fieldName) {
+    public List<String> getFieldHeaderMatchStrings(final ReceiptFieldType fieldName) {
         return splitLine(fieldName.name()+"Header");
     }
 }

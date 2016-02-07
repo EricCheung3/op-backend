@@ -6,6 +6,6 @@ import lombok.Value;
 public class ReceiptLine {
     private String originalText;
     private String cleanText; // trim
-    private int number;
+    private int number;//original line number?
     private ReceiptData receipt;
 }

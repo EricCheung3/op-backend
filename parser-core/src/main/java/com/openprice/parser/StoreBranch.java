@@ -8,7 +8,6 @@ import org.springframework.util.StringUtils;
 import com.openprice.common.StringCommon;
 import com.openprice.parser.common.ParserUtils;
 import com.openprice.parser.data.Address;
-import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ReceiptLineWithScore;
 
 import lombok.Builder;
@@ -30,7 +29,7 @@ public class StoreBranch {
     private final String gstNumber;
     private final String slogan;
 
-    private final Map<ReceiptField, String> fieldToValue = new HashMap<ReceiptField, String>();
+    private final Map<ReceiptFieldType, String> fieldToValue = new HashMap<ReceiptFieldType, String>();
 
     public static StoreBranch EmptyStoreBranch(){
         return StoreBranch.builder()
@@ -57,19 +56,19 @@ public class StoreBranch {
 
         // save store branch ground truth data into a map
         if (address != null) {
-            addGroundTruthValue(ReceiptField.AddressLine1, address.getLine1());
-            addGroundTruthValue(ReceiptField.AddressLine2, address.getLine2());
-            addGroundTruthValue(ReceiptField.AddressCity, address.getCity());
+            addGroundTruthValue(ReceiptFieldType.AddressLine1, address.getLine1());
+            addGroundTruthValue(ReceiptFieldType.AddressLine2, address.getLine2());
+            addGroundTruthValue(ReceiptFieldType.AddressCity, address.getCity());
             //addGroundTruthValue(ReceiptField.AddressProv, address.getProv()); // province code is too short, may cause parsing error
-            addGroundTruthValue(ReceiptField.AddressPost, address.getPost());
+            addGroundTruthValue(ReceiptFieldType.AddressPost, address.getPost());
         }
-        addGroundTruthValue(ReceiptField.StoreID, storeId);
-        addGroundTruthValue(ReceiptField.GstNumber, gstNumber);
-        addGroundTruthValue(ReceiptField.Phone, phone);
-        addGroundTruthValue(ReceiptField.Slogan, slogan);
+        addGroundTruthValue(ReceiptFieldType.StoreID, storeId);
+        addGroundTruthValue(ReceiptFieldType.GstNumber, gstNumber);
+        addGroundTruthValue(ReceiptFieldType.Phone, phone);
+        addGroundTruthValue(ReceiptFieldType.Slogan, slogan);
     }
 
-    private void addGroundTruthValue(final ReceiptField fieldName, final String value) {
+    private void addGroundTruthValue(final ReceiptFieldType fieldName, final String value) {
         if (value != null) {
             final String cleanedValue = value.trim();
             if (cleanedValue.length() > 2) {
@@ -141,17 +140,17 @@ public class StoreBranch {
 
     private double matchBranchFieldScoreSum(final String lineString) {
         double sum = 0.0;
-        sum += matchFieldScore(ReceiptField.AddressLine1, lineString);
-        sum += matchFieldScore(ReceiptField.AddressLine2, lineString);
-        sum += matchFieldScore(ReceiptField.AddressCity, lineString);
-        sum += matchFieldScore(ReceiptField.AddressPost, lineString);
-        sum += matchFieldScore(ReceiptField.GstNumber, lineString);
-        sum += matchFieldScore(ReceiptField.Phone, lineString);
-        sum += matchFieldScore(ReceiptField.StoreBranch, lineString);
+        sum += matchFieldScore(ReceiptFieldType.AddressLine1, lineString);
+        sum += matchFieldScore(ReceiptFieldType.AddressLine2, lineString);
+        sum += matchFieldScore(ReceiptFieldType.AddressCity, lineString);
+        sum += matchFieldScore(ReceiptFieldType.AddressPost, lineString);
+        sum += matchFieldScore(ReceiptFieldType.GstNumber, lineString);
+        sum += matchFieldScore(ReceiptFieldType.Phone, lineString);
+        sum += matchFieldScore(ReceiptFieldType.StoreBranch, lineString);
         return sum;
     }
 
-    private double matchFieldScore(final ReceiptField field, final String lineString) {
+    private double matchFieldScore(final ReceiptFieldType field, final String lineString) {
         final String fieldValue = fieldToValue.get(field);
         if (StringUtils.isEmpty(fieldValue) || StringUtils.isEmpty(lineString)) {
             return 0.0;
@@ -170,9 +169,9 @@ public class StoreBranch {
      */
     public ReceiptLineWithScore maxFieldMatchScore(final ReceiptLine line) {
         double scoreMax=-1;
-        ReceiptField matchedField=null;
+        ReceiptFieldType matchedField=null;
         final String lowerStr=line.getCleanText().toLowerCase();
-        for(ReceiptField fName : fieldToValue.keySet()) {
+        for(ReceiptFieldType fName : fieldToValue.keySet()) {
             double score= StringCommon.matchStringToSubString(lowerStr, fieldToValue.get(fName));
             if(score>scoreMax){
                 scoreMax=score;

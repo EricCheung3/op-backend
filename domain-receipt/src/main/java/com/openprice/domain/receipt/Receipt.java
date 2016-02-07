@@ -17,8 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.parser.ParsedReceipt;
-import com.openprice.parser.data.ReceiptField;
-import com.openprice.parser.data.ValueLine;
+import com.openprice.parser.ReceiptFieldType;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -103,19 +102,17 @@ public class Receipt extends BaseAuditableEntity {
     public ReceiptResult createReceiptResultFromParserResult(final ParsedReceipt parsedReceipt) {
         final ReceiptResult result = new ReceiptResult();
         result.setReceipt(this);
-        if (parsedReceipt.getChain() != null) {
-            result.setChainCode(parsedReceipt.getChain().getCode());
+        if (parsedReceipt.getChainCode() != null) {
+            result.setChainCode(parsedReceipt.getChainCode());
         }
-        if (parsedReceipt.getBranch() != null) {
-            result.setBranchName(parsedReceipt.getBranch().getBranchName());
+        if (parsedReceipt.getBranchName() != null) {
+            result.setBranchName(parsedReceipt.getBranchName());
         }
-        final ValueLine parsedTotalValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Total);
-        if (parsedTotalValue != null) {
-            result.setParsedTotal(parsedTotalValue.getValue());
+        if (parsedReceipt.getFields().get(ReceiptFieldType.Total) != null) {
+            result.setParsedTotal(parsedReceipt.getFields().get(ReceiptFieldType.Total).getFieldValue());
         }
-        final ValueLine parsedDateValue = parsedReceipt.getFieldToValueMap().get(ReceiptField.Date);
-        if (parsedDateValue != null) {
-            result.setParsedDate(parsedDateValue.getValue());
+        if (parsedReceipt.getFields().get(ReceiptFieldType.Date) != null) {
+            result.setParsedDate(parsedReceipt.getFields().get(ReceiptFieldType.Date).getFieldValue());
         }
         return result;
     }

@@ -11,10 +11,10 @@ import java.util.stream.Stream;
 
 import com.openprice.common.StringCommon;
 import com.openprice.parser.ReceiptData;
+import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreBranch;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
-import com.openprice.parser.data.ReceiptField;
 import com.openprice.parser.data.ValueLine;
 
 import lombok.Data;
@@ -30,13 +30,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MatchedRecord {
     // mapping line number to FieldNameAddressLines that is matched by the line
-    private final Map<Integer, Set<ReceiptField>> lineToField = new HashMap<Integer, Set<ReceiptField>>();
+    private final Map<Integer, Set<ReceiptFieldType>> lineToField = new HashMap<Integer, Set<ReceiptFieldType>>();
 
     // reverse mapping of the Map<Integer, FieldNameAddressLines>
-    private final Map<ReceiptField, Set<Integer>> fieldToLine = new HashMap<ReceiptField, Set<Integer>>();
+    private final Map<ReceiptFieldType, Set<Integer>> fieldToLine = new HashMap<ReceiptFieldType, Set<Integer>>();
 
     //save the many field members in a map
-    private final Map<ReceiptField, ValueLine> fieldToValueLine = new HashMap<ReceiptField, ValueLine>();
+    private final Map<ReceiptFieldType, ValueLine> fieldToValueLine = new HashMap<ReceiptFieldType, ValueLine>();
 
 
     // whether a line is matched
@@ -45,15 +45,15 @@ public class MatchedRecord {
     }
 
     // whether a field is matched
-    public boolean fieldNameIsMatched(final ReceiptField f) {
+    public boolean fieldNameIsMatched(final ReceiptFieldType f) {
         return fieldToLine.containsKey(f);
     }
 
-    public boolean fieldIsMatched(final ReceiptField f) {
+    public boolean fieldIsMatched(final ReceiptFieldType f) {
         return fieldNameIsMatched(f);
     }
 
-    public Set<ReceiptField> matchedFields(final int line) {
+    public Set<ReceiptFieldType> matchedFields(final int line) {
         return lineToField.get(line);
     }
 
@@ -75,7 +75,7 @@ public class MatchedRecord {
 
     public int itemStopLineNumber() {
         Optional<ValueLine> stopLine =
-                Stream.of(ReceiptField.GstAmount, ReceiptField.Total, ReceiptField.SubTotal)
+                Stream.of(ReceiptFieldType.GstAmount, ReceiptFieldType.Total, ReceiptFieldType.SubTotal)
                       .map( field -> fieldToValueLine.get(field) )
                       .filter( value -> value != null )
                       .min( Comparator.comparing(ValueLine::getLine) );
@@ -86,12 +86,12 @@ public class MatchedRecord {
         return stopLine.isPresent()? stopLine.get().getLine() : Integer.MAX_VALUE;
     }
 
-    public void putFieldLine(final ReceiptField fName, final int lineNumber) {
+    public void putFieldLine(final ReceiptFieldType fName, final int lineNumber) {
         if ( !fieldToLine.containsKey(fName))
             fieldToLine.put(fName, new HashSet<Integer>());
         fieldToLine.get(fName).add(lineNumber);
         if ( !lineToField.containsKey(lineNumber))
-            lineToField.put(lineNumber, new HashSet<ReceiptField>());
+            lineToField.put(lineNumber, new HashSet<ReceiptFieldType>());
         lineToField.get(lineNumber).add(fName);
     }
 
@@ -103,11 +103,11 @@ public class MatchedRecord {
      * @param lineNumber
      * @param value
      */
-    public void putFieldLine(final ReceiptField fName, final int lineNumber, final String value) {
+    public void putFieldLine(final ReceiptFieldType fName, final int lineNumber, final String value) {
         putFieldLine(fName, lineNumber);
         fieldToValueLine.put(fName,  new ValueLine(value, lineNumber));
     }
-    public void putFieldLine(final ReceiptField fName, final ValueLine valueLine) {
+    public void putFieldLine(final ReceiptFieldType fName, final ValueLine valueLine) {
         putFieldLine(fName, valueLine.getLine(), valueLine.getValue());
     }
 
@@ -126,7 +126,7 @@ public class MatchedRecord {
     }
 
     public void matchToHeader(final ReceiptData receipt, final StoreConfig config, final StoreParser parser) {
-        for (ReceiptField field : ReceiptField.values()) {
+        for (ReceiptFieldType field : ReceiptFieldType.values()) {
             if (fieldNameIsMatched(field)) {
                 continue;
             }

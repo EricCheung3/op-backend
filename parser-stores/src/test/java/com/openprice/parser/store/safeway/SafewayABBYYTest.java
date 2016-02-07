@@ -16,12 +16,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
+import com.openprice.parser.ParsedField;
+import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceipt;
-import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ReceiptField;
-import com.openprice.parser.data.ValueLine;
+import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.simple.SimpleParser;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
@@ -40,26 +39,31 @@ public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
-        printResult(receipt);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        //printResult(receipt);
 
-        Iterator<Item> iterator = receipt.getItems().iterator();
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         assertEquals(5,receipt.getItems().size());
-        verifyItemParsedValue(iterator.next(), "chicken bbq roasted", "9.0", "");
-        verifyItemParsedValue(iterator.next(), "clabatta buns 4pk", "2.50", "");
-        verifyItemParsedValue(iterator.next(), "clabatta buns 4pk", "2.50", "");
-        verifyItemParsedValue(iterator.next(), "spinach bunch", "1.49", "");
-        verifyItemParsedValue(iterator.next(), "lucerne who1e mi1k4l", "3.79", "lucerne who1e mi1k4l");
+        verifyParsedItem(iterator.next(), "chicken bbq roasted", "9.0", null, 6);
+        verifyParsedItem(iterator.next(), "clabatta buns 4pk", "2.50", null, 8);
+        verifyParsedItem(iterator.next(), "clabatta buns 4pk", "2.50", null, 10);
+        verifyParsedItem(iterator.next(), "spinach bunch", "1.49", null, 11);
+        verifyParsedItem(iterator.next(), "lucerne who1e mi1k4l", "3.79", "lucerne who1e mi1k4l", 12);
 
         // verify parsed fields
-        Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        //        assertEquals(fieldValues.get(ReceiptField.AddressLine1).getValue(), "100a 5015");
-        //        assertEquals(fieldValues.get(ReceiptField.AddressCity).getValue(), "edmonton");
-        assertEquals(fieldValues.get(ReceiptField.Phone).getValue(), "780-435-5132");
-        assertEquals(fieldValues.get(ReceiptField.GstNumber).getValue(), "817093735");
-        assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "22.59");
-        assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "23.09");
-        assertEquals(StringCommon.EMPTY, fieldValues.get(ReceiptField.Date).getValue());//this receipt has no date string
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "23.09",18);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressCity, "edmonton",2);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreBranch, "safeway©",0);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "0.50",17);
+        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "served by: sco 22",5);
+        verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "number of items",21);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "817093735",4);
+        //TODO carrots matches card!
+        verifyParsedField(fieldValues, ReceiptFieldType.Card, "carrots 21b       3338366001       $1.99",15);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-435-5132",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "22.59",16);
     }
 
     @Value("classpath:/testFiles/Safeway/abbyy/receiptWithNoDateHeader.txt")
@@ -69,8 +73,8 @@ public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
         final List<String> receiptLines = new ArrayList<>();
         TextResourceUtils.loadFromTextResource(receiptWithNoDateHeader, (line)-> receiptLines.add(line));
         assertTrue(receiptLines.size() > 0);
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
-        assertEquals("2015/2/27", receipt.getFieldToValueMap().get(ReceiptField.Date).getValue());
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        assertEquals("2015/2/27", receipt.getFields().get(ReceiptFieldType.Date).getFieldValue());
     }
 
 }

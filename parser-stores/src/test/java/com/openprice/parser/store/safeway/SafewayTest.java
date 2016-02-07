@@ -1,6 +1,5 @@
 package com.openprice.parser.store.safeway;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -17,10 +16,10 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.openprice.common.TextResourceUtils;
+import com.openprice.parser.ParsedField;
+import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceipt;
-import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ReceiptField;
-import com.openprice.parser.data.ValueLine;
+import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.simple.SimpleParser;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
@@ -39,26 +38,32 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
-        //printResult(receipt);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        printResult(receipt);
 
-        Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "sevengrain salad", "7.199", "sevengrain salad");
-        verifyItemParsedValue(iterator.next(), "hot soup small", "2.999", "hot soup small_2113006680");
-        verifyItemParsedValue(iterator.next(), "for baby summer veg", "1.19", "for baby summer veg");
-        verifyItemParsedValue(iterator.next(), "samosas beef", "2.99", "samosas beef_24586100000");
-        verifyItemParsedValue(iterator.next(), "for baby carrots", "1.19", "for baby carrots");
-        //verifyItemParsedValue(iterator.next(), "=>free item", "1.19", "=>free item");
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        verifyParsedItem(iterator.next(), "sevengrain salad", "7.199", "sevengrain salad", 8);
+        verifyParsedItem(iterator.next(), "hot soup small", "2.999", "hot soup small_2113006680", 9);
+        verifyParsedItem(iterator.next(), "for baby summer veg", "1.19", "for baby summer veg", 10);
+        verifyParsedItem(iterator.next(), "samosas beef", "2.99", "samosas beef_24586100000", 11);
+        verifyParsedItem(iterator.next(), "for baby carrots", "1.19", "for baby carrots", 12);
 
         // verify parsed fields
-        Map<ReceiptField, ValueLine> fieldValues = receipt.getFieldToValueMap();
-        assertEquals(fieldValues.get(ReceiptField.AddressLine1).getValue(), "100a 5015");
-        //assertEquals(fieldValues.get(ReceiptField.AddressCity).getValue(), "edmonton");
-        assertEquals(fieldValues.get(ReceiptField.Phone).getValue(), "780-435-5132");
-        assertEquals(fieldValues.get(ReceiptField.GstNumber).getValue(), "817093735");
-        assertEquals(fieldValues.get(ReceiptField.SubTotal).getValue(), "14.36");
-        assertEquals(fieldValues.get(ReceiptField.Total).getValue(), "14.87");
-        assertEquals("2015/2/27", fieldValues.get(ReceiptField.Date).getValue());
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "14.87",16);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "100a 5015",32);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/2/27",44);
+        //TODO why no match?
+        // verifyParsedField(fieldValues, ReceiptFieldType.AddressCity, "edmonton",2);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreBranch, "safewaycanada .survey.market force .com",52);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "0.51",15);
+        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "served by: sean s",5);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "817093735",4);
+        verifyParsedField(fieldValues, ReceiptFieldType.Card, "cardholder",42);
+        verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "number of items                         5",19);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "approved",36);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-435-5132",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "14.36",14);
 
     }
 
@@ -72,31 +77,34 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
 
         assertTrue(receiptLines.size() > 0);
 
-        ParsedReceipt receipt = simpleParser.parse(receiptLines);
-        //printResult(receipt);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        printResult(receipt);
 
-        Iterator<Item> iterator = receipt.getItems().iterator();
-        verifyItemParsedValue(iterator.next(), "danone strawberry", "5.87", "danone strawberry");
-        // verifyItemParsedValue(iterator.next(), "deposit", "0.80", "deposit");
-        verifyItemParsedValue(iterator.next(), "iogo nomad drink", "2.199", "iogo nomad drink");
-        // verifyItemParsedValue(iterator.next(), "deposit", "0.10", "deposit");
-        verifyItemParsedValue(iterator.next(), "pastry bulk", "1.299", "pastry bulk");
-        verifyItemParsedValue(iterator.next(), "wt    bulk minibits cook", "0.89", "wt    bulk minibits cook");
-        verifyItemParsedValue(iterator.next(), "cucumber", "1.29", "cucumber");
-        //verifyItemParsedValue(iterator.next(), "regprice", ".38", "regprice");
-        //verifyItemParsedValue(iterator.next(), "savings", ".38", "savings");
-        verifyItemParsedValue(iterator.next(), "6 qty    corn on cob", "3.00", "6 qty    corn on cob");
-        //verifyItemParsedValue(iterator.next(), "regprice", "5.31", "regprice");
-        //verifyItemParsedValue(iterator.next(), "savings", "2.31", "savings");
-        verifyItemParsedValue(iterator.next(), "2 qty    organic avocados", "5.38", "2 qty    organic avocados");
-        verifyItemParsedValue(iterator.next(), "butter lettuce", "3.49", "butter lettuce");
-        verifyItemParsedValue(iterator.next(), "2 qty    organic strawberry", "8.98", "2 qty    organic strawberry");
-        verifyItemParsedValue(iterator.next(), "4\"rose w/hat pick", "6.999", "4\"rose w/hat pick");
-        //verifyItemParsedValue(iterator.next(), "regprice", "7.99", "regprice");
-        //verifyItemParsedValue(iterator.next(), "savings", "1.00", "savings");
-        //verifyItemParsedValue(iterator.next(), "change", "0.00", "change");
-        //verifyItemParsedValue(iterator.next(), "b.", "", "b._5/12/14 12:55 0877 08 029l");
-        //verifyItemParsedValue(iterator.next(), "savings", "3.72", "savings");
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        verifyParsedItem(iterator.next(), "danone strawberry", "5.87", "danone strawberry", 6);
+        verifyParsedItem(iterator.next(), "iogo nomad drink", "2.199", "iogo nomad drink", 9);
+        verifyParsedItem(iterator.next(), "pastry bulk", "1.299", "pastry bulk", 13);
+        verifyParsedItem(iterator.next(), "wt    bulk minibits cook", "0.89", "wt    bulk minibits cook", 15);
+        verifyParsedItem(iterator.next(), "cucumber", "1.29", "cucumber", 17);
+        verifyParsedItem(iterator.next(), "6 qty    corn on cob", "3.00", "6 qty    corn on cob", 21);
+        verifyParsedItem(iterator.next(), "2 qty    organic avocados", "5.38", "2 qty    organic avocados", 24);
+        verifyParsedItem(iterator.next(), "butter lettuce", "3.49", "butter lettuce", 25);
+        verifyParsedItem(iterator.next(), "2 qty    organic strawberry", "8.98", "2 qty    organic strawberry", 26);
+        verifyParsedItem(iterator.next(), "4\"rose w/hat pick", "6.999", "4\"rose w/hat pick", 28);
 
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "3.72",48);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/5/12",38);
+        verifyParsedField(fieldValues, ReceiptFieldType.Ref, "refrig/frozen",5);
+        verifyParsedField(fieldValues, ReceiptFieldType.Recycle, "crf / recycling fee                       0 . 01 g",11);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressCity, "edmonton",18);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreBranch, "safewa~canada .s urve~ . ~arketforce . co~",54);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "",49);
+        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "your cashier today was jennifer",43);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "817093735",2);
+        verifyParsedField(fieldValues, ReceiptFieldType.Card, "vf       mastercard                       41 . 88",33);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "author . ii : 05790z",35);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-435-5132",1);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "account number ************6689",34);
     }
 }

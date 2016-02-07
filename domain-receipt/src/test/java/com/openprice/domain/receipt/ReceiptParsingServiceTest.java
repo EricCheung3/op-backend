@@ -27,13 +27,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import com.openprice.domain.account.user.UserAccount;
+import com.openprice.parser.ParsedField;
+import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceipt;
-import com.openprice.parser.StoreBranch;
-import com.openprice.parser.StoreChain;
-import com.openprice.parser.data.Item;
-import com.openprice.parser.data.ReceiptField;
-import com.openprice.parser.data.ValueLine;
-import com.openprice.parser.simple.SimpleParser;
+import com.openprice.parser.ReceiptFieldType;
+import com.openprice.parser.ReceiptParser;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReceiptParsingServiceTest {
@@ -59,7 +57,7 @@ public class ReceiptParsingServiceTest {
     ReceiptFeedbackRepository receiptFeedbackRepositoryMock;
 
     @Mock
-    SimpleParser simpleParserMock;
+    ReceiptParser receiptParserMock;
 
     @InjectMocks
     ReceiptParsingService serviceToTest;
@@ -138,20 +136,84 @@ public class ReceiptParsingServiceTest {
 
     @Test
     public void parseScannedReceiptImages_ShouldSetReceiptToHasResult_IfScannedImagesCanParse() throws Exception {
-        final List<Item> items = new ArrayList<>();
-        items.add(Item.fromNameProductCategoryBuyPUnitPWeightCategory("milk", "10.99", "1.99", "4.00", "food"));
-        items.add(Item.fromNameProductCategoryBuyPUnitPWeightCategory("eggs", "4.99", "4.99", "12", "food"));
+        final List<ParsedItem> items = new ArrayList<>();
+        items.add( new ParsedItem() {
+            @Override
+            public String getParsedName() {
+                return "milk";
+            }
+            @Override
+            public String getParsedBuyPrice() {
+                return "10.99";
+            }
+            @Override
+            public String getCatalogCode() {
+                return "";
+            }
+            @Override
+            public int getLineNumber() {
+                return 10;
+            }
+        });
+        items.add( new ParsedItem() {
+            @Override
+            public String getParsedName() {
+                return "egg";
+            }
+            @Override
+            public String getParsedBuyPrice() {
+                return "4.99";
+            }
+            @Override
+            public String getCatalogCode() {
+                return "";
+            }
+            @Override
+            public int getLineNumber() {
+                return 12;
+            }
+        });
 
-        final StoreChain chain = StoreChain.genericStoreChain("rcss");
-        final StoreBranch branch = StoreBranch.builder().branchName("Calgary Trail").build();
-        final Map<ReceiptField, ValueLine> fieldToValueLine = new HashMap<ReceiptField, ValueLine>();
-        fieldToValueLine.put(ReceiptField.Total, new ValueLine("15.00", -1));
-        final ParsedReceipt receiptDebug = ParsedReceipt.fromChainItemsMapBranch(chain, items, fieldToValueLine, branch);
+        final ParsedReceipt parsedReceipt = new ParsedReceipt() {
+            @Override
+            public String getChainCode() {
+                return "rcss";
+            }
+            @Override
+            public List<ParsedItem> getItems() {
+                return items;
+            }
+            @Override
+            public Map<ReceiptFieldType, ParsedField> getFields() {
+                Map<ReceiptFieldType, ParsedField> fields = new HashMap<>();
+                ParsedField field = new ParsedField() {
+                    @Override
+                    public ReceiptFieldType getFieldType() {
+                        return ReceiptFieldType.Total;
+                    }
+                    @Override
+                    public String getFieldValue() {
+                        return "12.00";
+                    }
+                    @Override
+                    public int getLineNumber() {
+                        return 20;
+                    }
+                };
+                fields.put(ReceiptFieldType.Total, field);
+                return fields;
+            }
+            @Override
+            public String getBranchName() {
+                return "Calgary Trail";
+            }
+
+        };
 
         when(receiptImageRepositoryMock.countByReceiptAndStatus(eq(receipt), eq(ProcessStatusType.UPLOADED))).thenReturn(0l);
         when(receiptImageRepositoryMock.findByReceiptAndStatusOrderByCreatedTime(eq(receipt), eq(ProcessStatusType.SCANNED)))
             .thenReturn(Arrays.asList(image1, image2, image3));
-        when(simpleParserMock.parseOCRResults(anyObject())).thenReturn(receiptDebug);
+        when(receiptParserMock.parseReceiptOcrResult(anyObject())).thenReturn(parsedReceipt);
         when(receiptResultRepositoryMock.save(isA(ReceiptResult.class))).thenAnswer(new Answer<ReceiptResult>() {
             @Override
             public ReceiptResult answer(InvocationOnMock invocation) throws Throwable {
@@ -181,7 +243,6 @@ public class ReceiptParsingServiceTest {
             assertEquals("rcss", result.getChainCode());
             assertEquals("Calgary Trail", result.getBranchName());
         }
-
     }
 
     @Test
@@ -189,7 +250,7 @@ public class ReceiptParsingServiceTest {
         when(receiptImageRepositoryMock.countByReceiptAndStatus(eq(receipt), eq(ProcessStatusType.UPLOADED))).thenReturn(0l);
         when(receiptImageRepositoryMock.findByReceiptAndStatusOrderByCreatedTime(eq(receipt), eq(ProcessStatusType.SCANNED)))
             .thenReturn(Arrays.asList(image1, image2, image3));
-        when(simpleParserMock.parseOCRResults(anyObject())).thenReturn(null);
+        when(receiptParserMock.parseReceiptOcrResult(anyObject())).thenReturn(null);
         when(receiptRepositoryMock.save(isA(Receipt.class))).thenAnswer(new Answer<Receipt>() {
             @Override
             public Receipt answer(InvocationOnMock invocation) throws Throwable {
