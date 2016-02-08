@@ -55,13 +55,13 @@ public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "23.09",18);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
+        //TODO Why not pass?
         //verifyParsedField(fieldValues, ReceiptFieldType.AddressCity, "edmonton",2);
         verifyParsedField(fieldValues, ReceiptFieldType.StoreBranch, "safeway©",0);
         verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "0.50",17);
         verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "served by: sco 22",5);
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "number of items",21);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "817093735",4);
-        //TODO carrots matches card!
         verifyParsedField(fieldValues, ReceiptFieldType.Card, "carrots 21b       3338366001       $1.99",15);
         verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-435-5132",3);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "22.59",16);
