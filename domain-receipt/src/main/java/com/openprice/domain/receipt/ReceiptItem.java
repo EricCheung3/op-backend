@@ -77,7 +77,6 @@ public class ReceiptItem extends BaseAuditableEntity {
                                                     final ReceiptResult receiptResult,
                                                     final Integer lineNumber,
                                                     final String catalogCode,
-                                                    //final ProductCategory productCategory,
                                                     final String parsedName,
                                                     final String displayName,
                                                     final String parsedPrice,
@@ -87,7 +86,6 @@ public class ReceiptItem extends BaseAuditableEntity {
         item.setReceiptResult(receiptResult);
         item.setLineNumber(lineNumber);
         item.setCatalogCode(catalogCode);
-        //item.setProductCategory(productCategory);
         item.setParsedName(parsedName);
         item.setDisplayName(displayName);
         item.setParsedPrice(parsedPrice);

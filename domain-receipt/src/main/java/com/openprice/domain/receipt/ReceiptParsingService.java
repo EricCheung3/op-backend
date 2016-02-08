@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.openprice.parser.ParsedField;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptFieldType;
@@ -25,6 +26,7 @@ public class ReceiptParsingService {
     private final ReceiptImageRepository receiptImageRepository;
     private final ReceiptResultRepository receiptResultRepository;
     private final ReceiptItemRepository receiptItemRepository;
+    private final ReceiptFieldRepository receiptFieldRepository;
     private final ReceiptParser receiptParser;
 
     @Inject
@@ -32,11 +34,13 @@ public class ReceiptParsingService {
                                  final ReceiptImageRepository receiptImageRepository,
                                  final ReceiptResultRepository receiptResultRepository,
                                  final ReceiptItemRepository receiptItemRepository,
+                                 final ReceiptFieldRepository receiptFieldRepository,
                                  final ReceiptParser receiptParser) {
         this.receiptRepository = receiptRepository;
         this.receiptImageRepository = receiptImageRepository;
         this.receiptResultRepository = receiptResultRepository;
         this.receiptItemRepository = receiptItemRepository;
+        this.receiptFieldRepository = receiptFieldRepository;
         this.receiptParser = receiptParser;
     }
 
@@ -101,10 +105,17 @@ public class ReceiptParsingService {
                                                                    item.getParsedName(),
                                                                    item.getParsedBuyPrice(),
                                                                    item.getLineNumber());
-                    log.info("Parsed Item: {}.", receiptItem); // TODO remove it after admin UI can display
                     receiptItemRepository.save(receiptItem);
                 }
                 log.debug("ReceiptParser returns {} items.", parsedReceipt.getItems().size());
+
+                for (final ReceiptFieldType fieldType : parsedReceipt.getFields().keySet()) {
+                    final ParsedField field = parsedReceipt.getFields().get(fieldType);
+                    final ReceiptField receiptField = result.addField(field.getFieldType(),
+                                                                      field.getFieldValue(),
+                                                                      field.getLineNumber());
+                    receiptFieldRepository.save(receiptField);
+                }
                 return receiptResultRepository.save(result);
             } else {
                 return null;

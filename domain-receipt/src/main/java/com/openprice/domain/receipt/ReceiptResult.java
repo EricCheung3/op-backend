@@ -8,6 +8,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openprice.domain.BaseAuditableEntity;
+import com.openprice.parser.ReceiptFieldType;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -89,5 +90,16 @@ public class ReceiptResult extends BaseAuditableEntity {
         item.setDisplayPrice(parsedPrice);
         item.setLineNumber(lineNumber);
         return item;
+    }
+
+    ReceiptField addField(final ReceiptFieldType type,
+                          final String value,
+                          final int lineNumber) {
+        final ReceiptField field = new ReceiptField();
+        field.setReceiptResult(this);
+        field.setType(type);
+        field.setValue(value);
+        field.setLineNumber(lineNumber);
+        return field;
     }
 }

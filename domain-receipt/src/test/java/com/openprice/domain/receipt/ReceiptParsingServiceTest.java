@@ -54,6 +54,9 @@ public class ReceiptParsingServiceTest {
     ReceiptItemRepository receiptItemRepositoryMock;
 
     @Mock
+    ReceiptFieldRepository receiptFieldRepositoryMock;
+
+    @Mock
     ReceiptFeedbackRepository receiptFeedbackRepositoryMock;
 
     @Mock
@@ -235,6 +238,8 @@ public class ReceiptParsingServiceTest {
         verify(receiptImageRepositoryMock, times(0)).countByReceiptAndStatus(eq(receipt), eq(ProcessStatusType.SCANNED_ERR));
         verify(receiptImageRepositoryMock, times(1)).findByReceiptAndStatusOrderByCreatedTime(eq(receipt), eq(ProcessStatusType.SCANNED));
         verify(receiptRepositoryMock, times(1)).save(isA(Receipt.class));
+        verify(receiptItemRepositoryMock, times(2)).save(isA(ReceiptItem.class));
+        verify(receiptFieldRepositoryMock, times(1)).save(isA(ReceiptField.class));
 
         {
             ArgumentCaptor<ReceiptResult> argument = ArgumentCaptor.forClass(ReceiptResult.class);
