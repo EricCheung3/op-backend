@@ -35,6 +35,7 @@ public class UserAccountResource extends Resource<UserAccount> {
                        .addLink("profile", URL_USER_PROFILE, false, null)
                        .addLink("upload", URL_USER_RECEIPTS_UPLOAD, false, null)
                        .addLink("shoppingList", URL_USER_SHOPPINGLIST, false, null)
+                       .addLink("allReceipts", URL_USER_ALL_RECEIPTS, false, null)
                        .addLink("receipts", URL_USER_RECEIPTS, true, null)
                        .addLink("receipt", URL_USER_RECEIPTS_RECEIPT, false, null)
                        .addLink("stores", URL_USER_SHOPPING_STORES, true, null)

@@ -4,6 +4,8 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -50,6 +52,21 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
                                      final InternalService internalService) {
         super(userAccountService, receiptService, receiptUploadService, receiptRepository, internalService);
         this.receiptResourceAssembler = receiptResourceAssembler;
+    }
+
+    /**
+     * This is a temp solution to return all user receipts. In the future we will still use URL_USER_RECEIPTS endpoint
+     * to get receipts in pagination.
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER_ALL_RECEIPTS)
+    public HttpEntity<List<UserReceiptResource>> getCurrentUserAllReceipts() {
+        final UserAccount currentUser = getCurrentAuthenticatedUser();
+        final List<UserReceiptResource> receipts = new ArrayList<>();
+        for (final Receipt receipt : receiptRepository.findByUser(currentUser)) {
+            receipts.add(receiptResourceAssembler.toResource(receipt));
+        }
+        return ResponseEntity.ok(receipts);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = URL_USER_RECEIPTS)

@@ -34,6 +34,7 @@ public class UserApiDocumentation extends UserApiDocumentationBase {
             links(
                 linkWithRel("self").description("The self link"),
                 linkWithRel("profile").description("The <<resources-user-profile,Profile resource>>"),
+                linkWithRel("allReceipts").description("The list of all user <<resources-user-receipts, Receipts resource>>"),
                 linkWithRel("receipts").description("The <<resources-user-receipts,Receipts resource>>"),
                 linkWithRel("receipt").description("The <<resources-user-receipt,Receipt resource>>"),
                 linkWithRel("shoppingList").description("The <<resources-user-shoppinglist,ShoppingList resource>>"),
