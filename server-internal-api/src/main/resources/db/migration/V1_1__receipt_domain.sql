@@ -122,7 +122,32 @@ CREATE INDEX idx_receipt_item_1
     ON receipt_item(receipt_result_id ASC);
     
 ALTER TABLE receipt_item
-    ADD CONSTRAINT fk_receipt_item_receipt_data
+    ADD CONSTRAINT fk_receipt_item_receipt_result
+    FOREIGN KEY (receipt_result_id)
+    REFERENCES receipt_result(id)
+    ON DELETE CASCADE;
+
+CREATE TABLE receipt_field (
+    id VARCHAR(50),
+    version BIGINT NOT NULL DEFAULT 1,
+    created_by VARCHAR(50) NOT NULL,
+    created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_modified_by VARCHAR(50),
+    last_modified_time TIMESTAMP,
+
+    receipt_result_id VARCHAR(50) NOT NULL,
+    field_type VARCHAR(255) NOT NULL,
+    field_value VARCHAR(255) NOT NULL,
+    line_number INTEGER,
+    
+    PRIMARY KEY (id)
+) ENGINE=InnoDB;
+
+CREATE INDEX idx_receipt_field_1
+    ON receipt_field(receipt_result_id ASC);
+    
+ALTER TABLE receipt_field
+    ADD CONSTRAINT fk_receipt_field_receipt_result
     FOREIGN KEY (receipt_result_id)
     REFERENCES receipt_result(id)
     ON DELETE CASCADE;

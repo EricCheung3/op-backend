@@ -38,11 +38,11 @@ public class ReceiptField extends BaseAuditableEntity {
 
     @Getter @Setter
     @Enumerated(EnumType.STRING)
-    @Column(name="type", nullable=false)
+    @Column(name="field_type", nullable=false)
     private ReceiptFieldType type;
 
     @Getter @Setter
-    @Column(name="value", nullable=false)
+    @Column(name="field_value", nullable=false)
     private String value;
 
     @Getter @Setter
