@@ -36,6 +36,14 @@ public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApi
                       .then().extract().path("_links.hackload.href");
     }
 
+    protected String userAllReceiptsUrl(final SessionFilter sessionFilter) {
+        final String receiptsLink =
+            given().filter(sessionFilter)
+                   .when().get(userUrl())
+                   .then().extract().path("_links.allReceipts.href");
+        return receiptsLink;
+    }
+
     protected String userReceiptsUrl(final SessionFilter sessionFilter) {
         final String receiptsLink =
             given().filter(sessionFilter)
