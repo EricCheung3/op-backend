@@ -206,24 +206,21 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
         .andDo(document("user-shopping-item-delete-example"));
     }
 
-    // FIXME test again after search catalog fixed
-//    @Test
-//    public void catalogQueryExample() throws Exception {
-//        mockMvc
-//        .perform(get(userShoppingStoreCatalogQueryUrl("egg")).with(user(USERNAME)))
-//        .andExpect(status().isOk())
-//        .andDo(document("user-shopping-store-catalogs-query-example",
-//            preprocessResponse(prettyPrint()),
-//            responseFields(
-//                fieldWithPath("[].id").description("Primary ID"),
-//                fieldWithPath("[].catalogCode").description("The catalog code."),
-//                fieldWithPath("[].price").description("The price (unit price?)."),
-//                fieldWithPath("[].naturalName").description("Readable name for the catalog product."),
-//                fieldWithPath("[].labelCodes").description("The labels of the catalog product."),
-//                fieldWithPath("[].productCategory").description("The category this product belongs to.")
-//            )
-//        ));
-//    }
+    @Test
+    public void catalogQueryExample() throws Exception {
+        mockMvc
+        .perform(get(userShoppingStoreCatalogQueryUrl("egg")).with(user(USERNAME)))
+        .andExpect(status().isOk())
+        .andDo(document("user-shopping-store-catalogs-query-example",
+            preprocessResponse(prettyPrint()),
+            responseFields(
+                fieldWithPath("[].catalogCode").description("The catalog code."),
+                fieldWithPath("[].price").description("The price (unit price?)."),
+                fieldWithPath("[].naturalName").description("Readable name for the catalog product."),
+                fieldWithPath("[].categoryCode").description("The code of category this product belongs to.")
+            )
+        ));
+    }
 
     @Inject
     ShoppingService shoppingService;

@@ -28,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class SimpleParser implements ReceiptParser {
+
     private final ChainRegistry chainRegistry;
 
     @Inject
