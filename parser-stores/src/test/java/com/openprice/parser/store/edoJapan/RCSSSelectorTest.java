@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.openprice.parser.ReceiptDataImpl;
-import com.openprice.parser.StoreConfig;
+import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.store.ParserSelectorIntegrationTest;
 import com.openprice.parser.store.rcss.RCSSSelector;
@@ -49,7 +49,7 @@ public class RCSSSelectorTest extends ParserSelectorIntegrationTest{
     public void storeConfigNotNull() throws Exception{
         ReceiptDataImpl data=ReceiptDataImpl.fromContentLines(atLeast5Lines);
         final StoreParser parser=selector.selectParser(data);
-        final StoreConfig config=parser.getStoreConfig();
+        final StoreConfigImpl config=parser.getStoreConfig();
         assertNotNull(config);
     }
 
@@ -57,7 +57,7 @@ public class RCSSSelectorTest extends ParserSelectorIntegrationTest{
     public void storeConfigBlackListIsNotEmpty() throws Exception{
         ReceiptDataImpl data=ReceiptDataImpl.fromContentLines(atLeast5Lines);
         final StoreParser parser=selector.selectParser(data);
-        final StoreConfig config=parser.getStoreConfig();
+        final StoreConfigImpl config=parser.getStoreConfig();
 
         log.debug("config.getCatalogFilter().getBlackList().size()="+config.getCatalogFilter().getBlackList().size());
         assertTrue(config.getCatalogFilter().getBlackList().size()>0);

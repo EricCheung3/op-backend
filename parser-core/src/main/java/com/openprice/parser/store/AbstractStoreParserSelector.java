@@ -13,7 +13,7 @@ import org.springframework.util.StringUtils;
 
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ChainRegistry;
-import com.openprice.parser.StoreConfig;
+import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.api.StoreParserSelector;
 import com.openprice.parser.data.ProductImpl;
 import com.openprice.parser.generic.ConfigFiles;
@@ -88,7 +88,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         return AbstractStoreParserSelector.class.getResourceAsStream(ConfigFiles.getFileUnderChain(getParserBaseCode(), filename));
     }
 
-    protected StoreConfig loadParserConfig(final String parserName) {
+    protected StoreConfigImpl loadParserConfig(final String parserName) {
         Properties allConfig = new Properties();
         try {
             allConfig.load(getChainParserResource(parserName, ConfigFiles.HEADER_CONFIG_FILE_NAME));
@@ -148,7 +148,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         blackList.addAll(skipAfter);
         blackList.addAll(notations);
 
-        return StoreConfig.fromPropCategorySkipBeforeAfterBlack(
+        return StoreConfigImpl.fromPropCategorySkipBeforeAfterBlack(
                 allConfig,
                 category,
                 skipBefore,

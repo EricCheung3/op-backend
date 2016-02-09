@@ -12,7 +12,7 @@ import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.StoreConfig;
+import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.common.DateParserUtils;
 import com.openprice.parser.data.ProductImpl;
@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GenericParser extends AbstractStoreParser{
 
-    public GenericParser(final StoreConfig config,
+    public GenericParser(final StoreConfigImpl config,
             final PriceParserWithCatalog priceParserWithCatalog) {
         super(config, priceParserWithCatalog);
 
@@ -54,7 +54,7 @@ public class GenericParser extends AbstractStoreParser{
             log.warn("Cannot load config.properties for Generic store chain!");
         }
 
-        final StoreConfig config=StoreConfig.fromPropCategorySkipBeforeAfterBlack(
+        final StoreConfigImpl config=StoreConfigImpl.fromPropCategorySkipBeforeAfterBlack(
                 prop,
                 new ArrayList<String>(),
                 new ArrayList<String>(),

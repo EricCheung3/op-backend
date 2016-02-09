@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.ReceiptDataImpl;
-import com.openprice.parser.StoreConfig;
+import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.store.AbstractStoreParserSelector;
 
@@ -33,7 +33,7 @@ public class RCSSSelector extends AbstractStoreParserSelector {
 
     @Override
     protected void generateParser() {
-        StoreConfig config = loadParserConfig(RCSS+"1");
+        StoreConfigImpl config = loadParserConfig(RCSS+"1");
         rcss1 = new RCSS1(config, loadPriceParserWithCatalog());
     }
 

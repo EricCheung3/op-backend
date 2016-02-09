@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.ReceiptDataImpl;
-import com.openprice.parser.StoreConfig;
+import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.store.AbstractStoreParserSelector;
 
@@ -34,7 +34,7 @@ public class EdoJapanSelector extends AbstractStoreParserSelector {
 
     @Override
     protected void generateParser() {
-        StoreConfig config = loadParserConfig(EDO_JAPAN+"1");
+        StoreConfigImpl config = loadParserConfig(EDO_JAPAN+"1");
         edo1 = new EdoJapan1(config, loadPriceParserWithCatalog());
     }
 

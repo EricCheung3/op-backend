@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 import com.openprice.common.StringCommon;
 import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.StoreConfig;
+import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.data.ValueLine;
 import com.openprice.store.StoreBranch;
@@ -125,7 +125,7 @@ public class MatchedRecord {
 
     }
 
-    public void matchToHeader(final ReceiptDataImpl receipt, final StoreConfig config, final StoreParser parser) {
+    public void matchToHeader(final ReceiptDataImpl receipt, final StoreConfigImpl config, final StoreParser parser) {
         for (ReceiptFieldType field : ReceiptFieldType.values()) {
             if (fieldNameIsMatched(field)) {
                 continue;
