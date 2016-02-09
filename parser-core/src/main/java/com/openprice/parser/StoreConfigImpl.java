@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.openprice.parser.api.StoreConfig;
-import com.openprice.parser.price.CatalogFilter;
+import com.openprice.parser.price.CatalogFilterImpl;
 
 import lombok.Getter;
 
@@ -22,7 +22,7 @@ public class StoreConfigImpl implements StoreConfig{
     @Getter
     private final List<String> skipAfter;
     @Getter
-    private final CatalogFilter catalogFilter;
+    private final CatalogFilterImpl catalogFilter;
 
     public static StoreConfigImpl fromPropCategorySkipBeforeAfterBlack(
             final Properties prop,
@@ -42,7 +42,7 @@ public class StoreConfigImpl implements StoreConfig{
         this.category = category;
         this.skipBefore = skipBefore;
         this.skipAfter = skipAfter;
-        this.catalogFilter=CatalogFilter.fromList(blackList);
+        this.catalogFilter=CatalogFilterImpl.fromList(blackList);
     }
 
     @Override

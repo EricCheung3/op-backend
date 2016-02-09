@@ -8,7 +8,7 @@ public class CatalogFilterTest {
 
     @Test
     public void notCatalogItemNameTest1() throws Exception{
-        final CatalogFilter filter=CatalogFilter.emptyFilter();
+        final CatalogFilterImpl filter=CatalogFilterImpl.emptyFilter();
         assertTrue(filter.matchesBlackList(" "));
         assertTrue(filter.matchesBlackList(" "));
         assertTrue(filter.matchesBlackList(""));

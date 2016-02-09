@@ -5,28 +5,29 @@ import java.util.List;
 
 import com.openprice.common.Levenshtein;
 import com.openprice.common.StringCommon;
+import com.openprice.parser.api.CatalogFilter;
 
 import lombok.Value;
 
 @Value
-public class CatalogFilter {
+public class CatalogFilterImpl implements CatalogFilter{
 
     List<String> blackList;
     static final double BLACKLIST_THRESHOLD=0.7;
 
-    private CatalogFilter(final List<String> blackList){
+    private CatalogFilterImpl(final List<String> blackList){
         this.blackList=blackList;
     }
 
     public static CatalogFilter fromList(final List<String> bk){
-        return new CatalogFilter(StringCommon.sortByStringLength(bk));
+        return new CatalogFilterImpl(StringCommon.sortByStringLength(bk));
     }
 
     public static CatalogFilter emptyFilter(){
         return fromList(new ArrayList<String>());
     }
 
-    //the string matches the black list
+    @Override
     public boolean matchesBlackList(final String str){
         if( !PriceParserFromStringTuple.isItemName(str))
             return true;
