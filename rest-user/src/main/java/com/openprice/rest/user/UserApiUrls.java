@@ -9,6 +9,7 @@ public interface UserApiUrls {
     String URL_USER = "/user";
     String URL_USER_PROFILE = "/user/profile";
 
+    String URL_USER_ALL_RECEIPTS = "/user/allReceipts";
     String URL_USER_RECEIPTS = "/user/receipts";
     String URL_USER_RECEIPTS_RECEIPT = "/user/receipts/{receiptId}";
     String URL_USER_RECEIPTS_RECEIPT_FEEDBACK = "/user/receipts/{receiptId}/feedback";

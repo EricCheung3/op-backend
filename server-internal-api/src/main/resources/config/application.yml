@@ -24,8 +24,8 @@ application:
             virtual: false
             imageRootFolder: /groundtruth/images
         process:
-            cloudEngineEnabled: true
-            numberOfServers: 1
-            waitSeconds: 0
-            cloudApplicationId: JiwhizOCR
-            cloudPassword: a+4O1z0k9PbPWlXavy+42++g
+            cloudEngineEnabled: false
+            numberOfServers: 0
+            waitSeconds: 10
+            cloudApplicationId: openprice
+            cloudPassword: VGe2YmGwhmKrd6YDxR3tEul2
