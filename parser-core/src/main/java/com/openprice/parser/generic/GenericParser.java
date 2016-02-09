@@ -13,7 +13,7 @@ import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreConfig;
-import com.openprice.parser.StoreParser;
+import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.common.DateParserUtils;
 import com.openprice.parser.data.Product;
 import com.openprice.parser.data.ValueLine;

@@ -1,4 +1,8 @@
-package com.openprice.parser;
+package com.openprice.parser.api;
+
+import com.openprice.parser.ParsedItem;
+import com.openprice.parser.ReceiptFieldType;
+import com.openprice.parser.StoreConfig;
 
 public interface StoreParser {
 

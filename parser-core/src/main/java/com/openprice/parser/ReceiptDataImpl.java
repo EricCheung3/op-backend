@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.openprice.api.ReceiptDataInterface;
+import com.openprice.parser.api.ReceiptDataInterface;
+import com.openprice.parser.api.ReceiptLine;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

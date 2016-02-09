@@ -1,5 +1,7 @@
 package com.openprice.parser;
 
+import com.openprice.parser.api.StoreParser;
+
 public interface StoreParserSelector {
 
     /**

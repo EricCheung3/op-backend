@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.openprice.parser.ReceiptDataImpl;
-import com.openprice.parser.ReceiptLine;
+import com.openprice.parser.api.ReceiptLine;
 
 public class ReceiptDataTest {
 

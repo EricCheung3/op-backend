@@ -1,6 +1,4 @@
-package com.openprice.parser;
-
-import com.openprice.api.ReceiptDataInterface;
+package com.openprice.parser.api;
 
 import lombok.Value;
 

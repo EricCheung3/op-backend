@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.StoreConfig;
-import com.openprice.parser.StoreParser;
+import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.store.AbstractStoreParserSelector;
 
 @Service

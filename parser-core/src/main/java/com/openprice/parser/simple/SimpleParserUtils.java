@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ReceiptDataImpl;
-import com.openprice.parser.StoreParser;
+import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.common.ListCommon;
 
 import lombok.extern.slf4j.Slf4j;

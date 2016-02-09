@@ -2,11 +2,11 @@ package com.openprice.parser.simple;
 
 import org.springframework.util.StringUtils;
 
-import com.openprice.api.MatchToBranch;
 import com.openprice.common.StringCommon;
 import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.ReceiptLine;
+import com.openprice.parser.api.MatchToBranch;
+import com.openprice.parser.api.ReceiptLine;
 import com.openprice.parser.data.ReceiptLineWithScore;
 import com.openprice.store.StoreBranch;
 

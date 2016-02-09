@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.StoreConfig;
-import com.openprice.parser.StoreParser;
+import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.store.ParserSelectorIntegrationTest;
 import com.openprice.parser.store.safeway.SafewaySelector;
 

@@ -6,8 +6,8 @@ import java.util.Properties;
 
 import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.StoreConfig;
-import com.openprice.parser.StoreParser;
 import com.openprice.parser.StoreParserSelector;
+import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.data.Product;
 import com.openprice.parser.price.PriceParserWithCatalog;
 

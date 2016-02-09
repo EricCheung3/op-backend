@@ -13,7 +13,7 @@ import com.openprice.common.StringCommon;
 import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreConfig;
-import com.openprice.parser.StoreParser;
+import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.data.ValueLine;
 import com.openprice.store.StoreBranch;
 

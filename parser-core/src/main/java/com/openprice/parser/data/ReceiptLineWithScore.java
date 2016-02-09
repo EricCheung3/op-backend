@@ -1,7 +1,7 @@
 package com.openprice.parser.data;
 
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.ReceiptLine;
+import com.openprice.parser.api.ReceiptLine;
 
 import lombok.Value;
 /**

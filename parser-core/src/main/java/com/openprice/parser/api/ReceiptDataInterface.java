@@ -1,6 +1,4 @@
-package com.openprice.api;
-
-import com.openprice.parser.ReceiptLine;
+package com.openprice.parser.api;
 
 public interface ReceiptDataInterface {
 

@@ -1,4 +1,4 @@
-package com.openprice.api;
+package com.openprice.parser.api;
 
 import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.store.StoreBranch;
