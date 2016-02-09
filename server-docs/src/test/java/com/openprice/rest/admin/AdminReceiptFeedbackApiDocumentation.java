@@ -55,7 +55,6 @@ public class AdminReceiptFeedbackApiDocumentation extends AdminApiDocumentationB
                 fieldWithPath("rating").description("Receipt rating"),
                 fieldWithPath("comment").description("Receipt comment"),
                 fieldWithPath("_links").description("<<resources-admin-receipt-feedback-retrieve-links,Links>> to other resources")
-
             )
         ));
 

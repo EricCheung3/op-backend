@@ -81,7 +81,6 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
         image.setStatus(ProcessStatusType.UPLOADED);
         receiptImageRepository.save(image);
 
-        // add parse result to one receipt
         final ReceiptResult receiptResult = addReceiptResult(receipt, "rcss", "Calgary Trail", "2014/5/12", "13.72");
 
         addReceiptItem(receiptResult, "apple", "Apple", "1.25", "1.25", 2, "Fruit");
@@ -95,44 +94,45 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
         receipt.setNeedFeedback(true);
         addReceiptFeedback(receipt, 4, "Good!");
         receipt = receiptRepository.findOne(receipt.getId());
-        receipt.setNeedFeedback(true);
-        addReceiptFeedback(receipt, 3, "Poor!");
     }
 
     protected ReceiptResult addReceiptResult(Receipt receipt, String chainCode, String branchName, String date, String total) throws Exception {
-        final ReceiptResult receiptResult = ReceiptResult.testObjectBuilder()
-                                                         .receipt(receipt)
-                                                         .chainCode(chainCode)
-                                                         .branchName(branchName)
-                                                         .date(date)
-                                                         .total(total)
-                                                         .build();
+        final ReceiptResult receiptResult =
+                ReceiptResult.testObjectBuilder()
+                             .receipt(receipt)
+                             .chainCode(chainCode)
+                             .branchName(branchName)
+                             .date(date)
+                             .total(total)
+                             .build();
         receiptResultRepository.save(receiptResult);
         return receiptResult;
     }
 
     protected void addReceiptItem(ReceiptResult receiptResult, String parsedName, String displayName, String parsedPrice, String displayPrice, int lineNumber, String catalogCode) throws Exception {
-        final ReceiptItem item = ReceiptItem.testObjectBuilder()
-                                            .id("")
-                                            .receiptResult(receiptResult)
-                                            .parsedName(parsedName)
-                                            .displayName(displayName)
-                                            .parsedPrice(parsedPrice)
-                                            .displayPrice(displayPrice)
-                                            .lineNumber(lineNumber)
-                                            .catalogCode(catalogCode)
-                                            .build();
+        final ReceiptItem item =
+                ReceiptItem.testObjectBuilder()
+                           .id("")
+                           .receiptResult(receiptResult)
+                           .parsedName(parsedName)
+                           .displayName(displayName)
+                           .parsedPrice(parsedPrice)
+                           .displayPrice(displayPrice)
+                           .lineNumber(lineNumber)
+                           .catalogCode(catalogCode)
+                           .build();
         receiptItemRepository.save(item);
     }
 
     protected void addReceiptField(ReceiptResult receiptResult, ReceiptFieldType type, String value, int lineNumber) throws Exception {
-        final ReceiptField field = ReceiptField.testObjectBuilder()
-                                               .id("")
-                                               .receiptResult(receiptResult)
-                                               .type(type)
-                                               .value(value)
-                                               .lineNumber(lineNumber)
-                                               .build();
+        final ReceiptField field =
+                ReceiptField.testObjectBuilder()
+                            .id("")
+                            .receiptResult(receiptResult)
+                            .type(type)
+                            .value(value)
+                            .lineNumber(lineNumber)
+                            .build();
         receiptFieldRepository.save(field);
     }
 
