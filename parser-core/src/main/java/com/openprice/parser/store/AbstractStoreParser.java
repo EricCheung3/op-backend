@@ -11,8 +11,8 @@ import com.openprice.common.Levenshtein;
 import com.openprice.common.StringCommon;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.api.ReceiptLine;
+import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.common.DateParserUtils;
 import com.openprice.parser.data.ParsedItemImpl;
@@ -23,18 +23,18 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public abstract class AbstractStoreParser implements StoreParser {
-    protected final StoreConfigImpl config;
+    protected final StoreConfig config;
     protected final PriceParserWithCatalog priceParserWithCatalog;
     protected final Map<ReceiptFieldType, Function<ReceiptLine, String>> fieldParsers = new HashMap<>();
 
-    public AbstractStoreParser(final StoreConfigImpl config,
+    public AbstractStoreParser(final StoreConfig config,
             final PriceParserWithCatalog priceParserWithCatalog) {
         this.config = config;
         this.priceParserWithCatalog = priceParserWithCatalog;
     }
 
     @Override
-    public StoreConfigImpl getStoreConfig() {
+    public StoreConfig getStoreConfig() {
         return config;
     }
 

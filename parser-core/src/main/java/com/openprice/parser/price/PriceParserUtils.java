@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.openprice.common.StringCommon;
+import com.openprice.parser.api.Product;
 import com.openprice.parser.data.ProductImpl;
 
 import lombok.extern.slf4j.Slf4j;
@@ -50,14 +51,14 @@ public class PriceParserUtils {
      * match a line to products from the catalog
      * @return
      */
-    public static ProductImpl matchLineToCatalog(final String line, final List<ProductImpl> catalog){
-        final Comparator<ProductImpl> comp=(p1, p2)->Double.compare(
+    public static Product matchLineToCatalog(final String line, final List<Product> catalog){
+        final Comparator<Product> comp=(p1, p2)->Double.compare(
                 StringCommon.matchStringToHeader(line.replaceAll("\\s+", ""),
                         p1.toStringNumberFirst().replaceAll("\\s+", "")),
                 StringCommon.matchStringToHeader(line.replaceAll("\\s+", ""),
                         p2.toStringNumberFirst().replaceAll("\\s+", ""))
                 );
-        final ProductImpl matched=catalog.stream().max(comp).get();
+        final Product matched=catalog.stream().max(comp).get();
         //        log.debug("\nThe most promissing product is "+matched.toStringNumberFirst());
         final double score=StringCommon.matchStringToHeader(
                 line.replaceAll("\\s+", ""),
@@ -77,11 +78,11 @@ public class PriceParserUtils {
      * @return
      */
     //TODO count the number of times name is first so that you can decide spam or not
-    public static ProductImpl matchLineToCatalog(final String originalLine, final Set<ProductImpl> catalog){
+    public static Product matchLineToCatalog(final String originalLine, final Set<Product> catalog){
         if(catalog.isEmpty()) return ProductImpl.emptyProduct();
         final String lineNoSpacesLower = StringCommon.removeAllSpaces(originalLine.toLowerCase());
 
-        final Comparator<ProductImpl> compNumberFirst = (p1, p2)->
+        final Comparator<Product> compNumberFirst = (p1, p2)->
         {
             return Double.compare(
                     StringCommon.matchStringToHeader(lineNoSpacesLower, StringCommon.lowerCaseNoSpaces(p1.toStringNumberFirst())),
@@ -89,22 +90,22 @@ public class PriceParserUtils {
                     );
         };
 
-        final ProductImpl matchedNumberFirst=catalog.stream().max(compNumberFirst).get();
+        final Product matchedNumberFirst=catalog.stream().max(compNumberFirst).get();
         final double scoreNumberFirst=StringCommon.matchStringToHeader(lineNoSpacesLower,
                 StringCommon.lowerCaseNoSpaces(matchedNumberFirst.toStringNumberFirst()));
 
-        final Comparator<ProductImpl> compNameFirst = (p1, p2)->
+        final Comparator<Product> compNameFirst = (p1, p2)->
         {
             return Double.compare(
                     StringCommon.matchStringToHeader(lineNoSpacesLower, StringCommon.lowerCaseNoSpaces(p1.toStringNameFirst())),
                     StringCommon.matchStringToHeader(lineNoSpacesLower, StringCommon.lowerCaseNoSpaces(p2.toStringNameFirst()))
                     );
         };
-        final ProductImpl matchedNameFirst=catalog.stream().max(compNameFirst).get();
+        final Product matchedNameFirst=catalog.stream().max(compNameFirst).get();
         final double scoreNameFirst=StringCommon.matchStringToHeader(lineNoSpacesLower, StringCommon.lowerCaseNoSpaces(matchedNameFirst.toStringNameFirst()));
 
         double scoreMax=scoreNumberFirst;
-        ProductImpl matched=matchedNumberFirst;
+        Product matched=matchedNumberFirst;
         if(scoreNameFirst>scoreMax){
             scoreMax=scoreNameFirst;
             matched=matchedNameFirst;

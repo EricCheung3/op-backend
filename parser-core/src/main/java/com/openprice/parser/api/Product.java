@@ -12,4 +12,12 @@ public interface Product {
     //get product number
     String getNumber();
 
+    String toStringNameFirst();
+
+    String toStringNumberFirst();
+
+    String toCatalogCode();
+
+    boolean isEmpty();
+
 }

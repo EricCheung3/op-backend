@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.openprice.parser.ReceiptFieldType;
+import com.openprice.parser.api.BranchFieldLookup;
 import com.openprice.store.StoreBranch;
 
 import lombok.Getter;
@@ -12,11 +13,12 @@ import lombok.Getter;
 /**
  * lookup for the field name of branch info given a field name
  */
-public class BranchFieldLookup {
+public class BranchFieldLookupImpl implements BranchFieldLookup{
 
     @Getter
     private final Map<ReceiptFieldType, String> fieldToValue = new HashMap<ReceiptFieldType, String>();
 
+    @Override
     public String valueOf(final ReceiptFieldType field){
         return fieldToValue.get(field);
     }
@@ -24,7 +26,7 @@ public class BranchFieldLookup {
     /*
      * Private constructor, so can only get StoreBranch from builder or static builder method.
      */
-    public BranchFieldLookup(final StoreBranch branch) {
+    public BranchFieldLookupImpl(final StoreBranch branch) {
         // save store branch ground truth data into a map
         if (branch.getAddress() != null) {
             addGroundTruthValue(ReceiptFieldType.AddressLine1, branch.getAddress().getAddress1());

@@ -10,9 +10,9 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.StoreConfigImpl;
+import com.openprice.parser.api.ReceiptData;
+import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.data.StringInt;
 import com.openprice.store.StoreBranch;
@@ -111,8 +111,9 @@ public class MatchedRecord {
         putFieldLine(fName, valueLine.getLine(), valueLine.getValue());
     }
 
-    public void matchToBranch(final ReceiptDataImpl receipt, final StoreBranch storeBranch) {
-        receipt.lines()
+    public void matchToBranch(final ReceiptData receipt, final StoreBranch storeBranch) {
+        receipt.getReceiptLines()
+               .stream()
                .filter( line -> line.getCleanText().length() > 2 )
                .map( line -> new MatchToBranchImpl().maxFieldMatchScore(storeBranch, line) )
                .filter( lineScore -> lineScore.getScore() > 0.5)
@@ -125,7 +126,7 @@ public class MatchedRecord {
 
     }
 
-    public void matchToHeader(final ReceiptDataImpl receipt, final StoreConfigImpl config, final StoreParser parser) {
+    public void matchToHeader(final ReceiptData receipt, final StoreConfig config, final StoreParser parser) {
         for (ReceiptFieldType field : ReceiptFieldType.values()) {
             if (fieldNameIsMatched(field)) {
                 continue;
@@ -136,7 +137,8 @@ public class MatchedRecord {
                 continue;
             }
 
-            receipt.lines()
+            receipt.getReceiptLines()
+                   .stream()
                    .filter( line -> line.getCleanText().length() > 1 )
                    .filter( line -> !isFieldLine(line.getNumber()) )
                    .filter(line -> !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer", config.similarityThresholdOfTwoStrings()))//otherwide this could match the total line

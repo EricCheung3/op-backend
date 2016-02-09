@@ -13,11 +13,11 @@ import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreConfigImpl;
+import com.openprice.parser.api.Product;
 import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.common.DateParserUtils;
-import com.openprice.parser.data.ProductImpl;
 import com.openprice.parser.data.StringInt;
 import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.parser.simple.MatchedRecord;
@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GenericParser extends AbstractStoreParser{
 
-    public GenericParser(final StoreConfigImpl config,
+    public GenericParser(final StoreConfig config,
             final PriceParserWithCatalog priceParserWithCatalog) {
         super(config, priceParserWithCatalog);
 
@@ -62,7 +62,7 @@ public class GenericParser extends AbstractStoreParser{
                 new ArrayList<String>(),
                 new ArrayList<String>(),
                 blackList);
-        return new GenericParser(config, PriceParserWithCatalog.withCatalog(new HashSet<ProductImpl>()));
+        return new GenericParser(config, PriceParserWithCatalog.withCatalog(new HashSet<Product>()));
     }
 
     public static ParsedReceipt parse(final StoreChain genericChain, final ReceiptData receipt)

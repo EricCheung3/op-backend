@@ -1,6 +1,7 @@
 package com.openprice.parser.price;
 
 import com.openprice.common.StringCommon;
+import com.openprice.parser.api.Product;
 import com.openprice.parser.data.ProductImpl;
 
 import lombok.Data;
@@ -8,11 +9,11 @@ import lombok.Data;
 @Data
 public class ProductPrice {
 
-    ProductImpl product=ProductImpl.emptyProduct();
+    Product product=ProductImpl.emptyProduct();
     String price=StringCommon.EMPTY;
     boolean productIsInCatalog=false; //from a matched product in catalog or not
 
-    public ProductPrice(final ProductImpl product, final String price){
+    public ProductPrice(final Product product, final String price){
         this.product=product;
         this.price=price;
     }
@@ -21,7 +22,7 @@ public class ProductPrice {
         return new ProductPrice(ProductImpl.fromNameOnly(name), StringCommon.EMPTY);
     }
 
-    public ProductPrice(final ProductImpl product, final String price,
+    public ProductPrice(final Product product, final String price,
             final boolean productIsInCatalog){
         this(product, price);
         this.productIsInCatalog=productIsInCatalog;
@@ -46,7 +47,7 @@ public class ProductPrice {
             }
         }
 
-        final ProductImpl product=ProductImpl.fromNameNumber(itemName.trim(), itemNumber.trim());
+        final Product product=ProductImpl.fromNameNumber(itemName.trim(), itemNumber.trim());
         try{
             return new ProductPrice(product, StringCommon.formatPrice(price.trim()));
         }catch(Exception e){

@@ -32,7 +32,7 @@ public class MatchToBranchImpl implements  MatchToBranch{
         double scoreMax=-1;
         ReceiptFieldType matchedField=null;
         final String lowerStr = line.getCleanText().toLowerCase();
-        final BranchFieldLookup lookup=new BranchFieldLookup(branch);
+        final BranchFieldLookupImpl lookup=new BranchFieldLookupImpl(branch);
         for(ReceiptFieldType fName : lookup.getFieldToValue().keySet()) {
             double score= StringCommon.matchStringToSubString(lowerStr, lookup.getFieldToValue().get(fName));
             if (score > scoreMax) {
@@ -53,12 +53,12 @@ public class MatchToBranchImpl implements  MatchToBranch{
     public double matchScore(final StoreBranch storeBranch, final ReceiptDataImpl receipt) {
         double sum = receipt
                 .lines()
-                .map(line -> matchBranchFieldScoreSum(new BranchFieldLookup(storeBranch), line.getCleanText()))
+                .map(line -> matchBranchFieldScoreSum(new BranchFieldLookupImpl(storeBranch), line.getCleanText()))
                 .reduce(0.0, (acc, element) -> acc + element);
         return sum;
     }
 
-    private static double matchBranchFieldScoreSum(final BranchFieldLookup lookup, final String lineString) {
+    private static double matchBranchFieldScoreSum(final BranchFieldLookupImpl lookup, final String lineString) {
         double sum = 0.0;
         sum += matchFieldScore(lookup.valueOf(ReceiptFieldType.AddressLine1), lineString);
         sum += matchFieldScore(lookup.valueOf(ReceiptFieldType.AddressLine2), lineString);

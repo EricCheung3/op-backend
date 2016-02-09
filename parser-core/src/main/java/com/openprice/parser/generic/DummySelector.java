@@ -6,9 +6,9 @@ import java.util.Properties;
 
 import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.StoreConfigImpl;
+import com.openprice.parser.api.Product;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.api.StoreParserSelector;
-import com.openprice.parser.data.ProductImpl;
 import com.openprice.parser.price.PriceParserWithCatalog;
 
 
@@ -25,7 +25,7 @@ public class DummySelector implements StoreParserSelector{
                 new ArrayList<String>(),
                 new ArrayList<String>(),
                 new ArrayList<String>()),
-                PriceParserWithCatalog.withCatalog(new HashSet<ProductImpl>())
+                PriceParserWithCatalog.withCatalog(new HashSet<Product>())
                 );
     }
 

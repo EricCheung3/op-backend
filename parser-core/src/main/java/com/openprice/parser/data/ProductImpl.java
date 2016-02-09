@@ -72,10 +72,12 @@ public class ProductImpl implements Product{
         }
     }
 
+    @Override
     public String toStringNameFirst(){
         return name+SPLITTER_IN_RECEIPT+ number;
     }
 
+    @Override
     public String toStringNumberFirst(){
         return number+SPLITTER_IN_RECEIPT+ name;
     }
@@ -86,6 +88,7 @@ public class ProductImpl implements Product{
         return name + MetadataConstants.PRODUCT_LINE_SPLITTER + number;
     }
 
+    @Override
     public String toCatalogCode() {
         if (StringUtils.isEmpty(number)) {
             return name;
