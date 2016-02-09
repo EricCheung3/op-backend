@@ -14,8 +14,8 @@ import org.springframework.util.StringUtils;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.StoreConfig;
-import com.openprice.parser.StoreParserSelector;
-import com.openprice.parser.data.Product;
+import com.openprice.parser.api.StoreParserSelector;
+import com.openprice.parser.data.ProductImpl;
 import com.openprice.parser.generic.ConfigFiles;
 import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.store.StoreChain;
@@ -162,16 +162,16 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
      * @return a parser with a catalog if the corresponding file is read in successfully; otherwise return an empty catalog
      */
     protected PriceParserWithCatalog loadPriceParserWithCatalog() {
-        final Set<Product> catalog=new HashSet<Product>();
+        final Set<ProductImpl> catalog=new HashSet<ProductImpl>();
         try{
             TextResourceUtils.loadFromInputStream(getChainResource(ConfigFiles.CATALOG_FILE_NAME),
                 line -> {
                     if (!StringUtils.isEmpty(line)) {
-                        catalog.add(Product.fromString(line));
+                        catalog.add(ProductImpl.fromString(line));
                     }
                 });
         }catch(Exception e){
-            return PriceParserWithCatalog.withCatalog(new HashSet<Product>());
+            return PriceParserWithCatalog.withCatalog(new HashSet<ProductImpl>());
         }
         return PriceParserWithCatalog.withCatalog(catalog);
     }

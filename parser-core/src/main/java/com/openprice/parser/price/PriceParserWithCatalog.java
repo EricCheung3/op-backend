@@ -3,7 +3,7 @@ package com.openprice.parser.price;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.openprice.parser.data.Product;
+import com.openprice.parser.data.ProductImpl;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -18,19 +18,19 @@ public class PriceParserWithCatalog {
 
     PriceParser priceParser;
 
-    Set<Product> catalog = new HashSet<Product>();
+    Set<ProductImpl> catalog = new HashSet<ProductImpl>();
 
-    public PriceParserWithCatalog(final PriceParser parser, final Set<Product>  catalog){
+    public PriceParserWithCatalog(final PriceParser parser, final Set<ProductImpl>  catalog){
         this.priceParser=parser;
         this.catalog=catalog;
     }
 
-    public static PriceParserWithCatalog withCatalog(final Set<Product> catalog){
+    public static PriceParserWithCatalog withCatalog(final Set<ProductImpl> catalog){
         return  new PriceParserWithCatalog(new PriceParserFromStringTuple(), catalog);
     }
 
     public static PriceParserWithCatalog emptyCatalog(){
-        return PriceParserWithCatalog.withCatalog(new HashSet<Product>());
+        return PriceParserWithCatalog.withCatalog(new HashSet<ProductImpl>());
     }
 
     /**
@@ -40,7 +40,7 @@ public class PriceParserWithCatalog {
      * @return
      */
     public ProductPrice parsePriceLine(final String line){
-        final Product matched=PriceParserUtils.matchLineToCatalog(line, catalog);
+        final ProductImpl matched=PriceParserUtils.matchLineToCatalog(line, catalog);
         log.debug("matched product "+matched.toString()+"\n");
         //        if(!matched.isEmpty()){
         //            final String priceAtTail=getPriceAtTail(line, matched);

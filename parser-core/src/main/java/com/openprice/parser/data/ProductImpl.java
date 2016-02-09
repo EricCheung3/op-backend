@@ -3,24 +3,18 @@ package com.openprice.parser.data;
 import org.springframework.util.StringUtils;
 
 import com.openprice.common.StringCommon;
-import com.openprice.store.FieldUtils;
+import com.openprice.parser.api.ProductInterface;
+import com.openprice.store.MetadataConstants;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * represents a product in a catalog
- *
- */
 @Data
 @Slf4j
-public class Product {
+public class ProductImpl implements ProductInterface{
 
     private final String name;
     private String number=StringCommon.EMPTY;
-
-    //catalog code splitter
-    private static final String CATALOG_CODE_SPLITTER="_";
 
     //number of fields when splitting a string containing a product
     private static final int NUM_FIELDS = 2;
@@ -28,24 +22,24 @@ public class Product {
     //splitter of name and number in receipt
     private static final String SPLITTER_IN_RECEIPT=" ";
 
-    private Product(String name){
+    private ProductImpl(String name){
         this.name=name;
     }
 
-    private Product(String name, String number){
+    private ProductImpl(String name, String number){
         this.name=name;
         this.number=number;
     }
 
-    public static Product fromNameNumber(final String name, final String number){
-        return new Product(name, number);
+    public static ProductImpl fromNameNumber(final String name, final String number){
+        return new ProductImpl(name, number);
     }
 
-    public static Product fromNameOnly(final String name){
-        return new Product(name);
+    public static ProductImpl fromNameOnly(final String name){
+        return new ProductImpl(name);
     }
 
-    public static Product emptyProduct(){
+    public static ProductImpl emptyProduct(){
         return fromNameNumber(StringCommon.EMPTY, StringCommon.EMPTY);
     }
 
@@ -64,17 +58,17 @@ public class Product {
         return name.isEmpty() && number.isEmpty();
     }
 
-    public static Product fromString(final String line) {
-        final String[] words=line.split(FieldUtils.SPLITTER, -1);
+    public static ProductImpl fromString(final String line) {
+        final String[] words=line.split(MetadataConstants.PRODUCT_LINE_SPLITTER, -1);
         if(words.length!=NUM_FIELDS){
             throw new RuntimeException("should have "+NUM_FIELDS +" fields at this line: "+line);
         }
         try{
-            final Product catLine = Product.fromNameNumber(words[0], words[1]);
+            final ProductImpl catLine = ProductImpl.fromNameNumber(words[0], words[1]);
             return catLine;
         }catch(Exception e){
             log.debug("line ="+line+", "+e.getMessage());
-            return Product.emptyProduct();
+            return ProductImpl.emptyProduct();
         }
     }
 
@@ -87,16 +81,16 @@ public class Product {
     }
 
     public String toStringForCatalog(){
-        final String name=getName().replaceAll(FieldUtils.SPLITTER, StringCommon.EMPTY);
-        final String number=getNumber().replaceAll(FieldUtils.SPLITTER, StringCommon.EMPTY);
-        return name + FieldUtils.SPLITTER + number;
+        final String name=getName().replaceAll(MetadataConstants.PRODUCT_LINE_SPLITTER, StringCommon.EMPTY);
+        final String number=getNumber().replaceAll(MetadataConstants.PRODUCT_LINE_SPLITTER, StringCommon.EMPTY);
+        return name + MetadataConstants.PRODUCT_LINE_SPLITTER + number;
     }
 
     public String toCatalogCode() {
         if (StringUtils.isEmpty(number)) {
             return name;
         }
-        return name + CATALOG_CODE_SPLITTER + number;
+        return name + MetadataConstants.CATALOG_CODE_SPLITTER + number;
     }
 
 }

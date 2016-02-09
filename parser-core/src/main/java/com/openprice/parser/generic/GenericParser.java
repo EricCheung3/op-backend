@@ -15,7 +15,7 @@ import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.common.DateParserUtils;
-import com.openprice.parser.data.Product;
+import com.openprice.parser.data.ProductImpl;
 import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.parser.simple.MatchedRecord;
@@ -60,7 +60,7 @@ public class GenericParser extends AbstractStoreParser{
                 new ArrayList<String>(),
                 new ArrayList<String>(),
                 blackList);
-        return new GenericParser(config, PriceParserWithCatalog.withCatalog(new HashSet<Product>()));
+        return new GenericParser(config, PriceParserWithCatalog.withCatalog(new HashSet<ProductImpl>()));
     }
 
     public static ParsedReceiptImpl parse(final StoreChain genericChain, final ReceiptDataImpl receipt)

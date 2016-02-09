@@ -1,6 +1,6 @@
-package com.openprice.parser;
+package com.openprice.parser.api;
 
-import com.openprice.parser.api.StoreParser;
+import com.openprice.parser.ReceiptDataImpl;
 
 public interface StoreParserSelector {
 
