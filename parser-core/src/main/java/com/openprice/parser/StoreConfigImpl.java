@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import com.openprice.parser.api.CatalogFilter;
 import com.openprice.parser.api.StoreConfig;
+import com.openprice.parser.common.ListCommon;
 import com.openprice.parser.price.CatalogFilterImpl;
 
 import lombok.Getter;
@@ -22,7 +24,7 @@ public class StoreConfigImpl implements StoreConfig{
     @Getter
     private final List<String> skipAfter;
     @Getter
-    private final CatalogFilterImpl catalogFilter;
+    private final CatalogFilter catalogFilter;
 
     public static StoreConfigImpl fromPropCategorySkipBeforeAfterBlack(
             final Properties prop,
@@ -151,5 +153,20 @@ public class StoreConfigImpl implements StoreConfig{
     @Override
     public List<String> getFieldHeaderMatchStrings(final ReceiptFieldType fieldName) {
         return splitLine(fieldName.name()+"Header");
+    }
+
+    @Override
+    public boolean matchesSkipAfter(String str, double threshold) {
+        return ListCommon.matchList(skipAfter, str, threshold);
+    }
+
+    @Override
+    public boolean matchesSkipBefore(String str, double threshold) {
+        return ListCommon.matchList(skipBefore, str, threshold);
+    }
+
+    @Override
+    public boolean matchesBlackList(String str) {
+        return catalogFilter.matchesBlackList(str);
     }
 }

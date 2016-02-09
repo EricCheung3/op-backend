@@ -6,6 +6,12 @@ import com.openprice.parser.ReceiptFieldType;
 
 public interface StoreConfig {
 
+    boolean matchesBlackList(String str);
+
+    boolean matchesSkipAfter(String str, double threshold);
+
+    boolean matchesSkipBefore(String str, double threshold);
+
     //a substring pattern of the quantity price line (sell by numbers of items)
     public List<String> substringOfQuantityPriceLine();
 

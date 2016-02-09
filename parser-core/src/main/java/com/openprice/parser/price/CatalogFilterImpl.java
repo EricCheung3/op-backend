@@ -27,6 +27,7 @@ public class CatalogFilterImpl implements CatalogFilter{
         return fromList(new ArrayList<String>());
     }
 
+    //TODO have a threshold parameter?
     @Override
     public boolean matchesBlackList(final String str){
         if( !PriceParserFromStringTuple.isItemName(str))
