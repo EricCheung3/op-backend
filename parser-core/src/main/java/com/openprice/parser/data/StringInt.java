@@ -9,11 +9,11 @@ import lombok.Data;
  * A String-int class
  */
 @Data
-public class ValueLine {
+public class StringInt {
     private String value=StringCommon.EMPTY;
     private int line=-1;
 
-    public ValueLine(final String value, final int line){
+    public StringInt(final String value, final int line){
         this.value=value;
         this.line=line;
     }
@@ -22,7 +22,7 @@ public class ValueLine {
         return value.isEmpty() && line<0;
     }
 
-    public static ValueLine defaultValueLine() {
-        return new ValueLine(StringCommon.EMPTY, -1);
+    public static StringInt defaultValueLine() {
+        return new StringInt(StringCommon.EMPTY, -1);
     }
 }

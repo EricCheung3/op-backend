@@ -16,7 +16,7 @@ import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.common.DateParserUtils;
 import com.openprice.parser.data.ProductImpl;
-import com.openprice.parser.data.ValueLine;
+import com.openprice.parser.data.StringInt;
 import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.parser.simple.MatchedRecord;
 import com.openprice.parser.simple.SimpleParserUtils;
@@ -74,7 +74,7 @@ public class GenericParser extends AbstractStoreParser{
         if (matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date) == null ||
                 matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date).getValue().isEmpty()){
             log.debug("date header not found: searching date string globally.");
-            final ValueLine dateVL=DateParserUtils.findDateStringAfterLine(receipt.getOriginalLines(), 0);
+            final StringInt dateVL=DateParserUtils.findDateStringAfterLine(receipt.getOriginalLines(), 0);
             matchedRecord.putFieldLine(ReceiptFieldType.Date, dateVL);
         }
 

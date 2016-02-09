@@ -14,7 +14,7 @@ import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.api.StoreParser;
-import com.openprice.parser.data.ValueLine;
+import com.openprice.parser.data.StringInt;
 import com.openprice.store.StoreBranch;
 
 import lombok.Data;
@@ -36,7 +36,7 @@ public class MatchedRecord {
     private final Map<ReceiptFieldType, Set<Integer>> fieldToLine = new HashMap<ReceiptFieldType, Set<Integer>>();
 
     //save the many field members in a map
-    private final Map<ReceiptFieldType, ValueLine> fieldToValueLine = new HashMap<ReceiptFieldType, ValueLine>();
+    private final Map<ReceiptFieldType, StringInt> fieldToValueLine = new HashMap<ReceiptFieldType, StringInt>();
 
 
     // whether a line is matched
@@ -74,11 +74,11 @@ public class MatchedRecord {
     }
 
     public int itemStopLineNumber() {
-        Optional<ValueLine> stopLine =
+        Optional<StringInt> stopLine =
                 Stream.of(ReceiptFieldType.GstAmount, ReceiptFieldType.Total, ReceiptFieldType.SubTotal)
                       .map( field -> fieldToValueLine.get(field) )
                       .filter( value -> value != null )
-                      .min( Comparator.comparing(ValueLine::getLine) );
+                      .min( Comparator.comparing(StringInt::getLine) );
         //the results will be contain lines in the footer--usually noisy
         if(!stopLine.isPresent())
             log.warn("no stop line (total, gst, subtotal) detected. results are likely noisy");
@@ -105,9 +105,9 @@ public class MatchedRecord {
      */
     public void putFieldLine(final ReceiptFieldType fName, final int lineNumber, final String value) {
         putFieldLine(fName, lineNumber);
-        fieldToValueLine.put(fName,  new ValueLine(value, lineNumber));
+        fieldToValueLine.put(fName,  new StringInt(value, lineNumber));
     }
-    public void putFieldLine(final ReceiptFieldType fName, final ValueLine valueLine) {
+    public void putFieldLine(final ReceiptFieldType fName, final StringInt valueLine) {
         putFieldLine(fName, valueLine.getLine(), valueLine.getValue());
     }
 

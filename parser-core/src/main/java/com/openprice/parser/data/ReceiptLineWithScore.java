@@ -9,9 +9,8 @@ import lombok.Value;
  */
 @Value
 public class ReceiptLineWithScore {
-    private double score;
-    private ReceiptFieldType field;
     private ReceiptLine receiptLine;
+    private ReceiptFieldType field;
+    private double score;
     private String value;
-
 }

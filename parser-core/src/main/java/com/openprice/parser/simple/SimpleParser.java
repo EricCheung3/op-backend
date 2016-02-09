@@ -17,7 +17,7 @@ import com.openprice.parser.StoreChainUtils;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.api.StoreParserSelector;
 import com.openprice.parser.common.DateParserUtils;
-import com.openprice.parser.data.ValueLine;
+import com.openprice.parser.data.StringInt;
 import com.openprice.parser.generic.CheapParser;
 import com.openprice.parser.generic.GenericChains;
 import com.openprice.parser.generic.GenericParser;
@@ -70,7 +70,7 @@ public class SimpleParser implements ReceiptParser {
                 return GenericParser.parse(StoreChain.genericChainWithOnlyCode(genericChainCode), receipt);
             } catch(Exception ex) {
                 log.warn("exception in calling generic parser: {}. now call cheapParser!", ex.getMessage());
-                return new CheapParser().parse(receipt.getOriginalLines());
+                return new CheapParser().parseReceiptOcrResult(receipt.getOriginalLines());
             }
         }
         log.info("Parse receipt and find matcing chain {}", chain.getCode());
@@ -94,7 +94,7 @@ public class SimpleParser implements ReceiptParser {
         if (matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date) == null ||
                 matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date).getValue().isEmpty()){
             log.debug("date header not found: searching date string globally.");
-            final ValueLine dateVL=DateParserUtils.findDateStringAfterLine(receipt.getOriginalLines(), 0);
+            final StringInt dateVL=DateParserUtils.findDateStringAfterLine(receipt.getOriginalLines(), 0);
             matchedRecord.putFieldLine(ReceiptFieldType.Date, dateVL);
         }
 

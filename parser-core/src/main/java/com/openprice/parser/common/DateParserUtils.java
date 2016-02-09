@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.data.ValueLine;
+import com.openprice.parser.data.StringInt;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -45,18 +45,18 @@ public class DateParserUtils {
             "MM"+DATE_SPLITTER_UNIFORM+
             "dd");
 
-    public static ValueLine findDateStringAfterLine(final List<String> origLines, final int start){
+    public static StringInt findDateStringAfterLine(final List<String> origLines, final int start){
         log.debug("date line searching from line "+start+":"+origLines.get(start)+"\n");
         for(int i=start; i<origLines.size();i++){
             final String dateString=pruneDateString(origLines.get(i));
             if(dateString.isEmpty()) continue;
             try{
-                return new ValueLine(formatDateString(toDate(dateString)), i);
+                return new StringInt(formatDateString(toDate(dateString)), i);
             }catch(Exception e){
                 log.debug("dateString="+dateString+", toDate(dateString) error.");
             }
         }
-        return ValueLine.defaultValueLine();
+        return StringInt.defaultValueLine();
     }
 
     public static String formatDateString(final Date date){

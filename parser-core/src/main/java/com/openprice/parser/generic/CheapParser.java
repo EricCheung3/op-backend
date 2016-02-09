@@ -6,10 +6,12 @@ import java.util.List;
 
 import com.openprice.common.StringCommon;
 import com.openprice.parser.ParsedItem;
+import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
+import com.openprice.parser.ReceiptParser;
 import com.openprice.parser.data.ParsedItemImpl;
-import com.openprice.parser.data.ValueLine;
+import com.openprice.parser.data.StringInt;
 import com.openprice.store.StoreChain;
 
 /**
@@ -20,9 +22,10 @@ import com.openprice.store.StoreChain;
  *
  */
 //TODO add date and total recognition?
-public class CheapParser {
+public class CheapParser implements ReceiptParser{
 
-    public ParsedReceiptImpl parse(final List<String> lines) throws Exception {
+    @Override
+    public ParsedReceipt parseReceiptOcrResult(final List<String> lines) {
         final List<ParsedItem> items = new ArrayList<ParsedItem>();
         for (int i = 0; i < lines.size(); i++) {
             String name = lines.get(i).trim();
@@ -43,7 +46,7 @@ public class CheapParser {
         return ParsedReceiptImpl.fromChainItemsMapBranch(
                 StoreChain.genericChainWithOnlyCode(StringCommon.EMPTY),
                 items,
-                new HashMap<ReceiptFieldType, ValueLine>(),
+                new HashMap<ReceiptFieldType, StringInt>(),
                 StringCommon.EMPTY);
     }
 
