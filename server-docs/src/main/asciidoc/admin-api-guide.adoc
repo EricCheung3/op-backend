@@ -534,6 +534,65 @@ include::{snippets}/admin-receipt-result-retrieve-example/links.adoc[]
 
 
 
+[[resources-admin-receipt-result-items]]
+== Admin Receipt Result Items
+
+Admin Receipt Result Items resource is used to manage list of items belonging to one receipt.
+
+
+[[resources-admin-receipt-result-item-list]]
+=== List Admin Receipt Result Items
+
+A `GET` request will list all of the result items from a specific receipt.
+
+==== Response structure
+
+include::{snippets}/admin-receipt-result-item-list-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-receipt-result-item-list-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-receipt-result-item-list-example/http-response.adoc[]
+
+[[resources-user-receipt-result-item-list-links]]
+==== Links
+
+include::{snippets}/admin-receipt-result-item-list-example/links.adoc[]
+
+
+
+[[resources-admin-receipt-result-item]]
+== Admin Receipt Result Item
+
+Admin Receipt Result Item resource is to manage one result item of specific receipt.
+
+[[resources-admin-receipt-result-item-retrieve]]
+=== Get admin-managed receipt result item
+
+A `GET` request is used to retrieve a receipt result item for existing receipt
+
+==== Response structure
+
+include::{snippets}/admin-receipt-result-item-retrieve-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-receipt-result-item-retrieve-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-receipt-result-item-retrieve-example/http-response.adoc[]
+
+[[resources-user-receipt-result-item-links]]
+==== Links
+
+include::{snippets}/admin-receipt-result-item-retrieve-example/links.adoc[]
+
+
+
 [[resources-admin-receipt-feedbacks]]
 == Admin Receipt Feedbacks
 

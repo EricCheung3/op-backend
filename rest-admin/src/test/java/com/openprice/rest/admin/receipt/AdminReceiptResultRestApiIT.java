@@ -133,4 +133,52 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
         ;
     }
 
+    @Test
+    public void getReceiptResultFields_ShouldReturnFromDatabase() throws Exception{
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
+
+        Response response =
+                given()
+                    .filter(sessionFilter)
+                .when()
+                    .get(receiptFieldsUrl(sessionFilter, "receipt001", "recData001"))
+                ;
+        response.prettyPrint();
+        response
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("page.size", equalTo(100))
+            .body("page.totalElements", equalTo(2))
+            .body("page.totalPages", equalTo(1))
+            .body("page.number", equalTo(0))
+            .body("_embedded.receiptFields[0].id", equalTo("recField001"))
+            .body("_embedded.receiptFields[0].type", equalTo("AddressCity"))
+            .body("_embedded.receiptFields[0].value", equalTo("Edmonton"))
+            .body("_embedded.receiptFields[0].lineNumber", equalTo(3))
+        ;
+    }
+
+    @Test
+    public void getReceiptResultFieldById_ShouldReturnField() throws Exception{
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
+
+        Response response =
+                given()
+                    .filter(sessionFilter)
+                .when()
+                    .get(receiptFieldUrl(sessionFilter, "receipt001", "recData001", "recField001"))
+                ;
+        response.prettyPrint();
+        response
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("id", equalTo("recField001"))
+            .body("type", equalTo("AddressCity"))
+            .body("value", equalTo("Edmonton"))
+            .body("lineNumber", equalTo(3))
+        ;
+    }
+
 }

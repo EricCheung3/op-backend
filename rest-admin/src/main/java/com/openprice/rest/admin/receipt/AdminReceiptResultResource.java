@@ -64,6 +64,8 @@ public class AdminReceiptResultResource extends Resource<ReceiptResult> {
             linkBuilder.addLink(Link.REL_SELF, URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT, false, pairs)
                        .addLink("items", URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_ITEMS, true, pairs)
                        .addLink("item", URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_ITEMS_ITEM, false, pairs)
+                       .addLink("fields", URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_FIELDS, true, pairs)
+                       .addLink("field", URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_FIELDS_FIELD, false, pairs)
                        ;
 
             return resource;

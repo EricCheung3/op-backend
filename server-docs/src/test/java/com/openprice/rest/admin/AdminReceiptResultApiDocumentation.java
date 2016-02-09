@@ -47,8 +47,8 @@ public class AdminReceiptResultApiDocumentation extends AdminApiDocumentationBas
                 preprocessResponse(prettyPrint()),
                 links(
                     linkWithRel("self").description("The self link"),
-                    linkWithRel("items").description("An array of <<resources-admin-receipt-result-items, Admin Receipt result items resource>>"),
-                    linkWithRel("item").description("<<resources-admin-receipt-result-item, Admin Receipt result item resource>>")
+                    linkWithRel("items").description("<<resources-admin-receipt-result-items, Link>> to receipt result items"),
+                    linkWithRel("item").description("<<resources-admin-receipt-result-item, Link>> to receipt result items")
                 ),
                 responseFields(
                     fieldWithPath("id").description("Primary ID"),
@@ -90,8 +90,8 @@ public class AdminReceiptResultApiDocumentation extends AdminApiDocumentationBas
                 preprocessResponse(prettyPrint()),
                 links(
                     linkWithRel("self").description("The self link"),
-                    linkWithRel("result").description("<<resources-admin-receipt-result, Admin Receipt result resource>>"),
-                    linkWithRel("items").description("An array of <<resources-admin-receipt-result-items, Admin Receipt result items resource>>")
+                    linkWithRel("result").description("<<resources-admin-receipt-result, Link>> to receipt result resource>>"),
+                    linkWithRel("items").description("<<resources-admin-receipt-result-items, Link>> to receipt result items resource>>")
                 ),
                 responseFields(
                     fieldWithPath("id").description("Primary ID"),
