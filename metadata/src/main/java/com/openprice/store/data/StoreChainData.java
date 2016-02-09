@@ -1,6 +1,7 @@
 package com.openprice.store.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.openprice.common.StringCommon;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,4 +22,8 @@ public class StoreChainData {
     private String identity;
 
     private String category;
+
+    public static StoreChainData fromCodeOnly(final String code){
+        return new StoreChainData(code, StringCommon.EMPTY, StringCommon.EMPTY, StringCommon.EMPTY);
+    }
 }

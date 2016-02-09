@@ -3,6 +3,7 @@ package com.openprice.parser.data;
 import org.springframework.util.StringUtils;
 
 import com.openprice.common.StringCommon;
+import com.openprice.store.FieldUtils;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -64,7 +65,7 @@ public class Product {
     }
 
     public static Product fromString(final String line) {
-        final String[] words=line.split(ProductConstant.SPLITTER, -1);
+        final String[] words=line.split(FieldUtils.SPLITTER, -1);
         if(words.length!=NUM_FIELDS){
             throw new RuntimeException("should have "+NUM_FIELDS +" fields at this line: "+line);
         }
@@ -86,9 +87,9 @@ public class Product {
     }
 
     public String toStringForCatalog(){
-        final String name=getName().replaceAll(ProductConstant.SPLITTER, StringCommon.EMPTY);
-        final String number=getNumber().replaceAll(ProductConstant.SPLITTER, StringCommon.EMPTY);
-        return name + ProductConstant.SPLITTER + number;
+        final String name=getName().replaceAll(FieldUtils.SPLITTER, StringCommon.EMPTY);
+        final String number=getNumber().replaceAll(FieldUtils.SPLITTER, StringCommon.EMPTY);
+        return name + FieldUtils.SPLITTER + number;
     }
 
     public String toCatalogCode() {

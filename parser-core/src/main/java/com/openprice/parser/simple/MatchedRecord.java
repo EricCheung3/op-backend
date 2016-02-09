@@ -12,10 +12,10 @@ import java.util.stream.Stream;
 import com.openprice.common.StringCommon;
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.StoreBranch;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.data.ValueLine;
+import com.openprice.store.StoreBranch;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -114,7 +114,7 @@ public class MatchedRecord {
     public void matchToBranch(final ReceiptData receipt, final StoreBranch storeBranch) {
         receipt.lines()
                .filter( line -> line.getCleanText().length() > 2 )
-               .map( line -> storeBranch.maxFieldMatchScore(line) )
+               .map( line -> new MatchToBranchImpl().maxFieldMatchScore(storeBranch, line) )
                .filter( lineScore -> lineScore.getScore() > 0.5)
                .forEach( lineScore -> putFieldLine(lineScore.getField(), lineScore.getReceiptLine().getNumber(), lineScore.getValue()));
 

@@ -8,9 +8,9 @@ import com.openprice.common.StringCommon;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.StoreChain;
 import com.openprice.parser.data.ParsedItemImpl;
 import com.openprice.parser.data.ValueLine;
+import com.openprice.store.StoreChain;
 
 /**
  * A generic receipt parser to parse items from receipt lines.
@@ -41,7 +41,7 @@ public class CheapParser {
                 items.add(ParsedItemImpl.fromNameOnly(name));
         }
         return ParsedReceiptImpl.fromChainItemsMapBranch(
-                StoreChain.genericStoreChain(StringCommon.EMPTY),
+                StoreChain.genericChainWithOnlyCode(StringCommon.EMPTY),
                 items,
                 new HashMap<ReceiptFieldType, ValueLine>(),
                 StringCommon.EMPTY);

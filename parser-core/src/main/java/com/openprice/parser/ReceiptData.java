@@ -17,6 +17,7 @@ public class ReceiptData {
     public static final int MIN_NUMBER_LINES = 5;
     public static final int CHAIN_SEARCH_NUMBER_LINES = 10;
 
+    //Guava immutable?
     @Getter
     private final List<String> originalLines;
 

@@ -1,5 +1,6 @@
 package com.openprice.store.data;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -22,16 +23,35 @@ public class StoreBranchData {
 
     private String gstNumber;
 
-    private String address1;
+    private Address address;
 
-    private String address2;
+    private String slogan;
 
-    private String city;
+    //private String address1;
 
-    private String state;
+    //private String address2;
 
-    private String postCode;
+    //private String city;
 
-    private String country;
+    //private String state;
 
+    //private String postCode;
+
+    //private String country;
+
+    public static StoreBranchData fromNamePhoneStoreIdGstNumberAddressSlogan(
+            final String name,
+            final String phone,
+            final String storeId,
+            final String gstNumber,
+            final Address address,
+            final String slogan) {
+        return new StoreBranchData(
+                name,
+                phone,
+                storeId,
+                gstNumber,
+                address,
+                slogan);
+    }
 }

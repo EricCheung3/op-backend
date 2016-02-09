@@ -32,5 +32,4 @@ public class CatalogProduct {
         return productCategory.getCode();
     }
 
-
 }

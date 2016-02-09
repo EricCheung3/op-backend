@@ -13,13 +13,12 @@ import org.springframework.util.StringUtils;
 
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ChainRegistry;
-import com.openprice.parser.StoreBranch;
-import com.openprice.parser.StoreChain;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParserSelector;
 import com.openprice.parser.data.Product;
 import com.openprice.parser.generic.ConfigFiles;
 import com.openprice.parser.price.PriceParserWithCatalog;
+import com.openprice.store.StoreChain;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -56,10 +55,10 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
 
     private void registerStoreChainFromStoreConfig() throws Exception{
         // load branch
-        List<StoreBranch> branches = new ArrayList<>();
-        TextResourceUtils.loadFromInputStream(getChainResource(ConfigFiles.BRANCH_FILE_NAME),
-                line ->
-                    branches.add(StoreBranch.fromString(line, baseConfig.getProperty("Slogan")))); // FIXME why slogan?
+//        List<StoreBranchMatch> branches = new ArrayList<>();
+//        TextResourceUtils.loadFromInputStream(getChainResource(ConfigFiles.BRANCH_FILE_NAME),
+//                line ->
+//                    branches.add(StoreBranchMatch.fromString(line, baseConfig.getProperty("Slogan")))); // FIXME why slogan?
 
         chain = StoreChain.fromCodeSelectorCategoriesFieldsBranches(
                         getParserBaseCode().toLowerCase(), // TODO maybe use lower case in all places?

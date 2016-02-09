@@ -13,8 +13,7 @@ import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.ReceiptParser;
-import com.openprice.parser.StoreBranch;
-import com.openprice.parser.StoreChain;
+import com.openprice.parser.StoreChainUtils;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.StoreParserSelector;
 import com.openprice.parser.common.DateParserUtils;
@@ -22,6 +21,9 @@ import com.openprice.parser.data.ValueLine;
 import com.openprice.parser.generic.CheapParser;
 import com.openprice.parser.generic.GenericChains;
 import com.openprice.parser.generic.GenericParser;
+import com.openprice.store.StoreBranch;
+import com.openprice.store.StoreChain;
+import com.openprice.store.StoreMetadata;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,9 +33,12 @@ public class SimpleParser implements ReceiptParser {
 
     private final ChainRegistry chainRegistry;
 
+    private final StoreMetadata metadata;
+
     @Inject
-    public SimpleParser(final ChainRegistry chainRegistry) {
+    public SimpleParser(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
         this.chainRegistry = chainRegistry;
+        this.metadata=metadata;
     }
 
     @Override
@@ -57,10 +62,12 @@ public class SimpleParser implements ReceiptParser {
         if (chain == null) {
             log.warn("No specific parser for this chain yet!");
             try{
+                //TODO
                 final GenericChains chains = new GenericChains("/config/Generic/chain.list");
+
                 final String genericChainCode = chains.findChain(receipt.getOriginalLines()).toLowerCase();
                 log.info("genericChainCode="+genericChainCode);
-                return GenericParser.parse(StoreChain.genericStoreChain(genericChainCode), receipt);
+                return GenericParser.parse(StoreChain.genericChainWithOnlyCode(genericChainCode), receipt);
             } catch(Exception ex) {
                 log.warn("exception in calling generic parser: {}. now call cheapParser!", ex.getMessage());
                 return new CheapParser().parse(receipt.getOriginalLines());
@@ -69,9 +76,9 @@ public class SimpleParser implements ReceiptParser {
         log.info("Parse receipt and find matcing chain {}", chain.getCode());
 
         // get store branch
-        final StoreBranch branch = chain.matchBranchByScoreSum(receipt);
+        final StoreBranch branch = StoreChainUtils.matchBranchByScoreSum(chain, receipt);
         if (branch != null) {
-            log.info("Parser find matching branch {}.", branch.getBranchName());
+            log.info("Parser find matching branch {}.", branch.getName());
         }
 
         // get store parser
@@ -93,7 +100,7 @@ public class SimpleParser implements ReceiptParser {
 
         // parse items
         List<ParsedItem> items = SimpleParserUtils.parseItems(matchedRecord, receipt, parser);
-        return ParsedReceiptImpl.fromChainItemsMapBranch(chain, items, matchedRecord.getFieldToValueLine(), branch.getBranchName());
+        return ParsedReceiptImpl.fromChainItemsMapBranch(chain, items, matchedRecord.getFieldToValueLine(), branch.getName());
     }
 
     public ParsedReceipt parseLines(final List<String> lines) throws Exception {

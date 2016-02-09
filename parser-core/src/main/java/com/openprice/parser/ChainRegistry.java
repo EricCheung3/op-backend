@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.openprice.common.Levenshtein;
 import com.openprice.common.StringCommon;
 import com.openprice.parser.data.ScoreWithMatchPair;
+import com.openprice.store.StoreChain;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

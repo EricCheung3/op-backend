@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import com.openprice.parser.data.ParsedFieldImpl;
 import com.openprice.parser.data.ValueLine;
+import com.openprice.store.StoreChain;
 
 public class ParsedReceiptImpl implements ParsedReceipt{
     final StoreChain chain;

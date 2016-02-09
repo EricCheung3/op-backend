@@ -12,7 +12,6 @@ import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptData;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.StoreChain;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.common.DateParserUtils;
@@ -22,6 +21,7 @@ import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.parser.simple.MatchedRecord;
 import com.openprice.parser.simple.SimpleParserUtils;
 import com.openprice.parser.store.AbstractStoreParser;
+import com.openprice.store.StoreChain;
 
 import lombok.extern.slf4j.Slf4j;
 
