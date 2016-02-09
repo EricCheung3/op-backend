@@ -56,7 +56,7 @@ public class DateParserUtils {
                 log.debug("dateString="+dateString+", toDate(dateString) error.");
             }
         }
-        return StringInt.defaultValueLine();
+        return StringInt.emptyValue();
     }
 
     public static String formatDateString(final Date date){

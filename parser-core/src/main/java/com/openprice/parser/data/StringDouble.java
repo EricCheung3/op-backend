@@ -1,4 +1,4 @@
-package com.openprice.parser.generic;
+package com.openprice.parser.data;
 
 import lombok.Value;
 

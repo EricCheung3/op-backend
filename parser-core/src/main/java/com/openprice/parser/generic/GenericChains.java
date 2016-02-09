@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openprice.common.Levenshtein;
 import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
+import com.openprice.parser.data.StringDouble;
 
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
