@@ -21,7 +21,6 @@ import com.openprice.store.StoreChain;
  * 3. it should be able parse item and prices
  *
  */
-//TODO add date and total recognition?
 public class CheapParser implements ReceiptParser{
 
     @Override

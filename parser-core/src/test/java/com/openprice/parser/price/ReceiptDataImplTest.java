@@ -7,10 +7,26 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.google.common.collect.ImmutableList;
 import com.openprice.parser.ReceiptDataImpl;
+import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.ReceiptLine;
 
-public class ReceiptDataTest {
+public class ReceiptDataImplTest {
+
+    @Test
+    public void getOriginalLinesImmutableListEqualsList() throws Exception{
+        final List<String> testData = new ArrayList<>();
+        for (int i=0; i<10; i++) {
+            testData.add("test receipt line " + i);
+        }
+        ReceiptData receipt = ReceiptDataImpl.fromContentLines(testData);
+        final ImmutableList<String> immutable=receipt.getOriginalLines();
+        assertEquals(testData, immutable);
+        for(int i=0;i<testData.size();i++)
+            assertEquals(testData.get(i), immutable.get(i));
+    }
+
 
     @Test
     public void fromContentLines_ShouldCreateReceiptData() throws Exception {

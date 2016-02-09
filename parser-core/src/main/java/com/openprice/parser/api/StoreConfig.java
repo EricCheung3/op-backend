@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.openprice.parser.ReceiptFieldType;
 
-public interface StoreConfigInterface {
+public interface StoreConfig {
 
     //a substring pattern of the quantity price line (sell by numbers of items)
     public List<String> substringOfQuantityPriceLine();

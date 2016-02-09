@@ -3,7 +3,7 @@ package com.openprice.parser.data;
 import org.springframework.util.StringUtils;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.api.ProductInterface;
+import com.openprice.parser.api.Product;
 import com.openprice.store.MetadataConstants;
 
 import lombok.Data;
@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Data
 @Slf4j
-public class ProductImpl implements ProductInterface{
+public class ProductImpl implements Product{
 
     private final String name;
     private String number=StringCommon.EMPTY;

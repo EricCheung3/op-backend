@@ -2,9 +2,11 @@ package com.openprice.parser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.openprice.parser.api.ReceiptDataInterface;
+import com.google.common.collect.ImmutableList;
+import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.ReceiptLine;
 
 import lombok.Getter;
@@ -15,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-public class ReceiptDataImpl implements ReceiptDataInterface{
+public class ReceiptDataImpl implements ReceiptData{
     // minimum number of lines in a receipt
     public static final int MIN_NUMBER_LINES = 5;
 
@@ -63,9 +65,11 @@ public class ReceiptDataImpl implements ReceiptDataInterface{
         return receiptLines.get(lineNumber);
     }
 
+    @Override
     public Stream<ReceiptLine> lines() {
         return receiptLines.stream();
     }
+
 
     public List<ReceiptLine> getTopBottomChainMatchingLines() {
         final List<ReceiptLine> lines = new ArrayList<>();
@@ -77,6 +81,15 @@ public class ReceiptDataImpl implements ReceiptDataInterface{
             lines.addAll(receiptLines.subList(bottomBeginLineNumber, size));
         }
         return lines;
+    }
+
+    @Override
+    public ImmutableList<String> getOriginalLines() {
+        return ImmutableList.copyOf(
+                lines()
+                .map(r->r.getOriginalText())
+                .collect(Collectors.toList())
+                );
     }
 
 }

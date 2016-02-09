@@ -5,12 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import com.openprice.parser.api.StoreConfigInterface;
+import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.price.CatalogFilter;
 
 import lombok.Getter;
 
-public class StoreConfigImpl implements StoreConfigInterface{
+public class StoreConfigImpl implements StoreConfig{
     private static final String SPLITTER=",";//splitter in the lines of the config.properties file
     @Getter
     private final Properties prop;

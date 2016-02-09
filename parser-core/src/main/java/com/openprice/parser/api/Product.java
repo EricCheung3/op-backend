@@ -4,7 +4,7 @@ package com.openprice.parser.api;
  * represents a product in a catalog
  *
  */
-public interface ProductInterface {
+public interface Product {
 
     //get product name
     String getName();

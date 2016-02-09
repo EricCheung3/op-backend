@@ -9,10 +9,12 @@ import java.util.Properties;
 import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedItem;
+import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ParsedReceiptImpl;
-import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreConfigImpl;
+import com.openprice.parser.api.ReceiptData;
+import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.common.DateParserUtils;
 import com.openprice.parser.data.ProductImpl;
@@ -39,7 +41,7 @@ public class GenericParser extends AbstractStoreParser{
         fieldParsers.put(ReceiptFieldType.Date,  line -> parseDate(line));
     }
 
-    public static GenericParser selectParser(ReceiptDataImpl receipt) {
+    public static GenericParser selectParser(ReceiptData receipt) {
         List<String> blackList=null;
         try{
             blackList=TextResourceUtils.loadStringArray(ConfigFiles.blackListFile("Generic"));
@@ -54,7 +56,7 @@ public class GenericParser extends AbstractStoreParser{
             log.warn("Cannot load config.properties for Generic store chain!");
         }
 
-        final StoreConfigImpl config=StoreConfigImpl.fromPropCategorySkipBeforeAfterBlack(
+        final StoreConfig config=StoreConfigImpl.fromPropCategorySkipBeforeAfterBlack(
                 prop,
                 new ArrayList<String>(),
                 new ArrayList<String>(),
@@ -63,7 +65,7 @@ public class GenericParser extends AbstractStoreParser{
         return new GenericParser(config, PriceParserWithCatalog.withCatalog(new HashSet<ProductImpl>()));
     }
 
-    public static ParsedReceiptImpl parse(final StoreChain genericChain, final ReceiptDataImpl receipt)
+    public static ParsedReceipt parse(final StoreChain genericChain, final ReceiptData receipt)
         throws Exception{
         final GenericParser generic=selectParser(receipt);
         // match fields
@@ -74,7 +76,7 @@ public class GenericParser extends AbstractStoreParser{
         if (matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date) == null ||
                 matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date).getValue().isEmpty()){
             log.debug("date header not found: searching date string globally.");
-            final StringInt dateVL=DateParserUtils.findDateStringAfterLine(receipt.getOriginalLines(), 0);
+            final StringInt dateVL=DateParserUtils.findDateStringAfterLine(receipt, 0);
             matchedRecord.putFieldLine(ReceiptFieldType.Date, dateVL);
         }
 
