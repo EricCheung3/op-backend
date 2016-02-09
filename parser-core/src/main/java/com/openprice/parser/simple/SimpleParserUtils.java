@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.openprice.parser.ParsedItem;
-import com.openprice.parser.ReceiptData;
+import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.common.ListCommon;
 
@@ -15,7 +15,7 @@ public class SimpleParserUtils {
 
     public static List<ParsedItem> parseItems(
             final MatchedRecord matchedRecord,
-            final ReceiptData receipt,
+            final ReceiptDataImpl receipt,
             final StoreParser parser) throws Exception {
         final int stopLine = (matchedRecord == null) ? receipt.getReceiptLines().size() :
                                                        Math.min(matchedRecord.itemStopLineNumber(), receipt.getReceiptLines().size());

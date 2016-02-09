@@ -10,7 +10,7 @@ import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ParsedReceiptImpl;
-import com.openprice.parser.ReceiptData;
+import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.ReceiptParser;
 import com.openprice.parser.StoreChainUtils;
@@ -44,7 +44,7 @@ public class SimpleParser implements ReceiptParser {
     @Override
     public ParsedReceipt parseReceiptOcrResult(final List<String> ocrTextList) {
         try{
-            final ReceiptData receipt = ReceiptData.fromOCRResults(ocrTextList);
+            final ReceiptDataImpl receipt = ReceiptDataImpl.fromOCRResults(ocrTextList);
             if (receipt.getReceiptLines().size() == 0) {
                 log.warn("No receipt data to parse.");
                 return null;
@@ -56,7 +56,7 @@ public class SimpleParser implements ReceiptParser {
         }
     }
 
-    private ParsedReceipt parseReceiptData(final ReceiptData receipt) throws Exception {
+    private ParsedReceipt parseReceiptData(final ReceiptDataImpl receipt) throws Exception {
         // find chain first
         final StoreChain chain = chainRegistry.findBestMatchedChain(receipt);
         if (chain == null) {
@@ -104,7 +104,7 @@ public class SimpleParser implements ReceiptParser {
     }
 
     public ParsedReceipt parseLines(final List<String> lines) throws Exception {
-        final ReceiptData receipt = ReceiptData.fromContentLines(lines);
+        final ReceiptDataImpl receipt = ReceiptDataImpl.fromContentLines(lines);
         return parseReceiptData(receipt);
     }
 

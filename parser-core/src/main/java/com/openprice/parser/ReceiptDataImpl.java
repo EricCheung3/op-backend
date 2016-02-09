@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import com.openprice.api.ReceiptDataInterface;
+
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,42 +14,39 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-public class ReceiptData {
+public class ReceiptDataImpl implements ReceiptDataInterface{
     // minimum number of lines in a receipt
     public static final int MIN_NUMBER_LINES = 5;
-    public static final int CHAIN_SEARCH_NUMBER_LINES = 10;
 
-    //Guava immutable?
-    @Getter
-    private final List<String> originalLines;
+    //limit on the number of lines that are searched when looking for chain
+    public static final int CHAIN_SEARCH_NUMBER_LINES = 10;
 
     @Getter
     private final List<ReceiptLine> receiptLines;
 
-    private ReceiptData(final List<String> lines) {
-        originalLines = lines;
+    private ReceiptDataImpl(final List<String> originalLines) {
         receiptLines = new ArrayList<>();
-        int lineNumber = 0;
-        for (final String line : lines) {
-            receiptLines.add(new ReceiptLine(line, line.trim().toLowerCase(), lineNumber, this));
-            lineNumber++;
+        int origLineNumber = 0;
+        for (final String origLine : originalLines) {
+            receiptLines.add(new ReceiptLine(origLine, origLine.trim().toLowerCase(), origLineNumber, this));
+            origLineNumber++;
         }
     }
 
-    public static ReceiptData fromContentLines(final List<String> lines) throws Exception {
-        ReceiptData f = new ReceiptData(lines);
-        if (lines.size() < MIN_NUMBER_LINES) {
+    public static ReceiptDataImpl fromContentLines(final List<String> lines) throws Exception {
+        ReceiptDataImpl f = new ReceiptDataImpl(lines);
+        if (lines.size() < MIN_NUMBER_LINES) {//TODO: we should only allow non-empty lines
             throw new Exception("Receipt is too short, only has " + lines.size() + " lines.");
         }
         return f;
     }
 
-    public static ReceiptData fromString(final String allLines) throws Exception {
+    public static ReceiptDataImpl fromString(final String allLines) throws Exception {
         String[] lines = allLines.split("\n");
         return fromContentLines(java.util.Arrays.asList(lines));
     }
 
-    public static ReceiptData fromOCRResults(final List<String> ocrTextList) throws Exception {
+    public static ReceiptDataImpl fromOCRResults(final List<String> ocrTextList) throws Exception {
         log.debug("get {} ocr Text.", ocrTextList.size());
         final List<String> allLines = new ArrayList<>();
         for (final String ocrText : ocrTextList) {
@@ -58,6 +57,7 @@ public class ReceiptData {
         return fromContentLines(allLines);
     }
 
+    @Override
     public ReceiptLine getLine(final int lineNumber) {
         return receiptLines.get(lineNumber);
     }

@@ -33,7 +33,7 @@ public class ChainRegistry {
         storeChains.add(chain);
     }
 
-    public StoreChain findBestMatchedChain(final ReceiptData receipt) {
+    public StoreChain findBestMatchedChain(final ReceiptDataImpl receipt) {
         final List<ReceiptLine> lines = receipt.getTopBottomChainMatchingLines();
         //log.debug("TopBottom matching lines:\n"+lines);
         //log.debug("search chains in registry with "+storeChains);

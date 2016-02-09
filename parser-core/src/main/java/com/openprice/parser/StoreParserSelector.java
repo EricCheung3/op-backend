@@ -9,5 +9,5 @@ public interface StoreParserSelector {
      * @param receipt
      * @return
      */
-    StoreParser selectParser(ReceiptData receipt);
+    StoreParser selectParser(ReceiptDataImpl receipt);
 }

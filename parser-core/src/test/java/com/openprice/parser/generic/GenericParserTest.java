@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.openprice.parser.ReceiptData;
+import com.openprice.parser.ReceiptDataImpl;
 
 public class GenericParserTest {
 
@@ -20,7 +20,7 @@ public class GenericParserTest {
         lines.add("1");
         lines.add("1");
         lines.add("1");
-        final ReceiptData data=ReceiptData.fromContentLines(lines);
+        final ReceiptDataImpl data=ReceiptDataImpl.fromContentLines(lines);
         assertNotNull(GenericParser.selectParser(data));
     }
 }

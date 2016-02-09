@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.openprice.parser.ReceiptData;
+import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptLine;
 
 public class ReceiptDataTest {
@@ -18,7 +18,7 @@ public class ReceiptDataTest {
         for (int i=0; i<10; i++) {
             testData.add("test receipt line " + i);
         }
-        ReceiptData receipt = ReceiptData.fromContentLines(testData);
+        ReceiptDataImpl receipt = ReceiptDataImpl.fromContentLines(testData);
         assertEquals(10, receipt.getOriginalLines().size());
     }
 
@@ -33,7 +33,7 @@ public class ReceiptDataTest {
         }
         testData.add(ocrText.toString());
 
-        ReceiptData receipt = ReceiptData.fromOCRResults(testData);
+        ReceiptDataImpl receipt = ReceiptDataImpl.fromOCRResults(testData);
         assertEquals(10, receipt.getOriginalLines().size());
 
     }
@@ -44,7 +44,7 @@ public class ReceiptDataTest {
         for (int i=0; i<50; i++) {
             testData.add("test receipt line " + i);
         }
-        ReceiptData receipt = ReceiptData.fromContentLines(testData);
+        ReceiptDataImpl receipt = ReceiptDataImpl.fromContentLines(testData);
         final List<ReceiptLine> result = receipt.getTopBottomChainMatchingLines();
         assertEquals(20, result.size());
     }
@@ -55,7 +55,7 @@ public class ReceiptDataTest {
         for (int i=0; i<21; i++) {
             testData.add("test receipt line " + i);
         }
-        ReceiptData receipt = ReceiptData.fromContentLines(testData);
+        ReceiptDataImpl receipt = ReceiptDataImpl.fromContentLines(testData);
         final List<ReceiptLine> result = receipt.getTopBottomChainMatchingLines();
         assertEquals(20, result.size());
     }
@@ -66,7 +66,7 @@ public class ReceiptDataTest {
         for (int i=0; i<9; i++) {
             testData.add("test receipt line " + i);
         }
-        ReceiptData receipt = ReceiptData.fromContentLines(testData);
+        ReceiptDataImpl receipt = ReceiptDataImpl.fromContentLines(testData);
         final List<ReceiptLine> result = receipt.getTopBottomChainMatchingLines();
         assertEquals(9, result.size());
     }
@@ -77,7 +77,7 @@ public class ReceiptDataTest {
         for (int i=0; i<15; i++) {
             testData.add("test receipt line " + i);
         }
-        ReceiptData receipt = ReceiptData.fromContentLines(testData);
+        ReceiptDataImpl receipt = ReceiptDataImpl.fromContentLines(testData);
         final List<ReceiptLine> result = receipt.getTopBottomChainMatchingLines();
         assertEquals(15, result.size());
     }
@@ -88,7 +88,7 @@ public class ReceiptDataTest {
         for (int i=0; i<20; i++) {
             testData.add("test receipt line " + i);
         }
-        ReceiptData receipt = ReceiptData.fromContentLines(testData);
+        ReceiptDataImpl receipt = ReceiptDataImpl.fromContentLines(testData);
         final List<ReceiptLine> result = receipt.getTopBottomChainMatchingLines();
         assertEquals(20, result.size());
     }

@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.openprice.parser.ReceiptData;
+import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.store.ParserSelectorIntegrationTest;
@@ -42,14 +42,14 @@ public class EdoJapanSelectorTest extends ParserSelectorIntegrationTest{
 
     @Test
     public void parserNotNull() throws Exception{
-        ReceiptData data=ReceiptData.fromContentLines(atLeast5Lines);
+        ReceiptDataImpl data=ReceiptDataImpl.fromContentLines(atLeast5Lines);
         final StoreParser parser=edoSelector.selectParser(data);
         assertNotNull(parser);
     }
 
     @Test
     public void storeConfigNotNull() throws Exception{
-        ReceiptData data=ReceiptData.fromContentLines(atLeast5Lines);
+        ReceiptDataImpl data=ReceiptDataImpl.fromContentLines(atLeast5Lines);
         final StoreParser parser=edoSelector.selectParser(data);
         final StoreConfig config=parser.getStoreConfig();
         assertNotNull(config);
@@ -58,7 +58,7 @@ public class EdoJapanSelectorTest extends ParserSelectorIntegrationTest{
 
     @Test
     public void storeConfigBlackListIsNotEmpty() throws Exception{
-        ReceiptData data=ReceiptData.fromContentLines(atLeast5Lines);
+        ReceiptDataImpl data=ReceiptDataImpl.fromContentLines(atLeast5Lines);
         final StoreParser parser=edoSelector.selectParser(data);
         final StoreConfig config=parser.getStoreConfig();
 

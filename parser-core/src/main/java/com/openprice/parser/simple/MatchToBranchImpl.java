@@ -4,7 +4,7 @@ import org.springframework.util.StringUtils;
 
 import com.openprice.api.MatchToBranch;
 import com.openprice.common.StringCommon;
-import com.openprice.parser.ReceiptData;
+import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.ReceiptLine;
 import com.openprice.parser.data.ReceiptLineWithScore;
@@ -50,7 +50,7 @@ public class MatchToBranchImpl implements  MatchToBranch{
      * @return
      */
     @Override
-    public double matchScore(final StoreBranch storeBranch, final ReceiptData receipt) {
+    public double matchScore(final StoreBranch storeBranch, final ReceiptDataImpl receipt) {
         double sum = receipt
                 .lines()
                 .map(line -> matchBranchFieldScoreSum(new BranchFieldLookup(storeBranch), line.getCleanText()))

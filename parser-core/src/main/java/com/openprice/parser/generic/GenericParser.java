@@ -10,7 +10,7 @@ import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceiptImpl;
-import com.openprice.parser.ReceiptData;
+import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
@@ -39,7 +39,7 @@ public class GenericParser extends AbstractStoreParser{
         fieldParsers.put(ReceiptFieldType.Date,  line -> parseDate(line));
     }
 
-    public static GenericParser selectParser(ReceiptData receipt) {
+    public static GenericParser selectParser(ReceiptDataImpl receipt) {
         List<String> blackList=null;
         try{
             blackList=TextResourceUtils.loadStringArray(ConfigFiles.blackListFile("Generic"));
@@ -63,7 +63,7 @@ public class GenericParser extends AbstractStoreParser{
         return new GenericParser(config, PriceParserWithCatalog.withCatalog(new HashSet<Product>()));
     }
 
-    public static ParsedReceiptImpl parse(final StoreChain genericChain, final ReceiptData receipt)
+    public static ParsedReceiptImpl parse(final StoreChain genericChain, final ReceiptDataImpl receipt)
         throws Exception{
         final GenericParser generic=selectParser(receipt);
         // match fields

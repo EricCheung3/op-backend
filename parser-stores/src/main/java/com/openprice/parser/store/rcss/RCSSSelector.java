@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.openprice.parser.ChainRegistry;
-import com.openprice.parser.ReceiptData;
+import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.store.AbstractStoreParserSelector;
@@ -21,7 +21,7 @@ public class RCSSSelector extends AbstractStoreParserSelector {
     }
 
     @Override
-    public StoreParser selectParser(final ReceiptData receipt) {
+    public StoreParser selectParser(final ReceiptDataImpl receipt) {
         // just one parser now. TODO based on receipt data to return parser
         return rcss1;
     }

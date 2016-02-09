@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Properties;
 
-import com.openprice.parser.ReceiptData;
+import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
 import com.openprice.parser.StoreParserSelector;
@@ -18,7 +18,7 @@ import com.openprice.parser.price.PriceParserWithCatalog;
 public class DummySelector implements StoreParserSelector{
 
     @Override
-    public StoreParser selectParser(ReceiptData receipt) {
+    public StoreParser selectParser(ReceiptDataImpl receipt) {
         return new GenericParser(StoreConfig.fromPropCategorySkipBeforeAfterBlack(
                 new Properties(),
                 new ArrayList<String>(),

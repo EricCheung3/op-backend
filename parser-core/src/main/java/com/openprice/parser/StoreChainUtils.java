@@ -58,7 +58,7 @@ public class StoreChainUtils{
 //        return new StoreChainMatch(code, selector, categories, identifyFields, branches);
 //    }
 
-    public static StoreBranch matchBranchByScoreSum(final StoreChain storeChain, final ReceiptData receipt) {
+    public static StoreBranch matchBranchByScoreSum(final StoreChain storeChain, final ReceiptDataImpl receipt) {
         Optional<ScoreWithMatchPair<StoreBranch>> maxBranchMatch =
                 storeChain
                 .getBranches()

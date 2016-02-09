@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.ReceiptData;
+import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreConfig;
 import com.openprice.parser.StoreParser;
@@ -111,7 +111,7 @@ public class MatchedRecord {
         putFieldLine(fName, valueLine.getLine(), valueLine.getValue());
     }
 
-    public void matchToBranch(final ReceiptData receipt, final StoreBranch storeBranch) {
+    public void matchToBranch(final ReceiptDataImpl receipt, final StoreBranch storeBranch) {
         receipt.lines()
                .filter( line -> line.getCleanText().length() > 2 )
                .map( line -> new MatchToBranchImpl().maxFieldMatchScore(storeBranch, line) )
@@ -125,7 +125,7 @@ public class MatchedRecord {
 
     }
 
-    public void matchToHeader(final ReceiptData receipt, final StoreConfig config, final StoreParser parser) {
+    public void matchToHeader(final ReceiptDataImpl receipt, final StoreConfig config, final StoreParser parser) {
         for (ReceiptFieldType field : ReceiptFieldType.values()) {
             if (fieldNameIsMatched(field)) {
                 continue;
