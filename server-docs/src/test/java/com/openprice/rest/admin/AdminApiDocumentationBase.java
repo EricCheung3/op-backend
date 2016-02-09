@@ -17,12 +17,15 @@ import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptFeedback;
 import com.openprice.domain.receipt.ReceiptFeedbackRepository;
+import com.openprice.domain.receipt.ReceiptField;
+import com.openprice.domain.receipt.ReceiptFieldRepository;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptItemRepository;
 import com.openprice.domain.receipt.ReceiptResult;
 import com.openprice.domain.receipt.ReceiptResultRepository;
 import com.openprice.domain.receipt.ReceiptService;
+import com.openprice.parser.ReceiptFieldType;
 import com.openprice.rest.ApiDocumentationBase;
 
 public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
@@ -39,6 +42,9 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
 
     @Inject
     protected ReceiptItemRepository receiptItemRepository;
+
+    @Inject
+    protected ReceiptFieldRepository receiptFieldRepository;
 
     @Inject
     protected ReceiptFeedbackRepository receiptFeedbackRepository;
@@ -76,37 +82,66 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
         receiptImageRepository.save(image);
 
         // add parse result to one receipt
-        final ReceiptResult receiptResult = ReceiptResult.testObjectBuilder()
-                                                           .receipt(receipt)
-                                                           .chainCode("rcss")
-                                                           .branchName("Calgary Trail")
-                                                           .date("2014/5/12")
-                                                           .total("13.72")
-                                                           .build();
-        receiptResultRepository.save(receiptResult);
+        final ReceiptResult receiptResult = addReceiptResult(receipt, "rcss", "Calgary Trail", "2014/5/12", "13.72");
 
-        // add items to the receipt
+        addReceiptItem(receiptResult, "apple", "Apple", "1.25", "1.25", 2, "Fruit");
+        addReceiptItem(receiptResult, "banana", "Banana", "0.25", "0.25", 3, "Fruit");
+
+        addReceiptField(receiptResult, ReceiptFieldType.AddressCity, "Edmonton", 2);
+        addReceiptField(receiptResult, ReceiptFieldType.AddressProv, "AB", 3);
+
+        addReceiptFeedback(receipt, 5, "Excellent!");
+        receipt = receiptRepository.findOne(receipt.getId());
+        receipt.setNeedFeedback(true);
+        addReceiptFeedback(receipt, 4, "Good!");
+        receipt = receiptRepository.findOne(receipt.getId());
+        receipt.setNeedFeedback(true);
+        addReceiptFeedback(receipt, 3, "Poor!");
+    }
+
+    protected ReceiptResult addReceiptResult(Receipt receipt, String chainCode, String branchName, String date, String total) throws Exception {
+        final ReceiptResult receiptResult = ReceiptResult.testObjectBuilder()
+                                                         .receipt(receipt)
+                                                         .chainCode(chainCode)
+                                                         .branchName(branchName)
+                                                         .date(date)
+                                                         .total(total)
+                                                         .build();
+        receiptResultRepository.save(receiptResult);
+        return receiptResult;
+    }
+
+    protected void addReceiptItem(ReceiptResult receiptResult, String parsedName, String displayName, String parsedPrice, String displayPrice, int lineNumber, String catalogCode) throws Exception {
         final ReceiptItem item = ReceiptItem.testObjectBuilder()
                                             .id("")
                                             .receiptResult(receiptResult)
-                                            .parsedName("apple")
-                                            .displayName("Apple")
-                                            .parsedPrice("0.32")
-                                            .displayPrice("0.32")
-                                            .lineNumber(1)
-                                            .catalogCode("Fruit")
+                                            .parsedName(parsedName)
+                                            .displayName(displayName)
+                                            .parsedPrice(parsedPrice)
+                                            .displayPrice(displayPrice)
+                                            .lineNumber(lineNumber)
+                                            .catalogCode(catalogCode)
                                             .build();
         receiptItemRepository.save(item);
-        // add two feedback to one receipt (second one)
-        receiptService = new ReceiptService(receiptRepository, receiptFeedbackRepository);
-        final ReceiptFeedback feedback = receiptService.addFeedback(receipt, 5, "Excellent!");
-        receiptFeedbackRepository.save(feedback);
-
-        receipt = receiptRepository.findOne(receipt.getId());
-        receipt.setNeedFeedback(true);
-        final ReceiptFeedback feedback2 = receiptService.addFeedback(receipt, 4, "Good!");
-        receiptFeedbackRepository.save(feedback2);
     }
+
+    protected void addReceiptField(ReceiptResult receiptResult, ReceiptFieldType type, String value, int lineNumber) throws Exception {
+        final ReceiptField field = ReceiptField.testObjectBuilder()
+                                               .id("")
+                                               .receiptResult(receiptResult)
+                                               .type(type)
+                                               .value(value)
+                                               .lineNumber(lineNumber)
+                                               .build();
+        receiptFieldRepository.save(field);
+    }
+
+    protected void addReceiptFeedback(Receipt receipt, int rating, String comment) throws Exception {
+        receiptService = new ReceiptService(receiptRepository, receiptFeedbackRepository);
+        final ReceiptFeedback feedback = receiptService.addFeedback(receipt, rating, comment);
+        receiptFeedbackRepository.save(feedback);
+    }
+
 
     protected void deleteReceipts() throws Exception {
         final UserAccount user = userAccountRepository.findByEmail(USERNAME);

@@ -143,7 +143,7 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
                 .when()
                     .get(receiptFieldsUrl(sessionFilter, "receipt001", "recData001"))
                 ;
-        response.prettyPrint();
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
@@ -169,7 +169,7 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
                 .when()
                     .get(receiptFieldUrl(sessionFilter, "receipt001", "recData001", "recField001"))
                 ;
-        response.prettyPrint();
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)

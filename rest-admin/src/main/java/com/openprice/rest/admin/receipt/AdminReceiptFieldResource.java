@@ -27,7 +27,7 @@ public class AdminReceiptFieldResource extends Resource<ReceiptField> {
                                     "fieldId", receiptField.getId()};
 
             final LinkBuilder linkBuilder = new LinkBuilder(resource);
-            linkBuilder.addLink(Link.REL_SELF, URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_FIELDS, false, pairs)
+            linkBuilder.addLink(Link.REL_SELF, URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_FIELDS_FIELD, false, pairs)
                        .addLink("result", URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT, false, pairs)
                        .addLink("items", URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_ITEMS, true, pairs);
 
