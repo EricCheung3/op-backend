@@ -3,9 +3,9 @@ package com.openprice.parser.simple;
 import org.springframework.util.StringUtils;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.api.MatchToBranch;
+import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.ReceiptLine;
 import com.openprice.parser.data.ReceiptLineWithScore;
 import com.openprice.store.StoreBranch;
@@ -40,7 +40,12 @@ public class MatchToBranchImpl implements  MatchToBranch{
                 matchedField = fName;
             }
         }
-        return new ReceiptLineWithScore(scoreMax, matchedField, line, lookup.getFieldToValue().get(matchedField));
+        return new ReceiptLineWithScore(
+                line,
+                matchedField,
+                scoreMax,
+                lookup.getFieldToValue().get(matchedField)
+                );
     }
 
     /**
@@ -50,9 +55,10 @@ public class MatchToBranchImpl implements  MatchToBranch{
      * @return
      */
     @Override
-    public double matchScore(final StoreBranch storeBranch, final ReceiptDataImpl receipt) {
+    public double matchScore(final StoreBranch storeBranch, final ReceiptData receipt) {
         double sum = receipt
-                .lines()
+                .getReceiptLines()
+                .stream()
                 .map(line -> matchBranchFieldScoreSum(new BranchFieldLookupImpl(storeBranch), line.getCleanText()))
                 .reduce(0.0, (acc, element) -> acc + element);
         return sum;

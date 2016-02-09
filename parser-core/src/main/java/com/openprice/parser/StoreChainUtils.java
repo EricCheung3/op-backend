@@ -3,6 +3,7 @@ package com.openprice.parser;
 import java.util.Comparator;
 import java.util.Optional;
 
+import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.data.ScoreWithMatchPair;
 import com.openprice.parser.simple.MatchToBranchImpl;
 import com.openprice.store.StoreBranch;
@@ -58,7 +59,7 @@ public class StoreChainUtils{
 //        return new StoreChainMatch(code, selector, categories, identifyFields, branches);
 //    }
 
-    public static StoreBranch matchBranchByScoreSum(final StoreChain storeChain, final ReceiptDataImpl receipt) {
+    public static StoreBranch matchBranchByScoreSum(final StoreChain storeChain, final ReceiptData receipt) {
         Optional<ScoreWithMatchPair<StoreBranch>> maxBranchMatch =
                 storeChain
                 .getBranches()
