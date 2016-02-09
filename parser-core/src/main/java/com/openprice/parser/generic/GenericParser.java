@@ -20,7 +20,7 @@ import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.common.DateParserUtils;
 import com.openprice.parser.data.StringInt;
 import com.openprice.parser.price.PriceParserWithCatalog;
-import com.openprice.parser.simple.MatchedRecord;
+import com.openprice.parser.simple.MatchedRecordImpl;
 import com.openprice.parser.simple.SimpleParserUtils;
 import com.openprice.parser.store.AbstractStoreParser;
 import com.openprice.store.StoreChain;
@@ -69,7 +69,7 @@ public class GenericParser extends AbstractStoreParser{
         throws Exception{
         final GenericParser generic=selectParser(receipt);
         // match fields
-        final MatchedRecord matchedRecord = new MatchedRecord();
+        final MatchedRecordImpl matchedRecord = new MatchedRecordImpl();
         matchedRecord.matchToHeader(receipt, generic.getStoreConfig(), generic);
 
         //globally finding the date string

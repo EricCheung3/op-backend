@@ -14,6 +14,7 @@ import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.ReceiptParser;
 import com.openprice.parser.StoreChainUtils;
+import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.api.StoreParserSelector;
 import com.openprice.parser.common.DateParserUtils;
@@ -44,7 +45,7 @@ public class SimpleParser implements ReceiptParser {
     @Override
     public ParsedReceipt parseReceiptOcrResult(final List<String> ocrTextList) {
         try{
-            final ReceiptDataImpl receipt = ReceiptDataImpl.fromOCRResults(ocrTextList);
+            final ReceiptData receipt = ReceiptDataImpl.fromOCRResults(ocrTextList);
             if (receipt.getReceiptLines().size() == 0) {
                 log.warn("No receipt data to parse.");
                 return null;
@@ -56,7 +57,7 @@ public class SimpleParser implements ReceiptParser {
         }
     }
 
-    private ParsedReceipt parseReceiptData(final ReceiptDataImpl receipt) throws Exception {
+    private ParsedReceipt parseReceiptData(final ReceiptData receipt) throws Exception {
         // find chain first
         final StoreChain chain = chainRegistry.findBestMatchedChain(receipt);
         if (chain == null) {
@@ -86,7 +87,7 @@ public class SimpleParser implements ReceiptParser {
         final StoreParser parser = selector.selectParser(receipt);
 
         // match fields
-        final MatchedRecord matchedRecord = new MatchedRecord();
+        final MatchedRecordImpl matchedRecord = new MatchedRecordImpl();
         matchedRecord.matchToBranch(receipt, branch);
         matchedRecord.matchToHeader(receipt, parser.getStoreConfig(), parser);
 
@@ -104,7 +105,7 @@ public class SimpleParser implements ReceiptParser {
     }
 
     public ParsedReceipt parseLines(final List<String> lines) throws Exception {
-        final ReceiptDataImpl receipt = ReceiptDataImpl.fromContentLines(lines);
+        final ReceiptData receipt = ReceiptDataImpl.fromContentLines(lines);
         return parseReceiptData(receipt);
     }
 

@@ -64,6 +64,7 @@ public class ReceiptDataImpl implements ReceiptData{
         return receiptLines.get(lineNumber);
     }
 
+    @Override
     public List<ReceiptLine> getTopBottomChainMatchingLines() {
         final List<ReceiptLine> lines = new ArrayList<>();
         final int size = receiptLines.size();

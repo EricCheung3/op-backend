@@ -14,5 +14,7 @@ public interface ReceiptData {
     List<ReceiptLine> getReceiptLines();
 
     ImmutableList<String> getOriginalLines();
+
+    List<ReceiptLine> getTopBottomChainMatchingLines();
 }
 

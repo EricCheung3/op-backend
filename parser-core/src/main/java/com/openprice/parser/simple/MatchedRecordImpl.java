@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Data
 @Slf4j
-public class MatchedRecord {
+public class MatchedRecordImpl {
     // mapping line number to FieldNameAddressLines that is matched by the line
     private final Map<Integer, Set<ReceiptFieldType>> lineToField = new HashMap<Integer, Set<ReceiptFieldType>>();
 

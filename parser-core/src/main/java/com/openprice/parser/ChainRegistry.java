@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.openprice.common.Levenshtein;
 import com.openprice.common.StringCommon;
+import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.ReceiptLine;
 import com.openprice.parser.data.ScoreWithMatchPair;
 import com.openprice.store.StoreChain;
@@ -34,7 +35,7 @@ public class ChainRegistry {
         storeChains.add(chain);
     }
 
-    public StoreChain findBestMatchedChain(final ReceiptDataImpl receipt) {
+    public StoreChain findBestMatchedChain(final ReceiptData receipt) {
         final List<ReceiptLine> lines = receipt.getTopBottomChainMatchingLines();
         //log.debug("TopBottom matching lines:\n"+lines);
         //log.debug("search chains in registry with "+storeChains);

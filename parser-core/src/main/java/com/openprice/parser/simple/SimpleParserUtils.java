@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SimpleParserUtils {
 
     public static List<ParsedItem> parseItems(
-            final MatchedRecord matchedRecord,
+            final MatchedRecordImpl matchedRecord,
             final ReceiptData receipt,
             final StoreParser parser) throws Exception {
         final int stopLine = (matchedRecord == null) ? receipt.getReceiptLines().size() :
