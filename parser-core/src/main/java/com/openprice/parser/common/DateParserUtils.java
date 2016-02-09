@@ -10,7 +10,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.api.ReceiptDataInterface;
 import com.openprice.parser.data.StringInt;
 
 import lombok.Getter;
@@ -45,12 +44,6 @@ public class DateParserUtils {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy"+DATE_SPLITTER_UNIFORM+
             "MM"+DATE_SPLITTER_UNIFORM+
             "dd");
-
-    public static StringInt findDateStringAfterLine(final ReceiptDataInterface receipt, final int start){
-        return findDateStringAfterLine(
-                receipt.,
-                start);
-    }
 
     public static StringInt findDateStringAfterLine(final List<String> origLines, final int start){
         log.debug("date line searching from line "+start+":"+origLines.get(start)+"\n");

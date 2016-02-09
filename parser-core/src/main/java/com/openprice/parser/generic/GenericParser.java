@@ -76,7 +76,7 @@ public class GenericParser extends AbstractStoreParser{
         if (matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date) == null ||
                 matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date).getValue().isEmpty()){
             log.debug("date header not found: searching date string globally.");
-            final StringInt dateVL=DateParserUtils.findDateStringAfterLine(receipt, 0);
+            final StringInt dateVL=DateParserUtils.findDateStringAfterLine(receipt.getOriginalLines(), 0);
             matchedRecord.putFieldLine(ReceiptFieldType.Date, dateVL);
         }
 

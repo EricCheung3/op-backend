@@ -3,7 +3,6 @@ package com.openprice.parser;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import com.google.common.collect.ImmutableList;
 import com.openprice.parser.api.ReceiptData;
@@ -36,7 +35,7 @@ public class ReceiptDataImpl implements ReceiptData{
         }
     }
 
-    public static ReceiptDataImpl fromContentLines(final List<String> lines) throws Exception {
+    public static ReceiptData fromContentLines(final List<String> lines) throws Exception {
         ReceiptDataImpl f = new ReceiptDataImpl(lines);
         if (lines.size() < MIN_NUMBER_LINES) {//TODO: we should only allow non-empty lines
             throw new Exception("Receipt is too short, only has " + lines.size() + " lines.");
@@ -44,12 +43,12 @@ public class ReceiptDataImpl implements ReceiptData{
         return f;
     }
 
-    public static ReceiptDataImpl fromString(final String allLines) throws Exception {
+    public static ReceiptData fromString(final String allLines) throws Exception {
         String[] lines = allLines.split("\n");
         return fromContentLines(java.util.Arrays.asList(lines));
     }
 
-    public static ReceiptDataImpl fromOCRResults(final List<String> ocrTextList) throws Exception {
+    public static ReceiptData fromOCRResults(final List<String> ocrTextList) throws Exception {
         log.debug("get {} ocr Text.", ocrTextList.size());
         final List<String> allLines = new ArrayList<>();
         for (final String ocrText : ocrTextList) {
@@ -64,12 +63,6 @@ public class ReceiptDataImpl implements ReceiptData{
     public ReceiptLine getLine(final int lineNumber) {
         return receiptLines.get(lineNumber);
     }
-
-    @Override
-    public Stream<ReceiptLine> lines() {
-        return receiptLines.stream();
-    }
-
 
     public List<ReceiptLine> getTopBottomChainMatchingLines() {
         final List<ReceiptLine> lines = new ArrayList<>();
@@ -86,7 +79,8 @@ public class ReceiptDataImpl implements ReceiptData{
     @Override
     public ImmutableList<String> getOriginalLines() {
         return ImmutableList.copyOf(
-                lines()
+                getReceiptLines()
+                .stream()
                 .map(r->r.getOriginalText())
                 .collect(Collectors.toList())
                 );
