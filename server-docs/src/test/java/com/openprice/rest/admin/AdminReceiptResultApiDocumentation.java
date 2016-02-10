@@ -56,7 +56,7 @@ public class AdminReceiptResultApiDocumentation extends AdminApiDocumentationBas
                     fieldWithPath("branchName").description("The branch name of receipt"),
                     fieldWithPath("parsedTotal").description("The parsed total of receipt"),
                     fieldWithPath("parsedDate").description("The parsed date of receipt"),
-                    fieldWithPath("fieldMap").description("The parsed result fields of receipt"),
+                    fieldWithPath("receiptFields").description("The parsed result fields of receipt"),
                     fieldWithPath("_links").description("<<resources-admin-receipt-result-retrieve-links,Links>> to other resources"),
                     fieldWithPath("_embedded.receiptItems").description("An array of <<resources-admin-receipt-result-items, Admin Receipt result items resources>>")
                 )
