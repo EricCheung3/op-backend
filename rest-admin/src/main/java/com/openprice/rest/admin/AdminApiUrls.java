@@ -33,7 +33,7 @@ public interface AdminApiUrls {
 
     String URL_ADMIN_RECEIPTS_RECEIPT_FEEDBACKS = "/admin/receipts/{receiptId}/feedbacks";
     String URL_ADMIN_RECEIPTS_RECEIPT_FEEDBACKS_FEEDBACK = "/admin/receipts/{receiptId}/feedbacks/{feedbackId}";
-    
+
     String URL_ADMIN_CHAINS = "/admin/chains";
     String URL_ADMIN_CHAINS_CHAIN = "/admin/chains/{chainCode}";
     String URL_ADMIN_CHAINS_CHAIN_BRANCHES = "/admin/chains/{chainCode}/branches";

@@ -38,7 +38,7 @@ public class AdminReceiptFeedbackApiDocumentation extends AdminApiDocumentationB
             )
         ));
     }
-    
+
     @Test
     public void adminReceiptFeedbackRetrieveExample() throws Exception {
         mockMvc
@@ -55,12 +55,11 @@ public class AdminReceiptFeedbackApiDocumentation extends AdminApiDocumentationB
                 fieldWithPath("rating").description("Receipt rating"),
                 fieldWithPath("comment").description("Receipt comment"),
                 fieldWithPath("_links").description("<<resources-admin-receipt-feedback-retrieve-links,Links>> to other resources")
-                
             )
         ));
 
     }
-    
+
     @Test
     public void adminReceiptFeedbackDeleteExample() throws Exception {
         mockMvc
@@ -68,8 +67,8 @@ public class AdminReceiptFeedbackApiDocumentation extends AdminApiDocumentationB
         .andExpect(status().isNoContent())
         .andDo(document("admin-receipt-feedback-delete-example"));
     }
-    
-    
+
+
     @Override
     @Before
     public void setUp() throws Exception {
@@ -85,7 +84,7 @@ public class AdminReceiptFeedbackApiDocumentation extends AdminApiDocumentationB
         deleteTestAdmin();
         deleteTestUser();
     }
-    
+
     private String getReceiptsUrl() throws Exception {
         final String responseContent =
             mockMvc
@@ -96,7 +95,7 @@ public class AdminReceiptFeedbackApiDocumentation extends AdminApiDocumentationB
         final String receiptsLink = JsonPath.read(responseContent, "_links.receipts.href");
         return UriTemplate.fromTemplate(receiptsLink).set("page", null).set("size", null).set("sort", null).expand();
     }
-    
+
     private String getReceiptFeedbacksUrl() throws Exception {
         final String responseContent =
             mockMvc
@@ -107,7 +106,7 @@ public class AdminReceiptFeedbackApiDocumentation extends AdminApiDocumentationB
         final String feedbacksLink = JsonPath.read(responseContent, "_embedded.receipts[0]._links.feedbacks.href");
         return UriTemplate.fromTemplate(feedbacksLink).set("page", null).set("size", null).set("sort", null).expand();
     }
-    
+
     private String getTestReceiptFeedbackUrl() throws Exception {
         final String responseContent =
             mockMvc
