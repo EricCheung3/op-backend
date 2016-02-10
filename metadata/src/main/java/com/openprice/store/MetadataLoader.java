@@ -33,6 +33,12 @@ public class MetadataLoader {
     //identification field that can be used to find stores: store dependent data
     private static final String IDENTIFY_FIELD_DATA_JSON = "/identify.json";
 
+    public static final String CATEGORY_FILE_NAME = "category-in-store-receipt.json";
+    public static final String CATALOG_BLACK_LIST_FILE_NAME="/notCatalogItemNames.json";
+    public static final String CATALOG_NOTATION_FILE_NAME="/notations.json";
+    public static final String SKIP_BEFORE_FILE_NAME = "/skipBeforeItemsFinish.json";
+    public static final String SKIP_AFTER_FILE_NAME = "/skipAfterItemsFinish.json";
+
     public static StoreMetadata loadMetadata() {
         // load category first
         Map<String, ProductCategory> categoryMap = loadProductCategory();
@@ -105,9 +111,16 @@ public class MetadataLoader {
         return validateStoreChainDataList(Arrays.asList(data));
     }
 
+    static String getChainFile(final String chainCode, final String fileName){
+        if(fileName.startsWith("/"))
+            return "/" + chainCode + fileName;
+        else
+            return "/" + chainCode + "/" + fileName;
+    }
+
     static List<StoreBranch> loadStoreBranches(final String chainCode) {
         final ImmutableList.Builder<StoreBranch> branchListBuilder = new ImmutableList.Builder<>();
-        final String branchFileName = "/" + chainCode + BRANCH_DATA_JSON;
+        final String branchFileName = getChainFile(chainCode, BRANCH_DATA_JSON);
         final StoreBranchData[] storeBranches = loadFromJsonResource(branchFileName, StoreBranchData[].class);
         if (storeBranches != null) {
             for(final StoreBranchData branch : storeBranches) {
@@ -121,7 +134,7 @@ public class MetadataLoader {
     //TODO test
     static List<String> loadStoreIdentify(final String chainCode) {
         final ImmutableList.Builder<String> branchListBuilder = new ImmutableList.Builder<>();
-        final String branchFileName = "/" + chainCode + IDENTIFY_FIELD_DATA_JSON;
+        final String branchFileName = getChainFile(chainCode, IDENTIFY_FIELD_DATA_JSON);
         final String[] identifys = loadFromJsonResource(branchFileName, String[].class);
         if (identifys != null) {
             for(final String id : identifys) {
@@ -133,7 +146,7 @@ public class MetadataLoader {
 
     static Map<String, CatalogProduct> loadCatalogProducts(final String chainCode, final Map<String, ProductCategory> categoryMap) {
         final ImmutableMap.Builder<String, CatalogProduct> productListBuilder = new ImmutableMap.Builder<>();
-        final String catalogFileName = "/" + chainCode + CATALOG_DATA_JSON;
+        final String catalogFileName = getChainFile(chainCode, CATALOG_DATA_JSON);
         final ProductData[] products = loadFromJsonResource(catalogFileName, ProductData[].class);
 
         if (products != null) {
