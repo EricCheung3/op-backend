@@ -28,8 +28,6 @@ public interface AdminApiUrls {
     String URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE_BASE64 = "/admin/receipts/{receiptId}/images/{imageId}/base64";
     String URL_ADMIN_RECEIPTS_RECEIPT_RESULTS = "/admin/receipts/{receiptId}/results";
     String URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT = "/admin/receipts/{receiptId}/results/{resultId}";
-    String URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_FIELDS = "/admin/receipts/{receiptId}/results/{resultId}/fields";
-    String URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_FIELDS_FIELD = "/admin/receipts/{receiptId}/results/{resultId}/fields/{fieldId}";
     String URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_ITEMS = "/admin/receipts/{receiptId}/results/{resultId}/items";
     String URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_ITEMS_ITEM = "/admin/receipts/{receiptId}/results/{resultId}/items/{itemId}";
 
