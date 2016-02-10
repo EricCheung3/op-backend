@@ -34,7 +34,7 @@ public class AdminReceiptResultResource extends Resource<ReceiptResult> {
     private Map<String, List<AdminReceiptItemResource>> embeddedItems = new HashMap<>();
 
     @Getter @Setter
-    private List<ReceiptField> receiptFields = new ArrayList();
+    private List<ReceiptField> receiptFields = new ArrayList<ReceiptField>();
 
     public AdminReceiptResultResource(final ReceiptResult resource) {
         super(resource);
