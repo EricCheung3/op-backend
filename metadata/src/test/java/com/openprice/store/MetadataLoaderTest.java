@@ -74,6 +74,7 @@ public class MetadataLoaderTest {
     public void loadMetadata_ShouldLoadStoreDb() throws Exception {
         final StoreMetadata metadata = MetadataLoader.loadMetadata();
 
+
         // verify product category
         {
             assertEquals(36, metadata.getCategoryMap().size());
@@ -90,6 +91,7 @@ public class MetadataLoaderTest {
             assertEquals("Superstore", rcss.getName());
             assertEquals(8, rcss.getBranches().size());
             assertEquals(323, rcss.getProducts().size());
+            assertEquals(4, rcss.getIdentifyFields().size());
         }
 
         // verify safeway
@@ -99,6 +101,7 @@ public class MetadataLoaderTest {
             assertEquals("Safeway", safeway.getName());
             assertEquals(22, safeway.getBranches().size());
             assertEquals(608, safeway.getProducts().size());
+            assertEquals(2, safeway.getIdentifyFields().size());
         }
 
         // verify edojapan
@@ -107,6 +110,7 @@ public class MetadataLoaderTest {
             assertNotNull(edojapan);
             assertEquals("Edo Japan", edojapan.getName());
             assertEquals(28, edojapan.getBranches().size());
+            assertEquals(1, edojapan.getIdentifyFields().size());
         }
 
     }
