@@ -5,8 +5,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.openprice.parser.ChainRegistry;
-import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.StoreConfigImpl;
+import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.store.AbstractStoreParserSelector;
 
@@ -21,7 +21,7 @@ public class SafewaySelector extends AbstractStoreParserSelector {
     }
 
     @Override
-    public StoreParser selectParser(final ReceiptDataImpl receipt) {
+    public StoreParser selectParser(final ReceiptData receipt) {
         // just one parser now. TODO based on receipt data to return parser
         return safeway1;
     }

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.StringUtils;
 
@@ -20,6 +22,7 @@ import com.openprice.parser.data.ProductImpl;
 import com.openprice.parser.generic.ConfigFiles;
 import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.store.StoreChain;
+import com.openprice.store.StoreMetadata;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,12 +36,15 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class AbstractStoreParserSelector implements StoreParserSelector, InitializingBean {
 
     private final ChainRegistry chainRegistry;
+    private final StoreMetadata metadata;
 
     protected final Properties baseConfig = new Properties();
     protected StoreChain chain;
 
-    public AbstractStoreParserSelector(final ChainRegistry chainRegistry) {
+    @Inject
+    public AbstractStoreParserSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
         this.chainRegistry = chainRegistry;
+        this.metadata = metadata;
     }
 
     @Override
@@ -49,7 +55,6 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         } catch (IOException ex) {
             log.warn("Cannot load config.properties for {} store chain!", getParserBaseCode());
         }
-
         registerStoreChainFromStoreConfig();
         generateParser();
     }
@@ -61,12 +66,13 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
 //                line ->
 //                    branches.add(StoreBranchMatch.fromString(line, baseConfig.getProperty("Slogan")))); // FIXME why slogan?
 
-        chain = StoreChain.fromCodeSelectorCategoriesFieldsBranches(
-                        getParserBaseCode().toLowerCase(), // TODO maybe use lower case in all places?
-                        this,
-                        TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.CATEGORY_FILE_NAME)),
-                        TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.IDENTIFY_FIELD_FILE_NAME)),
-                        branches);
+//        chain = StoreChain.fromCodeSelectorCategoriesFieldsBranches(
+//                        getParserBaseCode().toLowerCase(), // TODO maybe use lower case in all places?
+//                        this,
+//                        TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.CATEGORY_FILE_NAME)),
+//                        TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.IDENTIFY_FIELD_FILE_NAME)),
+//                        branches));
+        chain=metadata.getStoreChainByCode(getParserBaseCode().toLowerCase());
         chainRegistry.addChain(chain);
     }
 

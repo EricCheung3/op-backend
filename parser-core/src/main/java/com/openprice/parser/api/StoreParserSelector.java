@@ -1,7 +1,5 @@
 package com.openprice.parser.api;
 
-import com.openprice.parser.ReceiptDataImpl;
-
 public interface StoreParserSelector {
 
     /**
@@ -11,5 +9,5 @@ public interface StoreParserSelector {
      * @param receipt
      * @return
      */
-    StoreParser selectParser(ReceiptDataImpl receipt);
+    StoreParser selectParser(ReceiptData receipt);
 }
