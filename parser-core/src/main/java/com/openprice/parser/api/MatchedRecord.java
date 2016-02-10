@@ -28,6 +28,9 @@ public interface MatchedRecord {
     //get the last/maximum line number of all fields. It is the last field line.
     int lastFieldLine();
 
+    //item stops number (no item after this line)
+    int itemStopLineNumber();
+
     //match to a branch and record matched information
     void matchToBranch(ReceiptData receipt, StoreBranch storeBranch);
 

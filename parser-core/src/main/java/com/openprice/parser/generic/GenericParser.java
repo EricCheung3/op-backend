@@ -13,6 +13,7 @@ import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreConfigImpl;
+import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.Product;
 import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreConfig;
@@ -69,12 +70,12 @@ public class GenericParser extends AbstractStoreParser{
         throws Exception{
         final GenericParser generic=selectParser(receipt);
         // match fields
-        final MatchedRecordImpl matchedRecord = new MatchedRecordImpl();
+        final MatchedRecord matchedRecord = new MatchedRecordImpl();
         matchedRecord.matchToHeaders(receipt, generic.getStoreConfig(), generic);
 
         //globally finding the date string
-        if (matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date) == null ||
-                matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date).getValue().isEmpty()){
+        if (matchedRecord.fieldValue(ReceiptFieldType.Date) == null ||
+                matchedRecord.fieldValue(ReceiptFieldType.Date).getValue().isEmpty()){
             log.debug("date header not found: searching date string globally.");
             final StringInt dateVL=DateParserUtils.findDateStringAfterLine(receipt.getOriginalLines(), 0);
             matchedRecord.putFieldLine(ReceiptFieldType.Date, dateVL);

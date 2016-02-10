@@ -14,6 +14,7 @@ import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.ReceiptParser;
 import com.openprice.parser.StoreChainUtils;
+import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.api.StoreParserSelector;
@@ -87,13 +88,13 @@ public class SimpleParser implements ReceiptParser {
         final StoreParser parser = selector.selectParser(receipt);
 
         // match fields
-        final MatchedRecordImpl matchedRecord = new MatchedRecordImpl();
+        final MatchedRecord matchedRecord = new MatchedRecordImpl();
         matchedRecord.matchToBranch(receipt, branch);
         matchedRecord.matchToHeaders(receipt, parser.getStoreConfig(), parser);
 
         //globally finding the date string
-        if (matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date) == null ||
-                matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date).getValue().isEmpty()){
+        if (matchedRecord.fieldValue(ReceiptFieldType.Date) == null ||
+                matchedRecord.fieldValue(ReceiptFieldType.Date).getValue().isEmpty()){
             log.debug("date header not found: searching date string globally.");
             final StringInt dateVL=DateParserUtils.findDateStringAfterLine(receipt.getOriginalLines(), 0);
             matchedRecord.putFieldLine(ReceiptFieldType.Date, dateVL);

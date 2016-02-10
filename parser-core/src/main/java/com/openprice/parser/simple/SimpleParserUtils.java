@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.openprice.parser.ParsedItem;
+import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreParser;
 
@@ -13,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SimpleParserUtils {
 
     public static List<ParsedItem> parseItems(
-            final MatchedRecordImpl matchedRecord,
+            final MatchedRecord matchedRecord,
             final ReceiptData receipt,
             final StoreParser parser) throws Exception {
         final int stopLine = (matchedRecord == null) ? receipt.getReceiptLines().size() :

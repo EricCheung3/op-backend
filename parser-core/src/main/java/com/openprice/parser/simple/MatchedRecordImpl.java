@@ -18,7 +18,6 @@ import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.data.StringInt;
 import com.openprice.store.StoreBranch;
 
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -27,7 +26,6 @@ import lombok.extern.slf4j.Slf4j;
  * a list of pairs. two fields can also be mapped to the same line; two lines
  * Can be mapped to the same field --- a field can appear in multiple lines.
  */
-@Data
 @Slf4j
 public class MatchedRecordImpl implements MatchedRecord{
     // mapping line number to FieldNameAddressLines that is matched by the line
@@ -38,7 +36,6 @@ public class MatchedRecordImpl implements MatchedRecord{
 
     //save the many field members in a map
     private final Map<ReceiptFieldType, StringInt> fieldToValueLine = new HashMap<ReceiptFieldType, StringInt>();
-
 
     // whether a line is matched
     @Override
@@ -64,6 +61,7 @@ public class MatchedRecordImpl implements MatchedRecord{
      * @return
      */
     @Override
+    //TODO lambda
     public int lastFieldLine() {
         int max = -1;
         for (int i : lineToField.keySet()) {
@@ -131,14 +129,12 @@ public class MatchedRecordImpl implements MatchedRecord{
     @Override
     public void matchToHeaders(final ReceiptData receipt, final StoreConfig config, final StoreParser parser) {
         for (ReceiptFieldType field : ReceiptFieldType.values()) {
-            if (fieldNameIsMatched(field)) {
+            if (fieldNameIsMatched(field))
                 continue;
-            }
 
             final List<String> headerPatterns = config.getFieldHeaderMatchStrings(field);
-            if (headerPatterns == null || headerPatterns.isEmpty()) {
+            if (headerPatterns == null || headerPatterns.isEmpty())
                 continue;
-            }
 
             receipt.getReceiptLines()
                    .stream()
@@ -153,8 +149,7 @@ public class MatchedRecordImpl implements MatchedRecord{
                         .max( Comparator.comparing(score -> score) );
                 return maxScore.isPresent() && maxScore.get() > config.similarityThresholdOfTwoStrings();
             })
-            .forEach( line -> putFieldLine(field, line.getNumber(), parser.parseField(field, line)))
-            ;
+            .forEach( line -> putFieldLine(field, line.getNumber(), parser.parseField(field, line)));
         }
     }
 
