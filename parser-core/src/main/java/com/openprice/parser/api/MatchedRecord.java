@@ -1,5 +1,6 @@
 package com.openprice.parser.api;
 
+import java.util.Map;
 import java.util.Set;
 
 import com.openprice.parser.ReceiptFieldType;
@@ -34,5 +35,8 @@ public interface MatchedRecord {
     int itemStopLineNumber();
 
     void putFieldLineValue(ReceiptFieldType fName, int lineNumber, String value);
+
+    //get the field matched records in a map
+    Map<ReceiptFieldType, StringInt> getFieldToValueLine();
 
 }

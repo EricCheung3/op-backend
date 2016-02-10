@@ -15,14 +15,22 @@ public class ParsedReceiptImpl implements ParsedReceipt{
     final Map<ReceiptFieldType, StringInt> fieldToValueMap;
     final String branchName;
 
-    private ParsedReceiptImpl(final StoreChain chain, final List<ParsedItem> items, final  Map<ReceiptFieldType, StringInt> map, final String branchName){
+    private ParsedReceiptImpl(
+            final StoreChain chain,
+            final List<ParsedItem> items,
+            final Map<ReceiptFieldType, StringInt> map,
+            final String branchName){
         this.chain=chain;
         this.items=items;
         this.fieldToValueMap=map;
         this.branchName=branchName;
     }
 
-    public static ParsedReceiptImpl fromChainItemsMapBranch(final StoreChain chain, final List<ParsedItem> items, final  Map<ReceiptFieldType, StringInt> map, final String branch){
+    public static ParsedReceiptImpl fromChainItemsMapBranch(
+            final StoreChain chain,
+            final List<ParsedItem> items,
+            final Map<ReceiptFieldType, StringInt> map,
+            final String branch){
         return new ParsedReceiptImpl(chain, items, map, branch);
     }
 
