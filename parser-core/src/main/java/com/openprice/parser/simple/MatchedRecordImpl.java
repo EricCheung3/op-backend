@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 
 import com.openprice.common.StringCommon;
 import com.openprice.parser.ReceiptFieldType;
+import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
@@ -28,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Data
 @Slf4j
-public class MatchedRecordImpl {
+public class MatchedRecordImpl implements MatchedRecord{
     // mapping line number to FieldNameAddressLines that is matched by the line
     private final Map<Integer, Set<ReceiptFieldType>> lineToField = new HashMap<Integer, Set<ReceiptFieldType>>();
 
@@ -40,19 +41,23 @@ public class MatchedRecordImpl {
 
 
     // whether a line is matched
+    @Override
     public boolean isFieldLine(int line) {
         return lineToField.containsKey(line);
     }
 
     // whether a field is matched
+    @Override
     public boolean fieldNameIsMatched(final ReceiptFieldType f) {
         return fieldToLine.containsKey(f);
     }
 
+    @Override
     public boolean fieldIsMatched(final ReceiptFieldType f) {
         return fieldNameIsMatched(f);
     }
 
+    @Override
     public Set<ReceiptFieldType> matchedFields(final int line) {
         return lineToField.get(line);
     }
@@ -63,6 +68,7 @@ public class MatchedRecordImpl {
      *
      * @return
      */
+    @Override
     public int lastFieldLine() {
         int max = -1;
         for (int i : lineToField.keySet()) {
