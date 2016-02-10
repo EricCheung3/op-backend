@@ -48,9 +48,7 @@ public class AdminReceiptResultApiDocumentation extends AdminApiDocumentationBas
                 links(
                     linkWithRel("self").description("The self link"),
                     linkWithRel("items").description("<<resources-admin-receipt-result-items, Link>> to receipt result items"),
-                    linkWithRel("item").description("<<resources-admin-receipt-result-item, Link>> to receipt result items"),
-                    linkWithRel("fields").description("<<resources-admin-receipt-result-fileds, Link>> to receipt result items"),
-                    linkWithRel("field").description("<<resources-admin-receipt-result-field, Link>> to receipt result items")
+                    linkWithRel("item").description("<<resources-admin-receipt-result-item, Link>> to receipt result items")
                 ),
                 responseFields(
                     fieldWithPath("id").description("Primary ID"),
@@ -58,6 +56,7 @@ public class AdminReceiptResultApiDocumentation extends AdminApiDocumentationBas
                     fieldWithPath("branchName").description("The branch name of receipt"),
                     fieldWithPath("parsedTotal").description("The parsed total of receipt"),
                     fieldWithPath("parsedDate").description("The parsed date of receipt"),
+                    fieldWithPath("fieldMap").description("The parsed result fields of receipt"),
                     fieldWithPath("_links").description("<<resources-admin-receipt-result-retrieve-links,Links>> to other resources"),
                     fieldWithPath("_embedded.receiptItems").description("An array of <<resources-admin-receipt-result-items, Admin Receipt result items resources>>")
                 )
@@ -105,46 +104,6 @@ public class AdminReceiptResultApiDocumentation extends AdminApiDocumentationBas
                     fieldWithPath("userDeleted").description("User can delete the item or not"),
                     fieldWithPath("catalog").description("The catalog of receipt item"),
                     fieldWithPath("_links").description("<<resources-admin-receipt-result-item-retrieve-links,Links>> to other resources")
-                )
-            ));
-    }
-
-    @Test
-    public void adminReceiptResultFieldListExample() throws Exception {
-        mockMvc
-        .perform(get(getReceiptResultFieldsUrl()).with(user(ADMINNAME)))
-        .andExpect(status().isOk())
-        .andDo(document("admin-receipt-result-field-list-example",
-                preprocessResponse(prettyPrint()),
-                links(
-                    linkWithRel("self").description("The self link")
-                ),
-                responseFields(
-                    fieldWithPath("_embedded.receiptFields").description("An array of <<resources-admin-receipt-result-field, Admin Receipt result field resources>>"),
-                    fieldWithPath("page").description("Pagination data"),
-                    fieldWithPath("_links").description("<<resources-admin-receipt-result-field-links,Links>> to other resources")
-                )
-            ));
-    }
-
-    @Test
-    public void adminReceiptResultFieldExample() throws Exception {
-        mockMvc
-        .perform(get(getReceiptResultFieldUrl()).with(user(ADMINNAME)))
-        .andExpect(status().isOk())
-        .andDo(document("admin-receipt-result-field-retrieve-example",
-                preprocessResponse(prettyPrint()),
-                links(
-                    linkWithRel("self").description("The selfe link"),
-                    linkWithRel("result").description("<<resources-admin-receipt-result, Link>> to receipt result resource>>"),
-                    linkWithRel("items").description("<<resources-admin-receipt-result-items, Link>> to receipt result items resource>>")
-                ),
-                responseFields(
-                        fieldWithPath("id").description("Primary ID"),
-                        fieldWithPath("type").description("The receipt result field type"),
-                        fieldWithPath("value").description("The valus of receipt result type"),
-                        fieldWithPath("lineNumber").description("The line number of receipt field"),
-                        fieldWithPath("_links").description("<<resources-admin-receipt-result-field-retrieve-links,Links>> to other resources")
                 )
             ));
     }
@@ -216,26 +175,5 @@ public class AdminReceiptResultApiDocumentation extends AdminApiDocumentationBas
             .andReturn().getResponse()
             .getContentAsString();
         return JsonPath.read(responseContent, "_embedded.receiptItems[0]._links.self.href");
-    }
-
-    private String getReceiptResultFieldsUrl() throws Exception {
-        final String responseContent =
-                mockMvc
-                .perform(get(getReceiptResultUrl()).with(user(ADMINNAME)))
-                .andExpect(status().isOk())
-                .andReturn().getResponse()
-                .getContentAsString();
-        final String fieldsLink = JsonPath.read(responseContent, "_links.fields.href");
-        return UriTemplate.fromTemplate(fieldsLink).set("page", null).set("size", null).set("sort", null).expand();
-    }
-
-    private String getReceiptResultFieldUrl() throws Exception {
-        final String responseContent =
-                mockMvc
-                .perform(get(getReceiptResultFieldsUrl()).with(user(ADMINNAME)))
-                .andExpect(status().isOk())
-                .andReturn().getResponse()
-                .getContentAsString();
-        return JsonPath.read(responseContent, "_embedded.receiptFields[0]._links.self.href");
     }
 }

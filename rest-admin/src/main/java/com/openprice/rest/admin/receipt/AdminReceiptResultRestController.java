@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.openprice.domain.account.admin.AdminAccountService;
 import com.openprice.domain.receipt.Receipt;
-import com.openprice.domain.receipt.ReceiptField;
-import com.openprice.domain.receipt.ReceiptFieldRepository;
 import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptItemRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
@@ -40,10 +38,8 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
 
     private final ReceiptResultRepository receiptResultRepository;
     private final ReceiptItemRepository receiptItemRepository;
-    private final ReceiptFieldRepository receiptFieldRepository;
     private final AdminReceiptResultResource.Assembler receiptResultResourceAssembler;
     private final AdminReceiptItemResource.Assembler receiptItemResourceAssembler;
-    private final AdminReceiptFieldResource.Assembler receiptFieldResourceAssembler;
 
     @Inject
     public AdminReceiptResultRestController(final AdminAccountService adminAccountService,
@@ -52,17 +48,13 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
                                             final ReceiptRepository receiptRepository,
                                             final ReceiptResultRepository receiptResultRepository,
                                             final ReceiptItemRepository receiptItemRepository,
-                                            final ReceiptFieldRepository receiptFieldRepository,
                                             final AdminReceiptResultResource.Assembler receiptResultResourceAssembler,
-                                            final AdminReceiptItemResource.Assembler receiptItemResourceAssembler,
-                                            final AdminReceiptFieldResource.Assembler receiptFieldResourceAssembler) {
+                                            final AdminReceiptItemResource.Assembler receiptItemResourceAssembler) {
         super(adminAccountService, receiptService, receiptUploadService, receiptRepository);
         this.receiptResultRepository = receiptResultRepository;
         this.receiptItemRepository = receiptItemRepository;
-        this.receiptFieldRepository = receiptFieldRepository;
         this.receiptResultResourceAssembler = receiptResultResourceAssembler;
         this.receiptItemResourceAssembler = receiptItemResourceAssembler;
-        this.receiptFieldResourceAssembler = receiptFieldResourceAssembler;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_RECEIPTS_RECEIPT_RESULTS)
@@ -82,29 +74,6 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
         final Receipt receipt = loadReceiptById(receiptId);
         final ReceiptResult result = loadReceiptResultByIdAndCheckReceipt(resultId, receipt);
         return ResponseEntity.ok(receiptResultResourceAssembler.toResource(result));
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_FIELDS)
-    public HttpEntity<PagedResources<AdminReceiptFieldResource>> getReceiptResultFields(
-            @PathVariable("receiptId") final String receiptId,
-            @PathVariable("resultId") final String resultId,
-            @PageableDefault(size = UtilConstants.MAX_RETURN_RECORD_COUNT, page = 0) final Pageable pageable,
-            final PagedResourcesAssembler<ReceiptField> assembler) throws ResourceNotFoundException {
-        final Receipt receipt = loadReceiptById(receiptId);
-        final ReceiptResult result = loadReceiptResultByIdAndCheckReceipt(resultId, receipt);
-        final Page<ReceiptField> fields = receiptFieldRepository.findByReceiptResultOrderByCreatedTime(result, pageable);
-        return ResponseEntity.ok(assembler.toResource(fields, receiptFieldResourceAssembler));
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_FIELDS_FIELD)
-    public HttpEntity<AdminReceiptFieldResource> getReceiptResultFieldById(
-            @PathVariable("receiptId") final String receiptId,
-            @PathVariable("resultId") final String resultId,
-            @PathVariable("fieldId") final String fieldId) throws ResourceNotFoundException {
-        final Receipt receipt = loadReceiptById(receiptId);
-        final ReceiptResult result = loadReceiptResultByIdAndCheckReceipt(resultId, receipt);
-        final ReceiptField field = loadReceiptFieldByIdAndCheckResult(fieldId,result);
-        return ResponseEntity.ok(receiptFieldResourceAssembler.toResource(field));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT_ITEMS)
@@ -142,20 +111,6 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
         }
         return result;
     }
-
-    private ReceiptField loadReceiptFieldByIdAndCheckResult (final String fieldId, final ReceiptResult result){
-        final ReceiptField field = receiptFieldRepository.findOne(fieldId);
-        if (field == null) {
-            log.warn("ILLEGAL RECEIPT FIELD ACCESS! No such receipt field: {}.", fieldId);
-            throw new ResourceNotFoundException("No receipt field with the id: " + fieldId);
-        }
-        if (!result.equals(field.getReceiptResult())) {
-            log.warn("ILLEGAL RECEIPT FIELD ACCESS! Field '{}' not belong to Result '{}'.", fieldId, result.getId());
-            throw new ResourceNotFoundException("No receipt field with the id: " + fieldId);
-        }
-        return field;
-    }
-
 
     private ReceiptItem loadReceiptItemByIdAndCheckResult(final String itemId, final ReceiptResult result) {
         final ReceiptItem item = receiptItemRepository.findOne(itemId);
