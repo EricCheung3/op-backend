@@ -19,12 +19,18 @@ import com.openprice.store.data.StoreBranchData;
 import com.openprice.store.data.StoreChainData;
 
 public class MetadataLoader {
+
+    //generic, store-independent data.
     private static final String STORE_DATA_JSON = "/store-data.json";
-    private static final String BRANCH_DATA_JSON = "/branch-data.json";
-    private static final String CATALOG_DATA_JSON = "/catalog-data.json";
     private static final String CATEGORY_DATA_JSON = "/category-data.json";
 
-    //identification field that can be used to find stores
+    //catalog: store dependent data.
+    private static final String CATALOG_DATA_JSON = "/catalog-data.json";
+
+    //branches: store dependent data
+    private static final String BRANCH_DATA_JSON = "/branch-data.json";
+
+    //identification field that can be used to find stores: store dependent data
     private static final String IDENTIFY_FIELD_DATA_JSON = "/identify.json";
 
     public static StoreMetadata loadMetadata() {
