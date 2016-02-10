@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.StoreConfigImpl;
+import com.openprice.parser.api.Product;
 import com.openprice.parser.api.StoreParserSelector;
 import com.openprice.parser.data.ProductImpl;
 import com.openprice.parser.generic.ConfigFiles;
@@ -162,7 +163,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
      * @return a parser with a catalog if the corresponding file is read in successfully; otherwise return an empty catalog
      */
     protected PriceParserWithCatalog loadPriceParserWithCatalog() {
-        final Set<ProductImpl> catalog=new HashSet<ProductImpl>();
+        final Set<Product> catalog=new HashSet<Product>();
         try{
             TextResourceUtils.loadFromInputStream(getChainResource(ConfigFiles.CATALOG_FILE_NAME),
                 line -> {
@@ -171,7 +172,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
                     }
                 });
         }catch(Exception e){
-            return PriceParserWithCatalog.withCatalog(new HashSet<ProductImpl>());
+            return PriceParserWithCatalog.withCatalog(new HashSet<Product>());
         }
         return PriceParserWithCatalog.withCatalog(catalog);
     }

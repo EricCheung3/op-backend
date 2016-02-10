@@ -8,9 +8,9 @@ import java.util.List;
 import org.junit.Test;
 
 import com.openprice.parser.ReceiptDataImpl;
+import com.openprice.parser.api.ReceiptData;
 
 public class GenericParserTest {
-
 
     @Test
     public void genericParserNotNull() throws Exception{
@@ -20,7 +20,7 @@ public class GenericParserTest {
         lines.add("1");
         lines.add("1");
         lines.add("1");
-        final ReceiptDataImpl data=ReceiptDataImpl.fromContentLines(lines);
+        final ReceiptData data=ReceiptDataImpl.fromContentLines(lines);
         assertNotNull(GenericParser.selectParser(data));
     }
 }

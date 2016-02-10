@@ -4,11 +4,13 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.openprice.parser.api.CatalogFilter;
+
 public class CatalogFilterTest {
 
     @Test
     public void notCatalogItemNameTest1() throws Exception{
-        final CatalogFilterImpl filter=CatalogFilterImpl.emptyFilter();
+        final CatalogFilter filter=CatalogFilterImpl.emptyFilter();
         assertTrue(filter.matchesBlackList(" "));
         assertTrue(filter.matchesBlackList(" "));
         assertTrue(filter.matchesBlackList(""));
