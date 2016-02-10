@@ -14,6 +14,7 @@ import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.ReceiptParser;
 import com.openprice.parser.StoreChainUtils;
+import com.openprice.parser.api.MatchFields;
 import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreParser;
@@ -87,22 +88,23 @@ public class SimpleParser implements ReceiptParser {
         final StoreParserSelector selector = chain.getSelector();
         final StoreParser parser = selector.selectParser(receipt);
 
-        // match fields
-        final MatchedRecord matchedRecord = new MatchedRecordImpl();
-        matchedRecord.matchToBranch(receipt, branch);
-        matchedRecord.matchToHeaders(receipt, parser.getStoreConfig(), parser);
+        // matching fields and record the results
+        final MatchedRecord record = new MatchedRecordImpl();
+        final MatchFields match=new MatchFieldsImpl();
+        match.matchToBranch(record, receipt, branch);
+        match.matchToHeaders(record, receipt, parser.getStoreConfig(), parser);
 
         //globally finding the date string
-        if (matchedRecord.valueOfField(ReceiptFieldType.Date) == null ||
-                matchedRecord.valueOfField(ReceiptFieldType.Date).getValue().isEmpty()){
+        if (record.valueOfField(ReceiptFieldType.Date) == null ||
+                record.valueOfField(ReceiptFieldType.Date).getValue().isEmpty()){
             log.debug("date header not found: searching date string globally.");
             final StringInt dateVL=DateParserUtils.findDateStringAfterLine(receipt.getOriginalLines(), 0);
-            matchedRecord.putFieldLine(ReceiptFieldType.Date, dateVL);
+            record.putFieldLineValue(ReceiptFieldType.Date, dateVL.getLine(), dateVL.getValue());
         }
 
         // parse items
-        List<ParsedItem> items = SimpleParserUtils.parseItems(matchedRecord, receipt, parser);
-        return ParsedReceiptImpl.fromChainItemsMapBranch(chain, items, matchedRecord.getFieldToValueLine(), branch.getName());
+        List<ParsedItem> items = SimpleParserUtils.parseItems(record, receipt, parser);
+        return ParsedReceiptImpl.fromChainItemsMapBranch(chain, items, record.getFieldToValueLine(), branch.getName());
     }
 
     public ParsedReceipt parseLines(final List<String> lines) throws Exception {
