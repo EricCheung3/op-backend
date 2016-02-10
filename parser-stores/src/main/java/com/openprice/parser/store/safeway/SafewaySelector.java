@@ -17,7 +17,7 @@ public class SafewaySelector extends AbstractStoreParserSelector {
     private static final String SAFEWAY="Safeway";
 
     @Inject
-    public SafewaySelector(final ChainRegistry chainRegistry,  final StoreMetadata metadata) {
+    public SafewaySelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
         super(chainRegistry, metadata);
     }
 

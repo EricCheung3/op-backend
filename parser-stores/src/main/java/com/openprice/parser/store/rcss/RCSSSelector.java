@@ -17,7 +17,7 @@ public class RCSSSelector extends AbstractStoreParserSelector {
     private final static String RCSS="RCSS";
 
     @Inject
-    public RCSSSelector(final ChainRegistry chainRegistry,  final StoreMetadata metadata) {
+    public RCSSSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
         super(chainRegistry, metadata);
     }
 

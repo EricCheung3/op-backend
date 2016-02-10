@@ -34,7 +34,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
-        //printResult(receipt);
+        printResult(receipt);
 
         // verify result of items
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();

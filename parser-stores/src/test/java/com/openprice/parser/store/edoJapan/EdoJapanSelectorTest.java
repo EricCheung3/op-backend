@@ -56,7 +56,6 @@ public class EdoJapanSelectorTest extends ParserSelectorIntegrationTest{
         assertNotNull(config);
     }
 
-
     @Test
     public void storeConfigBlackListIsNotEmpty() throws Exception{
         ReceiptData data=ReceiptDataImpl.fromContentLines(atLeast5Lines);

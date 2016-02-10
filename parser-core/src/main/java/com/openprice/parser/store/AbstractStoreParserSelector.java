@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class AbstractStoreParserSelector implements StoreParserSelector, InitializingBean {
 
     private final ChainRegistry chainRegistry;
-    private final StoreMetadata metadata;
+    final protected StoreMetadata metadata;
 
     protected final Properties baseConfig = new Properties();
     protected StoreChain chain;
@@ -44,7 +44,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     @Inject
     public AbstractStoreParserSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
         this.chainRegistry = chainRegistry;
-        this.metadata = metadata;
+        this.metadata=metadata;
     }
 
     @Override
