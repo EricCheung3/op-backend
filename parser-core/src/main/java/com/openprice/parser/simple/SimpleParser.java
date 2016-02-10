@@ -85,7 +85,7 @@ public class SimpleParser implements ReceiptParser {
         }
 
         // get store parser
-        final StoreParserSelector selector = chain.getSelector();
+        final StoreParserSelector selector = chainRegistry.getParserSelector(chain.getCode());
         final StoreParser parser = selector.selectParser(receipt);
 
         // matching fields and record the results

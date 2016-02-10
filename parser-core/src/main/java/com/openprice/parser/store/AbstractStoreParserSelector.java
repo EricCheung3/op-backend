@@ -73,7 +73,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
 //                        TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.IDENTIFY_FIELD_FILE_NAME)),
 //                        branches));
         chain=metadata.getStoreChainByCode(getParserBaseCode().toLowerCase());
-        chainRegistry.addChain(chain);
+        chainRegistry.addChain(chain, this);
     }
 
     /**

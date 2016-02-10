@@ -3,7 +3,9 @@ package com.openprice.parser;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import com.openprice.common.Levenshtein;
 import com.openprice.common.StringCommon;
 import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.ReceiptLine;
+import com.openprice.parser.api.StoreParserSelector;
 import com.openprice.parser.data.ScoreWithMatchPair;
 import com.openprice.store.StoreChain;
 
@@ -31,8 +34,15 @@ public class ChainRegistry {
     @Getter
     private final List<StoreChain> storeChains = Collections.synchronizedList(new ArrayList<>());
 
-    public synchronized void addChain(StoreChain chain) {
+    private final Map<String, StoreParserSelector> chainToParserSelector=new HashMap<>();
+
+    public synchronized void addChain(final StoreChain chain, final StoreParserSelector selector) {
         storeChains.add(chain);
+        chainToParserSelector.put(chain.getCode(), selector);
+    }
+
+    public StoreParserSelector getParserSelector(final String chainCode){
+        return chainToParserSelector.get(chainCode);
     }
 
     public StoreChain findBestMatchedChain(final ReceiptData receipt) {
