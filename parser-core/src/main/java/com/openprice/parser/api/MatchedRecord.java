@@ -4,26 +4,28 @@ import java.util.Set;
 
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.data.StringInt;
-import com.openprice.store.StoreBranch;
 
+/**
+ * the record/result of MatchField
+ * Note MatchedRecord is the result of matching,
+ * MatchField is the operation of matching
+ */
 public interface MatchedRecord {
 
     // whether a line is matched
     boolean isFieldLine(int line);
 
     // whether a field is matched
-    boolean fieldNameIsMatched(ReceiptFieldType f);
-
     boolean fieldIsMatched(ReceiptFieldType f);
 
     //a line may match multiple fields, get the matched fields
-    Set<ReceiptFieldType> matchedFields(int line);
+    Set<ReceiptFieldType> matchedFieldsOnLine(int line);
 
     //a filed may match multiple lines, get the matched lines
-    Set<Integer> matchedLines(ReceiptFieldType type);
+    Set<Integer> matchedLinesOfField(ReceiptFieldType type);
 
     //get the parsed value for a field
-    StringInt fieldValue(ReceiptFieldType type);
+    StringInt valueOfField(ReceiptFieldType type);
 
     //get the last/maximum line number of all fields. It is the last field line.
     int lastFieldLine();
@@ -31,10 +33,6 @@ public interface MatchedRecord {
     //item stops number (no item after this line)
     int itemStopLineNumber();
 
-    //match to a branch and record matched information
-    void matchToBranch(ReceiptData receipt, StoreBranch storeBranch);
-
-    //match to headers and record matched information
-    void matchToHeaders(ReceiptData receipt, StoreConfig config, StoreParser parser);
+    void putFieldLineValue(ReceiptFieldType fName, int lineNumber, String value);
 
 }

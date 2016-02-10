@@ -3,21 +3,16 @@ package com.openprice.parser.simple;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import com.openprice.common.StringCommon;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.api.MatchedRecord;
-import com.openprice.parser.api.ReceiptData;
-import com.openprice.parser.api.StoreConfig;
-import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.data.StringInt;
-import com.openprice.store.StoreBranch;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -28,30 +23,28 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class MatchedRecordImpl implements MatchedRecord{
+
+
     // mapping line number to FieldNameAddressLines that is matched by the line
+    @Getter
     private final Map<Integer, Set<ReceiptFieldType>> lineToField = new HashMap<Integer, Set<ReceiptFieldType>>();
 
     // reverse mapping of the Map<Integer, FieldNameAddressLines>
+    @Getter
     private final Map<ReceiptFieldType, Set<Integer>> fieldToLine = new HashMap<ReceiptFieldType, Set<Integer>>();
 
     //save the many field members in a map
+    @Getter
     private final Map<ReceiptFieldType, StringInt> fieldToValueLine = new HashMap<ReceiptFieldType, StringInt>();
 
-    // whether a line is matched
     @Override
     public boolean isFieldLine(int line) {
         return lineToField.containsKey(line);
     }
 
-    // whether a field is matched
-    @Override
-    public boolean fieldNameIsMatched(final ReceiptFieldType f) {
-        return fieldToLine.containsKey(f);
-    }
-
     @Override
     public boolean fieldIsMatched(final ReceiptFieldType f) {
-        return fieldNameIsMatched(f);
+        return fieldToLine.containsKey(f);
     }
 
     /**
@@ -72,6 +65,7 @@ public class MatchedRecordImpl implements MatchedRecord{
         return max;
     }
 
+    @Override
     public int itemStopLineNumber() {
         Optional<StringInt> stopLine =
                 Stream.of(ReceiptFieldType.GstAmount, ReceiptFieldType.Total, ReceiptFieldType.SubTotal)
@@ -83,6 +77,21 @@ public class MatchedRecordImpl implements MatchedRecord{
             log.warn("no stop line (total, gst, subtotal) detected. results are likely noisy");
 
         return stopLine.isPresent()? stopLine.get().getLine() : Integer.MAX_VALUE;
+    }
+
+    @Override
+    public Set<ReceiptFieldType> matchedFieldsOnLine(final int line) {
+        return lineToField.get(line);
+    }
+
+    @Override
+    public Set<Integer> matchedLinesOfField(ReceiptFieldType type) {
+        return fieldToLine.get(type);
+    }
+
+    @Override
+    public StringInt valueOfField(ReceiptFieldType type) {
+        return fieldToValueLine.get(type);
     }
 
     public void putFieldLine(final ReceiptFieldType fName, final int lineNumber) {
@@ -102,69 +111,12 @@ public class MatchedRecordImpl implements MatchedRecord{
      * @param lineNumber
      * @param value
      */
-    public void putFieldLine(final ReceiptFieldType fName, final int lineNumber, final String value) {
+    @Override
+    public void putFieldLineValue(final ReceiptFieldType fName, final int lineNumber, final String value) {
         putFieldLine(fName, lineNumber);
         fieldToValueLine.put(fName,  new StringInt(value, lineNumber));
     }
     public void putFieldLine(final ReceiptFieldType fName, final StringInt valueLine) {
-        putFieldLine(fName, valueLine.getLine(), valueLine.getValue());
-    }
-
-    @Override
-    public void matchToBranch(final ReceiptData receipt, final StoreBranch storeBranch) {
-        receipt.getReceiptLines()
-               .stream()
-               .filter( line -> line.getCleanText().length() > 2 )
-               .map( line -> new MatchToBranchImpl().maxFieldMatchScore(storeBranch, line) )
-               .filter( lineScore -> lineScore.getScore() > 0.5)
-               .forEach( lineScore -> putFieldLine(lineScore.getField(), lineScore.getReceiptLine().getNumber(), lineScore.getValue()));
-
-//                System.out.println("$$$$$$  After matchToBranch, parsed fields are :");
-//                for (ReceiptFieldType field : fieldToValueLine.keySet()) {
-//                    System.out.println("'"+ field.name() + "' at line "+fieldToValueLine.get(field).getLine() + " : " + fieldToValueLine.get(field).getValue() );
-//                }
-
-    }
-
-    @Override
-    public void matchToHeaders(final ReceiptData receipt, final StoreConfig config, final StoreParser parser) {
-        for (ReceiptFieldType field : ReceiptFieldType.values()) {
-            if (fieldNameIsMatched(field))
-                continue;
-
-            final List<String> headerPatterns = config.getFieldHeaderMatchStrings(field);
-            if (headerPatterns == null || headerPatterns.isEmpty())
-                continue;
-
-            receipt.getReceiptLines()
-                   .stream()
-                   .filter( line -> line.getCleanText().length() > 1 )
-                   .filter( line -> !isFieldLine(line.getNumber()) )
-                   .filter(line -> !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer", config.similarityThresholdOfTwoStrings()))//otherwide this could match the total line
-                   .filter( line -> {
-                Optional<Double> maxScore =
-                        headerPatterns
-                        .stream()
-                        .map( header -> StringCommon.matchStringToHeader(line.getCleanText(), header) )
-                        .max( Comparator.comparing(score -> score) );
-                return maxScore.isPresent() && maxScore.get() > config.similarityThresholdOfTwoStrings();
-            })
-            .forEach( line -> putFieldLine(field, line.getNumber(), parser.parseField(field, line)));
-        }
-    }
-
-    @Override
-    public Set<ReceiptFieldType> matchedFields(final int line) {
-        return lineToField.get(line);
-    }
-
-    @Override
-    public Set<Integer> matchedLines(ReceiptFieldType type) {
-        return fieldToLine.get(type);
-    }
-
-    @Override
-    public StringInt fieldValue(ReceiptFieldType type) {
-        return fieldToValueLine.get(type);
+        putFieldLineValue(fName, valueLine.getLine(), valueLine.getValue());
     }
 }
