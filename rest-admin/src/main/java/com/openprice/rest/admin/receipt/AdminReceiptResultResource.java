@@ -34,7 +34,7 @@ public class AdminReceiptResultResource extends Resource<ReceiptResult> {
     private Map<String, List<AdminReceiptItemResource>> embeddedItems = new HashMap<>();
 
     @Getter @Setter
-    private Map<String, List<ReceiptField>> fieldMap = new HashMap<>();
+    private List<ReceiptField> receiptFields = new ArrayList();
 
     public AdminReceiptResultResource(final ReceiptResult resource) {
         super(resource);
@@ -61,7 +61,7 @@ public class AdminReceiptResultResource extends Resource<ReceiptResult> {
             final AdminReceiptResultResource resource = new AdminReceiptResultResource(result);
 
             List<ReceiptField> fields = receiptFieldRepository.findByReceiptResult(result);
-            resource.getFieldMap().put("receiptFields", fields);
+            resource.setReceiptFields(fields);
 
             List<AdminReceiptItemResource> items = new ArrayList<>();
             for (ReceiptItem item : receiptItemRepository.findByReceiptResultOrderByLineNumber(result)) {
