@@ -58,4 +58,9 @@ public class CatalogFilterImpl implements CatalogFilter{
         }
         return false;
     }
+
+    @Override
+    public int blackListSize() {
+        return blackList.size();
+    }
 }

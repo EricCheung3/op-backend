@@ -169,4 +169,9 @@ public class StoreConfigImpl implements StoreConfig{
     public boolean matchesBlackList(String str) {
         return catalogFilter.matchesBlackList(str);
     }
+
+    @Override
+    public int blackListSize() {
+        return catalogFilter.blackListSize();
+    }
 }

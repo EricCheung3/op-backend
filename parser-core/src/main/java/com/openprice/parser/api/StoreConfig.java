@@ -6,6 +6,8 @@ import com.openprice.parser.ReceiptFieldType;
 
 public interface StoreConfig {
 
+    int blackListSize();
+
     boolean matchesBlackList(String str);
 
     boolean matchesSkipAfter(String str, double threshold);

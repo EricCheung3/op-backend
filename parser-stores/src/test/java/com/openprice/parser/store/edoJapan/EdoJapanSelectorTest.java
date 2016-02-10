@@ -63,7 +63,7 @@ public class EdoJapanSelectorTest extends ParserSelectorIntegrationTest{
         final StoreParser parser=edoSelector.selectParser(data);
         final StoreConfig config=parser.getStoreConfig();
 
-        log.debug("config.getCatalogFilter().getBlackList().size()="+config.getCatalogFilter().getBlackList().size());
-        assertTrue(config.getCatalogFilter().getBlackList().size()>0);
+        log.debug("config.getCatalogFilter().getBlackList().size()="+config.blackListSize());
+        assertTrue(config.blackListSize()>0);
     }
 }
