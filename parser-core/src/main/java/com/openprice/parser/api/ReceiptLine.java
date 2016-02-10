@@ -4,8 +4,15 @@ import lombok.Value;
 
 @Value
 public class ReceiptLine {
-    private String originalText;//original line text
-    private String cleanText; // cleaned line text, usually trimmed
-    private int number;//original line number
+    //original line text
+    private String originalText;
+
+    // cleaned line text, usually trimmed
+    private String cleanText;
+
+    //original line number
+    private int number;
+
+    //receipt data that contains this ReceiptLine
     private ReceiptData receipt;
 }
