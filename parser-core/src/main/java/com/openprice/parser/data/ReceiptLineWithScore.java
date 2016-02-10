@@ -13,6 +13,10 @@ import lombok.Value;
 public class ReceiptLineWithScore {
     private ReceiptLine receiptLine;
     private ReceiptFieldType field;
+
+    //matching score of recieptLine and field
     private double score;
+
+    //parsed field value from receiptLine
     private String value;
 }
