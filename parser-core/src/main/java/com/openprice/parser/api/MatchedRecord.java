@@ -25,9 +25,7 @@ public interface MatchedRecord {
     //get the parsed value for a field
     StringInt fieldValue(ReceiptFieldType type);
 
-    /**
-     * get the last/maximum line number of all fields. It is the last field line.
-     */
+    //get the last/maximum line number of all fields. It is the last field line.
     int lastFieldLine();
 
     //match to a branch and record matched information
