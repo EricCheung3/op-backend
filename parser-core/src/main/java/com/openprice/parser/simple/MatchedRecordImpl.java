@@ -57,11 +57,6 @@ public class MatchedRecordImpl implements MatchedRecord{
         return fieldNameIsMatched(f);
     }
 
-    @Override
-    public Set<ReceiptFieldType> matchedFields(final int line) {
-        return lineToField.get(line);
-    }
-
     /**
      * get the last/maximum line number of all fields. It is the last field
      * line.
@@ -117,6 +112,7 @@ public class MatchedRecordImpl implements MatchedRecord{
         putFieldLine(fName, valueLine.getLine(), valueLine.getValue());
     }
 
+    @Override
     public void matchToBranch(final ReceiptData receipt, final StoreBranch storeBranch) {
         receipt.getReceiptLines()
                .stream()
@@ -132,7 +128,8 @@ public class MatchedRecordImpl implements MatchedRecord{
 
     }
 
-    public void matchToHeader(final ReceiptData receipt, final StoreConfig config, final StoreParser parser) {
+    @Override
+    public void matchToHeaders(final ReceiptData receipt, final StoreConfig config, final StoreParser parser) {
         for (ReceiptFieldType field : ReceiptFieldType.values()) {
             if (fieldNameIsMatched(field)) {
                 continue;
@@ -161,4 +158,18 @@ public class MatchedRecordImpl implements MatchedRecord{
         }
     }
 
+    @Override
+    public Set<ReceiptFieldType> matchedFields(final int line) {
+        return lineToField.get(line);
+    }
+
+    @Override
+    public Set<Integer> matchedLines(ReceiptFieldType type) {
+        return fieldToLine.get(type);
+    }
+
+    @Override
+    public StringInt fieldValue(ReceiptFieldType type) {
+        return fieldToValueLine.get(type);
+    }
 }

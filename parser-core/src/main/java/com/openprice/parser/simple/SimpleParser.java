@@ -89,7 +89,7 @@ public class SimpleParser implements ReceiptParser {
         // match fields
         final MatchedRecordImpl matchedRecord = new MatchedRecordImpl();
         matchedRecord.matchToBranch(receipt, branch);
-        matchedRecord.matchToHeader(receipt, parser.getStoreConfig(), parser);
+        matchedRecord.matchToHeaders(receipt, parser.getStoreConfig(), parser);
 
         //globally finding the date string
         if (matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date) == null ||

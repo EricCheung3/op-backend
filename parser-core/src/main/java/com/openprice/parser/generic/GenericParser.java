@@ -70,7 +70,7 @@ public class GenericParser extends AbstractStoreParser{
         final GenericParser generic=selectParser(receipt);
         // match fields
         final MatchedRecordImpl matchedRecord = new MatchedRecordImpl();
-        matchedRecord.matchToHeader(receipt, generic.getStoreConfig(), generic);
+        matchedRecord.matchToHeaders(receipt, generic.getStoreConfig(), generic);
 
         //globally finding the date string
         if (matchedRecord.getFieldToValueLine().get(ReceiptFieldType.Date) == null ||
