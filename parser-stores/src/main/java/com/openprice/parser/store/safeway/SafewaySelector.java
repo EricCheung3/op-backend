@@ -9,6 +9,7 @@ import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.store.AbstractStoreParserSelector;
+import com.openprice.store.StoreMetadata;
 
 @Service
 public class SafewaySelector extends AbstractStoreParserSelector {
@@ -16,8 +17,8 @@ public class SafewaySelector extends AbstractStoreParserSelector {
     private static final String SAFEWAY="Safeway";
 
     @Inject
-    public SafewaySelector(final ChainRegistry chainRegistry) {
-        super(chainRegistry);
+    public SafewaySelector(final ChainRegistry chainRegistry,  final StoreMetadata metadata) {
+        super(chainRegistry, metadata);
     }
 
     @Override

@@ -9,6 +9,7 @@ import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.store.AbstractStoreParserSelector;
+import com.openprice.store.StoreMetadata;
 
 @Service
 public class EdoJapanSelector extends AbstractStoreParserSelector {
@@ -17,8 +18,8 @@ public class EdoJapanSelector extends AbstractStoreParserSelector {
     private static final String EDO_JAPAN="EdoJapan";
 
     @Inject
-    public EdoJapanSelector(final ChainRegistry chainRegistry) {
-        super(chainRegistry);
+    public EdoJapanSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
+        super(chainRegistry, metadata);
     }
 
     @Override
