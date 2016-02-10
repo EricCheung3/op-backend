@@ -26,7 +26,6 @@ import com.openprice.parser.generic.GenericChains;
 import com.openprice.parser.generic.GenericParser;
 import com.openprice.store.StoreBranch;
 import com.openprice.store.StoreChain;
-import com.openprice.store.StoreMetadata;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,12 +35,9 @@ public class SimpleParser implements ReceiptParser {
 
     private final ChainRegistry chainRegistry;
 
-    private final StoreMetadata metadata;
-
     @Inject
-    public SimpleParser(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
+    public SimpleParser(final ChainRegistry chainRegistry) {
         this.chainRegistry = chainRegistry;
-        this.metadata=metadata;
     }
 
     @Override

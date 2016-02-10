@@ -60,18 +60,6 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     }
 
     private void registerStoreChainFromStoreConfig() throws Exception{
-        // load branch
-//        List<StoreBranchMatch> branches = new ArrayList<>();
-//        TextResourceUtils.loadFromInputStream(getChainResource(ConfigFiles.BRANCH_FILE_NAME),
-//                line ->
-//                    branches.add(StoreBranchMatch.fromString(line, baseConfig.getProperty("Slogan")))); // FIXME why slogan?
-
-//        chain = StoreChain.fromCodeSelectorCategoriesFieldsBranches(
-//                        getParserBaseCode().toLowerCase(), // TODO maybe use lower case in all places?
-//                        this,
-//                        TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.CATEGORY_FILE_NAME)),
-//                        TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.IDENTIFY_FIELD_FILE_NAME)),
-//                        branches));
         chain=metadata.getStoreChainByCode(getParserBaseCode().toLowerCase());
         chainRegistry.addChain(chain, this);
     }

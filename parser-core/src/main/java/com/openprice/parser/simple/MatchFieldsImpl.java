@@ -16,7 +16,10 @@ import com.openprice.store.StoreBranch;
 public class MatchFieldsImpl implements MatchFields{
 
     @Override
-    public void matchToBranch(final MatchedRecord record, final ReceiptData receipt, final StoreBranch storeBranch) {
+    public void matchToBranch(
+            final MatchedRecord record,
+            final ReceiptData receipt,
+            final StoreBranch storeBranch) {
         receipt.getReceiptLines()
                .stream()
                .filter( line -> line.getCleanText().length() > 2 )
