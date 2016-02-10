@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.openprice.domain.receipt.ReceiptField;
+import com.openprice.domain.receipt.ReceiptFieldRepository;
 import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptItemRepository;
 import com.openprice.domain.receipt.ReceiptResult;
@@ -31,19 +33,25 @@ public class AdminReceiptResultResource extends Resource<ReceiptResult> {
     @Getter @Setter
     private Map<String, List<AdminReceiptItemResource>> embeddedItems = new HashMap<>();
 
-    AdminReceiptResultResource(final ReceiptResult resource) {
+    @Getter @Setter
+    private List<ReceiptField> receiptFields = new ArrayList();
+
+    public AdminReceiptResultResource(final ReceiptResult resource) {
         super(resource);
     }
 
     @Component
     public static class Assembler implements ResourceAssembler<ReceiptResult, AdminReceiptResultResource>, AdminApiUrls {
 
+        private final ReceiptFieldRepository receiptFieldRepository;
         private final ReceiptItemRepository receiptItemRepository;
         private final AdminReceiptItemResource.Assembler itemResourceAssembler;
 
         @Inject
-        public Assembler(final ReceiptItemRepository receiptItemRepository,
+        public Assembler(final ReceiptFieldRepository receiptFieldRepository,
+                         final ReceiptItemRepository receiptItemRepository,
                          final AdminReceiptItemResource.Assembler itemResourceAssembler) {
+            this.receiptFieldRepository = receiptFieldRepository;
             this.receiptItemRepository = receiptItemRepository;
             this.itemResourceAssembler = itemResourceAssembler;
         }
@@ -51,6 +59,9 @@ public class AdminReceiptResultResource extends Resource<ReceiptResult> {
         @Override
         public AdminReceiptResultResource toResource(final ReceiptResult result) {
             final AdminReceiptResultResource resource = new AdminReceiptResultResource(result);
+
+            List<ReceiptField> fields = receiptFieldRepository.findByReceiptResult(result);
+            resource.setReceiptFields(fields);
 
             List<AdminReceiptItemResource> items = new ArrayList<>();
             for (ReceiptItem item : receiptItemRepository.findByReceiptResultOrderByLineNumber(result)) {
