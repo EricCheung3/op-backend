@@ -20,25 +20,6 @@ import com.openprice.store.data.StoreChainData;
 
 public class MetadataLoader {
 
-    //generic, store-independent data.
-    private static final String STORE_DATA_JSON = "/store-data.json";
-    private static final String CATEGORY_DATA_JSON = "/category-data.json";
-
-    //catalog: store dependent data.
-    private static final String CATALOG_DATA_JSON = "/catalog-data.json";
-
-    //branches: store dependent data
-    private static final String BRANCH_DATA_JSON = "/branch-data.json";
-
-    //identification field that can be used to find stores: store dependent data
-    private static final String IDENTIFY_FIELD_DATA_JSON = "/identify.json";
-
-    public static final String CATEGORY_FILE_NAME = "category-in-store-receipt.json";
-    public static final String CATALOG_BLACK_LIST_FILE_NAME="/notCatalogItemNames.json";
-    public static final String CATALOG_NOTATION_FILE_NAME="/notations.json";
-    public static final String SKIP_BEFORE_FILE_NAME = "/skipBeforeItemsFinish.json";
-    public static final String SKIP_AFTER_FILE_NAME = "/skipAfterItemsFinish.json";
-
     public static StoreMetadata loadMetadata() {
         // load category first
         Map<String, ProductCategory> categoryMap = loadProductCategory();
@@ -48,9 +29,10 @@ public class MetadataLoader {
 
     static Map<String, ProductCategory> loadProductCategory() {
         final ImmutableMap.Builder<String, ProductCategory> categoryMapBuilder = new ImmutableMap.Builder<>();
-        final CategoryData[] categories = loadFromJsonResource(CATEGORY_DATA_JSON, CategoryData[].class);
+        final String categoryFile=UniversalConfigFiles.getCategoyFile();
+        final CategoryData[] categories = loadFromJsonResource(categoryFile, CategoryData[].class);
         if (categories == null) {
-            throw new RuntimeException("No product category data at " + CATEGORY_DATA_JSON);
+            throw new RuntimeException("No product category data at " + categoryFile);
         }
 
         final Set<String> codeSet = new HashSet<>();
@@ -58,7 +40,7 @@ public class MetadataLoader {
             // fix code and name, check duplicate code
             category.setCode(category.getCode().toLowerCase().trim());
             if (codeSet.contains(category.getCode())) {
-                throw new RuntimeException("Duplicate category code found at " + CATEGORY_DATA_JSON + " for " + category.getCode());
+                throw new RuntimeException("Duplicate category code found at " + categoryFile + " for " + category.getCode());
             }
             codeSet.add(category.getCode());
             categoryMapBuilder.put(category.getCode(), new ProductCategory(category));
@@ -69,10 +51,11 @@ public class MetadataLoader {
 
     static Map<String, StoreChain> loadStoreChains(final Map<String, ProductCategory> categoryMap){
         final ImmutableMap.Builder<String, StoreChain> chainMapBuilder = new ImmutableMap.Builder<>();
-        final StoreChainData[] storeChains = loadFromJsonResource(STORE_DATA_JSON, StoreChainData[].class);
+        final String storeFile=UniversalConfigFiles.getStoresFile();
+        final StoreChainData[] storeChains = loadFromJsonResource(storeFile, StoreChainData[].class);
         validateStoreChainData(storeChains);
         if (storeChains == null) {
-            throw new RuntimeException("No store chain data at "+STORE_DATA_JSON);
+            throw new RuntimeException("No store chain data at "+storeFile);
         }
         for (StoreChainData chain : storeChains) {
             final List<StoreBranch> branches = loadStoreBranches(chain.getCode());
@@ -111,16 +94,9 @@ public class MetadataLoader {
         return validateStoreChainDataList(Arrays.asList(data));
     }
 
-    static String getChainFile(final String chainCode, final String fileName){
-        if(fileName.startsWith("/"))
-            return "/" + chainCode + fileName;
-        else
-            return "/" + chainCode + "/" + fileName;
-    }
-
     static List<StoreBranch> loadStoreBranches(final String chainCode) {
         final ImmutableList.Builder<StoreBranch> branchListBuilder = new ImmutableList.Builder<>();
-        final String branchFileName = getChainFile(chainCode, BRANCH_DATA_JSON);
+        final String branchFileName = ChainConfigFiles.getBranches(chainCode);
         final StoreBranchData[] storeBranches = loadFromJsonResource(branchFileName, StoreBranchData[].class);
         if (storeBranches != null) {
             for(final StoreBranchData branch : storeBranches) {
@@ -134,8 +110,7 @@ public class MetadataLoader {
     //TODO test
     static List<String> loadStoreIdentify(final String chainCode) {
         final ImmutableList.Builder<String> branchListBuilder = new ImmutableList.Builder<>();
-        final String branchFileName = getChainFile(chainCode, IDENTIFY_FIELD_DATA_JSON);
-        final String[] identifys = loadFromJsonResource(branchFileName, String[].class);
+        final String[] identifys = loadFromJsonResource(ChainConfigFiles.getIdentify(chainCode), String[].class);
         if (identifys != null) {
             for(final String id : identifys) {
                 branchListBuilder.add(id);
@@ -146,7 +121,7 @@ public class MetadataLoader {
 
     static Map<String, CatalogProduct> loadCatalogProducts(final String chainCode, final Map<String, ProductCategory> categoryMap) {
         final ImmutableMap.Builder<String, CatalogProduct> productListBuilder = new ImmutableMap.Builder<>();
-        final String catalogFileName = getChainFile(chainCode, CATALOG_DATA_JSON);
+        final String catalogFileName = ChainConfigFiles.getCatalog(chainCode);
         final ProductData[] products = loadFromJsonResource(catalogFileName, ProductData[].class);
 
         if (products != null) {
