@@ -25,10 +25,10 @@ public class ChainConfigFiles {
     //special notations used by chains. Like "MRJ" used by RCSS
     private static final String CATALOG_NOTATION_FILE_NAME="notations.json";
 
-    //strings/names that we should skip before items finish on a receipt
-    private static final String SKIP_BEFORE_FILE_NAME = "skip-before-items-finish.json";
+    //strings/names that we should skip BEFORE items BEGIN on a receipt
+    private static final String SKIP_BEFORE_FILE_NAME = "skip-before-items-begin.json";
 
-    //strings/names that we should skip AFTER items finish on a receipt (usually these are the noises after the total line)
+    //strings/names that we should skip AFTER items FINISH on a receipt (usually these are the noises after the total line)
     private static final String SKIP_AFTER_FILE_NAME = "skip-after-items-finish.json";
 
     private static String getChainFile(final String chainCode, final String fileName){
