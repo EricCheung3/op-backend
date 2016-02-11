@@ -16,11 +16,20 @@ public class ChainConfigFiles {
     //identification field that can be used to find stores
     private static final String IDENTIFY_FIELD_DATA_JSON = "identify.json";
 
-    private static final String CATEGORY_FILE_NAME = "category-in-store-receipt.json";
-    private static final String CATALOG_BLACK_LIST_FILE_NAME="notCatalogItemNames.json";
+    //categories appear on this chain's receipt: note it is different from our own categories
+    private static final String CATEGORY_FILE_NAME = "receipt-categories.json";
+
+    //black list of names that are not item names
+    private static final String CATALOG_BLACK_LIST_FILE_NAME="not-catalog-item-names.json";
+
+    //special notations used by chains. Like "MRJ" used by RCSS
     private static final String CATALOG_NOTATION_FILE_NAME="notations.json";
-    private static final String SKIP_BEFORE_FILE_NAME = "skipBeforeItemsFinish.json";
-    private static final String SKIP_AFTER_FILE_NAME = "skipAfterItemsFinish.json";
+
+    //strings/names that we should skip before items finish on a receipt
+    private static final String SKIP_BEFORE_FILE_NAME = "skip-before-items-finish.json";
+
+    //strings/names that we should skip AFTER items finish on a receipt (usually these are the noises after the total line)
+    private static final String SKIP_AFTER_FILE_NAME = "skip-after-items-finish.json";
 
     private static String getChainFile(final String chainCode, final String fileName){
             return PREFIX + chainCode + "/" + fileName;
