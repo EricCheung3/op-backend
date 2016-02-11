@@ -10,6 +10,27 @@ import com.openprice.store.data.StoreChainData;
 
 public class MetadataLoaderTest {
 
+    @Test
+    public void testLoadNotCatalogItemNamesForSafeway() throws Exception {
+        final String[] notItemsList = MetadataLoader.loadFromJsonResource("/safeway/not-catalog-item-names.json", String[].class);
+        assertNotNull(notItemsList);
+        assertTrue(notItemsList.length>0);
+    }
+
+    @Test
+    public void testLoadNotCatalogItemNamesForRCSS() throws Exception {
+        final String[] notItemsList = MetadataLoader.loadFromJsonResource("/rcss/not-catalog-item-names.json", String[].class);
+        assertNotNull(notItemsList);
+        assertTrue(notItemsList.length>0);
+    }
+
+    @Test
+    public void testLoadNotCatalogItemNamesForEdoJapn() throws Exception {
+        final String[] notItemsList = MetadataLoader.loadFromJsonResource("/edojapan/not-catalog-item-names.json", String[].class);
+        assertNotNull(notItemsList);
+        assertTrue(notItemsList.length>0);
+    }
+
     @Test(expected=Exception.class)
     public void exceptionThrownIfCodeStartsWithNumber() throws Exception{
         final StoreChainData ex1=StoreChainData.builder().code("1A").name("1 A").category("afddfa").identity("afd").build();

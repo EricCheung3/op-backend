@@ -145,7 +145,7 @@ public class MetadataLoader {
         return productListBuilder.build();
     }
 
-    static <T> T[] loadFromJsonResource(String resourceFileName, Class<T[]> clazz) {
+    public static <T> T[] loadFromJsonResource(String resourceFileName, Class<T[]> clazz) {
         final ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         try (final InputStream is = MetadataLoader.class.getResourceAsStream(resourceFileName)){
