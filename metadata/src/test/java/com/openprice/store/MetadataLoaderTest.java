@@ -10,25 +10,100 @@ import com.openprice.store.data.StoreChainData;
 
 public class MetadataLoaderTest {
 
+
+    public boolean validateNotation(final String chainCode){
+        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getNotations(chainCode), String[].class);
+        return list != null &&  list.length > 0;
+    }
+
+    @Test
+    public void notation() throws Exception {
+        //assertTrue(validateNotation("edoJapan"));
+        assertTrue(validateNotation("rcss"));
+        assertTrue(validateNotation("safeway"));
+    }
+
+    @Test
+    public void noNatationForEdoJapanNow() throws Exception {
+        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getNotations("edojapan"), String[].class);
+        assertTrue(list == null);
+    }
+
+    public boolean validateSkipAfter(final String chainCode){
+        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getSkipAfter(chainCode), String[].class);
+        return list != null &&  list.length > 0;
+    }
+
+    @Test
+    public void skipAfter() throws Exception {
+        assertTrue(validateSkipAfter("edoJapan"));
+        assertTrue(validateSkipAfter("rcss"));
+        assertTrue(validateSkipAfter("safeway"));
+    }
+
+    public boolean validateSkipBefore(final String chainCode){
+        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getSkipBefore(chainCode), String[].class);
+        return list != null &&  list.length > 0;
+    }
+
+    @Test
+    public void skipBefore() throws Exception {
+        //assertTrue(validateSkipBefore("edoJapan"));
+        assertTrue(validateSkipBefore("rcss"));
+        assertTrue(validateSkipBefore("safeway"));
+    }
+
+    public boolean validateIdentify(final String chainCode){
+        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getIdentify(chainCode), String[].class);
+        return list != null &&  list.length > 0;
+    }
+
+    @Test
+    public void identifyEdoJapan() throws Exception {
+        assertTrue(validateIdentify("edoJapan"));
+    }
+
+    @Test
+    public void identifySafeway() throws Exception {
+        assertTrue(validateIdentify("safeway"));
+    }
+
+    @Test
+    public void identifyRCSS() throws Exception {
+        assertTrue(validateIdentify("rcss"));
+    }
+
+    public boolean validateLoadingCategory(final String chainCode){
+        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getCategoriesOfStore(chainCode), String[].class);
+        return list != null &&  list.length > 0;
+    }
+
+    @Test
+    public void testValidateLoadingCategoryForSafeway() throws Exception {
+        assertTrue(validateLoadingCategory("safeway"));
+    }
+
+    @Test
+    public void testValidateLoadingCategoryForRCSS() throws Exception {
+        assertTrue(validateLoadingCategory("rcss"));
+    }
+
+    public boolean validateLoadingNotCatalogItemNames(final String chainCode){
+        final String[] notItemsList = MetadataLoader.loadFromJsonResource("/"+chainCode+"/not-catalog-item-names.json", String[].class);
+        return notItemsList != null &&  notItemsList.length > 0;
+    }
+
     @Test
     public void testLoadNotCatalogItemNamesForSafeway() throws Exception {
-        final String[] notItemsList = MetadataLoader.loadFromJsonResource("/safeway/not-catalog-item-names.json", String[].class);
-        assertNotNull(notItemsList);
-        assertTrue(notItemsList.length>0);
+        assertTrue(validateLoadingNotCatalogItemNames("safeway"));
     }
-
     @Test
     public void testLoadNotCatalogItemNamesForRCSS() throws Exception {
-        final String[] notItemsList = MetadataLoader.loadFromJsonResource("/rcss/not-catalog-item-names.json", String[].class);
-        assertNotNull(notItemsList);
-        assertTrue(notItemsList.length>0);
+        assertTrue(validateLoadingNotCatalogItemNames("rcss"));
     }
-
     @Test
     public void testLoadNotCatalogItemNamesForEdoJapn() throws Exception {
-        final String[] notItemsList = MetadataLoader.loadFromJsonResource("/edojapan/not-catalog-item-names.json", String[].class);
-        assertNotNull(notItemsList);
-        assertTrue(notItemsList.length>0);
+        assertTrue(validateLoadingNotCatalogItemNames("edojapan"));
     }
 
     @Test(expected=Exception.class)
