@@ -22,6 +22,7 @@ public class MetadataLoader {
 
     public static StoreMetadata loadMetadata() {
         // load category first
+        //TODO -->hengshuai: is the order important?
         Map<String, ProductCategory> categoryMap = loadProductCategory();
         Map<String, StoreChain> chainMap = loadStoreChains(categoryMap);
         return new StoreMetadata(chainMap, categoryMap);
@@ -32,7 +33,7 @@ public class MetadataLoader {
         final String categoryFile=UniversalConfigFiles.getCategoyFile();
         final CategoryData[] categories = loadFromJsonResource(categoryFile, CategoryData[].class);
         if (categories == null) {
-            throw new RuntimeException("No product category data at " + categoryFile);
+            throw new RuntimeException("No productCategories (our own categories) data at " + categoryFile);
         }
 
         final Set<String> codeSet = new HashSet<>();
@@ -55,7 +56,7 @@ public class MetadataLoader {
         final StoreChainData[] storeChains = loadFromJsonResource(storeFile, StoreChainData[].class);
         validateStoreChainData(storeChains);
         if (storeChains == null) {
-            throw new RuntimeException("No store chain data at "+storeFile);
+            throw new RuntimeException("No store chains data at "+storeFile);
         }
         for (StoreChainData chain : storeChains) {
             final List<StoreBranch> branches = loadStoreBranches(chain.getCode());
