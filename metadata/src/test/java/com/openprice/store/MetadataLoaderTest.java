@@ -10,7 +10,6 @@ import com.openprice.store.data.StoreChainData;
 
 public class MetadataLoaderTest {
 
-
     public boolean validateNotation(final String chainCode){
         final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getNotations(chainCode), String[].class);
         return list != null &&  list.length > 0;
@@ -24,7 +23,7 @@ public class MetadataLoaderTest {
     }
 
     @Test
-    public void noNatationForEdoJapanNow() throws Exception {
+    public void noNatationFileForEdoJapanNow() throws Exception {
         final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getNotations("edojapan"), String[].class);
         assertTrue(list == null);
     }
@@ -51,6 +50,13 @@ public class MetadataLoaderTest {
         //assertTrue(validateSkipBefore("edoJapan"));
         assertTrue(validateSkipBefore("rcss"));
         assertTrue(validateSkipBefore("safeway"));
+    }
+
+    //This should pass.Empty file or non-empty file with empty lines should be allowed.
+    @Test
+    public void EmptySkipBeforeForEdoJapanNow() throws Exception {
+        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getSkipBefore("edojapan"), String[].class);
+        assertTrue( list != null &&  list.length == 0);
     }
 
     public boolean validateIdentify(final String chainCode){
