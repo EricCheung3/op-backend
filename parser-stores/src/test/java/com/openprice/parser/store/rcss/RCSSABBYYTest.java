@@ -26,7 +26,7 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
         final String ocrResult = TextResourceUtils.loadTextResource(sampleRCSS_2015_11_11_calgarytrail);
 
         ParsedReceipt receipt = simpleParser.parseReceiptOcrResult(java.util.Arrays.asList(ocrResult));
-        //printResult(receipt);
+        printResult(receipt);
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyParsedItem(iterator.next(), "yelw calros", "rice", null, 8);

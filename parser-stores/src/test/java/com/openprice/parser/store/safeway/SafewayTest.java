@@ -39,7 +39,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
-        //printResult(receipt);
+        printResult(receipt);
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyParsedItem(iterator.next(), "sevengrain salad", "7.199", "sevengrain salad", 8);
