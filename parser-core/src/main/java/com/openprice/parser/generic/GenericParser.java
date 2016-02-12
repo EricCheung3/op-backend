@@ -46,17 +46,19 @@ public class GenericParser extends AbstractStoreParser{
 
     public static GenericParser selectParser(ReceiptData receipt) {
         List<String> blackList=null;
+        final String blackListFileName="/config/Generic/not-catalog-item-names.txt";
         try{
-            blackList=TextResourceUtils.loadStringArray(ConfigFiles.blackListFile("Generic"));
+            blackList=TextResourceUtils.loadStringArray(blackListFileName);
         }catch(Exception e){
-            log.warn("cannot load "+ConfigFiles.CATALOG_BLACK_LIST_FILE_NAME);
+            log.warn("cannot load "+blackListFileName);
             blackList=new ArrayList<String>();
         }
         final Properties prop = new Properties();
+        final String headersFile="/config/Generic/Generic1/headerConfig.properties";
         try{
-            prop.load(StoreParser.class.getResourceAsStream(ConfigFiles.headerFile("Generic", "Generic1")));
+            prop.load(StoreParser.class.getResourceAsStream(headersFile));
         }catch (IOException ex) {
-            log.warn("Cannot load config.properties for Generic store chain!");
+            log.warn("Cannot load " + headersFile+" for Generic store chain!");
         }
 
         final StoreConfig config=StoreConfigImpl.fromPropCategorySkipBeforeAfterBlack(
