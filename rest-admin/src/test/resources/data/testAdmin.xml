@@ -58,4 +58,33 @@
     <receipt_feedback id="receipt001feedback002" version="1" receipt_id="receipt001" rating="5" comment="Good!" created_time="2009-01-01 10:01:01.0000"/>
     <receipt_feedback id="receipt002feedback001" version="1" receipt_id="receipt002" rating="5" comment="Excellent!" created_time="2009-01-01 10:10:01.0000"/>
     <receipt_feedback id="receipt101feedback001" version="1" receipt_id="receipt101" rating="5" comment="Excellent!" created_time="2009-01-01 10:11:01.0000"/>
+    
+    <!-- Receipt image with ocr result -->
+    <receipt id="receipt003" version="1" user_account_id="user001" status="WAIT_FOR_RESULT" receipt_date="2009-01-02" need_feedback="1" created_time="2009-01-01 11:00:01.0000"/>
+    
+    <receipt_result id="recData301" version="1" receipt_id="receipt003" chain_code="rcss" branch_name="Calgary Trail" parsed_total="10.45" parsed_date="2015/11/11" created_time="2009-01-01 10:00:01.0000" />
+    <receipt_item id="recItem301" version="1" receipt_result_id="recData301" line_number="15" catalog_code="EGG_1235" parsed_name="eggs" display_name="eggs" parsed_price="1.99" display_price="1.99" user_ignored="0" created_time="2009-01-01 10:00:01.0000" />
+    <receipt_item id="recItem302" version="1" receipt_result_id="recData301" line_number="18" catalog_code="MILK_1234" parsed_name="milk" display_name="milk" parsed_price="4.99" display_price="4.99" user_ignored="1" created_time="2009-01-01 10:00:01.0000" />
+    <receipt_image id="receipt0" version="1" receipt_id="receipt003" status="SCANNED" file_name="test.jpg" created_time="2009-01-01 10:00:01.0000"
+    ocr_result="
+RCSS 1570 - 4821 CA.GARV mil&#10;
+700-430-2769&#10;
+            Big uri Fresh, Law on Price&#10;
+ He leone #&#10;
+ Card#;&#10;
+&#10;
+ 21-GROCERY&#10;
+   690294490073 K DGON COOK         WINE   MRJ       2.69&#10;
+ 27-PRODUCE&#10;
+  06038388590     ROOSTER GARLIC 3         MRJ       0.68&#10;
+31-MEA1S&#10;
+ 2021000          DUCKS FR7N                MRJ      15.23&#10;
+32-SEAFOOD&#10;
+ 77016160104      HAIRTAIL                   MRJ      7.36&#10;
+&#10;
+SUBTOTAL                                           104.73&#10;
+&#10;
+TOTAL                                              104.73&#10;
+"/>
+    
 </dataset>
