@@ -10,6 +10,30 @@ import com.openprice.store.data.StoreChainData;
 
 public class MetadataLoaderTest {
 
+    public boolean validateConfigProperties(final String chainCode){
+        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getConfigProperties(chainCode), String[].class);
+        return list != null &&  list.length > 0;
+    }
+
+    @Test
+    public void configProperties() throws Exception {
+        assertTrue(validateConfigProperties("edoJapan"));
+        assertTrue(validateConfigProperties("rcss"));
+        assertTrue(validateConfigProperties("safeway"));
+    }
+
+    public boolean validateHeaders(final String chainCode){
+        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getHeaders(chainCode), String[].class);
+        return list != null &&  list.length > 0;
+    }
+
+    @Test
+    public void headerProperties() throws Exception {
+//        assertTrue(validateHeaders("edoJapan"));
+        assertTrue(validateHeaders("rcss"));
+        assertTrue(validateHeaders("safeway"));
+    }
+
     public boolean validateNotation(final String chainCode){
         final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getNotations(chainCode), String[].class);
         return list != null &&  list.length > 0;

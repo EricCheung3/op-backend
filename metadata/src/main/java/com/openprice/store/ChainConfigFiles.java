@@ -31,8 +31,22 @@ public class ChainConfigFiles {
     //strings/names that we should skip AFTER items FINISH on a receipt (usually these are the noises after the total line)
     private static final String SKIP_AFTER_FILE_NAME = "skip-after-items-finish.json";
 
+    //config properties (non-header)
+    private static final String CONFIG_PROPERTIES_FILE_NAME = "config-properties.json";
+
+    //headers
+    private static final String HEADER_PROPERTIES_FILE_NAME = "headers.json";
+
     private static String getChainFile(final String chainCode, final String fileName){
             return PREFIX + chainCode + "/" + fileName;
+    }
+
+    public static String getConfigProperties(final String chainCode){
+        return getChainFile(chainCode, CONFIG_PROPERTIES_FILE_NAME);
+    }
+
+    public static String getHeaders(final String chainCode){
+        return getChainFile(chainCode, HEADER_PROPERTIES_FILE_NAME);
     }
 
     public static String getBranches(final String chainCode){
