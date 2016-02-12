@@ -79,8 +79,8 @@ public class GenericChains {
             chainBegin.getValue() > CHAIN_SIMILARITY_SCORE)
             return chainBegin.getStr();
 
-        StringDouble chainMiddle = chainNameSearch(lines, begin + NUM_SEARCHED_LINES_AT_BEGIN, end- NUM_SEARCHED_LINES_AT_END);
-        log.debug("#####searching from head: chain=" + chainMiddle.getStr() + ", score=" + chainMiddle.getValue());
+        StringDouble chainMiddle = chainNameSearch(lines, begin + NUM_SEARCHED_LINES_AT_BEGIN + 1, end- NUM_SEARCHED_LINES_AT_END - 1);
+        log.debug("#####searching in the middle: chain=" + chainMiddle.getStr() + ", score=" + chainMiddle.getValue());
         if (chainMiddle.getValue() > CHAIN_SIMILARITY_SCORE){
             return chainMiddle.getStr();
         }
