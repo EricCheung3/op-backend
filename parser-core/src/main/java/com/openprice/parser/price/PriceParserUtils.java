@@ -110,7 +110,7 @@ public class PriceParserUtils {
             scoreMax=scoreNameFirst;
             matched=matchedNameFirst;
         }
-        log.debug("scoreMax="+scoreMax+"\n");
+        log.debug("scoreMax="+scoreMax+", matched="+matched+"\n");
         if(scoreMax > 0.7)
             return matched;
         return ProductImpl.emptyProduct();
