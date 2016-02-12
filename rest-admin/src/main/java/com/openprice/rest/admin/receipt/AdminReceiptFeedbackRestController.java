@@ -37,11 +37,11 @@ public class AdminReceiptFeedbackRestController extends AbstractReceiptAdminRest
 
     private final ReceiptFeedbackRepository receiptFeedbackRepository;
     private final AdminReceiptFeedbackResource.Assembler receiptFeedbackResourceAssembler;
-    
+
     @Inject
-    public AdminReceiptFeedbackRestController(final AdminAccountService adminAccountService, 
+    public AdminReceiptFeedbackRestController(final AdminAccountService adminAccountService,
                                               final ReceiptService receiptService,
-                                              final ReceiptUploadService receiptUploadService, 
+                                              final ReceiptUploadService receiptUploadService,
                                               final ReceiptRepository receiptRepository,
                                               final ReceiptFeedbackRepository receiptFeedbackRepository,
                                               final AdminReceiptFeedbackResource.Assembler receiptFeedbackResourceAssembler) {
@@ -59,7 +59,7 @@ public class AdminReceiptFeedbackRestController extends AbstractReceiptAdminRest
         final Page<ReceiptFeedback> feedbacks = receiptFeedbackRepository.findByReceiptOrderByCreatedTime(receipt, pageable);
         return ResponseEntity.ok(assembler.toResource(feedbacks, receiptFeedbackResourceAssembler));
     }
-    
+
     @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_RECEIPTS_RECEIPT_FEEDBACKS_FEEDBACK)
     public HttpEntity<AdminReceiptFeedbackResource> getReceiptFeedbackById(
             @PathVariable("receiptId") final String receiptId,
@@ -78,20 +78,20 @@ public class AdminReceiptFeedbackRestController extends AbstractReceiptAdminRest
         receiptFeedbackRepository.delete(feedback);
         return ResponseEntity.noContent().build();
     }
-    
+
     private ReceiptFeedback loadReceiptFeedbackByIdAndCheckReceipt(final String feedbackId, final Receipt receipt) {
         final ReceiptFeedback feedback = receiptFeedbackRepository.findOne(feedbackId);
-        
+
         if (feedback == null) {
             log.warn("ILLEGAL RECEIPT FEEDBACK ACCESS! No such receipt feedback Id: {}.", feedbackId);
             throw new ResourceNotFoundException("No receipt feedback with the id: " + feedbackId);
         }
-        
+
         if (!receipt.equals(feedback.getReceipt())) {
             log.warn("ILLEGAL RECEIPT FEEDBACK ACCESS! Feedback '{}' not belong to Receipt '{}'.", feedbackId, receipt.getId());
             throw new ResourceNotFoundException("No receipt feedback with the id: " + feedbackId);
         }
-        
+
         return feedback;
     }
 }

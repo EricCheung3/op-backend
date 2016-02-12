@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -35,7 +36,7 @@ public class UserReceiptResultResource extends Resource<ReceiptResult> {
     @JsonInclude(Include.NON_EMPTY)
     @JsonProperty("_embedded")
     @Getter @Setter
-    private Map<String, List<UserReceiptItemResource>> embeddedItems = new HashMap<>();
+    private Map<String, List<? extends ResourceSupport>> embedded = new HashMap<>();
 
     public UserReceiptResultResource(final ReceiptResult resource) {
         super(resource);
@@ -71,7 +72,7 @@ public class UserReceiptResultResource extends Resource<ReceiptResult> {
             for (ReceiptItem item : receiptItemRepository.findByReceiptResultAndIgnoredIsFalseOrderByLineNumber(result)) {
                 items.add(itemResourceAssembler.toResource(item));
             }
-            resource.getEmbeddedItems().put("receiptItems", items);
+            resource.getEmbedded().put("receiptItems", items);
 
             if (!StringUtils.isEmpty(result.getChainCode())) {
                 final StoreChain chain = storeMetadata.getStoreChainByCode(result.getChainCode());
