@@ -61,6 +61,7 @@ public class MetadataLoader {
         }
         for (StoreChainData chain : storeChains) {
             final List<StoreBranch> branches = loadStoreBranches(chain.getCode());
+            final List<String> receiptCategories = loadStringList(ChainConfigFiles.getCategoriesOfStore(chain.getCode()));
             final Map<String, CatalogProduct> products = loadCatalogProducts(chain.getCode(), categoryMap);
             final List<String> notations = loadStringList(ChainConfigFiles.getNotations(chain.getCode()));
             final List<String> identifyFields = loadStringList(ChainConfigFiles.getIdentify(chain.getCode()));
@@ -70,8 +71,9 @@ public class MetadataLoader {
             final List<String> skipBefore = loadStringList(ChainConfigFiles.getSkipBefore(chain.getCode()));
             final List<String> skipAfter = loadStringList(ChainConfigFiles.getSkipAfter(chain.getCode()));
             chainMapBuilder.put(chain.getCode(),
-                                StoreChain.fromChainBranchesIdentifyMapNotationsHeaderNonHeaderBeforeAfter(
+                                StoreChain.fromChainCategoriesBranchesIdentifyMapNotationsHeaderNonHeaderBeforeAfter(
                                         chain,
+                                        receiptCategories,
                                         branches,
                                         identifyFields,
                                         products,

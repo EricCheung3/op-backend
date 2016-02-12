@@ -220,6 +220,10 @@ public class MetadataLoaderTest {
         assertTrue(metadata.getStoreChainByCode("safeway").getIdentifyFields().size()>0);
         assertTrue(metadata.getStoreChainByCode("edojapan").getIdentifyFields().size()>0);
 
+        assertTrue(metadata.getStoreChainByCode("rcss").getReceiptCategories().size()>0);
+        assertTrue(metadata.getStoreChainByCode("safeway").getReceiptCategories().size()>0);
+        assertTrue(metadata.getStoreChainByCode("edojapan").getReceiptCategories().size()==0);
+
         assertTrue(metadata.getStoreChainByCode("rcss").getNotations().size()>0);
         assertTrue(metadata.getStoreChainByCode("safeway").getSkipBefore().size()>0);
         assertTrue(metadata.getStoreChainByCode("edojapan").getSkipBefore().size()==0);

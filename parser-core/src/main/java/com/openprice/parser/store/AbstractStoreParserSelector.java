@@ -1,7 +1,5 @@
 package com.openprice.parser.store;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,7 +17,6 @@ import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.api.Product;
 import com.openprice.parser.api.StoreParserSelector;
 import com.openprice.parser.data.ProductImpl;
-import com.openprice.parser.generic.ConfigFiles;
 import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.store.StoreChain;
 import com.openprice.store.StoreMetadata;
@@ -38,7 +35,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     private final ChainRegistry chainRegistry;
     final protected StoreMetadata metadata;
 
-    protected final Properties baseConfig = new Properties();
+    protected Properties baseConfig;
     protected StoreChain chain;
 
     @Inject
@@ -49,12 +46,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        try {
-            baseConfig.load(getChainResource(ConfigFiles.CONFIG_PROPERTY_FILE_NAME));
-            log.debug("baseConfig.entrySet().size()="+baseConfig.entrySet().size());
-        } catch (IOException ex) {
-            log.warn("Cannot load config.properties for {} store chain!", getParserBaseCode());
-        }
+        baseConfig=metadata.getStoreChainByCode(chain.getCode()).getNonHeaderProperties();
         registerStoreChainFromStoreConfig();
         generateParser();
     }
@@ -75,27 +67,15 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
      */
     protected abstract void generateParser();
 
-    private InputStream getChainParserResource(final String parserName, final String filename) {
-        return AbstractStoreParserSelector.class.getResourceAsStream(ConfigFiles.getFileUnderChainParser(getParserBaseCode(), parserName, filename));
-    }
-
-    private InputStream getChainResource(final String filename) {
-        return AbstractStoreParserSelector.class.getResourceAsStream(ConfigFiles.getFileUnderChain(getParserBaseCode(), filename));
-    }
-
     protected StoreConfigImpl loadParserConfig(final String parserName) {
         Properties allConfig = new Properties();
-        try {
-            allConfig.load(getChainParserResource(parserName, ConfigFiles.HEADER_CONFIG_FILE_NAME));
-            //System.out.println("allConfig.size"+allConfig.size());
-            final int size1=allConfig.size();
-            allConfig.putAll(baseConfig);
-            final int size2=allConfig.size();
-            if(size2!=size1+baseConfig.size())
-                log.warn("there are repeating properties in the two config files for parser "+parserName);
-        } catch (IOException ex) {
-            log.error("Cannot load headerConfig.properties for store parser {}!", parserName);
-        }
+        allConfig.putAll(metadata.getStoreChainByCode(chain.getCode()).getHeaderProperties());
+        //System.out.println("allConfig.size"+allConfig.size());
+        final int size1=allConfig.size();
+        allConfig.putAll(baseConfig);
+        final int size2=allConfig.size();
+        if(size2!=size1+baseConfig.size())
+            log.warn("there are repeating properties in the two config files for parser "+parserName);
 
         List<String> category=null;
         try{

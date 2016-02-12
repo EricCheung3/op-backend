@@ -16,6 +16,8 @@ public class StoreChain {
 
     private final StoreChainData storeChainData;
 
+    private final List<String> receiptCategories;//store own categories on store's receipt
+
     private final List<StoreBranch> branches;
 
     private final List<String> identifyFields;
@@ -37,6 +39,7 @@ public class StoreChain {
     public static StoreChain genericChainWithOnlyCode(final String code){
         return new StoreChain(
                 StoreChainData.fromCodeOnly(code),
+                new ArrayList<String>(),
                 new ArrayList<StoreBranch>(),
                 new ArrayList<String>(),
                 new HashMap<String, CatalogProduct>(),
@@ -49,8 +52,9 @@ public class StoreChain {
                 );
     }
 
-    public static StoreChain fromChainBranchesIdentifyMapNotationsHeaderNonHeaderBeforeAfter(
+    public static StoreChain fromChainCategoriesBranchesIdentifyMapNotationsHeaderNonHeaderBeforeAfter(
             final StoreChainData chain,
+            final List<String> receiptCategories,
             final List<StoreBranch> branches,
             final List<String> identifyFields,
             final Map<String, CatalogProduct> productMap,
@@ -63,6 +67,7 @@ public class StoreChain {
             ){
         return new StoreChain(
                 chain,
+                receiptCategories,
                 branches,
                 identifyFields,
                 productMap,
@@ -77,6 +82,10 @@ public class StoreChain {
 
     public String getCode() {
         return storeChainData.getCode();
+    }
+
+    public List<String> getReceiptCategories() {
+        return receiptCategories;
     }
 
     public String getName() {
