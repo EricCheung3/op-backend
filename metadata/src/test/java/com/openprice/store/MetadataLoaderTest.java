@@ -52,15 +52,6 @@ public class MetadataLoaderTest {
         assertTrue(validateSkipBefore("safeway"));
     }
 
-
-    //This should pass.Empty file or non-empty file with empty lines should be allowed.
-//just assume no file is empty. so I just deleted this file
-    //    @Test
-//    public void EmptySkipBeforeForEdoJapanNow() throws Exception {
-//        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getSkipBefore("edojapan"), String[].class);
-//        assertTrue( list != null &&  list.length == 0);
-//    }
-
     public boolean validateIdentify(final String chainCode){
         final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getIdentify(chainCode), String[].class);
         return list != null &&  list.length > 0;

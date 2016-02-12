@@ -6,6 +6,11 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openprice.common.TextResourceUtils;
 
+/** Converting not-catalog-item-name.txt to json
+ *  Use this class because when editing not-catalog-item names,
+ *  it is common to see characters that need to be escaped in json.
+ * see https://github.com/opgt/op-backend/wiki/Meta-data
+ */
 public class ConvertTextToJson {
 
     public static void main(String[] args) throws Exception{
