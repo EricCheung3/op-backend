@@ -6,7 +6,7 @@ package com.openprice.parser;
  */
 public enum ReceiptFieldType {
     Account,
-    AddressLine1, AddressLine2, AddressCity, AddressProv, AddressPost,
+    AddressLine1, AddressLine2, AddressCity, AddressState, AddressCountry, AddressPost,
     Approved, Author,
     Card, Cashier, Chain, ChainID,
     Date,

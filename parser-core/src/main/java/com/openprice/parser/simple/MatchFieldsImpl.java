@@ -27,11 +27,10 @@ public class MatchFieldsImpl implements MatchFields{
                .filter( lineScore -> lineScore.getScore() > 0.5)
                .forEach( lineScore -> record.putFieldLineValue(lineScore.getField(), lineScore.getReceiptLine().getNumber(), lineScore.getValue()));
 
-//                System.out.println("$$$$$$  After matchToBranch, parsed fields are :");
-//                for (ReceiptFieldType field : fieldToValueLine.keySet()) {
-//                    System.out.println("'"+ field.name() + "' at line "+fieldToValueLine.get(field).getLine() + " : " + fieldToValueLine.get(field).getValue() );
-//                }
-
+                System.out.println("$$$$$$  After matchToBranch, parsed fields are :");
+                for (ReceiptFieldType field : record.getFieldToValueLine().keySet()) {
+                    System.out.println("'"+ field.name() + "' at line "+record.getFieldToValueLine().get(field).getLine() + " : " + record.getFieldToValueLine().get(field).getValue() );
+                }
     }
 
     @Override

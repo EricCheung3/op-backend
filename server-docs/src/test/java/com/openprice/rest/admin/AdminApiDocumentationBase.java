@@ -87,7 +87,7 @@ public abstract class AdminApiDocumentationBase extends ApiDocumentationBase {
         addReceiptItem(receiptResult, "banana", "Banana", "0.25", "0.25", 3, "Fruit");
 
         addReceiptField(receiptResult, ReceiptFieldType.AddressCity, "Edmonton", 2);
-        addReceiptField(receiptResult, ReceiptFieldType.AddressProv, "AB", 3);
+        addReceiptField(receiptResult, ReceiptFieldType.AddressState, "AB", 3);
 
         addReceiptFeedback(receipt, 5, "Excellent!");
         receipt = receiptRepository.findOne(receipt.getId());

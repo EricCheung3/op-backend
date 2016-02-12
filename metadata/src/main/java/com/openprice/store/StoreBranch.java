@@ -1,7 +1,5 @@
 package com.openprice.store;
 
-import com.openprice.common.StringCommon;
-import com.openprice.store.data.Address;
 import com.openprice.store.data.StoreBranchData;
 
 public class StoreBranch {
@@ -13,14 +11,7 @@ public class StoreBranch {
     }
 
     public static StoreBranch EmptyStoreBranch(){
-        return new StoreBranch(new StoreBranchData(
-                    StringCommon.EMPTY,
-                    StringCommon.EMPTY,
-                    StringCommon.EMPTY,
-                    StringCommon.EMPTY,
-                    Address.emptyAddress(),
-                    StringCommon.EMPTY
-                    ));
+        return new StoreBranch(StoreBranchData.empty());
     }
 
     public String getGstNumber(){
@@ -43,8 +34,33 @@ public class StoreBranch {
         return storeBranchData.getSlogan();
     }
 
-    public Address getAddress(){
-        return storeBranchData.getAddress();
+    public String getAddress1(){
+        return storeBranchData.getAddress1();
+    }
+
+    public String getAddress2(){
+        return storeBranchData.getAddress2();
+    }
+
+    public String getCity(){
+        return storeBranchData.getCity();
+    }
+
+    public String getPostCode(){
+        return storeBranchData.getPostCode();
+    }
+
+    public String getState(){
+        return storeBranchData.getState();
+    }
+
+    public String getCountry(){
+        return storeBranchData.getCountry();
+    }
+
+    @Override
+    public String toString(){
+        return storeBranchData.toString();
     }
 
 }

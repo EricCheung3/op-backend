@@ -105,6 +105,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
                 .stream()
                 .map(c->ProductImpl.fromNameNumber(c.getReceiptName(), c.getReceiptName()))
                 .collect(Collectors.toSet());
+        System.out.println("chain:"+chain.getCode()+", catalog size="+catalog.size());
         return PriceParserWithCatalog.withCatalog(catalog);
     }
 }

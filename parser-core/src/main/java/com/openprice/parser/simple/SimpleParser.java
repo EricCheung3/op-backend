@@ -87,6 +87,7 @@ public class SimpleParser implements ReceiptParser {
         // matching fields and record the results
         final MatchedRecord record = new MatchedRecordImpl();
         final MatchFields match=new MatchFieldsImpl();
+        log.debug("branch="+branch);
         match.matchToBranch(record, receipt, branch);
         match.matchToHeaders(record, receipt, parser.getStoreConfig(), parser);
 

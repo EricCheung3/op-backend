@@ -2,6 +2,7 @@ package com.openprice.store.data;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.openprice.common.StringCommon;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,21 +24,22 @@ public class StoreBranchData {
 
     private String gstNumber;
 
-    private Address address;
+    //cannot use Address to replace all the below fields because we have to load json file which has the following fields
+    //private Address address;
 
     private String slogan;
 
-    //private String address1;
+    private String address1;
 
-    //private String address2;
+    private String address2;
 
-    //private String city;
+    private String city;
 
-    //private String state;
+    private String state;
 
-    //private String postCode;
+    private String postCode;
 
-    //private String country;
+    private String country;
 
     public static StoreBranchData fromNamePhoneStoreIdGstNumberAddressSlogan(
             final String name,
@@ -51,7 +53,23 @@ public class StoreBranchData {
                 phone,
                 storeId,
                 gstNumber,
-                address,
-                slogan);
+                slogan,
+                address.getAddress1(),
+                address.getAddress2(),
+                address.getCity(),
+                address.getState(),
+                address.getPostCode(),
+                address.getCountry());
+    }
+
+    public static StoreBranchData empty(){
+        return fromNamePhoneStoreIdGstNumberAddressSlogan(
+                StringCommon.EMPTY,
+                StringCommon.EMPTY,
+                StringCommon.EMPTY,
+                StringCommon.EMPTY,
+                Address.emptyAddress(),
+                StringCommon.EMPTY
+                );
     }
 }
