@@ -14,14 +14,14 @@ public class AdminReceiptFeedbackResource extends Resource<ReceiptFeedback>{
     public AdminReceiptFeedbackResource(final ReceiptFeedback receiptFeedback) {
         super(receiptFeedback);
     }
-    
+
     @Component
     public static class Assembler implements ResourceAssembler<ReceiptFeedback, AdminReceiptFeedbackResource>, AdminApiUrls {
-        
+
         @Override
         public AdminReceiptFeedbackResource toResource(final ReceiptFeedback feedback) {
             AdminReceiptFeedbackResource resource = new AdminReceiptFeedbackResource(feedback);
-            
+
             final String[] pairs = {"receiptId", feedback.getReceipt().getId(),
                                     "feedbackId", feedback.getId()};
 
@@ -29,10 +29,9 @@ public class AdminReceiptFeedbackResource extends Resource<ReceiptFeedback>{
             linkbuilder.addLink(Link.REL_SELF, URL_ADMIN_RECEIPTS_RECEIPT_FEEDBACKS_FEEDBACK, false, pairs)
                        .addLink("receipt", URL_ADMIN_RECEIPTS_RECEIPT, false, pairs)
                        ;
-            
+
             return resource;
         }
-        
-    } 
+    }
 
 }
