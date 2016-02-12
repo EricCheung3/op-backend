@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import org.springframework.util.StringUtils;
@@ -31,7 +32,7 @@ public class MetadataLoader {
     static Map<String, ProductCategory> loadProductCategory() {
         final ImmutableMap.Builder<String, ProductCategory> categoryMapBuilder = new ImmutableMap.Builder<>();
         final String categoryFile=UniversalConfigFiles.getCategoyFile();
-        final CategoryData[] categories = loadFromJsonResource(categoryFile, CategoryData[].class);
+        final CategoryData[] categories = loadArrayFromJsonResource(categoryFile, CategoryData[].class);
         if (categories == null) {
             throw new RuntimeException("No productCategories (our own categories) data at " + categoryFile);
         }
@@ -53,7 +54,7 @@ public class MetadataLoader {
     static Map<String, StoreChain> loadStoreChains(final Map<String, ProductCategory> categoryMap){
         final ImmutableMap.Builder<String, StoreChain> chainMapBuilder = new ImmutableMap.Builder<>();
         final String storeFile=UniversalConfigFiles.getStoresFile();
-        final StoreChainData[] storeChains = loadFromJsonResource(storeFile, StoreChainData[].class);
+        final StoreChainData[] storeChains = loadArrayFromJsonResource(storeFile, StoreChainData[].class);
         validateStoreChainData(storeChains);
         if (storeChains == null) {
             throw new RuntimeException("No store chains data at "+storeFile);
@@ -62,12 +63,16 @@ public class MetadataLoader {
             final List<StoreBranch> branches = loadStoreBranches(chain.getCode());
             final Map<String, CatalogProduct> products = loadCatalogProducts(chain.getCode(), categoryMap);
             final List<String> identifyFields = loadStoreIdentify(chain.getCode());
+            final Properties headerProperties=loadHeaderProperties(chain.getCode());
+            final Properties nonHeaderProperties=loadNonHeaderProperties(chain.getCode());
             chainMapBuilder.put(chain.getCode(),
-                                new StoreChain(
+                                StoreChain.fromChainBranchesIdentifyMapHeaderNonHeader(
                                         chain,
                                         branches,
                                         identifyFields,
-                                        products));
+                                        products,
+                                        headerProperties,
+                                        nonHeaderProperties));
         }
         return chainMapBuilder.build();
     }
@@ -98,7 +103,7 @@ public class MetadataLoader {
     static List<StoreBranch> loadStoreBranches(final String chainCode) {
         final ImmutableList.Builder<StoreBranch> branchListBuilder = new ImmutableList.Builder<>();
         final String branchFileName = ChainConfigFiles.getBranches(chainCode);
-        final StoreBranchData[] storeBranches = loadFromJsonResource(branchFileName, StoreBranchData[].class);
+        final StoreBranchData[] storeBranches = loadArrayFromJsonResource(branchFileName, StoreBranchData[].class);
         if (storeBranches != null) {
             for(final StoreBranchData branch : storeBranches) {
                 //TODO any validation???
@@ -111,7 +116,7 @@ public class MetadataLoader {
     //TODO test
     static List<String> loadStoreIdentify(final String chainCode) {
         final ImmutableList.Builder<String> branchListBuilder = new ImmutableList.Builder<>();
-        final String[] identifys = loadFromJsonResource(ChainConfigFiles.getIdentify(chainCode), String[].class);
+        final String[] identifys = loadArrayFromJsonResource(ChainConfigFiles.getIdentify(chainCode), String[].class);
         if (identifys != null) {
             for(final String id : identifys) {
                 branchListBuilder.add(id);
@@ -120,10 +125,18 @@ public class MetadataLoader {
         return branchListBuilder.build();
     }
 
+    static Properties loadHeaderProperties(final String chainCode){
+        return loadObjectFromJsonResource(ChainConfigFiles.getHeaders(chainCode), Properties.class);
+    }
+
+    static Properties loadNonHeaderProperties(final String chainCode){
+        return loadObjectFromJsonResource(ChainConfigFiles.getNonHeaderProperties(chainCode), Properties.class);
+    }
+
     static Map<String, CatalogProduct> loadCatalogProducts(final String chainCode, final Map<String, ProductCategory> categoryMap) {
         final ImmutableMap.Builder<String, CatalogProduct> productListBuilder = new ImmutableMap.Builder<>();
         final String catalogFileName = ChainConfigFiles.getCatalog(chainCode);
-        final ProductData[] products = loadFromJsonResource(catalogFileName, ProductData[].class);
+        final ProductData[] products = loadArrayFromJsonResource(catalogFileName, ProductData[].class);
 
         if (products != null) {
             final Set<String> codeSet = new HashSet<>();
@@ -145,7 +158,7 @@ public class MetadataLoader {
         return productListBuilder.build();
     }
 
-    public static <T> T[] loadFromJsonResource(String resourceFileName, Class<T[]> clazz) {
+    public static <T> T[] loadArrayFromJsonResource(String resourceFileName, Class<T[]> clazz) {
         final ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         try (final InputStream is = MetadataLoader.class.getResourceAsStream(resourceFileName)){
@@ -157,6 +170,18 @@ public class MetadataLoader {
             throw new RuntimeException("Cannot load json file " + resourceFileName
                     + ", parsing json error: " + ex.getMessage());
         }
+    }
 
+    public static <T> T loadObjectFromJsonResource(String resourceFileName, Class<T> clazz) {
+        final ObjectMapper mapper = new ObjectMapper();
+        try (final InputStream is = MetadataLoader.class.getResourceAsStream(resourceFileName)){
+            if (is == null) {
+                return null;
+            }
+            return mapper.readValue(is, clazz);
+        } catch (Exception ex) {
+            throw new RuntimeException("Cannot load json file " + resourceFileName
+                    + ", parsing json error: " + ex.getMessage());
+        }
     }
 }

@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Properties;
+
 import org.junit.Test;
 
 import com.openprice.store.data.StoreChainData;
@@ -11,8 +13,8 @@ import com.openprice.store.data.StoreChainData;
 public class MetadataLoaderTest {
 
     public boolean validateConfigProperties(final String chainCode){
-        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getConfigProperties(chainCode), String[].class);
-        return list != null &&  list.length > 0;
+        final Properties prop = MetadataLoader.loadObjectFromJsonResource(ChainConfigFiles.getNonHeaderProperties(chainCode), Properties.class);
+        return prop != null &&  prop.size() > 0;
     }
 
     @Test
@@ -23,19 +25,20 @@ public class MetadataLoaderTest {
     }
 
     public boolean validateHeaders(final String chainCode){
-        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getHeaders(chainCode), String[].class);
-        return list != null &&  list.length > 0;
+        final Properties prop = MetadataLoader.loadObjectFromJsonResource(ChainConfigFiles.getHeaders(chainCode), Properties.class);
+//        System.out.println(prop.toString());
+        return prop != null &&  prop.size() > 0;
     }
 
     @Test
     public void headerProperties() throws Exception {
-//        assertTrue(validateHeaders("edoJapan"));
+        assertTrue(validateHeaders("edoJapan"));
         assertTrue(validateHeaders("rcss"));
         assertTrue(validateHeaders("safeway"));
     }
 
     public boolean validateNotation(final String chainCode){
-        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getNotations(chainCode), String[].class);
+        final String[] list = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getNotations(chainCode), String[].class);
         return list != null &&  list.length > 0;
     }
 
@@ -48,12 +51,12 @@ public class MetadataLoaderTest {
 
     @Test
     public void noNatationFileForEdoJapanNow() throws Exception {
-        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getNotations("edojapan"), String[].class);
+        final String[] list = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getNotations("edojapan"), String[].class);
         assertTrue(list == null);
     }
 
     public boolean validateSkipAfter(final String chainCode){
-        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getSkipAfter(chainCode), String[].class);
+        final String[] list = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getSkipAfter(chainCode), String[].class);
         return list != null &&  list.length > 0;
     }
 
@@ -65,7 +68,7 @@ public class MetadataLoaderTest {
     }
 
     public boolean validateSkipBefore(final String chainCode){
-        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getSkipBefore(chainCode), String[].class);
+        final String[] list = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getSkipBefore(chainCode), String[].class);
         return list != null &&  list.length > 0;
     }
 
@@ -77,7 +80,7 @@ public class MetadataLoaderTest {
     }
 
     public boolean validateIdentify(final String chainCode){
-        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getIdentify(chainCode), String[].class);
+        final String[] list = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getIdentify(chainCode), String[].class);
         return list != null &&  list.length > 0;
     }
 
@@ -97,7 +100,7 @@ public class MetadataLoaderTest {
     }
 
     public boolean validateLoadingCategory(final String chainCode){
-        final String[] list = MetadataLoader.loadFromJsonResource(ChainConfigFiles.getCategoriesOfStore(chainCode), String[].class);
+        final String[] list = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getCategoriesOfStore(chainCode), String[].class);
         return list != null &&  list.length > 0;
     }
 
@@ -112,7 +115,7 @@ public class MetadataLoaderTest {
     }
 
     public boolean validateLoadingNotCatalogItemNames(final String chainCode){
-        final String[] notItemsList = MetadataLoader.loadFromJsonResource("/"+chainCode+"/not-catalog-item-names.json", String[].class);
+        final String[] notItemsList = MetadataLoader.loadArrayFromJsonResource("/"+chainCode+"/not-catalog-item-names.json", String[].class);
         return notItemsList != null &&  notItemsList.length > 0;
     }
 
@@ -193,6 +196,29 @@ public class MetadataLoaderTest {
     public void loadMetadata_ShouldLoadStoreDb() throws Exception {
         final StoreMetadata metadata = MetadataLoader.loadMetadata();
 
+        assertNotNull(metadata.getStoreChainByCode("rcss"));
+        assertNotNull(metadata.getStoreChainByCode("safeway"));
+        assertNotNull(metadata.getStoreChainByCode("edojapan"));
+
+        assertNotNull(metadata.getStoreChainByCode("rcss").getBranches());
+        assertNotNull(metadata.getStoreChainByCode("safeway").getBranches());
+        assertNotNull(metadata.getStoreChainByCode("edojapan").getBranches());
+
+        assertNotNull(metadata.getStoreChainByCode("rcss").getHeaderProperties());
+        assertNotNull(metadata.getStoreChainByCode("safeway").getHeaderProperties());
+        assertNotNull(metadata.getStoreChainByCode("edojapan").getHeaderProperties());
+
+        assertNotNull(metadata.getStoreChainByCode("rcss").getNonHeaderProperties());
+        assertNotNull(metadata.getStoreChainByCode("safeway").getNonHeaderProperties());
+        assertNotNull(metadata.getStoreChainByCode("edojapan").getNonHeaderProperties());
+
+        assertNotNull(metadata.getStoreChainByCode("rcss").getIdentifyFields());
+        assertNotNull(metadata.getStoreChainByCode("safeway").getIdentifyFields());
+        assertNotNull(metadata.getStoreChainByCode("edojapan").getIdentifyFields());
+
+        assertTrue(metadata.getStoreChainByCode("rcss").getProducts().size()>0);
+        assertTrue(metadata.getStoreChainByCode("safeway").getProducts().size()>0);
+        assertTrue(metadata.getStoreChainByCode("edojapan").getProducts().size()==0);//no catalog data for edo japan yet
 
         // verify product category
         {

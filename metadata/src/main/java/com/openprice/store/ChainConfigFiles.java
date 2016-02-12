@@ -32,7 +32,7 @@ public class ChainConfigFiles {
     private static final String SKIP_AFTER_FILE_NAME = "skip-after-items-finish.json";
 
     //config properties (non-header)
-    private static final String CONFIG_PROPERTIES_FILE_NAME = "config-properties.json";
+    private static final String NON_HEADER_PROPERTIES_FILE_NAME = "non-header-properties.json";
 
     //headers
     private static final String HEADER_PROPERTIES_FILE_NAME = "headers.json";
@@ -41,8 +41,8 @@ public class ChainConfigFiles {
             return PREFIX + chainCode + "/" + fileName;
     }
 
-    public static String getConfigProperties(final String chainCode){
-        return getChainFile(chainCode, CONFIG_PROPERTIES_FILE_NAME);
+    public static String getNonHeaderProperties(final String chainCode){
+        return getChainFile(chainCode, NON_HEADER_PROPERTIES_FILE_NAME);
     }
 
     public static String getHeaders(final String chainCode){
