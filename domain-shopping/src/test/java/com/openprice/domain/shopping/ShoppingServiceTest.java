@@ -271,8 +271,18 @@ public class ShoppingServiceTest {
                            .build();
         final Map<String, CatalogProduct> productMap = new HashMap<>();
         productMap.put(TEST_CATALOG_CODE, new CatalogProduct(productData, dairy));
-        testStoreChain = new StoreChain(chainData, null, productMap);
-
+        testStoreChain = StoreChain.fromChainCategoriesBranchesIdentifyMapNotationsHeaderNonHeaderNotItemNamesBeforeAfter(
+                chainData,
+                null,
+                null,
+                null,
+                productMap,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
     }
 
 }

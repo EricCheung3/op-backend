@@ -71,7 +71,7 @@ public class MetadataLoader {
             final List<String> skipBefore = loadStringList(ChainConfigFiles.getSkipBefore(chain.getCode()));
             final List<String> skipAfter = loadStringList(ChainConfigFiles.getSkipAfter(chain.getCode()));
             chainMapBuilder.put(chain.getCode(),
-                                StoreChain.fromChainCategoriesBranchesIdentifyMapNotationsHeaderNonHeaderBeforeAfter(
+                                StoreChain.fromChainCategoriesBranchesIdentifyMapNotationsHeaderNonHeaderNotItemNamesBeforeAfter(
                                         chain,
                                         receiptCategories,
                                         branches,

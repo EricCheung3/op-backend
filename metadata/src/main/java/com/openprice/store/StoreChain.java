@@ -52,7 +52,7 @@ public class StoreChain {
                 );
     }
 
-    public static StoreChain fromChainCategoriesBranchesIdentifyMapNotationsHeaderNonHeaderBeforeAfter(
+    public static StoreChain fromChainCategoriesBranchesIdentifyMapNotationsHeaderNonHeaderNotItemNamesBeforeAfter(
             final StoreChainData chain,
             final List<String> receiptCategories,
             final List<StoreBranch> branches,
