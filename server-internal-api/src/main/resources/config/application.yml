@@ -24,8 +24,8 @@ application:
             virtual: false
             imageRootFolder: /groundtruth/images
         process:
-            cloudEngineEnabled: false
-            numberOfServers: 0
+            cloudEngineEnabled: true
+            numberOfServers: 1
             waitSeconds: 10
             cloudApplicationId: openprice
             cloudPassword: VGe2YmGwhmKrd6YDxR3tEul2

@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -31,10 +32,11 @@ public class AdminReceiptResultResource extends Resource<ReceiptResult> {
     @JsonInclude(Include.NON_EMPTY)
     @JsonProperty("_embedded")
     @Getter @Setter
-    private Map<String, List<AdminReceiptItemResource>> embeddedItems = new HashMap<>();
+    private Map<String, List<? extends ResourceSupport>> embedded = new HashMap<>();
 
     @Getter @Setter
     private List<ReceiptField> receiptFields = new ArrayList<ReceiptField>();
+
 
     public AdminReceiptResultResource(final ReceiptResult resource) {
         super(resource);
@@ -67,7 +69,7 @@ public class AdminReceiptResultResource extends Resource<ReceiptResult> {
             for (ReceiptItem item : receiptItemRepository.findByReceiptResultOrderByLineNumber(result)) {
                 items.add(itemResourceAssembler.toResource(item));
             }
-            resource.getEmbeddedItems().put("receiptItems", items);
+            resource.getEmbedded().put("receiptItems", items);
 
             final String[] pairs = {"receiptId", result.getReceipt().getId(),
                                     "resultId", result.getId()};

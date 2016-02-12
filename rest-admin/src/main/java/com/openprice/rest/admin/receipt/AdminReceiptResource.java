@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -37,7 +38,7 @@ public class AdminReceiptResource extends Resource<Receipt> {
     @JsonInclude(Include.NON_EMPTY)
     @JsonProperty("_embedded")
     @Getter
-    private Map<String, List<AdminReceiptImageResource>> embeddedImages = new HashMap<>();
+    private Map<String, List<? extends ResourceSupport>> embedded = new HashMap<>();
 
     public AdminReceiptResource(final Receipt resource) {
         super(resource);
@@ -69,7 +70,7 @@ public class AdminReceiptResource extends Resource<Receipt> {
                 images.add(imageResourceAssembler.toResource(image));
             }
 
-            resource.getEmbeddedImages().put("receiptImages", images);
+            resource.getEmbedded().put("receiptImages", images);
 
             final String[] pairs = {"receiptId", receipt.getId()};
             final LinkBuilder linkBuilder = new LinkBuilder(resource);
