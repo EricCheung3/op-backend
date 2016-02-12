@@ -36,6 +36,7 @@ public class GenericChains {
         this(TextResourceUtils.loadStringArray(resourceFile));
     }
 
+    //TODO "Costco" appears in the middle of receipt
     public String findChain(final List<String> lines){
         if (lines == null || lines.isEmpty())
             return StringCommon.EMPTY;
@@ -69,14 +70,21 @@ public class GenericChains {
         log.debug("#####searching from head: chain=" + chainBegin.getStr() + ", score=" + chainBegin.getValue());
         log.debug("#####searching from End: chain=" + chainEnd.getStr() + ", score=" + chainEnd.getValue());
 
-        if (chainEnd.getValue() < CHAIN_SIMILARITY_SCORE && chainBegin.getValue() < CHAIN_SIMILARITY_SCORE) {
-            return StringCommon.EMPTY;
-        }
-
-        if (chainEnd.getValue() > chainBegin.getValue())
+        //prefer finding in the begin and end, and then middle
+        if (chainEnd.getValue() > chainBegin.getValue() &&
+            chainEnd.getValue() > CHAIN_SIMILARITY_SCORE)
             return chainEnd.getStr();
-        else
+
+        if (chainBegin.getValue() > chainEnd.getValue() &&
+            chainBegin.getValue() > CHAIN_SIMILARITY_SCORE)
             return chainBegin.getStr();
+
+        StringDouble chainMiddle = chainNameSearch(lines, begin + NUM_SEARCHED_LINES_AT_BEGIN, end- NUM_SEARCHED_LINES_AT_END);
+        log.debug("#####searching from head: chain=" + chainMiddle.getStr() + ", score=" + chainMiddle.getValue());
+        if (chainMiddle.getValue() > CHAIN_SIMILARITY_SCORE){
+            return chainMiddle.getStr();
+        }
+        return StringCommon.EMPTY;
     }
 
     /*

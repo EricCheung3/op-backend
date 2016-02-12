@@ -16,7 +16,6 @@ public class ConvertTextToJson {
     public static void main(String[] args) throws Exception{
         final List<String> orig=TextResourceUtils.loadStringArray("/safeway/not-catalog-item-names.txt");
         final List<String> list=removeCommentEmptyLines(orig);
-//        toJsonForDataDoNotNeedEscape(list);
         toJsonForDataThatNeedEscape(list);
     }
 
