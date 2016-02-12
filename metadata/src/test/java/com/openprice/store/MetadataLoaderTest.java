@@ -212,9 +212,29 @@ public class MetadataLoaderTest {
         assertNotNull(metadata.getStoreChainByCode("safeway").getNonHeaderProperties());
         assertNotNull(metadata.getStoreChainByCode("edojapan").getNonHeaderProperties());
 
-        assertNotNull(metadata.getStoreChainByCode("rcss").getIdentifyFields());
-        assertNotNull(metadata.getStoreChainByCode("safeway").getIdentifyFields());
-        assertNotNull(metadata.getStoreChainByCode("edojapan").getIdentifyFields());
+        assertTrue(metadata.getStoreChainByCode("rcss").getNotCatalogItemNames().size()>0);
+        assertTrue(metadata.getStoreChainByCode("safeway").getNotCatalogItemNames().size()>0);
+        assertTrue(metadata.getStoreChainByCode("edojapan").getNotCatalogItemNames().size()>0);
+
+        assertTrue(metadata.getStoreChainByCode("rcss").getIdentifyFields().size()>0);
+        assertTrue(metadata.getStoreChainByCode("safeway").getIdentifyFields().size()>0);
+        assertTrue(metadata.getStoreChainByCode("edojapan").getIdentifyFields().size()>0);
+
+        assertTrue(metadata.getStoreChainByCode("rcss").getNotations().size()>0);
+        assertTrue(metadata.getStoreChainByCode("safeway").getSkipBefore().size()>0);
+        assertTrue(metadata.getStoreChainByCode("edojapan").getSkipBefore().size()==0);
+
+        assertTrue(metadata.getStoreChainByCode("rcss").getSkipBefore().size()>0);
+        assertTrue(metadata.getStoreChainByCode("safeway").getSkipBefore().size()>0);
+        assertTrue(metadata.getStoreChainByCode("edojapan").getSkipBefore().size()==0);
+
+        assertTrue(metadata.getStoreChainByCode("rcss").getSkipAfter().size()>0);
+        assertTrue(metadata.getStoreChainByCode("safeway").getSkipAfter().size()>0);
+        assertTrue(metadata.getStoreChainByCode("edojapan").getSkipAfter().size()>0);
+
+        assertTrue(metadata.getStoreChainByCode("rcss").getIdentifyFields().size()>0);
+        assertTrue(metadata.getStoreChainByCode("safeway").getIdentifyFields().size()>0);
+        assertTrue(metadata.getStoreChainByCode("edojapan").getIdentifyFields().size()>0);
 
         assertTrue(metadata.getStoreChainByCode("rcss").getProducts().size()>0);
         assertTrue(metadata.getStoreChainByCode("safeway").getProducts().size()>0);

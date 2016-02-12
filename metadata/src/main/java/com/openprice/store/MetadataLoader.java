@@ -62,17 +62,25 @@ public class MetadataLoader {
         for (StoreChainData chain : storeChains) {
             final List<StoreBranch> branches = loadStoreBranches(chain.getCode());
             final Map<String, CatalogProduct> products = loadCatalogProducts(chain.getCode(), categoryMap);
-            final List<String> identifyFields = loadStoreIdentify(chain.getCode());
+            final List<String> notations = loadStringList(ChainConfigFiles.getNotations(chain.getCode()));
+            final List<String> identifyFields = loadStringList(ChainConfigFiles.getIdentify(chain.getCode()));
             final Properties headerProperties=loadHeaderProperties(chain.getCode());
             final Properties nonHeaderProperties=loadNonHeaderProperties(chain.getCode());
+            final List<String> notCatalogItemNames = loadStringList(ChainConfigFiles.getBlackList(chain.getCode()));
+            final List<String> skipBefore = loadStringList(ChainConfigFiles.getSkipBefore(chain.getCode()));
+            final List<String> skipAfter = loadStringList(ChainConfigFiles.getSkipAfter(chain.getCode()));
             chainMapBuilder.put(chain.getCode(),
-                                StoreChain.fromChainBranchesIdentifyMapHeaderNonHeader(
+                                StoreChain.fromChainBranchesIdentifyMapNotationsHeaderNonHeaderBeforeAfter(
                                         chain,
                                         branches,
                                         identifyFields,
                                         products,
+                                        notations,
                                         headerProperties,
-                                        nonHeaderProperties));
+                                        nonHeaderProperties,
+                                        notCatalogItemNames,
+                                        skipBefore,
+                                        skipAfter));
         }
         return chainMapBuilder.build();
     }
@@ -113,10 +121,9 @@ public class MetadataLoader {
         return branchListBuilder.build();
     }
 
-    //TODO test
-    static List<String> loadStoreIdentify(final String chainCode) {
+    static List<String> loadStringList(final String resourceFileName) {
         final ImmutableList.Builder<String> branchListBuilder = new ImmutableList.Builder<>();
-        final String[] identifys = loadArrayFromJsonResource(ChainConfigFiles.getIdentify(chainCode), String[].class);
+        final String[] identifys = loadArrayFromJsonResource(resourceFileName, String[].class);
         if (identifys != null) {
             for(final String id : identifys) {
                 branchListBuilder.add(id);

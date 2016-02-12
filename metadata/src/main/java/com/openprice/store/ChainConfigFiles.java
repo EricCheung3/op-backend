@@ -68,6 +68,9 @@ public class ChainConfigFiles {
     public static String getBlackList(final String chainCode){
         return getChainFile(chainCode, CATALOG_BLACK_LIST_FILE_NAME);
     }
+    public static String getNotCatalogItemNames(final String chainCode){
+        return getBlackList(chainCode);
+    }
 
     public static String getNotations(final String chainCode){
         return getChainFile(chainCode, CATALOG_NOTATION_FILE_NAME);

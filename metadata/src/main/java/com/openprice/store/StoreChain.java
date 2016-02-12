@@ -22,9 +22,17 @@ public class StoreChain {
 
     private final Map<String, CatalogProduct> productMap;
 
+    private final List<String> notations;
+
     private final Properties headerProperties;
 
     private final Properties nonHeaderProperties;
+
+    private final List<String> notCatalogItemNames;
+
+    private final List<String> skipBefore;
+
+    private final List<String> skipAfter;
 
     public static StoreChain genericChainWithOnlyCode(final String code){
         return new StoreChain(
@@ -32,26 +40,39 @@ public class StoreChain {
                 new ArrayList<StoreBranch>(),
                 new ArrayList<String>(),
                 new HashMap<String, CatalogProduct>(),
+                new ArrayList<String>(),
                 new Properties(),
-                new Properties()
+                new Properties(),
+                new ArrayList<String>(),
+                new ArrayList<String>(),
+                new ArrayList<String>()
                 );
     }
 
-    public static StoreChain fromChainBranchesIdentifyMapHeaderNonHeader(
+    public static StoreChain fromChainBranchesIdentifyMapNotationsHeaderNonHeaderBeforeAfter(
             final StoreChainData chain,
             final List<StoreBranch> branches,
             final List<String> identifyFields,
             final Map<String, CatalogProduct> productMap,
-            Properties headerProperties,
-            Properties nonHeaderProperties
+            final List<String> notations,
+            final Properties headerProperties,
+            final Properties nonHeaderProperties,
+            final List<String> notCatalogItemNames,
+            final List<String> skipBefore,
+            final List<String> skipAfter
             ){
         return new StoreChain(
                 chain,
                 branches,
                 identifyFields,
                 productMap,
+                notations,
                 headerProperties,
-                nonHeaderProperties);
+                nonHeaderProperties,
+                notCatalogItemNames,
+                skipBefore,
+                skipAfter
+                );
     }
 
     public String getCode() {
@@ -74,6 +95,10 @@ public class StoreChain {
         return productMap.values();
     }
 
+    public List<String> getNotations(){
+        return notations;
+    }
+
     public CatalogProduct getCatalogProductByCode(final String catalogCode) {
         return productMap.get(catalogCode);
     }
@@ -84,5 +109,17 @@ public class StoreChain {
 
     public Properties getNonHeaderProperties(){
         return nonHeaderProperties;
+    }
+
+    public List<String> getNotCatalogItemNames(){
+        return notCatalogItemNames;
+    }
+
+    public List<String> getSkipBefore(){
+        return skipBefore;
+    }
+
+    public List<String> getSkipAfter(){
+        return skipAfter;
     }
 }
