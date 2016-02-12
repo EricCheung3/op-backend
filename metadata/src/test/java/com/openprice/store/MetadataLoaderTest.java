@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.junit.Test;
@@ -11,6 +13,14 @@ import org.junit.Test;
 import com.openprice.store.data.StoreChainData;
 
 public class MetadataLoaderTest {
+
+    @Test
+    public void test1(){
+        final List<String> list=new ArrayList<>();
+        List<String> list2=new ArrayList<>();
+        list2.add("A");
+        list.addAll(list2);
+    }
 
     public boolean validateConfigProperties(final String chainCode){
         final Properties prop = MetadataLoader.loadObjectFromJsonResource(ChainConfigFiles.getNonHeaderProperties(chainCode), Properties.class);

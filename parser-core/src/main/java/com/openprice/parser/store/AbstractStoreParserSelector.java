@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import org.springframework.beans.factory.InitializingBean;
 
+import com.google.common.collect.ImmutableList;
 import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.api.Product;
@@ -43,14 +44,11 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        baseConfig=metadata.getStoreChainByCode(chain.getCode()).getNonHeaderProperties();
-        registerStoreChainFromStoreConfig();
-        generateParser();
-    }
-
-    private void registerStoreChainFromStoreConfig() throws Exception{
         chain=metadata.getStoreChainByCode(getParserBaseCode().toLowerCase());
         chainRegistry.addChain(chain, this);
+        System.out.println("afterPropertiesSet: chain.getCode()="+chain.getCode());
+        baseConfig=metadata.getStoreChainByCode(chain.getCode()).getNonHeaderProperties();
+        generateParser();
     }
 
     /**
@@ -79,11 +77,13 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         final List<String> skipBefore=metadata.getStoreChainByCode(chain.getCode()).getSkipBefore();
         final List<String> skipAfter=metadata.getStoreChainByCode(chain.getCode()).getSkipAfter();
         final List<String> notations=metadata.getStoreChainByCode(chain.getCode()).getNotations();
+        final ImmutableList.Builder<String> blackListAll=new  ImmutableList.Builder<>();
         //we don't want these to be item names
-        blackList.addAll(category);
-        blackList.addAll(skipBefore);
-        blackList.addAll(skipAfter);
-        blackList.addAll(notations);
+        blackListAll.addAll(blackList);
+        blackListAll.addAll(category);
+        blackListAll.addAll(skipBefore);
+        blackListAll.addAll(skipAfter);
+        blackListAll.addAll(notations);
 
         return StoreConfigImpl.fromPropCategorySkipBeforeAfterBlack(
                 allConfig,
