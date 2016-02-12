@@ -32,4 +32,14 @@ public class CatalogProduct {
         return productCategory.getCode();
     }
 
+    //get number of product
+    public String getNumber(){
+        return productData.getNumber();
+    }
+
+    //get product name on the receipt
+    public String getReceiptName(){
+        return productData.getName();
+    }
+
 }

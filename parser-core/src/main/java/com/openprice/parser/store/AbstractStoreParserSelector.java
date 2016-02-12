@@ -1,17 +1,14 @@
 package com.openprice.parser.store;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.util.StringUtils;
 
-import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.api.Product;
@@ -77,46 +74,11 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         if(size2!=size1+baseConfig.size())
             log.warn("there are repeating properties in the two config files for parser "+parserName);
 
-        List<String> category=null;
-        try{
-            category=TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.CATEGORY_FILE_NAME));
-        }catch(Exception e){
-            log.warn("cannot load {} for {} store chain.", ConfigFiles.CATEGORY_FILE_NAME, getParserBaseCode());
-            category=new ArrayList<String>();
-        }
-
-        List<String> skipBefore=null;
-        try{
-            skipBefore=TextResourceUtils.loadStringArray(getChainParserResource(parserName, ConfigFiles.SKIP_BEFORE_FILE_NAME));
-        }catch(Exception e){
-            log.warn("cannot load {} for {} store chain.", ConfigFiles.SKIP_BEFORE_FILE_NAME, getParserBaseCode());
-            skipBefore=new ArrayList<String>();
-        }
-
-        List<String> skipAfter=null;
-        try{
-            skipAfter=TextResourceUtils.loadStringArray(getChainParserResource(parserName, ConfigFiles.SKIP_AFTER_FILE_NAME));
-        }catch(Exception e){
-            log.warn("cannot load {} for {} store chain.", ConfigFiles.SKIP_AFTER_FILE_NAME, getParserBaseCode());
-            skipAfter=new ArrayList<String>();
-        }
-
-        List<String> notations=null;
-        try{
-            notations=TextResourceUtils.loadStringArray(getChainParserResource(parserName, ConfigFiles.CATALOG_NOTATION_FILE_NAME));
-        }catch(Exception e){
-            log.warn("cannot load {} for {} store chain.", ConfigFiles.CATALOG_NOTATION_FILE_NAME, getParserBaseCode());
-            notations=new ArrayList<String>();
-        }
-
-        List<String> blackList=null;
-        try{
-            blackList=TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.CATALOG_BLACK_LIST_FILE_NAME));
-        }catch(Exception e){
-            log.warn("cannot load {} for {} store chain.", ConfigFiles.CATALOG_BLACK_LIST_FILE_NAME, getParserBaseCode());
-            blackList=new ArrayList<String>();
-        }
-
+        final List<String> blackList=metadata.getStoreChainByCode(chain.getCode()).getNotCatalogItemNames();
+        final List<String> category=metadata.getStoreChainByCode(chain.getCode()).getReceiptCategories();
+        final List<String> skipBefore=metadata.getStoreChainByCode(chain.getCode()).getSkipBefore();
+        final List<String> skipAfter=metadata.getStoreChainByCode(chain.getCode()).getSkipAfter();
+        final List<String> notations=metadata.getStoreChainByCode(chain.getCode()).getNotations();
         //we don't want these to be item names
         blackList.addAll(category);
         blackList.addAll(skipBefore);
@@ -137,17 +99,12 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
      * @return a parser with a catalog if the corresponding file is read in successfully; otherwise return an empty catalog
      */
     protected PriceParserWithCatalog loadPriceParserWithCatalog() {
-        final Set<Product> catalog=new HashSet<Product>();
-        try{
-            TextResourceUtils.loadFromInputStream(getChainResource(ConfigFiles.CATALOG_FILE_NAME),
-                line -> {
-                    if (!StringUtils.isEmpty(line)) {
-                        catalog.add(ProductImpl.fromString(line));
-                    }
-                });
-        }catch(Exception e){
-            return PriceParserWithCatalog.withCatalog(new HashSet<Product>());
-        }
+        final Set<Product> catalog=metadata
+                .getStoreChainByCode(chain.getCode())
+                .getProducts()
+                .stream()
+                .map(c->ProductImpl.fromNameNumber(c.getReceiptName(), c.getReceiptName()))
+                .collect(Collectors.toSet());
         return PriceParserWithCatalog.withCatalog(catalog);
     }
 }
