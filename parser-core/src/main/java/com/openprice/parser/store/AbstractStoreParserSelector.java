@@ -72,14 +72,14 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         if(size2!=size1+baseConfig.size())
             log.warn("there are repeating properties in the two config files for parser "+parserName);
 
-        final List<String> blackList=metadata.getStoreChainByCode(chain.getCode()).getNotCatalogItemNames();
+        final List<String> notCatalogItemNames=metadata.getStoreChainByCode(chain.getCode()).getNotCatalogItemNames();
         final List<String> category=metadata.getStoreChainByCode(chain.getCode()).getReceiptCategories();
         final List<String> skipBefore=metadata.getStoreChainByCode(chain.getCode()).getSkipBefore();
         final List<String> skipAfter=metadata.getStoreChainByCode(chain.getCode()).getSkipAfter();
         final List<String> notations=metadata.getStoreChainByCode(chain.getCode()).getNotations();
         final ImmutableList.Builder<String> blackListAll=new  ImmutableList.Builder<>();
         //we don't want these to be item names
-        blackListAll.addAll(blackList);
+        blackListAll.addAll(notCatalogItemNames);
         blackListAll.addAll(category);
         blackListAll.addAll(skipBefore);
         blackListAll.addAll(skipAfter);
@@ -90,7 +90,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
                 category,
                 skipBefore,
                 skipAfter,
-                blackList
+                blackListAll.build()
                 );
     }
 
