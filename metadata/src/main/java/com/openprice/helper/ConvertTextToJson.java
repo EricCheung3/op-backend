@@ -27,23 +27,9 @@ public class ConvertTextToJson {
                 .collect(Collectors.toList());
     }
 
-    //The goodness of this one is that it breaks line at comma
-    public static void toJsonForDataDoNotNeedEscape(final List<String> list) throws Exception{
-        System.out.println("[");
-        for(int i=0; i<list.size(); i++){
-            String strNoDoubleQuote=list.get(i).replace("\"", "\"");
-            if(i == list.size()-1)
-                System.out.println("\""+strNoDoubleQuote+"\"");
-            else
-                System.out.println("\""+strNoDoubleQuote+"\",");
-        }
-        System.out.println("]");
-    }
-
-    //this one doesn't break line at comma. Improve?
     public static void toJsonForDataThatNeedEscape(final List<String> list) throws Exception{
         ObjectMapper mapper = new ObjectMapper();
-        String jsonInString = mapper.writeValueAsString(list);
+        String jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(list);
         System.out.println(jsonInString);
     }
 
