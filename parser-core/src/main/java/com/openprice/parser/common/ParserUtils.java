@@ -3,7 +3,6 @@ package com.openprice.parser.common;
 import java.util.List;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.data.ProductConstant;
 
 public class ParserUtils {
 
@@ -31,14 +30,6 @@ public class ParserUtils {
             return false;
         }
         return !StringCommon.containsOneOnlyOneLetter(noSpace);
-    }
-
-    public static String cleanField(String str) {
-        if (str == null) {
-            return null;
-        }
-        str = str.trim();
-        return str.replaceAll(ProductConstant.SPLITTER, "");
     }
 
     public static boolean ignoreLine(final String lineStr) {

@@ -3,7 +3,7 @@ package com.openprice.parser.common;
 import java.util.List;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.data.ValueLine;
+import com.openprice.parser.data.StringInt;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,7 +42,7 @@ public class ListCommon{
     /*
           sum up values in List
      */
-    public static double sumList(final List<ValueLine> rList){
+    public static double sumList(final List<StringInt> rList){
         double total=0.0;
         for(int i=0; i<rList.size();i++){
             try{

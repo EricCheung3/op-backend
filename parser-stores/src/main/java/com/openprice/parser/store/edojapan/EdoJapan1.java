@@ -1,13 +1,13 @@
 package com.openprice.parser.store.edojapan;
 
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.StoreConfig;
+import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.parser.store.AbstractStoreParser;
 
 public class EdoJapan1 extends AbstractStoreParser {
 
-    public EdoJapan1(final StoreConfig config,
+    public EdoJapan1(final StoreConfigImpl config,
             final PriceParserWithCatalog priceParserWithCatalog) {
         super(config, priceParserWithCatalog);
 

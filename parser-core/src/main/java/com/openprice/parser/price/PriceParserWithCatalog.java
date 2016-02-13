@@ -3,7 +3,7 @@ package com.openprice.parser.price;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.openprice.parser.data.Product;
+import com.openprice.parser.api.Product;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +41,7 @@ public class PriceParserWithCatalog {
      */
     public ProductPrice parsePriceLine(final String line){
         final Product matched=PriceParserUtils.matchLineToCatalog(line, catalog);
-        log.debug("matched product "+matched.toString()+"\n");
+        log.debug("line="+line+", matched product "+matched.toString()+"\n");
         //        if(!matched.isEmpty()){
         //            final String priceAtTail=getPriceAtTail(line, matched);
         //            if(!priceAtTail.isEmpty())

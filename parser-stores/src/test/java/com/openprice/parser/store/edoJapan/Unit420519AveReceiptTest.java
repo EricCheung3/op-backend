@@ -63,7 +63,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
-        ////printResult(receipt);
+        printResult(receipt);
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyParsedItem(iterator.next(), "1 #5 chicken &beef", "8.59", null, 16);

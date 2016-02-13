@@ -1,25 +1,23 @@
 package com.openprice.parser.store;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.inject.Inject;
 
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.util.StringUtils;
 
-import com.openprice.common.TextResourceUtils;
+import com.google.common.collect.ImmutableList;
 import com.openprice.parser.ChainRegistry;
-import com.openprice.parser.StoreBranch;
-import com.openprice.parser.StoreChain;
-import com.openprice.parser.StoreConfig;
-import com.openprice.parser.StoreParserSelector;
-import com.openprice.parser.data.Product;
-import com.openprice.parser.generic.ConfigFiles;
+import com.openprice.parser.StoreConfigImpl;
+import com.openprice.parser.api.Product;
+import com.openprice.parser.api.StoreParserSelector;
+import com.openprice.parser.data.ProductImpl;
 import com.openprice.parser.price.PriceParserWithCatalog;
+import com.openprice.store.StoreChain;
+import com.openprice.store.StoreMetadata;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,41 +31,24 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class AbstractStoreParserSelector implements StoreParserSelector, InitializingBean {
 
     private final ChainRegistry chainRegistry;
+    final protected StoreMetadata metadata;
 
-    protected final Properties baseConfig = new Properties();
+    protected Properties baseConfig;
     protected StoreChain chain;
 
-    public AbstractStoreParserSelector(final ChainRegistry chainRegistry) {
+    @Inject
+    public AbstractStoreParserSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
         this.chainRegistry = chainRegistry;
+        this.metadata=metadata;
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        try {
-            baseConfig.load(getChainResource(ConfigFiles.CONFIG_PROPERTY_FILE_NAME));
-            log.debug("baseConfig.entrySet().size()="+baseConfig.entrySet().size());
-        } catch (IOException ex) {
-            log.warn("Cannot load config.properties for {} store chain!", getParserBaseCode());
-        }
-
-        registerStoreChainFromStoreConfig();
+        chain=metadata.getStoreChainByCode(getParserBaseCode().toLowerCase());
+        chainRegistry.addChain(chain, this);
+        System.out.println("afterPropertiesSet: chain.getCode()="+chain.getCode());
+        baseConfig=metadata.getStoreChainByCode(chain.getCode()).getNonHeaderProperties();
         generateParser();
-    }
-
-    private void registerStoreChainFromStoreConfig() throws Exception{
-        // load branch
-        List<StoreBranch> branches = new ArrayList<>();
-        TextResourceUtils.loadFromInputStream(getChainResource(ConfigFiles.BRANCH_FILE_NAME),
-                line ->
-                    branches.add(StoreBranch.fromString(line, baseConfig.getProperty("Slogan")))); // FIXME why slogan?
-
-        chain = StoreChain.fromCodeSelectorCategoriesFieldsBranches(
-                        getParserBaseCode().toLowerCase(), // TODO maybe use lower case in all places?
-                        this,
-                        TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.CATEGORY_FILE_NAME)),
-                        TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.IDENTIFY_FIELD_FILE_NAME)),
-                        branches);
-        chainRegistry.addChain(chain);
     }
 
     /**
@@ -81,80 +62,35 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
      */
     protected abstract void generateParser();
 
-    private InputStream getChainParserResource(final String parserName, final String filename) {
-        return AbstractStoreParserSelector.class.getResourceAsStream(ConfigFiles.getFileUnderChainParser(getParserBaseCode(), parserName, filename));
-    }
-
-    private InputStream getChainResource(final String filename) {
-        return AbstractStoreParserSelector.class.getResourceAsStream(ConfigFiles.getFileUnderChain(getParserBaseCode(), filename));
-    }
-
-    protected StoreConfig loadParserConfig(final String parserName) {
+    protected StoreConfigImpl loadParserConfig(final String parserName) {
         Properties allConfig = new Properties();
-        try {
-            allConfig.load(getChainParserResource(parserName, ConfigFiles.HEADER_CONFIG_FILE_NAME));
-            //System.out.println("allConfig.size"+allConfig.size());
-            final int size1=allConfig.size();
-            allConfig.putAll(baseConfig);
-            final int size2=allConfig.size();
-            if(size2!=size1+baseConfig.size())
-                log.warn("there are repeating properties in the two config files for parser "+parserName);
-        } catch (IOException ex) {
-            log.error("Cannot load headerConfig.properties for store parser {}!", parserName);
-        }
+        allConfig.putAll(metadata.getStoreChainByCode(chain.getCode()).getHeaderProperties());
+        //System.out.println("allConfig.size"+allConfig.size());
+        final int size1=allConfig.size();
+        allConfig.putAll(baseConfig);
+        final int size2=allConfig.size();
+        if(size2!=size1+baseConfig.size())
+            log.warn("there are repeating properties in the two config files for parser "+parserName);
 
-        List<String> category=null;
-        try{
-            category=TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.CATEGORY_FILE_NAME));
-        }catch(Exception e){
-            log.warn("cannot load {} for {} store chain.", ConfigFiles.CATEGORY_FILE_NAME, getParserBaseCode());
-            category=new ArrayList<String>();
-        }
-
-        List<String> skipBefore=null;
-        try{
-            skipBefore=TextResourceUtils.loadStringArray(getChainParserResource(parserName, ConfigFiles.SKIP_BEFORE_FILE_NAME));
-        }catch(Exception e){
-            log.warn("cannot load {} for {} store chain.", ConfigFiles.SKIP_BEFORE_FILE_NAME, getParserBaseCode());
-            skipBefore=new ArrayList<String>();
-        }
-
-        List<String> skipAfter=null;
-        try{
-            skipAfter=TextResourceUtils.loadStringArray(getChainParserResource(parserName, ConfigFiles.SKIP_AFTER_FILE_NAME));
-        }catch(Exception e){
-            log.warn("cannot load {} for {} store chain.", ConfigFiles.SKIP_AFTER_FILE_NAME, getParserBaseCode());
-            skipAfter=new ArrayList<String>();
-        }
-
-        List<String> notations=null;
-        try{
-            notations=TextResourceUtils.loadStringArray(getChainParserResource(parserName, ConfigFiles.CATALOG_NOTATION_FILE_NAME));
-        }catch(Exception e){
-            log.warn("cannot load {} for {} store chain.", ConfigFiles.CATALOG_NOTATION_FILE_NAME, getParserBaseCode());
-            notations=new ArrayList<String>();
-        }
-
-        List<String> blackList=null;
-        try{
-            blackList=TextResourceUtils.loadStringArray(getChainResource(ConfigFiles.CATALOG_BLACK_LIST_FILE_NAME));
-        }catch(Exception e){
-            log.warn("cannot load {} for {} store chain.", ConfigFiles.CATALOG_BLACK_LIST_FILE_NAME, getParserBaseCode());
-            blackList=new ArrayList<String>();
-        }
-
+        final List<String> notCatalogItemNames=metadata.getStoreChainByCode(chain.getCode()).getNotCatalogItemNames();
+        final List<String> category=metadata.getStoreChainByCode(chain.getCode()).getReceiptCategories();
+        final List<String> skipBefore=metadata.getStoreChainByCode(chain.getCode()).getSkipBefore();
+        final List<String> skipAfter=metadata.getStoreChainByCode(chain.getCode()).getSkipAfter();
+        final List<String> notations=metadata.getStoreChainByCode(chain.getCode()).getNotations();
+        final ImmutableList.Builder<String> blackListAll=new  ImmutableList.Builder<>();
         //we don't want these to be item names
-        blackList.addAll(category);
-        blackList.addAll(skipBefore);
-        blackList.addAll(skipAfter);
-        blackList.addAll(notations);
+        blackListAll.addAll(notCatalogItemNames);
+        blackListAll.addAll(category);
+        blackListAll.addAll(skipBefore);
+        blackListAll.addAll(skipAfter);
+        blackListAll.addAll(notations);
 
-        return StoreConfig.fromPropCategorySkipBeforeAfterBlack(
+        return StoreConfigImpl.fromPropCategorySkipBeforeAfterBlack(
                 allConfig,
                 category,
                 skipBefore,
                 skipAfter,
-                blackList
+                blackListAll.build()
                 );
     }
 
@@ -163,17 +99,13 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
      * @return a parser with a catalog if the corresponding file is read in successfully; otherwise return an empty catalog
      */
     protected PriceParserWithCatalog loadPriceParserWithCatalog() {
-        final Set<Product> catalog=new HashSet<Product>();
-        try{
-            TextResourceUtils.loadFromInputStream(getChainResource(ConfigFiles.CATALOG_FILE_NAME),
-                line -> {
-                    if (!StringUtils.isEmpty(line)) {
-                        catalog.add(Product.fromString(line));
-                    }
-                });
-        }catch(Exception e){
-            return PriceParserWithCatalog.withCatalog(new HashSet<Product>());
-        }
+        final Set<Product> catalog=metadata
+                .getStoreChainByCode(chain.getCode())
+                .getProducts()
+                .stream()
+                .map(c->ProductImpl.fromNameNumber(c.getReceiptName(), c.getNumber()))
+                .collect(Collectors.toSet());
+        System.out.println("chain:"+chain.getCode()+", catalog size="+catalog.size());
         return PriceParserWithCatalog.withCatalog(catalog);
     }
 }

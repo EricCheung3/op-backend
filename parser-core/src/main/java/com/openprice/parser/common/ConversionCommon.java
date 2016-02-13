@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.openprice.parser.data.ValueLine;
+import com.openprice.parser.data.StringInt;
 
 public class ConversionCommon
 {
@@ -79,9 +79,9 @@ public class ConversionCommon
                 .collect(Collectors.toList());
     }
 
-    public static List<ValueLine> sortByIntAscending(final List<ValueLine> list){
-        final Comparator<ValueLine> BY_INT =
-                Comparator.comparing(ValueLine::getLine);
+    public static List<StringInt> sortByIntAscending(final List<StringInt> list){
+        final Comparator<StringInt> BY_INT =
+                Comparator.comparing(StringInt::getLine);
         return list.stream().sorted(BY_INT).collect(Collectors.toList());
     }
 }
