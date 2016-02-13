@@ -124,6 +124,10 @@ public abstract class AbstractStoreParser implements StoreParser {
         return DateParserUtils.findDateStringAfterLine(origLines, currentNumber).getValue();
     }
 
+    protected String parseSlogan(final ReceiptLine line){
+        return line.getCleanText();
+    }
+
     @Override
     public ParsedItem parseItemLine(final String lineString, int lineNumber) {
         if (priceParserWithCatalog == null)

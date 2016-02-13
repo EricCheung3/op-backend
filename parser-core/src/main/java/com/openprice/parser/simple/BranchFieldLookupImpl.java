@@ -39,7 +39,6 @@ public class BranchFieldLookupImpl implements BranchFieldLookup{
         addGroundTruthValue(ReceiptFieldType.StoreID, branch.getStoreId());
         addGroundTruthValue(ReceiptFieldType.GstNumber, branch.getGstNumber());
         addGroundTruthValue(ReceiptFieldType.Phone, branch.getPhone());
-        addGroundTruthValue(ReceiptFieldType.Slogan, branch.getSlogan());
     }
 
     private void addGroundTruthValue(final ReceiptFieldType fieldName, final String value) {

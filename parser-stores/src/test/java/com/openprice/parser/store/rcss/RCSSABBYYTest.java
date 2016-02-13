@@ -31,8 +31,9 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyParsedItem(iterator.next(), "yelw calros", "rice", null, 8);
         verifyParsedItem(iterator.next(), "k dgon cook    wine    mrj", "2.69", null, 11);
+        verifyParsedItem(iterator.next(), "organic 2% milk", "8.98", "organic 2% milk_06870030942", 13);
         verifyParsedItem(iterator.next(), "rooster garlic", "0.68", "rooster garlic_06038388591", 17);
-        //verifyParsedItem(iterator.next(), "banana", "mftj", "banana_4011", 18);
+        verifyParsedItem(iterator.next(), "banana", "mftj", "banana_4011", 18);
         verifyParsedItem(iterator.next(), "onion green", "067", "onion green_4068", 20);
         verifyParsedItem(iterator.next(), "ducks fr7n    mrj", "15.23", null, 22);
         verifyParsedItem(iterator.next(), "ducks frzh    mrj", "16.81", null, 23);
@@ -40,12 +41,12 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
 
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
-        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "01570",13);
+//        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "01570",13);
         verifyParsedField(fieldValues, ReceiptFieldType.Recycle, "ecology fee                                      0.08",14);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "104.73",29);
         verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-430-2769",2);
-        //Why not pass?
-//        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "big on fresh, low on price",3);
+        //TODO Why not pass?
+        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "big on fresh, low on price",3);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "104.73",27);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "card#;",5);
     }

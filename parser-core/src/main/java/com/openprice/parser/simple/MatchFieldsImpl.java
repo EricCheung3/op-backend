@@ -13,6 +13,9 @@ import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.store.StoreBranch;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MatchFieldsImpl implements MatchFields{
 
     @Override
@@ -27,10 +30,10 @@ public class MatchFieldsImpl implements MatchFields{
                .filter( lineScore -> lineScore.getScore() > 0.5)
                .forEach( lineScore -> record.putFieldLineValue(lineScore.getField(), lineScore.getReceiptLine().getNumber(), lineScore.getValue()));
 
-//                System.out.println("$$$$$$  After matchToBranch, parsed fields are :");
-//                for (ReceiptFieldType field : record.getFieldToValueLine().keySet()) {
-//                    System.out.println("'"+ field.name() + "' at line "+record.getFieldToValueLine().get(field).getLine() + " : " + record.getFieldToValueLine().get(field).getValue() );
-//                }
+                System.out.println("$$$$$$  After matchToBranch, parsed fields are :");
+                for (ReceiptFieldType field : record.getFieldToValueLine().keySet()) {
+                    System.out.println("'"+ field.name() + "' at line "+record.getFieldToValueLine().get(field).getLine() + " : " + record.getFieldToValueLine().get(field).getValue() );
+                }
     }
 
     @Override
@@ -40,17 +43,25 @@ public class MatchFieldsImpl implements MatchFields{
             final StoreConfig config,
             final StoreParser parser) {
         for (ReceiptFieldType field : ReceiptFieldType.values()) {
-            if (record.fieldIsMatched(field))
+            log.debug("matchToHeader: field="+field);
+            if (record.fieldIsMatched(field)){
+                log.debug(field+" is alreday matched: "+record.matchedLinesOfField(field));
                 continue;
+            }
 
             final List<String> headerPatterns = config.getFieldHeaderMatchStrings(field);
+            log.debug("headerPatterns="+headerPatterns);
             if (headerPatterns == null || headerPatterns.isEmpty())
                 continue;
 
             receipt.getReceiptLines()
                    .stream()
                    .filter( line -> line.getCleanText().length() > 1 )
-                   .filter( line -> !record.isFieldLine(line.getNumber()) )
+                   .filter( line -> {
+                       if(record.isFieldLine(line.getNumber()))
+                           log.debug("line "+line.getOriginalText()+" is a field line: "+record.matchedFieldsOnLine(line.getNumber()));
+                       return !record.isFieldLine(line.getNumber());
+                    })
                    .filter(line -> !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer", config.similarityThresholdOfTwoStrings()))//otherwide this could match the total line
                    .filter( line -> {
                 Optional<Double> maxScore =
@@ -60,7 +71,11 @@ public class MatchFieldsImpl implements MatchFields{
                         .max( Comparator.comparing(score -> score) );
                 return maxScore.isPresent() && maxScore.get() > config.similarityThresholdOfTwoStrings();
             })
-            .forEach( line -> record.putFieldLineValue(field, line.getNumber(), parser.parseField(field, line)));
+            .forEach( line -> {
+                String value=parser.parseField(field, line);
+                log.debug("line=>"+line.getCleanText()+", parsed value is "+value);
+                record.putFieldLineValue(field, line.getNumber(), value);
+                });
         }
     }
 }

@@ -30,10 +30,6 @@ public class StoreBranch {
         return storeBranchData.getStoreId();
     }
 
-    public String getSlogan(){
-        return storeBranchData.getSlogan();
-    }
-
     public String getAddress1(){
         return storeBranchData.getAddress1();
     }

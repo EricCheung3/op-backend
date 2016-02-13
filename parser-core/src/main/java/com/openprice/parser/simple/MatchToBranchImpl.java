@@ -34,6 +34,13 @@ public class MatchToBranchImpl implements  MatchToBranch{
         final String lowerStr = line.getCleanText().toLowerCase();
         final BranchFieldLookupImpl lookup=new BranchFieldLookupImpl(branch);
         for(ReceiptFieldType fName : lookup.getFieldToValue().keySet()) {
+            //ignore state, postcode, country field (banana will match Canada)
+            if(fName==ReceiptFieldType.AddressCountry||
+               fName==ReceiptFieldType.AddressCity||
+               fName==ReceiptFieldType.AddressPost||
+               fName==ReceiptFieldType.AddressState||
+               fName==ReceiptFieldType.StoreID)
+                continue;
             double score= StringCommon.matchStringToSubString(lowerStr, lookup.getFieldToValue().get(fName));
             if (score > scoreMax) {
                 scoreMax = score;
@@ -68,9 +75,9 @@ public class MatchToBranchImpl implements  MatchToBranch{
         double sum = 0.0;
         sum += matchFieldScore(lookup.valueOf(ReceiptFieldType.AddressLine1), lineString);
         sum += matchFieldScore(lookup.valueOf(ReceiptFieldType.AddressLine2), lineString);
-        sum += matchFieldScore(lookup.valueOf(ReceiptFieldType.AddressCity), lineString);
-        sum += matchFieldScore(lookup.valueOf(ReceiptFieldType.AddressPost), lineString);
-        sum += matchFieldScore(lookup.valueOf(ReceiptFieldType.GstNumber), lineString);
+//        sum += matchFieldScore(lookup.valueOf(ReceiptFieldType.AddressCity), lineString);
+//        sum += matchFieldScore(lookup.valueOf(ReceiptFieldType.AddressPost), lineString);
+//        sum += matchFieldScore(lookup.valueOf(ReceiptFieldType.GstNumber), lineString);
         sum += matchFieldScore(lookup.valueOf(ReceiptFieldType.Phone), lineString);
         sum += matchFieldScore(lookup.valueOf(ReceiptFieldType.StoreBranch), lineString);
         return sum;
