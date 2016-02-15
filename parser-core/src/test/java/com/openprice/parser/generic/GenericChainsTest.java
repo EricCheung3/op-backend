@@ -79,4 +79,21 @@ public class GenericChainsTest {
         String store=chains.findChain(receipt);
         assertEquals("Safeway", store);
     }
+
+    @Test
+    public void chainNameInMiddleOfReceiptCanAlsoFind() throws Exception{
+        final List<String> chainLines=new ArrayList<String>();
+        chainLines.add("76:Quizino's Subs:Restaurant:QuizinosSubs");
+        chainLines.add("81:SAFEWAY,Safeway:Grocery,Health:Safeway");
+        chainLines.add("82:Saje West Edmonton:Health:SajeWestEdmonton");
+        chainLines.add("83:Save-on-foods:Grocery:SaveOnFoods");
+        GenericChains chains=new GenericChains(chainLines);
+        final List<String> receipt=new ArrayList<String>();
+        for(int i=0; i<100; i++){
+            receipt.add("ABCCCDDDDD   dfd fafrand random stuff");
+        }
+        receipt.set(50, "Safeway");
+        String store=chains.findChain(receipt);
+        assertEquals("Safeway", store);
+    }
 }

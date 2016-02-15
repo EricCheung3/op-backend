@@ -1,0 +1,22 @@
+{
+  "UnitPriceStartColumn" : "33",
+  "RefExample" : "253001001002",
+  "AuthorExample" : "05213Z",
+  "SubstringOfUnitPriceLine" : ". kg @ $ . /kg",
+  "BuyPriceIsAdjusted" : "false",
+  "QuantityPriceFirst" : "true",
+  "UnitPriceAppearsFirst" : "false",
+  "SubstringOfQuantityPriceLine" : "$. lmt , $ . ea",
+  "QuantityPriceExample" : "2 @ $3.28 lmt 4",
+  "BuyPriceStartColumn" : "63",
+  "WeightUnit" : "kg",
+  "WidthLowerBound" : "40",
+  "PhoneExample" : "780-435-5132",
+  "PriceTail" : "",
+  "GstExample" : "12223-5922 RT0001",
+  "SimilarityThresholdOfTwoStrings" : "0.65",
+  "DTFormat" : "month/day/year hour:minute",
+  "Slogan" : "Big on Fresh, Low on Price",
+  "Chain" : "RCSS",
+  "MinHeadSpacesBeforeCategory" : "0"
+}

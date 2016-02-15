@@ -1,14 +1,15 @@
 package com.openprice.parser.price;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.data.Product;
+import com.openprice.parser.api.Product;
+import com.openprice.parser.data.ProductImpl;
 
 import lombok.Data;
 
 @Data
 public class ProductPrice {
 
-    Product product=Product.emptyProduct();
+    Product product=ProductImpl.emptyProduct();
     String price=StringCommon.EMPTY;
     boolean productIsInCatalog=false; //from a matched product in catalog or not
 
@@ -18,7 +19,7 @@ public class ProductPrice {
     }
 
     public static ProductPrice fromNameOnly(final String name){
-        return new ProductPrice(Product.fromNameOnly(name), StringCommon.EMPTY);
+        return new ProductPrice(ProductImpl.fromNameOnly(name), StringCommon.EMPTY);
     }
 
     public ProductPrice(final Product product, final String price,
@@ -46,7 +47,7 @@ public class ProductPrice {
             }
         }
 
-        final Product product=Product.fromNameNumber(itemName.trim(), itemNumber.trim());
+        final Product product=ProductImpl.fromNameNumber(itemName.trim(), itemNumber.trim());
         try{
             return new ProductPrice(product, StringCommon.formatPrice(price.trim()));
         }catch(Exception e){
@@ -109,7 +110,7 @@ public class ProductPrice {
     }
 
     public static ProductPrice emptyValue(){
-        return new ProductPrice(Product.emptyProduct(), StringCommon.EMPTY, false);
+        return new ProductPrice(ProductImpl.emptyProduct(), StringCommon.EMPTY, false);
     }
 
     public String getName(){return product.getName();}

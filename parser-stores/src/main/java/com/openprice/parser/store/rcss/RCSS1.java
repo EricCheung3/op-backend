@@ -1,13 +1,13 @@
 package com.openprice.parser.store.rcss;
 
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.StoreConfig;
+import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.parser.store.AbstractStoreParser;
 
 public class RCSS1 extends AbstractStoreParser {
 
-    public RCSS1(final StoreConfig config,
+    public RCSS1(final StoreConfigImpl config,
             final PriceParserWithCatalog priceParserWithCatalog) {
         super(config, priceParserWithCatalog);
 

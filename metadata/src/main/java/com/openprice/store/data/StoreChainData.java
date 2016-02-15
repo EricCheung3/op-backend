@@ -1,6 +1,7 @@
 package com.openprice.store.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.openprice.common.StringCommon;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class StoreChainData {
 
+    //chain code like "RCSS" "Safeway", no space, not starting with numbers
     private String code;
 
     private String name;
@@ -21,4 +23,8 @@ public class StoreChainData {
     private String identity;
 
     private String category;
+
+    public static StoreChainData fromCodeOnly(final String code){
+        return new StoreChainData(code, StringCommon.EMPTY, StringCommon.EMPTY, StringCommon.EMPTY);
+    }
 }

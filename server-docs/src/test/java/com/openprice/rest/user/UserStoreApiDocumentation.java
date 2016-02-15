@@ -215,6 +215,8 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
             preprocessResponse(prettyPrint()),
             responseFields(
                 fieldWithPath("[].catalogCode").description("The catalog code."),
+                fieldWithPath("[].receiptName").description("The catalog code name."),
+                fieldWithPath("[].number").description("The catalog code number."),
                 fieldWithPath("[].price").description("The price (unit price?)."),
                 fieldWithPath("[].naturalName").description("Readable name for the catalog product."),
                 fieldWithPath("[].categoryCode").description("The code of category this product belongs to.")

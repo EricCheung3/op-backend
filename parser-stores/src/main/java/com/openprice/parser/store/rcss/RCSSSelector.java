@@ -5,10 +5,11 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.openprice.parser.ChainRegistry;
-import com.openprice.parser.ReceiptData;
-import com.openprice.parser.StoreConfig;
-import com.openprice.parser.StoreParser;
+import com.openprice.parser.StoreConfigImpl;
+import com.openprice.parser.api.ReceiptData;
+import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.store.AbstractStoreParserSelector;
+import com.openprice.store.StoreMetadata;
 
 @Service
 public class RCSSSelector extends AbstractStoreParserSelector {
@@ -16,8 +17,8 @@ public class RCSSSelector extends AbstractStoreParserSelector {
     private final static String RCSS="RCSS";
 
     @Inject
-    public RCSSSelector(final ChainRegistry chainRegistry) {
-        super(chainRegistry);
+    public RCSSSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
+        super(chainRegistry, metadata);
     }
 
     @Override
@@ -33,7 +34,7 @@ public class RCSSSelector extends AbstractStoreParserSelector {
 
     @Override
     protected void generateParser() {
-        StoreConfig config = loadParserConfig(RCSS+"1");
+        StoreConfigImpl config = loadParserConfig(RCSS+"1");
         rcss1 = new RCSS1(config, loadPriceParserWithCatalog());
     }
 

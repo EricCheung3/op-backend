@@ -24,7 +24,6 @@ public class ListCommonTest{
         assertEquals("ABC", result);
     }
 
-
     @Test
     public void oneStringTest2(){
         List<String> list=new ArrayList<String>();

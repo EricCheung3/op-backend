@@ -6,11 +6,13 @@ import java.util.List;
 
 import com.openprice.common.StringCommon;
 import com.openprice.parser.ParsedItem;
+import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.StoreChain;
+import com.openprice.parser.ReceiptParser;
 import com.openprice.parser.data.ParsedItemImpl;
-import com.openprice.parser.data.ValueLine;
+import com.openprice.parser.data.StringInt;
+import com.openprice.store.StoreChain;
 
 /**
  * A generic receipt parser to parse items from receipt lines.
@@ -19,10 +21,10 @@ import com.openprice.parser.data.ValueLine;
  * 3. it should be able parse item and prices
  *
  */
-//TODO add date and total recognition?
-public class CheapParser {
+public class CheapParser implements ReceiptParser{
 
-    public ParsedReceiptImpl parse(final List<String> lines) throws Exception {
+    @Override
+    public ParsedReceipt parseReceiptOcrResult(final List<String> lines) {
         final List<ParsedItem> items = new ArrayList<ParsedItem>();
         for (int i = 0; i < lines.size(); i++) {
             String name = lines.get(i).trim();
@@ -41,9 +43,9 @@ public class CheapParser {
                 items.add(ParsedItemImpl.fromNameOnly(name));
         }
         return ParsedReceiptImpl.fromChainItemsMapBranch(
-                StoreChain.genericStoreChain(StringCommon.EMPTY),
+                StoreChain.genericChainWithOnlyCode(StringCommon.EMPTY),
                 items,
-                new HashMap<ReceiptFieldType, ValueLine>(),
+                new HashMap<ReceiptFieldType, StringInt>(),
                 StringCommon.EMPTY);
     }
 

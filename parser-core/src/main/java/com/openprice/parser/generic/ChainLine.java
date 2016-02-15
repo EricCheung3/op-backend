@@ -5,7 +5,6 @@ package com.openprice.parser.generic;
  *
  *
  */
-
 public class ChainLine {
 
 //    * chain id

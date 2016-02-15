@@ -1,0 +1,21 @@
+{
+  "UnitPriceStartColumn" : "",
+  "AuthorExample" : "05790Z",
+  "SubstringOfUnitPriceLine" : "",
+  "BuyPriceIsAdjusted" : "true",
+  "QuantityPriceFirst" : "true",
+  "UnitPriceAppearsFirst" : "",
+  "QuantityPriceExample" : "",
+  "BuyPriceStartColumn" : "63",
+  "WeightUnit" : "",
+  "WidthLowerBound" : "",
+  "PhoneExample" : "780-435-5132",
+  "PriceTail" : "",
+  "GstExample" : "812012680RT0001",
+  "SimilarityThresholdOfTwoStrings" : "0.7",
+  "DTFormat" : "month/day/year hour:minute",
+  "Slogan" : "won't be beat",
+  "Chain" : "No Frills",
+  "MinHeadSpacesBeforeCategory" : "8",
+  "SubstringOfQuantityPrice" : ""
+}

@@ -36,6 +36,7 @@ public class StoreMetadata {
         CatalogProduct p;
         double s;
     }
+
     public List<CatalogProduct> findMatchingProducts(final String query,
                                                      final String chainCode,
                                                      final int returnCount) {

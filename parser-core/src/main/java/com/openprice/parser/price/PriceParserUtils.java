@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.data.Product;
+import com.openprice.parser.api.Product;
+import com.openprice.parser.data.ProductImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -66,7 +67,7 @@ public class PriceParserUtils {
         if(score > 0.7)
             return matched;
 
-        return Product.emptyProduct();
+        return ProductImpl.emptyProduct();
     }
 
     /**
@@ -78,7 +79,7 @@ public class PriceParserUtils {
      */
     //TODO count the number of times name is first so that you can decide spam or not
     public static Product matchLineToCatalog(final String originalLine, final Set<Product> catalog){
-        if(catalog.isEmpty()) return Product.emptyProduct();
+        if(catalog.isEmpty()) return ProductImpl.emptyProduct();
         final String lineNoSpacesLower = StringCommon.removeAllSpaces(originalLine.toLowerCase());
 
         final Comparator<Product> compNumberFirst = (p1, p2)->
@@ -109,10 +110,10 @@ public class PriceParserUtils {
             scoreMax=scoreNameFirst;
             matched=matchedNameFirst;
         }
-        log.debug("scoreMax="+scoreMax+"\n");
+        log.debug("scoreMax="+scoreMax+", matched="+matched+"\n");
         if(scoreMax > 0.7)
             return matched;
-        return Product.emptyProduct();
+        return ProductImpl.emptyProduct();
     }
 
 }
