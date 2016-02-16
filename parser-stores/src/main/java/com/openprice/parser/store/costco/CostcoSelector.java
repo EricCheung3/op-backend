@@ -1,4 +1,4 @@
-package com.openprice.parser.store.rcss;
+package com.openprice.parser.store.costco;
 
 import javax.inject.Inject;
 
@@ -12,12 +12,12 @@ import com.openprice.parser.store.AbstractStoreParserSelector;
 import com.openprice.store.StoreMetadata;
 
 @Service
-public class RCSSSelector extends AbstractStoreParserSelector {
-    private RCSS1 parser;
-    private final static String RCSS="RCSS";
+public class CostcoSelector extends AbstractStoreParserSelector {
+    private Costco1 parser;
+    private static final String SAFEWAY="Safeway";
 
     @Inject
-    public RCSSSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
+    public CostcoSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
         super(chainRegistry, metadata);
     }
 
@@ -29,13 +29,13 @@ public class RCSSSelector extends AbstractStoreParserSelector {
 
     @Override
     protected String getParserBaseCode() {
-        return RCSS;
+        return SAFEWAY;
     }
 
     @Override
     protected void generateParser() {
-        StoreConfigImpl config = loadParserConfig(RCSS+"1");
-        parser = new RCSS1(config, loadPriceParserWithCatalog());
+        StoreConfigImpl config = loadParserConfig(SAFEWAY+"1");
+        parser = new Costco1(config, loadPriceParserWithCatalog());
     }
 
 }
