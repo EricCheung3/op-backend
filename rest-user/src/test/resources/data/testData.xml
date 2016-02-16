@@ -48,7 +48,7 @@
     <shopping_item id="item103" version="1" store_id="shoppingStore101" catalog_code="BREAD" name="bread" product_category="bakery" number="1" created_time="2009-01-01 10:02:01.0000"/>
     <shopping_item id="item301" version="1" store_id="shoppingStore103" name="bread" product_category="bakery" number="1" created_time="2009-01-01 10:02:01.0000"/>
 
-    <!-- Receipt image for receipt002 with ocr result -->
+    <!-- Receipt image with ocr result -->
     <receipt_image id="receipt003image001" version="1" receipt_id="receipt003" status="SCANNED" file_name="test.jpg" created_time="2009-01-01 10:00:01.0000"
     ocr_result="
 RCSS 1570 - 4821 CA.GARV mil&#10;

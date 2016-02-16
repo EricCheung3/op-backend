@@ -31,13 +31,15 @@ public class AdminReceiptRestApiIT extends AbstractAdminReceiptRestApiIntegratio
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("page.size", equalTo(10))
-            .body("page.totalElements", equalTo(4))
+            .body("page.totalElements", equalTo(5))
             .body("page.totalPages", equalTo(1))
             .body("page.number", equalTo(0))
-            .body("_embedded.receipts[0].id", equalTo("receipt102"))
-            .body("_embedded.receipts[1].id", equalTo("receipt101"))
-            .body("_embedded.receipts[2].id", equalTo("receipt002"))
-            .body("_embedded.receipts[3].id", equalTo("receipt001"))
+            .body("_embedded.receipts[0].id", equalTo("receipt003"))
+            .body("_embedded.receipts[1].id", equalTo("receipt102"))
+            .body("_embedded.receipts[2].id", equalTo("receipt101"))
+            .body("_embedded.receipts[3].id", equalTo("receipt002"))
+            .body("_embedded.receipts[4].id", equalTo("receipt001"))
+
         ;
     }
 

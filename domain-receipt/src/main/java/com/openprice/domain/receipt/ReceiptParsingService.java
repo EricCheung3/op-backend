@@ -126,6 +126,33 @@ public class ReceiptParsingService {
         }
     }
 
+    public ReceiptResult parseReceiptImagesByOCR(final Receipt receipt) {
+        final List<ReceiptImage> scannedImages =
+                receiptImageRepository.findByReceiptAndStatusOrderByCreatedTime(receipt, ProcessStatusType.SCANNED);
+
+        final List<String> ocrTextList = new ArrayList<>();
+        for (final ReceiptImage image : scannedImages) {
+            if (StringUtils.hasText(image.getOcrResult())) {
+                ocrTextList.add(image.getOcrResult());
+            }
+        }
+
+        ReceiptResult result = parseOcrAndSaveResults(receipt, ocrTextList);
+
+        if (result != null) {
+            final LocalDate receiptDate = getReceiptDate(result.getParsedDate());
+            if (receiptDate != null) {
+                receipt.setReceiptDate(receiptDate);
+            }
+        } else{
+            receipt.setStatus(ReceiptStatusType.PARSER_ERROR);
+        }
+        receipt.setNeedFeedback(false);
+        receiptRepository.save(receipt);
+
+        return result;
+    }
+
     private void logParsedResult(final ParsedReceipt parsedReceipt) {
         if (parsedReceipt.getChainCode() != null) {
             log.info("    recognized store chain code - '{}'", parsedReceipt.getChainCode());
