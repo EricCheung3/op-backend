@@ -16,7 +16,7 @@ public class RCSS1 extends AbstractStoreParser {
         fieldParsers.put(ReceiptFieldType.SubTotal,  line -> parseItemPrice(line.getCleanText(), config.priceTail()));
         fieldParsers.put(ReceiptFieldType.Total,  line -> parseTotal(line.getCleanText()));
         fieldParsers.put(ReceiptFieldType.Date,  line -> parseDate(line));
-//        fieldParsers.put(ReceiptFieldType.Slogan,  line -> parseSlogan(line));
+        fieldParsers.put(ReceiptFieldType.Slogan,  line -> parseSlogan(line));
     }
 
 }

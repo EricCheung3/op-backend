@@ -59,7 +59,7 @@ public class MatchFieldsImpl implements MatchFields{
                    .filter( line -> line.getCleanText().length() > 1 )
                    .filter( line -> {
                        if(record.isFieldLine(line.getNumber()))
-                           log.debug("line "+line.getOriginalText()+" is a field line: "+record.matchedFieldsOnLine(line.getNumber()));
+                           log.debug("line "+line.getOriginalText()+" is already a field line: "+record.matchedFieldsOnLine(line.getNumber()));
                        return !record.isFieldLine(line.getNumber());
                     })
                    .filter(line -> !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer", config.similarityThresholdOfTwoStrings()))//otherwide this could match the total line
@@ -69,6 +69,7 @@ public class MatchFieldsImpl implements MatchFields{
                         .stream()
                         .map( header -> StringCommon.matchStringToHeader(line.getCleanText(), header) )
                         .max( Comparator.comparing(score -> score) );
+                log.debug("line="+line.getCleanText()+", score="+maxScore.get());
                 return maxScore.isPresent() && maxScore.get() > config.similarityThresholdOfTwoStrings();
             })
             .forEach( line -> {
