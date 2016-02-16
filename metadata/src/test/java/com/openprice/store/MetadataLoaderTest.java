@@ -29,7 +29,7 @@ public class MetadataLoaderTest {
 
     @Test
     public void configProperties() throws Exception {
-        assertTrue(validateConfigProperties("edoJapan"));
+        assertTrue(validateConfigProperties("edojapan"));
         assertTrue(validateConfigProperties("rcss"));
         assertTrue(validateConfigProperties("safeway"));
     }
@@ -42,7 +42,7 @@ public class MetadataLoaderTest {
 
     @Test
     public void headerProperties() throws Exception {
-        assertTrue(validateHeaders("edoJapan"));
+        assertTrue(validateHeaders("edojapan"));
         assertTrue(validateHeaders("rcss"));
         assertTrue(validateHeaders("safeway"));
     }
@@ -54,7 +54,7 @@ public class MetadataLoaderTest {
 
     @Test
     public void notation() throws Exception {
-        //assertTrue(validateNotation("edoJapan"));
+        //assertTrue(validateNotation("edojapan"));
         assertTrue(validateNotation("rcss"));
         assertTrue(validateNotation("safeway"));
     }
@@ -72,7 +72,7 @@ public class MetadataLoaderTest {
 
     @Test
     public void skipAfter() throws Exception {
-        assertTrue(validateSkipAfter("edoJapan"));
+        assertTrue(validateSkipAfter("edojapan"));
         assertTrue(validateSkipAfter("rcss"));
         assertTrue(validateSkipAfter("safeway"));
     }
@@ -84,7 +84,7 @@ public class MetadataLoaderTest {
 
     @Test
     public void skipBefore() throws Exception {
-        //assertTrue(validateSkipBefore("edoJapan"));
+        //assertTrue(validateSkipBefore("edojapan"));
         assertTrue(validateSkipBefore("rcss"));
         assertTrue(validateSkipBefore("safeway"));
     }
@@ -96,7 +96,7 @@ public class MetadataLoaderTest {
 
     @Test
     public void identifyEdoJapan() throws Exception {
-        assertTrue(validateIdentify("edoJapan"));
+        assertTrue(validateIdentify("edojapan"));
     }
 
     @Test
