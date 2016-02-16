@@ -1,5 +1,10 @@
 package com.openprice.rest.admin.receipt;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
+import java.net.URI;
+
 import javax.inject.Inject;
 
 import org.springframework.data.domain.Page;
@@ -18,6 +23,7 @@ import com.openprice.domain.account.admin.AdminAccountService;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptItemRepository;
+import com.openprice.domain.receipt.ReceiptParsingService;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.domain.receipt.ReceiptResult;
 import com.openprice.domain.receipt.ReceiptResultRepository;
@@ -38,6 +44,7 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
 
     private final ReceiptResultRepository receiptResultRepository;
     private final ReceiptItemRepository receiptItemRepository;
+    private final ReceiptParsingService receiptParsingService;
     private final AdminReceiptResultResource.Assembler receiptResultResourceAssembler;
     private final AdminReceiptItemResource.Assembler receiptItemResourceAssembler;
 
@@ -48,11 +55,13 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
                                             final ReceiptRepository receiptRepository,
                                             final ReceiptResultRepository receiptResultRepository,
                                             final ReceiptItemRepository receiptItemRepository,
+                                            final ReceiptParsingService receiptParsingService,
                                             final AdminReceiptResultResource.Assembler receiptResultResourceAssembler,
                                             final AdminReceiptItemResource.Assembler receiptItemResourceAssembler) {
         super(adminAccountService, receiptService, receiptUploadService, receiptRepository);
         this.receiptResultRepository = receiptResultRepository;
         this.receiptItemRepository = receiptItemRepository;
+        this.receiptParsingService = receiptParsingService;
         this.receiptResultResourceAssembler = receiptResultResourceAssembler;
         this.receiptItemResourceAssembler = receiptItemResourceAssembler;
     }
@@ -65,6 +74,25 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
         final Receipt receipt = loadReceiptById(receiptId);
         final Page<ReceiptResult> results = receiptResultRepository.findByReceiptOrderByCreatedTime(receipt, pageable);
         return ResponseEntity.ok(assembler.toResource(results, receiptResultResourceAssembler));
+    }
+
+    /**
+     * Re-call the parser to parse receipt again by Admin
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST, value = URL_ADMIN_RECEIPTS_RECEIPT_RESULTS)
+    public HttpEntity<Void> updateParserResultByReceiptId(
+            @PathVariable("receiptId") final String receiptId) throws ResourceNotFoundException {
+        final Receipt receipt = loadReceiptById(receiptId);
+
+        final ReceiptResult result = receiptParsingService.parseReceiptImagesByOCR(receipt);
+        if (result != null) {
+            final URI location = linkTo(methodOn(AdminReceiptResultRestController.class).getReceiptResultById(receiptId, result.getId())).toUri();
+            return ResponseEntity.created(location).build();
+        }else {
+            log.error("SEVERE: No parse result!");
+            return null;
+        }
     }
 
     @RequestMapping(method = RequestMethod.GET, value = URL_ADMIN_RECEIPTS_RECEIPT_RESULTS_RESULT)
@@ -124,4 +152,5 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
         }
         return item;
     }
+
 }

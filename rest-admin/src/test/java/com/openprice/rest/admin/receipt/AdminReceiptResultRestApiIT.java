@@ -136,4 +136,48 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
             .body("catalog", nullValue())
         ;
     }
+
+    @Test
+    public void updateReceiptParsedResult_ShouldReturnResultsList() throws Exception {
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
+
+        String resultsUrl = receiptResultsUrl(sessionFilter, "receipt003");
+
+        given()
+            .filter(sessionFilter)
+            .contentType(ContentType.JSON)
+        .when()
+            .post(resultsUrl)
+        .then()
+            .statusCode(HttpStatus.SC_CREATED)
+        ;
+
+        Response response= given()
+                              .filter(sessionFilter)
+                          .when()
+                              .get(resultsUrl);
+
+        response.prettyPrint();
+        response
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("_embedded.receiptResults[1].chainCode", equalTo("rcss"))
+            .body("_embedded.receiptResults[1].branchName", equalTo("Calgary Trail"))
+            .body("_embedded.receiptResults[1].parsedTotal", equalTo("104.73"))
+            .body("_embedded.receiptResults[1].parsedDate", equalTo(""))
+//            .body("_embedded.receiptResults[1].receiptFields[0].type", equalTo("Total"))
+//            .body("_embedded.receiptResults[1].receiptFields[0].value", equalTo("104.73"))
+//            .body("_embedded.receiptResults[1].receiptFields[0].lineNumber", equalTo(17))
+//            .body("_embedded.receiptResults[1].receiptFields[1].type", equalTo("Phone"))
+//            .body("_embedded.receiptResults[1].receiptFields[1].value", equalTo("780-430-2769"))
+//            .body("_embedded.receiptResults[1].receiptFields[1].lineNumber", equalTo(1))
+            .body("_embedded.receiptResults[1]._embedded.receiptItems[0].parsedName", equalTo("k dgon cook    wine    mrj"))
+            .body("_embedded.receiptResults[1]._embedded.receiptItems[0].parsedPrice", equalTo("2.69"))
+            .body("_embedded.receiptResults[1]._embedded.receiptItems[0].lineNumber", equalTo(7))
+            .body("_embedded.receiptResults[1]._embedded.receiptItems[1].parsedName", equalTo("rooster garlic"))
+            .body("_embedded.receiptResults[1]._embedded.receiptItems[1].parsedPrice", equalTo("0.68"))
+            .body("_embedded.receiptResults[1]._embedded.receiptItems[1].lineNumber", equalTo(9))
+        ;
+    }
 }

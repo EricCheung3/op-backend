@@ -281,4 +281,114 @@ public class ReceiptParsingServiceTest {
         assertEquals(Month.JANUARY, receiptDate.getMonth());
         assertEquals(1, receiptDate.getDayOfMonth());
     }
+
+    @Test
+    public void parseReceiptImagesByOCR_ShouldSetNeedFeedbackFalse_IfScannedImagesCanParse() throws Exception {
+        final List<ParsedItem> items = new ArrayList<>();
+        items.add( new ParsedItem() {
+            @Override
+            public String getParsedName() {
+                return "milk";
+            }
+            @Override
+            public String getParsedBuyPrice() {
+                return "10.99";
+            }
+            @Override
+            public String getCatalogCode() {
+                return "";
+            }
+            @Override
+            public int getLineNumber() {
+                return 10;
+            }
+        });
+        items.add( new ParsedItem() {
+            @Override
+            public String getParsedName() {
+                return "egg";
+            }
+            @Override
+            public String getParsedBuyPrice() {
+                return "4.99";
+            }
+            @Override
+            public String getCatalogCode() {
+                return "";
+            }
+            @Override
+            public int getLineNumber() {
+                return 12;
+            }
+        });
+
+        final ParsedReceipt parsedReceipt = new ParsedReceipt() {
+            @Override
+            public String getChainCode() {
+                return "rcss";
+            }
+            @Override
+            public List<ParsedItem> getItems() {
+                return items;
+            }
+            @Override
+            public Map<ReceiptFieldType, ParsedField> getFields() {
+                Map<ReceiptFieldType, ParsedField> fields = new HashMap<>();
+                ParsedField field = new ParsedField() {
+                    @Override
+                    public ReceiptFieldType getFieldType() {
+                        return ReceiptFieldType.Total;
+                    }
+                    @Override
+                    public String getFieldValue() {
+                        return "12.00";
+                    }
+                    @Override
+                    public int getLineNumber() {
+                        return 20;
+                    }
+                };
+                fields.put(ReceiptFieldType.Total, field);
+                return fields;
+            }
+            @Override
+            public String getBranchName() {
+                return "Calgary Trail";
+            }
+
+        };
+
+        when(receiptImageRepositoryMock.findByReceiptAndStatusOrderByCreatedTime(eq(receipt), eq(ProcessStatusType.SCANNED)))
+            .thenReturn(Arrays.asList(image1, image2, image3));
+        when(receiptParserMock.parseReceiptOcrResult(anyObject())).thenReturn(parsedReceipt);
+        when(receiptResultRepositoryMock.save(isA(ReceiptResult.class))).thenAnswer(new Answer<ReceiptResult>() {
+            @Override
+            public ReceiptResult answer(InvocationOnMock invocation) throws Throwable {
+                return (ReceiptResult) invocation.getArguments()[0];
+            }
+        });
+        when(receiptRepositoryMock.save(isA(Receipt.class))).thenAnswer(new Answer<Receipt>() {
+            @Override
+            public Receipt answer(InvocationOnMock invocation) throws Throwable {
+                return (Receipt) invocation.getArguments()[0];
+            }
+        });
+
+        ReceiptResult result2 = serviceToTest.parseReceiptImagesByOCR(receipt);
+
+        assertEquals(false, result2.getReceipt().getNeedFeedback());
+
+        verify(receiptImageRepositoryMock, times(1)).findByReceiptAndStatusOrderByCreatedTime(eq(receipt), eq(ProcessStatusType.SCANNED));
+        verify(receiptRepositoryMock, times(1)).save(isA(Receipt.class));
+        verify(receiptItemRepositoryMock, times(2)).save(isA(ReceiptItem.class));
+        verify(receiptFieldRepositoryMock, times(1)).save(isA(ReceiptField.class));
+
+        {
+            ArgumentCaptor<ReceiptResult> argument = ArgumentCaptor.forClass(ReceiptResult.class);
+            verify(receiptResultRepositoryMock, times(2)).save(argument.capture());
+            ReceiptResult result = argument.getValue();
+            assertEquals("rcss", result.getChainCode());
+            assertEquals("Calgary Trail", result.getBranchName());
+        }
+    }
 }
