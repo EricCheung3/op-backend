@@ -33,6 +33,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RegistrationRestController extends AbstractExternalRestController implements SiteApiUrls {
 
+    public static final String RESET_PASSWORD_PATH = "/#/reset/";  // It might change in the future.
+
     private final UserAccountService userAccountService;
     private final UserAccountRepository userAccountRepository;
     private final EmailProperties emailProperties;
@@ -137,7 +139,7 @@ public class RegistrationRestController extends AbstractExternalRestController i
     }
 
     private void sendResetPasswordLinkToUser(final UserAccount user, final UserResetPasswordRequest request) {
-        final String url = emailProperties.getWebServerUrl() + "/reset/" + request.getId();
+        final String url = emailProperties.getWebServerUrl() + RESET_PASSWORD_PATH + request.getId();
         final String subject = "Reset Password in OpenPrice";
         final String message = String.format(FORGET_PASSWORD_TEMPLATE, user.getProfile().getDisplayName(), url, url);
         emailService.sendEmail(EmailMessage.createEmail(emailProperties, user.getEmail(), user.getProfile().getDisplayName(), subject, message, null));
