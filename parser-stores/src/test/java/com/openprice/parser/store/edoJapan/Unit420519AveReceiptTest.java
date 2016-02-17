@@ -179,7 +179,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
-        printResult(receipt);
+        //printResult(receipt);
         assertEquals(2, receipt.getItems().size());
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
@@ -214,7 +214,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
         verifyParsedItem(iterator.next(), "1 chicken & shrimp", "11.58", null, 14);
 
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "11.58",16);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "12.16",20);
         verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "10016",22);
 //        verifyParsedField(fieldValues, ReceiptFieldType.AddressCity, "edmonton",5);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst         $0.58",17);

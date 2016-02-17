@@ -73,12 +73,12 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
     }
 
     @Value("classpath:/testFiles/Safeway/MGRKELSEYCOLE/2014_12_06_22_36_54.txt")
-    private Resource sampleReceipt2;
+    private Resource receipt_36_54;
 
     @Test
     public void testReceipt2TheCommentedItemsAreAllGone() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(sampleReceipt2, (line)-> receiptLines.add(line));
+        TextResourceUtils.loadFromTextResource(receipt_36_54, (line)-> receiptLines.add(line));
 
         assertTrue(receiptLines.size() > 0);
 
@@ -109,10 +109,10 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
 //        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "817093735",2);//TODO
         verifyParsedField(fieldValues, ReceiptFieldType.Recycle, "crf / recycling fee                       0 . 01 g",11);
 //        verifyParsedField(fieldValues, ReceiptFieldType.AddressCountry, "canada",54);
-        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "",49);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "0.52",31);
         verifyParsedField(fieldValues, ReceiptFieldType.Author, "author . ii : 05790z",35);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/5/12",38);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "3.72",48);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "3.72",48);//TODO this is not correct. It gets the last total line but this is saving.
 //        verifyParsedField(fieldValues, ReceiptFieldType.StoreBranch, "safeway",0);
         verifyParsedField(fieldValues, ReceiptFieldType.Card, "vf       mastercard                       41 . 88",33);
 //        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-435-5132",1);//TODO wrong branch
