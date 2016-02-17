@@ -2,7 +2,6 @@ package com.openprice.parser.simple;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 import com.openprice.common.StringCommon;
 import com.openprice.parser.ReceiptFieldType;
@@ -11,6 +10,8 @@ import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
+import com.openprice.parser.data.StringDouble;
+import com.openprice.parser.data.StringInt;
 import com.openprice.store.StoreBranch;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,13 +37,62 @@ public class MatchFieldsImpl implements MatchFields{
                 }
     }
 
+    public static StringDouble matchLineToList(final String line, final List<String> headers){
+        return  headers
+                .stream()
+                .map( header -> {
+                    double score=StringCommon.matchStringToHeader(line, header);
+                    log.debug("--line= "+line+", header="+header+",score="+score);
+                    return new StringDouble(header, score);
+                })
+                .max( Comparator.comparing(score -> score.getValue()) ).get();
+    }
+
+    //based on matching characters
+    public static StringInt matchLineToListMatchingChars(final String line, final List<String> headers){
+        return  headers
+                .stream()
+                .map( header -> {
+                    int matchingChars = StringCommon.matchStringToHeader(line, header);
+                    log.debug("--line= "+line+", header="+header+", matching chars="+ matchingChars);
+                    return new StringInt(header, matchingChars);
+                })
+                .max( Comparator.comparing(score -> score.getLine()) ).get();
+    }
+
     @Override
     public void matchToHeaders(
             final MatchedRecord record,
             final ReceiptData receipt,
             final StoreConfig config,
             final StoreParser parser) {
+
+        //comparing Total and TotalSold sold separately when necessary.
+        //The idea is to compare the length of matching when their levenshtein scores are both bigger than some threshold
+        final List<String> headersTotal = config.getFieldHeaderMatchStrings(ReceiptFieldType.Total);
+        final List<String> headersTotalSold = config.getFieldHeaderMatchStrings(ReceiptFieldType.TotalSold);
+
+        receipt.getReceiptLines()
+        .stream()
+        .filter( line -> line.getCleanText().length() > 1 )
+        .filter( line -> record.isFieldLine(line.getNumber()))
+        .filter(line -> !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer", config.similarityThresholdOfTwoStrings()))//otherwide this could match the total line
+        .forEach( line -> {
+            StringDouble scoreTotal = matchLineToList(line.getCleanText(), headersTotal);
+            StringDouble scoreTotalSold = matchLineToList(line.getCleanText(), headersTotalSold);
+            if(scoreTotal.getValue() > config.similarityThresholdOfTwoStrings()
+                    && scoreTotalSold.getValue() > config.similarityThresholdOfTwoStrings()){
+                //need special treatment for this line
+
+            }
+
+
+        }
+
         for (ReceiptFieldType field : ReceiptFieldType.values()) {
+            if(field == ReceiptFieldType.Total || field == ReceiptFieldType.TotalSold)
+                continue;
+
             log.debug("matchToHeader: field="+field);
             if (record.fieldIsMatched(field)){
                 log.debug(field+" is alreday matched: "+record.matchedLinesOfField(field));
@@ -58,8 +108,8 @@ public class MatchFieldsImpl implements MatchFields{
                    .stream()
                    .filter( line -> line.getCleanText().length() > 1 )
                    .filter( line -> {
-                       if(record.isFieldLine(line.getNumber()))
-                           log.debug("line "+line.getOriginalText()+" is already a field line: "+record.matchedFieldsOnLine(line.getNumber()));
+//                       if(record.isFieldLine(line.getNumber()))
+//                           log.debug("line "+line.getOriginalText()+" is already a field line: "+record.matchedFieldsOnLine(line.getNumber()));
                        return !record.isFieldLine(line.getNumber());
                     })
                    .filter(line -> !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer", config.similarityThresholdOfTwoStrings()))//otherwide this could match the total line

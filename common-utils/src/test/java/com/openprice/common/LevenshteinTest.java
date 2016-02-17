@@ -15,6 +15,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LevenshteinTest{
 
+    @Test
+    public void matchingChars(){
+       assertEquals(5, Levenshtein.matchingChars("Total Number Sold ", "Total"));
+       assertEquals(1, Levenshtein.matchingChars("ABC", "A"));
+       assertEquals(2, Levenshtein.matchingChars("ABC", "AB"));
+       assertEquals(0, Levenshtein.matchingChars("", "AB"));
+       assertEquals(0, Levenshtein.matchingChars("", ""));
+       assertEquals(0, Levenshtein.matchingChars("AB", ""));
+    }
+
     @Test(expected=IllegalArgumentException.class)
     public void mostSimilarInSetTwoWayTestException() throws Exception{
         Set<String> set= new HashSet<String>();

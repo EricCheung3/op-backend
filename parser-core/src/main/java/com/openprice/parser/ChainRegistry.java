@@ -103,8 +103,8 @@ public class ChainRegistry {
                             .filter( line -> line.getNumber() >= begin && line.getNumber() <= end )
                             .filter( line -> {
                                 boolean noisyLine=StringCommon.countDigitAndChars(line.getCleanText())[1] >= 2;
-                                if(noisyLine)
-                                    log.debug("line "+line.getCleanText()+" is filtered out because it contains too few characters");
+//                                if(noisyLine)
+//                                    log.debug("line "+line.getCleanText()+" is filtered out because it contains too few characters");
                                 return noisyLine;
                             })
                             .map( line -> {
@@ -115,11 +115,11 @@ public class ChainRegistry {
                                         .map( identify -> {
                                             final String identifyField = identify.trim().toLowerCase();
                                             if (line.getCleanText().toLowerCase().contains(identifyField)) { // FIXME may cause problem if item line contains store chain name, such as "T&T"
-                                                log.debug("line="+line.getCleanText()+", identifyField="+identifyField+", score=1.0");
+//                                                log.debug("line="+line.getCleanText()+", identifyField="+identifyField+", score=1.0");
                                                 return new ScoreWithMatchPair<String>(1.0, line.getNumber(), identify);
                                             }
                                             double score=Levenshtein.compare(line.getCleanText(), identifyField);
-                                            log.debug("line="+line.getCleanText()+", identifyField="+identifyField+", score="+score);
+//                                            log.debug("line="+line.getCleanText()+", identifyField="+identifyField+", score="+score);
                                             return new ScoreWithMatchPair<String>(
                                                     score,
                                                     line.getNumber(),
@@ -128,7 +128,7 @@ public class ChainRegistry {
                                         .max( Comparator.comparing(ScoreWithMatchPair<String>::getScore) )
                                         ;
                                 if (maxIdentifyMatch.isPresent()) {
-                                    log.debug("maxIdentifyMatch score for line '{}' is {}.", line.getCleanText(), maxIdentifyMatch.get().getScore());
+//                                    log.debug("maxIdentifyMatch score for line '{}' is {}.", line.getCleanText(), maxIdentifyMatch.get().getScore());
                                     return maxIdentifyMatch.get().getScore();
                                 }
                                 return -1.0;

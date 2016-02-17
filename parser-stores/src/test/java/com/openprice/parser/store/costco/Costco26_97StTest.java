@@ -127,7 +127,7 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst =12147632 9rt",51);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/2/8",28);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "*** cardholder copy ***",42);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, ".9",45);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "122.76",45);
     }
 
 }

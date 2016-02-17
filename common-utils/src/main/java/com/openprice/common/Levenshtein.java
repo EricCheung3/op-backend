@@ -105,6 +105,20 @@ public class Levenshtein
                        StringCommon.flatten(list2, "").replaceAll("\\s+", ""));
     }
 
+    //number of matching chars
+    public static int matchingChars(final String s1, final String s2) {
+        int retval = 0;
+        final int n = s1.length();
+        final int m = s2.length();
+        if (0 == n && m==0) {
+            retval = 0;
+        }
+        else {
+            retval = Math.max(n, m) - (int)compare(s1, n, s2, m);
+        }
+        return retval;
+    }
+
     public static double compare(final String s1, final String s2) {
         double retval = 0.0;
         final int n = s1.length();
