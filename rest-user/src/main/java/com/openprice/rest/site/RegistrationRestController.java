@@ -1,10 +1,5 @@
 package com.openprice.rest.site;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
-import java.net.URI;
-
 import javax.inject.Inject;
 
 import org.springframework.http.HttpEntity;
@@ -85,6 +80,7 @@ public class RegistrationRestController extends AbstractExternalRestController i
     public HttpEntity<Void> forgetPassword(@RequestBody final ForgetPasswordForm form)
                 throws ResourceNotFoundException {
         final String email = form.getEmail();
+        log.info("User {} tried to reset password.", email);
         final UserResetPasswordRequest request = userAccountService.createResetPasswordRequest(email);
 
         if (request == null) {
@@ -92,9 +88,7 @@ public class RegistrationRestController extends AbstractExternalRestController i
         }
 
         sendResetPasswordLinkToUser(userAccountRepository.findByEmail(email), request);
-
-        final URI location = linkTo(methodOn(RegistrationRestController.class).getResetPasswordRequest(request.getId())).toUri();
-        return ResponseEntity.created(location).body(null);
+        return ResponseEntity.accepted().body(null);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = URL_PUBLIC_RESET_PASSWORD_REQUESTS_REQUEST)
@@ -118,6 +112,7 @@ public class RegistrationRestController extends AbstractExternalRestController i
             throw new ResourceNotFoundException("No such reset password request.");
         }
         userAccountService.resetPassword(request.getEmail(), form.getNewPassword());
+        log.info("User {} successfully reset password.", request.getEmail());
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
@@ -142,7 +137,7 @@ public class RegistrationRestController extends AbstractExternalRestController i
     }
 
     private void sendResetPasswordLinkToUser(final UserAccount user, final UserResetPasswordRequest request) {
-        final String url = emailProperties.getWebServerUrl() + "/resetPassword/" + request.getId();
+        final String url = emailProperties.getWebServerUrl() + "/reset/" + request.getId();
         final String subject = "Reset Password in OpenPrice";
         final String message = String.format(FORGET_PASSWORD_TEMPLATE, user.getProfile().getDisplayName(), url, url);
         emailService.sendEmail(EmailMessage.createEmail(emailProperties, user.getEmail(), user.getProfile().getDisplayName(), subject, message, null));
