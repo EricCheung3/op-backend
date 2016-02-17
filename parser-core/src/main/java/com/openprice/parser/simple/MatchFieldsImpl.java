@@ -46,7 +46,7 @@ public class MatchFieldsImpl implements MatchFields{
                 .stream()
                 .map( header -> {
                     double score=StringCommon.matchStringToHeader(line, header);
-                    log.debug("--line= "+line+", header="+header+",score="+score);
+//                    log.debug("--line= "+line+", header="+header+",score="+score);
                     return new StringDouble(header, score);
                 })
                 .max( Comparator.comparing(score -> score.getValue()) ).get();
@@ -63,38 +63,45 @@ public class MatchFieldsImpl implements MatchFields{
                     if(lineNoSpaceLower.length() > headerNoSpaceLower.length())
                         lineNoSpaceLowerHead = lineNoSpaceLower.substring(0, headerNoSpaceLower.length());
                     int matchingChars = Levenshtein.matchingChars(lineNoSpaceLowerHead, headerNoSpaceLower);
-                    log.debug("--line header= "+lineNoSpaceLowerHead+", header="+headerNoSpaceLower+", matching chars="+ matchingChars);
+//                    log.debug("--line header= "+lineNoSpaceLowerHead+", header="+headerNoSpaceLower+", matching chars="+ matchingChars);
                     return new StringInt(header, matchingChars);
                 })
                 .max( Comparator.comparing(strInt -> strInt.getLine()) ).get();
     }
 
+    /*
+     * comparing Total and TotalSold sold separately when necessary.
+     * The idea is to compare the length of matching when their levenshtein scores are both bigger than some threshold
+     */
     public static Set<Integer> cleanTextToTreated(
             final MatchedRecord record,
             final ReceiptData receipt,
             final StoreParser parser){
         final StoreConfig  config = parser.getStoreConfig();
-        //comparing Total and TotalSold sold separately when necessary.
-        //The idea is to compare the length of matching when their levenshtein scores are both bigger than some threshold
         final List<String> headersTotal = config.getFieldHeaderMatchStrings(ReceiptFieldType.Total);
         final List<String> headersTotalSold = config.getFieldHeaderMatchStrings(ReceiptFieldType.TotalSold);
-
-        Set<Integer> result= new HashSet<>();
+        final Set<Integer> result= new HashSet<>();
         receipt
             .getReceiptLines()
             .stream()
-            .filter( line -> line.getCleanText().length() > 1 )
-            .filter( line -> record.isFieldLine(line.getNumber()))
-            .filter(line -> !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer", config.similarityThresholdOfTwoStrings()))//otherwide this could match the total line
+            .filter( line -> line.getCleanText().length() > 1)
+//            .filter( line -> record.isFieldLine(line.getNumber()))
+            .filter( line -> !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer",
+                    config.similarityThresholdOfTwoStrings())
+            )
             .forEach( line -> {
                 StringDouble scoreTotal = matchLineToList(line.getCleanText(), headersTotal);
                 StringDouble scoreTotalSold = matchLineToList(line.getCleanText(), headersTotalSold);
+                log.debug(line.getCleanText()+" @ total score="+scoreTotal.toString());
+                log.debug(line.getCleanText()+" @ totalSold score="+scoreTotalSold.toString());
                 if(scoreTotal.getValue() > config.similarityThresholdOfTwoStrings()
                         && scoreTotalSold.getValue() > config.similarityThresholdOfTwoStrings())
                 {
-                    //need special treatment for this line
+                    log.debug("!!!!total and totalsold. need special treatment for :"+line.getCleanText());
                     StringInt charsTotal= matchLineToListMatchingChars(line.getCleanText(), headersTotal);
                     StringInt charsTotalSold = matchLineToListMatchingChars(line.getCleanText(), headersTotalSold);
+                    log.debug(line.getCleanText()+"@ total matching chars: "+charsTotal.toString());
+                    log.debug(line.getCleanText()+"@ totalSold matching chars: "+charsTotalSold.toString());
                     if(charsTotalSold.getLine() > charsTotal.getLine()){
                         record.putFieldLineValue(ReceiptFieldType.TotalSold,
                                 line.getNumber(), parser.parseField(ReceiptFieldType.TotalSold, line));
@@ -133,11 +140,11 @@ public class MatchFieldsImpl implements MatchFields{
                    .stream()
                    .filter( line -> line.getCleanText().length() > 1 )
                    .filter(line -> !totalSoldAndTotalAreTreated.contains(line.getNumber()))
-                   .filter( line -> {
-//                       if(record.isFieldLine(line.getNumber()))
-//                           log.debug("line "+line.getOriginalText()+" is already a field line: "+record.matchedFieldsOnLine(line.getNumber()));
-                       return !record.isFieldLine(line.getNumber());
-                    })
+//                   .filter( line -> {
+////                       if(record.isFieldLine(line.getNumber()))
+////                           log.debug("line "+line.getOriginalText()+" is already a field line: "+record.matchedFieldsOnLine(line.getNumber()));
+//                       return !record.isFieldLine(line.getNumber());
+//                    })//just let each field matching to its favourite line
                    .filter(line -> !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer", config.similarityThresholdOfTwoStrings()))//otherwide this could match the total line
                    .filter( line -> {
                 Optional<Double> maxScore =

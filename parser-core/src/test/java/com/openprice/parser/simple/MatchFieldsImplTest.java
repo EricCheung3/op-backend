@@ -1,5 +1,8 @@
 package com.openprice.parser.simple;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -8,7 +11,6 @@ import java.util.Set;
 import org.junit.Test;
 
 import com.openprice.parser.ReceiptDataImpl;
-import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.ReceiptData;
@@ -23,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MatchFieldsImplTest {
 
     @Test
-    public void cleanTextToTreated() throws Exception{
+    public void onlyFirstLineNeedToBeTreatedForTotalAndTotalSold() throws Exception{
 
         final MatchedRecord record = new MatchedRecordImpl();
         final List<String> lines = new ArrayList<>();
@@ -36,8 +38,9 @@ public class MatchFieldsImplTest {
         final ReceiptData receipt = ReceiptDataImpl.fromContentLines(lines);
 
         final Properties prop = new Properties();
-        prop.setProperty(ReceiptFieldType.Total.toString(), "Total");
-        prop.setProperty(ReceiptFieldType.TotalSold.toString(), "Total Number Sold Items");
+        prop.setProperty("TotalHeader", "Total");
+        prop.setProperty("TotalSoldHeader", "Total Number Sold Items");
+        prop.setProperty("SimilarityThresholdOfTwoStrings", "0.65");
         final StoreConfig config = StoreConfigImpl.fromPropCategorySkipBeforeAfterBlack(
                 prop,
                 new ArrayList<String>(),
@@ -45,7 +48,9 @@ public class MatchFieldsImplTest {
                 new ArrayList<String>(),
                 new ArrayList<String>());
         final StoreParser parser = new GenericParser(config, PriceParserWithCatalog.emptyCatalog());
-        final Set<Integer> treateLines=MatchFieldsImpl.cleanTextToTreated(record, receipt, parser);
-        log.debug(treateLines.toString());
+        final Set<Integer> treatedLines = MatchFieldsImpl.cleanTextToTreated(record, receipt, parser);
+        assertEquals(1, treatedLines.size());
+        assertTrue(treatedLines.contains(0));
+
     }
 }
