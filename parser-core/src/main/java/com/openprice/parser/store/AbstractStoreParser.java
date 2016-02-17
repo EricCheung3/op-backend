@@ -39,13 +39,10 @@ public abstract class AbstractStoreParser implements StoreParser {
         //if no field parser for this field, then return the original line text
         String parsedValue=StringCommon.EMPTY;
         if (fieldParser == null) {
-            log.debug("fieldParser=null");
             parsedValue = line.getCleanText();
         } else {
-            log.debug("fieldParser is not null");
             parsedValue = fieldParser.apply(line);
         }
-        log.debug("parsed value for " + field +" is "+parsedValue);
         return parsedValue;
     }
 
