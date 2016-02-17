@@ -86,8 +86,9 @@ public class MatchFieldsImpl implements MatchFields{
             .stream()
             .filter( line -> line.getCleanText().length() > 1)
 //            .filter( line -> record.isFieldLine(line.getNumber()))
-            .filter( line -> !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer",
-                    config.similarityThresholdOfTwoStrings())
+            //treatment for total line
+            .filter(line -> !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "TOTAL DISCOUNTCS", config.similarityThresholdOfTwoStrings())
+                    && !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer", config.similarityThresholdOfTwoStrings())
             )
             .forEach( line -> {
                 StringDouble scoreTotal = matchLineToList(line.getCleanText(), headersTotal);
@@ -147,7 +148,8 @@ public class MatchFieldsImpl implements MatchFields{
 ////                           log.debug("line "+line.getOriginalText()+" is already a field line: "+record.matchedFieldsOnLine(line.getNumber()));
 //                       return !record.isFieldLine(line.getNumber());
 //                    })//just let each field matching to its favourite line
-                   .filter(line -> !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer", config.similarityThresholdOfTwoStrings()))//otherwide this could match the total line
+                   .filter(line -> !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "TOTAL DISCOUNTCS", config.similarityThresholdOfTwoStrings())
+                           && !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer", config.similarityThresholdOfTwoStrings()))
                    .filter( line -> {
                 Optional<Double> maxScore =
                         headerPatterns
