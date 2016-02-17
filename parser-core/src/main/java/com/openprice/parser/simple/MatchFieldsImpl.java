@@ -1,10 +1,10 @@
 package com.openprice.parser.simple;
 
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import com.openprice.common.Levenshtein;
 import com.openprice.common.StringCommon;
@@ -69,17 +69,17 @@ public class MatchFieldsImpl implements MatchFields{
                 .max( Comparator.comparing(strInt -> strInt.getLine()) ).get();
     }
 
-    public static Map<String, Boolean> cleanTextToTreated(
+    public static Set<Integer> cleanTextToTreated(
             final MatchedRecord record,
             final ReceiptData receipt,
-            final StoreConfig config,
             final StoreParser parser){
+        final StoreConfig  config = parser.getStoreConfig();
         //comparing Total and TotalSold sold separately when necessary.
         //The idea is to compare the length of matching when their levenshtein scores are both bigger than some threshold
         final List<String> headersTotal = config.getFieldHeaderMatchStrings(ReceiptFieldType.Total);
         final List<String> headersTotalSold = config.getFieldHeaderMatchStrings(ReceiptFieldType.TotalSold);
 
-        Map<String, Boolean> result= new HashMap<>();
+        Set<Integer> result= new HashSet<>();
         receipt
             .getReceiptLines()
             .stream()
@@ -103,9 +103,7 @@ public class MatchFieldsImpl implements MatchFields{
                         record.putFieldLineValue(ReceiptFieldType.Total,
                                 line.getNumber(), parser.parseField(ReceiptFieldType.Total, line));
                     }
-                    result.put(line.getCleanText(), true);
-                }else{
-                    result.put(line.getCleanText(), false);
+                    result.add(line.getNumber());
                 }
             });
         return result;
@@ -115,11 +113,10 @@ public class MatchFieldsImpl implements MatchFields{
     public void matchToHeaders(
             final MatchedRecord record,
             final ReceiptData receipt,
-            final StoreConfig config,
             final StoreParser parser) {
-
+        final StoreConfig config = parser.getStoreConfig();
         //totalsold and total are treated already
-        Map<String, Boolean> totalSoldAndTotalAreTreated = cleanTextToTreated(record, receipt, config, parser);
+        Set<Integer> totalSoldAndTotalAreTreated = cleanTextToTreated(record, receipt, parser);
         for (ReceiptFieldType field : ReceiptFieldType.values()) {
             log.debug("matchToHeader: field="+field);
             if (record.fieldIsMatched(field)){
@@ -135,7 +132,7 @@ public class MatchFieldsImpl implements MatchFields{
             receipt.getReceiptLines()
                    .stream()
                    .filter( line -> line.getCleanText().length() > 1 )
-                   .filter(line -> !totalSoldAndTotalAreTreated.get(line.getCleanText()))
+                   .filter(line -> !totalSoldAndTotalAreTreated.contains(line.getNumber()))
                    .filter( line -> {
 //                       if(record.isFieldLine(line.getNumber()))
 //                           log.debug("line "+line.getOriginalText()+" is already a field line: "+record.matchedFieldsOnLine(line.getNumber()));
