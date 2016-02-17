@@ -54,7 +54,7 @@ public class ResetPasswordRestApiIT extends AbstractSiteRestApiIntegrationTest {
 
         response
             .then()
-            .statusCode(HttpStatus.SC_CREATED)
+            .statusCode(HttpStatus.SC_ACCEPTED)
             ;
 
         // verify request in database
@@ -78,7 +78,7 @@ public class ResetPasswordRestApiIT extends AbstractSiteRestApiIntegrationTest {
 
         response
             .then()
-            .statusCode(HttpStatus.SC_CREATED)
+            .statusCode(HttpStatus.SC_ACCEPTED)
             ;
 
         List<UserResetPasswordRequest> requests = userResetPasswordRequestRepository.findByEmail(TEST_USERNAME_JOHN_DOE);
@@ -115,7 +115,7 @@ public class ResetPasswordRestApiIT extends AbstractSiteRestApiIntegrationTest {
 
         response
             .then()
-            .statusCode(HttpStatus.SC_CREATED)
+            .statusCode(HttpStatus.SC_ACCEPTED)
             ;
 
         List<UserResetPasswordRequest> requests = userResetPasswordRequestRepository.findByEmail(TEST_USERNAME_JOHN_DOE);
@@ -149,7 +149,7 @@ public class ResetPasswordRestApiIT extends AbstractSiteRestApiIntegrationTest {
 
         response
             .then()
-            .statusCode(HttpStatus.SC_CREATED)
+            .statusCode(HttpStatus.SC_ACCEPTED)
             ;
 
         List<UserResetPasswordRequest> requests = userResetPasswordRequestRepository.findByEmail(TEST_USERNAME_JOHN_DOE);
@@ -182,7 +182,7 @@ public class ResetPasswordRestApiIT extends AbstractSiteRestApiIntegrationTest {
 
         response
             .then()
-            .statusCode(HttpStatus.SC_CREATED)
+            .statusCode(HttpStatus.SC_ACCEPTED)
             ;
 
         List<UserResetPasswordRequest> requests = userResetPasswordRequestRepository.findByEmail(TEST_USERNAME_JOHN_DOE);

@@ -129,10 +129,10 @@ public class UserAccountService implements UserDetailsService {
                 return request;
             }
             // delete expired request
-            log.warn("User reset password with expired request ID: ", requestId);
+            log.warn("User '{}' reset password with expired request ID '{}'.", request.getEmail(), requestId);
             userResetPasswordRequestRepository.delete(request);
         } else {
-            log.warn("User reset password with invalid request ID: ", requestId);
+            log.warn("User reset password with invalid request ID '{}'.", requestId);
         }
 
         return null;
