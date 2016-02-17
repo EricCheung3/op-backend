@@ -1,3 +1,5 @@
+MEMBER i111842505       3 OK
+MEMBER
 DATE:
 TIME:
 warehouse

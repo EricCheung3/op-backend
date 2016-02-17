@@ -28,17 +28,16 @@ public class BranchFieldLookupImpl implements BranchFieldLookup{
      */
     public BranchFieldLookupImpl(final StoreBranch branch) {
         // save store branch ground truth data into a map
-        if (branch != null) {
-            addGroundTruthValue(ReceiptFieldType.AddressLine1, branch.getAddress1());
-            addGroundTruthValue(ReceiptFieldType.AddressLine2, branch.getAddress2());
-            addGroundTruthValue(ReceiptFieldType.AddressCity, branch.getCity());
-            addGroundTruthValue(ReceiptFieldType.AddressState, branch.getState());
-            addGroundTruthValue(ReceiptFieldType.AddressCountry, branch.getCountry());
-            addGroundTruthValue(ReceiptFieldType.AddressPost, branch.getPostCode());
-        }
+        addGroundTruthValue(ReceiptFieldType.AddressLine1, branch.getAddress1());
+        addGroundTruthValue(ReceiptFieldType.AddressLine2, branch.getAddress2());
+        addGroundTruthValue(ReceiptFieldType.AddressCity, branch.getCity());
+        addGroundTruthValue(ReceiptFieldType.AddressState, branch.getState());
+        addGroundTruthValue(ReceiptFieldType.AddressCountry, branch.getCountry());
+        addGroundTruthValue(ReceiptFieldType.AddressPost, branch.getPostCode());
         addGroundTruthValue(ReceiptFieldType.StoreID, branch.getStoreId());
         addGroundTruthValue(ReceiptFieldType.GstNumber, branch.getGstNumber());
         addGroundTruthValue(ReceiptFieldType.Phone, branch.getPhone());
+
     }
 
     private void addGroundTruthValue(final ReceiptFieldType fieldName, final String value) {

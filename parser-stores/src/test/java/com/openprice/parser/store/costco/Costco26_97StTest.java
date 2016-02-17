@@ -106,8 +106,7 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
 //        assertEquals(13,receipt.getItems().size());
-        assertEquals(16,receipt.getItems().size());
-        verifyParsedItem(iterator.next(), "warehouse", "258", null, 2);
+        assertEquals(15,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "ks ff women", "12.999", null, 7);
         verifyParsedItem(iterator.next(), "tpd/forhula", "3.009", null, 8);
         verifyParsedItem(iterator.next(), "materna 140$", "18.999", null, 9);

@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.openprice.common.StringCommon;
 import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceipt;
@@ -79,6 +80,7 @@ public class SimpleParser implements ReceiptParser {
         if (branch != null) {
             log.info("Parser find matching branch {}.", branch.getName());
         }
+        log.debug("branch="+branch);
 
         // get store parser
         final StoreParserSelector selector = chainRegistry.getParserSelector(chain.getCode());
@@ -87,8 +89,9 @@ public class SimpleParser implements ReceiptParser {
         // matching fields and record the results
         final MatchedRecord record = new MatchedRecordImpl();
         final MatchFields match=new MatchFieldsImpl();
-        log.debug("branch="+branch);
-        match.matchToBranch(record, receipt, branch);
+
+        if(branch != null)
+            match.matchToBranch(record, receipt, branch);
         match.matchToHeaders(record, receipt, parser.getStoreConfig(), parser);
 
         //globally finding the date string
@@ -101,7 +104,9 @@ public class SimpleParser implements ReceiptParser {
 
         // parse items
         List<ParsedItem> items = SimpleParserUtils.parseItems(record, receipt, parser);
-        return ParsedReceiptImpl.fromChainItemsMapBranch(chain, items, record.getFieldToValueLine(), branch.getName());
+        if(branch!=null)
+            return ParsedReceiptImpl.fromChainItemsMapBranch(chain, items, record.getFieldToValueLine(), branch.getName());
+        return ParsedReceiptImpl.fromChainItemsMapBranch(chain, items, record.getFieldToValueLine(), StringCommon.EMPTY);
     }
 
     public ParsedReceipt parseLines(final List<String> lines) throws Exception {
