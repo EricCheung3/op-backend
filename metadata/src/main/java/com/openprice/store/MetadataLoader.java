@@ -21,6 +21,8 @@ import com.openprice.store.data.StoreChainData;
 
 public class MetadataLoader {
 
+    public static final String GENERIC_STORE_CODE = "generic";  // special store chain code for unknown generic store
+
     public static StoreMetadata loadMetadata() {
         // load category first
         //TODO -->hengshuai: is the order important?
@@ -84,6 +86,10 @@ public class MetadataLoader {
                                         skipBefore,
                                         skipAfter));
         }
+
+        // HACK! Add generic store chain to chain map, so shopping list can handle receipts with unknown store
+        chainMapBuilder.put(GENERIC_STORE_CODE, StoreChain.genericChainWithOnlyCode(GENERIC_STORE_CODE));
+
         return chainMapBuilder.build();
     }
 
