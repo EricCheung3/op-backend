@@ -35,13 +35,13 @@ public class MatchFieldsImpl implements MatchFields{
                .filter( lineScore -> lineScore.getScore() > 0.5)
                .forEach( lineScore -> record.putFieldLineValue(lineScore.getField(), lineScore.getReceiptLine().getNumber(), lineScore.getValue()));
 
-                System.out.println("$$$$$$  After matchToBranch, parsed fields are :");
-                for (ReceiptFieldType field : record.getFieldToValueLine().keySet()) {
-                    System.out.println("'"+ field.name() + "' at line "+record.getFieldToValueLine().get(field).getLine() + " : " + record.getFieldToValueLine().get(field).getValue() );
-                }
+//                System.out.println("$$$$$$  After matchToBranch, parsed fields are :");
+//                for (ReceiptFieldType field : record.getFieldToValueLine().keySet()) {
+//                    System.out.println("'"+ field.name() + "' at line "+record.getFieldToValueLine().get(field).getLine() + " : " + record.getFieldToValueLine().get(field).getValue() );
+//                }
     }
 
-    public static StringDouble matchLineToList(final String line, final List<String> headers){
+    private static StringDouble matchLineToList(final String line, final List<String> headers){
         return  headers
                 .stream()
                 .map( header -> {
@@ -103,12 +103,14 @@ public class MatchFieldsImpl implements MatchFields{
                     log.debug(line.getCleanText()+"@ total matching chars: "+charsTotal.toString());
                     log.debug(line.getCleanText()+"@ totalSold matching chars: "+charsTotalSold.toString());
                     if(charsTotalSold.getLine() > charsTotal.getLine()){
-                        record.putFieldLineValue(ReceiptFieldType.TotalSold,
-                                line.getNumber(), parser.parseField(ReceiptFieldType.TotalSold, line));
+                        final String totalSoldValue=parser.parseField(ReceiptFieldType.TotalSold, line);
+//                        log.debug("parsedValue for total sold =" + totalSoldValue);
+                        record.putFieldLineValue(ReceiptFieldType.TotalSold, line.getNumber(), totalSoldValue);
                     }
                     else{
-                        record.putFieldLineValue(ReceiptFieldType.Total,
-                                line.getNumber(), parser.parseField(ReceiptFieldType.Total, line));
+                        final String totalValue=parser.parseField(ReceiptFieldType.Total, line);
+//                        log.debug("parsedValue for total =" + totalValue);
+                        record.putFieldLineValue(ReceiptFieldType.Total, line.getNumber(), totalValue);
                     }
                     result.add(line.getNumber());
                 }
@@ -123,16 +125,16 @@ public class MatchFieldsImpl implements MatchFields{
             final StoreParser parser) {
         final StoreConfig config = parser.getStoreConfig();
         //totalsold and total are treated already
-        Set<Integer> totalSoldAndTotalAreTreated = cleanTextToTreated(record, receipt, parser);
+        final Set<Integer> totalSoldAndTotalAreTreated = cleanTextToTreated(record, receipt, parser);
         for (ReceiptFieldType field : ReceiptFieldType.values()) {
-            log.debug("matchToHeader: field="+field);
+//            log.debug("matchToHeader: field="+field);
             if (record.fieldIsMatched(field)){
                 log.debug(field+" is alreday matched: "+record.matchedLinesOfField(field));
                 continue;
             }
 
             final List<String> headerPatterns = config.getFieldHeaderMatchStrings(field);
-            log.debug("headerPatterns="+headerPatterns);
+//            log.debug("headerPatterns="+headerPatterns);
             if (headerPatterns == null || headerPatterns.isEmpty())
                 continue;
 
@@ -152,16 +154,16 @@ public class MatchFieldsImpl implements MatchFields{
                         .stream()
                         .map( header -> {
                             double score=StringCommon.matchStringToHeader(line.getCleanText(), header);
-                            log.debug("--line= "+line.getCleanText()+", header="+header+",score="+score);
+//                            log.debug("--line= "+line.getCleanText()+", header="+header+",score="+score);
                             return score;
                         })
                         .max( Comparator.comparing(score -> score) );
-                log.debug("line="+line.getCleanText()+", score="+maxScore.get());
+//                log.debug("line="+line.getCleanText()+", score="+maxScore.get());
                 return maxScore.isPresent() && maxScore.get() > config.similarityThresholdOfTwoStrings();
             })
             .forEach( line -> {
                 String value=parser.parseField(field, line);
-                log.debug("line=>"+line.getCleanText()+", parsed value is "+value);
+//                log.debug("line=>"+line.getCleanText()+", parsed value is "+value);
                 record.putFieldLineValue(field, line.getNumber(), value);
                 });
         }

@@ -4,6 +4,7 @@ import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.parser.store.AbstractStoreParser;
+import com.openprice.parser.store.FieldParserCommon;
 
 public class RCSS1 extends AbstractStoreParser {
 
@@ -12,11 +13,10 @@ public class RCSS1 extends AbstractStoreParser {
         super(config, priceParserWithCatalog);
 
         // register field parsers
-        fieldParsers.put(ReceiptFieldType.GstAmount,  line -> parseItemPrice(line.getCleanText(), config.priceTail()));
-        fieldParsers.put(ReceiptFieldType.SubTotal,  line -> parseItemPrice(line.getCleanText(), config.priceTail()));
-        fieldParsers.put(ReceiptFieldType.Total,  line -> parseTotal(line.getCleanText()));
-        fieldParsers.put(ReceiptFieldType.Date,  line -> parseDate(line));
-        fieldParsers.put(ReceiptFieldType.Slogan,  line -> parseSlogan(line));
+        fieldParsers.put(ReceiptFieldType.GstAmount,  line -> FieldParserCommon.parseItemPrice(line.getCleanText(), config.priceTail()));
+        fieldParsers.put(ReceiptFieldType.SubTotal,  line -> FieldParserCommon.parseItemPrice(line.getCleanText(), config.priceTail()));
+        fieldParsers.put(ReceiptFieldType.Total,  line -> FieldParserCommon.parseTotal(line.getCleanText()));
+        fieldParsers.put(ReceiptFieldType.Date,  line -> FieldParserCommon.parseDate(line));
     }
 
 }

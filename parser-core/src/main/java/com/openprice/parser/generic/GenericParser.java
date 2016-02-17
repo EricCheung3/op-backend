@@ -26,6 +26,7 @@ import com.openprice.parser.simple.MatchFieldsImpl;
 import com.openprice.parser.simple.MatchedRecordImpl;
 import com.openprice.parser.simple.SimpleParserUtils;
 import com.openprice.parser.store.AbstractStoreParser;
+import com.openprice.parser.store.FieldParserCommon;
 import com.openprice.store.StoreChain;
 
 import lombok.extern.slf4j.Slf4j;
@@ -38,10 +39,11 @@ public class GenericParser extends AbstractStoreParser{
         super(config, priceParserWithCatalog);
 
         // register field parsers
-        fieldParsers.put(ReceiptFieldType.GstAmount,  line -> parseItemPrice(line.getCleanText(), config.priceTail()));
-        fieldParsers.put(ReceiptFieldType.SubTotal,  line -> parseItemPrice(line.getCleanText(), config.priceTail()));
-        fieldParsers.put(ReceiptFieldType.Total,  line -> parseTotal(line.getCleanText()));
-        fieldParsers.put(ReceiptFieldType.Date,  line -> parseDate(line));
+        fieldParsers.put(ReceiptFieldType.GstAmount,  line -> FieldParserCommon.parseItemPrice(line.getCleanText(), config.priceTail()));
+        fieldParsers.put(ReceiptFieldType.SubTotal,  line -> FieldParserCommon.parseItemPrice(line.getCleanText(), config.priceTail()));
+        fieldParsers.put(ReceiptFieldType.Total,  line -> FieldParserCommon.parseTotal(line.getCleanText()));
+        fieldParsers.put(ReceiptFieldType.Date,  line -> FieldParserCommon.parseDate(line));
+        fieldParsers.put(ReceiptFieldType.TotalSold,  line -> FieldParserCommon.parseTotalSold(line));
     }
 
     public static GenericParser selectParser(ReceiptData receipt) {
@@ -90,7 +92,5 @@ public class GenericParser extends AbstractStoreParser{
         List<ParsedItem> items = SimpleParserUtils.parseItems(record, receipt, generic);
         return ParsedReceiptImpl.fromChainItemsMapBranch(genericChain, items, record.getFieldToValueLine(), StringCommon.EMPTY);
     }
-
-
 
 }
