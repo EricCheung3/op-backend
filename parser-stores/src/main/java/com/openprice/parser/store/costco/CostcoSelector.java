@@ -14,7 +14,7 @@ import com.openprice.store.StoreMetadata;
 @Service
 public class CostcoSelector extends AbstractStoreParserSelector {
     private Costco1 parser;
-    private static final String SAFEWAY="Safeway";
+    private static final String CODE="Costco";
 
     @Inject
     public CostcoSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
@@ -29,12 +29,12 @@ public class CostcoSelector extends AbstractStoreParserSelector {
 
     @Override
     protected String getParserBaseCode() {
-        return SAFEWAY;
+        return CODE;
     }
 
     @Override
     protected void generateParser() {
-        StoreConfigImpl config = loadParserConfig(SAFEWAY+"1");
+        StoreConfigImpl config = loadParserConfig(CODE+"1");
         parser = new Costco1(config, loadPriceParserWithCatalog());
     }
 

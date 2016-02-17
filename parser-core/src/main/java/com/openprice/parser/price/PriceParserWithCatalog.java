@@ -41,7 +41,8 @@ public class PriceParserWithCatalog {
      */
     public ProductPrice parsePriceLine(final String line){
         final Product matched=PriceParserUtils.matchLineToCatalog(line, catalog);
-        log.debug("line="+line+", matched product "+matched.toString()+"\n");
+        if(!matched.isEmpty())
+            log.debug("line="+line+", matched product "+matched.toString()+"\n");
         //        if(!matched.isEmpty()){
         //            final String priceAtTail=getPriceAtTail(line, matched);
         //            if(!priceAtTail.isEmpty())

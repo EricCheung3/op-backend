@@ -15,7 +15,7 @@ import com.openprice.store.StoreMetadata;
 public class EdoJapanSelector extends AbstractStoreParserSelector {
     private EdoJapan1 parser;
 
-    private static final String EDO_JAPAN="EdoJapan";
+    private static final String CODE="EdoJapan";
 
     @Inject
     public EdoJapanSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
@@ -30,12 +30,12 @@ public class EdoJapanSelector extends AbstractStoreParserSelector {
 
     @Override
     protected String getParserBaseCode() {
-        return EDO_JAPAN;
+        return CODE;
     }
 
     @Override
     protected void generateParser() {
-        StoreConfigImpl config = loadParserConfig(EDO_JAPAN+"1");
+        StoreConfigImpl config = loadParserConfig(CODE+"1");
         parser = new EdoJapan1(config, loadPriceParserWithCatalog());
     }
 

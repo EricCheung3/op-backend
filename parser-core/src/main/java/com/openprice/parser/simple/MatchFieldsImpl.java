@@ -67,7 +67,11 @@ public class MatchFieldsImpl implements MatchFields{
                 Optional<Double> maxScore =
                         headerPatterns
                         .stream()
-                        .map( header -> StringCommon.matchStringToHeader(line.getCleanText(), header) )
+                        .map( header -> {
+                            double score=StringCommon.matchStringToHeader(line.getCleanText(), header);
+                            log.debug("--line= "+line.getCleanText()+", header="+header+",score="+score);
+                            return score;
+                        })
                         .max( Comparator.comparing(score -> score) );
                 log.debug("line="+line.getCleanText()+", score="+maxScore.get());
                 return maxScore.isPresent() && maxScore.get() > config.similarityThresholdOfTwoStrings();

@@ -14,7 +14,7 @@ import com.openprice.store.StoreMetadata;
 @Service
 public class SafewaySelector extends AbstractStoreParserSelector {
     private Safeway1 safeway1;
-    private static final String SAFEWAY="Safeway";
+    private static final String CODE="Safeway";
 
     @Inject
     public SafewaySelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
@@ -29,12 +29,12 @@ public class SafewaySelector extends AbstractStoreParserSelector {
 
     @Override
     protected String getParserBaseCode() {
-        return SAFEWAY;
+        return CODE;
     }
 
     @Override
     protected void generateParser() {
-        StoreConfigImpl config = loadParserConfig(SAFEWAY+"1");
+        StoreConfigImpl config = loadParserConfig(CODE+"1");
         safeway1 = new Safeway1(config, loadPriceParserWithCatalog());
     }
 

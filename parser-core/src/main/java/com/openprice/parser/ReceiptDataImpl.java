@@ -20,9 +20,6 @@ public class ReceiptDataImpl implements ReceiptData{
     // minimum number of lines in a receipt
     public static final int MIN_NUMBER_LINES = 5;
 
-    //limit on the number of lines that are searched when looking for chain
-    public static final int CHAIN_SEARCH_NUMBER_LINES = 10;
-
     @Getter
     private final List<ReceiptLine> receiptLines;
 
@@ -62,19 +59,6 @@ public class ReceiptDataImpl implements ReceiptData{
     @Override
     public ReceiptLine getLine(final int lineNumber) {
         return receiptLines.get(lineNumber);
-    }
-
-    @Override
-    public List<ReceiptLine> getTopBottomChainMatchingLines() {
-        final List<ReceiptLine> lines = new ArrayList<>();
-        final int size = receiptLines.size();
-        final int topEndLineNumber = Math.min(size, CHAIN_SEARCH_NUMBER_LINES);
-        lines.addAll(receiptLines.subList(0, topEndLineNumber));
-        if (topEndLineNumber < size) {
-            final int bottomBeginLineNumber = Math.max(topEndLineNumber, size - CHAIN_SEARCH_NUMBER_LINES);
-            lines.addAll(receiptLines.subList(bottomBeginLineNumber, size));
-        }
-        return lines;
     }
 
     @Override
