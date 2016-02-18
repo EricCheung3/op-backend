@@ -14,9 +14,6 @@ import com.openprice.parser.data.ParsedItemImpl;
 import com.openprice.parser.price.PriceParserWithCatalog;
 import com.openprice.parser.price.ProductPrice;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public abstract class AbstractStoreParser implements StoreParser {
     protected final StoreConfig config;
     protected final PriceParserWithCatalog priceParserWithCatalog;

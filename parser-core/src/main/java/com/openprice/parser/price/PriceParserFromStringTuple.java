@@ -23,7 +23,7 @@ public class PriceParserFromStringTuple implements PriceParser {
         final boolean firstIsNumber=isItemNumber(four.getFirst());
         final boolean secondIsNumber=isItemNumber(four.getSecond());
         final boolean thirdIsNumber=isItemNumber(four.getThird());
-        final boolean FourthIsNumber=isItemNumber(four.getFourth());//ignore this variable
+        //final boolean FourthIsNumber=isItemNumber(four.getFourth()); //ignore this variable
 
         String itemNumber=StringCommon.EMPTY;
         String itemName=StringCommon.EMPTY;

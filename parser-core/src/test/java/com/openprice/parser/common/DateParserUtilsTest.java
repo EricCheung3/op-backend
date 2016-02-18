@@ -153,7 +153,7 @@ public class DateParserUtilsTest {
 
     @Test(expected=Exception.class)
     public void toDateTestSplitterIsNotAccepted() throws Exception{
-        final Date date=DateParserUtils.toDate("01)31)2013");
+        DateParserUtils.toDate("01)31)2013");
     }
 
     @Test

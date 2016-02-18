@@ -199,7 +199,6 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         printResult(receipt);
         assertEquals("costco", receipt.getChainCode());
 
-        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(0,receipt.getItems().size());//TODO there is an item there, but no price. forgivable
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "22.58",10);

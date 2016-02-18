@@ -39,14 +39,14 @@ public class ProductPriceTest {
     public void cutHeadItemNumberTest3() throws Exception{
         final String number="001S00";
         final String name="ABC";
-        final String[] words=ProductPrice.cutHeadItemNumber(number+name);
+        ProductPrice.cutHeadItemNumber(number+name);
     }
 
     @Test(expected=Exception.class)
     public void cutHeadItemNumberTest4() throws Exception{
         final String number="0";
         final String name="ABC";
-        final String[] words=ProductPrice.cutHeadItemNumber(number+name);
+        ProductPrice.cutHeadItemNumber(number+name);
     }
 
 
@@ -54,7 +54,7 @@ public class ProductPriceTest {
     public void cutHeadItemNumberTest5() throws Exception{
         final String number="";
         final String name="ABC";
-        final String[] words=ProductPrice.cutHeadItemNumber(number+name);
+        ProductPrice.cutHeadItemNumber(number+name);
     }
 
 
@@ -62,7 +62,7 @@ public class ProductPriceTest {
     public void cutHeadItemNumberTest6() throws Exception{
         final String number="00";
         final String name="ABC";
-        final String[] words=ProductPrice.cutHeadItemNumber(number+name);
+        ProductPrice.cutHeadItemNumber(number+name);
     }
 
     @Test
@@ -105,7 +105,7 @@ public class ProductPriceTest {
     public void cutHeadItemNumberTest11() throws Exception{
         final String number=" 00 ";
         final String name="A B C";
-        final String[] words=ProductPrice.cutHeadItemNumber(number+name);
+        ProductPrice.cutHeadItemNumber(number+name);
     }
 
     @Test
@@ -130,21 +130,21 @@ public class ProductPriceTest {
     public void cutTailItemNumberTest3() throws Exception{
         final String number="009";
         final String name="ABC";
-        final String[] words=ProductPrice.cutTailItemNumber(name+number);
+        ProductPrice.cutTailItemNumber(name+number);
     }
 
     @Test(expected=Exception.class)
     public void cutTailItemNumberTest4() throws Exception{
         final String number="0";
         final String name="ABC";
-        final String[] words=ProductPrice.cutTailItemNumber(name+number);
+        ProductPrice.cutTailItemNumber(name+number);
     }
 
     @Test(expected=Exception.class)
     public void cutTailItemNumberTest5() throws Exception{
         final String number="";
         final String name="ABC";
-        final String[] words=ProductPrice.cutTailItemNumber(name+number);
+        ProductPrice.cutTailItemNumber(name+number);
     }
 
     @Test
@@ -178,7 +178,7 @@ public class ProductPriceTest {
     public void cutTailItemNumberTest10() throws Exception{
         final String number="0             0    9";
         final String name="ABC";
-        final String[] words=ProductPrice.cutTailItemNumber(name+number);
+        ProductPrice.cutTailItemNumber(name+number);
     }
 
     @Test
