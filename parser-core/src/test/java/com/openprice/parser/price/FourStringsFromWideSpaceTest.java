@@ -5,11 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.openprice.parser.price.FourStrings;
-
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class FourStringsFromWideSpaceTest {
 
     @Test

@@ -146,6 +146,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
     @Value("classpath:/testFiles/Generic/2015_10_10_14_53_18.jpg.txt")
     private Resource subway1;
+
     @Test
     public void testReceipt4() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
@@ -154,14 +155,12 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
-        printResult(receipt);
-        assertEquals("subway", receipt.getChainCode());
+        //printResult(receipt);
 
+        assertEquals("subway", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         assertEquals(1,receipt.getItems().size());
-
         verifyParsedItem(iterator.next(), "2    soup rtu 8oz soup", "5.00", null, 12);
-
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/10/8",5);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst# 128 127 324",9);
