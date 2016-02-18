@@ -41,6 +41,20 @@ public class DateParserUtils {
     //4-digit year, month(one  two digits) and day (one or two digits)
     private static Pattern patternYear4MonthDay1=Pattern.compile("(19|20)\\d\\d["+DATE_SPLITTER+"]([1-9]|0[1-9]|1[012])["+DATE_SPLITTER+"]([1-9]|0[1-9]|[12][0-9]|3[01])");
 
+    @Getter
+    //http://stackoverflow.com/questions/2655476/regex-to-match-month-name-followed-by-year
+    private static Pattern patternLiteralMonthDayYearPattern=Pattern.compile(
+//            "\\b(?:Jan(?:uary)?|Feb(?:ruary)?||Mar(?:ch)?||Apr(?:il)?||May?"
+//            +"||Jun(?:e)?||Jul(?:y)?||Aug(?:ust)?||Sep(?:tember)?||Oct(?:ober)?||Nov(?:ember)?||Dec(?:ember)?) (?:19[7-9]\\d|2\\d{3})(?=\\D|$)");
+            "\\b(?:Jan(?:uary)?|Feb(?:ruary)?||Mar(?:ch)?||Apr(?:il)?||May?"
+          +"||Jun(?:e)?||Jul(?:y)?||Aug(?:ust)?||Sep(?:tember)?||Oct(?:ober)?||Nov(?:ember)?||Dec(?:ember)?)"
+          + "\\s*"
+          + "([1-9]|0[1-9]|[12][0-9]|3[01])"
+          + "\\s*"
+          + "(\\s*||,||\\.||_)"
+          + "\\s*"
+          + "(?:19[7-9]\\d|2\\d{3})(?=\\D|$)");
+
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy"+DATE_SPLITTER_UNIFORM+
             "MM"+DATE_SPLITTER_UNIFORM+
             "dd");

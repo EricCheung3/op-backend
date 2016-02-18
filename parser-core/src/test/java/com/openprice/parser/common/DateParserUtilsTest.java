@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.junit.Test;
 
@@ -15,6 +16,459 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class DateParserUtilsTest {
+
+    @Test
+    public void spaceTest(){
+        final Pattern p = Pattern.compile("a ?b");
+        assertTrue(p.matcher("ab").matches());
+        assertTrue(p.matcher("a b").matches());
+        assertTrue(!p.matcher("a c").matches());
+    }
+
+    @Test
+    public void dateTest1(){
+        final Pattern p = Pattern.compile("(Jan||January)\\s*[1-9]");
+        assertTrue(p.matcher("Jan 9").matches());
+        assertTrue(p.matcher("Jan9").matches());
+        assertTrue(p.matcher("January 9").matches());
+        assertTrue(p.matcher("January9").matches());
+    }
+
+    @Test
+    public void patternLiterMonthDayYearTest1() throws Exception{
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 09 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 09,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 09, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 09.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 09_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan  09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan  09 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("January 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("January 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("January 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("January 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("January 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("January 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("January  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("January  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 9 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 9,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 9, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 9.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 9_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan  9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan  9 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 09 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 09,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 09, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 09.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 09_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb  09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb  09 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("February 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("February 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("February 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("February 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("February 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("February 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("February  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("February  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 9 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 9,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 9, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 9.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb 9_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb  9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Feb  9 ,   2015").matches());
+
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 09 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 09,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 09, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 09.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 09_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar  09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar  09 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("March 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("March 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("March 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("March 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("March 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("March 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("March  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("March  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 9 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 9,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 9, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 9.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar 9_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar  9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Mar  9 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 09 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 09,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 09, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 09.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 09_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr  09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr  09 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("April 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("April 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("April 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("April 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("April 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("April 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("April  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("April  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 9 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 9,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 9, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 9.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr 9_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr  9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Apr  9 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 09 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 09,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 09, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 09.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 09_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May  09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May  09 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 9 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 9,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 9, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 9.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May 9_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May  9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("May  9 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 09 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 09,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 09, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 09.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 09_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun  09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun  09 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("June 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("June 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("June 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("June 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("June 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("June 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("June  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("June  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 9 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 9,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 9, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 9.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun 9_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun  9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jun  9 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 09 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 09,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 09, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 09.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 09_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul  09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul  09 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("July 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("July 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("July 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("July 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("July 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("July 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("July  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("July  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 9 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 9,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 9, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 9.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul 9_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul  9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jul  9 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 09 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 09,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 09, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 09.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 09_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug  09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug  09 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("August 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("August 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("August 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("August 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("August 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("August 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("August  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("August  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 9 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 9,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 9, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 9.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug 9_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug  9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Aug  9 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 09 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 09,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 09, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 09.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 09_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep  09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep  09 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("September 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("September 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("September 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("September 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("September 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("September 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("September  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("September  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 9 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 9,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 9, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 9.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep 9_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep  9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Sep  9 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 09 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 09,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 09, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 09.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 09_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct  09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct  09 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("October 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("October 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("October 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("October 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("October 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("October 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("October  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("October  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 9 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 9,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 9, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 9.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct 9_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct  9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Oct  9 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 09 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 09,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 09, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 09.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 09_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov  09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov  09 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("November 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("November 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("November 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("November 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("November 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("November 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("November  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("November  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 9 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 9,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 9, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 9.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov 9_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov  9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Nov  9 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 09 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 09,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 09, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 09.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 09_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec  09,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec  09 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("December 19 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("December 19,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("December 19, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("December 19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("December 19.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("December 19_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("December  19,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("December  19 ,   2015").matches());
+
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 9 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 9,2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 9, 2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 9.   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec 9_   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec  9,   2015").matches());
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec  9 ,   2015").matches());
+    }
 
     @Test
     public void patternMDY2Test1() throws Exception{
