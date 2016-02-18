@@ -158,6 +158,9 @@ public class MatchFieldsImpl implements MatchFields{
             }
 
             final List<String> headerPatterns = config.getFieldHeaderMatchStrings(field);
+            if(headerPatterns==null || headerPatterns.size()==0)
+                continue;
+//            log.debug("field="+field+", headerPatterns="+headerPatterns.toString());
             if (headerPatterns == null || headerPatterns.isEmpty())
                 continue;
 
@@ -170,9 +173,11 @@ public class MatchFieldsImpl implements MatchFields{
 ////                           log.debug("line "+line.getOriginalText()+" is already a field line: "+record.matchedFieldsOnLine(line.getNumber()));
 //                       return !record.isFieldLine(line.getNumber());
 //                    })//just let each field matching to its favourite line
-                   .filter(line -> ! matchesBlackListForTotal(line.getCleanText().toLowerCase(), config.similarityThresholdOfTwoStrings()))
-                   .filter(line -> ! matchesBlackListForDate(line.getCleanText().toLowerCase(), config.similarityThresholdOfTwoStrings()))
+                   //threshold needs a large value because total date are important
+                   .filter(line -> ! matchesBlackListForTotal(line.getCleanText().toLowerCase(), 0.75))
+                   .filter(line -> ! matchesBlackListForDate(line.getCleanText().toLowerCase(), 0.75))
                    .filter( line -> {
+//                       log.debug("in lambda, line="+line.getCleanText());
                 Optional<Double> maxScore =
                         headerPatterns
                         .stream()
