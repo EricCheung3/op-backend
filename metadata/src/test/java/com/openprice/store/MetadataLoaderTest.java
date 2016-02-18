@@ -13,6 +13,11 @@ import org.junit.Test;
 import com.openprice.store.data.StoreChainData;
 
 public class MetadataLoaderTest {
+    private static final String RCSS_CODE="rcss";
+    private static final String SAFEWAY_CODE="safeway";
+    private static final String EDO_JAPAN_CODE="edojapan";
+    private static final String COSTCO_CODE="costco";
+    private static final String TIM_HORTONS_CODE="timhortons";
 
     @Test
     public void test1(){
@@ -29,10 +34,11 @@ public class MetadataLoaderTest {
 
     @Test
     public void configProperties() throws Exception {
-        assertTrue(validateConfigProperties("edojapan"));
+        assertTrue(validateConfigProperties(EDO_JAPAN_CODE));
         assertTrue(validateConfigProperties(RCSS_CODE));
-        assertTrue(validateConfigProperties("safeway"));
-        assertTrue(validateConfigProperties("costco"));
+        assertTrue(validateConfigProperties(SAFEWAY_CODE));
+        assertTrue(validateConfigProperties(COSTCO_CODE));
+        assertTrue(validateConfigProperties(TIM_HORTONS_CODE));
     }
 
     public boolean validateHeaders(final String chainCode){
@@ -43,10 +49,11 @@ public class MetadataLoaderTest {
 
     @Test
     public void headerProperties() throws Exception {
-        assertTrue(validateHeaders("edojapan"));
+        assertTrue(validateHeaders(EDO_JAPAN_CODE));
         assertTrue(validateHeaders(RCSS_CODE));
-        assertTrue(validateHeaders("safeway"));
-        assertTrue(validateHeaders("costco"));
+        assertTrue(validateHeaders(SAFEWAY_CODE));
+        assertTrue(validateHeaders(COSTCO_CODE));
+        assertTrue(validateHeaders(TIM_HORTONS_CODE));
     }
 
     public boolean validateNotation(final String chainCode){
@@ -56,14 +63,14 @@ public class MetadataLoaderTest {
 
     @Test
     public void notation() throws Exception {
-        //assertTrue(validateNotation("edojapan"));
+        //assertTrue(validateNotation(EDO_JAPAN_CODE));
         assertTrue(validateNotation(RCSS_CODE));
-        assertTrue(validateNotation("safeway"));
+        assertTrue(validateNotation(SAFEWAY_CODE));
     }
 
     @Test
     public void noNatationFileForEdoJapanNow() throws Exception {
-        final String[] list = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getNotations("edojapan"), String[].class);
+        final String[] list = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getNotations(EDO_JAPAN_CODE), String[].class);
         assertTrue(list == null);
     }
 
@@ -74,10 +81,11 @@ public class MetadataLoaderTest {
 
     @Test
     public void skipAfter() throws Exception {
-        assertTrue(validateSkipAfter("edojapan"));
+        assertTrue(validateSkipAfter(EDO_JAPAN_CODE));
         assertTrue(validateSkipAfter(RCSS_CODE));
-        assertTrue(validateSkipAfter("safeway"));
-        assertTrue(validateSkipAfter("costco"));
+        assertTrue(validateSkipAfter(SAFEWAY_CODE));
+        assertTrue(validateSkipAfter(COSTCO_CODE));
+        assertTrue(validateSkipAfter(TIM_HORTONS_CODE));
     }
 
     public boolean validateSkipBefore(final String chainCode){
@@ -87,10 +95,10 @@ public class MetadataLoaderTest {
 
     @Test
     public void skipBefore() throws Exception {
-        //assertTrue(validateSkipBefore("edojapan"));
+        //assertTrue(validateSkipBefore(EDO_JAPAN_CODE));
         assertTrue(validateSkipBefore(RCSS_CODE));
-        assertTrue(validateSkipBefore("safeway"));
-        assertTrue(validateSkipBefore("costco"));
+        assertTrue(validateSkipBefore(SAFEWAY_CODE));
+        assertTrue(validateSkipBefore(COSTCO_CODE));
     }
 
     public boolean validateIdentify(final String chainCode){
@@ -100,10 +108,11 @@ public class MetadataLoaderTest {
 
     @Test
     public void identifyEdoJapan() throws Exception {
-        assertTrue(validateIdentify("edojapan"));
-        assertTrue(validateIdentify("safeway"));
+        assertTrue(validateIdentify(EDO_JAPAN_CODE));
+        assertTrue(validateIdentify(SAFEWAY_CODE));
         assertTrue(validateIdentify(RCSS_CODE));
-        assertTrue(validateIdentify("costco"));
+        assertTrue(validateIdentify(COSTCO_CODE));
+        assertTrue(validateIdentify(TIM_HORTONS_CODE));
     }
 
     public boolean validateLoadingCategory(final String chainCode){
@@ -112,12 +121,8 @@ public class MetadataLoaderTest {
     }
 
     @Test
-    public void testValidateLoadingCategoryForSafeway() throws Exception {
-        assertTrue(validateLoadingCategory("safeway"));
-    }
-
-    @Test
-    public void testValidateLoadingCategoryForRCSS() throws Exception {
+    public void testValidateLoadingCategory() throws Exception {
+        assertTrue(validateLoadingCategory(SAFEWAY_CODE));
         assertTrue(validateLoadingCategory(RCSS_CODE));
     }
 
@@ -128,10 +133,11 @@ public class MetadataLoaderTest {
 
     @Test
     public void testLoadNotCatalogItemNames() throws Exception {
-        assertTrue(validateLoadingNotCatalogItemNames("safeway"));
+        assertTrue(validateLoadingNotCatalogItemNames(SAFEWAY_CODE));
         assertTrue(validateLoadingNotCatalogItemNames(RCSS_CODE));
-        assertTrue(validateLoadingNotCatalogItemNames("edojapan"));
-        assertTrue(validateLoadingNotCatalogItemNames("costco"));
+        assertTrue(validateLoadingNotCatalogItemNames(EDO_JAPAN_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(COSTCO_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(TIM_HORTONS_CODE));
     }
 
     @Test(expected=Exception.class)
@@ -194,74 +200,81 @@ public class MetadataLoaderTest {
         assertTrue(MetadataLoader.validateStoreChainData(example));
     }
 
-    private static final String RCSS_CODE="rcss";
-    private static final String SAFEWAY_CODE="safeway";
-    private static final String EDOJAPAN_CODE="edojapan";
-    private static final String COSTCO_CODE="costco";
-
     @Test
     public void loadMetadata_ShouldLoadStoreDb() throws Exception {
         final StoreMetadata metadata = MetadataLoader.loadMetadata();
         assertTrue(metadata.getStoreChainMap().containsKey(RCSS_CODE));
         assertTrue(metadata.getStoreChainMap().containsKey(SAFEWAY_CODE));
-        assertTrue(metadata.getStoreChainMap().containsKey(EDOJAPAN_CODE));
+        assertTrue(metadata.getStoreChainMap().containsKey(EDO_JAPAN_CODE));
         assertTrue(metadata.getStoreChainMap().containsKey(COSTCO_CODE));
+        assertTrue(metadata.getStoreChainMap().containsKey(TIM_HORTONS_CODE));
 
         assertNotNull(metadata.getStoreChainByCode(RCSS_CODE));
         assertNotNull(metadata.getStoreChainByCode(SAFEWAY_CODE));
-        assertNotNull(metadata.getStoreChainByCode(EDOJAPAN_CODE));
+        assertNotNull(metadata.getStoreChainByCode(EDO_JAPAN_CODE));
         assertNotNull(metadata.getStoreChainByCode(COSTCO_CODE));
+        assertNotNull(metadata.getStoreChainByCode(TIM_HORTONS_CODE));
 
         assertNotNull(metadata.getStoreChainByCode(RCSS_CODE).getBranches());
         assertNotNull(metadata.getStoreChainByCode(SAFEWAY_CODE).getBranches());
-        assertNotNull(metadata.getStoreChainByCode(EDOJAPAN_CODE).getBranches());
+        assertNotNull(metadata.getStoreChainByCode(EDO_JAPAN_CODE).getBranches());
         assertNotNull(metadata.getStoreChainByCode(COSTCO_CODE));
         assertTrue(metadata.getStoreChainByCode(COSTCO_CODE).getBranches().size()==0);
+        assertTrue(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getBranches().size()==0);
 
         assertNotNull(metadata.getStoreChainByCode(RCSS_CODE).getHeaderProperties());
         assertNotNull(metadata.getStoreChainByCode(SAFEWAY_CODE).getHeaderProperties());
-        assertNotNull(metadata.getStoreChainByCode(EDOJAPAN_CODE).getHeaderProperties());
+        assertNotNull(metadata.getStoreChainByCode(EDO_JAPAN_CODE).getHeaderProperties());
         assertNotNull(metadata.getStoreChainByCode(COSTCO_CODE).getHeaderProperties());
+        assertNotNull(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getHeaderProperties());
 
         assertNotNull(metadata.getStoreChainByCode(RCSS_CODE).getNonHeaderProperties());
         assertNotNull(metadata.getStoreChainByCode(SAFEWAY_CODE).getNonHeaderProperties());
-        assertNotNull(metadata.getStoreChainByCode(EDOJAPAN_CODE).getNonHeaderProperties());
+        assertNotNull(metadata.getStoreChainByCode(EDO_JAPAN_CODE).getNonHeaderProperties());
         assertNotNull(metadata.getStoreChainByCode(COSTCO_CODE).getNonHeaderProperties());
+        assertNotNull(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getNonHeaderProperties());
 
         assertTrue(metadata.getStoreChainByCode(RCSS_CODE).getNotCatalogItemNames().size()>0);
         assertTrue(metadata.getStoreChainByCode(SAFEWAY_CODE).getNotCatalogItemNames().size()>0);
-        assertTrue(metadata.getStoreChainByCode(EDOJAPAN_CODE).getNotCatalogItemNames().size()>0);
+        assertTrue(metadata.getStoreChainByCode(EDO_JAPAN_CODE).getNotCatalogItemNames().size()>0);
         assertTrue(metadata.getStoreChainByCode(COSTCO_CODE).getNotCatalogItemNames().size()>0);
+        assertTrue(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getNotCatalogItemNames().size()>0);
 
         assertTrue(metadata.getStoreChainByCode(RCSS_CODE).getIdentifyFields().size()>0);
         assertTrue(metadata.getStoreChainByCode(SAFEWAY_CODE).getIdentifyFields().size()>0);
-        assertTrue(metadata.getStoreChainByCode(EDOJAPAN_CODE).getIdentifyFields().size()>0);
+        assertTrue(metadata.getStoreChainByCode(EDO_JAPAN_CODE).getIdentifyFields().size()>0);
         assertTrue(metadata.getStoreChainByCode(COSTCO_CODE).getIdentifyFields().size()>0);
+        assertTrue(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getIdentifyFields().size()>0);
 
         assertTrue(metadata.getStoreChainByCode(RCSS_CODE).getReceiptCategories().size()>0);
         assertTrue(metadata.getStoreChainByCode(SAFEWAY_CODE).getReceiptCategories().size()>0);
-        assertTrue(metadata.getStoreChainByCode(EDOJAPAN_CODE).getReceiptCategories().size()==0);
+        assertTrue(metadata.getStoreChainByCode(EDO_JAPAN_CODE).getReceiptCategories().size()==0);
         assertTrue(metadata.getStoreChainByCode(COSTCO_CODE).getReceiptCategories().size()==0);
+        assertTrue(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getReceiptCategories().size()==0);
 
         assertTrue(metadata.getStoreChainByCode(RCSS_CODE).getNotations().size()>0);
         assertTrue(metadata.getStoreChainByCode(SAFEWAY_CODE).getSkipBefore().size()>0);
-        assertTrue(metadata.getStoreChainByCode(EDOJAPAN_CODE).getSkipBefore().size()==0);
+        assertTrue(metadata.getStoreChainByCode(EDO_JAPAN_CODE).getSkipBefore().size()==0);
         assertTrue(metadata.getStoreChainByCode(COSTCO_CODE).getSkipBefore().size()>0);
+        assertTrue(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getSkipBefore().size()==0);
 
         assertTrue(metadata.getStoreChainByCode(RCSS_CODE).getSkipAfter().size()>0);
         assertTrue(metadata.getStoreChainByCode(SAFEWAY_CODE).getSkipAfter().size()>0);
-        assertTrue(metadata.getStoreChainByCode(EDOJAPAN_CODE).getSkipAfter().size()>0);
+        assertTrue(metadata.getStoreChainByCode(EDO_JAPAN_CODE).getSkipAfter().size()>0);
         assertTrue(metadata.getStoreChainByCode(COSTCO_CODE).getSkipAfter().size()>0);
+        assertTrue(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getSkipAfter().size()>0);
 
         assertTrue(metadata.getStoreChainByCode(RCSS_CODE).getIdentifyFields().size()>0);
         assertTrue(metadata.getStoreChainByCode(SAFEWAY_CODE).getIdentifyFields().size()>0);
-        assertTrue(metadata.getStoreChainByCode(EDOJAPAN_CODE).getIdentifyFields().size()>0);
+        assertTrue(metadata.getStoreChainByCode(EDO_JAPAN_CODE).getIdentifyFields().size()>0);
         assertTrue(metadata.getStoreChainByCode(COSTCO_CODE).getIdentifyFields().size()>0);
+        assertTrue(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getIdentifyFields().size()>0);
 
         assertTrue(metadata.getStoreChainByCode(RCSS_CODE).getProducts().size()>0);
         assertTrue(metadata.getStoreChainByCode(SAFEWAY_CODE).getProducts().size()>0);
-        assertTrue(metadata.getStoreChainByCode(EDOJAPAN_CODE).getProducts().size()==0);//no catalog data for edo japan yet
+        assertTrue(metadata.getStoreChainByCode(EDO_JAPAN_CODE).getProducts().size()==0);//no catalog data for edo japan yet
         assertTrue(metadata.getStoreChainByCode(COSTCO_CODE).getProducts().size()==0);
+        assertTrue(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getProducts().size()==0);
 
         // verify product category
         {
@@ -294,7 +307,7 @@ public class MetadataLoaderTest {
 
         // verify edojapan
         {
-            StoreChain edojapan = metadata.getStoreChainByCode(EDOJAPAN_CODE);
+            StoreChain edojapan = metadata.getStoreChainByCode(EDO_JAPAN_CODE);
             assertNotNull(edojapan);
             assertEquals("Edo Japan", edojapan.getName());
             assertEquals(28, edojapan.getBranches().size());
