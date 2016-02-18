@@ -2,6 +2,7 @@ package com.openprice.parser.common;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 //TODO using Calendar to get the literals?
 public class DateLiterals {
@@ -44,4 +45,7 @@ public class DateLiterals {
         return monthLiteralToNumber.size();
     }
 
+    public Set<String> monthLiterals(){
+        return monthLiteralToNumber.keySet();
+    }
 }

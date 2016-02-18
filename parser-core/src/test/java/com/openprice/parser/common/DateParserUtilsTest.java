@@ -18,6 +18,56 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DateParserUtilsTest {
 
+    @Test
+    public void test1(){
+        final List<String> words = DateParserUtils.literalMonthDayYearSplit("Feb 9  , 2015");
+        for(String w:words)
+            log.debug(w);
+    }
+
+    @Test
+    public void isLiteralDateFormatTest1(){
+        assertTrue(DateParserUtils.isLiteralDateFormat("Feb sdfasfas"));
+        assertTrue(DateParserUtils.isLiteralDateFormat("January 2r3vcsdafds"));
+        assertTrue(!DateParserUtils.isLiteralDateFormat("sdfasfas"));
+        assertTrue(!DateParserUtils.isLiteralDateFormat("12134214"));
+    }
+
+    @Test
+    public void toDateFromLiteralFormatTest1SpaceIsOkay() throws Exception{
+        final Date date = DateParserUtils.toDateFromLiteralFormat("Feb 9 2015");
+        final int[] ymd = DateParserUtils.getYearMonthDay(date);
+        assertEquals(2015, ymd[0]);
+        assertEquals(2, ymd[1]);
+        assertEquals(9, ymd[2]);
+    }
+
+    @Test
+    public void toDateFromLiteralFormatTest2CommaIsOkay() throws Exception{
+        final Date date = DateParserUtils.toDateFromLiteralFormat("Feb 9,   2015");
+        final int[] ymd = DateParserUtils.getYearMonthDay(date);
+        assertEquals(2015, ymd[0]);
+        assertEquals(2, ymd[1]);
+        assertEquals(9, ymd[2]);
+    }
+
+    @Test
+    public void toDateFromLiteralFormatTest2DashIsOkay() throws Exception{
+        final Date date = DateParserUtils.toDateFromLiteralFormat("Feb 9-   2015");
+        final int[] ymd = DateParserUtils.getYearMonthDay(date);
+        assertEquals(2015, ymd[0]);
+        assertEquals(2, ymd[1]);
+        assertEquals(9, ymd[2]);
+    }
+
+    @Test
+    public void toDateFromLiteralFormatTest2UnderscoreIsOkay() throws Exception{
+        final Date date = DateParserUtils.toDateFromLiteralFormat("Feb 9_   2015");
+        final int[] ymd = DateParserUtils.getYearMonthDay(date);
+        assertEquals(2015, ymd[0]);
+        assertEquals(2, ymd[1]);
+        assertEquals(9, ymd[2]);
+    }
 
     @Test
     public void spaceTest(){
@@ -634,6 +684,56 @@ public class DateParserUtilsTest {
     }
 
     @Test
+    public void findDateStringAfterLineLiteralMonthDayYearSpace() throws Exception{
+        final List<String> lines=new ArrayList<String>();
+        lines.add("DATE            TIME            AMOUNT");
+        lines.add("Feb 09 2015 TIME 17:26:22        $        14.48");
+        lines.add("APPROVED");
+        lines.add("No Signature Required");
+        assertEquals("2015/2/9", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
+    }
+
+    @Test
+    public void findDateStringAfterLineLiteralMonthDayYearComma() throws Exception{
+        final List<String> lines=new ArrayList<String>();
+        lines.add("DATE            TIME            AMOUNT");
+        lines.add("Feb 09, 2015 TIME 17:26:22        $        14.48");
+        lines.add("APPROVED");
+        lines.add("No Signature Required");
+        assertEquals("2015/2/9", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
+    }
+
+    @Test
+    public void findDateStringAfterLineLiteralMonthDayYearMoreSpaces() throws Exception{
+        final List<String> lines=new ArrayList<String>();
+        lines.add("DATE            TIME            AMOUNT");
+        lines.add("Feb  09      2015 TIME 17:26:22        $        14.48");
+        lines.add("APPROVED");
+        lines.add("No Signature Required");
+        assertEquals("2015/2/9", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
+    }
+
+    @Test
+    public void findDateStringAfterLineLiteralMonthDayYearMoreSpacesAndOneComma() throws Exception{
+        final List<String> lines=new ArrayList<String>();
+        lines.add("DATE            TIME            AMOUNT");
+        lines.add("Feb  09,      2015 TIME 17:26:22        $        14.48");
+        lines.add("APPROVED");
+        lines.add("No Signature Required");
+        assertEquals("2015/2/9", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
+    }
+
+    @Test
+    public void findDateStringAfterLineLiteralMonthDayYearMoreSpacesAndOneComma2() throws Exception{
+        final List<String> lines=new ArrayList<String>();
+        lines.add("DATE            TIME            AMOUNT");
+        lines.add("Feb  09    ,      2015 TIME 17:26:22        $        14.48");
+        lines.add("APPROVED");
+        lines.add("No Signature Required");
+        assertEquals("2015/2/9", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
+    }
+
+    @Test
     public void testDate1()throws Exception{
         final List<String> lines=new ArrayList<String>();
         lines.add("DATE            TIME            AMOUNT");
@@ -889,13 +989,15 @@ public class DateParserUtilsTest {
     @Test
     public void pruneDateStringWithMatchTest1NoSpaceIsNotOkay(){
         final String date="Feb 09  2015";
-        final String dateString = DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces("Term Tran       Store         Oper    Feb 09  2015 "), DateParserUtils.getPatternLiteralMonthDayYearPattern());
+        final String dateString = DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces("Term Tran       Store         Oper    "+date), DateParserUtils.getPatternLiteralMonthDayYearPattern());
         assertTrue(dateString.isEmpty());
     }
 
     @Test
     public void pruneDateStringTest1LiteralMonthDayYearTest1(){
-        final String dateString="02.09.2015";
-        assertEquals(dateString, DateParserUtils.pruneDateString("Term Tran       Store         Oper    Feb 09  2015 "));
+        final String dateString="Feb 09 2015";
+        assertEquals(dateString, DateParserUtils.pruneDateString("Term Tran       Store         Oper    "+dateString));
     }
+
+
 }

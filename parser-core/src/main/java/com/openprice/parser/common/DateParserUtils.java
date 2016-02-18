@@ -66,7 +66,7 @@ public class DateParserUtils {
             if(dateString.isEmpty()) continue;
             try{
                 if(isLiteralDateFormat(dateString))
-
+                    return new StringInt(formatDateString(toDateFromLiteralFormat(dateString)), i);
                 else
                     return new StringInt(formatDateString(toDateFromDigitalFormat(dateString)), i);
             }catch(Exception e){
@@ -76,7 +76,14 @@ public class DateParserUtils {
         return StringInt.emptyValue();
     }
 
-
+    private static DateLiterals dateLiterals = new DateLiterals();
+    public static boolean isLiteralDateFormat(final String dateString){
+        final int[] digitsAndChars = StringCommon.countDigitAndChars(dateString);
+        return dateLiterals
+                .monthLiterals()
+                .stream()
+                .anyMatch(month->dateString.contains(month));
+    }
 
     public static String formatDateString(final Date date){
         final int[] yMD=getYearMonthDay(date);
@@ -106,7 +113,7 @@ public class DateParserUtils {
      * @param dateStr
      * @return
      */
-    public static Date toDateFromDigitalFormat(final String dateStr) throws Exception{
+    public static Date toDateFromDigitalFormat(final String dateStr) throws Exception {
         final String[] words=dateStr.split("-|\\.|/");//this is dependent on the DATE_SPLITTER
         String yMD="";
         if(words[0].length()==4)
@@ -119,6 +126,33 @@ public class DateParserUtils {
                     +words[0]+DATE_SPLITTER_UNIFORM
                     +words[1];
         }
+        return DATE_FORMAT.parse(yMD);
+    }
+
+    public static List<String> literalMonthDayYearSplit(final String dateString){
+        final String[] words = dateString.split("-|_|\\.|\\s+");
+        final List<String> list = new ArrayList<>();
+        for(String w : words){
+            if(w.length()==1
+                && !Character.isDigit(w.charAt(0))
+                && !Character.isLetter(w.charAt(0)))
+                continue;
+            list.add(w);
+        }
+        return list;
+    }
+
+    //TODO right assuming the it's the LiteralMonth Day(digit) Year(digit) format
+    public static Date toDateFromLiteralFormat(final String dateStr) throws Exception {
+        final String[] words = dateStr.split("-|_|\\.|\\s+");
+        final List<String> nonEmptyStrings = new ArrayList<>();
+        for(String w:words)
+            if(!w.trim().isEmpty())
+                nonEmptyStrings.add(w);
+        log.debug("nonEmptyStrings"+nonEmptyStrings);
+        String yMD= nonEmptyStrings.get(2)  + DATE_SPLITTER_UNIFORM
+                + dateLiterals.getMonthNumber(nonEmptyStrings.get(0)) + DATE_SPLITTER_UNIFORM
+                + nonEmptyStrings.get(1);
         return DATE_FORMAT.parse(yMD);
     }
 
@@ -160,14 +194,14 @@ public class DateParserUtils {
         final String literalMonthDayYear=pruneDateStringWithMatch(str, patternLiteralMonthDayYearPattern);
         if(!literalMonthDayYear.isEmpty()){
             log.debug("found literalMonthDayYear format."+literalMonthDayYear);
-            return convertToDate(literalMonthDayYear);
+            return literalMonthDayYear;
         }
         log.debug("not date pattern is matched.");
         return StringCommon.EMPTY;
     }
     public static String pruneDateStringWithMatch(final String str, final Pattern pattern){
         final Matcher match=pattern.matcher(str);
-        log.debug("match="+match.toString());
+//        log.debug("match="+match.toString());
         final List<String> allMatches=new ArrayList<>();
         while(match.find()){
             log.debug("match.group()="+match.group());
