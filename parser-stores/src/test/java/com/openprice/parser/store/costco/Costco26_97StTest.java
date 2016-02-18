@@ -140,19 +140,18 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
 
-        //printResult(receipt);
+        printResult(receipt);
         assertEquals("costco", receipt.getChainCode());
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(33,receipt.getItems().size());
+        assertEquals(30,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "ckn/veg dump", "13.49", null, 7);
         verifyParsedItem(iterator.next(), "bananas", "1.89", null, 9);
         verifyParsedItem(iterator.next(), "globe grapes", "6.99", null, 10);
         verifyParsedItem(iterator.next(), "mini peppers", "5.99", null, 11);
         verifyParsedItem(iterator.next(), "yel. potates", "5.99", null, 12);
         verifyParsedItem(iterator.next(), "danactive", "8.79", null, 13);
-        verifyParsedItem(iterator.next(), "enviro fee n", "0.32", null, 15);
         verifyParsedItem(iterator.next(), "blueberries", "5.69", null, 16);
         verifyParsedItem(iterator.next(), "raspberries", "4.99", null, 17);
         verifyParsedItem(iterator.next(), "cracker cut", "13.99", null, 18);
@@ -167,7 +166,6 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         verifyParsedItem(iterator.next(), "avocados 5ct", "6.99", null, 27);
         verifyParsedItem(iterator.next(), "k.s. almonds", "19.99", null, 28);
         verifyParsedItem(iterator.next(), "158 milk 2%", "4.54", null, 29);
-        verifyParsedItem(iterator.next(), "enviro fee n", "0.08", null, 31);
         verifyParsedItem(iterator.next(), "mini cukes", "4.99", null, 32);
         verifyParsedItem(iterator.next(), "mini babybel", "10.89", null, 33);
         verifyParsedItem(iterator.next(), "pork siderib", "25.29", null, 34);
@@ -177,7 +175,6 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         verifyParsedItem(iterator.next(), ".5 dz eggs", "8.69", null, 38);
         verifyParsedItem(iterator.next(), ".5 dz eggs", "8.69", null, 39);
         verifyParsedItem(iterator.next(), "tropics", "8.49", null, 40);
-        verifyParsedItem(iterator.next(), "enviro fee n", "0.24", null, 42);
         verifyParsedItem(iterator.next(), "ks bath 30**", "14.999", null, 43);
 
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "*** cardhold  er copy ***",64);
@@ -262,7 +259,7 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
 
         assertEquals(2,receipt.getItems().size());
-        verifyParsedItem(iterator.next(), "376863 sectional", "null", null, 6);//TODO the price  1,599.99 G is not parsed
+        verifyParsedItem(iterator.next(), "376863 sectional", null, null, 6);//TODO the price  1,599.99 G is not parsed
         verifyParsedItem(iterator.next(), "u shapd desk", "359.999", null, 7);
         verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "98.00",9);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "1959.98",8);
@@ -325,7 +322,8 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(11,receipt.getItems().size());
+        assertEquals(12,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "watermelon", "6.99", null, 3);
         verifyParsedItem(iterator.next(), "milk 2%", "4.54", null, 4);
         verifyParsedItem(iterator.next(), "oatmeal rts", "12.69", null, 9);
         verifyParsedItem(iterator.next(), "ckn/veg dump", "12.79", null, 12);

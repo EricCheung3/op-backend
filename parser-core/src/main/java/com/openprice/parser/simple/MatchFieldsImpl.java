@@ -1,5 +1,6 @@
 package com.openprice.parser.simple;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -14,6 +15,7 @@ import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
+import com.openprice.parser.common.ListCommon;
 import com.openprice.parser.data.StringDouble;
 import com.openprice.parser.data.StringInt;
 import com.openprice.store.StoreBranch;
@@ -22,6 +24,32 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MatchFieldsImpl implements MatchFields{
+
+    //strings that are not date
+    private static List<String> dateBlackList = new ArrayList<>();
+    //strings that re not total
+    private static List<String> totalBlackList = new ArrayList<>();
+
+    {
+        dateBlackList.add("watermellon");
+        //dateBlackList.add("water");//TODO this is short. tricky.
+    }
+
+    {
+        totalBlackList.add("total savings");
+        totalBlackList.add("Total Savings Value");
+        totalBlackList.add("total discounts");
+        totalBlackList.add("loyalty offer");
+    }
+
+    public static boolean matchesBlackListForDate(final String str, final double similarityThreshold){
+        return ListCommon.matchAHeaderInList(dateBlackList, str, similarityThreshold);
+    }
+
+    public static boolean matchesBlackListForTotal(final String str, final double similarityThreshold){
+        return ListCommon.matchAHeaderInList(totalBlackList, str, similarityThreshold);
+    }
+
 
     @Override
     public void matchToBranch(
@@ -72,7 +100,7 @@ public class MatchFieldsImpl implements MatchFields{
      * comparing Total and TotalSold sold separately when necessary.
      * The idea is to compare the length of matching when their levenshtein scores are both bigger than some threshold
      */
-    public static Set<Integer> cleanTextToTreated(
+    public static Set<Integer> totalTotalSoldTreatedLines(
             final MatchedRecord record,
             final ReceiptData receipt,
             final StoreParser parser){
@@ -86,11 +114,8 @@ public class MatchFieldsImpl implements MatchFields{
             .filter( line -> line.getCleanText().length() > 1)
 //            .filter( line -> record.isFieldLine(line.getNumber()))
             //treatment for total line
-            .filter(line ->
-                       !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "TOTAL DISCOUNTCS", config.similarityThresholdOfTwoStrings())
-                    && !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer", config.similarityThresholdOfTwoStrings())
-                    && !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "Total Savings Value", config.similarityThresholdOfTwoStrings())
-            )
+            //
+            .filter(line -> ! matchesBlackListForTotal(line.getCleanText().toLowerCase(), config.similarityThresholdOfTwoStrings()))
             .forEach( line -> {
                 StringDouble scoreTotal = matchLineToList(line.getCleanText(), headersTotal);
                 StringDouble scoreTotalSold = matchLineToList(line.getCleanText(), headersTotalSold);
@@ -125,17 +150,14 @@ public class MatchFieldsImpl implements MatchFields{
             final ReceiptData receipt,
             final StoreParser parser) {
         final StoreConfig config = parser.getStoreConfig();
-        //totalsold and total are treated already
-        final Set<Integer> totalSoldAndTotalAreTreated = cleanTextToTreated(record, receipt, parser);
+        final Set<Integer> totalSoldAndTotalAreTreated = totalTotalSoldTreatedLines(record, receipt, parser);
         for (ReceiptFieldType field : ReceiptFieldType.values()) {
-//            log.debug("matchToHeader: field="+field);
             if (record.fieldIsMatched(field)){
                 log.debug(field+" is alreday matched: "+record.matchedLinesOfField(field));
                 continue;
             }
 
             final List<String> headerPatterns = config.getFieldHeaderMatchStrings(field);
-//            log.debug("headerPatterns="+headerPatterns);
             if (headerPatterns == null || headerPatterns.isEmpty())
                 continue;
 
@@ -148,26 +170,21 @@ public class MatchFieldsImpl implements MatchFields{
 ////                           log.debug("line "+line.getOriginalText()+" is already a field line: "+record.matchedFieldsOnLine(line.getNumber()));
 //                       return !record.isFieldLine(line.getNumber());
 //                    })//just let each field matching to its favourite line
-                   .filter(line ->
-                              !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "TOTAL DISCOUNTCS", config.similarityThresholdOfTwoStrings())
-                           && !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "loyalty offer", config.similarityThresholdOfTwoStrings())
-                           && !StringCommon.stringMatchesHead(line.getCleanText().toLowerCase(), "Total Savings Value", config.similarityThresholdOfTwoStrings())
-                   ).filter( line -> {
+                   .filter(line -> ! matchesBlackListForTotal(line.getCleanText().toLowerCase(), config.similarityThresholdOfTwoStrings()))
+                   .filter(line -> ! matchesBlackListForDate(line.getCleanText().toLowerCase(), config.similarityThresholdOfTwoStrings()))
+                   .filter( line -> {
                 Optional<Double> maxScore =
                         headerPatterns
                         .stream()
                         .map( header -> {
                             double score=StringCommon.matchStringToHeader(line.getCleanText(), header);
-//                            log.debug("--line= "+line.getCleanText()+", header="+header+",score="+score);
                             return score;
                         })
                         .max( Comparator.comparing(score -> score) );
-//                log.debug("line="+line.getCleanText()+", score="+maxScore.get());
                 return maxScore.isPresent() && maxScore.get() > config.similarityThresholdOfTwoStrings();
             })
             .forEach( line -> {
                 String value=parser.parseField(field, line);
-//                log.debug("line=>"+line.getCleanText()+", parsed value is "+value);
                 record.putFieldLineValue(field, line.getNumber(), value);
                 });
         }

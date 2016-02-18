@@ -157,12 +157,12 @@ public class StoreConfigImpl implements StoreConfig{
 
     @Override
     public boolean matchesSkipAfter(String str, double threshold) {
-        return ListCommon.matchList(skipAfter, str, threshold);
+        return ListCommon.matchAHeaderInList(skipAfter, str, threshold);
     }
 
     @Override
     public boolean matchesSkipBefore(String str, double threshold) {
-        return ListCommon.matchList(skipBefore, str, threshold);
+        return ListCommon.matchAHeaderInList(skipBefore, str, threshold);
     }
 
     @Override

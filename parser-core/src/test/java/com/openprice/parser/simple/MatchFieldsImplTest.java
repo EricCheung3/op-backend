@@ -30,6 +30,11 @@ public class MatchFieldsImplTest {
 
     private StoreParser parser;
 
+    @Test
+    public void test(){
+        MatchFieldsImpl.matchesBlackListForDate("water", 0.67);
+    }
+
     @Before
     public void init(){
         final Properties prop = new Properties();
@@ -56,7 +61,7 @@ public class MatchFieldsImplTest {
         lines.add("D: $1.0");
         lines.add("Total: $10.0");
         final ReceiptData receipt = ReceiptDataImpl.fromContentLines(lines);
-        final Set<Integer> treatedLines = MatchFieldsImpl.cleanTextToTreated(record, receipt, parser);
+        final Set<Integer> treatedLines = MatchFieldsImpl.totalTotalSoldTreatedLines(record, receipt, parser);
         assertEquals(1, treatedLines.size());
         assertTrue(treatedLines.contains(0));
     }
