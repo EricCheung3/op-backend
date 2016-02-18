@@ -27,7 +27,7 @@ public class StoreBranchData {
     //cannot use Address to replace all the below fields because we have to load json file which has the following fields
     //private Address address;
 
-    private String slogan;
+//    private String slogan;//json has no slogan
 
     private String address1;
 
@@ -46,14 +46,12 @@ public class StoreBranchData {
             final String phone,
             final String storeId,
             final String gstNumber,
-            final Address address,
-            final String slogan) {
+            final Address address) {
         return new StoreBranchData(
                 name,
                 phone,
                 storeId,
                 gstNumber,
-                slogan,
                 address.getAddress1(),
                 address.getAddress2(),
                 address.getCity(),
@@ -68,8 +66,7 @@ public class StoreBranchData {
                 StringCommon.EMPTY,
                 StringCommon.EMPTY,
                 StringCommon.EMPTY,
-                Address.emptyAddress(),
-                StringCommon.EMPTY
+                Address.emptyAddress()
                 );
     }
 }

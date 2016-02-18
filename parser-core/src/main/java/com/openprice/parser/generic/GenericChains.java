@@ -36,7 +36,6 @@ public class GenericChains {
         this(TextResourceUtils.loadStringArray(resourceFile));
     }
 
-    //TODO "Costco" appears in the middle of receipt
     public String findChain(final List<String> lines){
         if (lines == null || lines.isEmpty())
             return StringCommon.EMPTY;

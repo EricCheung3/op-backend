@@ -45,6 +45,7 @@ public class AbstractReceiptParserIntegrationTest {
         System.out.println("Receipt parser result: store chain code='" + receipt.getChainCode() +
                 "', branh is '" + receipt.getBranchName() + "'.");
         System.out.println("===================== Items parsed:");
+        System.out.println("assertEquals("+receipt.getItems().size()+"," + "receipt.getItems().size());");
         for (ParsedItem item : receipt.getItems()) {
             if(item.getCatalogCode()!=null)
                 System.out.println("verifyParsedItem(iterator.next(), \""+item.getParsedName() + "\", \""+

@@ -46,14 +46,14 @@ public class DateParserUtils {
             "dd");
 
     public static StringInt findDateStringAfterLine(final List<String> origLines, final int start){
-        log.debug("date line searching from line "+start+":"+origLines.get(start)+"\n");
+//        log.debug("date line searching from line "+start+":"+origLines.get(start)+"\n");
         for(int i=start; i<origLines.size();i++){
             final String dateString=pruneDateString(origLines.get(i));
             if(dateString.isEmpty()) continue;
             try{
                 return new StringInt(formatDateString(toDate(dateString)), i);
             }catch(Exception e){
-                log.debug("dateString="+dateString+", toDate(dateString) error.");
+//                log.debug("dateString="+dateString+", toDate(dateString) error.");
             }
         }
         return StringInt.emptyValue();

@@ -37,6 +37,7 @@ public class MatchedRecordImpl implements MatchedRecord{
     @Getter
     private final Map<ReceiptFieldType, StringInt> fieldToValueLine = new HashMap<ReceiptFieldType, StringInt>();
 
+    //TODO: can you ensure all the maps are consistent? You have getters. Probably you should remove getters.
     @Override
     public boolean isFieldLine(int line) {
         return lineToField.containsKey(line);

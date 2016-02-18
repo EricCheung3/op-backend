@@ -1,0 +1,62 @@
+COSTCO WHOLESALE
+          WAREHOUSE         1::   # 258
+
+               2616   91s t   Street NW
+               Edmonton. AB
+                   T6N-1N2
+                MEMBER #111812988181
+
+     **Begin Bottom of Basket
+          21252 21/25 RW SHP               18.49
+         134982 CHKN BURRITO                9.99 G
+         193633 BROWNIE BITE                8.49
+         113878 LARGE OMEGA3                9.99
+          49118 GALA APPLES                 8.99
+            458 MILK 2%                     4.54
+                DEPOSIT                      .25
+                ENVIRO FEE N                 .07
+          20387 CLFRNIA ROLL                7.99 G
+          27003 STRAWBERRIES                3.79
+          27003 STRAWBERRIES                3.79
+         280100 ATAULFO MANG                8.99
+           2566 CHERRIES                    7.99
+          83333 GREEN GRAPES                8.99
+VOID
+    83333 GREEN GRAPES                      8.99-
+    83333 GRFEN GRAPES                      8.99
+VOID
+   193633 BROWNIE BITE                      8.49-
+         371798   HC GRK SANDW              9.99 G
+         403624   TPD/371798                2.00-G
+          21366   CLEMENTINES               8.99
+          88426   CUCUMBERS                 2.99
+            537   SLICEDLOAVES              9.99
+         398084   TPD/537                   2.00-
+          SUBTOTAL                        121.82
+     **** GST 5%                            1.30
+          TOTAL.                          123.12
+VF        American Express                123.12
+                  J~
+******"
+REFERENl'    66197011 -0010014 70      S
+AUTH#: 50; u96         DATE: 07/12/14 TIME: 12:38:10
+Invoice#: 31360
+COSTCO # 258
+2616 91st Street NW
+"Edmonton
+            11ner· i can Express
+PURLHA~;t · r
+      00 A PPROVED - THANK YOU 025
+          AMOUNT: $123.12
+              0258 016 0000000817 0165
+
+       CHANGE                   .00
+       TOTAL DISCOUNT(S)       4.00
+TOTAL NUMBER OF ITF S SOLD = 15
+CASHIER: L~ . D              REG 1 ~
+DATE: 2014/07/12 TIME: 12:38 0258 16 0165 817
+
+         GST/HST #1 21476329
+          THANK           YOU!
+          GST =121476329RT
+

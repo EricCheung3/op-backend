@@ -1,0 +1,51 @@
+COSTCO WHOLESALE        
+ WAREHOUSE             lt 258
+          2616 91st Street NW
+          Ed111onton, AB
+                T6N-1N2
+           ME MBER i111812988181
+       554830 KS OLIVE OIL      29.99
+        22388 PORK TENDER       26.32
+        28054 PORK SIDERIB      25.34
+        27003 STRAWBERRIES       4.99
+        17282 RED GRAPES         7.89
+        21366 CLEMENTINES        7.99
+       128066 GRAPE TOMATO       4.59
+        57554 BLUEBERRIES        4.99
+       380447 DUSTER 24         18.79 G
+       427140 TPD/380447         3.50-G
+       347937 ROTI CHICKEN       7.99 G
+       729324 AVOCADO OIL       12.49
+       426184 TPD/729324         2.50-
+        SUBTOTAL               145.37
+   **** GST 5A:                  1.16
+        TOTAL                  146.53
+VF      MasterCard             146.53
+************1841
+REFERENCE#: 66231348-0010          6820       C
+AUTH#: 024974        DATE: 01/24/15 TIME: 11:02:56
+Invoice#: 36408
+COSTCO # 258
+2616 91st Street NW
+"Ed111onton
+PURCHASE - MASTERCARD
+MasterCard
+A0000000041010
+0000008000 E800
+                                  \·
+       01 APPROVED - THANK        YOU 027
+           AMOUNT : $146.53
+         0258 011 0000000130 0025
+IMPORTANT - retain this copy for your
+ record.
+*** CARDHOLDER COPY ***
+             CHANGE                        .00
+             TOTAL DISCOUNTCS)            6.00
+TOTAL NUMBER OF ITEMS SOLD ~ 11
+CASHIER: SARA J.                        REG# 11
+DATE: 2015/01/24 TIME: 11:02 0258 11 0025 130
+
+                 GST/HST #121476329
+         THANK        YOU!
+         GST=121'1 76329RT
+
