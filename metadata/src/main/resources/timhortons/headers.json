@@ -15,7 +15,7 @@
   "GstAmountHeader" : "**** 5.0% GST,5% GST,TOTAL TAX",
   "ThankYouHeader" : "Thank you for shopping at Our Store",
   "PhoneHeader" : "Phone:,Phone#",
-  "TotalHeader" : "GrandTotal,Total,MasterCard,",
+  "TotalHeader" : "GrandTotal,Total",
   "CardHeader" : "CARD,Member card number:,VF       MasterCard  ",
   "CouponHeader" : "Store Cpn,VENDOR COUPON",
   "GstNumberHeader" : "GST:,GST/HST#,GST#",
