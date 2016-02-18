@@ -10,12 +10,14 @@ import java.util.regex.Pattern;
 
 import org.junit.Test;
 
+import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class DateParserUtilsTest {
+
 
     @Test
     public void spaceTest(){
@@ -36,6 +38,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void patternLiterMonthDayYearTest1() throws Exception{
+        assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan192015").matches());
         assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 19 2015").matches());
         assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 19,2015").matches());
         assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Jan 19, 2015").matches());
@@ -512,13 +515,13 @@ public class DateParserUtilsTest {
 
     @Test
     public void formatDateStringTest()throws Exception{
-        final Date date=DateParserUtils.toDate("2013/01/31");
+        final Date date=DateParserUtils.toDateFromDigitalFormat("2013/01/31");
         assertEquals("2013/1/31", DateParserUtils.formatDateString(date));
     }
 
     @Test
     public void toDateTest1TwoDigitYearFormatIsNowSupported() throws Exception{
-        final Date date=DateParserUtils.toDate("1/1/13");
+        final Date date=DateParserUtils.toDateFromDigitalFormat("1/1/13");
         assertEquals(2013, DateParserUtils.getYearMonthDay(date)[0]);
         assertEquals(1, DateParserUtils.getYearMonthDay(date)[1]);
         assertEquals(1, DateParserUtils.getYearMonthDay(date)[2]);
@@ -526,7 +529,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1SingleDigitDayIsOkayYearAtEnd() throws Exception{
-        final Date date=DateParserUtils.toDate("1/1/2013");
+        final Date date=DateParserUtils.toDateFromDigitalFormat("1/1/2013");
         log.debug("date"+date);
         final int[] yMD=DateParserUtils.getYearMonthDay(date);
         assertEquals(2013, yMD[0]);
@@ -536,7 +539,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1SingleDigitDayIsOkay() throws Exception{
-        final Date date=DateParserUtils.toDate("2013/1/1");
+        final Date date=DateParserUtils.toDateFromDigitalFormat("2013/1/1");
         log.debug("date"+date);
         final int[] yMD=DateParserUtils.getYearMonthDay(date);
         assertEquals(2013, yMD[0]);
@@ -546,7 +549,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1SingleDigitMonthIsOkay() throws Exception{
-        final Date date=DateParserUtils.toDate("2013/1/31");
+        final Date date=DateParserUtils.toDateFromDigitalFormat("2013/1/31");
         log.debug("date"+date);
         final int[] yMD=DateParserUtils.getYearMonthDay(date);
         assertEquals(2013, yMD[0]);
@@ -556,7 +559,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1() throws Exception{
-        final Date date=DateParserUtils.toDate("2013/01/31");
+        final Date date=DateParserUtils.toDateFromDigitalFormat("2013/01/31");
         log.debug("date"+date);
         final int[] yMD=DateParserUtils.getYearMonthDay(date);
         assertEquals(2013, yMD[0]);
@@ -566,7 +569,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1DotIsOkay() throws Exception{
-        final Date date=DateParserUtils.toDate("2013.01.31");
+        final Date date=DateParserUtils.toDateFromDigitalFormat("2013.01.31");
         log.debug("date"+date);
         final int[] yMD=DateParserUtils.getYearMonthDay(date);
         assertEquals(2013, yMD[0]);
@@ -576,7 +579,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1DashIsOkay() throws Exception{
-        final Date date=DateParserUtils.toDate("2013-01-31");
+        final Date date=DateParserUtils.toDateFromDigitalFormat("2013-01-31");
         log.debug("date"+date);
         final int[] yMD=DateParserUtils.getYearMonthDay(date);
         assertEquals(2013, yMD[0]);
@@ -586,7 +589,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1YearInTheEndIsOkay() throws Exception{
-        final Date date=DateParserUtils.toDate("01-31-2013");
+        final Date date=DateParserUtils.toDateFromDigitalFormat("01-31-2013");
         log.debug("date"+date);
         final int[] yMD=DateParserUtils.getYearMonthDay(date);
         assertEquals(2013, yMD[0]);
@@ -596,7 +599,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1YearInTheEndIsOkayDot() throws Exception{
-        final Date date=DateParserUtils.toDate("01.31.2013");
+        final Date date=DateParserUtils.toDateFromDigitalFormat("01.31.2013");
         log.debug("date"+date);
         final int[] yMD=DateParserUtils.getYearMonthDay(date);
         assertEquals(2013, yMD[0]);
@@ -607,12 +610,12 @@ public class DateParserUtilsTest {
 
     @Test(expected=Exception.class)
     public void toDateTestSplitterIsNotAccepted() throws Exception{
-        DateParserUtils.toDate("01)31)2013");
+        DateParserUtils.toDateFromDigitalFormat("01)31)2013");
     }
 
     @Test
     public void toDateTest1YearInTheEndIsOkaySlash() throws Exception{
-        final Date date=DateParserUtils.toDate("01/31/2013");
+        final Date date=DateParserUtils.toDateFromDigitalFormat("01/31/2013");
         log.debug("date"+date);
         final int[] yMD=DateParserUtils.getYearMonthDay(date);
         assertEquals(2013, yMD[0]);
@@ -874,5 +877,25 @@ public class DateParserUtilsTest {
     public void pruneDateStringTest1TwoDigitYearIsOkayDot(){
         final String dateString="02.27.15";
         assertEquals(dateString, DateParserUtils.pruneDateString("Term Tran       Store         Oper               02.27. 15"));
+    }
+
+    @Test
+    public void pruneDateStringWithMatchTest1(){
+        final String date="Feb 09  2015";
+        final String dateString = DateParserUtils.pruneDateStringWithMatch("Term Tran       Store         Oper    Feb 09  2015 ", DateParserUtils.getPatternLiteralMonthDayYearPattern());
+        assertEquals(date, dateString);
+    }
+
+    @Test
+    public void pruneDateStringWithMatchTest1NoSpaceIsNotOkay(){
+        final String date="Feb 09  2015";
+        final String dateString = DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces("Term Tran       Store         Oper    Feb 09  2015 "), DateParserUtils.getPatternLiteralMonthDayYearPattern());
+        assertTrue(dateString.isEmpty());
+    }
+
+    @Test
+    public void pruneDateStringTest1LiteralMonthDayYearTest1(){
+        final String dateString="02.09.2015";
+        assertEquals(dateString, DateParserUtils.pruneDateString("Term Tran       Store         Oper    Feb 09  2015 "));
     }
 }

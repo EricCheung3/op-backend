@@ -65,13 +65,18 @@ public class DateParserUtils {
             final String dateString=pruneDateString(origLines.get(i));
             if(dateString.isEmpty()) continue;
             try{
-                return new StringInt(formatDateString(toDate(dateString)), i);
+                if(isLiteralDateFormat(dateString))
+
+                else
+                    return new StringInt(formatDateString(toDateFromDigitalFormat(dateString)), i);
             }catch(Exception e){
 //                log.debug("dateString="+dateString+", toDate(dateString) error.");
             }
         }
         return StringInt.emptyValue();
     }
+
+
 
     public static String formatDateString(final Date date){
         final int[] yMD=getYearMonthDay(date);
@@ -95,13 +100,13 @@ public class DateParserUtils {
     }
 
     /**
-     * convert a date string to Date
+     * convert a digital date string to Date
      * two order are allowed:
      * Month Day Year or Year Month Day
      * @param dateStr
      * @return
      */
-    public static Date toDate(final String dateStr) throws Exception{
+    public static Date toDateFromDigitalFormat(final String dateStr) throws Exception{
         final String[] words=dateStr.split("-|\\.|/");//this is dependent on the DATE_SPLITTER
         String yMD="";
         if(words[0].length()==4)
@@ -109,7 +114,7 @@ public class DateParserUtils {
         else if(words[2].length()==4)
             yMD=words[2]+DATE_SPLITTER_UNIFORM+words[0]+DATE_SPLITTER_UNIFORM+words[1];
         else{
-            //a hack handling the format like 05/31/15; assuming here the format "15/05/31" is not possible
+            //TODO a hack handling the format like 05/31/15; assuming here the format "15/05/31" is not possible
             yMD="20"+words[2]+DATE_SPLITTER_UNIFORM
                     +words[0]+DATE_SPLITTER_UNIFORM
                     +words[1];
@@ -151,12 +156,21 @@ public class DateParserUtils {
             log.debug("found mDY2 format."+mDY2+"\n");
             return mDY2;
         }
+        //note it's str not strNoSpace
+        final String literalMonthDayYear=pruneDateStringWithMatch(str, patternLiteralMonthDayYearPattern);
+        if(!literalMonthDayYear.isEmpty()){
+            log.debug("found literalMonthDayYear format."+literalMonthDayYear);
+            return convertToDate(literalMonthDayYear);
+        }
+        log.debug("not date pattern is matched.");
         return StringCommon.EMPTY;
     }
     public static String pruneDateStringWithMatch(final String str, final Pattern pattern){
         final Matcher match=pattern.matcher(str);
+        log.debug("match="+match.toString());
         final List<String> allMatches=new ArrayList<>();
         while(match.find()){
+            log.debug("match.group()="+match.group());
             allMatches.add(match.group());
         }
         if(allMatches.size()==0)
