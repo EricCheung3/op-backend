@@ -28,9 +28,11 @@ public class ListCommon{
 
     public static boolean matchAHeaderInList(final List<String> list,
             final String str, final double similarityScore) {
-        return list
+        final boolean result=list
                 .stream()
                 .anyMatch(h->StringCommon.stringMatchesHead(str, h, similarityScore));
+        log.debug("str="+str+":"+result);
+        return result;
     }
 
     /*

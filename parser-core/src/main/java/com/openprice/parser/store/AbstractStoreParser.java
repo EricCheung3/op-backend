@@ -40,6 +40,7 @@ public abstract class AbstractStoreParser implements StoreParser {
         } else {
             parsedValue = fieldParser.apply(line);
         }
+//        log.debug("field:"+field+", parsed value ="+parsedValue);
         return parsedValue;
     }
 
