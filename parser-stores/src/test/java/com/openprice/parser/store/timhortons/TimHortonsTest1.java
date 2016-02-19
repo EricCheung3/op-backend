@@ -93,4 +93,81 @@ public class TimHortonsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.Author, "auth #:052798                             approved",33);
     }
 
+    @Test
+    public void receipt_56_44() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_56_44, (line)-> receiptLines.add(line));
+
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        printResult(receipt);
+
+        assertEquals("timhortons", receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(3,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "med tea latte", "2.84", null, 5);
+        verifyParsedItem(iterator.next(), "green tea", "0.00", null, 6);
+        verifyParsedItem(iterator.next(), "med latte", "2.59", null, 7);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst #892793597rt0001",20);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "5.70",10);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "5.43",8);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/4/21",18);
+        verifyParsedField(fieldValues, ReceiptFieldType.Ref, "recei pt # : 11400754",19);
+        verifyParsedField(fieldValues, ReceiptFieldType.Card, "card entry: tap _icc                  sequence: 000188",23);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "auth #: 072052                               approued",31);
+
+    }
+
+    @Test
+    public void receipt_37_07() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_37_07, (line)-> receiptLines.add(line));
+
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        printResult(receipt);
+
+        assertEquals("timhortons", receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(3,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "medium iced latte", "2.59", null, 5);
+        verifyParsedItem(iterator.next(), "white milk", "0.00", null, 6);
+        verifyParsedItem(iterator.next(), "sml latte", "2.00", null, 7);
+        verifyParsedField(fieldValues, ReceiptFieldType.Card, "card entry:tap_icc                    sequence : 000175",25);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "auth u: 035946                               a pproved",32);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "4.82",10);
+        verifyParsedField(fieldValues, ReceiptFieldType.Ref, "recei pt u : 11049774",21);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst d892793597rt0001",22);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "4.59",8);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/2/19",20);
+
+    }
+
+    @Test
+    public void receipt_24_24() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_24_24, (line)-> receiptLines.add(line));
+
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        printResult(receipt);
+
+        assertEquals("timhortons", receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(3,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "large kettle chips", "1.89", null, 5);
+        verifyParsedItem(iterator.next(), "snall frsmoo yogurt", "2.69", null, 6);
+        verifyParsedItem(iterator.next(), "strawberry / banana", "0.00", null, 7);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "4.58",8);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "4.81",10);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "aut h n:063498                                approueo",31);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst m 892793597rt  0001",21);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/6/17",19);
+        verifyParsedField(fieldValues, ReceiptFieldType.Card, "card entry:chip                        sequence : 000047",24);
+        verifyParsedField(fieldValues, ReceiptFieldType.Ref, "r eceipt ~ : 11761284",20);
+
+    }
 }
