@@ -42,7 +42,7 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .when()
                 .get(userAllReceiptsUrl(sessionFilter))
             ;
-        response.prettyPrint();
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
