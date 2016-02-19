@@ -129,7 +129,41 @@ public class TandTTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("tandt", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        assertEquals(23,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "large bun-red bag", "2.789", null, 7);
+        verifyParsedItem(iterator.next(), "one oay old bread-packing", "2.69", null, 9);
+        verifyParsedItem(iterator.next(), "pork leg boneless", "9.49", null, 11);
+        verifyParsedItem(iterator.next(), "(sald pork side ribs(whole)", "11.18", null, 13);
+        verifyParsedItem(iterator.next(), "(sale) chicken legs(back attached)", "8.74", null, 15);
+        verifyParsedItem(iterator.next(), "frozen rock fish fillet", "7.61", null, 18);
+        //TODO: missing
+        //(SALE) CARROT
+//        0.360 kg s $2. 18/kg                                   $0.78
+        verifyParsedItem(iterator.next(), "cilanntro", "0.79", null, 23);
+        verifyParsedItem(iterator.next(), "(sale) garlic sprout(leek bud)", "1.98", null, 24);
+        verifyParsedItem(iterator.next(), "napa (short)", "2.67", null, 26);
+        verifyParsedItem(iterator.next(), "(sale) tomatoes", "3.69", null, 28);
+        verifyParsedItem(iterator.next(), "(sale) don gua -china", "1.92", null, 30);
+        verifyParsedItem(iterator.next(), "(sale) you-choy", "4.06", null, 32);
+        verifyParsedItem(iterator.next(), "(sale) banana", "3.95", null, 34);
+        verifyParsedItem(iterator.next(), "(sale) shinko pear", "6.44", null, 36);
+        verifyParsedItem(iterator.next(), "(sale) seedless black grape", "4.67", null, 38);
+        verifyParsedItem(iterator.next(), "bok-choy (short)", "2.31", null, 40);
+        verifyParsedItem(iterator.next(), "shanghai bok choy", "3.84", null, 42);
+        verifyParsedItem(iterator.next(), "crown broccoli", "3.82", null, 44);
+        //TODO missing WATER CHESTNUT  (because it matches date header)
+        verifyParsedItem(iterator.next(), "island farms 1%p.skim hilk", "4.95", null, 49);
+        verifyParsedItem(iterator.next(), "veg. & meat buns delta", "4.57", null, 52);
+        verifyParsedItem(iterator.next(), "<sale) t&t smooth tofu", "1.49", null, 53);
+        verifyParsedItem(iterator.next(), "(sale) golden city plain bun", "3.39", null, 54);
+        verifyParsedItem(iterator.next(), "t&t shopping bag", "0.049", null, 56);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst                                                      $0.14",59);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/1/17",75);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "100.75",58);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store: 10010",99);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "100.89",80);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "cardholder a  cknowledges receipt",86);
+        verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "27",63);
     }
 
     @Test
@@ -142,6 +176,29 @@ public class TandTTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("tandt", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(19,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "grand maple cooking wine 17.5%", "1.89", null, 7);
+        verifyParsedItem(iterator.next(), "beef short rib plate boneless", "9.4", null, 9);
+        verifyParsedItem(iterator.next(), "lamb shoulder slice- thin", "9.6", null, 11);
+        verifyParsedItem(iterator.next(), "forzen pork jowl- polished", "8.43", null, 13);
+        verifyParsedItem(iterator.next(), "cheese flavoured fish cake", "5.81", null, 16);
+        verifyParsedItem(iterator.next(), "(sale) chestnuts", "3.51", null, 19);
+        verifyParsedItem(iterator.next(), "cilanntro", "1.58", null, 21);
+        verifyParsedItem(iterator.next(), "(sale) chinese white radish", "1.46", null, 23);
+        verifyParsedItem(iterator.next(), "(sale) enoki mushroom", "3.87", null, 25);
+        verifyParsedItem(iterator.next(), "long napa(sui choy)", "2.85", null, 27);
+        verifyParsedItem(iterator.next(), "(sale) green onion", "0.79", null, 29);
+        verifyParsedItem(iterator.next(), "(sale) seedless black grape", "5.63", null, 31);
+        verifyParsedItem(iterator.next(), "bean sprout", "6.42", null, 33);
+        verifyParsedItem(iterator.next(), "bean sprout", "1.33", null, 35);
+        verifyParsedItem(iterator.next(), "(sale) nagaimo", "4.38", null, 37);
+        verifyParsedItem(iterator.next(), "delta rice noodle", "2.69", null, 40);
+        verifyParsedItem(iterator.next(), "(sale) honaji deepfry tofu rhs", "1.99", null, 41);
+        verifyParsedItem(iterator.next(), "chi mei red bean jam", "5.67", null, 42);
+        verifyParsedItem(iterator.next(), "t&t shopping bag", "0.049", null, 44);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/12/25",51);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "29.48",48);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "79.48",46);
 
     }
 
@@ -155,6 +212,34 @@ public class TandTTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("tandt", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(21,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "lkk premium soy sauce", "7.79", null, 7);
+        verifyParsedItem(iterator.next(), "large bun-red bag", "1.399", null, 9);
+        verifyParsedItem(iterator.next(), "(sale) ground pork-lean", "7.70", null, 11);
+        verifyParsedItem(iterator.next(), "(sale) fz king fish steak", "6.60", null, 14);
+        verifyParsedItem(iterator.next(), "(sale) carrot", "0.85", null, 17);
+        verifyParsedItem(iterator.next(), "garlic", "0.99", null, 19);
+        verifyParsedItem(iterator.next(), "(sale) mo qua", "1.57", null, 20);
+        verifyParsedItem(iterator.next(), "napa (short)", "2.77", null, 22);
+        verifyParsedItem(iterator.next(), "(sale) tomatoes", "2.06", null, 24);
+        verifyParsedItem(iterator.next(), "(sale) you -choy", "2.39", null, 26);
+        verifyParsedItem(iterator.next(), "(sale) banana", "2.71", null, 28);
+        verifyParsedItem(iterator.next(), "(sale) banana", "1.99", null, 30);
+        verifyParsedItem(iterator.next(), "(sale) ya-li pear", "4.54", null, 32);
+        verifyParsedItem(iterator.next(), "(sale) pacific rose apple", "4.58", null, 34);
+        verifyParsedItem(iterator.next(), "(sale) shanghai bok choy", "1.56", null, 36);
+        verifyParsedItem(iterator.next(), "(sale) crown broccoli", "3.07", null, 38);
+        verifyParsedItem(iterator.next(), "delta plain rice rolls", "2.69", null, 41);
+        verifyParsedItem(iterator.next(), "veg. & meat buns delta", "4.57", null, 42);
+        verifyParsedItem(iterator.next(), "watson frozen sweet peas", "1.59", null, 43);
+        verifyParsedItem(iterator.next(), "(sale) honaji dried special bean curd", "2.09", null, 44);
+        verifyParsedItem(iterator.next(), "(sale) shikoku sanuki japanese fz udo", "3.99", null, 45);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst                                                      $0.07",48);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/1/10",63);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store: 10010",86);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "67.49",47);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "carohqlder acknowledges receipt",73);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "67.56",68);
 
     }
 
@@ -168,6 +253,17 @@ public class TandTTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("tandt", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(5,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "dasani water", "1.599", null, 8);
+        verifyParsedItem(iterator.next(), "bottle deposit", "0.10", null, 9);
+        verifyParsedItem(iterator.next(), "env fee (crf)", "0.029", null, 10);
+        verifyParsedItem(iterator.next(), "3 items combo meal", "7.999", null, 12);
+        verifyParsedItem(iterator.next(), "steam bun-2pc", "3.499", null, 13);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst                                      $0.65",15);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/2/8",6);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "13.19",14);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "13.84",34);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "cardholder acknowledges receipt",40);
 
     }
 
@@ -181,6 +277,40 @@ public class TandTTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("tandt", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(26,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "soo soft shredded dried beef", "3.95", null, 6);
+        verifyParsedItem(iterator.next(), "tf kong moon rice stick", "1.27", null, 7);
+        verifyParsedItem(iterator.next(), "large bun-red bag", "1.399", null, 10);
+        verifyParsedItem(iterator.next(), "one day old bread-packing", "2.69", null, 11);
+        verifyParsedItem(iterator.next(), "ground pork-lean", "4.62", null, 13);
+        verifyParsedItem(iterator.next(), "(sale) pork shoulder butt (boneless)", "6.67", null, 15);
+        verifyParsedItem(iterator.next(), "(sale) pork side ribs(whole)", "10.51", null, 17);
+        verifyParsedItem(iterator.next(), "(sale) pork side ribs (whole)", "12.46", null, 19);
+        verifyParsedItem(iterator.next(), "(sale) carrot", "0.80", null, 22);
+        verifyParsedItem(iterator.next(), "celery", "1.85", null, 24);
+        verifyParsedItem(iterator.next(), "garlic", "0.99", null, 26);
+        verifyParsedItem(iterator.next(), "(sale) napa (short)", "2.83", null, 27);
+        verifyParsedItem(iterator.next(), "green papaya", "4.57", null, 29);
+        verifyParsedItem(iterator.next(), "tomatoes", "3.61", null, 31);
+        verifyParsedItem(iterator.next(), "(sale) don gua -china", "1.44", null, 33);
+        verifyParsedItem(iterator.next(), "(sale) you-choy", "3.76", null, 35);
+        verifyParsedItem(iterator.next(), "(sale) fuji apple", "4.17", null, 37);
+        verifyParsedItem(iterator.next(), "(sale) banana", "2.27", null, 39);
+        verifyParsedItem(iterator.next(), "(sale) seedless black grape", "4.57", null, 41);
+        verifyParsedItem(iterator.next(), "(sale) kiwi", "3.56", null, 43);
+        verifyParsedItem(iterator.next(), "(sale) ya-li pear", "6.32", null, 45);
+        verifyParsedItem(iterator.next(), "(sale) shanghai bok choy", "1.44", null, 47);
+        verifyParsedItem(iterator.next(), "(sale) crown broccoli", "1.44", null, 49);
+        verifyParsedItem(iterator.next(), "(sale) delta plain rice rolls", "2.69", null, 52);
+        verifyParsedItem(iterator.next(), "(sale) f.a cabbage &pork dumpling", "8.99", null, 53);
+        verifyParsedItem(iterator.next(), "(sale) shendan cooked salted duck egg", "2.99", null, 55);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst                                                 $0.07",57);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/12/13",72);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "103.64",56);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store: 10010",95);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "1037",77);//TODO too big difference from subtotal
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "car dhdlden acknow  ledges receipt",83);
+        verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "32",60);
 
     }
 
@@ -194,6 +324,41 @@ public class TandTTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("tandt", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(25,receipt.getItems().size());
+        assertEquals(25,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "topchoice hawthorn jelly candy", "3.439", null, 6);
+        verifyParsedItem(iterator.next(), "yulei preserved olive uegetabl", "3.53", null, 7);
+        verifyParsedItem(iterator.next(), "jia fu li family egg noodle", "3.09", null, 8);
+        verifyParsedItem(iterator.next(), "pork sirloin", "5.70", null, 13);
+        verifyParsedItem(iterator.next(), "ground pork-lean", "4.36", null, 15);
+        verifyParsedItem(iterator.next(), "live tilapia", "9.06", null, 18);
+        verifyParsedItem(iterator.next(), "fz walleye fish steak", "7.60", null, 20);
+        verifyParsedItem(iterator.next(), "(sale) carrot", "0.88", null, 23);
+        verifyParsedItem(iterator.next(), "(sale) ginger", "1.63", null, 25);
+        verifyParsedItem(iterator.next(), "(sale) lotus root", "4.11", null, 27);
+        verifyParsedItem(iterator.next(), "(sale) tomatoes", "2.83", null, 29);
+        verifyParsedItem(iterator.next(), "(sale) don gua -china", "1.59", null, 31);
+        verifyParsedItem(iterator.next(), "(sale) you-choy", "2.03", null, 33);
+        verifyParsedItem(iterator.next(), "chinese golden pear", "7.82", null, 35);
+        verifyParsedItem(iterator.next(), "(sale) banana", "3.23", null, 37);
+        verifyParsedItem(iterator.next(), "(sale) seedless black grape", "3.99", null, 39);
+        verifyParsedItem(iterator.next(), "bok-choy (short)", "3.02", null, 41);
+        verifyParsedItem(iterator.next(), "(sale) shanghai bok choy", "1.94", null, 43);
+        verifyParsedItem(iterator.next(), "crown broccoli", "2.73", null, 45);
+        verifyParsedItem(iterator.next(), "(sale) korean king oyster mushroom", "1.99", null, 47);
+        verifyParsedItem(iterator.next(), "(sale) fuji apple(china)", "4.17", null, 48);
+        verifyParsedItem(iterator.next(), "(sale) sunrise traditional fresh tofu", "1.89", null, 51);
+        verifyParsedItem(iterator.next(), "veg. & meat buns delta", "4.57", null, 52);
+        verifyParsedItem(iterator.next(), "(sale) golden city plain bun", "3.39", null, 53);
+        verifyParsedItem(iterator.next(), "t&t shopping bag", "0.169", null, 55);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst                                                      $0.18",60);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "92.60",82);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "92.42",59);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/11/29",77);
+        verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "10",64);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "cardholder acknowledges receipt",89);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store: 10010",105);
+
 
     }
 
@@ -207,6 +372,36 @@ public class TandTTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("tandt", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(21,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "lkk premium soy sauce", "7.79", null, 6);
+        verifyParsedItem(iterator.next(), "large bun-red bag", "1.399", null, 8);
+        verifyParsedItem(iterator.next(), "(sale) ground pork-lean", "7.70", null, 10);
+        verifyParsedItem(iterator.next(), "(sale) fz king fish steak", "6.60", null, 13);
+        verifyParsedItem(iterator.next(), "!sale) carrot", "0.85", null, 16);
+        verifyParsedItem(iterator.next(), "garlic", "0.99", null, 18);
+        verifyParsedItem(iterator.next(), "(sale) mo qua", "1.57", null, 19);
+        verifyParsedItem(iterator.next(), "napa (short)", "2.77", null, 21);
+        verifyParsedItem(iterator.next(), "(sale) tomatoes", "2.06", null, 23);
+        verifyParsedItem(iterator.next(), "(sale) you-choy", "2.39", null, 25);
+        verifyParsedItem(iterator.next(), "(sale) banana", "2.71", null, 27);
+        verifyParsedItem(iterator.next(), "(sale) banana", "1.99", null, 29);
+        verifyParsedItem(iterator.next(), "(sale) ya-li pear", "4.54", null, 31);
+        verifyParsedItem(iterator.next(), "(sale) pacific rose apple", "4.58", null, 33);
+        verifyParsedItem(iterator.next(), "(sale) shanghai bok choy", "1.56", null, 35);
+        verifyParsedItem(iterator.next(), "(sale) crown broccoli", "3.07", null, 37);
+        verifyParsedItem(iterator.next(), "delta plain rice rolls", "2.69", null, 40);
+        verifyParsedItem(iterator.next(), "veg. &meat buns delta", "4.57", null, 41);
+        verifyParsedItem(iterator.next(), "watson frozen sweet peas", "1.59", null, 42);
+        verifyParsedItem(iterator.next(), "(sale) honaji dried special bean curd", "2.09", null, 43);
+        verifyParsedItem(iterator.next(), "!sale) shikoku sanuki japanese fz udo", "3.99", null, 44);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store: 10010",86);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/1/10",62);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "67.49",46);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "67.56",67);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "cardhdlder acknowledges receipt",72);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst                                                $0.07",47);
+        verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "21",50);
+
 
     }
 
@@ -220,6 +415,38 @@ public class TandTTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("tandt", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(25,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "large bun-red bag", "2.789", null, 6);
+        verifyParsedItem(iterator.next(), "one day old bread-packing", "2.69", null, 8);
+        verifyParsedItem(iterator.next(), "pork leg boneless", "9.49", null, 10);
+        verifyParsedItem(iterator.next(), "(sale) pork side ribs (whole)", "11.18", null, 12);
+        verifyParsedItem(iterator.next(), "(sale) chicken legs (back attached)", "8.74", null, 14);
+        verifyParsedItem(iterator.next(), "frozen rock fish fillet", "7.61", null, 17);
+        verifyParsedItem(iterator.next(), "(sale) carrot", "0.78", null, 20);
+        verifyParsedItem(iterator.next(), "cilanntro    $0.79   $    (sale) garlic sprout (leek bud)", "1.98", null, 22);
+        verifyParsedItem(iterator.next(), "napa(short)", "2.67", null, 24);
+        verifyParsedItem(iterator.next(), "(sale) tomatoes", "3.69", null, 26);
+        verifyParsedItem(iterator.next(), "(sale) don gua -china", "1.92", null, 28);
+        verifyParsedItem(iterator.next(), "(sale) you-choy", "4.06", null, 30);
+        verifyParsedItem(iterator.next(), "(sale) banana", "3.95", null, 32);
+        verifyParsedItem(iterator.next(), "(sale) shinko pear", "6.44", null, 34);
+        verifyParsedItem(iterator.next(), "(sale) seedless black grape", "4.67", null, 36);
+        verifyParsedItem(iterator.next(), "bok-choy (short)", "2.31", null, 38);
+        verifyParsedItem(iterator.next(), "shanghai bok choy", "3.84", null, 40);
+        verifyParsedItem(iterator.next(), "crown broccoli", "3.82", null, 42);
+        verifyParsedItem(iterator.next(), "island farms 1%p.skim milk", "4.95", null, 47);
+        verifyParsedItem(iterator.next(), "bottle_deposit", "0.25", null, 48);
+        verifyParsedItem(iterator.next(), "env fee    $0.07 gp icrfl", "null", null, 49);
+        verifyParsedItem(iterator.next(), "veg. &meat buns delta", "4.57", null, 50);
+        verifyParsedItem(iterator.next(), "(sale) t&t smooth tofu", "1.49", null, 51);
+        verifyParsedItem(iterator.next(), "(sale) golden city plain bun", "3.39", null, 52);
+        verifyParsedItem(iterator.next(), "t&tshopping_bag    $0.04 gp gp", "null", null, 54);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst                                   $0.14 $",57);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/1/17",73);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "100.75",56);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store: 10010",96);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "100.89",78);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "cardholder a c knoi~ledge s receip i",84);
 
     }
 
