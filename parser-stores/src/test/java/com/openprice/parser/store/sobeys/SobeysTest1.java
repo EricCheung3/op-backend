@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
-public class TimHortonsTest1 extends AbstractReceiptParserIntegrationTest{
+public class SobeysTest1 extends AbstractReceiptParserIntegrationTest{
 
     @Value("classpath:/testFiles/Sobeys/branch_11_111St/2015_04_04_21_31_48.jpg.jingwang.txt")
     private Resource receipt_31_48;
