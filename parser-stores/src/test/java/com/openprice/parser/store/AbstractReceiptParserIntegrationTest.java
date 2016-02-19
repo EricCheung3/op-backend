@@ -47,14 +47,14 @@ public class AbstractReceiptParserIntegrationTest {
         System.out.println("===================== Items parsed:");
         System.out.println("assertEquals("+receipt.getItems().size()+"," + "receipt.getItems().size());");
         for (ParsedItem item : receipt.getItems()) {
+            String code=null;
             if(item.getCatalogCode()!=null)
-                System.out.println("verifyParsedItem(iterator.next(), \""+item.getParsedName() + "\", \""+
-                    item.getParsedBuyPrice()+ "\", \""+ item.getCatalogCode() + "\", "+ item.getLineNumber()+ ");");
-            else
-                System.out.println("verifyParsedItem(iterator.next(), \""+item.getParsedName() + "\", \""+
-                        item.getParsedBuyPrice()+ "\", "+ item.getCatalogCode() + ", "+ item.getLineNumber()+ ");");
+                code="\""+ item.getCatalogCode()+"\"";
+            String price=null;
+            if(item.getParsedBuyPrice()!=null)
+                price=" \""+item.getParsedBuyPrice()+ "\"";
+            System.out.println("verifyParsedItem(iterator.next(), \""+item.getParsedName() + "\", " + price +", " + code +", " +  item.getLineNumber()+ ");");
         }
-//        System.out.println("===================== Fields parsed:");
         for (ReceiptFieldType field : receipt.getFields().keySet()) {
             System.out.println("verifyParsedField(fieldValues, ReceiptFieldType."+ field +", \""
                     + receipt.getFields().get(field).getFieldValue() +"\","

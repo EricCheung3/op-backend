@@ -1,4 +1,9 @@
+visa
+tid: c
+batch #: 198
+/' rans: 250350    tminal : 040100704-uigoo~
 bottle deposit
+env fee    $0.07 gp icrfl
 enu fee (crfj
 enu fee 
 evn fee
