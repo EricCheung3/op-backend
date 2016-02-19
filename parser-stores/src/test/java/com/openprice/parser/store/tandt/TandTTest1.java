@@ -263,7 +263,7 @@ public class TandTTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst                                      $0.65",15);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/2/8",6);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "13.19",14);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "13.84",34);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "13.84",16);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "cardholder acknowledges receipt",40);
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "3",18);
     }
@@ -309,7 +309,7 @@ public class TandTTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/12/13",72);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "103.64",56);
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store: 10010",95);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "1037",77);//TODO too big difference from subtotal
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "103.71",58);//TODO too big difference from subtotal
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "car dhdlden acknow  ledges receipt",83);
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "32",60);
 
@@ -355,7 +355,7 @@ public class TandTTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedItem(iterator.next(), "(sale) golden city plain bun", "3.39", null, 53);
         verifyParsedItem(iterator.next(), "t&t shopping bag", "0.169", null, 55);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst                                                      $0.18",60);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "92.60",82);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "92.60",62);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "92.42",59);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/11/29",77);
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "10",64);
@@ -400,7 +400,7 @@ public class TandTTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store: 10010",86);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/1/10",62);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "67.49",46);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "67.56",67);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "67.56",48);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "cardhdlder acknowledges receipt",72);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst                                                $0.07",47);
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "21",50);
@@ -446,7 +446,7 @@ public class TandTTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/1/17",73);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst                                   $0.14 $",57);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "100.75",56);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "100.89",78);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "100.0",59);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "cardholder a c knoi~ledge s receip i",84);
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store: 10010",96);
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "27",61);
@@ -536,7 +536,7 @@ public class TandTTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/8/17",84);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst                                                 $0.35",68);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "130.21",67);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "130.56",87);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "130.56",70);
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "32",72);
 
     }
