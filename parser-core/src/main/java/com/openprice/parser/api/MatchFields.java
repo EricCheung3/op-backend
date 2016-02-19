@@ -11,5 +11,5 @@ public interface MatchFields {
     void matchToBranch(MatchedRecord record, ReceiptData receipt, StoreBranch storeBranch);
 
     //match to headers and record matched information
-    void matchToHeaders(MatchedRecord record, ReceiptData receipt, StoreConfig config, StoreParser parser);
+    void matchToHeaders(MatchedRecord record, ReceiptData receipt, StoreParser parser);
 }

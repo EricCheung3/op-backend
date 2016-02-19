@@ -1,0 +1,42 @@
+       COSTCO WHOLESALE
+ WAREHOUSE          # 25 8
+         2616 91st Street NW
+         Ed111onton, AB
+               T6N-1N2
+          MEMBER #11181 2988181
+        4032 WATERMELON         6.19
+       83337 RED GRAPES         8.99
+      519638 BLUEBERRIES        4.89
+      519638 BLUEBERRIES        4.89
+         458 MILK 2%            4.54
+               DEPOSIT           .25
+               ENVIRO FEE        .07
+      765279 BLACKBERRIES       3.99
+        5675 SPINACH            2.99
+       22388 PORK TENDER       30.18
+       TOTAL                  66.98
+VF     A111erican Express     66.98
+***********1011
+REFERENCE#: 66231348-0010011380             S
+AUTH#: 528389            DATE: 08/01/14 TIME: 14:50:29
+Invoice#: 40952
+COSTCO # 258
+2616 91st Street NW
+11 Ed111onton
+
+
+PURCHASE - A111er!can Express
+         00 APPROVED - THANK YOU 025
+              AMOUNT: $66.98
+            0258 011 0000000079 0260
+IMPORTANT - retain this cop~ for ~our
+   record.
+*** CARDHOLDER COPY ***
+          CHANGE                     .00
+TOTAL NUMBER OF ITEMS SOLD - 8
+CASHIER: VELMA N                  REG# 11
+DATE:2014/08/01 TIME: 14:50 o2s8 11 o26o 79
+              GST/HST #121476329
+        THANK        YOU!
+        GS T=121"1 76329 RT
+

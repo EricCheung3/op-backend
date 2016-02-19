@@ -1,0 +1,51 @@
+COSTCO WHOLESALE
+WAREHOUSE #258
+
+         WATERMELON               6.99
+         MILK 2%                  4.54
+         DEPOSIT                   .25
+         ENVIRO FEE N              .07
+         CARNALM 1 4K             9.39
+         TPD/262282               2.50-
+         OATMEAL RTS             12.69
+         TPD/365174               3.00-
+TOTAL NUMBER OF ITEMS SOLD = 4
+         CKN/VEG DUMP            12.79
+         TPD/982859               2.50-
+         31/40 SHRIMP            21.99
+         CLEMENTINES              7.99
+         LAMB LEG                27.83
+         SHORT RIBS              28.59
+         SALMON FILET            24.42
+         LHATH CARDIG            18.99 G
+         TPD/CARDIGAN             5.00-G
+         VEGGIE TRAY             13.99 G
+
+         SUBTOTAL               177.52
+         GST 5%                   1.40
+         TOTAL                  178.92
+VF       American Express       178.92
+---------------7----------------------
+***********1003
+REFERENCE#: 66231 34R 0010010770      S
+AUTH#: 583341         DATE: 08/22/14 TIME: 18:25:29
+Invoice# : 04999
+COSTCO # 258
+2616 91st Street NW
+"Edmonton
+PURCHASE - Amer ican Express
+      00 A PPROVED - THANK YOU 025
+          AMOUNT: $178 .92
+          0258 011 0000000127 0333
+IMPORTANT - retain this copy for your
+ record .
+*** CARDHOLDER COPY ***
+         CHANGE                       .00
+         TOTAL DISCOUNTCS)          13.00
+TOTAL NUMBER OF ITEMS SOLD - 12
+CASHIER: JENNIFER                  REG# 11
+DATE: 2014/08/22   TIME:18:25 0258 11 0333 127
+           GST/HST #1 21476329
+         T HAN K      YOU !
+         GS T=121476329R T
+

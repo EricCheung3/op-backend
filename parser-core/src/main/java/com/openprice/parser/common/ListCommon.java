@@ -26,17 +26,13 @@ public class ListCommon{
         list.add(s);
     }
 
-    //TODO: rename ListCommon.matchList to ListCommon.matchHeadList
-    public static boolean matchList(final List<String> skip,
+    public static boolean matchAHeaderInList(final List<String> list,
             final String str, final double similarityScore) {
-        for(int i=0;i<skip.size();i++){
-            if(StringCommon.stringMatchesHead(str, skip.get(i),
-                    similarityScore)) {
-                //System.out.print("matching "+skip.get(i));
-                return true;
-            }
-        }
-        return false;
+        final boolean result=list
+                .stream()
+                .anyMatch(h->StringCommon.stringMatchesHead(str, h, similarityScore));
+        log.debug("str="+str+":"+result);
+        return result;
     }
 
     /*

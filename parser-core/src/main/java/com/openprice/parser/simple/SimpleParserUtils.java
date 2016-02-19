@@ -27,11 +27,19 @@ public class SimpleParserUtils {
                        .filter( line -> {
                            if(matchedRecord==null)
                                return true;
+                           if(matchedRecord.isFieldLine(line.getNumber()))
+                               log.debug("line "+line.getCleanText()+" is a field line:"+ matchedRecord.matchedFieldsOnLine(line.getNumber()));
                            return !matchedRecord.isFieldLine(line.getNumber());
                         })
                        .filter( line -> line.getNumber() < stopLine)
-                       .filter( line -> !parser.getStoreConfig().matchesSkipBefore(line.getCleanText(), parser.getStoreConfig().similarityThresholdOfTwoStrings())
-                                        && !parser.getStoreConfig().matchesSkipAfter(line.getCleanText(), parser.getStoreConfig().similarityThresholdOfTwoStrings()))
+                       .filter( line -> {
+                             if(parser.getStoreConfig().matchesSkipBefore(line.getCleanText(), parser.getStoreConfig().similarityThresholdOfTwoStrings()))
+                                 log.debug(line.getCleanText()+" matches skipBefore");
+                             if(parser.getStoreConfig().matchesSkipAfter(line.getCleanText(), parser.getStoreConfig().similarityThresholdOfTwoStrings()))
+                                 log.debug(line.getCleanText()+" matches skipAfter");
+                                           return !parser.getStoreConfig().matchesSkipBefore(line.getCleanText(), parser.getStoreConfig().similarityThresholdOfTwoStrings())
+                                        && !parser.getStoreConfig().matchesSkipAfter(line.getCleanText(), parser.getStoreConfig().similarityThresholdOfTwoStrings());
+                        })
                        .map( line -> parser.parseItemLine(line.getCleanText(), line.getNumber()))
                        .filter( item -> item != null &&
                                         item.getParsedName()!=null &&

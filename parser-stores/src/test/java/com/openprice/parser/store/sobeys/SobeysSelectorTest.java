@@ -1,4 +1,4 @@
-package com.openprice.parser.store.edoJapan;
+package com.openprice.parser.store.sobeys;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -18,16 +18,16 @@ import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.store.ParserSelectorIntegrationTest;
-import com.openprice.parser.store.safeway.SafewaySelector;
 
 import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
-public class SafewaySelectorTest extends ParserSelectorIntegrationTest{
+public class SobeysSelectorTest extends ParserSelectorIntegrationTest{
+
     @Inject
-    protected SafewaySelector selector;
+    protected SobeysSelector selector;
 
     private final List<String> atLeast5Lines=new ArrayList<String>();
 
@@ -55,26 +55,12 @@ public class SafewaySelectorTest extends ParserSelectorIntegrationTest{
         assertNotNull(config);
     }
 
-
     @Test
     public void storeConfigBlackListIsNotEmpty() throws Exception{
         ReceiptData data=ReceiptDataImpl.fromContentLines(atLeast5Lines);
         final StoreParser parser=selector.selectParser(data);
         final StoreConfig config=parser.getStoreConfig();
-
         log.debug("config.getCatalogFilter().getBlackList().size()="+config.blackListSize());
         assertTrue(config.blackListSize()>0);
-    }
-
-    @Test
-    public void configHeaderAndPropertiesTest() throws Exception{
-        ReceiptData data=ReceiptDataImpl.fromContentLines(atLeast5Lines);
-        final StoreParser parser=selector.selectParser(data);
-        final StoreConfig config=parser.getStoreConfig();
-        //it's not in the config files, so it's null
-        //System.out.println("config.refExample()"+config.refExample());
-
-        //System.out.println("config.getProp().entrySet().size()"+config.getProp().entrySet().size());
-        //System.out.println("config.similarityOfTwoStrings="+config.similarityThresholdOfTwoStrings());
     }
 }

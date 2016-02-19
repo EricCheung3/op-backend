@@ -57,8 +57,10 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
     /**
      * This is a temp solution to return all user receipts. In the future we will still use URL_USER_RECEIPTS endpoint
      * to get receipts in pagination.
+     * @deprecated This end point does not work. The resource presentation is not HAL. Don't know why.
      * @return
      */
+    @Deprecated
     @RequestMapping(method = RequestMethod.GET, value = URL_USER_ALL_RECEIPTS)
     public HttpEntity<List<UserReceiptResource>> getCurrentUserAllReceipts() {
         final UserAccount currentUser = getCurrentAuthenticatedUser();

@@ -1,0 +1,54 @@
+DATE:
+TIME:
+        WAREHOUSE            #258
+          2616 91st Street NW
+          Edmonton, AB
+              T6N-1N2
+           MEMBER i111842505       3 OK
+       701275 KS FF WOMEN          12.99 G
+       428633 TPD/FORHULA           3.00-G
+       970949 MATERNA 140$         18.99 G
+       701275 KS FF WOMEN          12.99 G
+       428633 TPD/FORMULA           3.00-G
+       970949 MATERNA 1405         18.99 G
+       701275 KS FF WOMEN          12.99 G
+       428633 TPD/FORMULA           3.00-G
+       701274 KS F.F. MEN          12.99 G
+       428633 TPD/FORMULA           3.00-G
+       970949 MATERNA 1405         18.99 G
+       701274 KS F.F. HEN          12.99 G
+       428633 TPD/FORMULA           3.00-G
+       701274 K5 F.F. MEN          12.99 G
+       428633 TPD/FORMULA           3.00-G
+           SUBTOTAL               116.91
+   **** GST 5~                      5.85
+           TOTAL                 -.,~.,'tl
+VF         MasterCard                122.76
+************6125
+REFERENCE#: 66231338-0010010240              C
+AUTH#: 097118                02/08/15 16:06:54
+Invoice#: 18429
+COSTCO # 258
+2616 91st Street NW
+"Edmonton
+PURCHASE - MASTERCARD
+PC MasterCard
+A0000000041010
+0000008000 E800
+         01 APPROVED - THANK YOU 027
+              AMOUNT: $122.76
+            0258 001 0000000120 0137
+IMP-ORTANT - retain this cop~ for ~our
+  record.
+*** CARDHOLDER COPY ***
+           CHANGE                       .00
+           TOTAL DISCOUNTCS)          18.00
+TOTAL NUMBER OF ITEMS SOLD = 9
+CASHIER: CARI-ANNE                   REG# 1
+~ii-"Ut~..llti:: 16 : 06 0258 01 0137 120
+
+              GST/H5T #121476329
+        THANK       YOU!
+        GST =12147632 9RT
+DATE:
+TIME:

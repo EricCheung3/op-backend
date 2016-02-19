@@ -27,5 +27,5 @@ application:
             cloudEngineEnabled: true
             numberOfServers: 1
             waitSeconds: 10
-            cloudApplicationId: openprice
-            cloudPassword: VGe2YmGwhmKrd6YDxR3tEul2
+            cloudApplicationId: ryanshaw
+            cloudPassword: CcFDjYao94eWnwV+8F8asD5P

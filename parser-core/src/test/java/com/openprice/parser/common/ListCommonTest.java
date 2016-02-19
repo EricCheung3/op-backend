@@ -1,6 +1,7 @@
 package com.openprice.parser.common;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,20 @@ import java.util.List;
 import org.junit.Test;
 
 public class ListCommonTest{
+
+    @Test
+    public void matchAHeaderInListNo(){
+       final List<String> list = new ArrayList<String>();
+       list.add("abdfsdsad");
+       assertTrue(!ListCommon.matchAHeaderInList(list, "Total", 0.6));
+    }
+
+    @Test
+    public void matchAHeaderInListYes(){
+       final List<String> list = new ArrayList<String>();
+       list.add("total");
+       assertTrue(ListCommon.matchAHeaderInList(list, "Totale", 0.6));
+    }
 
     @Test
     public void oneStringTest4(){
@@ -65,17 +80,6 @@ public class ListCommonTest{
     //   }
 
 
-    //   public static boolean matchList(final List<String> skip,
-    //     final String str, final double similarityScore) throws Exception{
-    //       for(int i=0;i<skip.size();i++){
-    //           if(StringCommon.stringMatchesHead(str, skip.get(i),
-    //               similarityScore)) {
-    //              //System.out.print("matching "+skip.get(i));
-    //              return true;
-    //           }
-    //       }
-    //       return false;
-    //   }
 
 
 }

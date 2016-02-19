@@ -1,0 +1,19 @@
+{
+  "UnitPriceStartColumn" : "33",
+  "AuthorExample" : "05790Z",
+  "SubstringOfUnitPriceLine" : ". kg NET @ $ . /kg",
+  "BuyPriceIsAdjusted" : "true",
+  "QuantityPriceFirst" : "true",
+  "UnitPriceAppearsFirst" : "true",
+  "QuantityPriceExample" : "2 @ 1/ $0.29",
+  "BuyPriceStartColumn" : "63",
+  "WeightUnit" : "kg",
+  "WidthLowerBound" : "40",
+  "PhoneExample" : "780-435-5132",
+  "PriceTail" : "c,C,GC,GO,R,r,G",
+  "GstExample" : "825487119 RT001",
+  "SimilarityThresholdOfTwoStrings" : "0.7",
+  "DTFormat" : "month/day/year hour:minute",
+  "MinHeadSpacesBeforeCategory" : "8",
+  "SubstringOfQuantityPrice" : ""
+}
