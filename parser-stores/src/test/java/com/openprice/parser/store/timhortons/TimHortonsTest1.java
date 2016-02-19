@@ -211,5 +211,20 @@ public class TimHortonsTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("timhortons", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(7,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "2 lg original blend", "3.62", null, 8);
+        verifyParsedItem(iterator.next(), "2 double double", "000", null, 9);
+        verifyParsedItem(iterator.next(), "1 steak mushroon melt", "6.49", null, 10);
+        verifyParsedItem(iterator.next(), "1 white bun /sandwich", "0.00", null, 11);
+        verifyParsedItem(iterator.next(), "1 regular pulled pork", "5.49", null, 12);
+        verifyParsedItem(iterator.next(), "1 ciabatta /sandwich", "0.00", null, 13);
+        verifyParsedItem(iterator.next(), "1 grilled", "50.00", null, 14);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst hr892375478",26);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "15.60",15);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2016/2/16",24);
+        verifyParsedField(fieldValues, ReceiptFieldType.Ref, "receipt tt : 3238914",25);
+        verifyParsedField(fieldValues, ReceiptFieldType.Card, "card entry:tapjcc                                     sequence:000069",29);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "16.36",17);
+
     }
 }
