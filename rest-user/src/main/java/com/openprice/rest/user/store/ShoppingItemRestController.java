@@ -108,7 +108,8 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
     @RequestMapping(method = RequestMethod.DELETE, value = URL_USER_SHOPPING_STORES_STORE_ITEMS)
     public HttpEntity<Void> deleteStoreShoppingItemByAll(
             @PathVariable("storeId") final String storeId) throws ResourceNotFoundException {
-        final List<ShoppingItem> itemList = shoppingItemRepository.findAll();
+        final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
+        final List<ShoppingItem> itemList = shoppingItemRepository.findByStoreOrderByName(store);
         shoppingItemRepository.delete(itemList);
         return ResponseEntity.noContent().build();
     }
