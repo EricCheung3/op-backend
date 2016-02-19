@@ -1,0 +1,46 @@
+
+ 
+                 T&T Supermarket
+                        Edmonton Store
+      Suite 2580 8882-170 S treet. Edmonton AB , T5T 4H2
+            Ph : <780} 483-6638 I GstM 135747137RT
+DATE: 03/14/15 TIME: 8:04:22 PM                                   SIC 02
+
+GROCERY
+S&B WASABI PASTE IN TUBE                          $2.35
+KYD HUA TIAO CHIEW STED 9.5% A                    $2.87
+PRODUCE
+GARLIC                                            $1.98
+ 2 @ $0.99ea.
+DELI
+BURNBRAE FAR EXTRA LARGE WHITE                    $6.98
+ 2 @ $3.49ea.                 
+SERVICE COUNTER
+T&T SHOPPING BAG                                  $0.08 GP
+ 2 @ $0.04aa.   
+
+SUB TOTAL                                         $14.26
+
+TOTAL                                             $14.26
+Master                                            $14.26
+Item count: 8
+DATE: 03/14/15 TIME: 8:04:22   PM                              SIC
+Trans : 252093                    Terminal :040100704-0100 1-
+
+           T& T SUPERMARKET #010
+               8882-170 STREET
+                 SUITE 2580
+           EDMONTON, AB T5T 4M2
+              <780} 483-6638
+                   Purchase
+HID : 5532224
+TID: 05532224                     Ref H: 185
+Batch #: 271           Seq. M: 2710010011840
+DATE: 03/14/15                          TIME:  20:04:45
+APPR . CODE: 03436Z
+MasterCard
+************6130 p
+Total
+            00 APPROVED 03436Z 001
+ 
+ 
