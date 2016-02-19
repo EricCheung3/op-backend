@@ -25,17 +25,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MatchFieldsImpl implements MatchFields{
 
-    //strings that are not date; this maybe not necessary given the use of shortProductNames
-    //private static List<String> dateBlackList = new ArrayList<>();
+    //strings that are not date; still useful although the use of shortProductNames (used for exact containing), because dateBlackList is used in approximate matching
+    private static List<String> dateBlackList = new ArrayList<>();
     //strings that re not total
     private static List<String> totalBlackList = new ArrayList<>();
     //product names that are short and easy to confuse field recognition
     private static List<String> shortProductNames = new ArrayList<>();
 
-//    {
-//        dateBlackList.add("watermellon");
-//        //dateBlackList.add("water");//TODO this is short. tricky.
-//    }
+    {
+        dateBlackList.add("watermellon");
+    }
 
     {
         totalBlackList.add("total savings");
@@ -49,9 +48,9 @@ public class MatchFieldsImpl implements MatchFields{
         shortProductNames.add("water");//easy to confuse date
     }
 
-//    public static boolean matchesBlackListForDate(final String str, final double similarityThreshold){
-//        return ListCommon.matchAHeaderInList(dateBlackList, str, similarityThreshold);
-//    }
+    public static boolean matchesBlackListForDate(final String str, final double similarityThreshold){
+        return ListCommon.matchAHeaderInList(dateBlackList, str, similarityThreshold);
+    }
 
     public static boolean matchesBlackListForTotal(final String str, final double similarityThreshold){
         return ListCommon.matchAHeaderInList(totalBlackList, str, similarityThreshold);
@@ -182,7 +181,7 @@ public class MatchFieldsImpl implements MatchFields{
 //                    })//just let each field matching to its favourite line
                    //threshold needs a large value because total date are important
                    .filter(line -> ! matchesBlackListForTotal(line.getCleanText().toLowerCase(), 0.75))
-//                   .filter(line -> ! matchesBlackListForDate(line.getCleanText().toLowerCase(), 0.75))
+                   .filter(line -> ! matchesBlackListForDate(line.getCleanText().toLowerCase(), 0.75))
                    .filter( line -> {
 //                       log.debug("in lambda, line="+line.getCleanText());
                 Optional<Double> maxScore =
