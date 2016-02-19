@@ -130,7 +130,8 @@ public class DateParserUtils {
     }
 
     public static List<String> literalMonthDayYearSplit(final String dateString){
-//        final String[] words = dateString.split("-|_|\\.|\\s+");
+//        final String[] words = dateString.split("-|_|\\.|\\s+");//not good. only one dilimiter is selected
+        //http://stackoverflow.com/questions/3654446/java-regex-help-splitting-string-on-spaces-and-commas
         final String[] words = dateString.split("\\s*(\\.|_|-|,|\\s)\\s*");
         log.debug("words.length="+words.length);
         final List<String> list = new ArrayList<>();
