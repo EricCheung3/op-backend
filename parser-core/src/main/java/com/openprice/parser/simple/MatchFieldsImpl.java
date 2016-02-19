@@ -25,15 +25,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MatchFieldsImpl implements MatchFields{
 
-    //strings that are not date
-    private static List<String> dateBlackList = new ArrayList<>();
+    //strings that are not date; this maybe not necessary given the use of shortProductNames
+    //private static List<String> dateBlackList = new ArrayList<>();
     //strings that re not total
     private static List<String> totalBlackList = new ArrayList<>();
+    //product names that are short and easy to confuse field recognition
+    private static List<String> shortProductNames = new ArrayList<>();
 
-    {
-        dateBlackList.add("watermellon");
-        //dateBlackList.add("water");//TODO this is short. tricky.
-    }
+//    {
+//        dateBlackList.add("watermellon");
+//        //dateBlackList.add("water");//TODO this is short. tricky.
+//    }
 
     {
         totalBlackList.add("total savings");
@@ -43,14 +45,17 @@ public class MatchFieldsImpl implements MatchFields{
         totalBlackList.add("| Total Miles Earned ");
     }
 
-    public static boolean matchesBlackListForDate(final String str, final double similarityThreshold){
-        return ListCommon.matchAHeaderInList(dateBlackList, str, similarityThreshold);
+    {
+        shortProductNames.add("water");//easy to confuse date
     }
+
+//    public static boolean matchesBlackListForDate(final String str, final double similarityThreshold){
+//        return ListCommon.matchAHeaderInList(dateBlackList, str, similarityThreshold);
+//    }
 
     public static boolean matchesBlackListForTotal(final String str, final double similarityThreshold){
         return ListCommon.matchAHeaderInList(totalBlackList, str, similarityThreshold);
     }
-
 
     @Override
     public void matchToBranch(
@@ -168,6 +173,7 @@ public class MatchFieldsImpl implements MatchFields{
             receipt.getReceiptLines()
                    .stream()
                    .filter( line -> line.getCleanText().length() > 1 )
+                   .filter(line -> !shortProductNames.stream().anyMatch( p -> line.getCleanText().contains(p)))
                    .filter(line -> !totalSoldAndTotalAreTreated.contains(line.getNumber()))
 //                   .filter( line -> {
 ////                       if(record.isFieldLine(line.getNumber()))
@@ -176,7 +182,7 @@ public class MatchFieldsImpl implements MatchFields{
 //                    })//just let each field matching to its favourite line
                    //threshold needs a large value because total date are important
                    .filter(line -> ! matchesBlackListForTotal(line.getCleanText().toLowerCase(), 0.75))
-                   .filter(line -> ! matchesBlackListForDate(line.getCleanText().toLowerCase(), 0.75))
+//                   .filter(line -> ! matchesBlackListForDate(line.getCleanText().toLowerCase(), 0.75))
                    .filter( line -> {
 //                       log.debug("in lambda, line="+line.getCleanText());
                 Optional<Double> maxScore =

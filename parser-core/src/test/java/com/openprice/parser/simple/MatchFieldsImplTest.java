@@ -30,10 +30,10 @@ public class MatchFieldsImplTest {
 
     private StoreParser parser;
 
-    @Test
-    public void test(){
-        MatchFieldsImpl.matchesBlackListForDate("water", 0.67);
-    }
+//    @Test
+//    public void test(){
+//        MatchFieldsImpl.matchesBlackListForDate("water", 0.67);
+//    }
 
     @Before
     public void init(){
