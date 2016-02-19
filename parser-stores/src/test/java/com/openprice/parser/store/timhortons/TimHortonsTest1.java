@@ -48,6 +48,9 @@ public class TimHortonsTest1 extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testFiles/TimHortons/branch_Lessard183/2015_07_03_13_54_48.jpg.hengshuai.txt")
     private Resource receipt_13_54;
 
+    @Value("classpath:/testFiles/TimHortons/fromPhone/yuanji_19Feb2016.txt")
+    private Resource receipt_phone_yuanji19Feb16;
+
     @Inject
     private ChainRegistry chainRegistry;
 
@@ -194,5 +197,19 @@ public class TimHortonsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst ij 136458304",20);
         verifyParsedField(fieldValues, ReceiptFieldType.Ref, "r ecel pt ~ : 9227703",19);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/6/29",18);
+    }
+
+    @Test
+    public void receipt_phone_yuanji19Feb16() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_phone_yuanji19Feb16, (line)-> receiptLines.add(line));
+
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        printResult(receipt);
+
+        assertEquals("timhortons", receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
     }
 }
