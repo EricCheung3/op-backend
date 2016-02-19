@@ -240,4 +240,46 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
             .statusCode(HttpStatus.SC_NOT_FOUND)
         ;
     }
+
+    @Test
+    public void deleteShoppingListItemByAll_ShouldDeleteShoppingListAllItems() {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+        final String itemsUrl = userShoppingItemsUrl(sessionFilter, "shoppingStore101");
+
+        // first, should get all items ok
+        Response response =
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(itemsUrl);
+        response.prettyPrint();
+        response
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+        ;
+        // delete all items
+        given()
+            .filter(sessionFilter)
+        .when()
+            .delete(itemsUrl)
+        .then()
+            .statusCode(HttpStatus.SC_NO_CONTENT)
+        ;
+
+        response =
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(itemsUrl);
+        response.prettyPrint();
+        response
+         .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("page.size", equalTo(10))
+            .body("page.totalElements", equalTo(0))
+            .body("page.totalPages", equalTo(0))
+            .body("page.number", equalTo(0))
+        ;
+    }
 }

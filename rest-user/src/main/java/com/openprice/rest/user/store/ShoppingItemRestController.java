@@ -4,6 +4,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -101,6 +102,14 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
             @PathVariable("itemId") final String itemId) throws ResourceNotFoundException {
         final ShoppingItem item = getShoppingItemByIdAndCheckStore(storeId, itemId);
         shoppingItemRepository.delete(item);
+        return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = URL_USER_SHOPPING_STORES_STORE_ITEMS)
+    public HttpEntity<Void> deleteStoreShoppingItemByAll(
+            @PathVariable("storeId") final String storeId) throws ResourceNotFoundException {
+        final List<ShoppingItem> itemList = shoppingItemRepository.findAll();
+        shoppingItemRepository.delete(itemList);
         return ResponseEntity.noContent().build();
     }
 
