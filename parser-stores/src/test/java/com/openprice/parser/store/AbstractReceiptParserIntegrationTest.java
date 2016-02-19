@@ -54,7 +54,7 @@ public class AbstractReceiptParserIntegrationTest {
                 System.out.println("verifyParsedItem(iterator.next(), \""+item.getParsedName() + "\", \""+
                         item.getParsedBuyPrice()+ "\", "+ item.getCatalogCode() + ", "+ item.getLineNumber()+ ");");
         }
-        System.out.println("===================== Fields parsed:");
+//        System.out.println("===================== Fields parsed:");
         for (ReceiptFieldType field : receipt.getFields().keySet()) {
             System.out.println("verifyParsedField(fieldValues, ReceiptFieldType."+ field +", \""
                     + receipt.getFields().get(field).getFieldValue() +"\","
