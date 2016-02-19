@@ -136,24 +136,24 @@ public class StringCommon {
 
     // to do: using nio
     public static String formatPath(String path, String fileName) {
-        // logger.debug("path is "+path);
+        // log.debug("path is "+path);
         if (!path.startsWith("/"))
             path = "/" + path;
         if (!path.endsWith("/") && !fileName.startsWith("/"))
             path += "/";
         if (!fileName.endsWith("/"))
             fileName += "/";
-        // logger.debug("path is "+path);
+        // log.debug("path is "+path);
         return path + fileName;
     }
 
     public static String formatPath(String path) {
-        // logger.debug("path is "+path);
+        // log.debug("path is "+path);
         if (!path.startsWith("/"))
             path = "/" + path;
         if (!path.endsWith("/"))
             path = path + "/";
-        // logger.debug("path is "+path);
+        // log.debug("path is "+path);
         return path;
     }
 
@@ -224,14 +224,14 @@ public class StringCommon {
     // "12:1 1" will be changed to "12:11"
     public static String fixMinuteSecond(String afterYear) throws Exception {
         int colon = afterYear.indexOf(":");
-        // logger.debug("colon="+colon);
+        // log.debug("colon="+colon);
         String result = "";
         if (colon > 0) {
             // get two digits after colon
             result = afterYear.substring(0, colon + 1) + firstTwoChars(afterYear.substring(colon + 1));
             /*
              * int space=afterYear.indexOf(":", colon); //
-             * logger.debug("space="+space); if(space==2){ // logger.debug(
+             * log.debug("space="+space); if(space==2){ // log.debug(
              * "space is found"); return
              * afterYear.substring(0,colon+3)+afterYear.charAt(colon+3); }
              */
@@ -268,18 +268,18 @@ public class StringCommon {
                 result = result.substring(0, result.length() - 1);
             }
         }
-        // logger.debug("removeTrailingChars:"+result);
+        // log.debug("removeTrailingChars:"+result);
         if (!isNumeric(price)) {
             result = getOnlyDigitsDots(result);
             // result=getOnlyLettersDigits(result);
         }
-        // logger.debug("removeTrailingChars:"+result);
+        // log.debug("removeTrailingChars:"+result);
         /*
          * wrong code. a very good exam. for(int i=0; i<tail.length();i++){ char
          * c=tail.charAt(i); if(result.endsWith(c+"")){
-         * logger.debug("before:"+result);
+         * log.debug("before:"+result);
          * result=result.substring(0,result.length()-1);
-         * logger.debug("after:"+result); } }
+         * log.debug("after:"+result); } }
          */
         return result.trim();
     }
@@ -391,7 +391,7 @@ public class StringCommon {
         String str2 = StringCommon.firstNonSpaceNonDigitChars(str, subStr.length());
         // String str2=StringCommon.firstCharsSameSet(str, subStrNoSpace);
         double score = Levenshtein.compare(str2, subStr);
-        // logger.debug("!!!!!score="+score+", string1="+str2+",
+        // log.debug("!!!!!score="+score+", string1="+str2+",
         // string2="+subStr);
         return score >= threshold;
     }
@@ -437,7 +437,7 @@ public class StringCommon {
     public static String stringMatchesHead(final String str, final List<String> head, final double threshold)
             throws Exception {
         for (int i = 0; i < head.size(); i++) {
-            // logger.debug(i+", head ="+head.get(i)+", string ="+str);
+            // log.debug(i+", head ="+head.get(i)+", string ="+str);
             if (StringCommon.stringMatchesHead(str, head.get(i), threshold))
                 return head.get(i);
         }
@@ -529,7 +529,7 @@ public class StringCommon {
          * String head=str.substring(0,p1).replaceAll("\\s+",""); assert
          * head.equals(s2);
          */
-        // logger.debug("p1="+p1+",p2="+p2+",
+        // log.debug("p1="+p1+",p2="+p2+",
         // str.substring(p1)="+str.substring(p1));
         return str.substring(p1);
     }
@@ -560,15 +560,25 @@ public class StringCommon {
         return phone;
     }
 
+    //find the price string in reverse order because the it is like in the end of a line
+    public static String selectPriceString(final String priceStr){
+        String[] words=priceStr.split("\\s{5,}");
+        for(int i=words.length-1; i>=0; i--){
+            final int[] counts = StringCommon.countDigitAndChars(words[i]);
+            if(counts[0]>=1)
+                return words[i];
+        }
+        return words[words.length-1];
+    }
+
     // format price into close-to numeric format
     public static String formatPrice(String priceStr){
-        // logger.debug("priceStr="+priceStr);
+        log.debug("priceStr="+priceStr);
         priceStr=priceStr.trim();
         if(priceStr.isEmpty()) return priceStr;
 
         //only keep the last word if there are too many spaces
-        String[] words=priceStr.split("\\s{5,}");
-        priceStr=words[words.length-1];
+        priceStr=selectPriceString(priceStr);
 
         //change "'1 . 73" to "4.73"
         int tmp=priceStr.indexOf("'1");
@@ -588,16 +598,16 @@ public class StringCommon {
         }
         if(numHeadDots>0){
             int firstDot=priceStr.indexOf(".");
-            //      logger.debug("firstDot="+firstDot);
+            //      log.debug("firstDot="+firstDot);
             int lastDot=priceStr.lastIndexOf(".");
-            //       logger.debug("lastDot="+lastDot);
+            //       log.debug("lastDot="+lastDot);
             if(lastDot!=numHeadDots-1)//last dot is not in the heading continuous dots, then remove all begining
                 priceStr=priceStr.substring(numHeadDots).trim();
             else{
                 priceStr=priceStr.substring(numHeadDots-1).trim();//keep the last one
             }
         }
-        // logger.debug("str1:"+priceStr);
+         log.debug("str1:"+priceStr);
 
         //if price is like "38 99" "3 99", then likely it is "38.99" "3.99"
         priceStr=priceStr.replaceAll("['%]", ".");
@@ -607,7 +617,7 @@ public class StringCommon {
             priceStr=priceStr.replaceAll("\\s+", ".");
         }
         //}
-        // logger.debug("str2:"+priceStr);
+         log.debug("str2:"+priceStr);
 
         //remove spaces
         priceStr=priceStr.replaceAll("\\s+", "");
@@ -636,9 +646,9 @@ public class StringCommon {
                     priceStr=priceStr.substring(1);
                     priceStr=priceStr.replaceAll("[~-]", ".");
                 }else{
-                    //logger.debug("if0");
+                    //log.debug("if0");
                     if(priceStr.contains("-")|| priceStr.contains("~")){
-                        // logger.debug("if1");
+                        // log.debug("if1");
                         priceStr=priceStr.substring(1);
                         priceStr=priceStr.replaceAll("[~-]", ".");
                     } else
@@ -646,12 +656,12 @@ public class StringCommon {
                 }
             }
         }
-        // logger.debug("str3:"+priceStr);
+         log.debug("str3:"+priceStr);
         // System.exit(1);
 
         priceStr=priceStr.replaceAll("[_]", ".");
 
-        // logger.debug("str4:"+priceStr);
+        // log.debug("str4:"+priceStr);
 
 
         final String onlyDigit=priceStr.replaceAll("[^0-9._]", StringCommon.EMPTY);
@@ -795,7 +805,7 @@ public class StringCommon {
 
     public static boolean similar(String s1, String s2) {
         double score = similarityRatioOfMatch(s1, s2);
-        // logger.debug(s1+":"+s2+", score is "+score);
+        // log.debug(s1+":"+s2+", score is "+score);
         return score > 0.9;
     }
 

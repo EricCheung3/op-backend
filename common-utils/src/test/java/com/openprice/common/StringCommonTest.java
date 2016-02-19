@@ -14,6 +14,20 @@ import lombok.extern.slf4j.Slf4j;
 public class StringCommonTest {
 
     @Test
+    public void selectPriceStringTest(){
+        final String line="$67.56     /";
+        final String price = StringCommon.selectPriceString(line);
+        assertEquals("$67.56", price);
+    }
+
+    @Test
+    public void selectPriceStringTest2(){
+        final String line="fda     $67.56       abc    e";
+        final String price = StringCommon.selectPriceString(line);
+        assertEquals("$67.56", price);
+    }
+
+    @Test
     public void sortByStringLengthTest2() throws Exception{
         final List<String> orig=new ArrayList<String>();
         final String s1="ADC";

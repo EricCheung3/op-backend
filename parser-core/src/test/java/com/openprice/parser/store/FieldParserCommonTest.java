@@ -19,6 +19,13 @@ public class FieldParserCommonTest {
     }
 
     @Test
+    public void parseTotal2(){
+        final String line="TOTAL                                                  $67.56     /";
+        final String totalValue=FieldParserCommon.parseTotal(line);
+        assertEquals("67.56", totalValue);
+    }
+
+    @Test
     public void parseTotalSold1(){
         final ReceiptLine line= new ReceiptLine(
                 null,
