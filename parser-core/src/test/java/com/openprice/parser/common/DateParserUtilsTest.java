@@ -26,6 +26,69 @@ public class DateParserUtilsTest {
     }
 
     @Test
+    public void literalMonthDayYearSplitTest2(){
+        final List<String> words = DateParserUtils.literalMonthDayYearSplit("Feb 9,2015");
+        assertEquals(3, words.size());
+        assertEquals("Feb", words.get(0));
+        assertEquals("9", words.get(1));
+        assertEquals("2015", words.get(2));
+    }
+
+    @Test
+    public void literalMonthDayYearSplitCommaSpacesIsOkay(){
+        final List<String> words = DateParserUtils.literalMonthDayYearSplit("Feb 9,    2015");
+        assertEquals(3, words.size());
+        assertEquals("Feb", words.get(0));
+        assertEquals("9", words.get(1));
+        assertEquals("2015", words.get(2));
+    }
+
+    @Test
+    public void literalMonthDayYearSplitCommaSpacesIsOkay2(){
+        final List<String> words = DateParserUtils.literalMonthDayYearSplit("Feb  9  ,    2015");
+        assertEquals(3, words.size());
+        assertEquals("Feb", words.get(0));
+        assertEquals("9", words.get(1));
+        assertEquals("2015", words.get(2));
+    }
+
+    @Test
+    public void literalMonthDayYearSplitDashSpacesIsOkay(){
+        final List<String> words = DateParserUtils.literalMonthDayYearSplit("Feb 9-    2015");
+        assertEquals(3, words.size());
+        assertEquals("Feb", words.get(0));
+        assertEquals("9", words.get(1));
+        assertEquals("2015", words.get(2));
+    }
+
+    @Test
+    public void literalMonthDayYearSplitDashSpacesIsOkay2(){
+        final List<String> words = DateParserUtils.literalMonthDayYearSplit("Feb 9   -       2015");
+        assertEquals(3, words.size());
+        assertEquals("Feb", words.get(0));
+        assertEquals("9", words.get(1));
+        assertEquals("2015", words.get(2));
+    }
+
+    @Test
+    public void literalMonthDayYearSplitUnderscoreSpacesIsOkay(){
+        final List<String> words = DateParserUtils.literalMonthDayYearSplit("Feb 9 _    2015");
+        assertEquals(3, words.size());
+        assertEquals("Feb", words.get(0));
+        assertEquals("9", words.get(1));
+        assertEquals("2015", words.get(2));
+    }
+
+    @Test
+    public void literalMonthDayYearSplitUnderscoreSpacesIsOkay2(){
+        final List<String> words = DateParserUtils.literalMonthDayYearSplit("Feb 9_    2015");
+        assertEquals(3, words.size());
+        assertEquals("Feb", words.get(0));
+        assertEquals("9", words.get(1));
+        assertEquals("2015", words.get(2));
+    }
+
+    @Test
     public void isLiteralDateFormatTest1(){
         assertTrue(DateParserUtils.isLiteralDateFormat("Feb sdfasfas"));
         assertTrue(DateParserUtils.isLiteralDateFormat("January 2r3vcsdafds"));
@@ -68,6 +131,17 @@ public class DateParserUtilsTest {
         assertEquals(2, ymd[1]);
         assertEquals(9, ymd[2]);
     }
+
+    @Test
+    public void toDateFromLiteralFormatTest2CommaNoSpaceIsOkay() throws Exception{
+        final Date date = DateParserUtils.toDateFromLiteralFormat("Feb 9,2015");
+        log.debug("date="+date);
+        final int[] ymd = DateParserUtils.getYearMonthDay(date);
+        assertEquals(2015, ymd[0]);
+        assertEquals(2, ymd[1]);
+        assertEquals(9, ymd[2]);
+    }
+
 
     @Test
     public void spaceTest(){
@@ -732,6 +806,17 @@ public class DateParserUtilsTest {
         lines.add("No Signature Required");
         assertEquals("2015/2/9", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
     }
+
+    @Test
+    public void findDateStringAfterLineLiteralMonthDayYearMoreSpacesAndOneComma3() throws Exception{
+        final List<String> lines=new ArrayList<String>();
+        lines.add("DATE            TIME            AMOUNT");
+        lines.add("DATE: MOn Feb 9,2015 TIME: 17:45:11");
+        lines.add("APPROVED");
+        lines.add("No Signature Required");
+        assertEquals("2015/2/9", DateParserUtils.findDateStringAfterLine(lines, 0).getValue());
+    }
+
 
     @Test
     public void testDate1()throws Exception{

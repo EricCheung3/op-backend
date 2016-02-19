@@ -85,7 +85,7 @@ public class TimHortonsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedItem(iterator.next(), "1    1 slice cheddar", "0.00", null, 10);
         verifyParsedItem(iterator.next(), "1    3 pieces bacon", "0.00", null, 11);
         verifyParsedField(fieldValues, ReceiptFieldType.Ref, "receipt # : 10993894",22);
-        verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/2/9",21);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "12.25",14);
         verifyParsedField(fieldValues, ReceiptFieldType.Card, "card entry:chip                     sequence: 000132",26);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst #892793597rt0001",23);

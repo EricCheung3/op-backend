@@ -130,29 +130,28 @@ public class DateParserUtils {
     }
 
     public static List<String> literalMonthDayYearSplit(final String dateString){
-        final String[] words = dateString.split("-|_|\\.|\\s+");
+//        final String[] words = dateString.split("-|_|\\.|\\s+");
+        final String[] words = dateString.split("\\s*(\\.|_|-|,|\\s)\\s*");
+        log.debug("words.length="+words.length);
         final List<String> list = new ArrayList<>();
         for(String w : words){
             if(w.length()==1
                 && !Character.isDigit(w.charAt(0))
                 && !Character.isLetter(w.charAt(0)))
                 continue;
-            list.add(w);
+            list.add(StringCommon.removeAllSpaces(w));
         }
         return list;
     }
 
     //TODO right assuming the it's the LiteralMonth Day(digit) Year(digit) format
     public static Date toDateFromLiteralFormat(final String dateStr) throws Exception {
-        final String[] words = dateStr.split("-|_|\\.|\\s+");
-        final List<String> nonEmptyStrings = new ArrayList<>();
-        for(String w:words)
-            if(!w.trim().isEmpty())
-                nonEmptyStrings.add(w);
-        log.debug("nonEmptyStrings"+nonEmptyStrings);
+        final List<String> nonEmptyStrings = literalMonthDayYearSplit(dateStr);
+        log.debug("dateStr="+ dateStr+ ", nonEmptyStrings="+nonEmptyStrings+", nonEmptyStrings.size="+nonEmptyStrings.size());
         String yMD= nonEmptyStrings.get(2)  + DATE_SPLITTER_UNIFORM
                 + dateLiterals.getMonthNumber(nonEmptyStrings.get(0)) + DATE_SPLITTER_UNIFORM
                 + nonEmptyStrings.get(1);
+        log.debug("yMD="+yMD);
         return DATE_FORMAT.parse(yMD);
     }
 
