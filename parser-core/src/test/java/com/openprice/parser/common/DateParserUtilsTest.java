@@ -19,10 +19,12 @@ import lombok.extern.slf4j.Slf4j;
 public class DateParserUtilsTest {
 
     @Test
-    public void test1(){
+    public void literalMonthDayYearSplitTest1(){
         final List<String> words = DateParserUtils.literalMonthDayYearSplit("Feb 9  , 2015");
-        for(String w:words)
-            log.debug(w);
+        assertEquals(3, words.size());
+        assertEquals("Feb", words.get(0));
+        assertEquals("9", words.get(1));
+        assertEquals("2015", words.get(2));
     }
 
     @Test
@@ -141,7 +143,6 @@ public class DateParserUtilsTest {
         assertEquals(2, ymd[1]);
         assertEquals(9, ymd[2]);
     }
-
 
     @Test
     public void spaceTest(){

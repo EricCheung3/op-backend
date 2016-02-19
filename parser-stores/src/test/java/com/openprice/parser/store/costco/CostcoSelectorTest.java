@@ -60,7 +60,6 @@ public class CostcoSelectorTest extends ParserSelectorIntegrationTest{
         ReceiptData data=ReceiptDataImpl.fromContentLines(atLeast5Lines);
         final StoreParser parser=selector.selectParser(data);
         final StoreConfig config=parser.getStoreConfig();
-
         log.debug("config.getCatalogFilter().getBlackList().size()="+config.blackListSize());
         assertTrue(config.blackListSize()>0);
     }

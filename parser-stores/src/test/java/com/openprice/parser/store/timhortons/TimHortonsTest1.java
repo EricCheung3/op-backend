@@ -45,6 +45,8 @@ public class TimHortonsTest1 extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testFiles/TimHortons/branch110_51Ave/2015_07_03_14_24_24.jpg.hengshuai.txt")
     private Resource receipt_24_24;
 
+    @Value("classpath:/testFiles/TimHortons/branch_Lessard183/2015_07_03_13_54_48.jpg.hengshuai.txt")
+    private Resource receipt_13_54;
 
     @Inject
     private ChainRegistry chainRegistry;
@@ -116,7 +118,6 @@ public class TimHortonsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.Ref, "recei pt # : 11400754",19);
         verifyParsedField(fieldValues, ReceiptFieldType.Card, "card entry: tap _icc                  sequence: 000188",23);
         verifyParsedField(fieldValues, ReceiptFieldType.Author, "auth #: 072052                               approued",31);
-
     }
 
     @Test
@@ -168,6 +169,30 @@ public class TimHortonsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/6/17",19);
         verifyParsedField(fieldValues, ReceiptFieldType.Card, "card entry:chip                        sequence : 000047",24);
         verifyParsedField(fieldValues, ReceiptFieldType.Ref, "r eceipt ~ : 11761284",20);
+    }
 
+    @Test
+    public void receipt_13_54() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_13_54, (line)-> receiptLines.add(line));
+
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        printResult(receipt);
+
+        assertEquals("timhortons", receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(4,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "med tea latte", "2.84", null, 4);
+        verifyParsedItem(iterator.next(), "green tea", "0.00", null, 5);
+        verifyParsedItem(iterator.next(), "med tea latte", "2.84", null, 6);
+        verifyParsedItem(iterator.next(), "green tea", "0.00", null, 7);
+        verifyParsedField(fieldValues, ReceiptFieldType.Card, "card entry �r��-",23);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "5.68",8);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "5.96",10);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst ij 136458304",20);
+        verifyParsedField(fieldValues, ReceiptFieldType.Ref, "r ecel pt ~ : 9227703",19);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/6/29",18);
     }
 }
