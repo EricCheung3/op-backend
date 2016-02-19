@@ -4,6 +4,10 @@ import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
+import javax.inject.Inject;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
@@ -12,10 +16,15 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
+import com.openprice.domain.shopping.ShoppingItem;
+import com.openprice.domain.shopping.ShoppingItemRepository;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
 @DatabaseSetup("classpath:/data/testData.xml")
 public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
+
+    @Inject
+    private ShoppingItemRepository shoppingItemRepository;
 
     @Test
     public void getShoppingItems_ShouldReturnUserShoppingItemsForStore() {
@@ -239,5 +248,52 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
         .then()
             .statusCode(HttpStatus.SC_NOT_FOUND)
         ;
+    }
+
+    @Test
+    public void deleteShoppingListItemByAll_ShouldDeleteShoppingListAllItems() {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+        final String itemsUrl = userShoppingItemsUrl(sessionFilter, "shoppingStore101");
+
+        // first, should get all items ok
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(itemsUrl)
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+        ;
+
+        // check total item numbers before delete
+        assertEquals(4, shoppingItemRepository.count());
+
+        // delete all items in this store
+        given()
+            .filter(sessionFilter)
+        .when()
+            .delete(itemsUrl)
+        .then()
+            .statusCode(HttpStatus.SC_NO_CONTENT)
+        ;
+
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(itemsUrl)
+         .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("page.size", equalTo(10))
+            .body("page.totalElements", equalTo(0))
+            .body("page.totalPages", equalTo(0))
+            .body("page.number", equalTo(0))
+        ;
+        // check total item numbers after delete
+        assertEquals(1, shoppingItemRepository.count());
+        assertNull(shoppingItemRepository.findOne("item101"));
+        assertNull(shoppingItemRepository.findOne("item102"));
+        assertNull(shoppingItemRepository.findOne("item103"));
+        ShoppingItem shoppingItem = shoppingItemRepository.findOne("item301");
+        assertEquals("bread", shoppingItem.getName());
     }
 }
