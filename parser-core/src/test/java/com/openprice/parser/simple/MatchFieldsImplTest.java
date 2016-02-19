@@ -133,15 +133,15 @@ public class MatchFieldsImplTest {
         lines.add("fish A: $3.0");
         lines.add("fish B: $1.0");
         lines.add("C: $1.0");
-        lines.add("Total : $10");
+        lines.add("Total : $8.0");
         lines.add("D: $1.0");
-        lines.add("Total: $10.0");
+        lines.add("Total: $10");
         final ReceiptData receipt = ReceiptDataImpl.fromContentLines(lines);
         final MatchFields match = new MatchFieldsImpl();
         match.matchToHeaders(record, receipt, parser);
         log.debug("match to header results: ");
         record.getFieldToValueLine().entrySet().forEach(e->log.debug(e.getKey()+"->"+e.getValue()));
         assertEquals(1, record.getFieldToValueLine().size());
-        assertEquals(new StringInt("10.0", 3), record.getFieldToValueLine().get(ReceiptFieldType.Total));
+        assertEquals(new StringInt("8.0", 3), record.getFieldToValueLine().get(ReceiptFieldType.Total));
     }
 }

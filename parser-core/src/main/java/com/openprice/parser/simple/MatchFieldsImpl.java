@@ -13,6 +13,7 @@ import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.api.MatchFields;
 import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.ReceiptData;
+import com.openprice.parser.api.ReceiptLine;
 import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.common.ListCommon;
@@ -95,7 +96,6 @@ public class MatchFieldsImpl implements MatchFields{
                     if(lineNoSpaceLower.length() > headerNoSpaceLower.length())
                         lineNoSpaceLowerHead = lineNoSpaceLower.substring(0, headerNoSpaceLower.length());
                     int matchingChars = Levenshtein.matchingChars(lineNoSpaceLowerHead, headerNoSpaceLower);
-//                    log.debug("--line header= "+lineNoSpaceLowerHead+", header="+headerNoSpaceLower+", matching chars="+ matchingChars);
                     return new StringInt(header, matchingChars);
                 })
                 .max( Comparator.comparing(strInt -> strInt.getLine()) ).get();
@@ -156,6 +156,7 @@ public class MatchFieldsImpl implements MatchFields{
             final StoreParser parser) {
         final StoreConfig config = parser.getStoreConfig();
         final Set<Integer> totalSoldAndTotalAreTreated = totalTotalSoldTreatedLines(record, receipt, parser);
+        final List<ReceiptLine> linesOfTotal = new ArrayList<>();//lines that match total; used for tie breaking for total
         for (ReceiptFieldType field : ReceiptFieldType.values()) {
             if (record.fieldIsMatched(field)){
                 log.debug(field+" is alreday matched: "+record.matchedLinesOfField(field));
@@ -183,21 +184,27 @@ public class MatchFieldsImpl implements MatchFields{
                    .filter(line -> ! matchesBlackListForTotal(line.getCleanText().toLowerCase(), 0.75))
                    .filter(line -> ! matchesBlackListForDate(line.getCleanText().toLowerCase(), 0.75))
                    .filter( line -> {
-//                       log.debug("in lambda, line="+line.getCleanText());
                 Optional<Double> maxScore =
                         headerPatterns
                         .stream()
-                        .map( header -> {
-                            double score=StringCommon.matchStringToHeader(line.getCleanText(), header);
-                            return score;
-                        })
+                        .map( header -> StringCommon.matchStringToHeader(line.getCleanText(), header))
                         .max( Comparator.comparing(score -> score) );
                 return maxScore.isPresent() && maxScore.get() > config.similarityThresholdOfTwoStrings();
             })
             .forEach( line -> {
-                String value=parser.parseField(field, line);
-                record.putFieldLineValue(field, line.getNumber(), value);
-                });
+                if(field != ReceiptFieldType.Total){
+                    String value=parser.parseField(field, line);
+                    record.putFieldLineValue(field, line.getNumber(), value);
+                }else{
+                    linesOfTotal.add(line);
+                }
+            });
+
+            final Optional<ReceiptLine> firstTotalLine = linesOfTotal.stream().min(Comparator.comparing(r->r.getNumber()));
+            if(firstTotalLine.isPresent()){
+                String value=parser.parseField(ReceiptFieldType.Total, firstTotalLine.get());
+                record.putFieldLineValue(ReceiptFieldType.Total, firstTotalLine.get().getNumber(), value);
+            }
         }
     }
 }
