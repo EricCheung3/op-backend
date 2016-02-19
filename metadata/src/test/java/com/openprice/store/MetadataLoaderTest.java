@@ -19,7 +19,7 @@ public class MetadataLoaderTest {
     private static final String COSTCO_CODE="costco";
     private static final String TIM_HORTONS_CODE="timhortons";
     private static final String SOBEYS_CODE="sobeys";
-    private static final String TAndT_CODE="TAndT";
+    private static final String TAndT_CODE="tandt";
 
     @Test
     public void configProperties() throws Exception {
