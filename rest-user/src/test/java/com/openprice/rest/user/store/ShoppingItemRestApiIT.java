@@ -247,13 +247,10 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
         final String itemsUrl = userShoppingItemsUrl(sessionFilter, "shoppingStore101");
 
         // first, should get all items ok
-        Response response =
         given()
             .filter(sessionFilter)
         .when()
-            .get(itemsUrl);
-        response.prettyPrint();
-        response
+            .get(itemsUrl)
         .then()
             .statusCode(HttpStatus.SC_OK)
         ;
@@ -266,13 +263,10 @@ public class ShoppingItemRestApiIT extends AbstractUserRestApiIntegrationTest {
             .statusCode(HttpStatus.SC_NO_CONTENT)
         ;
 
-        response =
         given()
             .filter(sessionFilter)
         .when()
-            .get(itemsUrl);
-        response.prettyPrint();
-        response
+            .get(itemsUrl)
          .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
