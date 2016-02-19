@@ -61,30 +61,31 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
     @Value("classpath:/testFiles/Generic/2015_05_02_21_56_44.jpg.momingzhen160_removeChainName.txt")
     private Resource timHortons2;
 
-    @Test
-    public void testReceipt1ChainNameRemovedThenReturnEmptyChainNameAndDateTotol() throws Exception {
-        final List<String> receiptLines = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(timHortons2, (line)-> receiptLines.add(line));
-
-        assertTrue(receiptLines.size() > 0);
-
-        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
-        //printResult(receipt);
-        assertEquals(null, receipt.getChainCode());
-
-        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
-        assertEquals(3,receipt.getItems().size());
-        verifyParsedItem(iterator.next(), "med tea latte", "2.84", null, 5);
-        verifyParsedItem(iterator.next(), "green tea", "0.00", null, 6);
-        verifyParsedItem(iterator.next(), "med latte", "2.59", null, 7);
-
-        // verify parsed fields
-        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(fieldValues.get(ReceiptFieldType.SubTotal).getFieldValue(), "5.43");
-
-        //TODO
-//        assertEquals(StringCommon.EMPTY, fieldValues.get(ReceiptField.Date).getFieldValue());//this receipt has no date string
-    }
+//TODO use some other store's receipt, because we now have tim hortons parser.
+//    @Test
+//    public void testReceipt1ChainNameRemovedThenReturnEmptyChainNameAndDateTotol() throws Exception {
+//        final List<String> receiptLines = new ArrayList<>();
+//        TextResourceUtils.loadFromTextResource(timHortons2, (line)-> receiptLines.add(line));
+//
+//        assertTrue(receiptLines.size() > 0);
+//
+//        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+//        //printResult(receipt);
+//        assertEquals(null, receipt.getChainCode());
+//
+//        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+//        assertEquals(3,receipt.getItems().size());
+//        verifyParsedItem(iterator.next(), "med tea latte", "2.84", null, 5);
+//        verifyParsedItem(iterator.next(), "green tea", "0.00", null, 6);
+//        verifyParsedItem(iterator.next(), "med latte", "2.59", null, 7);
+//
+//        // verify parsed fields
+//        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+//        assertEquals(fieldValues.get(ReceiptFieldType.SubTotal).getFieldValue(), "5.43");
+//
+//        //TODO
+////        assertEquals(StringCommon.EMPTY, fieldValues.get(ReceiptField.Date).getFieldValue());//this receipt has no date string
+//    }
 
     @Value("classpath:/testFiles/Generic/2015_06_14_21_42_08.jpg.dana.txt")
     private Resource nofrills1;

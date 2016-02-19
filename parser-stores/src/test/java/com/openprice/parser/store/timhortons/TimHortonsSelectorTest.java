@@ -1,4 +1,4 @@
-package com.openprice.parser.store.costco;
+package com.openprice.parser.store.timhortons;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -24,10 +24,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
-public class CostcoSelectorTest extends ParserSelectorIntegrationTest{
+public class TimHortonsSelectorTest extends ParserSelectorIntegrationTest{
 
     @Inject
-    protected CostcoSelector selector;
+    protected TimHortonsSelector selector;
 
     private final List<String> atLeast5Lines=new ArrayList<String>();
 
@@ -60,6 +60,7 @@ public class CostcoSelectorTest extends ParserSelectorIntegrationTest{
         ReceiptData data=ReceiptDataImpl.fromContentLines(atLeast5Lines);
         final StoreParser parser=selector.selectParser(data);
         final StoreConfig config=parser.getStoreConfig();
+
         log.debug("config.getCatalogFilter().getBlackList().size()="+config.blackListSize());
         assertTrue(config.blackListSize()>0);
     }

@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DateParserUtils {
 
+    private static DateLiterals dateLiterals = new DateLiterals();
 
     //    private static Pattern datePattern= Pattern.compile("(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
 
@@ -41,6 +42,21 @@ public class DateParserUtils {
     //4-digit year, month(one  two digits) and day (one or two digits)
     private static Pattern patternYear4MonthDay1=Pattern.compile("(19|20)\\d\\d["+DATE_SPLITTER+"]([1-9]|0[1-9]|1[012])["+DATE_SPLITTER+"]([1-9]|0[1-9]|[12][0-9]|3[01])");
 
+    @Getter
+    //format like "Feb 9, 2015"
+    //http://stackoverflow.com/questions/2655476/regex-to-match-month-name-followed-by-year
+    private static Pattern patternLiteralMonthDayYearPattern=Pattern.compile(
+//            "\\b(?:Jan(?:uary)?|Feb(?:ruary)?||Mar(?:ch)?||Apr(?:il)?||May?"
+//            +"||Jun(?:e)?||Jul(?:y)?||Aug(?:ust)?||Sep(?:tember)?||Oct(?:ober)?||Nov(?:ember)?||Dec(?:ember)?) (?:19[7-9]\\d|2\\d{3})(?=\\D|$)");
+            "\\b(?:Jan(?:uary)?|Feb(?:ruary)?||Mar(?:ch)?||Apr(?:il)?||May?"
+          +"||Jun(?:e)?||Jul(?:y)?||Aug(?:ust)?||Sep(?:tember)?||Oct(?:ober)?||Nov(?:ember)?||Dec(?:ember)?)"
+          + "\\s*"
+          + "([1-9]|0[1-9]|[12][0-9]|3[01])"
+          + "\\s*"
+          + "(\\s*||,||\\.||_)"
+          + "\\s*"
+          + "(?:19[7-9]\\d|2\\d{3})(?=\\D|$)");
+
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy"+DATE_SPLITTER_UNIFORM+
             "MM"+DATE_SPLITTER_UNIFORM+
             "dd");
@@ -51,7 +67,10 @@ public class DateParserUtils {
             final String dateString=pruneDateString(origLines.get(i));
             if(dateString.isEmpty()) continue;
             try{
-                return new StringInt(formatDateString(toDate(dateString)), i);
+                if(isLiteralDateFormat(dateString))
+                    return new StringInt(formatDateString(toDateFromLiteralFormat(dateString)), i);
+                else
+                    return new StringInt(formatDateString(toDateFromDigitalFormat(dateString)), i);
             }catch(Exception e){
 //                log.debug("dateString="+dateString+", toDate(dateString) error.");
             }
@@ -59,11 +78,18 @@ public class DateParserUtils {
         return StringInt.emptyValue();
     }
 
+    public static boolean isLiteralDateFormat(final String dateString){
+        return dateLiterals
+                .monthLiterals()
+                .stream()
+                .anyMatch(month->dateString.contains(month));
+    }
+
     public static String formatDateString(final Date date){
         final int[] yMD=getYearMonthDay(date);
-        return yMD[0]+DATE_SPLITTER_UNIFORM
-                +yMD[1]+DATE_SPLITTER_UNIFORM
-                +yMD[2];
+        return    yMD[0] + DATE_SPLITTER_UNIFORM
+                + yMD[1] + DATE_SPLITTER_UNIFORM
+                + yMD[2];
     }
 
     /**
@@ -81,13 +107,13 @@ public class DateParserUtils {
     }
 
     /**
-     * convert a date string to Date
+     * convert a digital date string to Date
      * two order are allowed:
      * Month Day Year or Year Month Day
      * @param dateStr
      * @return
      */
-    public static Date toDate(final String dateStr) throws Exception{
+    public static Date toDateFromDigitalFormat(final String dateStr) throws Exception {
         final String[] words=dateStr.split("-|\\.|/");//this is dependent on the DATE_SPLITTER
         String yMD="";
         if(words[0].length()==4)
@@ -95,11 +121,38 @@ public class DateParserUtils {
         else if(words[2].length()==4)
             yMD=words[2]+DATE_SPLITTER_UNIFORM+words[0]+DATE_SPLITTER_UNIFORM+words[1];
         else{
-            //a hack handling the format like 05/31/15; assuming here the format "15/05/31" is not possible
+            //TODO a hack handling the format like 05/31/15; assuming here the format "15/05/31" is not possible
             yMD="20"+words[2]+DATE_SPLITTER_UNIFORM
                     +words[0]+DATE_SPLITTER_UNIFORM
                     +words[1];
         }
+        return DATE_FORMAT.parse(yMD);
+    }
+
+    public static List<String> literalMonthDayYearSplit(final String dateString){
+//        final String[] words = dateString.split("-|_|\\.|\\s+");//not correct. only one dilimiter is selected
+//        http://stackoverflow.com/questions/3654446/java-regex-help-splitting-string-on-spaces-and-commas
+        final String[] words = dateString.split("\\s*(\\.|_|-|,|\\s)\\s*");
+//        log.debug("words.length="+words.length);
+        final List<String> list = new ArrayList<>();
+        for(String w : words){
+            if(w.length()==1
+                && !Character.isDigit(w.charAt(0))
+                && !Character.isLetter(w.charAt(0)))
+                continue;
+            list.add(StringCommon.removeAllSpaces(w));
+        }
+        return list;
+    }
+
+    //TODO right assuming the it's the LiteralMonth Day(digit) Year(digit) format, like "Feb 9 2015"
+    public static Date toDateFromLiteralFormat(final String dateStr) throws Exception {
+        final List<String> nonEmptyStrings = literalMonthDayYearSplit(dateStr);
+//        log.debug("dateStr="+ dateStr+ ", nonEmptyStrings="+nonEmptyStrings+", nonEmptyStrings.size="+nonEmptyStrings.size());
+        String yMD= nonEmptyStrings.get(2)  + DATE_SPLITTER_UNIFORM
+                + dateLiterals.getMonthNumber(nonEmptyStrings.get(0)) + DATE_SPLITTER_UNIFORM
+                + nonEmptyStrings.get(1);
+//        log.debug("yMD="+yMD);
         return DATE_FORMAT.parse(yMD);
     }
 
@@ -114,7 +167,7 @@ public class DateParserUtils {
      */
     public static String pruneDateString(final String str){
         final String strNoSpace=StringCommon.removeAllSpaces(str);
-        log.debug("line string is "+str+"\n");
+//        log.debug("line string is "+str+"\n");
         final String y4MD2=pruneDateStringWithMatch(strNoSpace, patternYear4MonthDay2);
         if (!y4MD2.isEmpty()){
             log.debug("found y4MD2 format."+y4MD2+"\n");
@@ -137,12 +190,21 @@ public class DateParserUtils {
             log.debug("found mDY2 format."+mDY2+"\n");
             return mDY2;
         }
+        //note it's str not strNoSpace
+        final String literalMonthDayYear=pruneDateStringWithMatch(str, patternLiteralMonthDayYearPattern);
+        if(!literalMonthDayYear.isEmpty()){
+            log.debug("found literalMonthDayYear format."+literalMonthDayYear);
+            return literalMonthDayYear;
+        }
+        log.debug("not date pattern is matched.");
         return StringCommon.EMPTY;
     }
+
     public static String pruneDateStringWithMatch(final String str, final Pattern pattern){
         final Matcher match=pattern.matcher(str);
         final List<String> allMatches=new ArrayList<>();
         while(match.find()){
+            log.debug("match.group()="+match.group());
             allMatches.add(match.group());
         }
         if(allMatches.size()==0)
