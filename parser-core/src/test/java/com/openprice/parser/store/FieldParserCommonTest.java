@@ -6,7 +6,17 @@ import org.junit.Test;
 
 import com.openprice.parser.api.ReceiptLine;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class FieldParserCommonTest {
+
+
+    @Test
+    public void parseTotal1(){
+        final String totalValue = FieldParserCommon.parseTotal("TOTAL                                     &22.ST");
+        log.debug("totalValue=22"+totalValue);
+    }
 
     @Test
     public void parseTotalSold1(){

@@ -1,5 +1,6 @@
 #note: edit this file; don't edit the json file, generate the json file using program so double/single quotes etc. will be escaped properly.  
-?    tim modem
+1 reward for every $20    1 miles
+?    mill woods common sobeys
 sobeys    ,..-
 tier t t age sobeys    
 RegPrice

@@ -40,6 +40,7 @@ public class MatchFieldsImpl implements MatchFields{
         totalBlackList.add("Total Savings Value");
         totalBlackList.add("total discounts");
         totalBlackList.add("loyalty offer");
+        totalBlackList.add("| Total Miles Earned ");
     }
 
     public static boolean matchesBlackListForDate(final String str, final double similarityThreshold){

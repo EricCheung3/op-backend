@@ -60,6 +60,9 @@ public class SobeysTest1 extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testFiles/Sobeys/branch_939_James_Mowatt_Trail/2015_04_04_21_47_26.jpg.jingwang.txt")
     private Resource receipt_47_26;
 
+    @Value("classpath:/testFiles/Sobeys/fromPhone/yuanji_19Feb16.txt")
+    private Resource receipt_yuan19Feb16;
+
     @Inject
     private ChainRegistry chainRegistry;
 
@@ -338,4 +341,32 @@ public class SobeysTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/8/9",42);
         verifyParsedField(fieldValues, ReceiptFieldType.Card, "cardholder", 40);
     }
+
+    @Test
+    public void receipt_yuan19Feb16() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_yuan19Feb16, (line)-> receiptLines.add(line));
+
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        printResult(receipt);
+
+        assertEquals("sobeys", receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(2,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "fuzzy peach", "2.699", null, 10);
+        verifyParsedItem(iterator.next(), "cake wht", "19.99", null, 12);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "22.68",15);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "22",17);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "auth # 036574                            ref # 00000120",41);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "approved",47);
+        verifyParsedField(fieldValues, ReceiptFieldType.Card, "card visa                                rcpt 8645000",38);
+        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "served by: fast lane 3",5);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "5% gst                                             $0.13",16);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst# 814443388rt0001",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "2",22);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/10/5",40);
+    }
+
 }
