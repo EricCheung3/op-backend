@@ -1,0 +1,27 @@
+ 1@@@
+SHOPPERS DRUG MART #0313
+ 254 87AVE & 156 STREET
+     EDMONTON     AB
+
+CARD    *******"*'* "8017
+CARD TYPE                 VISA
+DATE             2015/06/16
+TIME         1348 17:24:29
+RECEIPT NUMBER
+ H84041369 - 001 - 048 - 054-0
+
+PURCHASE
+TOTAL                  $1.26
+Vis a Cr e dit
+A0000000031 010
+AE455C9C3 267BA3B
+0000000000 -
+
+
+
+APPROVED
+AUTH# 024481             01-027
+THANK YOU
+
+      CARDHOI    rv- -
+ 
