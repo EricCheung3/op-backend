@@ -20,6 +20,7 @@ public class MetadataLoaderTest {
     private static final String TIM_HORTONS_CODE="timhortons";
     private static final String SOBEYS_CODE="sobeys";
     private static final String TAndT_CODE="tandt";
+    private static final String SHOPPERS_CODE="shoppers";
 
     @Test
     public void configProperties() throws Exception {
@@ -30,6 +31,7 @@ public class MetadataLoaderTest {
         assertTrue(validateConfigProperties(TIM_HORTONS_CODE));
         assertTrue(validateConfigProperties(SOBEYS_CODE));
         assertTrue(validateConfigProperties(TAndT_CODE));
+        assertTrue(validateConfigProperties(SHOPPERS_CODE));
     }
 
     public boolean validateHeaders(final String chainCode){
@@ -47,6 +49,7 @@ public class MetadataLoaderTest {
         assertTrue(validateHeaders(TIM_HORTONS_CODE));
         assertTrue(validateHeaders(SOBEYS_CODE));
         assertTrue(validateHeaders(TAndT_CODE));
+        assertTrue(validateHeaders(SHOPPERS_CODE));
     }
 
     @Test
@@ -58,6 +61,7 @@ public class MetadataLoaderTest {
         assertTrue(validateSkipAfter(TIM_HORTONS_CODE));
         assertTrue(validateSkipAfter(SOBEYS_CODE));
         assertTrue(validateSkipAfter(TAndT_CODE));
+        assertTrue(validateSkipAfter(SHOPPERS_CODE));
     }
 
     @Test
@@ -71,7 +75,7 @@ public class MetadataLoaderTest {
     }
 
     @Test
-    public void identifyEdoJapan() throws Exception {
+    public void identify() throws Exception {
         assertTrue(validateIdentify(EDO_JAPAN_CODE));
         assertTrue(validateIdentify(SAFEWAY_CODE));
         assertTrue(validateIdentify(RCSS_CODE));
@@ -105,6 +109,7 @@ public class MetadataLoaderTest {
         assertTrue(validateLoadingNotCatalogItemNames(TIM_HORTONS_CODE));
         assertTrue(validateLoadingNotCatalogItemNames(SOBEYS_CODE));
         assertTrue(validateLoadingNotCatalogItemNames(TAndT_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(SHOPPERS_CODE));
     }
 
     @Test
@@ -226,6 +231,7 @@ public class MetadataLoaderTest {
         assertTrue(metadata.getStoreChainMap().containsKey(TIM_HORTONS_CODE));
         assertTrue(metadata.getStoreChainMap().containsKey(SOBEYS_CODE));
         assertTrue(metadata.getStoreChainMap().containsKey(TAndT_CODE));
+        assertTrue(metadata.getStoreChainMap().containsKey(SHOPPERS_CODE));
 
         assertNotNull(metadata.getStoreChainByCode(RCSS_CODE));
         assertNotNull(metadata.getStoreChainByCode(SAFEWAY_CODE));
@@ -234,6 +240,7 @@ public class MetadataLoaderTest {
         assertNotNull(metadata.getStoreChainByCode(TIM_HORTONS_CODE));
         assertNotNull(metadata.getStoreChainByCode(SOBEYS_CODE));
         assertNotNull(metadata.getStoreChainByCode(TAndT_CODE));
+        assertNotNull(metadata.getStoreChainByCode(SHOPPERS_CODE));
 
         assertNotNull(metadata.getStoreChainByCode(RCSS_CODE).getBranches());
         assertNotNull(metadata.getStoreChainByCode(SAFEWAY_CODE).getBranches());
@@ -243,6 +250,7 @@ public class MetadataLoaderTest {
         assertTrue(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getBranches().size()==0);
         assertTrue(metadata.getStoreChainByCode(SOBEYS_CODE).getBranches().size()==0);
         assertTrue(metadata.getStoreChainByCode(TAndT_CODE).getBranches().size()==0);
+        assertTrue(metadata.getStoreChainByCode(SHOPPERS_CODE).getBranches().size()==0);
 
         assertNotNull(metadata.getStoreChainByCode(RCSS_CODE).getHeaderProperties());
         assertNotNull(metadata.getStoreChainByCode(SAFEWAY_CODE).getHeaderProperties());
@@ -251,6 +259,7 @@ public class MetadataLoaderTest {
         assertNotNull(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getHeaderProperties());
         assertNotNull(metadata.getStoreChainByCode(SOBEYS_CODE).getHeaderProperties());
         assertNotNull(metadata.getStoreChainByCode(TAndT_CODE).getHeaderProperties());
+        assertNotNull(metadata.getStoreChainByCode(SHOPPERS_CODE).getHeaderProperties());
 
         assertNotNull(metadata.getStoreChainByCode(RCSS_CODE).getNonHeaderProperties());
         assertNotNull(metadata.getStoreChainByCode(SAFEWAY_CODE).getNonHeaderProperties());
@@ -259,6 +268,7 @@ public class MetadataLoaderTest {
         assertNotNull(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getNonHeaderProperties());
         assertNotNull(metadata.getStoreChainByCode(SOBEYS_CODE).getNonHeaderProperties());
         assertNotNull(metadata.getStoreChainByCode(TAndT_CODE).getNonHeaderProperties());
+        assertNotNull(metadata.getStoreChainByCode(SHOPPERS_CODE).getNonHeaderProperties());
 
         assertTrue(metadata.getStoreChainByCode(RCSS_CODE).getNotCatalogItemNames().size()>0);
         assertTrue(metadata.getStoreChainByCode(SAFEWAY_CODE).getNotCatalogItemNames().size()>0);
@@ -267,6 +277,7 @@ public class MetadataLoaderTest {
         assertTrue(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getNotCatalogItemNames().size()>0);
         assertTrue(metadata.getStoreChainByCode(SOBEYS_CODE).getNotCatalogItemNames().size()>0);
         assertTrue(metadata.getStoreChainByCode(TAndT_CODE).getNotCatalogItemNames().size()>0);
+        assertTrue(metadata.getStoreChainByCode(SHOPPERS_CODE).getNotCatalogItemNames().size()>0);
 
         assertTrue(metadata.getStoreChainByCode(RCSS_CODE).getIdentifyFields().size()>0);
         assertTrue(metadata.getStoreChainByCode(SAFEWAY_CODE).getIdentifyFields().size()>0);
@@ -275,6 +286,7 @@ public class MetadataLoaderTest {
         assertTrue(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getIdentifyFields().size()>0);
         assertTrue(metadata.getStoreChainByCode(SOBEYS_CODE).getIdentifyFields().size()>0);
         assertTrue(metadata.getStoreChainByCode(TAndT_CODE).getIdentifyFields().size()>0);
+        assertTrue(metadata.getStoreChainByCode(SHOPPERS_CODE).getIdentifyFields().size()>0);
 
         assertTrue(metadata.getStoreChainByCode(RCSS_CODE).getReceiptCategories().size()>0);
         assertTrue(metadata.getStoreChainByCode(SAFEWAY_CODE).getReceiptCategories().size()>0);
@@ -283,6 +295,7 @@ public class MetadataLoaderTest {
         assertTrue(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getReceiptCategories().size()==0);
         assertTrue(metadata.getStoreChainByCode(SOBEYS_CODE).getReceiptCategories().size()==0);
         assertTrue(metadata.getStoreChainByCode(TAndT_CODE).getReceiptCategories().size()>0);
+        assertTrue(metadata.getStoreChainByCode(SHOPPERS_CODE).getReceiptCategories().size()==0);
 
         assertTrue(metadata.getStoreChainByCode(RCSS_CODE).getNotations().size()>0);
         assertTrue(metadata.getStoreChainByCode(SAFEWAY_CODE).getSkipBefore().size()>0);
@@ -291,6 +304,7 @@ public class MetadataLoaderTest {
         assertTrue(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getSkipBefore().size()==0);
         assertTrue(metadata.getStoreChainByCode(SOBEYS_CODE).getSkipBefore().size()>0);
         assertTrue(metadata.getStoreChainByCode(TAndT_CODE).getSkipBefore().size()>0);
+        assertTrue(metadata.getStoreChainByCode(SHOPPERS_CODE).getSkipBefore().size()==0);
 
         assertTrue(metadata.getStoreChainByCode(RCSS_CODE).getSkipAfter().size()>0);
         assertTrue(metadata.getStoreChainByCode(SAFEWAY_CODE).getSkipAfter().size()>0);
@@ -299,6 +313,7 @@ public class MetadataLoaderTest {
         assertTrue(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getSkipAfter().size()>0);
         assertTrue(metadata.getStoreChainByCode(SOBEYS_CODE).getSkipAfter().size()>0);
         assertTrue(metadata.getStoreChainByCode(TAndT_CODE).getSkipAfter().size()>0);
+        assertTrue(metadata.getStoreChainByCode(SHOPPERS_CODE).getSkipAfter().size()>0);
 
         assertTrue(metadata.getStoreChainByCode(RCSS_CODE).getIdentifyFields().size()>0);
         assertTrue(metadata.getStoreChainByCode(SAFEWAY_CODE).getIdentifyFields().size()>0);
@@ -307,6 +322,7 @@ public class MetadataLoaderTest {
         assertTrue(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getIdentifyFields().size()>0);
         assertTrue(metadata.getStoreChainByCode(SOBEYS_CODE).getIdentifyFields().size()>0);
         assertTrue(metadata.getStoreChainByCode(TAndT_CODE).getIdentifyFields().size()>0);
+        assertTrue(metadata.getStoreChainByCode(SHOPPERS_CODE).getIdentifyFields().size()>0);
 
         assertTrue(metadata.getStoreChainByCode(RCSS_CODE).getProducts().size()>0);
         assertTrue(metadata.getStoreChainByCode(SAFEWAY_CODE).getProducts().size()>0);
@@ -315,6 +331,7 @@ public class MetadataLoaderTest {
         assertTrue(metadata.getStoreChainByCode(TIM_HORTONS_CODE).getProducts().size()==0);
         assertTrue(metadata.getStoreChainByCode(SOBEYS_CODE).getProducts().size()==0);
         assertTrue(metadata.getStoreChainByCode(TAndT_CODE).getProducts().size()==0);
+        assertTrue(metadata.getStoreChainByCode(SHOPPERS_CODE).getProducts().size()==0);
 
         // verify product category
         {
