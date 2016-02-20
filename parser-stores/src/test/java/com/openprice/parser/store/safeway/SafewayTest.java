@@ -112,7 +112,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "0.52",31);
         verifyParsedField(fieldValues, ReceiptFieldType.Author, "author . ii : 05790z",35);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/5/12",38);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "41.88",48);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "41.88",32);
 //        verifyParsedField(fieldValues, ReceiptFieldType.StoreBranch, "safeway",0);
         verifyParsedField(fieldValues, ReceiptFieldType.Card, "vf       mastercard                       41 . 88",33);
 //        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-435-5132",1);//TODO wrong branch
