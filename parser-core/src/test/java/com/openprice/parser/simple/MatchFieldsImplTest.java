@@ -87,6 +87,7 @@ public class MatchFieldsImplTest {
         assertEquals(new StringInt("3.0", 5), record.getFieldToValueLine().get(ReceiptFieldType.Total));
     }
 
+
     @Test
     public void totalAndTotalSoldAreBothCorrect2() throws Exception{
         final MatchedRecord record = new MatchedRecordImpl();

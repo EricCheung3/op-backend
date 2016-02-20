@@ -113,20 +113,47 @@ public class DateParserUtils {
      * @param dateStr
      * @return
      */
+
+    private static Calendar TODAY = Calendar.getInstance();
+    private static int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR) - 2000;
+
+    public static Calendar getCalendar(final int day, final int month, final int year) {
+        Calendar date = Calendar.getInstance();
+        date.set(Calendar.YEAR, year);
+        date.set(Calendar.MONTH, month - 1);
+        date.set(Calendar.DAY_OF_MONTH, day);
+        return date;
+    }
+
+    public static Calendar getCalendar(final Date date) {
+        final int[] yMD = getYearMonthDay(date);
+        return getCalendar(yMD[2], yMD[1], yMD[0]);
+    }
+
     public static Date toDateFromDigitalFormat(final String dateStr) throws Exception {
-        final String[] words=dateStr.split("-|\\.|/");//this is dependent on the DATE_SPLITTER
+        final String[] words=dateStr.split("_|-|\\.|/");//this is dependent on the DATE_SPLITTER
         String yMD="";
+        Date result = null;
         if(words[0].length()==4)
             yMD=words[0]+DATE_SPLITTER_UNIFORM+words[1]+DATE_SPLITTER_UNIFORM+words[2];
         else if(words[2].length()==4)
             yMD=words[2]+DATE_SPLITTER_UNIFORM+words[0]+DATE_SPLITTER_UNIFORM+words[1];
-        else{
-            //TODO a hack handling the format like 05/31/15; assuming here the format "15/05/31" is not possible
-            yMD="20"+words[2]+DATE_SPLITTER_UNIFORM
+        else{ //either "05/31/15" or 15/05/31";
+            final int monthOrYear =  Integer.valueOf(StringCommon.removeAllSpaces(words[0]));
+            final int yearOrDay = Integer.valueOf(StringCommon.removeAllSpaces(words[2]));
+            if(monthOrYear > 12 || yearOrDay > CURRENT_YEAR){//must be Year Month Day
+                yMD = "20" + monthOrYear +DATE_SPLITTER_UNIFORM
+                           + words[1]+DATE_SPLITTER_UNIFORM + yearOrDay;
+            }else{//note "12/05/12" will default 2012/Dec/05
+                yMD="20"+words[2]+DATE_SPLITTER_UNIFORM
                     +words[0]+DATE_SPLITTER_UNIFORM
                     +words[1];
+            }
         }
-        return DATE_FORMAT.parse(yMD);
+        result = DATE_FORMAT.parse(yMD);
+        if(TODAY.compareTo(getCalendar(result)) < 0) //prefer a parsed date that is before yesterday
+            log.warn("something is probably wrong. the date parsed is after today: "+ result);
+        return result;
     }
 
     public static List<String> literalMonthDayYearSplit(final String dateString){

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -17,6 +18,95 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class DateParserUtilsTest {
+
+
+    @Test
+    public void toDateFromDigitalFormatPreferADayThatIsBeforeToday2() throws Exception{
+        final Date date = DateParserUtils.toDateFromDigitalFormat("16/01/12");
+        final int[] yMD = DateParserUtils.getYearMonthDay(date);
+        assertEquals(2016, yMD[0]);//year
+        assertEquals(1, yMD[1]);//month
+        assertEquals(12, yMD[2]);//day
+    }
+
+    @Test
+    public void toDateFromDigitalFormatPreferADayThatIsBeforeToday3() throws Exception{
+        final Date date = DateParserUtils.toDateFromDigitalFormat("16/01/16");
+        final int[] yMD = DateParserUtils.getYearMonthDay(date);
+        assertEquals(2016, yMD[0]);//year
+        assertEquals(1, yMD[1]);//month
+        assertEquals(16, yMD[2]);//day
+    }
+
+    @Test
+    public void toDateFromDigitalFormatPreferADayThatIsBeforeToday4() throws Exception{
+        final Date date = DateParserUtils.toDateFromDigitalFormat("12/16/16");
+        final int[] yMD = DateParserUtils.getYearMonthDay(date);
+        //will see a warning if today is not this date yet
+        assertEquals(2016, yMD[0]);//year
+        assertEquals(12, yMD[1]);//month
+        assertEquals(16, yMD[2]);//day
+    }
+
+    //note this test was written before 2016-05-15
+    @Test
+    public void toDateFromDigitalFormatPreferADayThatIsBeforeToday() throws Exception{
+        final Date date = DateParserUtils.toDateFromDigitalFormat("15/05/16");
+        final int[] yMD = DateParserUtils.getYearMonthDay(date);
+        assertEquals(2015, yMD[0]);//year
+        assertEquals(5, yMD[1]);//month
+        assertEquals(16, yMD[2]);//day
+    }
+
+    @Test
+    public void toDateFromDigitalFormat15MustBeYearTest() throws Exception{
+        final Date date = DateParserUtils.toDateFromDigitalFormat("15/05/10");
+        final int[] yMD = DateParserUtils.getYearMonthDay(date);
+        assertEquals(2015, yMD[0]);//year
+        assertEquals(5, yMD[1]);//month
+        assertEquals(10, yMD[2]);//day
+    }
+
+    @Test
+    public void toDateFromDigitalFormat15MustBeYear() throws Exception{
+        final Date date = DateParserUtils.toDateFromDigitalFormat("12/05/15");
+        final int[] yMD = DateParserUtils.getYearMonthDay(date);
+        assertEquals(2015, yMD[0]);//year
+        assertEquals(12, yMD[1]);//month
+        assertEquals(5, yMD[2]);//day
+    }
+
+    @Test
+    public void toDateFromDigitalFormatPreferMonthDayYearIfNotSure() throws Exception{
+        final Date date = DateParserUtils.toDateFromDigitalFormat("12/05/12");
+        final int[] yMD = DateParserUtils.getYearMonthDay(date);
+        assertEquals(2012, yMD[0]);//year
+        assertEquals(12, yMD[1]);//month
+        assertEquals(5, yMD[2]);//day
+    }
+
+    @Test
+    public void currentYear(){
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        log.debug("current year =" + (year-2000));
+    }
+
+    @Test
+    public void expiredTest(){
+        final Calendar today = Calendar.getInstance();
+        final Calendar olderDay = DateParserUtils.getCalendar(1, 10, 2015);
+        final int[] old = DateParserUtils.getYearMonthDay(olderDay.getTime());
+        assertEquals(2015, old[0]);
+        assertEquals(10, old[1]);
+        assertEquals(1, old[2]);
+        assertTrue(today.compareTo(olderDay)>0);
+    }
+
+    @Test
+    public void zeroBeforeIsFine(){
+        final int five = Integer.valueOf("05");
+        assertEquals(5, five);
+    }
 
     @Test
     public void literalMonthDayYearSplitTest1(){

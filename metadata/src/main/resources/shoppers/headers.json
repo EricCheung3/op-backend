@@ -1,6 +1,6 @@
 {
   "AccountHeader" : "Account,ACCOUNT NUMBER, ACCT",
-  "DateHeader" : "DATE            TIME      AMOUNT,DATE:,TIME",
+  "DateHeader" : "DATE/TIME,DATE            TIME      AMOUNT,DATE:,TIME",
   "ChainIDHeader" : "",
   "SloganHeader" : "",
   "TotalSoldHeader" : "",
