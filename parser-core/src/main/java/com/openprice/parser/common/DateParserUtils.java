@@ -231,7 +231,6 @@ public class DateParserUtils {
         final Matcher match=pattern.matcher(str);
         final List<String> allMatches=new ArrayList<>();
         while(match.find()){
-            log.debug("match.group()="+match.group());
             allMatches.add(match.group());
         }
         if(allMatches.size()==0)

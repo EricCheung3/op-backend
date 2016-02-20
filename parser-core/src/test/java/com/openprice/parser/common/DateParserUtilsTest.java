@@ -19,6 +19,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DateParserUtilsTest {
 
+    //TODO: this test should pass
+//    @Test
+//    public void pruneDateStringWithMatchTest(){
+//        final String str =  DateParserUtils.pruneDateString("DATE/ TIME :                15/02/10  16:16:28");
+//        assertEquals("15/02/10", str);
+//    }
+
+    @Test
+    public void toDateFromDigitalFormatParseAsYearMonthDayFormat() throws Exception{
+        final Date date = DateParserUtils.toDateFromDigitalFormat("15/02/10");
+        final int[] yMD = DateParserUtils.getYearMonthDay(date);
+        assertEquals(2015, yMD[0]);//year
+        assertEquals(2, yMD[1]);//month
+        assertEquals(10, yMD[2]);//day
+    }
 
     @Test
     public void toDateFromDigitalFormatPreferADayThatIsBeforeToday2() throws Exception{
