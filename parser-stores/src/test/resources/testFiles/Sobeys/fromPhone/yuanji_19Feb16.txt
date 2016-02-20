@@ -1,0 +1,48 @@
+?                Mill woods Common Sobeys                      
+                  5011 23 Ave Edmonton                        
+                      780.485.6622                            
+                  GST# 814443388RT0001                        
+                                                              
+ Served by: Fast Lane 3                                       
+                                                              
+ Welcome to Sobeys                                            
+                                                              
+ GROCERY                                                      
+ Fuzzy Peach                                     $2.69 GC     
+ BAKERY                                                       
+ Cake Wht                                         $19.99   c  
+ 1 Reward for Every $20                       1 Miles         
+                                                              
+ SUBTOTAL                                          $22.68     
+ 5% GST                                             $0.13     
+ TOTAL                                     &22.ST             
+ Visa    TENDER                                    $22.81     
+ Cash    CHANGE                                     $0.00     
+                                                              
+                                                              
+ NUMBER OF ITEMS    2                                         
+                                                              
+ i    AIR MILES                                               
+ | Member number:                            831*****440      
+ | Total Miles Earned                                  1      
+ i_                                                           
+                                                              
+ You could have earned an additional                          
+ 2 AIR MILES                                                  
+      with a BMO Sobeys AIR MILES MasterCard                  
+           Apply today at bmosobeys.com                       
+                                                              
+                                                              
+CLIENT ID 9803                           TAPPED               
+TERMINAL ID 022                                               
+** PURCHASE                              ** $ 22.81           
+CARD Visa                                RCPT 8645000         
+NO ************1983                      RESP 000             
+DATE 10/05/2015                          TIME 18:54:56        
+AUTH # 036574                            REF # 00000120       
+                                                              
+APPL. VISA CREDIT                                             
+AID A0000000031010                                            
+TVR 0000000000                           TSI                  
+                                                              
+                       APPROVED      

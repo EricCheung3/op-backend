@@ -10,7 +10,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.openprice.common.Levenshtein;
 import com.openprice.common.StringCommon;
 import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.ReceiptLine;
@@ -118,7 +117,8 @@ public class ChainRegistry {
 //                                                log.debug("line="+line.getCleanText()+", identifyField="+identifyField+", score=1.0");
                                                 return new ScoreWithMatchPair<String>(1.0, line.getNumber(), identify);
                                             }
-                                            double score=Levenshtein.compare(line.getCleanText(), identifyField);
+//                                            double score=Levenshtein.compare(line.getCleanText(), identifyField);
+                                            double score=StringCommon.matchStringToSubStringTwoWay(line.getCleanText(), identifyField);
 //                                            log.debug("line="+line.getCleanText()+", identifyField="+identifyField+", score="+score);
                                             return new ScoreWithMatchPair<String>(
                                                     score,

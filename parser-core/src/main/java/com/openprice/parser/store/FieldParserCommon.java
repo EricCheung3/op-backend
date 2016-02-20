@@ -12,7 +12,7 @@ import com.openprice.parser.common.DateParserUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * commonly used field parser utils
+ * commonly shared field parser utils by store parsers
  */
 @Slf4j
 public class FieldParserCommon {
@@ -84,7 +84,11 @@ public class FieldParserCommon {
             log.warn("line '{}' did not find a letter?", lineString);
             return "";
         }
-        return StringCommon.formatPrice(lineString.substring(last + 1));
+        String priceString=lineString.substring(last + 1);
+        log.debug("priceString="+priceString);
+        if(priceString.isEmpty())
+            priceString = StringCommon.getOnlyDigits(lineString);
+        return StringCommon.formatPrice(priceString);
     }
 
     public static String parseTotalSold(final ReceiptLine line) {

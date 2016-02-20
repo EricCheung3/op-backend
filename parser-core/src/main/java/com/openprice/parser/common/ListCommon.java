@@ -31,7 +31,7 @@ public class ListCommon{
         final boolean result=list
                 .stream()
                 .anyMatch(h->StringCommon.stringMatchesHead(str, h, similarityScore));
-        log.debug("str="+str+":"+result);
+//        log.debug("str="+str+":"+result);
         return result;
     }
 

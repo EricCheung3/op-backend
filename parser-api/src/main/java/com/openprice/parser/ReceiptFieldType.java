@@ -9,7 +9,7 @@ public enum ReceiptFieldType {
     AddressLine1, AddressLine2, AddressCity, AddressState, AddressCountry, AddressPost,
     Approved, Author,
     Card, Cashier, Chain, ChainID,
-    Date,
+    Date,Time,
     GstAmount, GstNumber,
     Phone,
     Recycle, Ref,

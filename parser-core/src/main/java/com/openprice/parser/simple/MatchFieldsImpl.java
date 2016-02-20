@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.openprice.common.Levenshtein;
 import com.openprice.common.StringCommon;
@@ -13,6 +14,7 @@ import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.api.MatchFields;
 import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.ReceiptData;
+import com.openprice.parser.api.ReceiptLine;
 import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.common.ListCommon;
@@ -25,14 +27,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MatchFieldsImpl implements MatchFields{
 
-    //strings that are not date
+    //strings that are not date; still useful although the use of shortProductNames (used for exact containing), because dateBlackList is used in approximate matching
     private static List<String> dateBlackList = new ArrayList<>();
     //strings that re not total
     private static List<String> totalBlackList = new ArrayList<>();
+    //product names that are short and easy to confuse field recognition
+    private static List<String> shortProductNames = new ArrayList<>();
 
     {
         dateBlackList.add("watermellon");
-        //dateBlackList.add("water");//TODO this is short. tricky.
     }
 
     {
@@ -40,6 +43,11 @@ public class MatchFieldsImpl implements MatchFields{
         totalBlackList.add("Total Savings Value");
         totalBlackList.add("total discounts");
         totalBlackList.add("loyalty offer");
+        totalBlackList.add("| Total Miles Earned ");
+    }
+
+    {
+        shortProductNames.add("water");//easy to confuse date
     }
 
     public static boolean matchesBlackListForDate(final String str, final double similarityThreshold){
@@ -49,7 +57,6 @@ public class MatchFieldsImpl implements MatchFields{
     public static boolean matchesBlackListForTotal(final String str, final double similarityThreshold){
         return ListCommon.matchAHeaderInList(totalBlackList, str, similarityThreshold);
     }
-
 
     @Override
     public void matchToBranch(
@@ -90,7 +97,6 @@ public class MatchFieldsImpl implements MatchFields{
                     if(lineNoSpaceLower.length() > headerNoSpaceLower.length())
                         lineNoSpaceLowerHead = lineNoSpaceLower.substring(0, headerNoSpaceLower.length());
                     int matchingChars = Levenshtein.matchingChars(lineNoSpaceLowerHead, headerNoSpaceLower);
-//                    log.debug("--line header= "+lineNoSpaceLowerHead+", header="+headerNoSpaceLower+", matching chars="+ matchingChars);
                     return new StringInt(header, matchingChars);
                 })
                 .max( Comparator.comparing(strInt -> strInt.getLine()) ).get();
@@ -151,6 +157,7 @@ public class MatchFieldsImpl implements MatchFields{
             final StoreParser parser) {
         final StoreConfig config = parser.getStoreConfig();
         final Set<Integer> totalSoldAndTotalAreTreated = totalTotalSoldTreatedLines(record, receipt, parser);
+        final List<ReceiptLine> linesOfTotal = new ArrayList<>();//lines that match total; used for tie breaking for total
         for (ReceiptFieldType field : ReceiptFieldType.values()) {
             if (record.fieldIsMatched(field)){
                 log.debug(field+" is alreday matched: "+record.matchedLinesOfField(field));
@@ -167,6 +174,7 @@ public class MatchFieldsImpl implements MatchFields{
             receipt.getReceiptLines()
                    .stream()
                    .filter( line -> line.getCleanText().length() > 1 )
+                   .filter(line -> !shortProductNames.stream().anyMatch( p -> line.getCleanText().contains(p)))
                    .filter(line -> !totalSoldAndTotalAreTreated.contains(line.getNumber()))
 //                   .filter( line -> {
 ////                       if(record.isFieldLine(line.getNumber()))
@@ -177,21 +185,40 @@ public class MatchFieldsImpl implements MatchFields{
                    .filter(line -> ! matchesBlackListForTotal(line.getCleanText().toLowerCase(), 0.75))
                    .filter(line -> ! matchesBlackListForDate(line.getCleanText().toLowerCase(), 0.75))
                    .filter( line -> {
-//                       log.debug("in lambda, line="+line.getCleanText());
                 Optional<Double> maxScore =
                         headerPatterns
                         .stream()
-                        .map( header -> {
-                            double score=StringCommon.matchStringToHeader(line.getCleanText(), header);
-                            return score;
-                        })
+                        .map( header -> StringCommon.matchStringToHeader(line.getCleanText(), header))
                         .max( Comparator.comparing(score -> score) );
                 return maxScore.isPresent() && maxScore.get() > config.similarityThresholdOfTwoStrings();
             })
             .forEach( line -> {
-                String value=parser.parseField(field, line);
-                record.putFieldLineValue(field, line.getNumber(), value);
-                });
+                if(field != ReceiptFieldType.Total){
+                    String value=parser.parseField(field, line);
+                    record.putFieldLineValue(field, line.getNumber(), value);
+                }else{
+                    linesOfTotal.add(line);
+                }
+            });
+
+            selectTotalLineAndParse(record, parser, linesOfTotal);
+        }
+    }
+
+    public static void selectTotalLineAndParse(
+            final MatchedRecord record,
+            final StoreParser parser,
+            final List<ReceiptLine> linesOfTotal){
+
+        final List<ReceiptLine> sortedLines = linesOfTotal.stream()
+                    .sorted((s1, s2)-> Integer.compare(-s1.getNumber(), -s2.getNumber()))
+                    .collect(Collectors.toList());
+
+        //select the first ReceiptLine that has non-empty parsed value result
+        for(ReceiptLine line: sortedLines){
+            String value=parser.parseField(ReceiptFieldType.Total, line);
+            if(!value.isEmpty())
+                record.putFieldLineValue(ReceiptFieldType.Total, line.getNumber(), value);
         }
     }
 }
