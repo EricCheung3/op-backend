@@ -12,12 +12,12 @@ import com.openprice.parser.store.AbstractStoreParserSelector;
 import com.openprice.store.StoreMetadata;
 
 @Service
-public class TandTSelector extends AbstractStoreParserSelector {
+public class TAndTSelector extends AbstractStoreParserSelector {
     private TAndT1 parser;
     private static final String CODE="TAndT";
 
     @Inject
-    public TandTSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
+    public TAndTSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
         super(chainRegistry, metadata);
     }
 

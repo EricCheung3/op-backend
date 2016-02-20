@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TAndTSelectorTest extends ParserSelectorIntegrationTest{
 
     @Inject
-    protected TandTSelector selector;
+    protected TAndTSelector selector;
 
     private final List<String> atLeast5Lines=new ArrayList<String>();
 

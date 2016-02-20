@@ -8,8 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,22 +15,14 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.openprice.common.TextResourceUtils;
-import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.ParsedField;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
-import lombok.extern.slf4j.Slf4j;
-
-
-@Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TandTTest1 extends AbstractReceiptParserIntegrationTest{
-
-    @Inject
-    private ChainRegistry chainRegistry;
 
     @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_02_01_14_10_52.jpg.henryHuang.txt")
     private Resource receipt_2015_02_01_14_10_52;
