@@ -12,6 +12,9 @@ import org.junit.Test;
 
 import com.openprice.store.data.StoreChainData;
 
+/**
+ *  TODO printing test code for a store.
+ */
 public class MetadataLoaderTest {
     private static final String RCSS_CODE="rcss";
     private static final String SAFEWAY_CODE="safeway";

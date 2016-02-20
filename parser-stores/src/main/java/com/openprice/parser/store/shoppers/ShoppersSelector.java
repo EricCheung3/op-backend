@@ -1,4 +1,4 @@
-package com.openprice.parser.store.safeway;
+package com.openprice.parser.store.shoppers;
 
 import javax.inject.Inject;
 
@@ -12,12 +12,12 @@ import com.openprice.parser.store.AbstractStoreParserSelector;
 import com.openprice.store.StoreMetadata;
 
 @Service
-public class SafewaySelector extends AbstractStoreParserSelector {
-    private Safeway1 parser;
-    private static final String CODE="Safeway";
+public class ShoppersSelector extends AbstractStoreParserSelector {
+    private Shoppers1 parser;
+    private static final String CODE="Shoppers";
 
     @Inject
-    public SafewaySelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
+    public ShoppersSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
         super(chainRegistry, metadata);
     }
 
@@ -35,7 +35,7 @@ public class SafewaySelector extends AbstractStoreParserSelector {
     @Override
     protected void generateParser() {
         StoreConfigImpl config = loadParserConfig(CODE+"1");
-        parser = new Safeway1(config, loadPriceParserWithCatalog());
+        parser = new Shoppers1(config, loadPriceParserWithCatalog());
     }
 
 }
