@@ -178,7 +178,7 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         verifyParsedItem(iterator.next(), "ks bath 30**", "14.999", null, 43);
 
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "*** cardhold  er copy ***",64);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "315.13",60);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "315.13",46);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst=121'1 76329rt",72);
         verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "0.75",45);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/2/18",69);
@@ -203,7 +203,7 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         assertEquals(0,receipt.getItems().size());//TODO there is an item there, but no price. forgivable
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "22.58",10);
         verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "1.15",11);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "24.13",23);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "24.13",12);
         verifyParsedField(fieldValues, ReceiptFieldType.Chain, "costco # 2~8",18);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst ; 12 1 '1 76 32 9rt",32);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/6/24",29);
@@ -236,7 +236,7 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         verifyParsedItem(iterator.next(), "pork tender", "30.18", null, 15);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/8/1",37);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gs t=121\"1 76329 rt",40);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "66.98",29);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "66.98",16);
         verifyParsedField(fieldValues, ReceiptFieldType.Chain, "costco # 258",22);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "*** cardholder copy ***",33);
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "8",35);
@@ -264,7 +264,7 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "1959.98",8);
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "2",27);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst;121.q76329rt",33);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "2057.98",21);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "2057.98",10);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/7/25",29);
         verifyParsedField(fieldValues, ReceiptFieldType.Chain, "costco # 258",16);
     }
@@ -297,7 +297,7 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         verifyParsedItem(iterator.next(), "roti chicken", "7.999", null, 16);
         verifyParsedItem(iterator.next(), "avocado oil", "12.49", null, 17);
 
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "146.53",36);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "146.53",21);
         verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "1.16",20);
         verifyParsedField(fieldValues, ReceiptFieldType.Chain, "costco # 258",27);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "145.37",19);
@@ -337,7 +337,7 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
 
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "177.52",23);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/8/22",46);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "178.92",37);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "178.92",25);
         verifyParsedField(fieldValues, ReceiptFieldType.Chain, "costco # 258",32);
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "12",44);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gs t=121476329r t",49);
@@ -370,7 +370,7 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "1.40",18);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "59.00",17);
         verifyParsedField(fieldValues, ReceiptFieldType.Chain, "costco # 258",25);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "60.40",33);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "60.40",19);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/12/13",42);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "*** cardholder copy ***",37);
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "7",40);
@@ -402,7 +402,7 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "26.00",18);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "542.31",17);
         verifyParsedField(fieldValues, ReceiptFieldType.Chain, "costco # 258",27);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "568.31",38);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "568.31", 20);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/11/29",47);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "*** cardholder copy ***",42);
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "6",45);
@@ -438,7 +438,7 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "85.25",18);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst=1214763 29r t",46);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "*** cardholder copy ***",39);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "87.25",34);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "87.25",20);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/10/25",43);
         verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "2.00",19);
     }
@@ -485,7 +485,7 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "282.91",38);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst=121476329rt",63);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "*** cardholder copy ***",55);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "286.06",51);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "286.06",40);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/8/8",59);
         verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "3.15",39);
     }
@@ -518,7 +518,7 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "8",42);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "144.24",21);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst=121'l7 6329rt",48);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "149.19",37);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "149.19",23);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/7/2",44);
         verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "4.95",22);
     }
@@ -548,7 +548,7 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "6",34);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "514.24",17);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst=12147 6329rt",40);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "539.49",30);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "539.49",19);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/7/12",36);
         verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "25.25",18);
     }
@@ -589,7 +589,7 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         verifyParsedItem(iterator.next(), "cucumbers", "2.99", null, 31);
         verifyParsedItem(iterator.next(), "537    slicedloaves", "9.99", null, 32);
 
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "123.12",49);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "123.12",36);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/7/12",56);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst =121476329rt",60);
         verifyParsedField(fieldValues, ReceiptFieldType.Chain, "costco # 258",43);

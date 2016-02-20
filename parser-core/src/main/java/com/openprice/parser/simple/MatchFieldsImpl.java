@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.openprice.common.Levenshtein;
 import com.openprice.common.StringCommon;
@@ -200,11 +201,24 @@ public class MatchFieldsImpl implements MatchFields{
                 }
             });
 
-            final Optional<ReceiptLine> firstTotalLine = linesOfTotal.stream().min(Comparator.comparing(r->r.getNumber()));
-            if(firstTotalLine.isPresent()){
-                String value=parser.parseField(ReceiptFieldType.Total, firstTotalLine.get());
-                record.putFieldLineValue(ReceiptFieldType.Total, firstTotalLine.get().getNumber(), value);
-            }
+            selectTotalLineAndParse(record, parser, linesOfTotal);
+        }
+    }
+
+    public static void selectTotalLineAndParse(
+            final MatchedRecord record,
+            final StoreParser parser,
+            final List<ReceiptLine> linesOfTotal){
+
+        final List<ReceiptLine> sortedLines = linesOfTotal.stream()
+                    .sorted((s1, s2)-> Integer.compare(-s1.getNumber(), -s2.getNumber()))
+                    .collect(Collectors.toList());
+
+        //select the first ReceiptLine that has non-empty parsed value result
+        for(ReceiptLine line: sortedLines){
+            String value=parser.parseField(ReceiptFieldType.Total, line);
+            if(!value.isEmpty())
+                record.putFieldLineValue(ReceiptFieldType.Total, line.getNumber(), value);
         }
     }
 }

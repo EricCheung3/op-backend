@@ -45,7 +45,7 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 
         // verify parsed fields
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "3.01",18);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "2.87",16);
         verifyParsedField(fieldValues, ReceiptFieldType.AddressLine2, "19 ave",7);
 //        verifyParsedField(fieldValues, ReceiptFieldType.AddressCity, "nisku",3);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst       $0.14",17);
