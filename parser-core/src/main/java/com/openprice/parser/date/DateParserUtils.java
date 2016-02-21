@@ -23,7 +23,7 @@ public class DateParserUtils {
 
     //    private static Pattern datePattern= Pattern.compile("(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
 
-    private static final String DATE_SPLITTER="-/.";//date splitter between day month year
+    public static final String DATE_SPLITTER="-/.";//date splitter between day month year
 
     private static final String DATE_SPLITTER_UNIFORM="/";//uniformly used
 
