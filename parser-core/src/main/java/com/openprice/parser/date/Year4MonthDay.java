@@ -26,9 +26,6 @@ public class Year4MonthDay implements DateParser{
         final String y4MD = DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line),
                 patternYear4MonthDay);
         final String[] splits = y4MD.split("[" + DateConstants.DATE_SPLITTER +"]");
-        log.debug("splits.length="+splits.length);
-        for(String s: splits)
-            log.debug(s);
         return DateParserUtils.getCalendar(splits[2].trim(), splits[1].trim(), splits[0].trim());
     }
 

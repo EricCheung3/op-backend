@@ -4,9 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.openprice.parser.date.MonthLiterals;
+
 public class DateLiteralsTest {
 
-    private DateLiterals dateLiterals=new DateLiterals();
+    private MonthLiterals dateLiterals=new MonthLiterals();
 
     @Test
     public void monthsShouldBe23(){

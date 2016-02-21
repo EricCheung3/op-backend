@@ -10,7 +10,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.common.DateLiterals;
 import com.openprice.parser.data.StringInt;
 
 import lombok.Getter;
@@ -19,12 +18,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DateParserUtils {
 
-    private static DateLiterals dateLiterals = new DateLiterals();
+    @Getter
+    private static MonthLiterals monthLiterals = new MonthLiterals();
 
     //    private static Pattern datePattern= Pattern.compile("(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
-
-
-    @Getter
 
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy"+DateConstants.DATE_SPLITTER_UNIFORM+
@@ -50,7 +47,7 @@ public class DateParserUtils {
     }
 
     public static boolean isLiteralDateFormat(final String dateString){
-        return dateLiterals
+        return monthLiterals
                 .monthLiterals()
                 .stream()
                 .anyMatch(month->dateString.contains(month));
@@ -111,6 +108,10 @@ public class DateParserUtils {
         return getCalendar(yMD[2], yMD[1], yMD[0]);
     }
 
+    public static Date getDate(final Calendar cal){
+        return cal.getTime();
+    }
+
     public static Date toDateFromDigitalFormat(final String dateStr) throws Exception {
         final String[] words=dateStr.split("_|-|\\.|/");//this is dependent on the DateConstants.DATE_SPLITTER
         String yMD="";
@@ -138,28 +139,13 @@ public class DateParserUtils {
         return result;
     }
 
-    public static List<String> literalMonthDayYearSplit(final String dateString){
-//        final String[] words = dateString.split("-|_|\\.|\\s+");//not correct. only one dilimiter is selected
-//        http://stackoverflow.com/questions/3654446/java-regex-help-splitting-string-on-spaces-and-commas
-        final String[] words = dateString.split("\\s*(\\.|_|-|,|\\s)\\s*");
-//        log.debug("words.length="+words.length);
-        final List<String> list = new ArrayList<>();
-        for(String w : words){
-            if(w.length()==1
-                && !Character.isDigit(w.charAt(0))
-                && !Character.isLetter(w.charAt(0)))
-                continue;
-            list.add(StringCommon.removeAllSpaces(w));
-        }
-        return list;
-    }
 
     //TODO right assuming the it's the LiteralMonth Day(digit) Year(digit) format, like "Feb 9 2015"
     public static Date toDateFromLiteralFormat(final String dateStr) throws Exception {
         final List<String> nonEmptyStrings = literalMonthDayYearSplit(dateStr);
 //        log.debug("dateStr="+ dateStr+ ", nonEmptyStrings="+nonEmptyStrings+", nonEmptyStrings.size="+nonEmptyStrings.size());
         String yMD= nonEmptyStrings.get(2)  + DateConstants.DATE_SPLITTER_UNIFORM
-                + dateLiterals.getMonthNumber(nonEmptyStrings.get(0)) + DateConstants.DATE_SPLITTER_UNIFORM
+                + monthLiterals.getMonthNumber(nonEmptyStrings.get(0)) + DateConstants.DATE_SPLITTER_UNIFORM
                 + nonEmptyStrings.get(1);
 //        log.debug("yMD="+yMD);
         return DATE_FORMAT.parse(yMD);
