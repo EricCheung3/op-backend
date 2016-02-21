@@ -1,4 +1,4 @@
-package com.openprice.parser.common;
+package com.openprice.parser.date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -724,15 +724,7 @@ public class DateParserUtilsTest {
         assertTrue(DateParserUtils.getPatternMonthDayYear4().matcher("5/12/2014").matches());
     }
 
-    @Test
-    public void patternY4MD1Test1()throws Exception{
-        assertTrue(DateParserUtils.getPatternYear4MonthDay1().matcher("2014/05/1").matches());
-    }
 
-    @Test
-    public void patternY4MD1Test2()throws Exception{
-        assertTrue(DateParserUtils.getPatternYear4MonthDay1().matcher("2014/5/1").matches());
-    }
 
     @Test
     public void formatDateStringTest()throws Exception{

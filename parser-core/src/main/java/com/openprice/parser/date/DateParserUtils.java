@@ -23,9 +23,6 @@ public class DateParserUtils {
 
     //    private static Pattern datePattern= Pattern.compile("(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
 
-    @Getter
-    //month(one or two digits) and day (one or two digits), 4-digit year
-    private static Pattern patternMonthDayYear4= Pattern.compile("([1-9]|0[1-9]|1[012])["+DateConstants.DATE_SPLITTER+"]([1-9]|0[1-9]|[12][0-9]|3[01])[" + DateConstants.DATE_SPLITTER+ "](19|20)\\d\\d");
 
     @Getter
     //month(one or two digits) and day (one or two digits), 2-digit year
