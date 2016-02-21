@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 /**
  * "year (4-digit) month day" format
+ *  month and day could one or two digits
  */
 
 public class Year4MonthDay implements DateParser{

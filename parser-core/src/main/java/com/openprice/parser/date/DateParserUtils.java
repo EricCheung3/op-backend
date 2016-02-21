@@ -116,8 +116,6 @@ public class DateParserUtils {
      * @return
      */
 
-    private static Calendar TODAY = Calendar.getInstance();
-    private static int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR) - 2000;
 
     public static Calendar getCalendar(final int day, final int month, final int year) {
         Calendar date = Calendar.getInstance();
@@ -143,7 +141,8 @@ public class DateParserUtils {
         else{ //either "05/31/15" or 15/05/31";
             final int monthOrYear =  Integer.valueOf(StringCommon.removeAllSpaces(words[0]));
             final int yearOrDay = Integer.valueOf(StringCommon.removeAllSpaces(words[2]));
-            if(monthOrYear > 12 || yearOrDay > CURRENT_YEAR){//must be Year Month Day
+            if(monthOrYear > 12 || yearOrDay > DateConstants.CURRENT_YEAR
+){//must be Year Month Day
                 yMD = "20" + monthOrYear +DATE_SPLITTER_UNIFORM
                            + words[1]+DATE_SPLITTER_UNIFORM + yearOrDay;
             }else{//note "12/05/12" will default 2012/Dec/05
@@ -153,7 +152,7 @@ public class DateParserUtils {
             }
         }
         result = DATE_FORMAT.parse(yMD);
-        if(TODAY.compareTo(getCalendar(result)) < 0) //prefer a parsed date that is before yesterday
+        if(DateConstants.TODAY.compareTo(getCalendar(result)) < 0) //prefer a parsed date that is before yesterday
             log.warn("something is probably wrong. the date parsed is after today: "+ result);
         return result;
     }
