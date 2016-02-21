@@ -1,10 +1,12 @@
 package com.openprice.parser.date;
 
+import java.util.Calendar;
+
 /**
  * parse a line to get Date String
  */
 
 public interface DateParser {
 
-    String parse(String line);
+    Calendar parse(String line);
 }

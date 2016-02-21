@@ -25,23 +25,7 @@ public class DateParserUtils {
 
 
     @Getter
-    //month(one or two digits) and day (one or two digits), 2-digit year
-    private static Pattern patternMonthDayYear2= Pattern.compile("([1-9]|0[1-9]|1[012])["+DateConstants.DATE_SPLITTER+"]([1-9]|0[1-9]|[12][0-9]|3[01])["+DateConstants.DATE_SPLITTER+"]\\d\\d");
 
-    @Getter
-    //format like "Feb 9, 2015"
-    //http://stackoverflow.com/questions/2655476/regex-to-match-month-name-followed-by-year
-    private static Pattern patternLiteralMonthDayYearPattern=Pattern.compile(
-//            "\\b(?:Jan(?:uary)?|Feb(?:ruary)?||Mar(?:ch)?||Apr(?:il)?||May?"
-//            +"||Jun(?:e)?||Jul(?:y)?||Aug(?:ust)?||Sep(?:tember)?||Oct(?:ober)?||Nov(?:ember)?||Dec(?:ember)?) (?:19[7-9]\\d|2\\d{3})(?=\\D|$)");
-            "\\b(?:Jan(?:uary)?|Feb(?:ruary)?||Mar(?:ch)?||Apr(?:il)?||May?"
-          +"||Jun(?:e)?||Jul(?:y)?||Aug(?:ust)?||Sep(?:tember)?||Oct(?:ober)?||Nov(?:ember)?||Dec(?:ember)?)"
-          + "\\s*"
-          + "([1-9]|0[1-9]|[12][0-9]|3[01])"
-          + "\\s*"
-          + "(\\s*||,||\\.||_)"
-          + "\\s*"
-          + "(?:19[7-9]\\d|2\\d{3})(?=\\D|$)");
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy"+DateConstants.DATE_SPLITTER_UNIFORM+
             "MM"+DateConstants.DATE_SPLITTER_UNIFORM+
@@ -87,6 +71,9 @@ public class DateParserUtils {
     public static int[] getYearMonthDay(final Date date){
         final Calendar cal = Calendar.getInstance();
         cal.setTime(date);
+        return getYearMonthDay(cal);
+    }
+    public static int[] getYearMonthDay(final Calendar cal){
         return new int[]{
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH)+1,
@@ -108,6 +95,15 @@ public class DateParserUtils {
         date.set(Calendar.MONTH, month - 1);
         date.set(Calendar.DAY_OF_MONTH, day);
         return date;
+    }
+
+    public static Calendar getCalendar(final String day, final String month, final String year) {
+        try{
+            return getCalendar(Integer.valueOf(day), Integer.valueOf(month), Integer.valueOf(year));
+        }catch(Exception e){
+            log.warn(e.getMessage());
+        }
+        return null;
     }
 
     public static Calendar getCalendar(final Date date) {
