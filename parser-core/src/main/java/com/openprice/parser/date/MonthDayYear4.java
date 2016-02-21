@@ -1,5 +1,6 @@
 package com.openprice.parser.date;
 
+import java.util.Calendar;
 import java.util.regex.Pattern;
 
 import com.openprice.common.StringCommon;
@@ -15,9 +16,11 @@ public class MonthDayYear4 implements DateParser{
             + DateConstants.DATE_SPLITTER + "](19|20)\\d\\d");
 
     @Override
-    public String parse(final String line) {
-        return DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line),
+    public Calendar parse(final String line) {
+        final String mdy4 = DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line),
                 patternMonthDayYear4);
+        final String[] mdy4Splits = mdy4.split("[" + DateConstants.DATE_SPLITTER +"]");
+        return DateParserUtils.getCalendar(mdy4Splits[1].trim(), mdy4Splits[0].trim(), mdy4Splits[2].trim());
     }
 
 
