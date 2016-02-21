@@ -1,4 +1,4 @@
-package com.openprice.parser.common;
+package com.openprice.parser.date;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.openprice.common.StringCommon;
+import com.openprice.parser.common.DateLiterals;
 import com.openprice.parser.data.StringInt;
 
 import lombok.Getter;
@@ -61,10 +62,11 @@ public class DateParserUtils {
             "MM"+DATE_SPLITTER_UNIFORM+
             "dd");
 
-    public static StringInt findDateStringAfterLine(final List<String> origLines, final int start){
+    //TODO in case there are dates in multiple lines, it makes sense to keep all the date variants found by different patterns in a line; and then take intersection
+    public static StringInt findDate(final List<String> origLines, final int start){
 //        log.debug("date line searching from line "+start+":"+origLines.get(start)+"\n");
         for(int i=start; i<origLines.size();i++){
-            final String dateString=pruneDateString(origLines.get(i));
+            final String dateString=findDateInALine(origLines.get(i));
             if(dateString.isEmpty()) continue;
             try{
                 if(isLiteralDateFormat(dateString))
@@ -192,7 +194,7 @@ public class DateParserUtils {
      * @param str
      * @return
      */
-    public static String pruneDateString(final String str){
+    public static String findDateInALine(final String str){
         final String strNoSpace=StringCommon.removeAllSpaces(str);
 //        log.debug("line string is "+str+"\n");
         final String y4MD2=pruneDateStringWithMatch(strNoSpace, patternYear4MonthDay2);
