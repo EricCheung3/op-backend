@@ -735,16 +735,6 @@ public class DateParserUtilsTest {
     }
 
     @Test
-    public void patternY4MD2Test1()throws Exception{
-        assertTrue(DateParserUtils.getPatternYear4MonthDay2().matcher("2014/5/01").matches());
-    }
-
-    @Test
-    public void patternY4MD2Test2()throws Exception{
-        assertTrue(DateParserUtils.getPatternYear4MonthDay2().matcher("2014/05/01").matches());
-    }
-
-    @Test
     public void formatDateStringTest()throws Exception{
         final Date date=DateParserUtils.toDateFromDigitalFormat("2013/01/31");
         assertEquals("2013/1/31", DateParserUtils.formatDateString(date));

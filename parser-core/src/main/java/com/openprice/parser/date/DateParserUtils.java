@@ -23,25 +23,13 @@ public class DateParserUtils {
 
     //    private static Pattern datePattern= Pattern.compile("(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
 
-    public static final String DATE_SPLITTER="-/.";//date splitter between day month year
-
-    private static final String DATE_SPLITTER_UNIFORM="/";//uniformly used
-
     @Getter
     //month(one or two digits) and day (one or two digits), 4-digit year
-    private static Pattern patternMonthDayYear4= Pattern.compile("([1-9]|0[1-9]|1[012])["+DATE_SPLITTER+"]([1-9]|0[1-9]|[12][0-9]|3[01])[" + DATE_SPLITTER+ "](19|20)\\d\\d");
+    private static Pattern patternMonthDayYear4= Pattern.compile("([1-9]|0[1-9]|1[012])["+DateConstants.DATE_SPLITTER+"]([1-9]|0[1-9]|[12][0-9]|3[01])[" + DateConstants.DATE_SPLITTER+ "](19|20)\\d\\d");
 
     @Getter
     //month(one or two digits) and day (one or two digits), 2-digit year
-    private static Pattern patternMonthDayYear2= Pattern.compile("([1-9]|0[1-9]|1[012])["+DATE_SPLITTER+"]([1-9]|0[1-9]|[12][0-9]|3[01])["+DATE_SPLITTER+"]\\d\\d");
-
-    @Getter
-    //4-digit year, month(one  two digits) and day (two digits)
-    private static Pattern patternYear4MonthDay2=Pattern.compile("(19|20)\\d\\d["+DATE_SPLITTER+"]([1-9]|0[1-9]|1[012])["+DATE_SPLITTER+"](0[1-9]|[12][0-9]|3[01])");
-
-    @Getter
-    //4-digit year, month(one  two digits) and day (one or two digits)
-    private static Pattern patternYear4MonthDay1=Pattern.compile("(19|20)\\d\\d["+DATE_SPLITTER+"]([1-9]|0[1-9]|1[012])["+DATE_SPLITTER+"]([1-9]|0[1-9]|[12][0-9]|3[01])");
+    private static Pattern patternMonthDayYear2= Pattern.compile("([1-9]|0[1-9]|1[012])["+DateConstants.DATE_SPLITTER+"]([1-9]|0[1-9]|[12][0-9]|3[01])["+DateConstants.DATE_SPLITTER+"]\\d\\d");
 
     @Getter
     //format like "Feb 9, 2015"
@@ -58,8 +46,8 @@ public class DateParserUtils {
           + "\\s*"
           + "(?:19[7-9]\\d|2\\d{3})(?=\\D|$)");
 
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy"+DATE_SPLITTER_UNIFORM+
-            "MM"+DATE_SPLITTER_UNIFORM+
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy"+DateConstants.DATE_SPLITTER_UNIFORM+
+            "MM"+DateConstants.DATE_SPLITTER_UNIFORM+
             "dd");
 
     //TODO in case there are dates in multiple lines, it makes sense to keep all the date variants found by different patterns in a line; and then take intersection
@@ -89,8 +77,8 @@ public class DateParserUtils {
 
     public static String formatDateString(final Date date){
         final int[] yMD=getYearMonthDay(date);
-        return    yMD[0] + DATE_SPLITTER_UNIFORM
-                + yMD[1] + DATE_SPLITTER_UNIFORM
+        return    yMD[0] + DateConstants.DATE_SPLITTER_UNIFORM
+                + yMD[1] + DateConstants.DATE_SPLITTER_UNIFORM
                 + yMD[2];
     }
 
@@ -131,23 +119,23 @@ public class DateParserUtils {
     }
 
     public static Date toDateFromDigitalFormat(final String dateStr) throws Exception {
-        final String[] words=dateStr.split("_|-|\\.|/");//this is dependent on the DATE_SPLITTER
+        final String[] words=dateStr.split("_|-|\\.|/");//this is dependent on the DateConstants.DATE_SPLITTER
         String yMD="";
         Date result = null;
         if(words[0].length()==4)
-            yMD=words[0]+DATE_SPLITTER_UNIFORM+words[1]+DATE_SPLITTER_UNIFORM+words[2];
+            yMD=words[0]+DateConstants.DATE_SPLITTER_UNIFORM+words[1]+DateConstants.DATE_SPLITTER_UNIFORM+words[2];
         else if(words[2].length()==4)
-            yMD=words[2]+DATE_SPLITTER_UNIFORM+words[0]+DATE_SPLITTER_UNIFORM+words[1];
+            yMD=words[2]+DateConstants.DATE_SPLITTER_UNIFORM+words[0]+DateConstants.DATE_SPLITTER_UNIFORM+words[1];
         else{ //either "05/31/15" or 15/05/31";
             final int monthOrYear =  Integer.valueOf(StringCommon.removeAllSpaces(words[0]));
             final int yearOrDay = Integer.valueOf(StringCommon.removeAllSpaces(words[2]));
             if(monthOrYear > 12 || yearOrDay > DateConstants.CURRENT_YEAR
 ){//must be Year Month Day
-                yMD = "20" + monthOrYear +DATE_SPLITTER_UNIFORM
-                           + words[1]+DATE_SPLITTER_UNIFORM + yearOrDay;
+                yMD = "20" + monthOrYear +DateConstants.DATE_SPLITTER_UNIFORM
+                           + words[1]+DateConstants.DATE_SPLITTER_UNIFORM + yearOrDay;
             }else{//note "12/05/12" will default 2012/Dec/05
-                yMD="20"+words[2]+DATE_SPLITTER_UNIFORM
-                    +words[0]+DATE_SPLITTER_UNIFORM
+                yMD="20"+words[2]+DateConstants.DATE_SPLITTER_UNIFORM
+                    +words[0]+DateConstants.DATE_SPLITTER_UNIFORM
                     +words[1];
             }
         }
@@ -177,8 +165,8 @@ public class DateParserUtils {
     public static Date toDateFromLiteralFormat(final String dateStr) throws Exception {
         final List<String> nonEmptyStrings = literalMonthDayYearSplit(dateStr);
 //        log.debug("dateStr="+ dateStr+ ", nonEmptyStrings="+nonEmptyStrings+", nonEmptyStrings.size="+nonEmptyStrings.size());
-        String yMD= nonEmptyStrings.get(2)  + DATE_SPLITTER_UNIFORM
-                + dateLiterals.getMonthNumber(nonEmptyStrings.get(0)) + DATE_SPLITTER_UNIFORM
+        String yMD= nonEmptyStrings.get(2)  + DateConstants.DATE_SPLITTER_UNIFORM
+                + dateLiterals.getMonthNumber(nonEmptyStrings.get(0)) + DateConstants.DATE_SPLITTER_UNIFORM
                 + nonEmptyStrings.get(1);
 //        log.debug("yMD="+yMD);
         return DATE_FORMAT.parse(yMD);
