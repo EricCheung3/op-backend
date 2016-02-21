@@ -2,6 +2,8 @@ package com.openprice.parser.date;
 
 import java.util.regex.Pattern;
 
+import com.openprice.common.StringCommon;
+
 public class MonthDayYear2 implements DateParser{
 
     //month(one or two digits) and day (one or two digits), 2-digit year
@@ -11,8 +13,7 @@ public class MonthDayYear2 implements DateParser{
 
     @Override
     public String parse(String line) {
-        // TODO Auto-generated method stub
-        return null;
+        return DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line), patternMonthDayYear2);
     }
 
 

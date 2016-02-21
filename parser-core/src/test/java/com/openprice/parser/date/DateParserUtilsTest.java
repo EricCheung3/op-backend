@@ -13,7 +13,6 @@ import org.junit.Test;
 
 import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
-import com.openprice.parser.date.DateParserUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -704,15 +703,6 @@ public class DateParserUtilsTest {
         assertTrue(DateParserUtils.getPatternLiteralMonthDayYearPattern().matcher("Dec  9 ,   2015").matches());
     }
 
-    @Test
-    public void patternMDY2Test1() throws Exception{
-        assertTrue(DateParserUtils.getPatternMonthDayYear2().matcher("5/12/14").matches());
-    }
-
-    @Test
-    public void patternMDY2Test2() throws Exception{
-        assertTrue(DateParserUtils.getPatternMonthDayYear2().matcher("05/12/14").matches());
-    }
 
     @Test
     public void patternMDY4Test1()throws Exception{
