@@ -1,0 +1,10 @@
+ LONDON DRUGS
+
+DATE: 02/22/15  TIME: 16:42:25
+
+EMPLOYEE DISCOUNT          38073
+20 DISC OLAY M/SCULP        32.99 G
+20 DISC OLAY M/SCULP        32.99 G
+   EMPLOYEE DISCOUNT        13.20-
+   TAX      2.64    BAL     55.42
+TOTAL                      $55.42
