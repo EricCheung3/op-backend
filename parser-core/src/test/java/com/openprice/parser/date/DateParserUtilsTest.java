@@ -19,6 +19,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DateParserUtilsTest {
 
+    @Test(expected=Exception.class)
+    public void calendarShouldThrowException() throws Exception{
+        DateParserUtils.getCalendar(34, 01, 2015);
+    }
+
     //TODO: this test should pass
 //    @Test
 //    public void pruneDateStringWithMatchTest(){

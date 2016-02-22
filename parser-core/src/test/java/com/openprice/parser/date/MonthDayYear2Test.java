@@ -1,6 +1,7 @@
 package com.openprice.parser.date;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
@@ -35,5 +36,16 @@ public class MonthDayYear2Test {
     public void patternMDY2TestDayHasTwoDigitsSpaceIsOkay() throws Exception{
         assertEquals(threeStrings(2014, 5, 12), parseToThreeStrings("0  5/  1    2/   1    4a b ce"));
     }
+
+    @Test
+    public void patternMDY2TestMonthHasTwoDigits() throws Exception{
+        assertEquals(threeStrings(2014, 11, 12), parseToThreeStrings("11/12/14a b ce"));
+    }
+
+    @Test
+    public void invalidDateStringWillReturnNull() throws Exception{
+        assertNull(mdy2.parse("15/12/14a b ce"));
+    }
+
 
 }

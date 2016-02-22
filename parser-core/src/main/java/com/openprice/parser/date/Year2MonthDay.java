@@ -23,7 +23,8 @@ public class Year2MonthDay implements DateParser{
                 patternYear2MonthDay);
         log.debug("dateString=" + dateString);
         final String[] y2md = dateString.split("["+ DateConstants.DATE_SPLITTER +"]");
-
+        if(y2md.length < 3)
+            return null;
         return DateParserUtils.getCalendar(y2md[2].trim(), y2md[1].trim(), "20"+y2md[0].trim());
     }
 

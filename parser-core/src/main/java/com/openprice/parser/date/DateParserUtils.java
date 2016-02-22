@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -84,13 +85,21 @@ public class DateParserUtils {
      * @param dateStr
      * @return
      */
-
-
-    public static Calendar getCalendar(final int day, final int month, final int year) {
-        Calendar date = Calendar.getInstance();
+    public static Calendar getCalendar(final int day, final int month, final int year) throws Exception{
+        Calendar date = new GregorianCalendar();
+        //setting allows invalid dates
+        date.setLenient(false);
         date.set(Calendar.YEAR, year);
         date.set(Calendar.MONTH, month - 1);
         date.set(Calendar.DAY_OF_MONTH, day);
+
+        //getting will throw Excepiton in Lenient false mode
+        try {
+            date.getTime();
+        }
+        catch (Exception e) {
+            throw e;
+        }
         return date;
     }
 
@@ -103,7 +112,7 @@ public class DateParserUtils {
         return null;
     }
 
-    public static Calendar getCalendar(final Date date) {
+    public static Calendar getCalendar(final Date date) throws Exception{
         final int[] yMD = getYearMonthDay(date);
         return getCalendar(yMD[2], yMD[1], yMD[0]);
     }

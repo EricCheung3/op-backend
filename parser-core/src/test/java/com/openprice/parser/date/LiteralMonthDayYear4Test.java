@@ -1,6 +1,7 @@
 package com.openprice.parser.date;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
@@ -101,5 +102,10 @@ public class LiteralMonthDayYear4Test {
         final ThreeStrings dec19 = threeStrings(2015, 12, 19);
         assertEquals(dec19, parseToThreeStrings("December 19, 2015  sfdgsd "));
         assertEquals(dec19, parseToThreeStrings("Dec 19, 2015  sfdgsd "));
+    }
+
+    @Test
+    public void testInvalidDateStringWillReturnNull(){
+        assertNull(literalMDY4.parse("December 44, 2015 "));
     }
 }

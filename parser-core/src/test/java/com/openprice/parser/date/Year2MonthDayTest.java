@@ -1,6 +1,7 @@
 package com.openprice.parser.date;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.regex.Pattern;
 
@@ -39,5 +40,20 @@ public class Year2MonthDayTest {
     @Test
     public void test2DayHasTwoDigits(){
         assertEquals(threeStrings(2015, 3, 14), parseToThreeStrings("sdfa 15/03/14"));
+    }
+
+    @Test
+    public void test2YearShouldHaveAtLeastTwoDigits(){
+        assertEquals(null, y2md.parse("5/03/14"));
+    }
+
+    @Test
+    public void invalidDayWillReturnNull(){
+        assertNull(y2md.parse("15/03/67"));
+    }
+
+    @Test
+    public void invalidMonthWillReturnNull(){
+        assertNull(y2md.parse("15/13/6"));
     }
 }
