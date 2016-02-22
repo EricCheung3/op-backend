@@ -30,6 +30,8 @@ public class ShoppersTest1 extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testFiles/Shoppers/branch_10907_82_AVE/2015_10_10_15_20_43_noDigitDate.jpg.txt")
     private Resource receipt_2015_10_10_15_20_43_noDigitDate;
 
+    @Value("classpath:/testFiles/Shoppers/branch_10907_82_AVE/2015_10_10_15_20_43_noLiteralDate.jpg.txt")
+    private Resource receipt_2015_10_10_15_20_43_noLiteralDate;
 
     @Value("classpath:/testFiles/Shoppers/branch_10907_82_AVE/2015_10_17_17_47_20.jpg.txt")
     private Resource receipt_2015_10_17_17_47_20;
@@ -99,6 +101,31 @@ public class ShoppersTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "17.26",18);
         verifyParsedField(fieldValues, ReceiptFieldType.Ref, "invoice number:        10098230",75);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/9/12",63);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "author. #:             062387",74);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "17.88",21);
+
+    }
+
+    @Test
+    public void receipt_2015_10_10_15_20_43_noLiteralDate() throws Exception{
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_2015_10_10_15_20_43_noLiteralDate, (line)-> receiptLines.add(line));
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        printResult(receipt);
+        assertEquals("shoppers", receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(3,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "klondike breyers",  "9", null, 13);
+        verifyParsedItem(iterator.next(), "pc decadnt cookies",  "n", null, 14);
+        verifyParsedItem(iterator.next(), "loacker wafer    n",  "2.79", null, 16);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst #: 84447 0567 rt0002",47);
+        verifyParsedField(fieldValues, ReceiptFieldType.Card, "card number:           ************4767",71);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "acct     : chequing                 $      17.88",67);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "17.26",18);
+        verifyParsedField(fieldValues, ReceiptFieldType.Ref, "invoice number:        10098230",75);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/9/12",72);
         verifyParsedField(fieldValues, ReceiptFieldType.Author, "author. #:             062387",74);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "17.88",21);
 
