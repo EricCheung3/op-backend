@@ -22,7 +22,7 @@ public class Year2MonthDayTest {
     }
 
     public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(DateParserUtils.getYearMonthDay(y2md.parse(line)));
+        return threeStrings(DateUtils.getYearMonthDay(y2md.parse(line)));
     }
 
     @Test

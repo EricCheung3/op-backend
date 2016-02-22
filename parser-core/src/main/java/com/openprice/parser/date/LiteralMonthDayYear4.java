@@ -41,7 +41,7 @@ public class LiteralMonthDayYear4 implements DateParser{
             log.debug(str);
         if(words.size() < 3)
             return null;
-        return DateParserUtils.getCalendar(words.get(1),
+        return DateUtils.getCalendar(words.get(1),
                 DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
                 words.get(2));
     }

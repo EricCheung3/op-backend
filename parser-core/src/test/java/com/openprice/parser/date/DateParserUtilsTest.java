@@ -19,38 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DateParserUtilsTest {
 
-    @Test(expected=Exception.class)
-    public void calendarShouldThrowException() throws Exception{
-        DateParserUtils.getCalendar(34, 01, 2015);
-    }
 
-    @Test
-    public void beforeUsingDate() throws Exception{
-        final Calendar cal1 = DateParserUtils.getCalendar(1, 01, 2015);
-        final Calendar cal2 = DateParserUtils.getCalendar(2, 01, 2015);
-        assertTrue(DateParserUtils.before(cal1.getTime(), cal2.getTime()));
-    }
-
-    @Test
-    public void sameDayUsingDate() throws Exception{
-        final Calendar cal1 = DateParserUtils.getCalendar(1, 01, 2015);
-        final Calendar cal2 = DateParserUtils.getCalendar(1, 01, 2015);
-        assertTrue(DateParserUtils.sameDay(cal1.getTime(), cal2.getTime()));
-    }
-
-    @Test
-    public void beforeUsingCalendar() throws Exception{
-        final Calendar cal1 = DateParserUtils.getCalendar(1, 01, 2015);
-        final Calendar cal2 = DateParserUtils.getCalendar(2, 01, 2015);
-        assertTrue(DateParserUtils.before(cal1, cal2));
-    }
-
-    @Test
-    public void sameDayUsingCalendar() throws Exception{
-        final Calendar cal1 = DateParserUtils.getCalendar(1, 01, 2015);
-        final Calendar cal2 = DateParserUtils.getCalendar(1, 01, 2015);
-        assertTrue(DateParserUtils.sameDay(cal1, cal2));
-    }
 
     //TODO: this test should pass
 //    @Test

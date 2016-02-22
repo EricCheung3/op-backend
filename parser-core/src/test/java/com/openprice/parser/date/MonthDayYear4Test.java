@@ -19,7 +19,7 @@ public class MonthDayYear4Test {
     }
 
     public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(DateParserUtils.getYearMonthDay(mdy4.parse(line)));
+        return threeStrings(DateUtils.getYearMonthDay(mdy4.parse(line)));
     }
 
     @Test

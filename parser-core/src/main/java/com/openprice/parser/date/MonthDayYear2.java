@@ -21,7 +21,7 @@ public class MonthDayYear2 implements DateParser{
         final String[] mDY2 = dateStr.split("[" + DateConstants.DATE_SPLITTER +"]");
         if(mDY2.length < 3)
             return null;
-        return DateParserUtils.getCalendar(mDY2[1].trim(), mDY2[0].trim(), "20"+mDY2[2].trim());
+        return DateUtils.getCalendar(mDY2[1].trim(), mDY2[0].trim(), "20"+mDY2[2].trim());
     }
 
 

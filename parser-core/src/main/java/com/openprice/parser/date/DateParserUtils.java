@@ -3,9 +3,7 @@ package com.openprice.parser.date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,11 +20,9 @@ public class DateParserUtils {
     @Getter
     private static MonthLiterals monthLiterals = new MonthLiterals();
 
-    //    private static Pattern datePattern= Pattern.compile("(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d");
-
-
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy"+DateConstants.DATE_SPLITTER_UNIFORM+
-            "MM"+DateConstants.DATE_SPLITTER_UNIFORM+
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat(
+            "yyyy" +DateConstants.DATE_SPLITTER_UNIFORM+
+            "MM" +DateConstants.DATE_SPLITTER_UNIFORM+
             "dd");
 
     //TODO in case there are dates in multiple lines, it makes sense to keep all the date variants found by different patterns in a line; and then take intersection
@@ -54,73 +50,6 @@ public class DateParserUtils {
                 .anyMatch(month->dateString.contains(month));
     }
 
-    public static String formatDateString(final Date date){
-        final int[] yMD=getYearMonthDay(date);
-        return    yMD[0] + DateConstants.DATE_SPLITTER_UNIFORM
-                + yMD[1] + DateConstants.DATE_SPLITTER_UNIFORM
-                + yMD[2];
-    }
-
-    /**
-     * get the year month day in integer from a Date object
-     * @param date
-     * @return
-     */
-    public static int[] getYearMonthDay(final Date date){
-        final Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        return getYearMonthDay(cal);
-    }
-    public static int[] getYearMonthDay(final Calendar cal){
-        return new int[]{
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH)+1,
-                cal.get(Calendar.DAY_OF_MONTH)};
-    }
-
-    /**
-     * convert a digital date string to Date
-     * two order are allowed:
-     * Month Day Year or Year Month Day
-     * @param dateStr
-     * @return
-     */
-    public static Calendar getCalendar(final int day, final int month, final int year) throws Exception{
-        Calendar date = new GregorianCalendar();
-        //setting allows invalid dates
-        date.setLenient(false);
-        date.set(Calendar.YEAR, year);
-        date.set(Calendar.MONTH, month - 1);
-        date.set(Calendar.DAY_OF_MONTH, day);
-
-        //getting will throw Excepiton in Lenient false mode
-        try {
-            date.getTime();
-        }
-        catch (Exception e) {
-            throw e;
-        }
-        return date;
-    }
-
-    public static Calendar getCalendar(final String day, final String month, final String year) {
-        try{
-            return getCalendar(Integer.valueOf(day), Integer.valueOf(month), Integer.valueOf(year));
-        }catch(Exception e){
-            log.warn(e.getMessage());
-        }
-        return null;
-    }
-
-    public static Calendar getCalendar(final Date date) throws Exception{
-        final int[] yMD = getYearMonthDay(date);
-        return getCalendar(yMD[2], yMD[1], yMD[0]);
-    }
-
-    public static Date getDate(final Calendar cal){
-        return cal.getTime();
-    }
-
     public static Date toDateFromDigitalFormat(final String dateStr) throws Exception {
         final String[] words=dateStr.split("_|-|\\.|/");//this is dependent on the DateConstants.DATE_SPLITTER
         String yMD="";
@@ -146,22 +75,6 @@ public class DateParserUtils {
         if(DateConstants.TODAY.compareTo(getCalendar(result)) < 0) //prefer a parsed date that is before yesterday
             log.warn("something is probably wrong. the date parsed is after today: "+ result);
         return result;
-    }
-
-    public static boolean before(final Date date1, final Date date2){
-        return date1.before(date2);
-    }
-
-    public static boolean sameDay(final Date date1, final Date date2){
-        return date1.equals(date2);
-    }
-
-    public static boolean before(final Calendar date1, final Calendar date2){
-        return date1.before(date2);
-    }
-
-    public static boolean sameDay(final Calendar date1, final Calendar date2){
-        return date1.equals(date2);
     }
 
     //TODO right assuming the it's the LiteralMonth Day(digit) Year(digit) format, like "Feb 9 2015"
@@ -204,11 +117,13 @@ public class DateParserUtils {
             log.debug("found mDY4 format."+mDY4+"\n");
             return mDY4;
         }
+
         final String mDY2=pruneDateStringWithMatch(strNoSpace, patternMonthDayYear2);
         if(!mDY2.isEmpty()){
             log.debug("found mDY2 format."+mDY2+"\n");
             return mDY2;
         }
+
         //note it's str not strNoSpace
         final String literalMonthDayYear=pruneDateStringWithMatch(str, patternLiteralMonthDayYearPattern);
         if(!literalMonthDayYear.isEmpty()){

@@ -18,7 +18,7 @@ public class Year4MonthDayTest {
     }
 
     public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(DateParserUtils.getYearMonthDay(y4MD.parse(line)));
+        return threeStrings(DateUtils.getYearMonthDay(y4MD.parse(line)));
     }
 
     @Test
