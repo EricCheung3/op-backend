@@ -21,9 +21,6 @@ import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ShoppersTest1 extends AbstractReceiptParserIntegrationTest{
 
@@ -54,7 +51,6 @@ public class ShoppersTest1 extends AbstractReceiptParserIntegrationTest{
 
     @Value("classpath:/testFiles/Shoppers/branch_87_AVE_156 ST/2015_07_21_10_57_01.jpg.henryHuang.txt")
     private Resource receipt_2015_07_21_10_57_01;
-
 
 
     @Test
@@ -144,7 +140,6 @@ public class ShoppersTest1 extends AbstractReceiptParserIntegrationTest{
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(6,receipt.getItems().size());
-        receipt.getItems().forEach(it->System.out.println(it.getParsedName()));
         verifyParsedItem(iterator.next(), "fudgee-o cookies",  "n", null, 11);
         verifyParsedItem(iterator.next(), "pc popcorn",  "9", null, 12);
         verifyParsedItem(iterator.next(), "hershey almond mtp    g",  "4.99", null, 13);
