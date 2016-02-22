@@ -415,7 +415,7 @@ public class LondonDrugsTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedItem(iterator.next(), "rf pr restoralax",  "29.996", null, 18);
         verifyParsedItem(iterator.next(), "20 disc restoralax",  "29.999", null, 20);
         verifyParsedField(fieldValues, ReceiptFieldType.Recycle, "recycling fee                     .02 g",16);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "13.96",32);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "13.96",22);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "chrd bhlrnce:           13.96",33);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/5/29",35);
     }
@@ -528,7 +528,7 @@ public class LondonDrugsTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedItem(iterator.next(), "mo manufacturer",  "5.00", null, 17);
         verifyParsedItem(iterator.next(), "mo manufacturer",  "5.00", null, 18);
         verifyParsedItem(iterator.next(), "mo manufacturer",  "1.00", null, 19);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "50.76",44);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "50.76",21);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/2/21",48);
     }
 
