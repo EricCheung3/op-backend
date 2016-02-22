@@ -148,6 +148,21 @@ public class DateParserUtils {
         return result;
     }
 
+    public static boolean before(final Date date1, final Date date2){
+        return date1.before(date2);
+    }
+
+    public static boolean sameDay(final Date date1, final Date date2){
+        return date1.equals(date2);
+    }
+
+    public static boolean before(final Calendar date1, final Calendar date2){
+        return date1.before(date2);
+    }
+
+    public static boolean sameDay(final Calendar date1, final Calendar date2){
+        return date1.equals(date2);
+    }
 
     //TODO right assuming the it's the LiteralMonth Day(digit) Year(digit) format, like "Feb 9 2015"
     public static Date toDateFromLiteralFormat(final String dateStr) throws Exception {
