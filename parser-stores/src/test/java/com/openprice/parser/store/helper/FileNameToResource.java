@@ -77,6 +77,8 @@ public class FileNameToResource {
                 if(file.toString().endsWith(".txt")){
                     all.add(getOnlyFileName(file.toString()));
                 }
+                if(file.listFiles()==null)
+                    continue;
                 for (File f2 : file.listFiles()){
                     if(f2.toString().endsWith(".txt")){
                         all.add(getOnlyFileName(f2.toString()));
