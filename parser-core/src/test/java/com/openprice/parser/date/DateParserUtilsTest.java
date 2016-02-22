@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -101,8 +100,8 @@ public class DateParserUtilsTest {
 
     @Test
     public void currentYear(){
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        log.debug("current year =" + (year-2000));
+        int year = DateUtils.getCurrentYearInTwoDigits();
+        log.debug("current year =" + year);
     }
 
     @Test
@@ -138,7 +137,18 @@ public class DateParserUtilsTest {
 
     @Test
     public void canParseSingleDigitDayOrMonth()throws Exception{
-        LocalDate.parse("2013/1/1", DateParserUtils.DATE_FORMATTER);
+        final LocalDate date =  LocalDate.parse("2013/1/1", DateParserUtils.DATE_FORMATTER);
+        assertEquals(2013, date.getYear());
+        assertEquals(1, date.getMonthValue());
+        assertEquals(1, date.getDayOfMonth());
+    }
+
+    @Test
+    public void canParseTwoDigitDayOrMonth()throws Exception{
+        final LocalDate date = LocalDate.parse("2013/12/12", DateParserUtils.DATE_FORMATTER);
+        assertEquals(2013, date.getYear());
+        assertEquals(12, date.getMonthValue());
+        assertEquals(12, date.getDayOfMonth());
     }
 
     @Test

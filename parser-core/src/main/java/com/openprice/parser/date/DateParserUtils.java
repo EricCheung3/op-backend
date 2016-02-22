@@ -50,7 +50,7 @@ public class DateParserUtils {
         else{ //either "05/31/15" or 15/05/31";
             final int monthOrYear =  Integer.valueOf(StringCommon.removeAllSpaces(words[0]));
             final int yearOrDay = Integer.valueOf(StringCommon.removeAllSpaces(words[2]));
-            if(monthOrYear > 12 || yearOrDay > DateUtils.getCurrentYear()){//must be Year Month Day
+            if(monthOrYear > 12 || yearOrDay > DateUtils.getCurrentYearInTwoDigits()){//must be Year Month Day
                 yMD = "20" + monthOrYear +DateConstants.DATE_SPLITTER_UNIFORM
                            + words[1]+DateConstants.DATE_SPLITTER_UNIFORM + yearOrDay;
             }else{//note "12/05/12" will default 2012/Dec/05

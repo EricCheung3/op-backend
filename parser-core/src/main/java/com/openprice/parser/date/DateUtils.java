@@ -19,7 +19,7 @@ public class DateUtils {
     }
 
     //note this got to have real time instance
-    public static int getCurrentYear(){
+    public static int getCurrentYearInTwoDigits(){
         return getToday().getYear() - 2000;
     }
 
