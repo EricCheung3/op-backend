@@ -12,7 +12,8 @@ public class Year2MonthDay implements DateParser{
 
     private static Pattern patternYear2MonthDay= Pattern.compile(
             "\\d\\d[" + DateConstants.DATE_SPLITTER
-            + "]([1-9]|0[1-9]|1[012])[" + DateConstants.DATE_SPLITTER
+//            + "]([1-9]|0[1-9]|1[012])[" + DateConstants.DATE_SPLITTER
+            + "]\\d{1,2}[" + DateConstants.DATE_SPLITTER
 //            + "]([1-9]|0[1-9]|[12][0-9]|3[01])"
             + "](\\d{1,2})"
             );

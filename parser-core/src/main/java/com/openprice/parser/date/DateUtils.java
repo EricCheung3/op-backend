@@ -9,11 +9,25 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DateUtils {
 
+    public static String formatDateString(final Calendar date){
+        return formatDateString(date.getTime());
+    }
+
     public static String formatDateString(final Date date){
         final int[] yMD=getYearMonthDay(date);
         return    yMD[0] + DateConstants.DATE_SPLITTER_UNIFORM
                 + yMD[1] + DateConstants.DATE_SPLITTER_UNIFORM
                 + yMD[2];
+    }
+
+    //note this got to have real time instance
+    public static Date getToday(){
+        return Calendar.getInstance().getTime();
+    }
+
+    //note this got to have real time instance
+    public static int getCurrentYear(){
+        return Calendar.getInstance().get(Calendar.YEAR) - 2000;
     }
 
     /**
