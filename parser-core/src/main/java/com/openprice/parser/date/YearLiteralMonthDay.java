@@ -1,11 +1,11 @@
 package com.openprice.parser.date;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 public class YearLiteralMonthDay implements DateParser{
 
     @Override
-    public Calendar parse(String line) {
+    public LocalDate parse(String line) {
         // TODO Auto-generated method stub
         return null;
     }

@@ -1,7 +1,7 @@
 package com.openprice.parser.date;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -32,7 +32,7 @@ public class LiteralMonthDayYear4 implements DateParser{
           + "(?:19[7-9]\\d|2\\d{3})(?=\\D|$)");
 
     @Override
-    public Calendar parse(String origLine) {
+    public LocalDate parse(String origLine) {
         final String literalMDY4 = DateParserUtils.pruneDateStringWithMatch(origLine,
                 patternLiteralMonthDayYear4);
         final List<String> words = literalMonthDayYearSplit(literalMDY4);
@@ -41,9 +41,11 @@ public class LiteralMonthDayYear4 implements DateParser{
             log.debug(str);
         if(words.size() < 3)
             return null;
-        return DateUtils.getCalendar(words.get(1),
+        return DateUtils.fromDayMonthYear(
+                words.get(1),
                 DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
-                words.get(2));
+                words.get(2)
+                );
     }
 
     public static List<String> literalMonthDayYearSplit(final String dateString){

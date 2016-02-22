@@ -3,6 +3,8 @@ package com.openprice.parser.date;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.time.LocalDate;
+
 import org.junit.Test;
 
 import com.openprice.parser.price.ThreeStrings;
@@ -11,15 +13,15 @@ public class MonthDayYear4Test {
 
     private final MonthDayYear4 mdy4 = new MonthDayYear4();
 
-    public static ThreeStrings threeStrings(final int[] array){
-        return threeStrings(array[0], array[1], array[2]);
+    public static ThreeStrings threeStrings(final LocalDate date){
+        return new ThreeStrings(date.getYear()+"", date.getMonthValue()+"", date.getDayOfMonth()+"");
     }
     public static ThreeStrings threeStrings(final int a, final int b, final int c){
         return new ThreeStrings(a+"", b+"", c+"");
     }
 
     public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(DateUtils.getYearMonthDay(mdy4.parse(line)));
+        return threeStrings(mdy4.parse(line));
     }
 
     @Test

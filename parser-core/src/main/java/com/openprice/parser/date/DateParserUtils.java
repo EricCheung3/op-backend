@@ -1,10 +1,8 @@
 package com.openprice.parser.date;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,7 +19,7 @@ public class DateParserUtils {
     @Getter
     private static MonthLiterals monthLiterals = new MonthLiterals();
 
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat(
+    private static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(
             "yyyy" +DateConstants.DATE_SPLITTER_UNIFORM+
             "MM" +DateConstants.DATE_SPLITTER_UNIFORM+
             "dd");
@@ -41,10 +39,10 @@ public class DateParserUtils {
         return StringInt.emptyValue();
     }
 
-    public static Date toDateFromDigitalFormat(final String dateStr) throws Exception {
+    public static LocalDate toDateFromDigitalFormat(final String dateStr) throws Exception {
         final String[] words=dateStr.split("_|-|\\.|/");//this is dependent on the DateConstants.DATE_SPLITTER
         String yMD="";
-        Date result = null;
+        LocalDate result = null;
         if(words[0].length()==4)
             yMD=words[0]+DateConstants.DATE_SPLITTER_UNIFORM+words[1]+DateConstants.DATE_SPLITTER_UNIFORM+words[2];
         else if(words[2].length()==4)
@@ -61,8 +59,8 @@ public class DateParserUtils {
                     +words[1];
             }
         }
-        result = DATE_FORMAT.parse(yMD);
-        if(DateUtils.getToday().before(result)) //prefer a parsed date that is before yesterday
+        result = LocalDate.parse(yMD, DATE_FORMATTER);
+        if(DateUtils.getToday().isBefore(result)) //prefer a parsed date that is before yesterday
             log.warn("something is probably wrong. the date parsed is after today: "+ result);
         return result;
     }
@@ -84,7 +82,7 @@ public class DateParserUtils {
     public static String findDateInALine(final String str){
         final String strNoSpace=StringCommon.removeAllSpaces(str);
 //        log.debug("line string is "+str+"\n");
-        Calendar result = y4md.parse(strNoSpace);
+        LocalDate result = y4md.parse(strNoSpace);
         if (result!=null){
             log.debug("found y4md format."+result+"\n");
             return DateUtils.formatDateString(result);

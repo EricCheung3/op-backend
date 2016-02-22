@@ -1,6 +1,6 @@
 package com.openprice.parser.date;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 import com.openprice.common.StringCommon;
@@ -19,14 +19,17 @@ public class Year2MonthDay implements DateParser{
             );
 
     @Override
-    public Calendar parse(String line) {
+    public LocalDate parse(String line) {
         final String dateString = DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line),
                 patternYear2MonthDay);
         log.debug("dateString=" + dateString);
         final String[] y2md = dateString.split("["+ DateConstants.DATE_SPLITTER +"]");
         if(y2md.length < 3)
             return null;
-        return DateUtils.getCalendar(y2md[2].trim(), y2md[1].trim(), "20"+y2md[0].trim());
+        return DateUtils.fromDayMonthYear(
+                y2md[2],
+                y2md[1],
+                "20"+y2md[0]);
     }
 
 }
