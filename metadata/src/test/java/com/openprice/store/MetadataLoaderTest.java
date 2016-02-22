@@ -36,7 +36,7 @@ public class MetadataLoaderTest {
         assertTrue(validateConfigProperties(SOBEYS_CODE));
         assertTrue(validateConfigProperties(TAndT_CODE));
         assertTrue(validateConfigProperties(SHOPPERS_CODE));
-        assertTrue(validateConfigProperties(LONDON_DRUGS_CODE));
+//        assertTrue(validateConfigProperties(LONDON_DRUGS_CODE));
 
     }
 
@@ -159,6 +159,7 @@ public class MetadataLoaderTest {
 
     public boolean validateSkipAfter(final String chainCode){
         final String[] list = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getSkipAfter(chainCode), String[].class);
+        System.out.println(list);
         return list != null &&  list.length > 0;
     }
 
