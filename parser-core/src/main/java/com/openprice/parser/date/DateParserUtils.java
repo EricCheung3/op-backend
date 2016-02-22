@@ -201,6 +201,7 @@ public class DateParserUtils {
         while(match.find()){
             allMatches.add(match.group());
         }
+        log.debug("allMatches="+allMatches);
         if(allMatches.size()==0)
             return StringCommon.EMPTY;
         return selectDateString(allMatches);
