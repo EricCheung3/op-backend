@@ -137,15 +137,9 @@ public class DateParserUtilsTest {
     }
 
     @Test
-    public void testFormatter() throws Exception{
-        DateParserUtils.SIMPLE_DATE_FORMATTER.parse("2013/1/1");
-    }
-
-    @Test(expected=Exception.class)
-    public void cannotParse()throws Exception{
+    public void canParseSingleDigitDayOrMonth()throws Exception{
         LocalDate.parse("2013/1/1", DateParserUtils.DATE_FORMATTER);
     }
-
 
     @Test
     public void toDateTest1SingleDigitDayIsOkayYearAtEnd() throws Exception{

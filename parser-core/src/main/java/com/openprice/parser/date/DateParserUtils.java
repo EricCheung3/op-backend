@@ -1,14 +1,8 @@
 package com.openprice.parser.date;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,15 +19,10 @@ public class DateParserUtils {
     @Getter
     private static MonthLiterals monthLiterals = new MonthLiterals();
 
-    public static final DateFormat SIMPLE_DATE_FORMATTER = new SimpleDateFormat(
-            "yyyy" +DateConstants.DATE_SPLITTER_UNIFORM+
-            "MM" +DateConstants.DATE_SPLITTER_UNIFORM+
-            "dd");
-
     public static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(
             "yyyy" +DateConstants.DATE_SPLITTER_UNIFORM+
-            "MM" +DateConstants.DATE_SPLITTER_UNIFORM+
-            "dd");
+            "M" +DateConstants.DATE_SPLITTER_UNIFORM+
+            "d");
 
     //TODO in case there are dates in multiple lines, it makes sense to keep all the date variants found by different patterns in a line; and then take intersection
     public static StringInt findDate(final List<String> origLines, final int start){
@@ -72,12 +61,7 @@ public class DateParserUtils {
         }
         log.debug("yMD="+yMD);
 //        log.debug("parsing using simpledateformatter: "+SIMPLE_DATE_FORMATTER.parse(yMD));
-//        result = LocalDate.parse(yMD, DATE_FORMATTER);//cannot handle single digit month or day
-        final Date parsedDate = SIMPLE_DATE_FORMATTER.parse(yMD);//cannot handle single digit month or day
-        result = LocalDateTime.ofInstant(Instant
-                .ofEpochMilli(parsedDate.getTime()),
-                ZoneId.systemDefault())
-                .toLocalDate();
+        result = LocalDate.parse(yMD, DATE_FORMATTER);//cannot handle single digit month or day
         if(DateUtils.getToday().isBefore(result)) //prefer a parsed date that is before yesterday
             log.warn("something is probably wrong. the date parsed is after today: "+ result);
         return result;
