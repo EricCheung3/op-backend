@@ -7,7 +7,7 @@ import org.springframework.util.StringUtils;
 import com.openprice.common.Levenshtein;
 import com.openprice.common.StringCommon;
 import com.openprice.parser.api.ReceiptLine;
-import com.openprice.parser.common.DateParserUtils;
+import com.openprice.parser.date.DateParserUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -113,6 +113,6 @@ public class FieldParserCommon {
     public static String parseDate(final ReceiptLine line){
         final List<String> origLines=line.getReceipt().getOriginalLines();
         final int currentNumber=line.getNumber();
-        return DateParserUtils.findDateStringAfterLine(origLines, currentNumber).getValue();
+        return DateParserUtils.findDate(origLines, currentNumber).getValue();
     }
 }

@@ -1,0 +1,23 @@
+ LONDON DRUGS
+
+DATE: 05/16/15  TIME: 22:01:26
+
+EMPLOYEE DISCOUNT          38073
+20 DISC CAMPBELLS SOUP      2.98
+   PEPSI DIET               2.99 G
+   RECYCLING FEE             .06 G
+   DEPOSIT AB                .60
+20 DISC ALWAYS P/LINERS     4.99 G
+   FRUIT 2C                 1.19 G
+   RECYCLING FEE             .02 G
+   DEPOSIT AB                .10
+   FRUIT 2C                 1.19 G
+   RECYCLING FEE             .02 G
+   DEPOSIT AB                .10
+20 DISC AIRPLUS HUG/HEELS   6.99 G
+20 DISC AIRPLUS INSOLE     12.99 G
+20 DISC MATADOR JERKY       8.99 G
+20 DISC SHOPKINS MRKT GAME 19.99 G
+   EMPLOYEE DISCOUNT       11.40-
+   TAX     2.43    BAL     54.23
+TOTAL                     $54.23

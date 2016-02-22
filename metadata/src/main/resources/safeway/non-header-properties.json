@@ -15,7 +15,6 @@
   "SimilarityThresholdOfTwoStrings" : "0.7",
   "DTFormat" : "month/day/year hour:minute",
   "Slogan" : "It's Just Better",
-  "Chain" : "SAFEWAY",
   "MinHeadSpacesBeforeCategory" : "8",
   "SubstringOfQuantityPrice" : ""
 }

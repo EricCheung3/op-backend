@@ -1,15 +1,16 @@
-package com.openprice.parser.common;
+package com.openprice.parser.date;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 //TODO using Calendar to get the literals?
-public class DateLiterals {
+//how about lowercase?
+public class MonthLiterals {
 
     private Map<String, Integer> monthLiteralToNumber = new HashMap<>();
 
-    public DateLiterals(){
+    public MonthLiterals(){
         monthLiteralToNumber.put("January", 1);
         monthLiteralToNumber.put("February", 2);
         monthLiteralToNumber.put("March", 3);

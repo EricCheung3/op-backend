@@ -20,8 +20,10 @@ public class FileNameToResource {
     private final static String RECEIPT_TAIL=";";
 
     public static void main(String[] args) throws Exception{
-        final String chainTestRoot="TAndT";
-        final String chainCode = "tandt";
+        final String chainTestRoot = "Shoppers";
+        final String chainCode = "shoppers";
+//        final String chainTestRoot="TAndT";
+//        final String chainCode = "tandt";
         final String testFileRoot = "/testFiles/"+chainTestRoot;
 
         final List<String> fileNames = getAllFileNames(testFileRoot);

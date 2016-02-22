@@ -17,6 +17,5 @@
   "SimilarityThresholdOfTwoStrings" : "0.65",
   "DTFormat" : "month/day/year hour:minute",
   "Slogan" : "Big on Fresh, Low on Price",
-  "Chain" : "RCSS",
   "MinHeadSpacesBeforeCategory" : "0"
 }

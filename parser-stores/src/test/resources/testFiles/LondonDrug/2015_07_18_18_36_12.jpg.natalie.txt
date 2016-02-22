@@ -1,0 +1,16 @@
+ LONDON DRUGS
+
+DATE: 01/15/15  TIME: 17:23:41
+
+EMPLOYEE DISCOUNT          38073
+   ITUNES $100             100.00
+20 DISC CHEERIOS             4.98
+   ATKINS ENDULGE            5.99 G
+20 DISC TWIZZLER             3.79 G
+20 DISC O'KEEFFE'S CREAM     9.99 G
+20 DISC VITAMIN WATER        2.29 G 
+   RECYCLING FEE              .01 G
+   DEPOSIT AB                 .10
+   EMPLOYEE DISCOUNT       4.22-
+   TAX      .94    BAL     123.87
+TOTAL                     $123.87
