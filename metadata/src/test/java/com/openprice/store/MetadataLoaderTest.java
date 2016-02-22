@@ -36,13 +36,12 @@ public class MetadataLoaderTest {
         assertTrue(validateConfigProperties(SOBEYS_CODE));
         assertTrue(validateConfigProperties(TAndT_CODE));
         assertTrue(validateConfigProperties(SHOPPERS_CODE));
-//        assertTrue(validateConfigProperties(LONDON_DRUGS_CODE));
+        assertTrue(validateConfigProperties(LONDON_DRUGS_CODE));
 
     }
 
     public boolean validateHeaders(final String chainCode){
         final Properties prop = MetadataLoader.loadObjectFromJsonResource(ChainConfigFiles.getHeaders(chainCode), Properties.class);
-//        System.out.println(prop.toString());
         return prop != null &&  prop.size() > 0;
     }
 
