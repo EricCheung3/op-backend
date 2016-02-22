@@ -1,0 +1,26 @@
+LONDON DRUGS
+
+DATE: 02/13/15  TIME: 21:45:58
+
+EMPLOYEE DISCOUNT          38073
+20 DISC L/PREM REMVR        3.99 G
+   CHILD'S BOOK             4.49 G
+   BOOK                     4.49 G
+20 DISC SENSODYNE           4.98 G
+   WONKA HEARTS             1.69 G
+   HERSHEY HEART            1.09 G
+   HERSHEY HEART            1.09 G
+   HERSHEY HEART            1.09 G
+   HERSHEY HEART            1.09 G
+20 DISC MAYB MASCARA        9.49 G
+   WOMKA SWEETARTS          2.29 G
+ PM2 DEAL REACHED REDUCED PRICE
+   WOMKA SWEETARTS          1.71 G
+ MO NICE & EASY             5.99 G
+ MO NICE & EASY             5.99 G
+   NESTEA                   1.79 G
+   RECYCLING FEE             .02 G
+   DEPOSIT AB                .10
+   EMPLOYEE DISCOUNT        3.70-
+   TAX      2.38    BAL     50.06
+TOTAL                      $50.06
