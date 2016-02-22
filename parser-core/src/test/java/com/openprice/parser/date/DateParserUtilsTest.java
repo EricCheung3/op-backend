@@ -258,7 +258,7 @@ public class DateParserUtilsTest {
     }
 
     @Test
-    public void findDateStringAfterLineLiteralMonthDayYearSpace() throws Exception{
+    public void findDateLiteralMonthDayYearSpace() throws Exception{
         final List<String> lines=new ArrayList<String>();
         lines.add("DATE            TIME            AMOUNT");
         lines.add("Feb 09 2015 TIME 17:26:22        $        14.48");
@@ -268,7 +268,7 @@ public class DateParserUtilsTest {
     }
 
     @Test
-    public void findDateStringAfterLineLiteralMonthDayYearComma() throws Exception{
+    public void findDateLiteralMonthDayYearComma() throws Exception{
         final List<String> lines=new ArrayList<String>();
         lines.add("DATE            TIME            AMOUNT");
         lines.add("Feb 09, 2015 TIME 17:26:22        $        14.48");
@@ -278,7 +278,7 @@ public class DateParserUtilsTest {
     }
 
     @Test
-    public void findDateStringAfterLineLiteralMonthDayYearMoreSpaces() throws Exception{
+    public void findDateLiteralMonthDayYearMoreSpaces() throws Exception{
         final List<String> lines=new ArrayList<String>();
         lines.add("DATE            TIME            AMOUNT");
         lines.add("Feb  09      2015 TIME 17:26:22        $        14.48");
@@ -288,7 +288,7 @@ public class DateParserUtilsTest {
     }
 
     @Test
-    public void findDateStringAfterLineLiteralMonthDayYearMoreSpacesAndOneComma() throws Exception{
+    public void findDateLiteralMonthDayYearMoreSpacesAndOneComma() throws Exception{
         final List<String> lines=new ArrayList<String>();
         lines.add("DATE            TIME            AMOUNT");
         lines.add("Feb  09,      2015 TIME 17:26:22        $        14.48");
@@ -298,7 +298,7 @@ public class DateParserUtilsTest {
     }
 
     @Test
-    public void findDateStringAfterLineLiteralMonthDayYearMoreSpacesAndOneComma2() throws Exception{
+    public void findDateLiteralMonthDayYearMoreSpacesAndOneComma2() throws Exception{
         final List<String> lines=new ArrayList<String>();
         lines.add("DATE            TIME            AMOUNT");
         lines.add("Feb  09    ,      2015 TIME 17:26:22        $        14.48");
@@ -308,7 +308,7 @@ public class DateParserUtilsTest {
     }
 
     @Test
-    public void findDateStringAfterLineLiteralMonthDayYearMoreSpacesAndOneComma3() throws Exception{
+    public void findDateLiteralMonthDayYearMoreSpacesAndOneComma3() throws Exception{
         final List<String> lines=new ArrayList<String>();
         lines.add("DATE            TIME            AMOUNT");
         lines.add("DATE: MOn Feb 9,2015 TIME: 17:45:11");
@@ -317,6 +317,23 @@ public class DateParserUtilsTest {
         assertEquals("2015/2/9", DateParserUtils.findDate(lines, 0).getValue());
     }
 
+    @Test
+    public void findDateInALineTest() throws Exception{
+        final String fromSear = "01429 388 1953 1621487 2/28/ 15 4 :07P";
+        assertEquals("2015/2/28", DateParserUtils.findDateInALine(fromSear));
+    }
+
+    @Test
+    public void findDateInALineTest2() throws Exception{
+        final String fromSear = "01429 15~ 4884 4601652 4/11/13 4:15P";
+        assertEquals("2013/4/11", DateParserUtils.findDateInALine(fromSear));
+    }
+
+    @Test
+    public void findDateInALineTest3() throws Exception{
+        final String fromSear = "0142 054 8913 4629940 5/3 1/ 15 4:58P";
+        assertEquals("2015/5/3", DateParserUtils.findDateInALine(fromSear));
+    }
 
     @Test
     public void testDate1()throws Exception{
