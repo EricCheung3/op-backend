@@ -1,4 +1,4 @@
-package com.openprice.parser.store.rcss;
+package com.openprice.parser.store.londondrugs;
 
 import javax.inject.Inject;
 
@@ -12,12 +12,12 @@ import com.openprice.parser.store.AbstractStoreParserSelector;
 import com.openprice.store.StoreMetadata;
 
 @Service
-public class RCSSSelector extends AbstractStoreParserSelector {
-    private RCSS1 parser;
-    private final static String CODE="RCSS";
+public class LondonDrugsSelector extends AbstractStoreParserSelector {
+    private LondonDrugs1 parser;
+    private final static String CODE="LondonDrugs";
 
     @Inject
-    public RCSSSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
+    public LondonDrugsSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
         super(chainRegistry, metadata);
     }
 
@@ -35,7 +35,7 @@ public class RCSSSelector extends AbstractStoreParserSelector {
     @Override
     protected void generateParser() {
         StoreConfigImpl config = loadParserConfig(CODE+"1");
-        parser = new RCSS1(config, loadPriceParserWithCatalog());
+        parser = new LondonDrugs1(config, loadPriceParserWithCatalog());
     }
 
 }
