@@ -1,8 +1,14 @@
 package com.openprice.parser.date;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,7 +25,12 @@ public class DateParserUtils {
     @Getter
     private static MonthLiterals monthLiterals = new MonthLiterals();
 
-    private static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(
+    public static final DateFormat SIMPLE_DATE_FORMATTER = new SimpleDateFormat(
+            "yyyy" +DateConstants.DATE_SPLITTER_UNIFORM+
+            "MM" +DateConstants.DATE_SPLITTER_UNIFORM+
+            "dd");
+
+    public static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(
             "yyyy" +DateConstants.DATE_SPLITTER_UNIFORM+
             "MM" +DateConstants.DATE_SPLITTER_UNIFORM+
             "dd");
@@ -59,7 +70,14 @@ public class DateParserUtils {
                     +words[1];
             }
         }
-        result = LocalDate.parse(yMD, DATE_FORMATTER);
+        log.debug("yMD="+yMD);
+//        log.debug("parsing using simpledateformatter: "+SIMPLE_DATE_FORMATTER.parse(yMD));
+//        result = LocalDate.parse(yMD, DATE_FORMATTER);//cannot handle single digit month or day
+        final Date parsedDate = SIMPLE_DATE_FORMATTER.parse(yMD);//cannot handle single digit month or day
+        result = LocalDateTime.ofInstant(Instant
+                .ofEpochMilli(parsedDate.getTime()),
+                ZoneId.systemDefault())
+                .toLocalDate();
         if(DateUtils.getToday().isBefore(result)) //prefer a parsed date that is before yesterday
             log.warn("something is probably wrong. the date parsed is after today: "+ result);
         return result;

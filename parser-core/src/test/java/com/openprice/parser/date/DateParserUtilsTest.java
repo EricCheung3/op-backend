@@ -3,9 +3,9 @@ package com.openprice.parser.date;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -29,93 +29,80 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateFromDigitalFormatParseAsYearMonthDayFormat() throws Exception{
-        final Date date = DateParserUtils.toDateFromDigitalFormat("15/02/10");
-        final int[] yMD = DateUtils.getYearMonthDay(date);
-        assertEquals(2015, yMD[0]);//year
-        assertEquals(2, yMD[1]);//month
-        assertEquals(10, yMD[2]);//day
+        final LocalDate date = DateParserUtils.toDateFromDigitalFormat("15/02/10");
+        assertEquals(2015, date.getYear());//year
+        assertEquals(2, date.getMonthValue());//month
+        assertEquals(10, date.getDayOfMonth());//day
     }
 
     @Test
     public void toDateFromDigitalFormatPreferADayThatIsBeforeToday2() throws Exception{
-        final Date date = DateParserUtils.toDateFromDigitalFormat("16/01/12");
-        final int[] yMD = DateUtils.getYearMonthDay(date);
-        assertEquals(2016, yMD[0]);//year
-        assertEquals(1, yMD[1]);//month
-        assertEquals(12, yMD[2]);//day
+        final LocalDate date= DateParserUtils.toDateFromDigitalFormat("16/01/12");
+        ;
+        assertEquals(2016, date.getYear());//year
+        assertEquals(1, date.getMonthValue());//month
+        assertEquals(12, date.getDayOfMonth());//day
     }
 
     @Test
     public void toDateFromDigitalFormatPreferADayThatIsBeforeToday3() throws Exception{
-        final Date date = DateParserUtils.toDateFromDigitalFormat("16/01/16");
-        final int[] yMD = DateUtils.getYearMonthDay(date);
-        assertEquals(2016, yMD[0]);//year
-        assertEquals(1, yMD[1]);//month
-        assertEquals(16, yMD[2]);//day
+        final LocalDate date= DateParserUtils.toDateFromDigitalFormat("16/01/16");
+        ;
+        assertEquals(2016, date.getYear());//year
+        assertEquals(1, date.getMonthValue());//month
+        assertEquals(16, date.getDayOfMonth());//day
     }
 
     @Test
     public void toDateFromDigitalFormatPreferADayThatIsBeforeToday4() throws Exception{
-        final Date date = DateParserUtils.toDateFromDigitalFormat("12/16/16");
-        final int[] yMD = DateUtils.getYearMonthDay(date);
+        final LocalDate date= DateParserUtils.toDateFromDigitalFormat("12/16/16");
+        ;
         //will see a warning if today is not this date yet
-        assertEquals(2016, yMD[0]);//year
-        assertEquals(12, yMD[1]);//month
-        assertEquals(16, yMD[2]);//day
+        assertEquals(2016, date.getYear());//year
+        assertEquals(12, date.getMonthValue());//month
+        assertEquals(16, date.getDayOfMonth());//day
     }
 
     //note this test was written before 2016-05-15
     @Test
     public void toDateFromDigitalFormatPreferADayThatIsBeforeToday() throws Exception{
-        final Date date = DateParserUtils.toDateFromDigitalFormat("15/05/16");
-        final int[] yMD = DateUtils.getYearMonthDay(date);
-        assertEquals(2015, yMD[0]);//year
-        assertEquals(5, yMD[1]);//month
-        assertEquals(16, yMD[2]);//day
+        final LocalDate date= DateParserUtils.toDateFromDigitalFormat("15/05/16");
+        ;
+        assertEquals(2015, date.getYear());//year
+        assertEquals(5, date.getMonthValue());//month
+        assertEquals(16, date.getDayOfMonth());//day
     }
 
     @Test
     public void toDateFromDigitalFormat15MustBeYearTest() throws Exception{
-        final Date date = DateParserUtils.toDateFromDigitalFormat("15/05/10");
-        final int[] yMD = DateUtils.getYearMonthDay(date);
-        assertEquals(2015, yMD[0]);//year
-        assertEquals(5, yMD[1]);//month
-        assertEquals(10, yMD[2]);//day
+        final LocalDate date= DateParserUtils.toDateFromDigitalFormat("15/05/10");
+        ;
+        assertEquals(2015, date.getYear());//year
+        assertEquals(5, date.getMonthValue());//month
+        assertEquals(10, date.getDayOfMonth());//day
     }
 
     @Test
     public void toDateFromDigitalFormat15MustBeYear() throws Exception{
-        final Date date = DateParserUtils.toDateFromDigitalFormat("12/05/15");
-        final int[] yMD = DateUtils.getYearMonthDay(date);
-        assertEquals(2015, yMD[0]);//year
-        assertEquals(12, yMD[1]);//month
-        assertEquals(5, yMD[2]);//day
+        final LocalDate date= DateParserUtils.toDateFromDigitalFormat("12/05/15");
+        ;
+        assertEquals(2015, date.getYear());//year
+        assertEquals(12, date.getMonthValue());//month
+        assertEquals(5, date.getDayOfMonth());//day
     }
 
     @Test
     public void toDateFromDigitalFormatPreferMonthDayYearIfNotSure() throws Exception{
-        final Date date = DateParserUtils.toDateFromDigitalFormat("12/05/12");
-        final int[] yMD = DateUtils.getYearMonthDay(date);
-        assertEquals(2012, yMD[0]);//year
-        assertEquals(12, yMD[1]);//month
-        assertEquals(5, yMD[2]);//day
+        final LocalDate date= DateParserUtils.toDateFromDigitalFormat("12/05/12");
+        assertEquals(2012, date.getYear());//year
+        assertEquals(12, date.getMonthValue());//month
+        assertEquals(5, date.getDayOfMonth());//day
     }
 
     @Test
     public void currentYear(){
         int year = Calendar.getInstance().get(Calendar.YEAR);
         log.debug("current year =" + (year-2000));
-    }
-
-    @Test
-    public void expiredTest() throws Exception{
-        final Calendar today = Calendar.getInstance();
-        final Calendar olderDay = DateUtils.getCalendar(1, 10, 2015);
-        final int[] old = DateUtils.getYearMonthDay(olderDay.getTime());
-        assertEquals(2015, old[0]);
-        assertEquals(10, old[1]);
-        assertEquals(1, old[2]);
-        assertTrue(today.compareTo(olderDay)>0);
     }
 
     @Test
@@ -143,90 +130,101 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1TwoDigitYearFormatIsNowSupported() throws Exception{
-        final Date date=DateParserUtils.toDateFromDigitalFormat("1/1/13");
-        assertEquals(2013, DateUtils.getYearMonthDay(date)[0]);
-        assertEquals(1, DateUtils.getYearMonthDay(date)[1]);
-        assertEquals(1, DateUtils.getYearMonthDay(date)[2]);
+        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("1/1/13");
+        assertEquals(2013, date.getYear());
+        assertEquals(1, date.getMonthValue());
+        assertEquals(1, date.getDayOfMonth());
     }
 
     @Test
+    public void testFormatter() throws Exception{
+        DateParserUtils.SIMPLE_DATE_FORMATTER.parse("2013/1/1");
+    }
+
+    @Test(expected=Exception.class)
+    public void cannotParse()throws Exception{
+        LocalDate.parse("2013/1/1", DateParserUtils.DATE_FORMATTER);
+    }
+
+
+    @Test
     public void toDateTest1SingleDigitDayIsOkayYearAtEnd() throws Exception{
-        final Date date=DateParserUtils.toDateFromDigitalFormat("1/1/2013");
+        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("1/1/2013");
         log.debug("date"+date);
-        final int[] yMD=DateUtils.getYearMonthDay(date);
-        assertEquals(2013, yMD[0]);
-        assertEquals(1, yMD[1]);
-        assertEquals(1, yMD[2]);
+
+        assertEquals(2013, date.getYear());
+        assertEquals(1, date.getMonthValue());
+        assertEquals(1, date.getDayOfMonth());
     }
 
     @Test
     public void toDateTest1SingleDigitDayIsOkay() throws Exception{
-        final Date date=DateParserUtils.toDateFromDigitalFormat("2013/1/1");
+        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("2013/1/1");
         log.debug("date"+date);
-        final int[] yMD=DateUtils.getYearMonthDay(date);
-        assertEquals(2013, yMD[0]);
-        assertEquals(1, yMD[1]);
-        assertEquals(1, yMD[2]);
+
+        assertEquals(2013, date.getYear());
+        assertEquals(1, date.getMonthValue());
+        assertEquals(1, date.getDayOfMonth());
     }
 
     @Test
     public void toDateTest1SingleDigitMonthIsOkay() throws Exception{
-        final Date date=DateParserUtils.toDateFromDigitalFormat("2013/1/31");
+        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("2013/1/31");
         log.debug("date"+date);
-        final int[] yMD=DateUtils.getYearMonthDay(date);
-        assertEquals(2013, yMD[0]);
-        assertEquals(1, yMD[1]);
-        assertEquals(31, yMD[2]);
+
+        assertEquals(2013, date.getYear());
+        assertEquals(1, date.getMonthValue());
+        assertEquals(31, date.getDayOfMonth());
     }
 
     @Test
     public void toDateTest1() throws Exception{
-        final Date date=DateParserUtils.toDateFromDigitalFormat("2013/01/31");
+        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("2013/01/31");
         log.debug("date"+date);
-        final int[] yMD=DateUtils.getYearMonthDay(date);
-        assertEquals(2013, yMD[0]);
-        assertEquals(1, yMD[1]);
-        assertEquals(31, yMD[2]);
+
+        assertEquals(2013, date.getYear());
+        assertEquals(1, date.getMonthValue());
+        assertEquals(31, date.getDayOfMonth());
     }
 
     @Test
     public void toDateTest1DotIsOkay() throws Exception{
-        final Date date=DateParserUtils.toDateFromDigitalFormat("2013.01.31");
+        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("2013.01.31");
         log.debug("date"+date);
-        final int[] yMD=DateUtils.getYearMonthDay(date);
-        assertEquals(2013, yMD[0]);
-        assertEquals(1, yMD[1]);
-        assertEquals(31, yMD[2]);
+
+        assertEquals(2013, date.getYear());
+        assertEquals(1, date.getMonthValue());
+        assertEquals(31, date.getDayOfMonth());
     }
 
     @Test
     public void toDateTest1DashIsOkay() throws Exception{
-        final Date date=DateParserUtils.toDateFromDigitalFormat("2013-01-31");
+        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("2013-01-31");
         log.debug("date"+date);
-        final int[] yMD=DateUtils.getYearMonthDay(date);
-        assertEquals(2013, yMD[0]);
-        assertEquals(1, yMD[1]);
-        assertEquals(31, yMD[2]);
+
+        assertEquals(2013, date.getYear());
+        assertEquals(1, date.getMonthValue());
+        assertEquals(31, date.getDayOfMonth());
     }
 
     @Test
     public void toDateTest1YearInTheEndIsOkay() throws Exception{
-        final Date date=DateParserUtils.toDateFromDigitalFormat("01-31-2013");
+        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("01-31-2013");
         log.debug("date"+date);
-        final int[] yMD=DateUtils.getYearMonthDay(date);
-        assertEquals(2013, yMD[0]);
-        assertEquals(1, yMD[1]);
-        assertEquals(31, yMD[2]);
+
+        assertEquals(2013, date.getYear());
+        assertEquals(1, date.getMonthValue());
+        assertEquals(31, date.getDayOfMonth());
     }
 
     @Test
     public void toDateTest1YearInTheEndIsOkayDot() throws Exception{
-        final Date date=DateParserUtils.toDateFromDigitalFormat("01.31.2013");
+        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("01.31.2013");
         log.debug("date"+date);
-        final int[] yMD=DateUtils.getYearMonthDay(date);
-        assertEquals(2013, yMD[0]);
-        assertEquals(1, yMD[1]);
-        assertEquals(31, yMD[2]);
+
+        assertEquals(2013, date.getYear());
+        assertEquals(1, date.getMonthValue());
+        assertEquals(31, date.getDayOfMonth());
     }
 
 
@@ -237,12 +235,12 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1YearInTheEndIsOkaySlash() throws Exception{
-        final Date date=DateParserUtils.toDateFromDigitalFormat("01/31/2013");
+        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("01/31/2013");
         log.debug("date"+date);
-        final int[] yMD=DateUtils.getYearMonthDay(date);
-        assertEquals(2013, yMD[0]);
-        assertEquals(1, yMD[1]);
-        assertEquals(31, yMD[2]);
+
+        assertEquals(2013, date.getYear());
+        assertEquals(1, date.getMonthValue());
+        assertEquals(31, date.getDayOfMonth());
     }
 
     @Test

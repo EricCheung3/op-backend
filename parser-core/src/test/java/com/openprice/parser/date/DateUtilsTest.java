@@ -13,6 +13,13 @@ import lombok.extern.slf4j.Slf4j;
 public class DateUtilsTest {
 
     @Test
+    public void expiredTest() throws Exception{
+        final LocalDate today = LocalDate.now();
+        final LocalDate olderDay = LocalDate.of(2015, 1, 10);
+        assertTrue(olderDay.isBefore(today));
+    }
+
+    @Test
     public void formatDateStringTest1(){
         assertEquals("2015/1/2", DateUtils.formatDateString(LocalDate.of(2015, 01, 02)));
     }
