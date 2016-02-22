@@ -20,17 +20,15 @@ public class FileNameToResource {
     private final static String RECEIPT_TAIL=";";
 
     public static void main(String[] args) throws Exception{
-        final String chainTestRoot = "LondonDrugs";
-        final String chainCode = "londondrugs";
+        final String chainTestRoot = "McDonalds";
+//        final String chainTestRoot = "LondonDrugs";
 //        final String chainTestRoot = "Shoppers";
-//        final String chainCode = "shoppers";
 //        final String chainTestRoot="TAndT";
-//        final String chainCode = "tandt";
         final String testFileRoot = "/testFiles/"+chainTestRoot;
 
         final List<String> fileNames = getAllFileNames(testFileRoot);
         final List<String> all = getAllResources(fileNames);
-        final List<String> testCodes = getAllTestCodes(chainCode, fileNames);
+        final List<String> testCodes = getAllTestCodes(chainTestRoot.toLowerCase(), fileNames);
 
         all.forEach(file->System.out.println(file));
 //        System.out.println("\n");

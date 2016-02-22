@@ -14,14 +14,10 @@ import com.openprice.common.TextResourceUtils;
 public class ConvertTextToJson {
 
     public static void main(String[] args) throws Exception{
-        final List<String> orig=TextResourceUtils.loadStringArray("/londondrugs/not-catalog-item-names.txt");
+        final String chainCode = "mcdonalds";
+
+        final List<String> orig=TextResourceUtils.loadStringArray("/"+chainCode+"/not-catalog-item-names.txt");
 //        final List<String> orig=TextResourceUtils.loadStringArray("/shoppers/not-catalog-item-names.txt");
-//        final List<String> orig=TextResourceUtils.loadStringArray("/tandt/not-catalog-item-names.txt");
-//        final List<String> orig=TextResourceUtils.loadStringArray("/sobeys/not-catalog-item-names.txt");
-//        final List<String> orig=TextResourceUtils.loadStringArray("/timhortons/not-catalog-item-names.txt");
-//        final List<String> orig=TextResourceUtils.loadStringArray("/costco/not-catalog-item-names.txt");
-//        final List<String> orig=TextResourceUtils.loadStringArray("/safeway/not-catalog-item-names.txt");
-//        final List<String> orig=TextResourceUtils.loadStringArray("/rcss/not-catalog-item-names.txt");
         final List<String> list=removeCommentEmptyLines(orig);
         toJsonForDataThatNeedEscape(list);
     }
