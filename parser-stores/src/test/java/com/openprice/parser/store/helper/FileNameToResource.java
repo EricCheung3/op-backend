@@ -20,7 +20,8 @@ public class FileNameToResource {
     private final static String RECEIPT_TAIL=";";
 
     public static void main(String[] args) throws Exception{
-        final String chainTestRoot = "McDonalds";
+        final String chainTestRoot = "ThaiExpress";
+//        final String chainTestRoot = "McDonalds";
 //        final String chainTestRoot = "LondonDrugs";
 //        final String chainTestRoot = "Shoppers";
 //        final String chainTestRoot="TAndT";
