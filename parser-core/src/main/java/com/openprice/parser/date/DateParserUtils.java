@@ -31,7 +31,7 @@ public class DateParserUtils {
             final String dateString=findDateInALine(origLines.get(i));
             if(dateString.isEmpty()) continue;
             try{
-                return new StringInt(DateUtils.formatDateString(toDateFromDigitalFormat(dateString)), i);
+                return new StringInt(DateUtils.formatDateString(formatToLocalDate(dateString)), i);
             }catch(Exception e){
 //                log.debug("dateString="+dateString+", toDate(dateString) error.");
             }
@@ -39,7 +39,7 @@ public class DateParserUtils {
         return StringInt.emptyValue();
     }
 
-    public static LocalDate toDateFromDigitalFormat(final String dateStr) throws Exception {
+    public static LocalDate formatToLocalDate(final String dateStr) throws Exception {
         final String[] words=dateStr.split("_|-|\\.|/");//this is dependent on the DateConstants.DATE_SPLITTER
         String yMD="";
         LocalDate result = null;

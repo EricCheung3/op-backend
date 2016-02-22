@@ -28,7 +28,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateFromDigitalFormatParseAsYearMonthDayFormat() throws Exception{
-        final LocalDate date = DateParserUtils.toDateFromDigitalFormat("15/02/10");
+        final LocalDate date = DateParserUtils.formatToLocalDate("15/02/10");
         assertEquals(2015, date.getYear());//year
         assertEquals(2, date.getMonthValue());//month
         assertEquals(10, date.getDayOfMonth());//day
@@ -36,7 +36,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateFromDigitalFormatPreferADayThatIsBeforeToday2() throws Exception{
-        final LocalDate date= DateParserUtils.toDateFromDigitalFormat("16/01/12");
+        final LocalDate date= DateParserUtils.formatToLocalDate("16/01/12");
         ;
         assertEquals(2016, date.getYear());//year
         assertEquals(1, date.getMonthValue());//month
@@ -45,7 +45,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateFromDigitalFormatPreferADayThatIsBeforeToday3() throws Exception{
-        final LocalDate date= DateParserUtils.toDateFromDigitalFormat("16/01/16");
+        final LocalDate date= DateParserUtils.formatToLocalDate("16/01/16");
         ;
         assertEquals(2016, date.getYear());//year
         assertEquals(1, date.getMonthValue());//month
@@ -54,7 +54,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateFromDigitalFormatPreferADayThatIsBeforeToday4() throws Exception{
-        final LocalDate date= DateParserUtils.toDateFromDigitalFormat("12/16/16");
+        final LocalDate date= DateParserUtils.formatToLocalDate("12/16/16");
         ;
         //will see a warning if today is not this date yet
         assertEquals(2016, date.getYear());//year
@@ -65,7 +65,7 @@ public class DateParserUtilsTest {
     //note this test was written before 2016-05-15
     @Test
     public void toDateFromDigitalFormatPreferADayThatIsBeforeToday() throws Exception{
-        final LocalDate date= DateParserUtils.toDateFromDigitalFormat("15/05/16");
+        final LocalDate date= DateParserUtils.formatToLocalDate("15/05/16");
         ;
         assertEquals(2015, date.getYear());//year
         assertEquals(5, date.getMonthValue());//month
@@ -74,7 +74,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateFromDigitalFormat15MustBeYearTest() throws Exception{
-        final LocalDate date= DateParserUtils.toDateFromDigitalFormat("15/05/10");
+        final LocalDate date= DateParserUtils.formatToLocalDate("15/05/10");
         ;
         assertEquals(2015, date.getYear());//year
         assertEquals(5, date.getMonthValue());//month
@@ -83,7 +83,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateFromDigitalFormat15MustBeYear() throws Exception{
-        final LocalDate date= DateParserUtils.toDateFromDigitalFormat("12/05/15");
+        final LocalDate date= DateParserUtils.formatToLocalDate("12/05/15");
         ;
         assertEquals(2015, date.getYear());//year
         assertEquals(12, date.getMonthValue());//month
@@ -92,7 +92,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateFromDigitalFormatPreferMonthDayYearIfNotSure() throws Exception{
-        final LocalDate date= DateParserUtils.toDateFromDigitalFormat("12/05/12");
+        final LocalDate date= DateParserUtils.formatToLocalDate("12/05/12");
         assertEquals(2012, date.getYear());//year
         assertEquals(12, date.getMonthValue());//month
         assertEquals(5, date.getDayOfMonth());//day
@@ -129,7 +129,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1TwoDigitYearFormatIsNowSupported() throws Exception{
-        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("1/1/13");
+        final LocalDate date=DateParserUtils.formatToLocalDate("1/1/13");
         assertEquals(2013, date.getYear());
         assertEquals(1, date.getMonthValue());
         assertEquals(1, date.getDayOfMonth());
@@ -153,7 +153,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1SingleDigitDayIsOkayYearAtEnd() throws Exception{
-        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("1/1/2013");
+        final LocalDate date=DateParserUtils.formatToLocalDate("1/1/2013");
         log.debug("date"+date);
 
         assertEquals(2013, date.getYear());
@@ -163,7 +163,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1SingleDigitDayIsOkay() throws Exception{
-        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("2013/1/1");
+        final LocalDate date=DateParserUtils.formatToLocalDate("2013/1/1");
         log.debug("date"+date);
 
         assertEquals(2013, date.getYear());
@@ -173,7 +173,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1SingleDigitMonthIsOkay() throws Exception{
-        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("2013/1/31");
+        final LocalDate date=DateParserUtils.formatToLocalDate("2013/1/31");
         log.debug("date"+date);
 
         assertEquals(2013, date.getYear());
@@ -183,7 +183,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1() throws Exception{
-        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("2013/01/31");
+        final LocalDate date=DateParserUtils.formatToLocalDate("2013/01/31");
         log.debug("date"+date);
 
         assertEquals(2013, date.getYear());
@@ -193,7 +193,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1DotIsOkay() throws Exception{
-        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("2013.01.31");
+        final LocalDate date=DateParserUtils.formatToLocalDate("2013.01.31");
         log.debug("date"+date);
 
         assertEquals(2013, date.getYear());
@@ -203,7 +203,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1DashIsOkay() throws Exception{
-        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("2013-01-31");
+        final LocalDate date=DateParserUtils.formatToLocalDate("2013-01-31");
         log.debug("date"+date);
 
         assertEquals(2013, date.getYear());
@@ -213,7 +213,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1YearInTheEndIsOkay() throws Exception{
-        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("01-31-2013");
+        final LocalDate date=DateParserUtils.formatToLocalDate("01-31-2013");
         log.debug("date"+date);
 
         assertEquals(2013, date.getYear());
@@ -223,7 +223,7 @@ public class DateParserUtilsTest {
 
     @Test
     public void toDateTest1YearInTheEndIsOkayDot() throws Exception{
-        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("01.31.2013");
+        final LocalDate date=DateParserUtils.formatToLocalDate("01.31.2013");
         log.debug("date"+date);
 
         assertEquals(2013, date.getYear());
@@ -234,12 +234,12 @@ public class DateParserUtilsTest {
 
     @Test(expected=Exception.class)
     public void toDateTestSplitterIsNotAccepted() throws Exception{
-        DateParserUtils.toDateFromDigitalFormat("01)31)2013");
+        DateParserUtils.formatToLocalDate("01)31)2013");
     }
 
     @Test
     public void toDateTest1YearInTheEndIsOkaySlash() throws Exception{
-        final LocalDate date=DateParserUtils.toDateFromDigitalFormat("01/31/2013");
+        final LocalDate date=DateParserUtils.formatToLocalDate("01/31/2013");
         log.debug("date"+date);
 
         assertEquals(2013, date.getYear());
