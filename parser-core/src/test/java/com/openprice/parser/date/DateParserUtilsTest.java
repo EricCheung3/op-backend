@@ -332,7 +332,7 @@ public class DateParserUtilsTest {
     @Test
     public void findDateInALineTest3() throws Exception{
         final String fromSear = "0142 054 8913 4629940 5/3 1/ 15 4:58P";
-        assertEquals("2015/5/3", DateParserUtils.findDateInALine(fromSear));
+        assertEquals("2015/5/31", DateParserUtils.findDateInALine(fromSear));
     }
 
     @Test

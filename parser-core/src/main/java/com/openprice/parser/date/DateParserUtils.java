@@ -79,6 +79,7 @@ public class DateParserUtils {
     private final static Year4MonthDay y4md = new Year4MonthDay();
     private final static MonthDayYear4 mdy4 = new MonthDayYear4();
     private final static MonthDayYear2 mdy2 = new MonthDayYear2();
+    private final static Month1DayYear2 m1dy2 = new Month1DayYear2();
     private final static Year2MonthDay y2md = new Year2MonthDay();
     private final static LiteralMonthDayYear4 literalmdy4 = new LiteralMonthDayYear4();
     public static String findDateInALine(final String str){
@@ -102,6 +103,12 @@ public class DateParserUtils {
             return DateUtils.formatDateString(result);
         }
 
+        result = m1dy2.parse(strNoSpace);
+        if(result != null){
+            log.debug("found m1dy2 format."+result);
+            return DateUtils.formatDateString(result);
+        }
+
         result = y2md.parse(strNoSpace);
         if(result != null){
             log.debug("found Y2MD format."+result+"\n");
@@ -114,6 +121,7 @@ public class DateParserUtils {
             log.debug("found literalMonthDayYear format."+result);
             return DateUtils.formatDateString(result);
         }
+
 
         log.debug("not date pattern is matched.");
         return StringCommon.EMPTY;
