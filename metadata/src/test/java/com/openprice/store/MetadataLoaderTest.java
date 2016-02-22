@@ -16,6 +16,8 @@ import com.openprice.store.data.StoreChainData;
  *  TODO printing test code for a store.
  */
 public class MetadataLoaderTest {
+    private final StoreMetadata metadata = MetadataLoader.loadMetadata();
+
     private static final String RCSS_CODE="rcss";
     private static final String SAFEWAY_CODE="safeway";
     private static final String EDO_JAPAN_CODE="edojapan";
@@ -26,6 +28,17 @@ public class MetadataLoaderTest {
     private static final String SHOPPERS_CODE="shoppers";
     private static final String LONDON_DRUGS_CODE="londondrugs";
     private static final String MCDONALDS_CODE="mcdonalds";
+
+    private static final String THAIEXPRESS_CODE= "thaiexpress";
+    @Test
+    public void loadMetadataForTHAIEXPRESS_CODE() throws Exception {
+        assertNotNull(metadata.getStoreChainByCode(THAIEXPRESS_CODE));
+        assertTrue(validateConfigProperties(THAIEXPRESS_CODE));
+        assertTrue(validateHeaders(THAIEXPRESS_CODE));
+        assertTrue(validateSkipAfter(THAIEXPRESS_CODE));
+        assertTrue(validateIdentify(THAIEXPRESS_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(THAIEXPRESS_CODE));
+    }
 
     @Test
     public void configProperties() throws Exception {
@@ -238,9 +251,9 @@ public class MetadataLoaderTest {
         assertTrue(MetadataLoader.validateStoreChainData(example));
     }
 
+
     @Test
     public void loadMetadata_ShouldLoadStoreDb() throws Exception {
-        final StoreMetadata metadata = MetadataLoader.loadMetadata();
         assertTrue(metadata.getStoreChainMap().containsKey(RCSS_CODE));
         assertTrue(metadata.getStoreChainMap().containsKey(SAFEWAY_CODE));
         assertTrue(metadata.getStoreChainMap().containsKey(EDO_JAPAN_CODE));
