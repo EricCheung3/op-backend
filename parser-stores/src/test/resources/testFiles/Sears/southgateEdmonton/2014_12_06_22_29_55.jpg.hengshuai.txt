@@ -1,0 +1,69 @@
+SEARS
+    THANK YOU FOR SHOPPING AT SEARS
+      EDMONTON SOUTHGATE C001429
+                  780·-438-2098
+   RETAIN FOR COMPARISON WI TH MONTHLY
+ STATEMENT OR            ~OR     RETURN OR EXCHANGE
+
+STORE REG TRAN EMPLtt   DATE                               TIME
+01429 15q 7912 4606631  2/3/13                             6:02P
+
+lllllllllllllll
+              llllllllllllllllll lllllll lllllllllllllll llllllllllllll
+                      E><CHA N GE
+
+ORIG : STORE REG TRANS EHPLU                             DATE
+        001429 154 3797 4533607                         01/07/13
+   1: 54      14156013
+     SRBOYS,TMYHLFGR,OUTDR,KHK                           34.99-G
+OTHER
+   Z:SC SOAR       40%                                   14.00 G
+      OFFER CODE 11395
+- -- END OF RETURNED ITEMS
+   3: 54      14156013
+      SRBOYS,TMYHLFGR,OUTOR,KHK                           19.99 G
+            CLEARANCE
+   4:SFC SAVINGS 25%                                       5.00-G
+      OFFER CODE 01396
+                      SUBTOTAL                             6.00-
+                                            GST            0.30-
+                                         TOTAL             6.30-
+
+SEARS FINANCIAL MASTERCARD                                 6.30-
+      C***********·4001 ROO
+                      397986
+
+*******************
+           TOTAL                 SAVINGS
+                       $20.00
+*******************
+RC 493477 602129 144307 184
+
+     GST/HST REGISTRATION tt 104765698
+
+     *******··TRANSACT[ON RECORD········
+
+     TYPE        REFUND
+     ACCT        MASTERCAIW             6.30
+     CARD ~:          IIIHIIII'i!H 4Q01
+     DATE/TIME        13/02/03 20:03:18
+     REFERENCE II 28227954 0010019261 c
+     AUTHO~:. tt      39T386
+     SEARS
+     A0000000041010
+     CHIP CARD INSERTED
+
+     00 APPROVED - THANK YOU 000
+
+
+SIGNATURE :
+
+
+IMPORTANT- retain thts                   cop~     for     ~our
+r·ecords
+
+ REFUND/EXCHANGE SEE BACK OF RECEIPT
+SHARE YOUR FEEDBACK TO WIN 1 OF 5 $500
+  GIFT CARDS: WWW.SEARSEXPERIENCE .CA
+      CUSTOMER COP Y
+

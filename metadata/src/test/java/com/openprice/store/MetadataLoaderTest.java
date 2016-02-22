@@ -29,6 +29,17 @@ public class MetadataLoaderTest {
     private static final String LONDON_DRUGS_CODE="londondrugs";
     private static final String MCDONALDS_CODE="mcdonalds";
 
+    private static final String SEARS_CODE= "sears";
+    @Test
+    public void loadMetadataForSEARS_CODE() throws Exception {
+        assertNotNull(metadata.getStoreChainByCode(SEARS_CODE));
+        assertTrue(validateConfigProperties(SEARS_CODE));
+        assertTrue(validateHeaders(SEARS_CODE));
+        assertTrue(validateSkipAfter(SEARS_CODE));
+        assertTrue(validateIdentify(SEARS_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(SEARS_CODE));
+    }
+
     private static final String THAIEXPRESS_CODE= "thaiexpress";
     @Test
     public void loadMetadataForTHAIEXPRESS_CODE() throws Exception {
@@ -177,7 +188,6 @@ public class MetadataLoaderTest {
 
     public boolean validateSkipAfter(final String chainCode){
         final String[] list = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getSkipAfter(chainCode), String[].class);
-        System.out.println(list);
         return list != null &&  list.length > 0;
     }
 
