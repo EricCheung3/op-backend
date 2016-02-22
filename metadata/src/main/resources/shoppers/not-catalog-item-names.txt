@@ -1,4 +1,9 @@
 #note: edit this file; don't edit the json file, generate the json file using program so double/single quotes etc. will be escaped properly.  
+crtn env    n x
+crtn dep    n x
+c il~ i s    graham pharmacy ltd .
+edmonton    ab
+card type    visa
 1 reward for every $20    1 miles
 ?    mill woods common sobeys
 sobeys    ,..-

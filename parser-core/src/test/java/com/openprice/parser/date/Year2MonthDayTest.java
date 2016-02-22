@@ -56,4 +56,9 @@ public class Year2MonthDayTest {
     public void invalidMonthWillReturnNull(){
         assertNull(y2md.parse("15/13/6"));
     }
+
+    @Test
+    public void test2(){
+        assertEquals(threeStrings(2015, 9, 12), parseToThreeStrings("sdfa DATE/TIME:             15/09/12 02:29:08"));
+    }
 }
