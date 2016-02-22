@@ -18,11 +18,27 @@ public class LevenshteinTest{
     @Test
     public void testNonUnicode(){
         final String ascii = "lll";
-       final String nonAscii = ascii + "‘";
-       final String nonAsciiTurnedToAscii = nonAscii.replaceAll("\\P{Print}", "");
-       assertEquals(ascii, nonAsciiTurnedToAscii);
-       final double score = Levenshtein.compare(nonAscii, ascii);
-       assertTrue(Math.abs(score-3/4.0)<0.001);
+        final String nonAscii = ascii + "‘";
+        final String nonAsciiTurnedToAscii = nonAscii.replaceAll("\\P{Print}", "");
+        assertEquals(ascii, nonAsciiTurnedToAscii);
+        final double score = Levenshtein.compare(nonAscii, ascii);
+        assertTrue(Math.abs(score-3/4.0)<0.00001);
+    }
+
+    @Test
+    public void testNonAsciiToItSelfShouldEuqals1(){
+        final String ascii = "lll";
+        final String nonAscii = ascii + "‘";
+        final double score2 = Levenshtein.compare(nonAscii, nonAscii);
+        assertTrue(Math.abs(score2-1.0)<0.000001);
+    }
+
+    @Test
+    public void testNonAsciiToAnotherNonAsciiShouldConsiderNonAsciiCode(){
+        final String ascii = "lll";
+        final String nonAscii = ascii + "‘";
+        final double score2 = Levenshtein.compare(nonAscii, nonAscii+"a");
+        assertTrue(Math.abs(score2-4/5.0)<0.000001);
     }
 
 
