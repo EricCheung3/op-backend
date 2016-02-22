@@ -502,7 +502,7 @@ public class LondonDrugsTest extends AbstractReceiptParserIntegrationTest {
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(1,receipt.getItems().size());
-        verifyParsedItem(iterator.next(), "20 disc o'keeffe’s cream",  "9.999", null, 11);
+        verifyParsedItem(iterator.next(), "20 disc o'keeffes cream",  "9.999", null, 11);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "8.39",17);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/1/16",43);
     }

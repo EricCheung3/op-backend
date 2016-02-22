@@ -25,8 +25,8 @@ public class AbstractReceiptParserIntegrationTest {
             final String value,
             final String catalogCode,
             final int lineNumber) {
-        assertEquals(name, item.getParsedName());
-        assertEquals(value, item.getParsedBuyPrice());
+        assertEquals(removeNonPrintableChars(name), removeNonPrintableChars(item.getParsedName()));
+        assertEquals(removeNonPrintableChars(value), removeNonPrintableChars(item.getParsedBuyPrice()));
         assertEquals(catalogCode, item.getCatalogCode());
         assertEquals(lineNumber, item.getLineNumber());
     }
@@ -41,6 +41,12 @@ public class AbstractReceiptParserIntegrationTest {
         assertEquals(lineNumber, fieldValues.get(type).getLineNumber());
     }
 
+    private String removeNonPrintableChars(final String str){
+        if(str==null)
+            return null;
+        return str.replaceAll("\\P{Print}", "");
+    }
+
     protected void printResult(ParsedReceipt receipt) {
         System.out.println("Receipt parser result: store chain code='" + receipt.getChainCode() +
                 "', branh is '" + receipt.getBranchName() + "'.");
@@ -52,12 +58,13 @@ public class AbstractReceiptParserIntegrationTest {
                 code="\""+ item.getCatalogCode()+"\"";
             String price=null;
             if(item.getParsedBuyPrice()!=null)
-                price=" \""+item.getParsedBuyPrice()+ "\"";
-            System.out.println("verifyParsedItem(iterator.next(), \""+item.getParsedName() + "\", " + price +", " + code +", " +  item.getLineNumber()+ ");");
+                price=" \""+removeNonPrintableChars(item.getParsedBuyPrice())+ "\"";
+            System.out.println("verifyParsedItem(iterator.next(), \""+ removeNonPrintableChars(item.getParsedName())
+            + "\", " + price +", " + code +", " +  item.getLineNumber()+ ");");
         }
         for (ReceiptFieldType field : receipt.getFields().keySet()) {
             System.out.println("verifyParsedField(fieldValues, ReceiptFieldType."+ field +", \""
-                    + receipt.getFields().get(field).getFieldValue() +"\","
+                    + removeNonPrintableChars(receipt.getFields().get(field).getFieldValue()) +"\","
                     + receipt.getFields().get(field).getLineNumber()+");");
         }
     }

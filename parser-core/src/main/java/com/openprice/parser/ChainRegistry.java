@@ -89,7 +89,7 @@ public class ChainRegistry {
         //log.debug("TopBottom matching lines:\n"+lines);
         //log.debug("search chains in registry with "+storeChains);
         log.warn("storeChain lists.size="+storeChains.size()+":");
-        storeChains.forEach(c -> log.info(c.getCode()));
+//        storeChains.forEach(c -> log.info(c.getCode()));
 
         final Optional<ScoreWithMatchPair<StoreChain>> maxChainMatch =
                 storeChains
@@ -136,7 +136,7 @@ public class ChainRegistry {
                             .filter( score -> score > CHAIN_IDENTIFY_MATCH_THRESHOLD)
                             .reduce(0.0, Double::sum)
                             ;
-                    log.debug("Get matching score {} for chain {}", matchingScoreSum, chain.getCode());
+//                    log.debug("Get matching score {} for chain {}", matchingScoreSum, chain.getCode());
                     return new ScoreWithMatchPair<StoreChain>(matchingScoreSum, -1, chain);
                 })
                 //.filter(pair -> pair.getScore() > CHAIN_IDENTIFY_MATCH_THRESHOLD)
