@@ -1,7 +1,8 @@
 employee discount
 hh1h:
 n drugs ltd . g. s .t . u
-rf mu re°unﬂ card
+#what about non-printable chars?
+#rf mu re°unﬂ card
 chqnue
 no. :    xxxxxxxxxxxx
 (p)st
