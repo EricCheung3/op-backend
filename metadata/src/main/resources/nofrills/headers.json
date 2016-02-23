@@ -3,7 +3,7 @@
   "DateHeader" : "DATE",
   "ChainIDHeader" : "",
   "TotalSoldHeader" : "NUMBER OF ITEMS",
-  "RecycleHeader" : "ECOLOGY FEE ",
+  "RecycleHeader" : "*1293                RECYCLE,*9497                RECYCLING,*44000865341      RECYCLING,recycle,recycling,*384    deposit,*322    recycling    gr,ECOLOGY FEE ",
   "DepositHeader" : "DEPOSIT 1",
   "RegularPriceHeader" : "",
   "SavingHeader" : "",
