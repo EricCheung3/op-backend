@@ -237,7 +237,6 @@ public class NoFrillsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedItem(iterator.next(), "creme egg single    gr",  "0.97", null, 8);
         verifyParsedItem(iterator.next(), "nt th fr desert    gr",  "1.92", null, 9);
         verifyParsedItem(iterator.next(), "beatrice 2% milk",  "4.46", null, 11);
-        //TODO why this recycling was not found? aha because it has an item number
 //        verifyParsedItem(iterator.next(), "recycling",  "0.07", null, 12);
         verifyParsedItem(iterator.next(), "krinkle cut salt    gr",  "2.88", null, 14);
         verifyParsedItem(iterator.next(), "snryp frullo",  "1.57", null, 15);
@@ -928,7 +927,6 @@ public class NoFrillsTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("nofrills", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        //TODO keep multiple recycle lines; otherwise it will return as items except for the last recycle
         assertEquals(25,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "matt &    ashley 's nofrills", null, null, 2);
         verifyParsedItem(iterator.next(), "rc spr wtr",  "2.67", null, 7);
