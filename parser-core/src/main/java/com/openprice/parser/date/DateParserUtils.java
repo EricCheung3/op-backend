@@ -111,6 +111,12 @@ public class DateParserUtils {
             return DateUtils.formatDateString(result);
         }
 
+        result = y2md.parseWithSpaces(str);
+        if(result != null){
+            log.debug("found Y2MD format without space."+result+"\n");
+            return DateUtils.formatDateString(result);
+        }
+
         result = m1dy2.parseWithSpaces(str);
         if(result != null){
             log.debug("found m1dy2 format with space."+result);
@@ -126,12 +132,6 @@ public class DateParserUtils {
         result = m1dy2.parseNoSpaces(str);
         if(result != null){
             log.debug("found m1dy2 format without space."+result);
-            return DateUtils.formatDateString(result);
-        }
-
-        result = y2md.parseWithSpaces(str);
-        if(result != null){
-            log.debug("found Y2MD format without space."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
