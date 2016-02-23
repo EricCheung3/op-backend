@@ -30,6 +30,12 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_22_24_27.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_22_24_27;
 
+    @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_22_24_27.jpg.hengshuai2.txt")
+    private Resource receipt_2014_12_06_22_24_27_2nd;
+
+    @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_22_24_27.jpg.hengshuai3.txt")
+    private Resource receipt_2014_12_06_22_24_27_3rd;
+
     @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_22_29_55.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_22_29_55;
 
@@ -132,6 +138,56 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store reg tran empl#    date                          time",7);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "30.85",26);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/1/7",47);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "card b            ************4001",46);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "29.38",24);
+
+    }
+
+    @Test
+    public void receipt_2014_12_06_22_24_27_2nd()  throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_2014_12_06_22_24_27_2nd, (line)-> receiptLines.add(line));
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        printResult(receipt);
+        assertEquals("sears", receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(5,receipt.getItems().size());
+        //TODO why?
+        verifyParsedItem(iterator.next(), "01429 154 3797 4533607 (intentionally deleted)", null, null, 8);
+        verifyParsedItem(iterator.next(), "kids, tckletoes,softshoe, n",  "13.999", null, 15);
+        verifyParsedItem(iterator.next(), "2:sc soar",  "5.609", null, 17);
+        verifyParsedItem(iterator.next(), "srboys,tmyhlfgr,outdr,khk",  "34.999", null, 20);
+        verifyParsedItem(iterator.next(), "4:sc soar",  "14.009", null, 22);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst/hst registration 8 104765698",39);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store reg tran empl#    date                          time",7);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "30.85",26);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/1/7",47);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "card b            ************4001",46);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "29.38",24);
+
+    }
+
+    @Test
+    public void receipt_2014_12_06_22_24_27_3rd()  throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_2014_12_06_22_24_27_3rd, (line)-> receiptLines.add(line));
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        printResult(receipt);
+        assertEquals("sears", receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(4,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "kids, tckletoes,softshoe, n",  "13.999", null, 15);
+        verifyParsedItem(iterator.next(), "2:sc soar",  "5.609", null, 17);
+        verifyParsedItem(iterator.next(), "srboys,tmyhlfgr,outdr,khk",  "34.999", null, 20);
+        verifyParsedItem(iterator.next(), "4:sc soar",  "14.009", null, 22);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst/hst registration 8 104765698",39);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store reg tran empl#    date                          time",7);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "30.85",26);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/1/7",8);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "card b            ************4001",46);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "29.38",24);
 
