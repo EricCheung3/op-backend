@@ -29,6 +29,7 @@ public class AbstractUserStoreRestController extends AbstractUserRestController 
     protected ShoppingStore getShoppingStoreByIdAndCheckUser(final String storeId)
             throws ResourceNotFoundException, AccessDeniedException {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
+        log.info("User {} works on shopping list {}...", currentUser.getUsername(), storeId);
         final ShoppingStore store = shoppingStoreRepository.findOne(storeId);
         if (store == null) {
             log.warn("ILLEGAL SHOPPING STORE ACCESS! No such ShoppingStore Id: {}.", storeId);

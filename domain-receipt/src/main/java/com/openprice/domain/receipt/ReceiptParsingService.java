@@ -96,8 +96,6 @@ public class ReceiptParsingService {
         try {
             final ParsedReceipt parsedReceipt = receiptParser.parseReceiptOcrResult(ocrTextList);
             if (parsedReceipt != null) {
-                logParsedResult(parsedReceipt); // TODO remove it after we have admin UI to display
-
                 ReceiptResult result = receipt.createReceiptResultFromParserResult(parsedReceipt);
                 result = receiptResultRepository.save(result); // has to save ReceiptResult first before saving ReceiptItem
                 for (final ParsedItem item : parsedReceipt.getItems()) {
@@ -153,29 +151,29 @@ public class ReceiptParsingService {
         return result;
     }
 
-    private void logParsedResult(final ParsedReceipt parsedReceipt) {
-        if (parsedReceipt.getChainCode() != null) {
-            log.info("    recognized store chain code - '{}'", parsedReceipt.getChainCode());
-        }
-        if (parsedReceipt.getBranchName() != null) {
-            log.info("    recognized branch name - '{}'", parsedReceipt.getBranchName());
-        }
-        if (parsedReceipt.getFields().get(ReceiptFieldType.Date) != null) {
-            log.info("    parsed Date - '{}'", parsedReceipt.getFields().get(ReceiptFieldType.Date).getFieldValue());
-        } else {
-            log.info("    no Date found!");
-        }
-        if (parsedReceipt.getFields().get(ReceiptFieldType.Total) != null) {
-            log.info("    parsed Total - '{}'", parsedReceipt.getFields().get(ReceiptFieldType.Total).getFieldValue());
-        } else {
-            log.info("    no Total found!");
-        }
-        if (parsedReceipt.getFields().get(ReceiptFieldType.SubTotal) != null) {
-            log.info("    parsed SubTotal - '{}'", parsedReceipt.getFields().get(ReceiptFieldType.SubTotal).getFieldValue());
-        } else {
-            log.info("    no SubTotal found!");
-        }
-    }
+//    private void logParsedResult(final ParsedReceipt parsedReceipt) {
+//        if (parsedReceipt.getChainCode() != null) {
+//            log.info("    recognized store chain code - '{}'", parsedReceipt.getChainCode());
+//        }
+//        if (parsedReceipt.getBranchName() != null) {
+//            log.info("    recognized branch name - '{}'", parsedReceipt.getBranchName());
+//        }
+//        if (parsedReceipt.getFields().get(ReceiptFieldType.Date) != null) {
+//            log.info("    parsed Date - '{}'", parsedReceipt.getFields().get(ReceiptFieldType.Date).getFieldValue());
+//        } else {
+//            log.info("    no Date found!");
+//        }
+//        if (parsedReceipt.getFields().get(ReceiptFieldType.Total) != null) {
+//            log.info("    parsed Total - '{}'", parsedReceipt.getFields().get(ReceiptFieldType.Total).getFieldValue());
+//        } else {
+//            log.info("    no Total found!");
+//        }
+//        if (parsedReceipt.getFields().get(ReceiptFieldType.SubTotal) != null) {
+//            log.info("    parsed SubTotal - '{}'", parsedReceipt.getFields().get(ReceiptFieldType.SubTotal).getFieldValue());
+//        } else {
+//            log.info("    no SubTotal found!");
+//        }
+//    }
 
     LocalDate getReceiptDate(final String parsedDate) {
         if (!StringUtils.isEmpty(parsedDate)) {
