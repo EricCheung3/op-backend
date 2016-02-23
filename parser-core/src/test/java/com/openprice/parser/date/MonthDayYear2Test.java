@@ -22,7 +22,7 @@ public class MonthDayYear2Test {
     }
 
     public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(mdy2.parse(line, true));
+        return threeStrings(mdy2.parseNoSpaces(line));
     }
 
     @Test
@@ -56,7 +56,7 @@ public class MonthDayYear2Test {
 
     @Test
     public void invalidDateStringWillReturnNull() throws Exception{
-        assertNull(mdy2.parse("15/12/14a b ce", true));
+        assertNull(mdy2.parseNoSpaces("15/12/14a b ce"));
     }
 
 

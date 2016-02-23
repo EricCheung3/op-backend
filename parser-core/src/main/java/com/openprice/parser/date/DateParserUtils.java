@@ -85,58 +85,58 @@ public class DateParserUtils {
     public static String findDateInALine(final String str){
 //        final String strNoSpace=StringCommon.removeAllSpaces(str);
 //        log.debug("line string is "+str+"\n");
-        LocalDate result = y4md.parse(str, true);
+        LocalDate result = y4md.parseNoSpaces(str);
         if (result!=null){
             log.debug("found y4md format without space."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
         //first prefer to find valid date with space
-        result = mdy4.parse(str, false);
+        result = mdy4.parseWithSpaces(str);
         if(result != null){
             log.debug("found mDY4 format from string (with space)."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
-        result = mdy4.parse(str, true);
+        result = mdy4.parseNoSpaces(str);
         if(result != null){
             log.debug("found mDY4 format without space."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
         System.out.println("str="+str);
-        result = mdy2.parse(str, false);
+        result = mdy2.parseWithSpaces(str);
         if(result != null){
             log.debug("found mDY2 format from string (with space)."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
-        result = m1dy2.parse(str, false);
+        result = m1dy2.parseWithSpaces(str);
         if(result != null){
             log.debug("found m1dy2 format with space."+result);
             return DateUtils.formatDateString(result);
         }
 
-        result = mdy2.parse(str, true);
+        result = mdy2.parseNoSpaces(str);
         if(result != null){
             log.debug("found mDY2 format without space."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
-        result = m1dy2.parse(str, true);
+        result = m1dy2.parseNoSpaces(str);
         if(result != null){
             log.debug("found m1dy2 format without space."+result);
             return DateUtils.formatDateString(result);
         }
 
-        result = y2md.parse(str, true);
+        result = y2md.parseWithSpaces(str);
         if(result != null){
             log.debug("found Y2MD format without space."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
         //note it's str not strNoSpace
-        result=literalmdy4.parse(str, false);
+        result=literalmdy4.parseWithSpaces(str);
         if(result != null){
             log.debug("found literalMonthDayYear format with space."+result);
             return DateUtils.formatDateString(result);

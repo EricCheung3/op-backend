@@ -22,7 +22,7 @@ public class LiteralMonthDayYear4Test {
     }
 
     public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(literalMDY4.parse(line, true));
+        return threeStrings(literalMDY4.parseWithSpaces(line));
     }
 
     @Test
@@ -109,7 +109,7 @@ public class LiteralMonthDayYear4Test {
 
     @Test
     public void testInvalidDateStringWillReturnNull(){
-        assertNull(literalMDY4.parse("December 44, 2015 ", true));
+        assertNull(literalMDY4.parseWithSpaces("December 44, 2015 "));
     }
 
 

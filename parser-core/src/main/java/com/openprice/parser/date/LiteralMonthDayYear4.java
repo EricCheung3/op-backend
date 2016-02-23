@@ -32,7 +32,7 @@ public class LiteralMonthDayYear4 implements DateParser{
           + "(?:19[7-9]\\d|2\\d{3})(?=\\D|$)");
 
     @Override
-    public LocalDate parse(String origLine, final boolean removeSpace) {
+    public LocalDate parseWithSpaces(String origLine) {
         final String literalMDY4 = DateParserUtils.pruneDateStringWithMatch(origLine,
                 patternLiteralMonthDayYear4);
         final List<String> words = literalMonthDayYearSplit(literalMDY4);
@@ -63,4 +63,10 @@ public class LiteralMonthDayYear4 implements DateParser{
       }
       return list;
   }
+
+    @Override
+    public LocalDate parseNoSpaces(String lineWithNoSpace) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

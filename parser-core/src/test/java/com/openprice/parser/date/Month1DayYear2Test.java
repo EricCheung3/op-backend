@@ -20,7 +20,7 @@ public class Month1DayYear2Test {
     }
 
     public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(m1dy2.parse(line, true));
+        return threeStrings(m1dy2.parseNoSpaces(line));
     }
 
     @Test

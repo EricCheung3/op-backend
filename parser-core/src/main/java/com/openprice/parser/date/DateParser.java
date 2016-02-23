@@ -8,5 +8,7 @@ import java.time.LocalDate;
 
 public interface DateParser {
 
-    LocalDate parse(String line, boolean removeSpace);
+    LocalDate parseWithSpaces(String line);
+
+    LocalDate parseNoSpaces(String lineWithNoSpace);
 }

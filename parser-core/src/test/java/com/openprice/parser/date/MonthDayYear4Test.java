@@ -21,7 +21,7 @@ public class MonthDayYear4Test {
     }
 
     public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(mdy4.parse(line, true));
+        return threeStrings(mdy4.parseNoSpaces(line));
     }
 
     @Test
@@ -46,11 +46,11 @@ public class MonthDayYear4Test {
 
     @Test
     public void invalidMonthWillReturnNull(){
-        assertNull(mdy4.parse("15/8/2014", true));
+        assertNull(mdy4.parseNoSpaces("15/8/2014"));
     }
 
     @Test
     public void invalidDayWillReturnNull(){
-        assertNull(mdy4.parse("12/40/2014", true));
+        assertNull(mdy4.parseNoSpaces("12/40/2014"));
     }
 }
