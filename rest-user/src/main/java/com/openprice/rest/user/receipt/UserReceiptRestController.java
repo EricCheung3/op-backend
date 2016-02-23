@@ -112,7 +112,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
     public HttpEntity<String> uploadNewReceipt(@RequestParam("file") final MultipartFile file) {
         if (!file.isEmpty()) {
             final ReceiptImage receiptImage = newReceiptWithFile(file);
-            addReceiptImageToProcessQueue(receiptImage); //FIXME temporally disable image processing because of ABBYY license issue
+            addReceiptImageToProcessQueue(receiptImage);
             final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receiptImage.getReceipt().getId())).toUri();
             return ResponseEntity.created(location).body(receiptImage.getReceipt().getId());
         }
@@ -126,7 +126,9 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
      * Temp solution to upload receipt image with OCR result text.
      * @param file
      * @return
+     * @deprecated
      */
+    @Deprecated
     @RequestMapping(method = RequestMethod.POST, value = URL_USER_RECEIPTS_HACKLOAD)
     public HttpEntity<Void> hackloadNewReceiptWithOcrResult(
             @RequestParam("image") final MultipartFile image,
@@ -142,6 +144,14 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
         }
     }
 
+    /**
+     *
+     * @param receiptId
+     * @param ocr
+     * @return
+     * @deprecated
+     */
+    @Deprecated
     @RequestMapping(method = RequestMethod.POST, value = URL_USER_RECEIPTS_RECEIPT_HACKLOAD_OCR)
     public HttpEntity<Void> hackloadOcrResult(
             @PathVariable("receiptId") final String receiptId,

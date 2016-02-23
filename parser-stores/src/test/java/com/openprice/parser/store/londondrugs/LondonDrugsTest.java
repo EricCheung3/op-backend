@@ -316,8 +316,8 @@ public class LondonDrugsTest extends AbstractReceiptParserIntegrationTest {
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         printResult(receipt);
         assertEquals("londondrugs", receipt.getChainCode());
-        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
-        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        //Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+       // Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
 //        assertEquals(8,receipt.getItems().size());
 //        verifyParsedItem(iterator.next(), "calbee snepea",  "2.299", null, 11);
 //        verifyParsedItem(iterator.next(), "calbee snapea",  "1.719", null, 13);
