@@ -1,0 +1,37 @@
+
+ 
+    Walmart
+                     Supercentre
+              SUPERCENTER
+           ( 780 ) 438- 1190
+ST# 1094 OP# 00003028 TE# 03                                       TRU 02472
+FUJI APPLE 000000004131R                           $5.91 D
+ I .605 ks e $3 .68/kg                       
+RED GLB GR 000000004636R                           $7.36 D
+ 1.350 ks 9 $5 .45/ks                      
+                  SUBTOTAL      $13.27                             
+                     TOTAL      $13.27
+                 MCARD TEND     $13.27
+WALMART HC    **** **** **** 0582 I 2
+APPROVAL U 039198
+REF # 428500324184
+PAYMENT SERVICE - A
+AID A0000000041010
+T D2FA6424DFCF5DD1
+TERMINAL # WHTAU991148
+liPin Ver i f i ed
+                DATE: 10/12/14                 TIME: 17:51:29
+                 CHANGE DUE                    $O.OO
+GS T/HST 137466199 RT 0001
+OST 1016551356 TQ 0001
+
+       #   ITEMS SOLD 2
+       TC# 3714 1649 3309 9623 5150
+
+ 11111111 11111 111111111111111111111111111111 1111111111111111 1111111111111 1111111111 1111 1111
+   Getting read~ to welco~e a bab~?
+Create ~our resistr~ at www.wel~art . ca
+             DATE: 10/12/14            TIME: 17:51:30
+                   ***CUSTOMER COPY***
+
+
