@@ -57,14 +57,13 @@ public class SimpleParser implements ReceiptParser {
     }
 
     private ParsedReceipt parseReceiptData(final ReceiptData receipt) throws Exception {
-        // find chain first
+        // find chain first through chainRegistry (which we have specialized store parser)
         final StoreChain chain = chainRegistry.findBestMatchedChain(receipt);
         if (chain == null) {
             log.warn("No specific parser for this chain yet!");
             try{
-                //TODO
+                //TODO use meta data
                 final GenericChains chains = new GenericChains("/config/Generic/chain.list");
-
                 final String genericChainCode = chains.findChain(receipt.getOriginalLines()).toLowerCase();
                 log.info("genericChainCode="+genericChainCode);
                 return GenericParser.parse(StoreChain.genericChainWithOnlyCode(genericChainCode), receipt);

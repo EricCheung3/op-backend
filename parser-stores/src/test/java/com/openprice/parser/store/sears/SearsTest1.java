@@ -386,6 +386,16 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
     }
 
     @Test
+    public void receipt_2015_02_09_15_15_48_ChainShouldBeWarlmart()  throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_2015_02_09_15_15_48, (line)-> receiptLines.add(line));
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        printResult(receipt);
+        assertEquals("walmart", receipt.getChainCode());
+    }
+
+    @Test
     public void receipt_2015_02_09_15_15_48()  throws Exception {
         final List<String> receiptLines = new ArrayList<>();
         TextResourceUtils.loadFromTextResource(receipt_2015_02_09_15_15_48, (line)-> receiptLines.add(line));
