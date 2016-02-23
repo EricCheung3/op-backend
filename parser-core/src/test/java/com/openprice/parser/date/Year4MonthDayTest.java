@@ -19,7 +19,7 @@ public class Year4MonthDayTest {
     }
 
     public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(y4MD.parse(line));
+        return threeStrings(y4MD.parse(line, true));
     }
 
     @Test

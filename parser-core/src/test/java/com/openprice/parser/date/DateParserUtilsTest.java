@@ -336,6 +336,12 @@ public class DateParserUtilsTest {
     }
 
     @Test
+    public void shouldFind2AsMonth() throws Exception{
+        final String fromSear = "01429 15~ 7913 4606631  2/3/13             6:04P";
+        assertEquals("2013/2/3", DateParserUtils.findDateInALine(fromSear));
+    }
+
+    @Test
     public void testDate1()throws Exception{
         final List<String> lines=new ArrayList<String>();
         lines.add("DATE            TIME            AMOUNT");

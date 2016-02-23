@@ -19,8 +19,12 @@ public class Month1DayYear2 implements DateParser{
             );
 
     @Override
-    public LocalDate parse(String line) {
-        final String dateStr = DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line), patternMonthDayYear2);
+    public LocalDate parse(final String line, final boolean removeSpace) {
+        String dateStr;
+        if(removeSpace)
+            dateStr  = DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line), patternMonthDayYear2);
+        else
+            dateStr  = DateParserUtils.pruneDateStringWithMatch(line, patternMonthDayYear2);
         final String[] mDY2 = dateStr.split("[" + DateConstants.DATE_SPLITTER +"]");
         if(mDY2.length < 3)
             return null;

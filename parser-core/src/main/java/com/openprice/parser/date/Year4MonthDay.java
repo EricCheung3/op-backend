@@ -25,9 +25,12 @@ public class Year4MonthDay implements DateParser{
 
 
     @Override
-    public LocalDate parse(String line) {
-        final String y4MD = DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line),
-                patternYear4MonthDay);
+    public LocalDate parse(final String line, final boolean removeSpace) {
+        String y4MD;
+        if(removeSpace)
+            y4MD = DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line), patternYear4MonthDay);
+        else
+            y4MD = DateParserUtils.pruneDateStringWithMatch(line, patternYear4MonthDay);
         final String[] splits = y4MD.split("[" + DateConstants.DATE_SPLITTER +"]");
         if(splits.length < 3)
             return null;

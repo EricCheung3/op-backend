@@ -19,9 +19,12 @@ public class MonthDayYear4 implements DateParser{
             "](19|20)\\d\\d");
 
     @Override
-    public LocalDate parse(final String line) {
-        final String mdy4 = DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line),
-                patternMonthDayYear4);
+    public LocalDate parse(final String line, final boolean removeSpace) {
+        String mdy4;
+        if(removeSpace)
+            mdy4 = DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line), patternMonthDayYear4);
+        else
+            mdy4 = DateParserUtils.pruneDateStringWithMatch(line, patternMonthDayYear4);
         final String[] mdy4Splits = mdy4.split("[" + DateConstants.DATE_SPLITTER +"]");
         if(mdy4Splits.length < 3)
             return null;
