@@ -110,6 +110,8 @@ public class Receipt extends BaseAuditableEntity {
         }
         if (parsedReceipt.getFields().get(ReceiptFieldType.Total) != null) {
             result.setParsedTotal(parsedReceipt.getFields().get(ReceiptFieldType.Total).getFieldValue());
+        } else if (parsedReceipt.getFields().get(ReceiptFieldType.SubTotal) != null) {
+            result.setParsedTotal(parsedReceipt.getFields().get(ReceiptFieldType.SubTotal).getFieldValue());
         }
         if (parsedReceipt.getFields().get(ReceiptFieldType.Date) != null) {
             result.setParsedDate(parsedReceipt.getFields().get(ReceiptFieldType.Date).getFieldValue());
