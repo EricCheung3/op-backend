@@ -29,6 +29,30 @@ public class MetadataLoaderTest {
     private static final String LONDON_DRUGS_CODE="londondrugs";
     private static final String MCDONALDS_CODE="mcdonalds";
 
+    private static final String NOFRILLS_CODE= "nofrills";
+    @Test
+    public void loadMetadataForNOFRILLS_CODE() throws Exception {
+        assertNotNull(metadata.getStoreChainByCode(NOFRILLS_CODE));
+        assertTrue(validateConfigProperties(NOFRILLS_CODE));
+        assertTrue(validateHeaders(NOFRILLS_CODE));
+        assertTrue(validateSkipBefore(NOFRILLS_CODE));
+        assertTrue(validateSkipAfter(NOFRILLS_CODE));
+        assertTrue(validateIdentify(NOFRILLS_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(NOFRILLS_CODE));
+    }
+
+    private static final String WALMART_CODE= "walmart";
+    @Test
+    public void loadMetadataForWALMART_CODE() throws Exception {
+        assertNotNull(metadata.getStoreChainByCode(WALMART_CODE));
+        assertTrue(validateConfigProperties(WALMART_CODE));
+        assertTrue(validateHeaders(WALMART_CODE));
+        assertTrue(validateSkipBefore(WALMART_CODE));
+        assertTrue(validateSkipAfter(WALMART_CODE));
+        assertTrue(validateIdentify(WALMART_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(WALMART_CODE));
+    }
+
     private static final String SEARS_CODE= "sears";
     @Test
     public void loadMetadataForSEARS_CODE() throws Exception {

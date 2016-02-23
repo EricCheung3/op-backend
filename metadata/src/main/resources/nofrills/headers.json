@@ -8,7 +8,6 @@
   "RegularPriceHeader" : "",
   "SavingHeader" : "",
   "ApprovedHeader" : "APPROVED",
-  "AddressHeader" : "RCSS",
   "SubTotalHeader" : "SUBTOTAL",
   "GstAmountHeader" : "G=GST 5% ",
   "ThankYouHeader" : "Thank You, Come Again !",
