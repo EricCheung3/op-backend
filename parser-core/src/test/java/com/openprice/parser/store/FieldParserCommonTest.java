@@ -6,9 +6,6 @@ import org.junit.Test;
 
 import com.openprice.parser.api.ReceiptLine;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class FieldParserCommonTest {
 
 

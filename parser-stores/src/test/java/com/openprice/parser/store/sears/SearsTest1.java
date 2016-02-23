@@ -21,9 +21,6 @@ import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
 

@@ -5,15 +5,12 @@ import java.util.regex.Pattern;
 
 import com.openprice.common.StringCommon;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * "year (4-digit) month day" format
  *  month and day could one or two digits
  *  If day has two digits, it should return two-digit day if it makes sense (between 1-31)
  */
 
-@Slf4j
 public class Year4MonthDay implements DateParser{
 
     private static Pattern patternYear4MonthDay = Pattern.compile(
