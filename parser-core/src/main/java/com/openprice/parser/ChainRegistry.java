@@ -54,12 +54,19 @@ public class ChainRegistry {
     public StoreChain findBestMatchedChain(final ReceiptData receipt) {
         final int lastLineOfBegin=CHAIN_SEARCH_NUMBER_LINES;
         final ScoreWithMatchPair<StoreChain> foundAtBegin = findBestMatchedChain(receipt, 0, lastLineOfBegin);
-        log.debug("foundAtBegin: "+foundAtBegin.getMatch().getCode()+", score="+foundAtBegin.getScore());
+        log.debug("receipt.size="+receipt.getOriginalLines().size());
+        if(foundAtBegin==null)
+            log.warn("foundAtBegin=null");
+        else
+            log.debug("foundAtBegin: "+foundAtBegin.getMatch().getCode()+", score="+foundAtBegin.getScore());
 
         final int firstLineOfEnd=receipt.getReceiptLines().size() - CHAIN_SEARCH_NUMBER_LINES;
         //TODO: is receipt.getReceiptLines().size() the same as the largest original line number? Did you guarantee this through interface?
         final ScoreWithMatchPair<StoreChain> foundAtEnd = findBestMatchedChain(receipt,  firstLineOfEnd, receipt.getReceiptLines().size());
-        log.debug("foundAtEnd: "+foundAtEnd.getMatch().getCode()+", score="+foundAtBegin.getScore());
+        if(foundAtEnd==null)
+            log.warn("foundAtEnd=null");
+        else
+            log.debug("foundAtEnd: "+foundAtEnd.getMatch().getCode()+", score="+foundAtEnd.getScore());
 
         if(foundAtBegin != null
                 && foundAtEnd != null
@@ -82,7 +89,10 @@ public class ChainRegistry {
             return foundAtEnd.getMatch();
 
         final ScoreWithMatchPair<StoreChain> foundAtMiddle = findBestMatchedChain(receipt, lastLineOfBegin+1, firstLineOfEnd-1);
-        log.debug("foundAtMiddle: "+foundAtMiddle.getMatch().getCode()+", score="+foundAtMiddle.getScore());
+        if(foundAtMiddle==null)
+            log.warn("foundAtMiddle=null");
+        else
+            log.debug("foundAtMiddle: "+foundAtMiddle.getMatch().getCode()+", score="+foundAtMiddle.getScore());
         if(foundAtMiddle !=null
                 && foundAtMiddle.getScore() > CHAIN_IDENTIFY_MATCH_THRESHOLD)
             return foundAtMiddle.getMatch();
