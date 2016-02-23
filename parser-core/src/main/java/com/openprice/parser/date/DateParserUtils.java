@@ -1,10 +1,8 @@
 package com.openprice.parser.date;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,10 +19,10 @@ public class DateParserUtils {
     @Getter
     private static MonthLiterals monthLiterals = new MonthLiterals();
 
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat(
+    public static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(
             "yyyy" +DateConstants.DATE_SPLITTER_UNIFORM+
-            "MM" +DateConstants.DATE_SPLITTER_UNIFORM+
-            "dd");
+            "M" +DateConstants.DATE_SPLITTER_UNIFORM+
+            "d");
 
     //TODO in case there are dates in multiple lines, it makes sense to keep all the date variants found by different patterns in a line; and then take intersection
     public static StringInt findDate(final List<String> origLines, final int start){
@@ -33,7 +31,7 @@ public class DateParserUtils {
             final String dateString=findDateInALine(origLines.get(i));
             if(dateString.isEmpty()) continue;
             try{
-                return new StringInt(DateUtils.formatDateString(toDateFromDigitalFormat(dateString)), i);
+                return new StringInt(DateUtils.formatDateString(formatToLocalDate(dateString)), i);
             }catch(Exception e){
 //                log.debug("dateString="+dateString+", toDate(dateString) error.");
             }
@@ -41,10 +39,10 @@ public class DateParserUtils {
         return StringInt.emptyValue();
     }
 
-    public static Date toDateFromDigitalFormat(final String dateStr) throws Exception {
+    public static LocalDate formatToLocalDate(final String dateStr) throws Exception {
         final String[] words=dateStr.split("_|-|\\.|/");//this is dependent on the DateConstants.DATE_SPLITTER
         String yMD="";
-        Date result = null;
+        LocalDate result = null;
         if(words[0].length()==4)
             yMD=words[0]+DateConstants.DATE_SPLITTER_UNIFORM+words[1]+DateConstants.DATE_SPLITTER_UNIFORM+words[2];
         else if(words[2].length()==4)
@@ -52,7 +50,7 @@ public class DateParserUtils {
         else{ //either "05/31/15" or 15/05/31";
             final int monthOrYear =  Integer.valueOf(StringCommon.removeAllSpaces(words[0]));
             final int yearOrDay = Integer.valueOf(StringCommon.removeAllSpaces(words[2]));
-            if(monthOrYear > 12 || yearOrDay > DateUtils.getCurrentYear()){//must be Year Month Day
+            if(monthOrYear > 12 || yearOrDay > DateUtils.getCurrentYearInTwoDigits()){//must be Year Month Day
                 yMD = "20" + monthOrYear +DateConstants.DATE_SPLITTER_UNIFORM
                            + words[1]+DateConstants.DATE_SPLITTER_UNIFORM + yearOrDay;
             }else{//note "12/05/12" will default 2012/Dec/05
@@ -61,8 +59,10 @@ public class DateParserUtils {
                     +words[1];
             }
         }
-        result = DATE_FORMAT.parse(yMD);
-        if(DateUtils.getToday().before(result)) //prefer a parsed date that is before yesterday
+        log.debug("yMD="+yMD);
+//        log.debug("parsing using simpledateformatter: "+SIMPLE_DATE_FORMATTER.parse(yMD));
+        result = LocalDate.parse(yMD, DATE_FORMATTER);//cannot handle single digit month or day
+        if(DateUtils.getToday().isBefore(result)) //prefer a parsed date that is before yesterday
             log.warn("something is probably wrong. the date parsed is after today: "+ result);
         return result;
     }
@@ -79,39 +79,66 @@ public class DateParserUtils {
     private final static Year4MonthDay y4md = new Year4MonthDay();
     private final static MonthDayYear4 mdy4 = new MonthDayYear4();
     private final static MonthDayYear2 mdy2 = new MonthDayYear2();
+    private final static Month1DayYear2 m1dy2 = new Month1DayYear2();
     private final static Year2MonthDay y2md = new Year2MonthDay();
     private final static LiteralMonthDayYear4 literalmdy4 = new LiteralMonthDayYear4();
     public static String findDateInALine(final String str){
-        final String strNoSpace=StringCommon.removeAllSpaces(str);
+//        final String strNoSpace=StringCommon.removeAllSpaces(str);
 //        log.debug("line string is "+str+"\n");
-        Calendar result = y4md.parse(strNoSpace);
+        LocalDate result = y4md.parseNoSpaces(str);
         if (result!=null){
-            log.debug("found y4md format."+result+"\n");
+            log.debug("found y4md format without space."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
-        result = mdy4.parse(strNoSpace);
+        //first prefer to find valid date with space
+        result = mdy4.parseWithSpaces(str);
         if(result != null){
-            log.debug("found mDY4 format."+result+"\n");
+            log.debug("found mDY4 format from string (with space)."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
-        result = mdy2.parse(strNoSpace);
+        result = mdy4.parseNoSpaces(str);
         if(result != null){
-            log.debug("found mDY2 format."+result+"\n");
+            log.debug("found mDY4 format without space."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
-        result = y2md.parse(strNoSpace);
+        System.out.println("str="+str);
+        result = mdy2.parseWithSpaces(str);
         if(result != null){
-            log.debug("found Y2MD format."+result+"\n");
+            log.debug("found mDY2 format from string (with space)."+result+"\n");
+            return DateUtils.formatDateString(result);
+        }
+
+        result = y2md.parseWithSpaces(str);
+        if(result != null){
+            log.debug("found Y2MD format without space."+result+"\n");
+            return DateUtils.formatDateString(result);
+        }
+
+        result = m1dy2.parseWithSpaces(str);
+        if(result != null){
+            log.debug("found m1dy2 format with space."+result);
+            return DateUtils.formatDateString(result);
+        }
+
+        result = mdy2.parseNoSpaces(str);
+        if(result != null){
+            log.debug("found mDY2 format without space."+result+"\n");
+            return DateUtils.formatDateString(result);
+        }
+
+        result = m1dy2.parseNoSpaces(str);
+        if(result != null){
+            log.debug("found m1dy2 format without space."+result);
             return DateUtils.formatDateString(result);
         }
 
         //note it's str not strNoSpace
-        result=literalmdy4.parse(str);
+        result=literalmdy4.parseWithSpaces(str);
         if(result != null){
-            log.debug("found literalMonthDayYear format."+result);
+            log.debug("found literalMonthDayYear format with space."+result);
             return DateUtils.formatDateString(result);
         }
 

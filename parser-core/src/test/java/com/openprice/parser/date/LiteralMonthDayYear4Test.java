@@ -3,6 +3,7 @@ package com.openprice.parser.date;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.Test;
@@ -13,15 +14,15 @@ public class LiteralMonthDayYear4Test {
 
     private final LiteralMonthDayYear4 literalMDY4 = new LiteralMonthDayYear4();
 
-    public static ThreeStrings threeStrings(final int[] array){
-        return threeStrings(array[0], array[1], array[2]);
+    public static ThreeStrings threeStrings(final int y, final int m, final int d) {
+        return new ThreeStrings(y+"", m+"",  d+"");
     }
-    public static ThreeStrings threeStrings(final int a, final int b, final int c){
-        return new ThreeStrings(a+"", b+"", c+"");
+    public static ThreeStrings threeStrings(final LocalDate date){
+        return new ThreeStrings(date.getYear()+"", date.getMonthValue()+"", date.getDayOfMonth()+"");
     }
 
     public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(DateUtils.getYearMonthDay(literalMDY4.parse(line)));
+        return threeStrings(literalMDY4.parseWithSpaces(line));
     }
 
     @Test
@@ -108,7 +109,7 @@ public class LiteralMonthDayYear4Test {
 
     @Test
     public void testInvalidDateStringWillReturnNull(){
-        assertNull(literalMDY4.parse("December 44, 2015 "));
+        assertNull(literalMDY4.parseWithSpaces("December 44, 2015 "));
     }
 
 

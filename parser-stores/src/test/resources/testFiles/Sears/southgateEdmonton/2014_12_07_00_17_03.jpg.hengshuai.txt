@@ -1,0 +1,70 @@
+SEARS
+   THANK YOU FOR SHOPPING AT SEARS
+     EDMONTON SOUTHGATE C001429
+                 780-438-2098
+  RETAIN FOR COMPARISON WITH MONTHLY
+STATEMENT OR FOR RETURN OR EXCHANGE
+
+STORE REG TRAN EMPL #    DATE                           TIME
+01429 15~ 79 12 4606631  2/3/13                          6:02P
+
+llllllllllllllll
+               llllllll
+                      lllllllllllllllllllllllllllllllllllllllllllll
+                 E)<C HANGE
+
+ORIG: STORE REG TRANS EMPL#                           DATE
+       001429 154 3797 4533607                       01/07/13
+  1: 54       14156013
+    SRBOYS,TMYHLFGR,OUTDR,KHK    34.99-G
+OTHER
+  2:SC SOAR        40%           14.00 G
+     OFFER CODE 11395
+--- END OF RETURNED ITEMS
+  3: 54       14156013
+     SRBOYS,TMYHLFGR,OUTDR,KHK   19.99 G
+           CLEARANCE
+  4:SFC SAVINGS 25%               5.00-G
+     OFFER CODE 01396
+                     SUBTOTAL     6.00-
+                           GST    0.30-
+                        TOTAL     6.30-
+
+SEARS FINANCIAL MASTERCARD                              6.30-
+      C··**********4001 ROO
+                      397986
+
+*******************
+           TOTAL               SAVINGS
+                     $20.00
+*******************
+RC 493477 602129 144307 184
+
+     GST / HST REGISTRATION # 104765698
+
+     *******··TRANSACTION RECORD*** *****
+
+     TYPE         REFUND
+     ACCT         MASTERCAI~D               6.30
+     CARD ~:            lltHiltlltl·lHH4001
+     DATE / TIME        13/02/03 20:03:18
+     REFERENCE ll 28227954 0010019261 c
+     AU THO~:. ll       397986
+     SEARS
+     A0000000041010
+     CHIP CARD INSERTED
+
+     00 APPROVED - THANK YOU 000
+
+
+SIGNATURE :
+
+
+IMPORTANT-r~tain              th1s     cop~     for    ~our
+r·ecords
+
+ REFUND/EXCHANGE SEE BACK OF RECEIPT
+SHARE YOUR FEEDBACK TO WIN 1 OF 5 $500
+  GIFT CARDS: WWW.SEARSEXPERIENCE .CA
+      CUSTOMER COPY
+

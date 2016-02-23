@@ -3,6 +3,7 @@ package com.openprice.parser.date;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
@@ -13,6 +14,9 @@ public class Year2MonthDayTest {
 
     private final Year2MonthDay y2md = new Year2MonthDay();
 
+    public static ThreeStrings threeStrings(final LocalDate date){
+        return new ThreeStrings(date.getYear()+"", date.getMonthValue()+"", date.getDayOfMonth()+"");
+    }
     public static ThreeStrings threeStrings(final int[] array){
         return threeStrings(array[0], array[1], array[2]);
     }
@@ -22,7 +26,7 @@ public class Year2MonthDayTest {
     }
 
     public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(DateUtils.getYearMonthDay(y2md.parse(line)));
+        return threeStrings(y2md.parseNoSpaces(line));
     }
 
     @Test
@@ -44,17 +48,17 @@ public class Year2MonthDayTest {
 
     @Test
     public void test2YearShouldHaveAtLeastTwoDigits(){
-        assertEquals(null, y2md.parse("5/03/14"));
+        assertEquals(null, y2md.parseNoSpaces("5/03/14"));
     }
 
     @Test
     public void invalidDayWillReturnNull(){
-        assertNull(y2md.parse("15/03/67"));
+        assertNull(y2md.parseNoSpaces("15/03/67"));
     }
 
     @Test
     public void invalidMonthWillReturnNull(){
-        assertNull(y2md.parse("15/13/6"));
+        assertNull(y2md.parseNoSpaces("15/13/6"));
     }
 
     @Test
