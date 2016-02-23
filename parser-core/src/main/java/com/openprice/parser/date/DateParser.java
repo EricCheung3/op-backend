@@ -1,6 +1,6 @@
 package com.openprice.parser.date;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 /**
  * parse a line to get Date String
@@ -8,5 +8,7 @@ import java.util.Calendar;
 
 public interface DateParser {
 
-    Calendar parse(String line);
+    LocalDate parseWithSpaces(String line);
+
+    LocalDate parseNoSpaces(String lineWithNoSpace);
 }

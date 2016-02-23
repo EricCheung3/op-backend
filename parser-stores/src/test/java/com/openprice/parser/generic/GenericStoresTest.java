@@ -130,7 +130,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         //printResult(receipt);
-        assertEquals("mcdonald", receipt.getChainCode());
+        assertEquals("mcdonalds", receipt.getChainCode());
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         assertEquals(2,receipt.getItems().size());

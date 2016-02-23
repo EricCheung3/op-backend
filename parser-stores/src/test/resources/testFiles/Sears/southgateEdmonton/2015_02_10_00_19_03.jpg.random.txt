@@ -1,0 +1,85 @@
+NOFRILLS
+WHY PAY NORE? ..... SHOP AT
+BRYAN &ALISON'S nofrills
+\Jel come #
+Card#:   ********~******796~
+
+GROCERY
+ 06038303066 NN COLESLAW DRSG                  R          3.49
+ 06038378125 NN LIQUID HONEY                   R          8.88
+ 06038398835 PCBM GRANOLA RAI                  R          3.99
+ 06038399300 PC BM GRAN OM FR                  R          3.99
+ 06038366413 NN EXT LRG, EA                    R          2.89
+  l2l06570010028 BEATRICE 1% MILK              NR         9.08
+    2 @ $4.54                                    
+'C2l 44000865341 RECYCLING                     R          0.16
+    2 @$0.08                                    
+*l2l 44000721908 DEPOSIT                       R          0.50
+    2@  $0.25                                   
+ 06176306015 HGHLNR FLLT                       R          3.97
+ 06618805092 RMH EZ TIN ORIG                              6.47
+ 06038369219 NN JCE ORANGE                                2.15
+*1829           RECYCLING                      R          0.08
+*44000439720 DEPOSIT                           R          0.25
+ 06038388753 NN APPLE JUICE                    R          2.15
+*1829           RECYCLING                      R          0.08
+·44000439720 DEPOSIT                           R          0.25
+  C2l06820075015 ASTRO BALKAN                  R          3.94
+    2@ $1.97                                    
+ 06038308141 NN ROTINI                         R          1.00
+ 06038378588 NN 24 ROLL BT                     GR         3.96
+ 06343571141 RYL FCL TISSUE                    GR         3.97
+ 06038386607 NN PIZZA MOZ 800                  R          9.47
+ 06810001127 PHIL CRM CHEESE                   R          5.00
+    2 @ 2/$5.00                                  
+BAKERY
+  C2l06340004050 CH BREAD WW                   R          7.94
+    2 @ $3.97                                    
+    ARCP: 50.00% ($7.94)                                 -3.98
+  06340005011 DITAL BREAD WW                              2.47
+  06340012209 WW SAUSAGE BUN                   R          2.47
+  87668100316 GARLIC NAAN 5 PK                 R          2.47
+MEAT
+  06771400337     ZABIHA HALAL CHI             R          1.84
+PRODUCE
+  03338344028 RED DEL 3LB                      R          2.97
+  62769200570 CUCUMBER MINI                    R          3.77
+  4068          ONION GREEN                    R          0.44
+    1 @ 2/$0.88                                
+  4079          CAULIFLOWER                               3.67
+  4089          RADISH BUNCH                   R          0.97  4889          CILANTRO                          R         0.87
+  4901          PARSLEY ITALIAN                R          0.97
+  4087          TOMATO ROMA                    R          2.58
+    0.920 kg @$2.80/kg                           
+  06038373643 PCO CAR BBY 2LB                  R          3.47
+HOME
+  (8)9                 PLASTIC BAGS            GR         0.40
+    8 @$0.05                                     
+BABY CARE
+                  NECK NIPPLES       GR                   3.79
+                  GERBER NIPPLES S    R                   5.99
+SUBTOTAL                                                118.82
+     G=GST 5%       18 .11@ 5.000%                        0.91
+
+TOTAL                                               119.73
+---------TRANSACTION RECORD-------------
+GLOBAL PAY MEN rs MERCHANT # 42970575704
+Bryan Alison s No Frills
+10467-80th Ave NW
+Edmonton AB
+STORE 03405               TERM Z0340503C
+SLIP # 319700             REG 3
+RETAHl l"HIS COPY FOR VOUR RECORDS
+·* Purchase
+CARD # **~'***l+***9301
+                              **   ChiP
+                                   EXP **I**
+ SEARS
+ REF #          AUTH #      RESP 001
+ 696001001078 090647        ISO 00
+ AID: A0000000041010
+ TSI E800    TUR 0000001000
+ DATE           TIME           AMOUNT
+ 02/08/2015     18:43:00      $     119.73
+              APPROVED
+

@@ -256,7 +256,6 @@ public class ShoppersTest1 extends AbstractReceiptParserIntegrationTest{
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         printResult(receipt);
         assertEquals("shoppers", receipt.getChainCode());
-        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(0,receipt.getItems().size());
         verifyParsedField(fieldValues, ReceiptFieldType.Card, "card    *******\"*'* \"8017",5);
@@ -287,7 +286,5 @@ public class ShoppersTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "9.44",16);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/7/4",55);
     }
-
-
 
 }

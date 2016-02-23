@@ -1,11 +1,9 @@
 package com.openprice.parser.date;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 import com.openprice.common.StringCommon;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * "year (4-digit) month day" format
@@ -13,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
  *  If day has two digits, it should return two-digit day if it makes sense (between 1-31)
  */
 
-@Slf4j
 public class Year4MonthDay implements DateParser{
 
     private static Pattern patternYear4MonthDay = Pattern.compile(
@@ -25,14 +22,28 @@ public class Year4MonthDay implements DateParser{
 
 
     @Override
-    public Calendar parse(String line) {
-        final String y4MD = DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line),
-                patternYear4MonthDay);
+    public LocalDate parseNoSpaces(final String line) {
+        final String y4MD = DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line), patternYear4MonthDay);
+        return parseToDate(y4MD);
+    }
+
+    @Override
+    public LocalDate parseWithSpaces(final String line) {
+        final String y4MD = DateParserUtils.pruneDateStringWithMatch(line, patternYear4MonthDay);
+        return parseToDate(y4MD);
+    }
+
+    private static LocalDate parseToDate(final String y4MD ) {
         final String[] splits = y4MD.split("[" + DateConstants.DATE_SPLITTER +"]");
         if(splits.length < 3)
             return null;
-        return DateUtils.getCalendar(splits[2].trim(), splits[1].trim(), splits[0].trim());
+        return DateUtils.fromDayMonthYear(
+                splits[2],
+                splits[1].trim(),
+                splits[0].trim()
+                );
     }
+
 
 
 }

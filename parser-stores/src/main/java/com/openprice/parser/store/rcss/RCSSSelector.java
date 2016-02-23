@@ -14,7 +14,7 @@ import com.openprice.store.StoreMetadata;
 @Service
 public class RCSSSelector extends AbstractStoreParserSelector {
     private RCSS1 parser;
-    private final static String RCSS="RCSS";
+    private final static String CODE="RCSS";
 
     @Inject
     public RCSSSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
@@ -29,12 +29,12 @@ public class RCSSSelector extends AbstractStoreParserSelector {
 
     @Override
     protected String getParserBaseCode() {
-        return RCSS;
+        return CODE;
     }
 
     @Override
     protected void generateParser() {
-        StoreConfigImpl config = loadParserConfig(RCSS+"1");
+        StoreConfigImpl config = loadParserConfig(CODE+"1");
         parser = new RCSS1(config, loadPriceParserWithCatalog());
     }
 

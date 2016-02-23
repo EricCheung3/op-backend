@@ -16,6 +16,33 @@ import lombok.extern.slf4j.Slf4j;
 public class LevenshteinTest{
 
     @Test
+    public void testNonUnicode(){
+        final String ascii = "lll";
+        final String nonAscii = ascii + "‘";
+        final String nonAsciiTurnedToAscii = nonAscii.replaceAll("\\P{Print}", "");
+        assertEquals(ascii, nonAsciiTurnedToAscii);
+        final double score = Levenshtein.compare(nonAscii, ascii);
+        assertTrue(Math.abs(score-3/4.0)<0.00001);
+    }
+
+    @Test
+    public void testNonAsciiToItSelfShouldEuqals1(){
+        final String ascii = "lll";
+        final String nonAscii = ascii + "‘";
+        final double score2 = Levenshtein.compare(nonAscii, nonAscii);
+        assertTrue(Math.abs(score2-1.0)<0.000001);
+    }
+
+    @Test
+    public void testNonAsciiToAnotherNonAsciiShouldConsiderNonAsciiCode(){
+        final String ascii = "lll";
+        final String nonAscii = ascii + "‘";
+        final double score2 = Levenshtein.compare(nonAscii, nonAscii+"a");
+        assertTrue(Math.abs(score2-4/5.0)<0.000001);
+    }
+
+
+    @Test
     public void matchingChars(){
        assertEquals(5, Levenshtein.matchingChars("Total Number Sold ", "Total"));
        assertEquals(1, Levenshtein.matchingChars("ABC", "A"));

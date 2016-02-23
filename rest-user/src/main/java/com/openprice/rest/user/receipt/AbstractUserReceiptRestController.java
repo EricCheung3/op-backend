@@ -41,6 +41,7 @@ public abstract class AbstractUserReceiptRestController extends AbstractUserRest
     protected Receipt getReceiptByIdAndCheckUser(final String receiptId)
             throws ResourceNotFoundException, AccessDeniedException {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
+        log.info("User {} works on receipt {}...", currentUser.getUsername(), receiptId);
         final Receipt receipt = receiptRepository.findOne(receiptId);
         if (receipt == null) {
             log.warn("ILLEGAL RECEIPT ACCESS! No such receipt Id: {}.", receiptId);
@@ -56,14 +57,14 @@ public abstract class AbstractUserReceiptRestController extends AbstractUserRest
     @Transactional
     protected ReceiptImage newReceiptWithBase64ImageData(final String base64Data) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
-        log.debug("User {} upload image as base64 string for new receipt", currentUser.getUsername());
+        log.info("User {} upload image as base64 string for new receipt", currentUser.getUsername());
         return receiptUploadService.uploadImageForNewReceipt(currentUser, base64Data);
     }
 
     @Transactional
     protected ReceiptImage newReceiptWithFile(final MultipartFile file) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
-        log.debug("User {} upload image file for new receipt", currentUser.getUsername());
+        log.info("User {} upload image file for new receipt", currentUser.getUsername());
         return receiptUploadService.uploadImageForNewReceipt(currentUser, file);
     }
 
@@ -71,7 +72,7 @@ public abstract class AbstractUserReceiptRestController extends AbstractUserRest
     protected ReceiptImage newReceiptImageWithBase64ImageData(final String receiptId, final String base64Data) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
-        log.debug("User {} upload image base64 string for receipt {}.", currentUser.getUsername(), receiptId);
+        log.info("User {} upload image base64 string for receipt {}.", currentUser.getUsername(), receiptId);
         return receiptUploadService.appendImageToReceipt(receipt, base64Data);
     }
 
@@ -79,7 +80,7 @@ public abstract class AbstractUserReceiptRestController extends AbstractUserRest
     protected ReceiptImage newReceiptImageWithFile(final String receiptId, final MultipartFile file) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
-        log.debug("User {} upload image file for receipt {}.", currentUser.getUsername(), receiptId);
+        log.info("User {} upload image file for receipt {}.", currentUser.getUsername(), receiptId);
         return receiptUploadService.appendImageToReceipt(receipt, file);
     }
 
