@@ -329,7 +329,6 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
 
     }
 
-    //This is walmart Receipt
     @Test
     public void receipt_2015_02_09_15_15_48()  throws Exception {
         final List<String> receiptLines = new ArrayList<>();
@@ -337,7 +336,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         assertTrue(receiptLines.size() > 0);
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         printResult(receipt);
-        assertEquals("sears", receipt.getChainCode());
+        assertEquals("walmart", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(18,receipt.getItems().size());
@@ -368,7 +367,6 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
 
     }
 
-    //TODO this is a noFrills receipt!
     @Test
     public void receipt_2015_02_10_00_00_22()  throws Exception {
         final List<String> receiptLines = new ArrayList<>();
@@ -376,7 +374,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         assertTrue(receiptLines.size() > 0);
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         printResult(receipt);
-        assertEquals("sears", receipt.getChainCode());
+        assertEquals("nofrills", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(7,receipt.getItems().size());
@@ -398,7 +396,6 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
 
     }
 
-    //TODO this is a no frills
     @Test
     public void receipt_2015_02_10_00_19_03()  throws Exception {
         final List<String> receiptLines = new ArrayList<>();
@@ -406,7 +403,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         assertTrue(receiptLines.size() > 0);
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         printResult(receipt);
-        assertEquals("sears", receipt.getChainCode());
+        assertEquals("nofrills", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(34,receipt.getItems().size());
