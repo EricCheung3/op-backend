@@ -17,6 +17,7 @@ public class Walmart1 extends AbstractStoreParser {
         fieldParsers.put(ReceiptFieldType.SubTotal,  line -> FieldParserCommon.parseItemPrice(line.getCleanText(), config.priceTail()));
         fieldParsers.put(ReceiptFieldType.Total,  line -> FieldParserCommon.parseTotal(line.getCleanText()));
         fieldParsers.put(ReceiptFieldType.Date,  line -> FieldParserCommon.parseDate(line));
+        fieldParsers.put(ReceiptFieldType.TotalSold,  line -> FieldParserCommon.parseTotalSold(line));
     }
 
 }
