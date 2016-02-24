@@ -62,7 +62,7 @@ public class AdminReceiptResource extends Resource<Receipt> {
             final AdminReceiptResource resource = new AdminReceiptResource(receipt);
             resource.setUser(receipt.getUser().getProfile().getDisplayName());
             // format uploaded timestamp
-            LocalDateTime createdTime = receipt.getCreatedTime();
+            LocalDateTime createdTime = receipt.getCreatedTime().minusHours(7);
             resource.setUploadTimestamp(createdTime.format(DateTimeFormatter.ISO_DATE_TIME));
 
             List<AdminReceiptImageResource> images = new ArrayList<>();
