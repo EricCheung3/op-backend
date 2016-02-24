@@ -355,11 +355,17 @@ public class DateParserUtilsTest {
         assertEquals("2013/12/3", DateParserUtils.findDateInALine(searsVariant));
     }
 
-//    @Test
-//    public void lucky99Test1() throws Exception{
-//        final String fromLucky99 = "DATE: 23/05/2015 TIME: 5:02:29 PM               HUA";
-//        assertEquals("2015/5/23", DateParserUtils.findDateInALine(fromLucky97));
-//    }
+    @Test
+    public void lucky99Test1() throws Exception{
+        final String fromLucky99 = "DATE: 23/05/2015 TIME: 5:02:29 PM               HUA";
+        assertEquals("2015/5/23", DateParserUtils.findDateInALine(fromLucky99));
+    }
+
+    @Test
+    public void lucky99Test2MonthDayYearIsPrefered() throws Exception{
+        final String fromLucky99Variant = "DATE: 12/05/2015 TIME: 5:02:29 PM               HUA";
+        assertEquals("2015/12/5", DateParserUtils.findDateInALine(fromLucky99Variant));
+    }
 
     @Test
     public void TwoDigitDay() throws Exception{
