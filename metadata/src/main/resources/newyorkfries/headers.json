@@ -14,10 +14,10 @@
   "SubTotalHeader" : "SubtotaL,Net Total",
   "ThankYouHeader" : "Thank You",
   "PhoneHeader" : "AT 'S nofrills ",
-  "TotalHeader" : "TaKE-Out TotaL,Eat-In Total, TOTAL:,T O T A L",
+  "TotalHeader" : "Grand Total,TaKE-Out TotaL,Eat-In Total, TOTAL:,T O T A L",
   "CardHeader" : "CARD NUMBER,CARD # ************  ",
   "CouponHeader" : "",
-  "GstNumberHeader" : "GST #",
+  "GstNumberHeader" : "GST 5%,GST #",
   "CashierHeader" : "Trans#",
   "RefHeader" : "REF #            AUTH #     RESP,ORDER #,RECEIPT NUMBER",
   "AuthorHeader" : "AUTHOR.#, Auth#,REF #            AUTH #     RESP"
