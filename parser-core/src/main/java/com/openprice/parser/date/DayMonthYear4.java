@@ -32,9 +32,9 @@ public class DayMonthYear4 implements DateParser{
             return null;
         final List<String> cleanWords = DateParserUtils.getMeaningfulDateWords(mDY2);
         return DateUtils.fromDayMonthYear(
-                cleanWords.get(1),
                 cleanWords.get(0),
-                "20" + cleanWords.get(2)
+                cleanWords.get(1),
+                cleanWords.get(2)
                 );
     }
 

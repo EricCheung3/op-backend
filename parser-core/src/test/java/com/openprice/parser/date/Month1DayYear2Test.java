@@ -48,7 +48,7 @@ public class Month1DayYear2Test {
     }
 
     @Test
-    public void dfafda() throws Exception{
+    public void testSearsMessupIsOkay3() throws Exception{
         assertEquals(threeStrings(2013, 2, 3), parseToThreeStrings("01429 15~ 7913 4606631  2/3/13             6:04P"));
     }
 }
