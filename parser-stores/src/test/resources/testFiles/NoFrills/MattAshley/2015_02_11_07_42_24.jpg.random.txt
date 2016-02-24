@@ -1,0 +1,84 @@
+NOFRILLS
+WHY PAY MORE? . . . .. SHOP AT
+BRYAN & ALISON 'S nofri lls
+---------TRANSACTION RECORD------- ------
+GLOBAL PAYMENTS MERCHANT n 42970575704
+Bryan Alison s No Frills
+10467 -80th Ave NW
+Ednonton AB
+STORE 03405           TERM Z0340504C
+SLIP # 78700              REG 4
+   RETAIN THIS C OPV FO R YOUR REC ORDS
+** Purchase                **
+CARD #                         EXP   *''**
+REF #              AUTH #      RESP
+000000000000                   ISO
+DATE          TIME          AMOUNT
+02/08/2015  18:15:13       $       2. 83
+    NOT COMPLETED
+
+
+GROCERY
+  06570010027       BEATRICE 2% .MILK         R       4.54
+ *44000865341       RECYCLING                 R       0.08
+ *44000721908       DEPOSIT                   R       0.25
+  06038310141       NN GREEN PEAS CP          R       3.97
+  05717424072       TETLEY TEA                R       1.88
+  06038368189       NN SALTED BUTTER          R       3.87
+BAKERY
+  46038304822       BREAD 100% WHOLW          R       1.47
+PRODUCE
+  4020          GOLDEN DEL                    R
+    1.195 kg @$3.24/kg                                3.87
+  668           DON QUA                       R
+    1.305 kg @ $2.14/kg                               2.79
+  4090          SPINACH BUNCHED               R       1.67
+  03336370119 PEP RED SWT 4CT                 R       1.97
+  03338360002 ONION YELLOW 3LB                R       1.47
+SUBTOTAL                                          27.83
+TOTAL                                             27.83
+CARD #: *******0924
+    EGC                                             25.00
+    CASH                                              5.00
+    ROUNDED 0. 02                                   (27.85)
+    CHANGE DUE                                     2.15
+-------- EGC ------ --
+AUTHORIZATION : 114458103
+REFERENCE: 040787
+EMPLOYEE: 95
+CARD ·: *******0924
+EGC OPENING BAL.                                      25.00
+EGC PURCHASE :                                        25.00
+EGC BALANCE                                            0.00
+TOTAL EGC SALE:                                       25.00
+                 You could have earned 270
+             PC points with President's Choi ce
+             Financial MasterCard. APPlY Today
+                    Uisit pcfinancial.ca
+************X*******'*~** * ****'*'*****
+                        GST ~ 80435-3423 RT0001
+*************************'******'****'
+      UISIT US AT W~IW. NOFRILLS . CA
+         Like us on Facebook:
+      www .facebook.com/nofr i ll sCA
+  Follow us on Twitter : @  nofr i llsCA
+****** * ** * ******** ***~**~******n"'*~**
+BRYAN & ALISON'S nofr i 11 s
+10467 - 80 AVE. EOMONl O IL T6E 1U1
+Thank You, Come Again !
+**USE YOUR PCF CARD**
+TO COLLECT POINTS!!
+**REDEEM HERE FOR FREE GROCERIES**
+DATE: 2015/02/06                               TIME: 18:15 
+JAVLEEN 95                                          04 0787
+***** *******~ * ******* *****~*** ********
+        TELL US HOW WE DID TODAY!
+     HONTHL YCHANCES TO WIN $5000
+        UISIT UWW .STOREOPINION.CA
+          OR CALL 1-677-234 -2322
+   SEE CUSTOHER SERVICE DESK FOR FULL
+  CONTE Sf RULES OR WUW. STOREOPIHIOtL CA
+                 STORE: 03405
+  CODE : 020615 161504 767 03405
+********* * ***************~** *******~**
+

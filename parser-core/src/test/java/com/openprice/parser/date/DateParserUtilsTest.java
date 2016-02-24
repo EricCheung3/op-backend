@@ -342,6 +342,58 @@ public class DateParserUtilsTest {
     }
 
     @Test
+    public void twoDigitMonth() throws Exception{
+        final String searsVariant = "01429 15~ 7913 4606631  12/3/13             6:04P";
+        assertEquals("2013/12/3", DateParserUtils.findDateInALine(searsVariant));
+    }
+
+    @Test
+    public void TwoDigitDay() throws Exception{
+        final String searsVariant = "01429 15~ 7913 4606631  12/31/13             6:04P";
+        assertEquals("2013/12/31", DateParserUtils.findDateInALine(searsVariant));
+    }
+
+    @Test
+    public void yearMonthDayTest1() throws Exception{
+        final String searsVariant = "01429 15~ 7913 4606631  15/3/1             6:04P";
+        assertEquals("2015/3/1", DateParserUtils.findDateInALine(searsVariant));
+    }
+
+    @Test
+    public void yearMonthDayTest2() throws Exception{
+        final String searsVariant = "01429 15~ 7913 4606631  15/03/1             6:04P";
+        assertEquals("2015/3/1", DateParserUtils.findDateInALine(searsVariant));
+    }
+
+    @Test
+    public void yearMonthDayTest3() throws Exception{
+        final String searsVariant = "01429 15~ 7913 4606631  15/03/12             6:04P";
+        assertEquals("2015/3/12", DateParserUtils.findDateInALine(searsVariant));
+    }
+
+    //note it will prefer parsing results with space
+    @Test
+    public void yearMonthDayTest4() throws Exception{
+        final String searsVariant = "01429 15~ 7913 4606631  15/03/1  2             6:04P";
+        assertEquals("2015/3/1", DateParserUtils.findDateInALine(searsVariant));
+    }
+
+    //either is Okay
+    @Test
+    public void yearMonthDayTest5() throws Exception{
+        final String searsVariant = "01429 15~ 7913 4606631  1  5/  0  3/1  2             6:04P";
+//        assertEquals("2015/3/12", DateParserUtils.findDateInALine(searsVariant));
+        assertEquals("2012/5/3", DateParserUtils.findDateInALine(searsVariant));
+    }
+
+    @Test
+    public void yearMonthDayTest6() throws Exception{
+        final String searsVariant = "01429 15~ 7913 46066311  5/  0  3/1  2             6:04P";
+//        assertEquals("2015/3/12", DateParserUtils.findDateInALine(searsVariant));
+        assertEquals("2012/5/3", DateParserUtils.findDateInALine(searsVariant));
+    }
+
+    @Test
     public void testDate1()throws Exception{
         final List<String> lines=new ArrayList<String>();
         lines.add("DATE            TIME            AMOUNT");

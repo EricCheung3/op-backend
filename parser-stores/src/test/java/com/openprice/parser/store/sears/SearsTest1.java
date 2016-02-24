@@ -30,6 +30,12 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_22_24_27.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_22_24_27;
 
+    @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_22_24_27.jpg.hengshuai2.txt")
+    private Resource receipt_2014_12_06_22_24_27_2nd;
+
+    @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_22_24_27.jpg.hengshuai3.txt")
+    private Resource receipt_2014_12_06_22_24_27_3rd;
+
     @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_22_29_55.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_22_29_55;
 
@@ -57,13 +63,13 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_07_00_26_16.jpg.hengshuai.txt")
     private Resource receipt_2014_12_07_00_26_16;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2015_02_09_15_15_48.jpg.random.txt")
+    @Value("classpath:/testFiles/Sears/walmartUseSearsCard/2015_02_09_15_15_48.jpg.random.txt")
     private Resource receipt_2015_02_09_15_15_48;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2015_02_10_00_00_22.jpg.random.txt")
+    @Value("classpath:/testFiles/Sears/nofrillsUseSearsCard/2015_02_10_00_00_22.jpg.random.txt")
     private Resource receipt_2015_02_10_00_00_22;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2015_02_10_00_19_03.jpg.random.txt")
+    @Value("classpath:/testFiles/Sears/nofrillsUseSearsCard/2015_02_10_00_19_03.jpg.random.txt")
     private Resource receipt_2015_02_10_00_19_03;
 
     @Value("classpath:/testFiles/Sears/southgateEdmonton/2015_02_10_13_25_05.jpg.hengshuai.txt")
@@ -132,6 +138,56 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store reg tran empl#    date                          time",7);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "30.85",26);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/1/7",47);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "card b            ************4001",46);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "29.38",24);
+
+    }
+
+    @Test
+    public void receipt_2014_12_06_22_24_27_2nd()  throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_2014_12_06_22_24_27_2nd, (line)-> receiptLines.add(line));
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        printResult(receipt);
+        assertEquals("sears", receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(5,receipt.getItems().size());
+        //TODO why?
+        verifyParsedItem(iterator.next(), "01429 154 3797 4533607 (intentionally deleted)", null, null, 8);
+        verifyParsedItem(iterator.next(), "kids, tckletoes,softshoe, n",  "13.999", null, 15);
+        verifyParsedItem(iterator.next(), "2:sc soar",  "5.609", null, 17);
+        verifyParsedItem(iterator.next(), "srboys,tmyhlfgr,outdr,khk",  "34.999", null, 20);
+        verifyParsedItem(iterator.next(), "4:sc soar",  "14.009", null, 22);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst/hst registration 8 104765698",39);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store reg tran empl#    date                          time",7);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "30.85",26);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/1/7",47);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "card b            ************4001",46);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "29.38",24);
+
+    }
+
+    @Test
+    public void receipt_2014_12_06_22_24_27_3rd()  throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_2014_12_06_22_24_27_3rd, (line)-> receiptLines.add(line));
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        printResult(receipt);
+        assertEquals("sears", receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(4,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "kids, tckletoes,softshoe, n",  "13.999", null, 15);
+        verifyParsedItem(iterator.next(), "2:sc soar",  "5.609", null, 17);
+        verifyParsedItem(iterator.next(), "srboys,tmyhlfgr,outdr,khk",  "34.999", null, 20);
+        verifyParsedItem(iterator.next(), "4:sc soar",  "14.009", null, 22);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst/hst registration 8 104765698",39);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store reg tran empl#    date                          time",7);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "30.85",26);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/1/7",8);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "card b            ************4001",46);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "29.38",24);
 
@@ -336,7 +392,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         assertTrue(receiptLines.size() > 0);
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         printResult(receipt);
-        assertEquals("sears", receipt.getChainCode());
+        assertEquals("walmart", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(18,receipt.getItems().size());
@@ -367,7 +423,6 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
 
     }
 
-    //TODO this is a noFrills receipt!
     @Test
     public void receipt_2015_02_10_00_00_22()  throws Exception {
         final List<String> receiptLines = new ArrayList<>();
@@ -375,7 +430,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         assertTrue(receiptLines.size() > 0);
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         printResult(receipt);
-        assertEquals("sears", receipt.getChainCode());
+        assertEquals("nofrills", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(7,receipt.getItems().size());
@@ -397,7 +452,6 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
 
     }
 
-    //TODO this is a no frills
     @Test
     public void receipt_2015_02_10_00_19_03()  throws Exception {
         final List<String> receiptLines = new ArrayList<>();
@@ -405,7 +459,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         assertTrue(receiptLines.size() > 0);
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         printResult(receipt);
-        assertEquals("sears", receipt.getChainCode());
+        assertEquals("nofrills", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(34,receipt.getItems().size());
@@ -485,10 +539,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("sears", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(2,receipt.getItems().size());
-
-        //TODO noise:
-        verifyParsedItem(iterator.next(), "1:    1 9s0~6 aclounr", null, null, 21);
+        assertEquals(1,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "watch repair",  "5.719", null, 22);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "5.71",23);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "6.00",25);
@@ -509,8 +560,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("sears", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(5,receipt.getItems().size());
-        verifyParsedItem(iterator.next(), "sears mc club pts reompt n",  "20.00", null, 15);
+        assertEquals(4,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "top , multifloralprint ,r",  "14.999", null, 20);
         verifyParsedItem(iterator.next(), "3.alt soar",  "4.509", null, 22);
         verifyParsedItem(iterator.next(), "nb, drss,multi , flrl, wtrclr",  "24.999", null, 25);
@@ -578,15 +628,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("sears", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(10,receipt.getItems().size());
-        //TODO noise
-        verifyParsedItem(iterator.next(), "d os    dock    p t c l<",  "up", null, 6);
-        verifyParsedItem(iterator.next(), "r et ai n for c",  "0m.0", null, 14);
-        verifyParsedItem(iterator.next(), "dos r    equ est id : 54020464 0605 /", null, null, 19);
-        verifyParsedItem(iterator.next(), "or der ed from d    o s faci lity :", null, null, 20);
-        verifyParsedItem(iterator.next(), "cu sto meroonifcui: d    iad", null, null, 21);
-        verifyParsedItem(iterator.next(), "f1ddre ss:    122 st 48 a    ver",  "412", null, 22);
-        verifyParsedItem(iterator.next(), "po stal cd: t6h",  ".45", null, 25);
+        assertEquals(3,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "kenmore, he tl washer, wht",  "499.959", null, 36);
         verifyParsedItem(iterator.next(), "2: buy more sav 5%",  "25.009", null, 39);
         verifyParsedItem(iterator.next(), "3 yr, washer pa",  "121.99", null, 42);
@@ -610,9 +652,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("sears", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(8,receipt.getItems().size());
-        //TODO noise
-        verifyParsedItem(iterator.next(), "re ta i n for compariso    n ljlill ~!fin i ll!\\", null, null, 5);
+        assertEquals(7,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "cotn, antrct.shrt set",  "11.99", null, 18);
         verifyParsedItem(iterator.next(), "dri - fit tee, gym red",  "6.99", null, 22);
         verifyParsedItem(iterator.next(), "glbl ftbl, tee,vivd blu",  "6.99", null, 25);

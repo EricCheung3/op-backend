@@ -84,6 +84,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         blackListAll.addAll(skipBefore);
         blackListAll.addAll(skipAfter);
         blackListAll.addAll(notations);
+        blackListAll.add(chain.getName());//chain name is not an item
 
         return StoreConfigImpl.fromPropCategorySkipBeforeAfterBlack(
                 allConfig,

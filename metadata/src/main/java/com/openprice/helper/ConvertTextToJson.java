@@ -14,7 +14,7 @@ import com.openprice.common.TextResourceUtils;
 public class ConvertTextToJson {
 
     public static void main(String[] args) throws Exception{
-        final String chainCode = "sears";
+        final String chainCode = "lucky97";
 
         final List<String> orig=TextResourceUtils.loadStringArray("/"+chainCode+"/not-catalog-item-names.txt");
 //        final List<String> orig=TextResourceUtils.loadStringArray("/shoppers/not-catalog-item-names.txt");

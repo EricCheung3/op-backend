@@ -4,42 +4,40 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-//TODO using Calendar to get the literals?
-//how about lowercase?
 public class MonthLiterals {
 
     private Map<String, Integer> monthLiteralToNumber = new HashMap<>();
 
     public MonthLiterals(){
-        monthLiteralToNumber.put("January", 1);
-        monthLiteralToNumber.put("February", 2);
-        monthLiteralToNumber.put("March", 3);
-        monthLiteralToNumber.put("April", 4);
-        monthLiteralToNumber.put("May", 5);
-        monthLiteralToNumber.put("June", 6);
-        monthLiteralToNumber.put("July", 7);
-        monthLiteralToNumber.put("August", 8);
-        monthLiteralToNumber.put("September", 9);
-        monthLiteralToNumber.put("October", 10);
-        monthLiteralToNumber.put("November", 11);
-        monthLiteralToNumber.put("December", 12);
+        monthLiteralToNumber.put("january", 1);
+        monthLiteralToNumber.put("february", 2);
+        monthLiteralToNumber.put("march", 3);
+        monthLiteralToNumber.put("april", 4);
+        monthLiteralToNumber.put("may", 5);
+        monthLiteralToNumber.put("june", 6);
+        monthLiteralToNumber.put("july", 7);
+        monthLiteralToNumber.put("august", 8);
+        monthLiteralToNumber.put("september", 9);
+        monthLiteralToNumber.put("october", 10);
+        monthLiteralToNumber.put("november", 11);
+        monthLiteralToNumber.put("december", 12);
 
-        monthLiteralToNumber.put("Jan", 1);
-        monthLiteralToNumber.put("Feb", 2);
-        monthLiteralToNumber.put("Mar", 3);
-        monthLiteralToNumber.put("Apr", 4);
+        monthLiteralToNumber.put("jan", 1);
+        monthLiteralToNumber.put("feb", 2);
+        monthLiteralToNumber.put("mar", 3);
+        monthLiteralToNumber.put("apr", 4);
 //        monthLiteralToNumber.put("May", 5);
-        monthLiteralToNumber.put("Jun", 6);
-        monthLiteralToNumber.put("Jul", 7);
-        monthLiteralToNumber.put("Aug", 8);
-        monthLiteralToNumber.put("Sep", 9);
-        monthLiteralToNumber.put("Oct", 10);
-        monthLiteralToNumber.put("Nov", 11);
-        monthLiteralToNumber.put("Dec", 12);
+        monthLiteralToNumber.put("jun", 6);
+        monthLiteralToNumber.put("jul", 7);
+        monthLiteralToNumber.put("aug", 8);
+        monthLiteralToNumber.put("sep", 9);
+        monthLiteralToNumber.put("oct", 10);
+        monthLiteralToNumber.put("nov", 11);
+        monthLiteralToNumber.put("dec", 12);
     }
 
     public int getMonthNumber(final String literalMonth){
-        return monthLiteralToNumber.get(literalMonth);
+        return monthLiteralToNumber.get(literalMonth.toLowerCase());
     }
 
     public int sizeOfMonthLiteralMap(){
