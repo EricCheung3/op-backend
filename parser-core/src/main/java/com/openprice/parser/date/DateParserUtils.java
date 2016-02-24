@@ -105,16 +105,16 @@ public class DateParserUtils {
             return DateUtils.formatDateString(result);
         }
 
-        result = dmy4.parseNoSpaces(str);
-        if(result != null){
-            log.debug("found dmy4 format without space."+result+"\n");
-            return DateUtils.formatDateString(result);
-        }
-
         System.out.println("str="+str);
         result = mdy2.parseWithSpaces(str);
         if(result != null){
             log.debug("found mDY2 format from string (with space)."+result+"\n");
+            return DateUtils.formatDateString(result);
+        }
+
+        result = dmy4.parseNoSpaces(str);
+        if(result != null){
+            log.debug("found dmy4 format without space."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 

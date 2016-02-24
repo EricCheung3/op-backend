@@ -356,15 +356,27 @@ public class DateParserUtilsTest {
     }
 
     @Test
-    public void lucky99Test1() throws Exception{
+    public void _99supermarketTest1() throws Exception{
         final String fromLucky99 = "DATE: 23/05/2015 TIME: 5:02:29 PM               HUA";
         assertEquals("2015/5/23", DateParserUtils.findDateInALine(fromLucky99));
     }
 
     @Test
-    public void lucky99Test2MonthDayYearIsPrefered() throws Exception{
+    public void _99supermarketTest1MonthDayYearIsPrefered() throws Exception{
         final String fromLucky99Variant = "DATE: 12/05/2015 TIME: 5:02:29 PM               HUA";
         assertEquals("2015/12/5", DateParserUtils.findDateInALine(fromLucky99Variant));
+    }
+
+    @Test
+    public void costco1() throws Exception{
+        final String fromCostco = "AUTH#: 097118                02/08/15 16:06:54";
+        assertEquals("2015/2/8", DateParserUtils.findDateInALine(fromCostco));
+    }
+
+    @Test
+    public void safeway1() throws Exception{
+        final String fromSafeway = " 5/12/14 12:55 0877 08 029L          b.";
+        assertEquals("2014/5/12", DateParserUtils.findDateInALine(fromSafeway));
     }
 
     @Test
