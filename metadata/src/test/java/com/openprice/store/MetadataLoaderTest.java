@@ -28,6 +28,18 @@ public class MetadataLoaderTest {
     private static final String SHOPPERS_CODE="shoppers";
     private static final String LONDON_DRUGS_CODE="londondrugs";
     private static final String MCDONALDS_CODE="mcdonalds";
+    private static final String _99SUPERMARKET_CODE= "_99supermarket";
+    @Test
+    public void loadMetadataFor_99SUPERMARKET_CODE() throws Exception {
+        assertNotNull(metadata.getStoreChainByCode(_99SUPERMARKET_CODE));
+        assertTrue(validateConfigProperties(_99SUPERMARKET_CODE));
+        assertTrue(validateHeaders(_99SUPERMARKET_CODE));
+//        assertTrue(validateSkipBefore(_99SUPERMARKET_CODE));
+        assertTrue(validateSkipAfter(_99SUPERMARKET_CODE));
+        assertTrue(validateIdentify(_99SUPERMARKET_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(_99SUPERMARKET_CODE));
+    }
+
 
     private static final String PLANETORGANIC_CODE= "planetorganic";
     @Test
