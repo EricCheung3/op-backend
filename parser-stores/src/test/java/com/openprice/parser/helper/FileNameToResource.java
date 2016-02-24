@@ -1,4 +1,4 @@
-package com.openprice.parser.store.helper;
+package com.openprice.parser.helper;
 
 import java.io.File;
 import java.net.URL;
