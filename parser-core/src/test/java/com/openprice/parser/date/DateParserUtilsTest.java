@@ -380,6 +380,12 @@ public class DateParserUtilsTest {
     }
 
     @Test
+    public void homeDepot1(){
+        final String str="7117 00058 77840     DATE: 25/01/15 TIME: 11:30 AM";
+        assertEquals("2015/1/25", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
     public void TwoDigitDay() throws Exception{
         final String searsVariant = "01429 15~ 7913 4606631  12/31/13             6:04P";
         assertEquals("2013/12/31", DateParserUtils.findDateInALine(searsVariant));

@@ -87,64 +87,64 @@ public class DateParserUtils {
 //        final String strNoSpace=StringCommon.removeAllSpaces(str);
 //        log.debug("line string is "+str+"\n");
         LocalDate result = y4md.parseNoSpaces(str);
-        if (result!=null){
+        if (result!=null && result.isBefore(DateUtils.getToday())){
             log.debug("found y4md format without space."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
         //first prefer to find valid date with space
         result = mdy4.parseWithSpaces(str);
-        if(result != null){
+        if(result != null && result.isBefore(DateUtils.getToday())){
             log.debug("found mDY4 format from string (with space)."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
         result = mdy4.parseNoSpaces(str);
-        if(result != null){
+        if(result != null && result.isBefore(DateUtils.getToday())){
             log.debug("found mDY4 format without space."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
         System.out.println("str="+str);
         result = mdy2.parseWithSpaces(str);
-        if(result != null){
+        if(result != null && result.isBefore(DateUtils.getToday())){
             log.debug("found mDY2 format from string (with space)."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
         result = dmy4.parseNoSpaces(str);
-        if(result != null){
+        if(result != null && result.isBefore(DateUtils.getToday())){
             log.debug("found dmy4 format without space."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
         result = y2md.parseWithSpaces(str);
-        if(result != null){
+        if(result != null && result.isBefore(DateUtils.getToday())){
             log.debug("found Y2MD format without space."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
         result = m1dy2.parseWithSpaces(str);
-        if(result != null){
+        if(result != null && result.isBefore(DateUtils.getToday())){
             log.debug("found m1dy2 format with space."+result);
             return DateUtils.formatDateString(result);
         }
 
         result = mdy2.parseNoSpaces(str);
-        if(result != null){
+        if(result != null && result.isBefore(DateUtils.getToday())){
             log.debug("found mDY2 format without space."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
         result = m1dy2.parseNoSpaces(str);
-        if(result != null){
+        if(result != null && result.isBefore(DateUtils.getToday())){
             log.debug("found m1dy2 format without space."+result);
             return DateUtils.formatDateString(result);
         }
 
         //note it's str not strNoSpace
         result=literalmdy4.parseWithSpaces(str);
-        if(result != null){
+        if(result != null && result.isBefore(DateUtils.getToday())){
             log.debug("found literalMonthDayYear format with space."+result);
             return DateUtils.formatDateString(result);
         }
