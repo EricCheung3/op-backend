@@ -81,6 +81,7 @@ public class DateParserUtils {
     private final static MonthDayYear2 mdy2 = new MonthDayYear2();
     private final static Month1DayYear2 m1dy2 = new Month1DayYear2();
     private final static Year2MonthDay y2md = new Year2MonthDay();
+    private final static DayMonthYear4 dmy4 = new DayMonthYear4();
     private final static LiteralMonthDayYear4 literalmdy4 = new LiteralMonthDayYear4();
     public static String findDateInALine(final String str){
 //        final String strNoSpace=StringCommon.removeAllSpaces(str);
