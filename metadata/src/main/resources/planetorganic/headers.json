@@ -19,7 +19,7 @@
   "CardHeader" : "CARD,Member card number:,VF       MasterCard  ",
   "CouponHeader" : "Store Cpn,VENDOR COUPON",
   "GstNumberHeader" : "GST/HST#,GST#",
-  "CashierHeader" : "YOUR CASHIER TODAY WAS,Served by:",
+  "CashierHeader" : "Clerk:,YOUR CASHIER TODAY WAS,Served by:",
   "RefHeader" : "REF #",
   "AuthorHeader" : "AUTHOR. #, Auth#"
 }
