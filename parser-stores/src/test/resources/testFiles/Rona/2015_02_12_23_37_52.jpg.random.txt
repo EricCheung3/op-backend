@@ -1,0 +1,75 @@
+LIQUORSTORE
+RCLS S. EDM Con~on
+9715 23rd Ave NU Ednonton AB
+26- LIQUOR
+  04816200711 PELLER CAB/MERLO               GHRJ     38.29
+    $38.29 ea or 4/$143.56
+    Age Verified
+    1 @S38.29 ea                                 
+    DEPOSIT 1                                          0.25
+  08500001046 RED CREEK MERLOT              GHRJ       7.99
+    $7.99 ea or 6/$44.94
+    1 @'$7.99 ea                                
+    DEPOSIT 1                                          0.10
+  08500001058 REDWOOD CAB                    GHRJ      7.99
+    $7.99 ea or 6/$44.94
+    1 @$7.99 ea                                  
+    DEPOSIT 1                                          0.10
+  08500001801 RW CREEK MALBEC               GMRJ       7.99
+    $7.99 ea or 6/$44.94
+    1 @S7.99 ea                                 
+    DEPOSIT 1                                          0.10
+  750106419607 CORONA 12PK                   GHRJ     24.29
+    $24.29 es or 4/S91.96
+    1 @$24.29 ea                                 
+    DEPOSIT 1                                          1.20
+41-HOME
+                  PLASTIC BAGS               GRQ       0.05
+SUBTOTAL                                            88.35
+    G=GST 5%       86.60   @   5. 000%                 4.33
+
+TOTAL                                               92.68
+---------TRANSACTION RECORD-------------
+GLOBAL PAYMENTS MERCHANT N53945725704
+RCLS
+9715 23 Ave NU
+EdMonton AB
+STORE 01649             TERM Z0164903
+SLIP N495800            REG 3
+RETAIN THIS COPY FOR YOUR RECORDS
+** Purchase
+Chequing
+                         ** ChiP
+CARD # ***'"**~**·*3138       EXP *·f*·
+Interac
+REF #          AUTH #      RESP 001
+139001001091 216248        ISO 00
+AID: A0000002771010
+TSI F800    TVR 0080008000
+DATE           TIME     AMOUNT
+01/08/2015     16:50:03 $      92.68
+             APPROVED
+
+    DEBIT TND                                        92.68
+                 You could have earned 920
+             PC points uith President's Choice
+             Financial MasterCard. APPlY Today
+                    Visit Pcfinanc1al.ca
+***'**~*n· ·< ****·**n··*··*·****'***'*
+                        GST # 12223-5922 RT0001
+Store Hanager
+Carla     (780) 490-3925
+Thank You, Cone Again !
+DATE: 2015/01/08                                     TIME: 16:50
+Harcel      726                                      03 4958
+~·****'****·*·**'****"*****'l*"******·
+        TELL US HOW UE DID TODAY!
+      HONTflLY CHANCES TO UIN $5000"-
+        UISIT UUU.STOREOPINION.CA
+          OR CALL 1-877 -234-<:322
+   SEE CUST  GHER SERVICE DESK FOR FULL
+  CONTEST RULES OR tHJUTOREOPINION.CA
+                  STORE: 01649
+  CODE: 010815 165003 4958 01649
+*~*~**x***~"'*"**'*'***nx*b'**.'**'**~~
+
