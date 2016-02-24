@@ -169,4 +169,14 @@ public class DateParserUtils {
         return list.get(0);
     }
 
+    public static List<String> getMeaningfulDateWords(final String[] words){
+        final List<String> cleanWords = new ArrayList<String>();
+        for(String w: words){
+            if(DateConstants.DATE_SPLITTERS.contains(w))
+                continue;
+            cleanWords.add(w);
+        }
+        return cleanWords;
+    }
+
 }

@@ -50,6 +50,7 @@ public class LiteralMonthDayYear4 implements DateParser{
                 );
     }
 
+    //TODO similar to DataParserUtils.getMeaningfulWords?
     public static List<String> literalMonthDayYearSplit(final String dateString){
 //      final String[] words = dateString.split("-|_|\\.|\\s+");//not correct. only one dilimiter is selected
 //      http://stackoverflow.com/questions/3654446/java-regex-help-splitting-string-on-spaces-and-commas

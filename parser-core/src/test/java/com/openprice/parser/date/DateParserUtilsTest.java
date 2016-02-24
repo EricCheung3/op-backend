@@ -18,6 +18,14 @@ import lombok.extern.slf4j.Slf4j;
 public class DateParserUtilsTest {
 
 
+    @Test
+    public void getMeaningfulDateWordsTest1(){
+        final String[] words = new String[]{"2007", ".", "01"};
+        final List<String> cleanWords = DateParserUtils.getMeaningfulDateWords(words);
+        assertEquals(2, cleanWords.size());
+        assertEquals("2007", cleanWords.get(0));
+        assertEquals("01", cleanWords.get(1));
+    }
 
     //TODO: this test should pass
 //    @Test
