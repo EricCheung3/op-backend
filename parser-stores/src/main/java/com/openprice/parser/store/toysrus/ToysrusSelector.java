@@ -14,7 +14,7 @@ import com.openprice.store.StoreMetadata;
 @Service
 public class ToysrusSelector extends AbstractStoreParserSelector {
     private Toysrus1 parser;
-    private static final String CODE="Ikea";
+    private static final String CODE="Toysrus";
 
     @Inject
     public ToysrusSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {

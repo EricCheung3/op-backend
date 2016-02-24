@@ -15,7 +15,7 @@ import com.openprice.store.StoreMetadata;
 public class IkeaSelector extends AbstractStoreParserSelector {
     private Ikea1 parser;
 
-    private static final String CODE="EdoJapan";
+    private static final String CODE="Ikea";
 
     @Inject
     public IkeaSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {

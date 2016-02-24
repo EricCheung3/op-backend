@@ -14,7 +14,7 @@ import com.openprice.store.StoreMetadata;
 @Service
 public class SubwaySelector extends AbstractStoreParserSelector {
     private Subway1 parser;
-    private static final String CODE="Toysrus";
+    private static final String CODE="Subway";
 
     @Inject
     public SubwaySelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {

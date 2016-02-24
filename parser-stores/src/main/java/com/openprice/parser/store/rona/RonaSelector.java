@@ -14,7 +14,7 @@ import com.openprice.store.StoreMetadata;
 @Service
 public class RonaSelector extends AbstractStoreParserSelector {
     private Rona1 parser;
-    private static final String CODE="Safeway";
+    private static final String CODE="Rona";
 
     @Inject
     public RonaSelector(final ChainRegistry chainRegistry, final StoreMetadata metadata) {
