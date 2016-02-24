@@ -348,6 +348,12 @@ public class DateParserUtilsTest {
     }
 
     @Test
+    public void lucky97Test1() throws Exception{
+        final String fromLucky97 = "DATE: 23/05/2015 TIME: 5:02:29 PM               HUA";
+        assertEquals("2015/5/23", DateParserUtils.findDateInALine(fromLucky97));
+    }
+
+    @Test
     public void TwoDigitDay() throws Exception{
         final String searsVariant = "01429 15~ 7913 4606631  12/31/13             6:04P";
         assertEquals("2013/12/31", DateParserUtils.findDateInALine(searsVariant));
