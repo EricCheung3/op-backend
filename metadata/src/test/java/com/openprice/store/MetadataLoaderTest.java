@@ -40,6 +40,55 @@ public class MetadataLoaderTest {
         assertTrue(validateLoadingNotCatalogItemNames(_99SUPERMARKET_CODE));
     }
 
+    private static final String IKEA_CODE= "ikea";
+    @Test
+    public void loadMetadataForIKEA_CODE() throws Exception {
+        assertNotNull(metadata.getStoreChainByCode(IKEA_CODE));
+        assertTrue(validateConfigProperties(IKEA_CODE));
+        assertTrue(validateHeaders(IKEA_CODE));
+//        assertTrue(validateSkipBefore(IKEA_CODE));
+        assertTrue(validateSkipAfter(IKEA_CODE));
+        assertTrue(validateIdentify(IKEA_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(IKEA_CODE));
+    }
+
+    private static final String RONA_CODE= "rona";
+    @Test
+    public void loadMetadataForRONA_CODE() throws Exception {
+        assertNotNull(metadata.getStoreChainByCode(RONA_CODE));
+        assertTrue(validateConfigProperties(RONA_CODE));
+        assertTrue(validateHeaders(RONA_CODE));
+//        assertTrue(validateSkipBefore(RONA_CODE));
+        assertTrue(validateSkipAfter(RONA_CODE));
+        assertTrue(validateIdentify(RONA_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(RONA_CODE));
+    }
+
+    private static final String SUBWAY_CODE= "subway";
+    @Test
+    public void loadMetadataForSUBWAY_CODE() throws Exception {
+        assertNotNull(metadata.getStoreChainByCode(SUBWAY_CODE));
+        assertTrue(validateConfigProperties(SUBWAY_CODE));
+        assertTrue(validateHeaders(SUBWAY_CODE));
+//        assertTrue(validateSkipBefore(SUBWAY_CODE));
+        assertTrue(validateSkipAfter(SUBWAY_CODE));
+        assertTrue(validateIdentify(SUBWAY_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(SUBWAY_CODE));
+    }
+
+    private static final String TOYSRUS_CODE= "toysrus";
+    @Test
+    public void loadMetadataForTOYSRUS_CODE() throws Exception {
+        assertNotNull(metadata.getStoreChainByCode(TOYSRUS_CODE));
+        assertTrue(validateConfigProperties(TOYSRUS_CODE));
+        assertTrue(validateHeaders(TOYSRUS_CODE));
+//        assertTrue(validateSkipBefore(TOYSRUS_CODE));
+        assertTrue(validateSkipAfter(TOYSRUS_CODE));
+        assertTrue(validateIdentify(TOYSRUS_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(TOYSRUS_CODE));
+    }
+
+
 
     private static final String PLANETORGANIC_CODE= "planetorganic";
     @Test

@@ -3,7 +3,7 @@ package com.openprice.helper;
 public class PrintCodeForMetadataLoaderTest {
 
     public static void main(String[] args){
-        testCodes("_99supermarket");
+        testCodes("toysrus");
     }
 
     public static void testCodes(final String chain){
