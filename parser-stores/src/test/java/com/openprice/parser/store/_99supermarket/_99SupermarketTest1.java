@@ -48,7 +48,7 @@ public class _99SupermarketTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals(1,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "sf bm chinese chopstick (1opr)",  "1.191", null, 8);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "25.35",12);
-        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2023/5/20",7);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/5/23",7);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "24.14",10);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst#867832214",6);
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "2",15);
@@ -92,7 +92,7 @@ public class _99SupermarketTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedItem(iterator.next(), "yr spinach noodles 600g",  "2.39", null, 50);
         verifyParsedItem(iterator.next(), "yu choy sum [no.1) (bag)#",  "2.15", null, 51);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "103.48",53);
-        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2026/5/20",7);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/5/26",7);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst#867832214",6);
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "36",57);
 
@@ -145,7 +145,7 @@ public class _99SupermarketTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedItem(iterator.next(), "yu choy sum u.s. #230",  "1.83", null, 71);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "116.37",73);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/5/6",7);
-        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "g st8o7832214",6);
+//        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "g st8o7832214",6);
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "37",77);
 
     }

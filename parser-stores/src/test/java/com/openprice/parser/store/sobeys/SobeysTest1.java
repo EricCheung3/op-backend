@@ -63,6 +63,9 @@ public class SobeysTest1 extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testFiles/Sobeys/fromPhone/yuanji_19Feb16.txt")
     private Resource receipt_yuan19Feb16;
 
+    @Value("classpath:/testFiles/Sobeys/branch_82_112st/HuFeb24.txt")
+    private Resource receipt_HuFeb24;
+
     @Inject
     private ChainRegistry chainRegistry;
 
