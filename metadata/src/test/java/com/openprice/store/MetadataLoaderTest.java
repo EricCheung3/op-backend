@@ -29,6 +29,45 @@ public class MetadataLoaderTest {
     private static final String LONDON_DRUGS_CODE="londondrugs";
     private static final String MCDONALDS_CODE="mcdonalds";
 
+    private static final String PLANETORGANIC_CODE= "planetorganic";
+    @Test
+    public void loadMetadataForPLANETORGANIC_CODE() throws Exception {
+        assertNotNull(metadata.getStoreChainByCode(PLANETORGANIC_CODE));
+        assertTrue(validateConfigProperties(PLANETORGANIC_CODE));
+        assertTrue(validateHeaders(PLANETORGANIC_CODE));
+//        assertTrue(validateSkipBefore(PLANETORGANIC_CODE));
+        assertTrue(validateSkipAfter(PLANETORGANIC_CODE));
+        assertTrue(validateIdentify(PLANETORGANIC_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(PLANETORGANIC_CODE));
+    }
+
+
+    private static final String NEWYORKFRIES_CODE= "newyorkfries";
+    @Test
+    public void loadMetadataForNEWYORKFRIES_CODE() throws Exception {
+        assertNotNull(metadata.getStoreChainByCode(NEWYORKFRIES_CODE));
+        assertTrue(validateConfigProperties(NEWYORKFRIES_CODE));
+        assertTrue(validateHeaders(NEWYORKFRIES_CODE));
+//        assertTrue(validateSkipBefore(NEWYORKFRIES_CODE));
+        assertTrue(validateSkipAfter(NEWYORKFRIES_CODE));
+        assertTrue(validateIdentify(NEWYORKFRIES_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(NEWYORKFRIES_CODE));
+    }
+
+
+    private static final String LUCKY97_CODE= "lucky97";
+    @Test
+    public void loadMetadataForLUCKY97_CODE() throws Exception {
+        assertNotNull(metadata.getStoreChainByCode(LUCKY97_CODE));
+        assertTrue(validateConfigProperties(LUCKY97_CODE));
+        assertTrue(validateHeaders(LUCKY97_CODE));
+        assertTrue(validateSkipBefore(LUCKY97_CODE));
+        assertTrue(validateSkipAfter(LUCKY97_CODE));
+        assertTrue(validateIdentify(LUCKY97_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(LUCKY97_CODE));
+    }
+
+
     private static final String NOFRILLS_CODE= "nofrills";
     @Test
     public void loadMetadataForNOFRILLS_CODE() throws Exception {
