@@ -75,6 +75,9 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testFiles/Costco/branch_2616_91st/2015_04_04_21_17_15.jpg.jingwang.txt")
     private Resource receipt_17_15;
 
+    @Value("classpath:/testFiles/Costco/branch_2616_91st/HuFeb25.txt")
+    private Resource receipt_HuFeb25;
+
     @Inject
     private ChainRegistry chainRegistry;
 
@@ -90,6 +93,28 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         assertNotNull(chain);
         assertEquals("costco", chain.getChain().getCode());
         log.debug(chain.getChain().getHeaderProperties().toString());
+    }
+
+    @Test
+    public void receipt_HuFeb25() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_HuFeb25, (line)-> receiptLines.add(line));
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        assertEquals("costco", receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        printResult(receipt);
+        assertEquals(4,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "not se    :d bri",  "8.999", null, 11);
+        verifyParsedItem(iterator.next(), "ack",  "8.99", null, 12);
+        verifyParsedItem(iterator.next(), "builde    l bar",  "19.69", null, 13);
+        verifyParsedItem(iterator.next(), "welch'    ; 50ct",  "9.99", null, 14);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/12/7",21);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst s12h7-6329rt",44);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "49.06",18);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "#** cardholder copy xxx",37);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "47.66",15);
     }
 
     @Test
