@@ -36,7 +36,7 @@ public class RonaTest1 extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testFiles/rona/2015_07_21_15_26_45.jpg.beata.txt")
     private Resource receipt_2015_07_21_15_26_45;
 
-    //TODO this is RLCS
+    //TODO this is RLCS receipt contains "CORONA"
     @Test
     public void receipt_2015_02_12_23_37_52()  throws Exception {
         final List<String> receiptLines = new ArrayList<>();
