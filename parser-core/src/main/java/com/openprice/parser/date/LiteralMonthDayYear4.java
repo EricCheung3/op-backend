@@ -43,11 +43,16 @@ public class LiteralMonthDayYear4 implements DateParser{
             log.debug(str);
         if(words.size() < 3)
             return null;
-        return DateUtils.fromDayMonthYear(
-                words.get(1),
-                DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
-                words.get(2)
-                );
+        try{
+            return DateUtils.fromDayMonthYear(
+                    words.get(1),
+                    DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
+                    words.get(2)
+                    );
+        }catch(Exception e){
+            log.warn(e.getMessage());
+        }
+        return null;
     }
 
     //TODO similar to DataParserUtils.getMeaningfulWords?
