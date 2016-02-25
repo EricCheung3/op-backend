@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import com.openprice.parser.price.ThreeStrings;
 
+//TODO only parse with no spaces is tested
 public class MonthDayYear4Test {
 
     private final MonthDayYear4 mdy4 = new MonthDayYear4();

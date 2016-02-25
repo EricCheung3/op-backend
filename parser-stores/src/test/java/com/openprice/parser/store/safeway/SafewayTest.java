@@ -118,4 +118,82 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
 //        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-435-5132",1);//TODO wrong branch
 
     }
+
+    @Value("classpath:/testFiles/Safeway/fromPhone/csabaFeb24.txt")
+    private Resource receipt_CsabaFeb24;
+    @Test
+    public void receipt_CsabaFeb24() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_CsabaFeb24, (line)-> receiptLines.add(line));
+
+        assertTrue(receiptLines.size() > 0);
+
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        printResult(receipt);
+        final Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(9,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 14);
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 18);
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 22);
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 26);
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.0", "lucerne milk 2% 2l", 30);
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "349.", "lucerne milk 2% 2l", 33);
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 36);
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 39);
+        verifyParsedItem(iterator.next(), "bread a rti san french",  "1.29", "bread a rti san french", 46);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "approved",76);
+//        verifyParsedField(fieldValues, ReceiptFieldType.Author, "auth # 093472                                                                     ref  00000224",75);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "phone. 780.435.5132",7);
+        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "serve# by: sco 20",9);
+//        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "0.00",51);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "27.012",52);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "27.02",50);
+        verifyParsedField(fieldValues, ReceiptFieldType.Card, "card mastercard                                                                   rcpt 3321000",72);
+//        verifyParsedField(fieldValues, ReceiptFieldType.StoreBranch, "?                                    safeway i\",0);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "500",75);
+        verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "number of items                                                                                      10",55);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2016/2/23",74);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst# 817093735",8);
+    }
+
+    @Value("classpath:/testFiles/Safeway/fromPhone/ElisFeb24.txt")
+    private Resource receipt_Elis24;
+    @Test
+    public void receipt_Elis24() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_CsabaFeb24, (line)-> receiptLines.add(line));
+
+        assertTrue(receiptLines.size() > 0);
+
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        printResult(receipt);
+        final Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(9,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 14);
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 18);
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 22);
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 26);
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.0", "lucerne milk 2% 2l", 30);
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "349.", "lucerne milk 2% 2l", 33);
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 36);
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 39);
+        verifyParsedItem(iterator.next(), "bread a rti san french",  "1.29", "bread a rti san french", 46);
+        //TODO missing banana because it is multi-line
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst# 817093735",8);
+        verifyParsedField(fieldValues, ReceiptFieldType.Card, "card mastercard                                                                   rcpt 3321000",72);
+//        verifyParsedField(fieldValues, ReceiptFieldType.Author, "auth # 093472                                                                     ref  00000224",75);
+        verifyParsedField(fieldValues, ReceiptFieldType.Recycle, "?ehc                                                                                           $0.08 r",40);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "27.02",50);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "approved",76);
+//        verifyParsedField(fieldValues, ReceiptFieldType.StoreBranch, "?                                    safeway i\",0);
+        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "serve# by: sco 20",9);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2016/2/23",74);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "500",75);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "27.012",52);
+        verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "number of items                                                                                      10",55);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "phone. 780.435.5132",7);
+
+    }
 }

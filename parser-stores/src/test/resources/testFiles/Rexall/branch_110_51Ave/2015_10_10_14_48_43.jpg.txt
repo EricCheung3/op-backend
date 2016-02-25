@@ -1,0 +1,69 @@
+
+
+        REXALL
+DESCRIPTION          QTY   UNIT         TOTAL
+                          PRICE         PRICE
+SE CLOTH                1 $5.59          $5.59 GPr
+  04160800101
+SUM EVE DEO ISL         1 $6.39          $6.39 GPr
+  04160800005
+AQUAFINA WATER          1 $1.89          $1.89 G
+  06900006101
+ALB BTL DEP             1 $0.10          $0.10
+  80048
+
+SUBTOTAL                          $13.97
+GST                                 $0.69
+TOTAL                             $14.66
+DEBIT                             $14.66
+CHRNGE DUE                             SO .oo
+
+YOU        SAVED        $   3.OO
+
+Items * 3
+
+85251     TILL# 2   11125   DATE: 10/05/2015 TIME: 16:18:11
+
+
+
+
+            SOUTHGATE REXALL #7253
+        468 SOUTHGATE SHOPPING CENTRE
+          EDMONTON, ALBERTA T6H 4N6
+                780-434-0451
+
+SLIP: 85251     TILL: 2 CLERK: 11125
+
+TYPE: PURCHASE
+
+ACCT: INTERAC CHEQUING
+AMOUNT:                     $14.66
+CASHBACK:                     $ 0.00
+TOTAL:                      $14.66
+
+CARD NUMBER:          #***###**###6401
+DATE/TIME:            05 OCT 2015 16:18:41
+REFERENCE #:          662204960010012990 C
+AUTH #:               659228
+INTERAC
+A0000002771010
+80800080006800
+
+         00 APPROVED - THANK YOU 001
+
+           *** CARDHOLDER COPY ***
+
+
+468 SOUTHGATE SHOPPING CENTRE, EDMONTON,
+780-434-0451 GST#R104175823
+
+
+
+ # # * * # * # # # # # # # # # # # # # #
+    VISIT www.tellrexall.ca to receive
+  $5 OFF next $25 PURCHASE, PLUS receive
+  10 CHANCES to WIN $1000 CASH! OR call
+ 1-855-340-7505 for 1 entry to win $1000
+     SURVEY ENTRY CODE: 725302085251
+ * * * * * * * * * * * * * * * * * * * *
+
