@@ -18,6 +18,7 @@ public class PetroCanada1 extends AbstractStoreParser {
         fieldParsers.put(ReceiptFieldType.SubTotal,  line -> FieldParserCommon.parseItemPrice(line.getCleanText(), config.priceTail()));
         fieldParsers.put(ReceiptFieldType.Total,  line -> FieldParserCommon.parseTotal(line.getCleanText()));
         fieldParsers.put(ReceiptFieldType.Date,  line -> FieldParserCommon.parseDate(line));
-        fieldParsers.put(ReceiptFieldType.UnitPrice,  line -> GasStationCommon.parseUnitPrice(line, config.getFieldHeaderMatchStrings(ReceiptFieldType.UnitPrice)));
+        fieldParsers.put(ReceiptFieldType.TotalSold,  line -> GasStationCommon.parseTotalSoldLiters(line));
+        fieldParsers.put(ReceiptFieldType.UnitPrice,  line -> GasStationCommon.parseUnitPrice(line.getCleanText(), config.getFieldHeaderMatchStrings(ReceiptFieldType.UnitPrice)));
     }
 }

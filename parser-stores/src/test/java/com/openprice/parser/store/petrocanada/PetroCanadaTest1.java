@@ -37,14 +37,15 @@ public class PetroCanadaTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("petrocanada", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(2,receipt.getItems().size());
-        verifyParsedItem(iterator.next(), "pump",  "04", null, 15);
-        verifyParsedItem(iterator.next(), "fuel sales",  "40.10", null, 19);
-        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/11/14",13);
-        verifyParsedField(fieldValues, ReceiptFieldType.Account, "*******~********** **",52);
-        verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "litres         l 38.598",17);
+        assertEquals(0,receipt.getItems().size());
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "* gst incl. $      1.91",25);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "40.10",20);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "*******~********** **",52);
+        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "pump                   04",15);
+        verifyParsedField(fieldValues, ReceiptFieldType.UnitPrice, "1.039",18);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/11/14",13);
+        verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "38.598",17);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "40.10",19);
     }
 
 

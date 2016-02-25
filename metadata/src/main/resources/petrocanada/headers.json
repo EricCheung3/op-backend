@@ -8,7 +8,7 @@
   "RegularPriceHeader" : "",
   "SavingHeader" : "",
   "ApprovedHeader" : "APPROVED",
-  "SubTotalHeader" : "SUBTOTAL",
+  "SubTotalHeader" : "fuel sales,SUBTOTAL",
   "GstAmountHeader" : "G=GST 5% ",
   "ThankYouHeader" : "Thank You, Come Again !",
   "PhoneHeader" : "Phone#",
