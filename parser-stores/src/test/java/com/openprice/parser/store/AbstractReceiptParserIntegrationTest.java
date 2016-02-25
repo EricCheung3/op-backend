@@ -65,8 +65,9 @@ public class AbstractReceiptParserIntegrationTest {
         }
 
         for (ReceiptFieldType field : receipt.getFields().keySet()) {
+            final String value = removeNonPrintableChars(receipt.getFields().get(field).getFieldValue()).replace("\"", "\\\"");
             System.out.println("verifyParsedField(fieldValues, ReceiptFieldType."+ field +", \""
-                    + removeNonPrintableChars(receipt.getFields().get(field).getFieldValue()) +"\","
+                    +  value +"\","
                     + receipt.getFields().get(field).getLineNumber()+");");
         }
     }
