@@ -26,11 +26,14 @@ import com.openprice.rest.ResourceNotFoundException;
 import com.openprice.store.CatalogProduct;
 import com.openprice.store.StoreMetadata;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * REST API Controller for current user shopping list store management.
  *
  */
 @RestController
+@Slf4j
 public class ShoppingStoreRestController extends AbstractUserStoreRestController {
 
     private final StoreMetadata storeMetadata;
@@ -75,6 +78,7 @@ public class ShoppingStoreRestController extends AbstractUserStoreRestController
     public HttpEntity<Void> deleteUserShoppingStoreById(
             @PathVariable("storeId") final String storeId) throws ResourceNotFoundException {
         final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
+        log.info("User {} delete shopping store '{}'.", store.getUser().getUsername(), store.getChainCode());
         shoppingStoreRepository.delete(store);
         return ResponseEntity.noContent().build();
     }

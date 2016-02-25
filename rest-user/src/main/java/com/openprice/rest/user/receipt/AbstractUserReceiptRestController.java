@@ -41,7 +41,6 @@ public abstract class AbstractUserReceiptRestController extends AbstractUserRest
     protected Receipt getReceiptByIdAndCheckUser(final String receiptId)
             throws ResourceNotFoundException, AccessDeniedException {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
-        log.info("User {} works on receipt {}...", currentUser.getUsername(), receiptId);
         final Receipt receipt = receiptRepository.findOne(receiptId);
         if (receipt == null) {
             log.warn("ILLEGAL RECEIPT ACCESS! No such receipt Id: {}.", receiptId);

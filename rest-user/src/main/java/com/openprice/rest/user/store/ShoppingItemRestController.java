@@ -132,6 +132,7 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
     @Transactional
     private ShoppingItem newShoppingItem(final String storeId, final CreateShoppingItemForm form) {
         final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
+        log.info("User {} creat shopping item {} for store '{}'.", store.getUser().getUsername(), form.toString(), store.getChainCode());
         return shoppingService.addShoppingItemToStore(store, form.getCatalogCode(), form.getName());
     }
 

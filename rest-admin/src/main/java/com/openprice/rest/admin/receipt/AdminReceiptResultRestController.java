@@ -81,11 +81,11 @@ public class AdminReceiptResultRestController extends AbstractReceiptAdminRestCo
      * @return
      */
     @RequestMapping(method = RequestMethod.POST, value = URL_ADMIN_RECEIPTS_RECEIPT_RESULTS)
-    public HttpEntity<Void> updateParserResultByReceiptId(
+    public HttpEntity<Void> addParserResultByReceiptId(
             @PathVariable("receiptId") final String receiptId) throws ResourceNotFoundException {
         final Receipt receipt = loadReceiptById(receiptId);
 
-        final ReceiptResult result = receiptParsingService.parseReceiptImagesByOCR(receipt);
+        final ReceiptResult result = receiptParsingService.reparseReceiptImageOcrText(receipt);
         if (result != null) {
             final URI location = linkTo(methodOn(AdminReceiptResultRestController.class).getReceiptResultById(receiptId, result.getId())).toUri();
             return ResponseEntity.created(location).build();
