@@ -20,6 +20,9 @@ import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.api.StoreParserSelector;
+import com.openprice.parser.data.FoundChainAt;
+import com.openprice.parser.data.StoreChainCodeFound;
+import com.openprice.parser.data.StoreChainFound;
 import com.openprice.parser.data.StringInt;
 import com.openprice.parser.date.DateParserUtils;
 import com.openprice.parser.generic.CheapParser;
@@ -58,13 +61,24 @@ public class SimpleParser implements ReceiptParser {
 
     private ParsedReceipt parseReceiptData(final ReceiptData receipt) throws Exception {
         // find chain first through chainRegistry (which we have specialized store parser)
-        final StoreChain chain = chainRegistry.findBestMatchedChain(receipt);
-        if (chain == null) {
-            log.warn("No specific parser for this chain yet!");
+        final StoreChainFound chainFound = chainRegistry.findBestMatchedChain(receipt);
+        final GenericChains chains = new GenericChains("/config/Generic/chain.list"); //TODO use meta data
+        final StoreChainCodeFound genericChainCodeFound = chains.findChain(receipt.getOriginalLines());
+
+        final StoreChain chain = chainFound.getChain();
+        log.info("ChainRegistry find matching chain " + chain.getCode() + ", at "+ chainFound.getFoundAt());
+        final String genericChainCode = genericChainCodeFound.getChainCode().toLowerCase();
+        log.info("Generic chains find matching chain " + genericChainCode + ", at "+ genericChainCodeFound.getFoundAt());
+
+        if (chain == null ||
+                (chainFound.getFoundAt() != FoundChainAt.BEGIN &&
+                genericChainCodeFound.getFoundAt() == FoundChainAt.BEGIN)
+        ) {
+            if(chain==null)
+                log.warn("No specific parser for this chain yet!");
+            else
+                log.warn("With chainregistry, the chain code was found at the end. We decide to trust generic chain which is found in the beginning. ");
             try{
-                //TODO use meta data
-                final GenericChains chains = new GenericChains("/config/Generic/chain.list");
-                final String genericChainCode = chains.findChain(receipt.getOriginalLines()).toLowerCase();
                 log.info("genericChainCode="+genericChainCode);
                 return GenericParser.parse(StoreChain.genericChainWithOnlyCode(genericChainCode), receipt);
             } catch(Exception ex) {
@@ -72,7 +86,6 @@ public class SimpleParser implements ReceiptParser {
                 return new CheapParser().parseReceiptOcrResult(receipt.getOriginalLines());
             }
         }
-        log.info("Parse receipt and find matcing chain {}", chain.getCode());
 
         // get store branch
         final StoreBranch branch = StoreChainUtils.matchBranchByScoreSum(chain, receipt);

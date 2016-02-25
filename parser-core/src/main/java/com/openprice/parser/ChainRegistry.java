@@ -14,7 +14,9 @@ import com.openprice.common.StringCommon;
 import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.ReceiptLine;
 import com.openprice.parser.api.StoreParserSelector;
+import com.openprice.parser.data.FoundChainAt;
 import com.openprice.parser.data.ScoreWithMatchPair;
+import com.openprice.parser.data.StoreChainFound;
 import com.openprice.store.StoreChain;
 
 import lombok.Getter;
@@ -47,11 +49,12 @@ public class ChainRegistry {
         return chainToParserSelector.get(chainCode);
     }
 
+
     /*
      * prefer finding in the begin, then in the end, and then middle
      *
      */
-    public StoreChain findBestMatchedChain(final ReceiptData receipt) {
+    public StoreChainFound findBestMatchedChain(final ReceiptData receipt) {
         final int lastLineOfBegin=CHAIN_SEARCH_NUMBER_LINES;
         final ScoreWithMatchPair<StoreChain> foundAtBegin = findBestMatchedChain(receipt, 0, lastLineOfBegin);
         log.debug("receipt.size="+receipt.getOriginalLines().size());
@@ -72,21 +75,21 @@ public class ChainRegistry {
                 && foundAtEnd != null
 //                && foundAtBegin.getScore() >= foundAtEnd.getScore()
                 && foundAtBegin.getScore() > CHAIN_IDENTIFY_MATCH_THRESHOLD)
-            return foundAtBegin.getMatch();
+            return new StoreChainFound(foundAtBegin.getMatch(), FoundChainAt.BEGIN);
 
         if(foundAtEnd !=null
                 && foundAtBegin != null
                 && foundAtEnd.getScore() > foundAtBegin.getScore()
                 && foundAtEnd.getScore() > CHAIN_IDENTIFY_MATCH_THRESHOLD)
-            return foundAtEnd.getMatch();
+            return new StoreChainFound(foundAtEnd.getMatch(), FoundChainAt.END);
 
         if(foundAtBegin != null
                 && foundAtBegin.getScore() > CHAIN_IDENTIFY_MATCH_THRESHOLD)
-            return foundAtBegin.getMatch();
+            return new StoreChainFound(foundAtBegin.getMatch(), FoundChainAt.BEGIN);
 
         if(foundAtEnd !=null
                 && foundAtEnd.getScore() > CHAIN_IDENTIFY_MATCH_THRESHOLD)
-            return foundAtEnd.getMatch();
+            return new StoreChainFound(foundAtEnd.getMatch(), FoundChainAt.END);
 
         final ScoreWithMatchPair<StoreChain> foundAtMiddle = findBestMatchedChain(receipt, lastLineOfBegin+1, firstLineOfEnd-1);
         if(foundAtMiddle==null)
@@ -95,7 +98,7 @@ public class ChainRegistry {
             log.debug("foundAtMiddle: "+foundAtMiddle.getMatch().getCode()+", score="+foundAtMiddle.getScore());
         if(foundAtMiddle !=null
                 && foundAtMiddle.getScore() > CHAIN_IDENTIFY_MATCH_THRESHOLD)
-            return foundAtMiddle.getMatch();
+            return new StoreChainFound(foundAtMiddle.getMatch(), FoundChainAt.MIDDLE);
 
         return null;
     }

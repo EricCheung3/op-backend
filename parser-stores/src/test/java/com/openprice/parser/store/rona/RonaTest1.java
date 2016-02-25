@@ -36,15 +36,15 @@ public class RonaTest1 extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testFiles/Rona/2015_07_21_15_26_45.jpg.beata.txt")
     private Resource receipt_2015_07_21_15_26_45;
 
-    //TODO this is RLCS receipt contains "CORONA"
+    //Note this is RCLS receipt contains "CORONA"
     @Test
-    public void receipt_2015_02_12_23_37_52()  throws Exception {
+    public void receipt_2015_02_12_23_37_52ShouldFindRCLS_Not_RONA()  throws Exception {
         final List<String> receiptLines = new ArrayList<>();
         TextResourceUtils.loadFromTextResource(receipt_2015_02_12_23_37_52, (line)-> receiptLines.add(line));
         assertTrue(receiptLines.size() > 0);
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         printResult(receipt);
-        assertEquals("rona", receipt.getChainCode());
+        assertEquals("rcls", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(6,receipt.getItems().size());

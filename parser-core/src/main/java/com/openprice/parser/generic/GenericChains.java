@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openprice.common.Levenshtein;
 import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
+import com.openprice.parser.data.FoundChainAt;
+import com.openprice.parser.data.StoreChainCodeFound;
 import com.openprice.parser.data.StringDouble;
 
 import lombok.Value;
@@ -36,9 +38,9 @@ public class GenericChains {
         this(TextResourceUtils.loadStringArray(resourceFile));
     }
 
-    public String findChain(final List<String> lines){
+    public StoreChainCodeFound findChain(final List<String> lines){
         if (lines == null || lines.isEmpty())
-            return StringCommon.EMPTY;
+            return new StoreChainCodeFound(StringCommon.EMPTY, FoundChainAt.NOT_FOUND);
 
         // find the meaningful lines in the beginning and end
         int begin = -1;
@@ -54,7 +56,7 @@ public class GenericChains {
         // fast mode: searching a few number of lines from beginning.
         StringDouble chainBegin = chainNameSearch(lines, begin, begin + NUM_SEARCHED_LINES_AT_BEGIN);
         if (chainBegin.getValue() > 0.75)
-            return chainBegin.getStr();
+            return new StoreChainCodeFound(chainBegin.getStr(), FoundChainAt.BEGIN);
 
         int end = -1;
         for (int i = lines.size() - 1; i >= 0; i--) {
@@ -72,18 +74,18 @@ public class GenericChains {
         //prefer finding in the begin and end, and then middle
         if (chainEnd.getValue() > chainBegin.getValue() &&
             chainEnd.getValue() > CHAIN_SIMILARITY_SCORE)
-            return chainEnd.getStr();
+            return new StoreChainCodeFound(chainEnd.getStr(), FoundChainAt.END);
 
         if (chainBegin.getValue() > chainEnd.getValue() &&
             chainBegin.getValue() > CHAIN_SIMILARITY_SCORE)
-            return chainBegin.getStr();
+            return new StoreChainCodeFound(chainBegin.getStr(), FoundChainAt.BEGIN);
 
         StringDouble chainMiddle = chainNameSearch(lines, begin + NUM_SEARCHED_LINES_AT_BEGIN + 1, end- NUM_SEARCHED_LINES_AT_END - 1);
         log.debug("#####searching in the middle: chain=" + chainMiddle.getStr() + ", score=" + chainMiddle.getValue());
         if (chainMiddle.getValue() > CHAIN_SIMILARITY_SCORE){
-            return chainMiddle.getStr();
+            return new StoreChainCodeFound(chainMiddle.getStr(), FoundChainAt.MIDDLE);
         }
-        return StringCommon.EMPTY;
+        return new StoreChainCodeFound(StringCommon.EMPTY, FoundChainAt.NOT_FOUND);
     }
 
     /*

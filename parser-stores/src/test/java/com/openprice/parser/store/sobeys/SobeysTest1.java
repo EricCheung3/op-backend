@@ -24,8 +24,8 @@ import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
+import com.openprice.parser.data.StoreChainFound;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
-import com.openprice.store.StoreChain;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -77,10 +77,10 @@ public class SobeysTest1 extends AbstractReceiptParserIntegrationTest{
         assertNotNull(chainRegistry);
         assertTrue(chainRegistry.getStoreChains().size()>0);
         log.debug(chainRegistry.getStoreChains().toString());
-        final StoreChain chain=chainRegistry.findBestMatchedChain(ReceiptDataImpl.fromContentLines(receiptLines));
+        final StoreChainFound chain=chainRegistry.findBestMatchedChain(ReceiptDataImpl.fromContentLines(receiptLines));
         assertNotNull(chain);
-        assertEquals("sobeys", chain.getCode());
-        log.debug(chain.getHeaderProperties().toString());
+        assertEquals("sobeys", chain.getChain().getCode());
+        log.debug(chain.getChain().getHeaderProperties().toString());
     }
 
     @Test
