@@ -79,7 +79,6 @@ public class SimpleParser implements ReceiptParser {
             else
                 log.warn("With chainregistry, the chain code was found at the end. We decide to trust generic chain which is found in the beginning. ");
             try{
-                log.info("genericChainCode="+genericChainCode);
                 return GenericParser.parse(StoreChain.genericChainWithOnlyCode(genericChainCode), receipt);
             } catch(Exception ex) {
                 log.warn("exception in calling generic parser: {}. now call cheapParser!", ex.getMessage());
