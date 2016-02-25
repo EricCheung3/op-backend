@@ -33,7 +33,7 @@ public class MetadataLoaderTest {
     @Test
     public void loadMetadataForSPORTCHEK_CODE() throws Exception {
         assertNotNull(metadata.getStoreChainByCode(SPORTCHEK_CODE));
-//        assertTrue(validateConfigProperties(SPORTCHEK_CODE));
+        assertTrue(validateConfigProperties(SPORTCHEK_CODE));
         assertTrue(validateHeaders(SPORTCHEK_CODE));
 //        assertTrue(validateSkipBefore(SPORTCHEK_CODE));
         assertTrue(validateSkipAfter(SPORTCHEK_CODE));

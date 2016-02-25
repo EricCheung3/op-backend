@@ -42,12 +42,11 @@ public class SportChekTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("sportchek", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(3,receipt.getItems().size());
-        verifyParsedItem(iterator.next(), "?    sport chek", null, null, 0);
-        verifyParsedItem(iterator.next(), "u.p.c",  "0", null, 11);
+        assertEquals(1,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "nike team trg",  "55.00", null, 13);
-        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/5/11",6);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "55.00",15);
+        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "cashier:20051 breanna c",7);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/5/11",6);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst/hst 869618785",45);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "57.75",17);
     }
@@ -62,14 +61,13 @@ public class SportChekTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("sportchek", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(2,receipt.getItems().size());
+        assertEquals(0,receipt.getItems().size());
         //TODO missing an item because no widepace?
-        verifyParsedItem(iterator.next(), "?    sport chek", null, null, 0);
-        verifyParsedItem(iterator.next(), "u.p.c",  "0", null, 10);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "179.99",15);
-        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/11/8",5);
-        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst/hst 869618785",45);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "188.99",17);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/11/8",5);
+        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "cashier:24713 sylvi l",6);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst/hst 869618785",45);
     }
 
 
