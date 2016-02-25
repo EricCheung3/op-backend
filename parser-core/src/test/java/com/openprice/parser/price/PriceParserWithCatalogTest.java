@@ -19,7 +19,7 @@ public class PriceParserWithCatalogTest {
     @Test
     public void noItemNumberIsOkay(){
         final ProductPrice pp= parser.parsePriceLine(" RIDER INSULATE $179.99 16  ");
-        assertEquals("RIDER INSULATE", pp.getName());//TODO clearning $ somewhere else?
+        assertEquals("RIDER INSULATE", pp.getName());
         assertEquals("", pp.getNumber());
         assertEquals("179.9916", pp.getPrice());
     }
