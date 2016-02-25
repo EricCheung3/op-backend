@@ -13,12 +13,12 @@ import com.jayway.restassured.response.Response;
 
 @DatabaseSetup("classpath:/data/testAdmin.xml")
 public class AdminReceiptFeedbackRestApiIT extends AbstractAdminReceiptRestApiIntegrationTest {
-    
+
     @Test
     public void getReceiptFeedbacks_ShouldReturnFeedbacksFromDatabase() throws Exception {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
-        
-        Response response = 
+
+        Response response =
                 given()
                     .filter(sessionFilter)
                 .when()
@@ -33,17 +33,17 @@ public class AdminReceiptFeedbackRestApiIT extends AbstractAdminReceiptRestApiIn
             .body("_embedded.receiptFeedbacks[0].comment", equalTo("Excellent!"))
         ;
     }
-    
+
     @Test
     public void getReceiptFeedbacks_ShouldReturnFeedbackFromDatabase() throws Exception {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
-        
-        Response response = 
-                given()
-                    .filter(sessionFilter)
-                .when()
-                    .get(receiptFeedbackUrl(sessionFilter, "receipt001", "receipt001feedback001"));
 
+        Response response =
+            given()
+                .filter(sessionFilter)
+            .when()
+                .get(receiptFeedbackUrl(sessionFilter, "receipt001", "receipt001feedback001"));
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
