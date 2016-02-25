@@ -19,7 +19,6 @@ public class SimpleParserUtils {
             final StoreParser parser) throws Exception {
         final int stopLine = (matchedRecord == null) ? receipt.getReceiptLines().size() :
                                                        Math.min(matchedRecord.itemStopLineNumber(), receipt.getReceiptLines().size());
-        //        parser.getStoreConfig().getCatalogFilter().getBlackList().forEach(line->log.debug(line+"\n"));
 
         return
                 receipt.getReceiptLines()
