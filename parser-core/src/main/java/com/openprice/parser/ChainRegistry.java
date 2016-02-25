@@ -59,7 +59,7 @@ public class ChainRegistry {
         final ScoreWithMatchPair<StoreChain> foundAtBegin = findBestMatchedChain(receipt, 0, lastLineOfBegin);
         log.debug("receipt.size="+receipt.getOriginalLines().size());
         if(foundAtBegin==null)
-            log.warn("foundAtBegin=null");
+            log.debug("foundAtBegin=null");
         else
             log.debug("foundAtBegin: "+foundAtBegin.getMatch().getCode()+", score="+foundAtBegin.getScore());
 
@@ -67,7 +67,7 @@ public class ChainRegistry {
         //TODO: is receipt.getReceiptLines().size() the same as the largest original line number? Did you guarantee this through interface?
         final ScoreWithMatchPair<StoreChain> foundAtEnd = findBestMatchedChain(receipt,  firstLineOfEnd, receipt.getReceiptLines().size());
         if(foundAtEnd==null)
-            log.warn("foundAtEnd=null");
+            log.debug("foundAtEnd=null");
         else
             log.debug("foundAtEnd: "+foundAtEnd.getMatch().getCode()+", score="+foundAtEnd.getScore());
 
@@ -93,7 +93,7 @@ public class ChainRegistry {
 
         final ScoreWithMatchPair<StoreChain> foundAtMiddle = findBestMatchedChain(receipt, lastLineOfBegin+1, firstLineOfEnd-1);
         if(foundAtMiddle==null)
-            log.warn("foundAtMiddle=null");
+            log.debug("foundAtMiddle=null");
         else
             log.debug("foundAtMiddle: "+foundAtMiddle.getMatch().getCode()+", score="+foundAtMiddle.getScore());
         if(foundAtMiddle !=null
@@ -107,8 +107,8 @@ public class ChainRegistry {
         final List<ReceiptLine> lines = receipt.getReceiptLines();
         //log.debug("TopBottom matching lines:\n"+lines);
         //log.debug("search chains in registry with "+storeChains);
-        log.debug("storeChain lists.size="+storeChains.size()+":");
-        storeChains.forEach(c -> log.debug(c.getCode()));
+        //log.debug("storeChain lists.size="+storeChains.size()+":");
+        //storeChains.forEach(c -> log.debug(c.getCode()));
 
         final Optional<ScoreWithMatchPair<StoreChain>> maxChainMatch =
                 storeChains
