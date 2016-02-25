@@ -36,6 +36,7 @@ public class RonaTest1 extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testFiles/rona/2015_07_21_15_26_45.jpg.beata.txt")
     private Resource receipt_2015_07_21_15_26_45;
 
+    //TODO this is RLCS
     @Test
     public void receipt_2015_02_12_23_37_52()  throws Exception {
         final List<String> receiptLines = new ArrayList<>();
@@ -46,6 +47,22 @@ public class RonaTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rona", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(6,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "peller cab/merlo    ghrj",  "38.29", null, 4);
+        verifyParsedItem(iterator.next(), "red creek merlot    ghrj",  "7.99", null, 9);
+        verifyParsedItem(iterator.next(), "redwood cab    ghrj",  "7.99", null, 13);
+        verifyParsedItem(iterator.next(), "rw creek malbec    gmrj",  "7.99", null, 17);
+        verifyParsedItem(iterator.next(), "corona 12pk    ghrj",  "24.29", null, 21);
+        verifyParsedItem(iterator.next(), "plastic bags    grq",  "0.05", null, 26);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "88.35",27);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/1/8",62);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "ref #          auth #      resp 001",44);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst # 12223-5922 rt0001",58);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store: 01649",71);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "92.68",30);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "approved",50);
+//        verifyParsedField(fieldValues, ReceiptFieldType.Account, "~****'*******'****"*****'l*"******",64);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "4.33",28);
 
     }
 
@@ -59,6 +76,17 @@ public class RonaTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rona", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(3,receipt.getItems().size());
+//        verifyParsedItem(iterator.next(), "ve .", null, null, 2);
+//        verifyParsedItem(iterator.next(), "item    qty    price",  "0", null, 11);
+        verifyParsedItem(iterator.next(), "vinyl sheet pre cut stone 6x9'",  "35.999", null, 14);
+        verifyParsedItem(iterator.next(), "original price:",  "39.99", null, 15);
+        verifyParsedItem(iterator.next(), "you    saved    today :",  "4.00", null, 19);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "40.48",21);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/1/25",44);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "42.50",24);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst/hst              ~   103039624",33);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "carpet tape d.face 38mx12m                          4.49g",17);
 
     }
 
@@ -72,6 +100,24 @@ public class RonaTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rona", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(10,receipt.getItems().size());
+//        verifyParsedItem(iterator.next(), "item    qty    price",  "0.", null, 9);
+        verifyParsedItem(iterator.next(), "seed vegetables packet",  "1.699", null, 12);
+        verifyParsedItem(iterator.next(), "seed vegetables packet",  "1.899", null, 14);
+        verifyParsedItem(iterator.next(), "seed vegetables packet",  "1.699", null, 16);
+        verifyParsedItem(iterator.next(), "seed vegetables packet",  "1.699", null, 18);
+        verifyParsedItem(iterator.next(), "deluxe 9- function water wand",  "9.999", null, 20);
+        verifyParsedItem(iterator.next(), "hose garden ld 1/2\"x50' green",  "17.999", null, 22);
+        verifyParsedItem(iterator.next(), "transplanter 31cm bk",  "6.999", null, 24);
+        verifyParsedItem(iterator.next(), "rake bow 59 \" gn .",  "12.999", null, 26);
+        verifyParsedItem(iterator.next(), "$ manure cow 30lt",  "3.599", null, 28);
+        verifyParsedItem(iterator.next(), "$ manure cow 30lt",  "3.599", null, 30);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst / hst ~ 1030 39624",47);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "62.10",33);
+        verifyParsedField(fieldValues, ReceiptFieldType.Time, "time: 16:55",59);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/4/17",58);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "65.21",36);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "acct1 * ************80 17",38);
 
     }
 
@@ -85,9 +131,9 @@ public class RonaTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rona", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(4,receipt.getItems().size());
-        verifyParsedItem(iterator.next(), "ed~o n ton, ab",  "6.64", null, 3);
-        verifyParsedItem(iterator.next(), "ileh    qty    price",  "01", null, 8);
+        assertEquals(2,receipt.getItems().size());
+//        verifyParsedItem(iterator.next(), "ed~o n ton, ab",  "6.64", null, 3);
+//        verifyParsedItem(iterator.next(), "ileh    qty    price",  "01", null, 8);
         verifyParsedItem(iterator.next(), "tape thread sealing 1/2x480\"wh",  "0.779", null, 12);
         verifyParsedItem(iterator.next(), "faucet kitchen 1h.lever 8\" cr",  "72.999", null, 14);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "73.76",17);
