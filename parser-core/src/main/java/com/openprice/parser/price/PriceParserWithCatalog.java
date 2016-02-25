@@ -105,7 +105,7 @@ public class PriceParserWithCatalog {
         if(pPrice2!=null &&  !pPrice2.isEmpty()) return pPrice2;
 
         //allow item from a long line with no widepaces
-        if(line.trim().length()>=10){
+        if(line.trim().length()>=30){
             final List<String> words = pruneAndSplitLongString(line);
             try{
                 pPrice2=priceParser.fromThreeStrings(new ThreeStrings(words.get(0), "", words.get(1)));
@@ -124,8 +124,12 @@ public class PriceParserWithCatalog {
         final String head = StringCommon.removeMatchingTail(line, price);
 //        log.debug("head="+head);
 //        log.debug("price="+price);
-        result.add(head);
-        result.add(price);
+        if(head.endsWith("$"))
+            result.add(head.substring(0, head.length()-1).trim());
+        else
+            result.add(head.trim());
+
+        result.add(price.trim());
         return result;
     }
 
