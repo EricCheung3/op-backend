@@ -29,6 +29,38 @@ public class MetadataLoaderTest {
     private static final String LONDON_DRUGS_CODE="londondrugs";
     private static final String MCDONALDS_CODE="mcdonalds";
 
+    private static final String SPORTCHEK_CODE= "sportchek";
+    @Test
+    public void loadMetadataForSPORTCHEK_CODE() throws Exception {
+        assertNotNull(metadata.getStoreChainByCode(SPORTCHEK_CODE));
+//        assertTrue(validateConfigProperties(SPORTCHEK_CODE));
+        assertTrue(validateHeaders(SPORTCHEK_CODE));
+//        assertTrue(validateSkipBefore(SPORTCHEK_CODE));
+        assertTrue(validateSkipAfter(SPORTCHEK_CODE));
+        assertTrue(validateIdentify(SPORTCHEK_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(SPORTCHEK_CODE));
+    }
+
+
+    private static final String SHARED_CONFIG_FILE_ROOT= "sharedConfigurationFilesShouldNotCoincideWithAnyStoreNames";
+    @Test
+    public void loadMetadataForSHAREDCONFIGURATIONFILESSHOULDNOTCOINCIDEWITHANYSTORENAMES_CODE() throws Exception {
+        assertTrue(metadata.getStoreChainByCode(SHARED_CONFIG_FILE_ROOT)==null);
+
+        final Properties nonHeader = MetadataLoader.loadObjectFromJsonResource(ChainConfigFiles.getNonHeaderProperties(SHARED_CONFIG_FILE_ROOT), Properties.class);
+        assertTrue(nonHeader != null &&  nonHeader.size() > 0);
+
+        final Properties header = MetadataLoader.loadObjectFromJsonResource(ChainConfigFiles.getHeaders(SHARED_CONFIG_FILE_ROOT), Properties.class);
+        assertTrue(header != null &&  header.size() > 0);
+
+        final String[] skipAfter = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getSkipAfter(SHARED_CONFIG_FILE_ROOT), String[].class);
+        assertTrue( skipAfter != null &&  skipAfter.length > 0);
+
+        final String[] notItemsList = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getNotCatalogItemNames(SHARED_CONFIG_FILE_ROOT), String[].class);
+        assertTrue( notItemsList != null &&  notItemsList.length > 0);
+    }
+
+
     private static final String REXALL_CODE= "rexall";
     @Test
     public void loadMetadataForREXALL_CODE() throws Exception {
@@ -217,11 +249,6 @@ public class MetadataLoaderTest {
 
     }
 
-    public boolean validateHeaders(final String chainCode){
-        final Properties prop = MetadataLoader.loadObjectFromJsonResource(ChainConfigFiles.getHeaders(chainCode), Properties.class);
-        return prop != null &&  prop.size() > 0;
-    }
-
     @Test
     public void headerProperties() throws Exception {
         assertTrue(validateHeaders(EDO_JAPAN_CODE));
@@ -311,24 +338,24 @@ public class MetadataLoaderTest {
         list.addAll(list2);
     }
 
+    public boolean validateHeaders(final String chainCode){
+        return metadata.getStoreChainByCode(chainCode).getHeaderProperties().size() > 0;
+    }
+
     public boolean validateConfigProperties(final String chainCode){
-        final Properties prop = MetadataLoader.loadObjectFromJsonResource(ChainConfigFiles.getNonHeaderProperties(chainCode), Properties.class);
-        return prop != null &&  prop.size() > 0;
+        return metadata.getStoreChainByCode(chainCode).getNonHeaderProperties().size() > 0;
     }
 
     public boolean validateIdentify(final String chainCode){
-        final String[] list = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getIdentify(chainCode), String[].class);
-        return list != null &&  list.length > 0;
+        return metadata.getStoreChainByCode(chainCode).getIdentifyFields().size() > 0;
     }
 
     public boolean validateSkipBefore(final String chainCode){
-        final String[] list = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getSkipBefore(chainCode), String[].class);
-        return list != null &&  list.length > 0;
+        return metadata.getStoreChainByCode(chainCode).getSkipBefore().size() > 0;
     }
 
     public boolean validateNotation(final String chainCode){
-        final String[] list = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getNotations(chainCode), String[].class);
-        return list != null &&  list.length > 0;
+        return metadata.getStoreChainByCode(chainCode).getNotations().size() > 0;
     }
 
     @Test
@@ -338,18 +365,17 @@ public class MetadataLoaderTest {
     }
 
     public boolean validateSkipAfter(final String chainCode){
-        final String[] list = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getSkipAfter(chainCode), String[].class);
-        return list != null &&  list.length > 0;
+        return metadata.getStoreChainByCode(chainCode).getSkipAfter().size() > 0;
     }
 
     public boolean validateLoadingCategory(final String chainCode){
-        final String[] list = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getCategoriesOfStore(chainCode), String[].class);
-        return list != null &&  list.length > 0;
+//        final String[] list = MetadataLoader.loadArrayFromJsonResource(ChainConfigFiles.getCategoriesOfStore(chainCode), String[].class);
+//        return list != null &&  list.length > 0;
+        return metadata.getStoreChainByCode(chainCode).getReceiptCategories().size() > 0;
     }
 
     public boolean validateLoadingNotCatalogItemNames(final String chainCode){
-        final String[] notItemsList = MetadataLoader.loadArrayFromJsonResource("/"+chainCode+"/not-catalog-item-names.json", String[].class);
-        return notItemsList != null &&  notItemsList.length > 0;
+        return metadata.getStoreChainByCode(chainCode).getNotCatalogItemNames().size() > 0;
     }
 
     @Test(expected=Exception.class)

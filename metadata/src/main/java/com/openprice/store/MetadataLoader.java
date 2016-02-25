@@ -23,6 +23,25 @@ public class MetadataLoader {
 
     public static final String GENERIC_STORE_CODE = "generic";  // special store chain code for unknown generic store
 
+    //a store parser will load from a file from this folder if it doesn't have the file
+    public static final String SHARED_CONFIG_ROOT = "sharedConfigurationFilesShouldNotCoincideWithAnyStoreNames";
+
+    public static Properties loadSharedNonHeader(){
+        return loadNonHeaderProperties(SHARED_CONFIG_ROOT);
+    }
+
+    public static Properties loadSharedHeader(){
+        return loadHeaderProperties(SHARED_CONFIG_ROOT);
+    }
+
+    public static List<String> loadSharedNotCatalogItemNames(){
+        return loadStringList(ChainConfigFiles.getBlackList(SHARED_CONFIG_ROOT));
+    }
+
+    public static List<String> loadSharedSkipAfter(){
+        return loadStringList(ChainConfigFiles.getSkipAfter(SHARED_CONFIG_ROOT));
+    }
+
     public static StoreMetadata loadMetadata() {
         // load category first
         //TODO -->hengshuai: is the order important?
@@ -66,12 +85,36 @@ public class MetadataLoader {
             final List<String> receiptCategories = loadStringList(ChainConfigFiles.getCategoriesOfStore(chain.getCode()));
             final Map<String, CatalogProduct> products = loadCatalogProducts(chain.getCode(), categoryMap);
             final List<String> notations = loadStringList(ChainConfigFiles.getNotations(chain.getCode()));
-            final List<String> identifyFields = loadStringList(ChainConfigFiles.getIdentify(chain.getCode()));
-            final Properties headerProperties=loadHeaderProperties(chain.getCode());
-            final Properties nonHeaderProperties=loadNonHeaderProperties(chain.getCode());
-            final List<String> notCatalogItemNames = loadStringList(ChainConfigFiles.getBlackList(chain.getCode()));
+
+            List<String> identifyFields = loadStringList(ChainConfigFiles.getIdentify(chain.getCode()));
+            if(identifyFields.isEmpty()){
+                final ImmutableList.Builder<String> builder = new ImmutableList.Builder<>();
+                builder.add(chain.getName());
+                identifyFields = builder.build();
+            }
+
+            Properties headerProperties=loadHeaderProperties(chain.getCode());
+            if(headerProperties == null || headerProperties.isEmpty()){
+                headerProperties = loadSharedHeader();
+            }
+
+            Properties nonHeaderProperties=loadNonHeaderProperties(chain.getCode());
+            if(nonHeaderProperties == null || nonHeaderProperties.isEmpty()){
+                nonHeaderProperties = loadSharedNonHeader();
+            }
+
+            List<String> notCatalogItemNames = loadStringList(ChainConfigFiles.getBlackList(chain.getCode()));
+            if(notCatalogItemNames == null || notCatalogItemNames.isEmpty()){
+                notCatalogItemNames = loadSharedNotCatalogItemNames();
+            }
+
             final List<String> skipBefore = loadStringList(ChainConfigFiles.getSkipBefore(chain.getCode()));
-            final List<String> skipAfter = loadStringList(ChainConfigFiles.getSkipAfter(chain.getCode()));
+
+            List<String> skipAfter = loadStringList(ChainConfigFiles.getSkipAfter(chain.getCode()));
+            if(skipAfter == null || skipAfter.isEmpty()){
+                skipAfter = loadSharedSkipAfter();
+            }
+
             chainMapBuilder.put(chain.getCode(),
                                 StoreChain.fromChainCategoriesBranchesIdentifyMapNotationsHeaderNonHeaderNotItemNamesBeforeAfter(
                                         chain,
