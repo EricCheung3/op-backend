@@ -19,6 +19,14 @@ public class PriceParserWithCatalogTest {
     }
 
     @Test
+    public void noItemNumberIsOkay(){
+        final ProductPrice pp= parser.parsePriceLine(" RIDER INSULATE $179.99 16  ");
+        assertEquals("RIDER INSULATE $", pp.getName());
+        assertEquals("", pp.getNumber());
+        assertEquals("179.9916", pp.getPrice());
+    }
+
+    @Test
     public void noWideSpacesIsOkay(){
         final ProductPrice pp= parser.parsePriceLine("7040054391580 RIDER INSULATE $179.99 16  ");
         assertEquals("RIDER INSULATE", pp.getName());

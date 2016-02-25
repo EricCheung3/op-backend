@@ -31,8 +31,8 @@ public class StringCommon {
         for (int i = line.length() - tail.length(); i>=0; i--) {
             String slice = line.substring(i, i + tail.length());
             double score = Levenshtein.compare(slice, tail);
-            log.debug("slice="+slice+", score="+score);
-            if (score > scoreMax) {
+//            log.debug("slice="+slice+", score="+score);
+            if (score >= scoreMax) {
                 scoreMax = score;
                 result = line.substring(0,i).trim();
             }

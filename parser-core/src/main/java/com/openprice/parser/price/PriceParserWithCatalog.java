@@ -108,7 +108,8 @@ public class PriceParserWithCatalog {
         if(line.trim().length()>=10){
             final List<String> words = pruneAndSplitLongString(line);
             try{
-                pPrice2=priceParser.fromTwoStrings(new TwoStrings(words.get(0), words.get(1)));
+                pPrice2=priceParser.fromThreeStrings(new ThreeStrings(words.get(0), "", words.get(1)));
+                return pPrice2;
             }catch(Exception e){
                 log.warn("line="+ line+",fromTwoStrings after pruneAndSplitLongString: "+e.getMessage());
             }
@@ -120,7 +121,9 @@ public class PriceParserWithCatalog {
     public static List<String> pruneAndSplitLongString(final String line){
         final List<String> result = new ArrayList<>();
         final String price = StringCommon.formatPrice(line);
-        final String head = removeMatchingTail(line, price);
+        final String head = StringCommon.removeMatchingTail(line, price);
+//        log.debug("head="+head);
+//        log.debug("price="+price);
         result.add(head);
         result.add(price);
         return result;

@@ -144,10 +144,10 @@ public class PriceParserFromStringTuple implements PriceParser {
         }
 
         if(thirdIsNumber){
-            log.debug("Third is an item number");
+            log.debug("Third is a price");
             itemName=three.getFirst()+StringCommon.WIDE_SPACES+three.getSecond();
-            itemNumber=three.getThird();
-            price="";
+            itemNumber=StringCommon.EMPTY;
+            price=three.getThird();;
         }
 
         log.debug("No item numbers.");
@@ -199,9 +199,10 @@ public class PriceParserFromStringTuple implements PriceParser {
             return ProductPrice.fromNameCut(itemName, itemNumber, price);
         }
 
-        //        log.debug("No item number.");
+        log.debug("1: No item number.");
         itemNumber="";
         if(isNotPrice(two.getSecond())){
+            log.debug(two.getSecond()+" is not a price.");
             itemName=two.getFirst()+StringCommon.WIDE_SPACES+two.getSecond();
             price="";
         }else{
