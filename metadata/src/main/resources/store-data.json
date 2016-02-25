@@ -386,7 +386,7 @@
 }, {
   "code" : "rcls",
   "name" : "RCLS",
-  "identity" : "RCLS, LiquorStore",
+  "identity" : "RCLS",
   "category" : "Liquor"
 }, {
   "code" : "rexall",
