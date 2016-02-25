@@ -62,7 +62,7 @@ public class SimpleParser implements ReceiptParser {
     private ParsedReceipt parseReceiptData(final ReceiptData receipt) throws Exception {
         // find chain first through chainRegistry (which we have specialized store parser)
         final StoreChainFound chainFound = chainRegistry.findBestMatchedChain(receipt);
-        final GenericChains chains = new GenericChains("/config/Generic/chain.list");
+        final GenericChains chains = new GenericChains("/config/Generic/chain.list"); //TODO use meta data
         final StoreChainCodeFound genericChainCodeFound = chains.findChain(receipt.getOriginalLines());
 
         final StoreChain chain = chainFound.getChain();
@@ -79,7 +79,6 @@ public class SimpleParser implements ReceiptParser {
             else
                 log.warn("With chainregistry, the chain code was found at the end. We decide to trust generic chain which is found in the beginning. ");
             try{
-                //TODO use meta data
                 log.info("genericChainCode="+genericChainCode);
                 return GenericParser.parse(StoreChain.genericChainWithOnlyCode(genericChainCode), receipt);
             } catch(Exception ex) {
