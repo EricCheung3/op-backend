@@ -100,6 +100,9 @@ public class PriceParserWithCatalog {
         }
 
         if(pPrice2!=null &&  !pPrice2.isEmpty()) return pPrice2;
+
+        //allow item from a long line with no widepaces
+
         return ProductPrice.emptyValue();
     }
 
