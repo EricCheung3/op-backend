@@ -65,20 +65,25 @@ public class SimpleParser implements ReceiptParser {
         final GenericChains chains = new GenericChains("/config/Generic/chain.list"); //TODO use meta data
         final StoreChainCodeFound genericChainCodeFound = chains.findChain(receipt.getOriginalLines());
 
-        final StoreChain chain = chainFound.getChain();
-        log.info("ChainRegistry find matching chain " + chain.getCode() + ", at "+ chainFound.getFoundAt());
+        final StoreChain chain = (chainFound == null)? null : chainFound.getChain();
+        if (chainFound == null) {
+            log.info("No specific store parser for this receipt yet!");
+        } else {
+            log.debug("ChainRegistry find matching chain {}, at {}.", chain.getCode(), chainFound.getFoundAt());
+        }
+
         final String genericChainCode = genericChainCodeFound.getChainCode().toLowerCase();
-        log.info("Generic chains find matching chain " + genericChainCode + ", at "+ genericChainCodeFound.getFoundAt());
+        log.debug("Generic chains find matching chain " + genericChainCode + ", at "+ genericChainCodeFound.getFoundAt());
 
         if (chain == null ||
                 (chainFound.getFoundAt() != FoundChainAt.BEGIN &&
-                genericChainCodeFound.getFoundAt() == FoundChainAt.BEGIN)
-        ) {
-            if(chain==null)
-                log.warn("No specific parser for this chain yet!");
-            else
-                log.warn("With chainregistry, the chain code was found at the end. We decide to trust generic chain which is found in the beginning. ");
+                genericChainCodeFound.getFoundAt() == FoundChainAt.BEGIN)) {
+            if (chain != null) {
+                log.info("With ChainRegistry, the chain code was found at the end. We decide to trust generic chain which is found in the beginning. ");
+            }
+
             try{
+                log.debug("genericChainCode="+genericChainCode);
                 return GenericParser.parse(StoreChain.genericChainWithOnlyCode(genericChainCode), receipt);
             } catch(Exception ex) {
                 log.warn("exception in calling generic parser: {}. now call cheapParser!", ex.getMessage());
@@ -107,7 +112,7 @@ public class SimpleParser implements ReceiptParser {
 
         //globally finding the date string
         if (record.valueOfField(ReceiptFieldType.Date) == null ||
-                record.valueOfField(ReceiptFieldType.Date).getValue().isEmpty()){
+                record.valueOfField(ReceiptFieldType.Date).getValue().isEmpty()) {
             log.debug("date header not found: searching date string globally.");
             final StringInt dateVL=DateParserUtils.findDate(receipt.getOriginalLines(), 0);
             record.putFieldLineValue(ReceiptFieldType.Date, dateVL.getLine(), dateVL.getValue());

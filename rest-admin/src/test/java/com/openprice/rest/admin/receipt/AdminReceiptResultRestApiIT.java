@@ -157,7 +157,7 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
                 .filter(sessionFilter)
             .when()
                 .get(resultsUrl);
-        response.prettyPrint();
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)
