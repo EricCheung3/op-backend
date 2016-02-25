@@ -23,16 +23,16 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class _99SupermarketTest1 extends AbstractReceiptParserIntegrationTest{
-    @Value("classpath:/testFiles/_99supermarket/branch_107_99 St/2015_06_04_21_18_17.jpg.henryHuang.txt")
+    @Value("classpath:/testFiles/_99Supermarket/branch_107_99 St/2015_06_04_21_18_17.jpg.henryHuang.txt")
     private Resource receipt_2015_06_04_21_18_17;
 
-    @Value("classpath:/testFiles/_99supermarket/branch_107_99 St/2015_07_03_14_25_18.jpg.hengshuai.txt")
+    @Value("classpath:/testFiles/_99Supermarket/branch_107_99 St/2015_07_03_14_25_18.jpg.hengshuai.txt")
     private Resource receipt_2015_07_03_14_25_18;
 
-    @Value("classpath:/testFiles/_99supermarket/branch_107_99 St/2015_07_03_14_28_31.jpg.hengshuai.txt")
+    @Value("classpath:/testFiles/_99Supermarket/branch_107_99 St/2015_07_03_14_28_31.jpg.hengshuai.txt")
     private Resource receipt_2015_07_03_14_28_31;
 
-    @Value("classpath:/testFiles/_99supermarket/branch_107_99 St/2015_07_03_15_22_13.jpg.hengshuai.txt")
+    @Value("classpath:/testFiles/_99Supermarket/branch_107_99 St/2015_07_03_15_22_13.jpg.hengshuai.txt")
     private Resource receipt_2015_07_03_15_22_13;
 
     @Test

@@ -21,52 +21,49 @@ import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 public class HomeDepotTest extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/homedepot/2015_04_04_21_27_51.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/HomeDepot/2015_04_04_21_27_51.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_27_51;
 
-    @Value("classpath:/testFiles/homedepot/2015_04_04_21_31_22.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/HomeDepot/2015_04_04_21_31_22.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_31_22;
 
-    @Value("classpath:/testFiles/homedepot/2015_04_04_21_31_30.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/HomeDepot/2015_04_04_21_31_30.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_31_30;
 
-    @Value("classpath:/testFiles/homedepot/2015_04_04_21_41_11.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/HomeDepot/2015_04_04_21_41_11.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_41_11;
 
-    @Value("classpath:/testFiles/homedepot/2015_04_04_21_55_38.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/HomeDepot/2015_04_04_21_55_38.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_55_38;
 
-    @Value("classpath:/testFiles/homedepot/2015_04_04_22_05_59.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/HomeDepot/2015_04_04_22_05_59.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_05_59;
 
-    @Value("classpath:/testFiles/homedepot/2015_04_04_22_06_06.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/HomeDepot/2015_04_04_22_06_06.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_06_06;
 
-    @Value("classpath:/testFiles/homedepot/2015_04_04_22_07_29.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/HomeDepot/2015_04_04_22_07_29.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_07_29;
 
-    @Value("classpath:/testFiles/homedepot/2015_04_04_22_10_24.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/HomeDepot/2015_04_04_22_10_24.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_10_24;
 
-    @Value("classpath:/testFiles/homedepot/2015_04_04_22_10_33.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/HomeDepot/2015_04_04_22_10_33.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_10_33;
 
-    @Value("classpath:/testFiles/homedepot/2015_06_04_21_18_40.jpg.henryHuang.txt")
+    @Value("classpath:/testFiles/HomeDepot/2015_06_04_21_18_40.jpg.henryHuang.txt")
     private Resource receipt_2015_06_04_21_18_40;
 
-    @Value("classpath:/testFiles/homedepot/2015_07_02_18_04_36.jpg.henryHuang.txt")
+    @Value("classpath:/testFiles/HomeDepot/2015_07_02_18_04_36.jpg.henryHuang.txt")
     private Resource receipt_2015_07_02_18_04_36;
 
-    @Value("classpath:/testFiles/homedepot/2015_07_02_18_13_46.jpg.henryHuang.txt")
+    @Value("classpath:/testFiles/HomeDepot/2015_07_02_18_13_46.jpg.henryHuang.txt")
     private Resource receipt_2015_07_02_18_13_46;
 
-    @Value("classpath:/testFiles/homedepot/2015_07_21_10_57_49.jpg.henryHuang.txt")
+    @Value("classpath:/testFiles/HomeDepot/2015_07_21_10_57_49.jpg.henryHuang.txt")
     private Resource receipt_2015_07_21_10_57_49;
 
     @Test

@@ -24,16 +24,16 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class RonaTest1 extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/rona/2015_02_12_23_37_52.jpg.random.txt")
+    @Value("classpath:/testFiles/Rona/2015_02_12_23_37_52.jpg.random.txt")
     private Resource receipt_2015_02_12_23_37_52;
 
-    @Value("classpath:/testFiles/rona/2015_07_02_18_14_02.jpg.henryHuang.txt")
+    @Value("classpath:/testFiles/Rona/2015_07_02_18_14_02.jpg.henryHuang.txt")
     private Resource receipt_2015_07_02_18_14_02;
 
-    @Value("classpath:/testFiles/rona/2015_07_03_15_25_11.jpg.hengshuai.txt")
+    @Value("classpath:/testFiles/Rona/2015_07_03_15_25_11.jpg.hengshuai.txt")
     private Resource receipt_2015_07_03_15_25_11;
 
-    @Value("classpath:/testFiles/rona/2015_07_21_15_26_45.jpg.beata.txt")
+    @Value("classpath:/testFiles/Rona/2015_07_21_15_26_45.jpg.beata.txt")
     private Resource receipt_2015_07_21_15_26_45;
 
     //TODO this is RLCS receipt contains "CORONA"
