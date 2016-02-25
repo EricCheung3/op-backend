@@ -24,94 +24,94 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class WalmartTest1 extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2014_12_06_23_13_31.jpg.hengshuai.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2014_12_06_23_13_31.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_23_13_31;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2014_12_06_23_54_52.jpg.hengshuai.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2014_12_06_23_54_52.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_23_54_52;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_02_01_14_16_53.jpg.henryHuang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_02_01_14_16_53.jpg.henryHuang.txt")
     private Resource receipt_2015_02_01_14_16_53;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_02_09_13_16_51.jpg.henryHuang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_02_09_13_16_51.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_16_51;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_02_09_13_17_09.jpg.henryHuang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_02_09_13_17_09.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_17_09;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_02_09_15_15_48.jpg.random.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_02_09_15_15_48.jpg.random.txt")
     private Resource receipt_2015_02_09_15_15_48;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_02_09_15_16_02.jpg.random.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_02_09_15_16_02.jpg.random.txt")
     private Resource receipt_2015_02_09_15_16_02;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_02_09_15_20_22.jpg.random.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_02_09_15_20_22.jpg.random.txt")
     private Resource receipt_2015_02_09_15_20_22;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_02_09_23_43_37.jpg.random.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_02_09_23_43_37.jpg.random.txt")
     private Resource receipt_2015_02_09_23_43_37;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_02_11_23_27_15.jpg.random.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_02_11_23_27_15.jpg.random.txt")
     private Resource receipt_2015_02_11_23_27_15;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_02_14_22_27_01.jpg.random.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_02_14_22_27_01.jpg.random.txt")
     private Resource receipt_2015_02_14_22_27_01;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_21_24_43.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_21_24_43.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_24_43;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_21_25_06.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_21_25_06.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_25_06;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_21_25_23.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_21_25_23.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_25_23;
 
     @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_21_27_59.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_27_59;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_21_31_13.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_21_31_13.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_31_13;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_21_40_22.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_21_40_22.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_40_22;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_21_41_45.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_21_41_45.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_41_45;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_21_41_53.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_21_41_53.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_41_53;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_21_44_02.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_21_44_02.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_44_02;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_21_54_50.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_21_54_50.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_54_50;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_21_55_06.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_21_55_06.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_55_06;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_21_55_14.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_21_55_14.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_55_14;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_21_58_55.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_21_58_55.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_58_55;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_21_59_26.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_21_59_26.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_59_26;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_21_59_30.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_21_59_30.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_59_30;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_21_59_40.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_21_59_40.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_59_40;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_22_03_34.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_22_03_34.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_03_34;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_22_03_43.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_22_03_43.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_03_43;
 
-    @Value("classpath:/testFiles/walmart/branch_39_CALGARY/2015_04_04_22_03_51.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Walmart/branch_39_CALGARY/2015_04_04_22_03_51.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_03_51;
 
     @Test
@@ -518,7 +518,6 @@ public class WalmartTest1 extends AbstractReceiptParserIntegrationTest{
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         printResult(receipt);
         assertEquals("walmart", receipt.getChainCode());
-        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         //TODO why no items?
         assertEquals(0,receipt.getItems().size());
@@ -878,7 +877,6 @@ public class WalmartTest1 extends AbstractReceiptParserIntegrationTest{
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         printResult(receipt);
         assertEquals("walmart", receipt.getChainCode());
-        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(0,receipt.getItems().size());
 //        verifyParsedItem(iterator.next(), "ijal-hart st",  "0re.0", null, 8);

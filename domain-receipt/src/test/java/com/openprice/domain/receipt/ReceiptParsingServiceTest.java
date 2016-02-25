@@ -138,7 +138,7 @@ public class ReceiptParsingServiceTest {
     }
 
     @Test
-    public void parseScannedReceiptImages_ShouldSetReceiptToHasResult_IfScannedImagesCanParse() throws Exception {
+    public void parseScannedReceiptImages_ShouldSetReceiptStatusToHasResult_IfScannedImagesCanParse() throws Exception {
         final List<ParsedItem> items = new ArrayList<>();
         items.add( new ParsedItem() {
             @Override
@@ -283,7 +283,7 @@ public class ReceiptParsingServiceTest {
     }
 
     @Test
-    public void parseReceiptImagesByOCR_ShouldSetNeedFeedbackFalse_IfScannedImagesCanParse() throws Exception {
+    public void reparseReceiptImagesByOCR_ShouldSetNeedFeedbackToTrue() throws Exception {
         final List<ParsedItem> items = new ArrayList<>();
         items.add( new ParsedItem() {
             @Override
@@ -374,21 +374,13 @@ public class ReceiptParsingServiceTest {
             }
         });
 
-        ReceiptResult result2 = serviceToTest.parseReceiptImagesByOCR(receipt);
+        ReceiptResult result = serviceToTest.reparseReceiptImageOcrText(receipt);
 
-        assertEquals(false, result2.getReceipt().getNeedFeedback());
+        assertEquals(true, result.getReceipt().getNeedFeedback());
 
         verify(receiptImageRepositoryMock, times(1)).findByReceiptAndStatusOrderByCreatedTime(eq(receipt), eq(ProcessStatusType.SCANNED));
         verify(receiptRepositoryMock, times(1)).save(isA(Receipt.class));
         verify(receiptItemRepositoryMock, times(2)).save(isA(ReceiptItem.class));
         verify(receiptFieldRepositoryMock, times(1)).save(isA(ReceiptField.class));
-
-        {
-            ArgumentCaptor<ReceiptResult> argument = ArgumentCaptor.forClass(ReceiptResult.class);
-            verify(receiptResultRepositoryMock, times(2)).save(argument.capture());
-            ReceiptResult result = argument.getValue();
-            assertEquals("rcss", result.getChainCode());
-            assertEquals("Calgary Trail", result.getBranchName());
-        }
     }
 }

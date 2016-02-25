@@ -21,11 +21,14 @@ import com.openprice.domain.shopping.ShoppingService;
 import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.domain.shopping.ShoppingStoreRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * REST API Controller for current user uploading shopping list from receipt.
  *
  */
 @RestController
+@Slf4j
 public class ShoppingListRestController extends AbstractUserStoreRestController {
 
     @Inject
@@ -46,6 +49,7 @@ public class ShoppingListRestController extends AbstractUserStoreRestController 
     private ShoppingStore saveShoppingList(final ShoppingListForm form) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
         final String chainCode = form.getChainCode();
+        log.info("User {} add items to shopping store '{}'.", currentUser.getUsername(), chainCode);
 
         final ShoppingStore store = shoppingService.getShoppingStoreForStoreChain(currentUser, chainCode);
         for (final CreateShoppingItemForm item : form.getItems()) {

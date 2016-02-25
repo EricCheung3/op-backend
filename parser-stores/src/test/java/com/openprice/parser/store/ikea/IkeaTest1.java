@@ -24,31 +24,31 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class IkeaTest1 extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/ikea/2015_04_04_21_25_13.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Ikea/2015_04_04_21_25_13.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_25_13;
 
-    @Value("classpath:/testFiles/ikea/2015_04_04_21_28_27.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Ikea/2015_04_04_21_28_27.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_28_27;
 
-    @Value("classpath:/testFiles/ikea/2015_04_04_21_31_43.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Ikea/2015_04_04_21_31_43.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_31_43;
 
-    @Value("classpath:/testFiles/ikea/2015_04_04_21_33_31.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Ikea/2015_04_04_21_33_31.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_33_31;
 
-    @Value("classpath:/testFiles/ikea/2015_04_04_21_33_37.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Ikea/2015_04_04_21_33_37.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_33_37;
 
-    @Value("classpath:/testFiles/ikea/2015_04_04_21_44_13.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Ikea/2015_04_04_21_44_13.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_44_13;
 
-    @Value("classpath:/testFiles/ikea/2015_04_04_21_58_34.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Ikea/2015_04_04_21_58_34.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_58_34;
 
-    @Value("classpath:/testFiles/ikea/2015_04_04_22_11_23.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Ikea/2015_04_04_22_11_23.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_11_23;
 
-    @Value("classpath:/testFiles/ikea/2015_04_04_22_11_28.jpg.jingwang.txt")
+    @Value("classpath:/testFiles/Ikea/2015_04_04_22_11_28.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_11_28;
 
     @Test
