@@ -18,6 +18,14 @@ import lombok.extern.slf4j.Slf4j;
 public class DateParserUtilsTest {
 
 
+    @Test
+    public void getMeaningfulDateWordsTest1(){
+        final String[] words = new String[]{"2007", ".", "01"};
+        final List<String> cleanWords = DateParserUtils.getMeaningfulDateWords(words);
+        assertEquals(2, cleanWords.size());
+        assertEquals("2007", cleanWords.get(0));
+        assertEquals("01", cleanWords.get(1));
+    }
 
     //TODO: this test should pass
 //    @Test
@@ -348,6 +356,36 @@ public class DateParserUtilsTest {
     }
 
     @Test
+    public void _99supermarketTest1() throws Exception{
+        final String fromLucky99 = "DATE: 23/05/2015 TIME: 5:02:29 PM               HUA";
+        assertEquals("2015/5/23", DateParserUtils.findDateInALine(fromLucky99));
+    }
+
+    @Test
+    public void _99supermarketTest1MonthDayYearIsPrefered() throws Exception{
+        final String fromLucky99Variant = "DATE: 12/05/2015 TIME: 5:02:29 PM               HUA";
+        assertEquals("2015/12/5", DateParserUtils.findDateInALine(fromLucky99Variant));
+    }
+
+    @Test
+    public void costco1() throws Exception{
+        final String fromCostco = "AUTH#: 097118                02/08/15 16:06:54";
+        assertEquals("2015/2/8", DateParserUtils.findDateInALine(fromCostco));
+    }
+
+    @Test
+    public void safeway1() throws Exception{
+        final String fromSafeway = " 5/12/14 12:55 0877 08 029L          b.";
+        assertEquals("2014/5/12", DateParserUtils.findDateInALine(fromSafeway));
+    }
+
+    @Test
+    public void homeDepot1(){
+        final String str="7117 00058 77840     DATE: 25/01/15 TIME: 11:30 AM";
+        assertEquals("2015/1/25", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
     public void TwoDigitDay() throws Exception{
         final String searsVariant = "01429 15~ 7913 4606631  12/31/13             6:04P";
         assertEquals("2013/12/31", DateParserUtils.findDateInALine(searsVariant));
@@ -383,14 +421,16 @@ public class DateParserUtilsTest {
     public void yearMonthDayTest5() throws Exception{
         final String searsVariant = "01429 15~ 7913 4606631  1  5/  0  3/1  2             6:04P";
 //        assertEquals("2015/3/12", DateParserUtils.findDateInALine(searsVariant));
-        assertEquals("2012/5/3", DateParserUtils.findDateInALine(searsVariant));
+//        assertEquals("2012/5/3", DateParserUtils.findDateInALine(searsVariant));
+        assertEquals("2012/3/15", DateParserUtils.findDateInALine(searsVariant));
     }
 
     @Test
     public void yearMonthDayTest6() throws Exception{
         final String searsVariant = "01429 15~ 7913 46066311  5/  0  3/1  2             6:04P";
 //        assertEquals("2015/3/12", DateParserUtils.findDateInALine(searsVariant));
-        assertEquals("2012/5/3", DateParserUtils.findDateInALine(searsVariant));
+//        assertEquals("2012/5/3", DateParserUtils.findDateInALine(searsVariant));
+        assertEquals("2012/3/15", DateParserUtils.findDateInALine(searsVariant));
     }
 
     @Test

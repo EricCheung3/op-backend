@@ -233,4 +233,10 @@ public class LiteralMonthDayYear4Test {
         assertEquals("9", words.get(1));
         assertEquals("2015", words.get(2));
     }
+
+    @Test
+    public void twoDayWillHaveNull(){
+       assertNull(literalMDY4.parseWithSpaces("Apr 11 27 , 2015"));
+    }
+
 }

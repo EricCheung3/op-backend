@@ -43,13 +43,19 @@ public class LiteralMonthDayYear4 implements DateParser{
             log.debug(str);
         if(words.size() < 3)
             return null;
-        return DateUtils.fromDayMonthYear(
-                words.get(1),
-                DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
-                words.get(2)
-                );
+        try{
+            return DateUtils.fromDayMonthYear(
+                    words.get(1),
+                    DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
+                    words.get(2)
+                    );
+        }catch(Exception e){
+            log.warn(e.getMessage());
+        }
+        return null;
     }
 
+    //TODO similar to DataParserUtils.getMeaningfulWords?
     public static List<String> literalMonthDayYearSplit(final String dateString){
 //      final String[] words = dateString.split("-|_|\\.|\\s+");//not correct. only one dilimiter is selected
 //      http://stackoverflow.com/questions/3654446/java-regex-help-splitting-string-on-spaces-and-commas

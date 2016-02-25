@@ -20,11 +20,11 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         Response response =
-                given()
-                    .filter(sessionFilter)
-                .when()
-                    .get(receiptResultsUrl(sessionFilter, "receipt001"))
-                ;
+            given()
+                .filter(sessionFilter)
+            .when()
+                .get(receiptResultsUrl(sessionFilter, "receipt001"))
+            ;
         //response.prettyPrint();
         response
         .then()
@@ -59,11 +59,11 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         Response response =
-                given()
-                    .filter(sessionFilter)
-                .when()
-                    .get(receiptResultUrl(sessionFilter, "receipt001", "recData001"))
-                ;
+            given()
+                .filter(sessionFilter)
+            .when()
+                .get(receiptResultUrl(sessionFilter, "receipt001", "recData001"))
+            ;
         //response.prettyPrint();
         response
         .then()
@@ -119,11 +119,11 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         Response response =
-                given()
-                    .filter(sessionFilter)
-                .when()
-                    .get(receiptItemUrl(sessionFilter, "receipt001", "recData001", "recItem001"))
-                ;
+            given()
+                .filter(sessionFilter)
+            .when()
+                .get(receiptItemUrl(sessionFilter, "receipt001", "recData001", "recItem001"))
+            ;
         //response.prettyPrint();
         response
         .then()
@@ -138,7 +138,7 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
     }
 
     @Test
-    public void updateReceiptParsedResult_ShouldReturnResultsList() throws Exception {
+    public void addReceiptParsedResult_ShouldReparseAndAddNewResult() throws Exception {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 
         String resultsUrl = receiptResultsUrl(sessionFilter, "receipt003");
@@ -152,12 +152,12 @@ public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiInte
             .statusCode(HttpStatus.SC_CREATED)
         ;
 
-        Response response= given()
-                              .filter(sessionFilter)
-                          .when()
-                              .get(resultsUrl);
-
-        response.prettyPrint();
+        Response response =
+            given()
+                .filter(sessionFilter)
+            .when()
+                .get(resultsUrl);
+        //response.prettyPrint();
         response
         .then()
             .statusCode(HttpStatus.SC_OK)

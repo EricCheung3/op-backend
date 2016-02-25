@@ -39,6 +39,7 @@ public class MatchFieldsImpl implements MatchFields{
     }
 
     {
+        totalBlackList.add("total tax");
         totalBlackList.add("total savings");
         totalBlackList.add("Total Savings Value");
         totalBlackList.add("total discounts");

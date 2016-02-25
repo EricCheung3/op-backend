@@ -22,7 +22,7 @@ public class GenericChainsTest {
         GenericChains chains=new GenericChains(chainLines);
         final List<String> receipt=new ArrayList<String>();
         receipt.add("Not meant to be a chain name XXXVDSDFSDSDFSDSADSDFSAF");
-        String quizino=chains.findChain(receipt);
+        String quizino=chains.findChain(receipt).getChainCode();
         assertEquals(StringCommon.EMPTY, quizino);
     }
 
@@ -34,7 +34,7 @@ public class GenericChainsTest {
         chainLines.add("82:Saje West Edmonton:Health:SajeWestEdmonton");
         chainLines.add("83:Save-on-foods:Grocery:SaveOnFoods");
         GenericChains chains=new GenericChains(chainLines);
-        String quizino=chains.findChain(new ArrayList<String>());
+        String quizino=chains.findChain(new ArrayList<String>()).getChainCode();
         assertEquals(StringCommon.EMPTY, quizino);
     }
 
@@ -48,7 +48,7 @@ public class GenericChainsTest {
         GenericChains chains=new GenericChains(chainLines);
         final List<String> receipt=new ArrayList<String>();
         receipt.add("Quizino's Subs");
-        String quizino=chains.findChain(receipt);
+        String quizino=chains.findChain(receipt).getChainCode();
         assertEquals("QuizinosSubs", quizino);
     }
 
@@ -62,7 +62,7 @@ public class GenericChainsTest {
         GenericChains chains=new GenericChains(chainLines);
         final List<String> receipt=new ArrayList<String>();
         receipt.add("SAFEWAY");
-        String store=chains.findChain(receipt);
+        String store=chains.findChain(receipt).getChainCode();
         assertEquals("Safeway", store);
     }
 
@@ -76,7 +76,7 @@ public class GenericChainsTest {
         GenericChains chains=new GenericChains(chainLines);
         final List<String> receipt=new ArrayList<String>();
         receipt.add("safeway");
-        String store=chains.findChain(receipt);
+        String store=chains.findChain(receipt).getChainCode();
         assertEquals("Safeway", store);
     }
 
@@ -93,7 +93,7 @@ public class GenericChainsTest {
             receipt.add("ABCCCDDDDD   dfd fafrand random stuff");
         }
         receipt.set(50, "Safeway");
-        String store=chains.findChain(receipt);
+        String store=chains.findChain(receipt).getChainCode();
         assertEquals("Safeway", store);
     }
 }

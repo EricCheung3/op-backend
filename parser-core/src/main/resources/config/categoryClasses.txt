@@ -10,11 +10,10 @@ cereal:cheerios,kshi hny,oats,oatmeal,
 cleaningsupplies:tide,scrubbub,spraynwash
 dairy:milk,cheese,egg,beatrice,tofu,butter,but,margarine,yogurt,cream,lactantia,iogo,armstrng,mozzarella,minigo,naturegg,
 deli:ham,salmi,smokehouse,danone,egg&sausg
-frozen:kellogg eggo,
+frozen:kellogg eggo,dumpling
 fruit:banana,pear,apple,avocado,papaya,blueberries,raspberries,pnaple,pineapple,orange,peach,grape,lemon,longan,strawberries,blubry,blueberry, plum,mango,mandarin,watermelon, seedless, sdls,asparagus,apl rd,rd del,cherries,fuji,rhubarb,pomegranate,melon
-health:skinfix,after bite,acne,
-frozen:dumpling,
 grains:rice,
+health:skinfix,after bite,acne,
 home:battery,chair,hanger,spear,bags,scraper,hula hoop,puzzle,tool,ziploc,cap,
 jams:jam,
 meat:steak,chick,duck,pork,beef,chkn,bonless,lamb,halal,chop,tenderloin,wiener,rib eye,eye stk,outside round,round roast,chckn oven,oven roasted,

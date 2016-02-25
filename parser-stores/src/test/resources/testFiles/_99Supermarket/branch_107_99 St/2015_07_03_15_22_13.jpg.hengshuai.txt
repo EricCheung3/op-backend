@@ -1,0 +1,49 @@
+1@@@
+
+DATE: 02/04/2015 TIME:4:10:53 PM                                 HA
+Trans:3414 11     Terminal        :030 2 0 20 ~ 5 -00 1006
+
+
+
+Transaction Recei p t/Re 1eve De Trar1:1act ion
+                    99 Supermarket
+                   10768 89 St reet
+                 Edmonton, AB TSH 1N 7
+·r YPE:    PURCHASE
+ACCT:      MC                            $   70.66
+                                      -----·----·-
+                                      -----··- ---
+TOTAL                                    $ 70.66
+
+
+CARD tM1BER:             ************61 :: ~1
+DATE /TIME:             02 Apr 2015  16:13:26
+REFERENCE#:              6619142G ,010021 460 C
+AUTHOR#:                 098746
+PC Maste rCa r·d
+AID:A000000004 1010
+TVR :0000008000
+TSI :E800
+RESP CD:OO
+VHHFIED BV PIN
+INVOI CE NUMBER          341411
+
+      01         APPROVED - THANK YOU          027
+
+                 N
+                 O SIGNATURE REQUIRED
+    Retain this copy for your records.
+         Customer Copy/Cop ie Client
+Trans:341411      Terminal: 030202035-001 006
+    Please save receipt and original
+  packing for return or exchange within 7
+   days. (Except Frui ts and Vegetables)
+     ***** Some conditions apply *****
+ llitilij:f.'!rrJ:illil.
+                       'li'imr:lfm:llk"'b~J!IDTI 31~
+            HAVE ANICE DAY
+ APPLY FOR OUR SUPERCARD CLUB CARD TODAY
+     FOR MORE INFORMATION PLEASE ASK
+   OUR CUSTOMER SERVICE REPRESENTATIVES
+            a~it lsJ!J:I!IIDm~iliiu~l
+ 
