@@ -145,7 +145,8 @@ public class ChainRegistry {
                                         .max( Comparator.comparing(ScoreWithMatchPair<String>::getScore) )
                                         ;
                                 if (maxIdentifyMatch.isPresent()) {
-//                                    log.debug("maxIdentifyMatch score for line '{}' is {}.", line.getCleanText(), maxIdentifyMatch.get().getScore());
+                                    if(maxIdentifyMatch.get().getScore()>CHAIN_IDENTIFY_MATCH_THRESHOLD)
+                                        log.debug("maxIdentifyMatch score for line '{}' is {}.", line.getCleanText(), maxIdentifyMatch.get().getScore());
                                     return maxIdentifyMatch.get().getScore();
                                 }
                                 return -1.0;
