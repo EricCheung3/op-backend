@@ -1,4 +1,4 @@
-package com.openprice.parser.store.rexall;
+package com.openprice.parser.store.petrocanada;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class RexallSelectorTest extends ParserSelectorIntegrationTest{
 
     @Inject
-    protected RexallSelector selector;
+    protected PetroCanadaSelector selector;
 
     private final List<String> atLeast5Lines=new ArrayList<String>();
 

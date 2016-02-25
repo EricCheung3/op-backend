@@ -15,7 +15,8 @@ public enum ReceiptFieldType {
     Recycle, Ref,
     Saving,
     Slogan, StoreBranch, StoreID, SubTotal,
-    Thankyou, Total, TotalSold ;
+    Thankyou, Total, TotalSold,
+    UnitPrice;
 
     //is an address field or not; the line is an address field if it is in the dictionary
     public boolean isAddressField(){

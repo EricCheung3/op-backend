@@ -28,6 +28,33 @@ public class MetadataLoaderTest {
     private static final String SHOPPERS_CODE="shoppers";
     private static final String LONDON_DRUGS_CODE="londondrugs";
     private static final String MCDONALDS_CODE="mcdonalds";
+
+    private static final String REXALL_CODE= "rexall";
+    @Test
+    public void loadMetadataForREXALL_CODE() throws Exception {
+        assertNotNull(metadata.getStoreChainByCode(REXALL_CODE));
+        assertTrue(validateConfigProperties(REXALL_CODE));
+        assertTrue(validateHeaders(REXALL_CODE));
+        assertTrue(validateSkipBefore(REXALL_CODE));
+        assertTrue(validateSkipAfter(REXALL_CODE));
+        assertTrue(validateIdentify(REXALL_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(REXALL_CODE));
+    }
+
+    private static final String PETROCANADA_CODE= "petrocanada";
+    @Test
+    public void loadMetadataForPETROCANADA_CODE() throws Exception {
+        assertNotNull(metadata.getStoreChainByCode(PETROCANADA_CODE));
+        assertTrue(validateConfigProperties(PETROCANADA_CODE));
+        assertTrue(validateHeaders(PETROCANADA_CODE));
+        assertTrue(validateSkipBefore(PETROCANADA_CODE));
+        assertTrue(validateSkipAfter(PETROCANADA_CODE));
+        assertTrue(validateIdentify(PETROCANADA_CODE));
+        assertTrue(validateLoadingNotCatalogItemNames(PETROCANADA_CODE));
+    }
+
+
+
     private static final String _99SUPERMARKET_CODE= "_99supermarket";
     @Test
     public void loadMetadataFor_99SUPERMARKET_CODE() throws Exception {
