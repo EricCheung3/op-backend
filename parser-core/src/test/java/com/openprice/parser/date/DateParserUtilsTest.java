@@ -421,14 +421,16 @@ public class DateParserUtilsTest {
     public void yearMonthDayTest5() throws Exception{
         final String searsVariant = "01429 15~ 7913 4606631  1  5/  0  3/1  2             6:04P";
 //        assertEquals("2015/3/12", DateParserUtils.findDateInALine(searsVariant));
-        assertEquals("2012/5/3", DateParserUtils.findDateInALine(searsVariant));
+//        assertEquals("2012/5/3", DateParserUtils.findDateInALine(searsVariant));
+        assertEquals("2012/3/15", DateParserUtils.findDateInALine(searsVariant));
     }
 
     @Test
     public void yearMonthDayTest6() throws Exception{
         final String searsVariant = "01429 15~ 7913 46066311  5/  0  3/1  2             6:04P";
 //        assertEquals("2015/3/12", DateParserUtils.findDateInALine(searsVariant));
-        assertEquals("2012/5/3", DateParserUtils.findDateInALine(searsVariant));
+//        assertEquals("2012/5/3", DateParserUtils.findDateInALine(searsVariant));
+        assertEquals("2012/3/15", DateParserUtils.findDateInALine(searsVariant));
     }
 
     @Test

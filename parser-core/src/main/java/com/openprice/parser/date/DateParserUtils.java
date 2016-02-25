@@ -82,6 +82,7 @@ public class DateParserUtils {
     private final static Month1DayYear2 m1dy2 = new Month1DayYear2();
     private final static Year2MonthDay y2md = new Year2MonthDay();
     private final static DayMonthYear4 dmy4 = new DayMonthYear4();
+    private final static DayMonthYear2 dmy2 = new DayMonthYear2();
     private final static LiteralMonthDayYear4 literalmdy4 = new LiteralMonthDayYear4();
     public static String findDateInALine(final String str){
 //        final String strNoSpace=StringCommon.removeAllSpaces(str);
@@ -120,7 +121,13 @@ public class DateParserUtils {
 
         result = y2md.parseWithSpaces(str);
         if(result != null && result.isBefore(DateUtils.getToday())){
-            log.debug("found Y2MD format without space."+result+"\n");
+            log.debug("found Y2MD format with space."+result+"\n");
+            return DateUtils.formatDateString(result);
+        }
+
+        result = dmy2.parseNoSpaces(str);
+        if(result != null && result.isBefore(DateUtils.getToday())){
+            log.debug("found dmy2 format without space."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 
