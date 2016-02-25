@@ -17,6 +17,28 @@ public class StringCommon {
     public static final String WIDE_SPACES="    ";
 
 
+    /*
+     * tail is approxiamtely a substring of line.
+     * e.g., line= "abc e 179. 9916", tail = "179.9916", then should return "abc e"
+     * the algorithm is similar to StringCommon.matchStringToSubstring
+     */
+    public static String removeMatchingTail(final String line, final String tail){
+        if (line.isEmpty() || tail.isEmpty() || line.length() < tail.length()) {
+            return StringCommon.EMPTY;
+        }
+        double scoreMax = 0;
+        String result = StringCommon.EMPTY;
+        for (int i = line.length() - tail.length(); i>=0; i--) {
+            String slice = line.substring(i, i + tail.length());
+            double score = Levenshtein.compare(slice, tail);
+            log.debug("slice="+slice+", score="+score);
+            if (score > scoreMax) {
+                scoreMax = score;
+                result = line.substring(0,i).trim();
+            }
+        }
+        return result;
+    }
     public static List<String> sortByStringLength(final List<String> orig){
         return orig
                 .stream()

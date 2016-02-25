@@ -1,8 +1,11 @@
 package com.openprice.parser.price;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import com.openprice.common.StringCommon;
 import com.openprice.parser.api.Product;
 
 import lombok.Data;
@@ -102,8 +105,27 @@ public class PriceParserWithCatalog {
         if(pPrice2!=null &&  !pPrice2.isEmpty()) return pPrice2;
 
         //allow item from a long line with no widepaces
+        if(line.trim().length()>=10){
+            final List<String> words = pruneAndSplitLongString(line);
+            try{
+                pPrice2=priceParser.fromTwoStrings(new TwoStrings(words.get(0), words.get(1)));
+            }catch(Exception e){
+                log.warn("line="+ line+",fromTwoStrings after pruneAndSplitLongString: "+e.getMessage());
+            }
+        }
 
         return ProductPrice.emptyValue();
     }
+
+    public static List<String> pruneAndSplitLongString(final String line){
+        final List<String> result = new ArrayList<>();
+        final String price = StringCommon.formatPrice(line);
+        final String head = removeMatchingTail(line, price);
+        result.add(head);
+        result.add(price);
+        return result;
+    }
+
+
 
 }

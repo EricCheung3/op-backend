@@ -14,6 +14,27 @@ import lombok.extern.slf4j.Slf4j;
 public class StringCommonTest {
 
     @Test
+    public void removeMatchingTailExactMatchIsFine(){
+        final String line="abc e 179. 9916";
+        final String tail = "179. 9916";
+        assertEquals("abc e", StringCommon.removeMatchingTail(line, tail));
+    }
+
+    @Test
+    public void removeMatchingTailApproximateMatchIsFine(){
+        final String line="abc e 179. 9916";
+        final String tail = "179. 8916";
+        assertEquals("abc e", StringCommon.removeMatchingTail(line, tail));
+    }
+
+    @Test
+    public void removeMatchingTailApproximateMatchIsFine2(){
+        final String line="abc e 179. 9916";
+        final String tail = "179_ 8916";
+        assertEquals("abc e", StringCommon.removeMatchingTail(line, tail));
+    }
+
+    @Test
     public void selectPriceStringTest(){
         final String line="$67.56     /";
         final String price = StringCommon.selectPriceString(line);
