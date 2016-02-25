@@ -75,30 +75,30 @@ public class ChainRegistry {
                 && foundAtEnd != null
 //                && foundAtBegin.getScore() >= foundAtEnd.getScore()
                 && foundAtBegin.getScore() > CHAIN_IDENTIFY_MATCH_THRESHOLD)
-            return new StoreChainFound(foundAtBegin.getMatch(), FoundChainAt.BEGIN);
+            return new StoreChainFound(foundAtBegin.getMatch(), FoundChainAt.BEGIN, foundAtBegin.getLineNumber());
 
         if(foundAtEnd !=null
                 && foundAtBegin != null
                 && foundAtEnd.getScore() > foundAtBegin.getScore()
                 && foundAtEnd.getScore() > CHAIN_IDENTIFY_MATCH_THRESHOLD)
-            return new StoreChainFound(foundAtEnd.getMatch(), FoundChainAt.END);
+            return new StoreChainFound(foundAtEnd.getMatch(), FoundChainAt.END, foundAtEnd.getLineNumber());
 
         if(foundAtBegin != null
                 && foundAtBegin.getScore() > CHAIN_IDENTIFY_MATCH_THRESHOLD)
-            return new StoreChainFound(foundAtBegin.getMatch(), FoundChainAt.BEGIN);
+            return new StoreChainFound(foundAtBegin.getMatch(), FoundChainAt.BEGIN, foundAtBegin.getLineNumber());
 
         if(foundAtEnd !=null
                 && foundAtEnd.getScore() > CHAIN_IDENTIFY_MATCH_THRESHOLD)
-            return new StoreChainFound(foundAtEnd.getMatch(), FoundChainAt.END);
+            return new StoreChainFound(foundAtEnd.getMatch(), FoundChainAt.END, foundAtEnd.getLineNumber());
 
         final ScoreWithMatchPair<StoreChain> foundAtMiddle = findBestMatchedChain(receipt, lastLineOfBegin+1, firstLineOfEnd-1);
-        if(foundAtMiddle==null)
+        if(foundAtMiddle == null)
             log.debug("foundAtMiddle=null");
         else
             log.debug("foundAtMiddle: "+foundAtMiddle.getMatch().getCode()+", score="+foundAtMiddle.getScore());
         if(foundAtMiddle !=null
                 && foundAtMiddle.getScore() > CHAIN_IDENTIFY_MATCH_THRESHOLD)
-            return new StoreChainFound(foundAtMiddle.getMatch(), FoundChainAt.MIDDLE);
+            return new StoreChainFound(foundAtMiddle.getMatch(), FoundChainAt.MIDDLE, foundAtMiddle.getLineNumber());
 
         return null;
     }
@@ -121,8 +121,6 @@ public class ChainRegistry {
                             .filter( line -> line.getNumber() >= begin && line.getNumber() <= end )
                             .filter( line -> {
                                 boolean noisyLine=StringCommon.countDigitAndChars(line.getCleanText())[1] >= 2;
-//                                if(noisyLine)
-//                                    log.debug("line "+line.getCleanText()+" is filtered out because it contains too few characters");
                                 return noisyLine;
                             })
                             .map( line -> {
@@ -155,7 +153,7 @@ public class ChainRegistry {
                             .filter( score -> score > CHAIN_IDENTIFY_MATCH_THRESHOLD)
                             .reduce(0.0, Double::sum)
                             ;
-//                    log.debug("Get matching score {} for chain {}", matchingScoreSum, chain.getCode());
+//                    log.debug("Get matching score {} for chain {} at line {}", matchingScoreSum, chain.getCode(), );
                     return new ScoreWithMatchPair<StoreChain>(matchingScoreSum, -1, chain);
                 })
                 //.filter(pair -> pair.getScore() > CHAIN_IDENTIFY_MATCH_THRESHOLD)

@@ -9,7 +9,7 @@ import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.data.FoundChainAt;
 import com.openprice.parser.data.StoreChainCodeFound;
-import com.openprice.parser.data.StringDouble;
+import com.openprice.parser.data.StringDoubleInt;
 
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +40,7 @@ public class GenericChains {
 
     public StoreChainCodeFound findChain(final List<String> lines){
         if (lines == null || lines.isEmpty())
-            return new StoreChainCodeFound(StringCommon.EMPTY, FoundChainAt.NOT_FOUND);
+            return new StoreChainCodeFound(StringCommon.EMPTY, FoundChainAt.NOT_FOUND, -1);
 
         // find the meaningful lines in the beginning and end
         int begin = -1;
@@ -54,9 +54,9 @@ public class GenericChains {
         }
 
         // fast mode: searching a few number of lines from beginning.
-        StringDouble chainBegin = chainNameSearch(lines, begin, begin + NUM_SEARCHED_LINES_AT_BEGIN);
+        StringDoubleInt chainBegin = chainNameSearch(lines, begin, begin + NUM_SEARCHED_LINES_AT_BEGIN);
         if (chainBegin.getValue() > 0.75)
-            return new StoreChainCodeFound(chainBegin.getStr(), FoundChainAt.BEGIN);
+            return new StoreChainCodeFound(chainBegin.getStr(), FoundChainAt.BEGIN, chainBegin.getLineNumber());
 
         int end = -1;
         for (int i = lines.size() - 1; i >= 0; i--) {
@@ -67,25 +67,25 @@ public class GenericChains {
                 break;
             }
         }
-        StringDouble chainEnd = chainNameSearch(lines, end - NUM_SEARCHED_LINES_AT_END, end);
+        StringDoubleInt chainEnd = chainNameSearch(lines, end - NUM_SEARCHED_LINES_AT_END, end);
         log.debug("#####searching from head: chain=" + chainBegin.getStr() + ", score=" + chainBegin.getValue());
         log.debug("#####searching from End: chain=" + chainEnd.getStr() + ", score=" + chainEnd.getValue());
 
         //prefer finding in the begin and end, and then middle
         if (chainEnd.getValue() > chainBegin.getValue() &&
             chainEnd.getValue() > CHAIN_SIMILARITY_SCORE)
-            return new StoreChainCodeFound(chainEnd.getStr(), FoundChainAt.END);
+            return new StoreChainCodeFound(chainEnd.getStr(), FoundChainAt.END, chainEnd.getLineNumber());
 
         if (chainBegin.getValue() > chainEnd.getValue() &&
             chainBegin.getValue() > CHAIN_SIMILARITY_SCORE)
-            return new StoreChainCodeFound(chainBegin.getStr(), FoundChainAt.BEGIN);
+            return new StoreChainCodeFound(chainBegin.getStr(), FoundChainAt.BEGIN, chainBegin.getLineNumber());
 
-        StringDouble chainMiddle = chainNameSearch(lines, begin + NUM_SEARCHED_LINES_AT_BEGIN + 1, end- NUM_SEARCHED_LINES_AT_END - 1);
+        StringDoubleInt chainMiddle = chainNameSearch(lines, begin + NUM_SEARCHED_LINES_AT_BEGIN + 1, end- NUM_SEARCHED_LINES_AT_END - 1);
         log.debug("#####searching in the middle: chain=" + chainMiddle.getStr() + ", score=" + chainMiddle.getValue());
         if (chainMiddle.getValue() > CHAIN_SIMILARITY_SCORE){
-            return new StoreChainCodeFound(chainMiddle.getStr(), FoundChainAt.MIDDLE);
+            return new StoreChainCodeFound(chainMiddle.getStr(), FoundChainAt.MIDDLE, chainMiddle.getLineNumber());
         }
-        return new StoreChainCodeFound(StringCommon.EMPTY, FoundChainAt.NOT_FOUND);
+        return new StoreChainCodeFound(StringCommon.EMPTY, FoundChainAt.NOT_FOUND, -1);
     }
 
     /*
@@ -94,9 +94,10 @@ public class GenericChains {
      * @param end the end line number
      * @return an StringDouble object, the first is matched chain name, the second is the score
      */
-    private StringDouble chainNameSearch(final List<String> lines, final int begin, final int end) {
+    private StringDoubleInt chainNameSearch(final List<String> lines, final int begin, final int end) {
         double maxScore = -1;
         String chainName = "";
+        int lineNumber = -1;
         for (int i = Math.max(0, begin); i <= Math.min(lines.size() - 1, end); i++) {
             final String line = lines.get(i).trim();
             int[] counts = StringCommon.countDigitAndChars(line);
@@ -115,18 +116,19 @@ public class GenericChains {
                 if (score > maxScore) {
                     maxScore = score;
                     chainName = chainLine.parserClassName(); //chainLine.chainName();
+                    lineNumber = c;
                 }
 
                 //return early to speedup
                 if (Math.abs(1.0 - score) < 0.02) {
                     log.debug("line='" + line + "', match identity field ='" + cha + "', leven score=" + score);
-                    final StringDouble matchedChain = new StringDouble(chainName, score);
+                    final StringDoubleInt matchedChain = new StringDoubleInt(chainName, score, lineNumber);
                     log.debug("matched chain:\n" + matchedChain);
                     return matchedChain;
                 }
             }
         }
-        return new StringDouble(chainName, maxScore);
+        return new StringDoubleInt(chainName, maxScore, lineNumber);
     }
 
     /**
