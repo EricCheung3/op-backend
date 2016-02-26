@@ -79,15 +79,13 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         //printResult(receipt);
         assertEquals(4, receipt.getItems().size());
 
-        // verify result of items
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+
         verifyParsedItem(iterator.next(), "opo squash", "2.80", "opo squash_3141", 5);
         verifyParsedItem(iterator.next(), "chinese cabbage    mrj", "1.43", null, 7);
         verifyParsedItem(iterator.next(), "muffin lemn cran", "4.87", "muffin lemn cran_06038387812", 10);
         verifyParsedItem(iterator.next(), "plastic bags", "0.05", "plastic bags", 12);
-
-        // verify parsed fields
-        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "9.15",13);
         verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-430-2769",2);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "9.15",15);
@@ -169,6 +167,8 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         verifyParsedItem(iterator.next(), "orange navel 5lb", "5.88", "orange navel 5lb_03338311006", 42);
         verifyParsedItem(iterator.next(), "banana", "1.35", "banana_4011", 43);
         verifyParsedItem(iterator.next(), "cherries red    mrj", "7.29", null, 45);
+
+        //TODO why sometimes "XXXX    gmrj" keeps gmrj in the name, sometimes doesn't
         verifyParsedItem(iterator.next(), "tc baby powder    gmrj", "0.99", null, 48);
         verifyParsedItem(iterator.next(), "j&j baby wash    gmrj", "7.94", null, 49);
         verifyParsedItem(iterator.next(), "baby bar    gmrj", "2.49", null, 52);

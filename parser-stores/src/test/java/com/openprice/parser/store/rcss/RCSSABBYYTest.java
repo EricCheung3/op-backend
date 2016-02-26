@@ -29,6 +29,7 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
 
         ParsedReceipt receipt = simpleParser.parseReceiptOcrResult(java.util.Arrays.asList(ocrResult));
         printResult(receipt);
+        assertEquals("rcss", receipt.getChainCode());
         assertEquals(9, receipt.getItems().size());
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();

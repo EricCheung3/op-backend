@@ -16,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PriceParserFromStringTuple implements PriceParser {
 
+    private static NonWideSpaceParserImpl nonSpaceParser = new NonWideSpaceParserImpl();
+
     //product and price from four strings
     //product and price from four strings
     @Override
@@ -37,7 +39,8 @@ public class PriceParserFromStringTuple implements PriceParser {
             itemName=four.getThird();
             price=four.getFourth();
             itemNumber= four.getFirst()+" "+ four.getSecond();
-            return ProductPrice.fromNameCut(itemName, itemNumber, price);
+
+            return ProductPriceUtils.fromNameCut(itemName, itemNumber, price);
         }
 
         if(secondIsNumber){
@@ -45,7 +48,7 @@ public class PriceParserFromStringTuple implements PriceParser {
             itemName=four.getFirst();
             itemNumber=four.getSecond();
             price=priceFromTwoSuccesiveStrings(four.getThird(), four.getFourth());
-            return ProductPrice.fromNameCut(itemName, itemNumber, price);
+            return ProductPriceUtils.fromNameCut(itemName, itemNumber, price);
         }
 
         if(firstIsNumber){//second is not item number
@@ -58,7 +61,7 @@ public class PriceParserFromStringTuple implements PriceParser {
                 itemName=four.getSecond();
                 price=priceFromTwoSuccesiveStrings(four.getThird(), four.getFourth());
             }
-            return ProductPrice.fromNameCut(itemName, itemNumber, price);
+            return ProductPriceUtils.fromNameCut(itemName, itemNumber, price);
         }
 
         //        log.debug("assumed to be no item numbers");
@@ -71,27 +74,40 @@ public class PriceParserFromStringTuple implements PriceParser {
             itemName=four.getFirst()+StringCommon.WIDE_SPACES+four.getSecond();
             price=priceFromTwoSuccesiveStrings(four.getThird(), four.getFourth());
         }
-        return ProductPrice.fromNameCut(itemName, itemNumber, price);
+        return ProductPriceUtils.fromNameCut(itemName, itemNumber, price);
     }
 
-    private static String priceFromTwoSuccesiveStrings(final String s1, final String s2){
-        String price="";
-        if(isNotPrice(s1)){
-            //            log.debug("s1="+s1+" is not price, s2="+s2+" is assumed to be price.");
-            price=s2;
-        }else{
-            if(isNotPrice(s2)){
-                //                log.debug("s2="+s1+" is not price, s1="+s1+" is assumed to be price.");
-                price=s1;
-            }else
-                price=s1+StringCommon.WIDE_SPACES+s2;
-        }
-        return price;
-    }
+//    private static ProductPrice fromNameCut(final String itemName, final String itemNumber, final String price){
+//        String name = itemName;
+//        String number = itemNumber;
+//        if(itemNumber.isEmpty()){
+//            //number is embedded in name, split
+//            final ProductPrice pp = nonSpaceParser.parse(itemName);
+//            name = pp.getName();
+//            number = pp.getNumber();
+//        }
+//        return new ProductPrice(ProductImpl.fromNameNumber(name, number), StringCommon.formatPrice(price));
+//    }
+//
+//    private static String priceFromTwoSuccesiveStrings(final String s1, final String s2){
+//        String price="";
+//        if(isNotPrice(s1)){
+//            //            log.debug("s1="+s1+" is not price, s2="+s2+" is assumed to be price.");
+//            price=s2;
+//        }else{
+//            if(isNotPrice(s2)){
+//                //                log.debug("s2="+s1+" is not price, s1="+s1+" is assumed to be price.");
+//                price=s1;
+//            }else
+//                price=s1+StringCommon.WIDE_SPACES+s2;
+//        }
+//        return price;
+//    }
 
     //product and price from four strings
     @Override
     public ProductPrice fromThreeStrings(final ThreeStrings three) throws Exception{
+        log.debug("fromThreeStrings");
         final boolean firstIsNumber=isItemNumber(three.getFirst());
         final boolean secondIsNumber=isItemNumber(three.getSecond());
         final boolean thirdIsNumber=isItemNumber(three.getThird());
@@ -110,7 +126,7 @@ public class PriceParserFromStringTuple implements PriceParser {
             }else{
                 price=three.getThird();
             }
-            return ProductPrice.fromNameCut(itemName, itemNumber, price);
+            return ProductPriceUtils.fromNameCut(itemName, itemNumber, price);
         }
 
         if(firstIsNumber){
@@ -123,7 +139,7 @@ public class PriceParserFromStringTuple implements PriceParser {
             }else{
                 price=priceFromTwoSuccesiveStrings(three.getSecond(), three.getThird());
             }
-            return ProductPrice.fromNameCut(itemName, itemNumber, price);
+            return ProductPriceUtils.fromNameCut(itemName, itemNumber, price);
         }
 
         if(secondIsNumber){
@@ -140,20 +156,25 @@ public class PriceParserFromStringTuple implements PriceParser {
                 }
                 price=three.getThird();
             }
-            return ProductPrice.fromNameCut(itemName, itemNumber, price);
+            return ProductPriceUtils.fromNameCut(itemName, itemNumber, price);
         }
 
         if(thirdIsNumber){
-            log.debug("Third is an item number");
-            itemName=three.getFirst()+StringCommon.WIDE_SPACES+three.getSecond();
-            itemNumber=three.getThird();
-            price="";
+            if(isNotPrice(three.getThird())){
+                log.debug("Third "+ three.getThird() + " is NOT considered as a price");
+                throw new Exception("String "+three.getThird()+" got to be a price");
+            }
+            log.debug("Third "+ three.getThird() + " is considered as a price");
+            itemName=three.getFirst()+StringCommon.WIDE_SPACES + three.getSecond();
+            itemNumber=StringCommon.EMPTY;
+            price=three.getThird();;
         }
 
-        log.debug("No item numbers.");
+        log.debug("0: No item numbers.");
         if(isNotPrice(three.getThird())){
             price=three.getSecond();
             itemName=three.getFirst();
+            log.debug("the third is not a price, treating "+ price+" as price");
         }else{
             if(isNotPrice(three.getSecond())){
                 log.debug("the second is not a price");
@@ -167,7 +188,7 @@ public class PriceParserFromStringTuple implements PriceParser {
                 itemName=three.getFirst();
             }
         }
-        return ProductPrice.fromNameCut(itemName, itemNumber, price);
+        return ProductPriceUtils.fromNameCut(itemName, itemNumber, price);
     }
 
     @Override
@@ -180,7 +201,7 @@ public class PriceParserFromStringTuple implements PriceParser {
         String price="";
         if(firstIsNumber && secondIsNumber){//all numbers
             itemNumber=two.getFirst() + StringCommon.WIDE_SPACES+two.getSecond();
-            return ProductPrice.fromNameCut(itemName, itemNumber, price);
+            return ProductPriceUtils.fromNameCut(itemName, itemNumber, price);
         }
 
         if(firstIsNumber){
@@ -190,25 +211,27 @@ public class PriceParserFromStringTuple implements PriceParser {
             }else{
                 price=two.getSecond();
             }
-            return ProductPrice.fromNameCut(itemName, itemNumber, price);
+            return ProductPriceUtils.fromNameCut(itemName, itemNumber, price);
         }
 
         if(secondIsNumber){
             itemName=two.getFirst();
             itemNumber=two.getSecond();
-            return ProductPrice.fromNameCut(itemName, itemNumber, price);
+            return ProductPriceUtils.fromNameCut(itemName, itemNumber, price);
         }
 
-        //        log.debug("No item number.");
+        log.debug("1: No item number.");
         itemNumber="";
         if(isNotPrice(two.getSecond())){
-            itemName=two.getFirst()+StringCommon.WIDE_SPACES+two.getSecond();
+            log.debug(two.getSecond()+" is not a price.");
+            itemName=two.getFirst() + StringCommon.WIDE_SPACES + two.getSecond();
             price="";
+            //return ProductPriceUtils.fromNameCut(itemName, itemNumber, price);
         }else{
             itemName=two.getFirst();
             price=two.getSecond();
         }
-        return ProductPrice.fromNameCut(itemName, itemNumber, price);
+        return ProductPriceUtils.fromNameCut(itemName, itemNumber, price);
     }
 
 
@@ -238,7 +261,13 @@ public class PriceParserFromStringTuple implements PriceParser {
 
     public static boolean isNotPrice(final String str){
         int[] counts=StringCommon.countDigitAndLetters(str);
-        if(counts[0]<=0 || counts[1]>=PriceParserConstant.MIN_ITEM_NAME_LETTERS+2 ) return true;
+        if(counts[0] <= 0
+                || counts[1] >= PriceParserConstant.MIN_ITEM_NAME_LETTERS+2
+                || (str.trim().startsWith("0") && !str.contains(".")  )) return true;
+
+        // too-big-value price (like XXXXXX.) is not allowed
+        if( !str.contains(".") && StringCommon.continuousDigitsBeforeDot(str) >= PriceParserConstant.MIN_ITEM_NAME_LETTERS + 5)
+            return true;
 
         return false;
     }
@@ -255,5 +284,20 @@ public class PriceParserFromStringTuple implements PriceParser {
         //        if(result)
         //            log.debug(str+" is a very likely a price");
         return result;
+    }
+
+    private static String priceFromTwoSuccesiveStrings(final String s1, final String s2){
+        String price="";
+        if(isNotPrice(s1)){
+            //            log.debug("s1="+s1+" is not price, s2="+s2+" is assumed to be price.");
+            price=s2;
+        }else{
+            if(isNotPrice(s2)){
+                //                log.debug("s2="+s1+" is not price, s1="+s1+" is assumed to be price.");
+                price=s1;
+            }else
+                price=s1+StringCommon.WIDE_SPACES+s2;
+        }
+        return price;
     }
 }

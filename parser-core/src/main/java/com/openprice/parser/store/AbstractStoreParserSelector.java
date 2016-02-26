@@ -9,7 +9,7 @@ import javax.inject.Inject;
 
 import org.springframework.beans.factory.InitializingBean;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.StoreConfigImpl;
 import com.openprice.parser.api.Product;
@@ -77,7 +77,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
         final List<String> skipBefore=metadata.getStoreChainByCode(chain.getCode()).getSkipBefore();
         final List<String> skipAfter=metadata.getStoreChainByCode(chain.getCode()).getSkipAfter();
         final List<String> notations=metadata.getStoreChainByCode(chain.getCode()).getNotations();
-        final ImmutableList.Builder<String> blackListAll=new  ImmutableList.Builder<>();
+        final ImmutableSet.Builder<String> blackListAll=new  ImmutableSet.Builder<>();
         //we don't want these to be item names
         blackListAll.addAll(notCatalogItemNames);
         blackListAll.addAll(category);
@@ -91,7 +91,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
                 category,
                 skipBefore,
                 skipAfter,
-                blackListAll.build()
+                blackListAll.build().stream().collect(Collectors.toList())
                 );
     }
 

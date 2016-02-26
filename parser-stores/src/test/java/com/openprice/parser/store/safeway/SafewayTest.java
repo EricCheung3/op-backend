@@ -8,8 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,16 +19,12 @@ import com.openprice.parser.ParsedField;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.simple.SimpleParser;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SafewayTest extends AbstractReceiptParserIntegrationTest {
     @Value("classpath:/testFiles/Safeway/Southgate/2015_02_27_20_04_24.jpg.dongcui.txt")
     private Resource sampleReceipt1;
-
-    @Inject
-    SimpleParser simpleParser;
 
     @Test
     public void testReceipt1TheCommentedItemsAreAllGone() throws Exception {

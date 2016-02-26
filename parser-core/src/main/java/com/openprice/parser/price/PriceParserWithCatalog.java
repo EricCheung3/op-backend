@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.openprice.parser.api.Product;
+import com.openprice.parser.itempredictor.ItemPredictor;
+import com.openprice.parser.itempredictor.ItemPredictorImpl;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,9 @@ public class PriceParserWithCatalog {
     PriceParser priceParser;
 
     Set<Product> catalog = new HashSet<Product>();
+
+    private static final ItemPredictor itemPredictor = new ItemPredictorImpl();
+    private static final NonWideSpaceParserImpl nonSpaceParser = new NonWideSpaceParserImpl();
 
     public PriceParserWithCatalog(final PriceParser parser, final Set<Product>  catalog){
         this.priceParser=parser;
@@ -100,7 +105,30 @@ public class PriceParserWithCatalog {
         }
 
         if(pPrice2!=null &&  !pPrice2.isEmpty()) return pPrice2;
+
+        //no wide space can still contain items
+        if(itemPredictor.isItemLine(line)){
+            return nonSpaceParser.parse(line);
+        }
+
         return ProductPrice.emptyValue();
     }
+
+//    public static List<String> pruneAndSplitLongString(final String line){
+//        final List<String> result = new ArrayList<>();
+//        final String price = StringCommon.formatPrice(line);
+//        final String head = StringCommon.removeMatchingTail(line, price);
+////        log.debug("head="+head);
+////        log.debug("price="+price);
+//        if(head.endsWith("$"))
+//            result.add(head.substring(0, head.length()-1).trim());
+//        else
+//            result.add(head.trim());
+//
+//        result.add(price.trim());
+//        return result;
+//    }
+
+
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.util.StringUtils;
 
@@ -14,6 +15,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import com.openprice.store.data.CategoryData;
 import com.openprice.store.data.ProductData;
 import com.openprice.store.data.StoreBranchData;
@@ -22,6 +24,25 @@ import com.openprice.store.data.StoreChainData;
 public class MetadataLoader {
 
     public static final String GENERIC_STORE_CODE = "generic";  // special store chain code for unknown generic store
+
+    //a store parser will load from a file from this folder if it doesn't have the file
+    public static final String SHARED_CONFIG_ROOT = "sharedConfigurationFilesShouldNotCoincideWithAnyStoreNames";
+
+    public static Properties loadSharedNonHeader(){
+        return loadNonHeaderProperties(SHARED_CONFIG_ROOT);
+    }
+
+    public static Properties loadSharedHeader(){
+        return loadHeaderProperties(SHARED_CONFIG_ROOT);
+    }
+
+    public static List<String> loadSharedNotCatalogItemNames(){
+        return loadStringList(ChainConfigFiles.getBlackList(SHARED_CONFIG_ROOT));
+    }
+
+    public static List<String> loadSharedSkipAfter(){
+        return loadStringList(ChainConfigFiles.getSkipAfter(SHARED_CONFIG_ROOT));
+    }
 
     public static StoreMetadata loadMetadata() {
         // load category first
@@ -61,17 +82,49 @@ public class MetadataLoader {
         if (storeChains == null) {
             throw new RuntimeException("No store chains data at "+storeFile);
         }
+
+        final Properties sharedHeader = loadSharedHeader();
+        final Properties sharedNonHeader = loadSharedNonHeader();
+        final List<String> sharedNotCatalogItemNames = loadSharedNotCatalogItemNames();
+        final List<String> sharedAfter = loadSharedSkipAfter();
+
         for (StoreChainData chain : storeChains) {
             final List<StoreBranch> branches = loadStoreBranches(chain.getCode());
             final List<String> receiptCategories = loadStringList(ChainConfigFiles.getCategoriesOfStore(chain.getCode()));
             final Map<String, CatalogProduct> products = loadCatalogProducts(chain.getCode(), categoryMap);
             final List<String> notations = loadStringList(ChainConfigFiles.getNotations(chain.getCode()));
-            final List<String> identifyFields = loadStringList(ChainConfigFiles.getIdentify(chain.getCode()));
-            final Properties headerProperties=loadHeaderProperties(chain.getCode());
-            final Properties nonHeaderProperties=loadNonHeaderProperties(chain.getCode());
-            final List<String> notCatalogItemNames = loadStringList(ChainConfigFiles.getBlackList(chain.getCode()));
+
+            List<String> identifyFields = loadStringList(ChainConfigFiles.getIdentify(chain.getCode()));
+            if(identifyFields.isEmpty()){
+                final ImmutableList.Builder<String> builder = new ImmutableList.Builder<>();
+                builder.add(chain.getName());
+                identifyFields = builder.build();
+            }
+
+            Properties headerProperties=loadHeaderProperties(chain.getCode());
+            if(headerProperties == null || headerProperties.isEmpty()){
+                headerProperties = sharedHeader;
+            }
+
+            Properties nonHeaderProperties=loadNonHeaderProperties(chain.getCode());
+            if(nonHeaderProperties == null || nonHeaderProperties.isEmpty()){
+                nonHeaderProperties = sharedNonHeader;
+            }
+
+            final List<String> notItemOfThisChain = loadStringList(ChainConfigFiles.getBlackList(chain.getCode()));
+            final ImmutableSet.Builder<String> builder = new ImmutableSet.Builder<>();
+            builder.add(chain.getName());
+            builder.addAll(notItemOfThisChain);
+            builder.addAll(sharedNotCatalogItemNames);
+            final List<String> notCatalogItemNames = builder.build().stream().collect(Collectors.toList());
+
             final List<String> skipBefore = loadStringList(ChainConfigFiles.getSkipBefore(chain.getCode()));
-            final List<String> skipAfter = loadStringList(ChainConfigFiles.getSkipAfter(chain.getCode()));
+
+            List<String> skipAfter = loadStringList(ChainConfigFiles.getSkipAfter(chain.getCode()));
+            if(skipAfter == null || skipAfter.isEmpty()){
+                skipAfter = sharedAfter;
+            }
+
             chainMapBuilder.put(chain.getCode(),
                                 StoreChain.fromChainCategoriesBranchesIdentifyMapNotationsHeaderNonHeaderNotItemNamesBeforeAfter(
                                         chain,

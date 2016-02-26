@@ -1,0 +1,23 @@
+{
+  "AccountHeader" : "Account,ACCOUNT NUMBER, ACCT",
+  "DateHeader" : "DATE            TIME      AMOUNT,DATE:,TIME",
+  "ChainIDHeader" : "",
+  "SloganHeader" : "",
+  "TotalSoldHeader" : "",
+  "RecycleHeader" : "",
+  "DepositHeader" : "",
+  "GstHeader" : "GST    5.00V., Total Tax, GST,**** 5.0% GST,5% GST,TOTAL TAX,**** TAX,G=GST 5%",
+  "RegularPriceHeader" : "",
+  "SavingHeader" : "",
+  "ApprovedHeader" : "",
+  "StoreBranchHeader" : "",
+  "SubTotalHeader" : "SubtotaL,Net Total",
+  "ThankYouHeader" : "Thank You",
+  "TotalHeader" : "Visa,Total,TaKE-Out TotaL,Eat-in total,TOTAL:,T O T A L",
+  "CardHeader" : "CARD NUMBER,CARD # ************  ",
+  "CouponHeader" : "",
+  "GstNumberHeader" : "GST #",
+  "CashierHeader" : "Cashier:",
+  "RefHeader" : "REF #            AUTH #     RESP,ORDER #,RECEIPT NUMBER",
+  "AuthorHeader" : "AUTHOR.#, Auth#,REF #            AUTH #     RESP"
+}

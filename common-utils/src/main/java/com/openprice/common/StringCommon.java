@@ -17,6 +17,28 @@ public class StringCommon {
     public static final String WIDE_SPACES="    ";
 
 
+    /*
+     * tail is approxiamtely a substring of line.
+     * e.g., line= "abc e 179. 9916", tail = "179.9916", then should return "abc e"
+     * the algorithm is similar to StringCommon.matchStringToSubstring
+     */
+    public static String removeMatchingTail(final String line, final String tail){
+        if (line.isEmpty() || tail.isEmpty() || line.length() < tail.length()) {
+            return StringCommon.EMPTY;
+        }
+        double scoreMax = 0;
+        String result = StringCommon.EMPTY;
+        for (int i = line.length() - tail.length(); i>=0; i--) {
+            String slice = line.substring(i, i + tail.length());
+            double score = Levenshtein.compare(slice, tail);
+//            log.debug("slice="+slice+", score="+score);
+            if (score >= scoreMax) {
+                scoreMax = score;
+                result = line.substring(0,i).trim();
+            }
+        }
+        return result;
+    }
     public static List<String> sortByStringLength(final List<String> orig){
         return orig
                 .stream()
@@ -167,6 +189,23 @@ public class StringCommon {
         return count;
     }
 
+    /**
+     * If containing ".", this is the number of continuous digits before the dot
+     * otherwise, it is the maximum number of continuous digits.
+     * @param str
+     * @return
+     */
+    public static int continuousDigitsBeforeDot(final String str){
+        int lastDot = str.lastIndexOf(".");
+        int count=0;
+        for(int i=lastDot-1; i>=0; i--){
+            if(Character.isDigit(str.charAt(i)))
+                count++;
+            else
+                break;
+        }
+        return count;
+    }
 
     public static int[] countDigitAndAlphabets(final String str) {
         int[] count = new int[2];
@@ -189,6 +228,17 @@ public class StringCommon {
         return charSet.size() == 1;
     }
 
+    public static int[] countDigitAndChars(final String str, final String allowedDigitChars) {
+        int[] count = new int[2];
+        for (int i = 0; i < str.length(); i++)
+            if (Character.isDigit(str.charAt(i))
+                    || allowedDigitChars.contains(str.charAt(i)+""))
+                count[0]++;
+            else if (Character.isAlphabetic(str.charAt(i)))
+                count[1]++;
+        return count;
+    }
+
     public static int[] countDigitAndChars(final String str) {
         int[] count = new int[2];
         for (int i = 0; i < str.length(); i++)
@@ -196,6 +246,22 @@ public class StringCommon {
                 count[0]++;
             else if (Character.isAlphabetic(str.charAt(i)))
                 count[1]++;
+        return count;
+    }
+
+    public static int countDigits(final String str){
+        int count = 0;
+        for (int i = 0; i < str.length(); i++)
+            if (Character.isDigit(str.charAt(i)))
+                count++;
+        return count;
+    }
+
+    public static int countLetters(final String str){
+        int count = 0;
+        for (int i = 0; i < str.length(); i++)
+            if (Character.isAlphabetic(str.charAt(i)))
+                count++;
         return count;
     }
 

@@ -163,9 +163,14 @@ public class LondonDrugsTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedItem(iterator.next(), "20 disc airplus hug/heels",  "6.999", null, 16);
         verifyParsedItem(iterator.next(), "20 disc airplus insole",  "12.999", null, 17);
         verifyParsedItem(iterator.next(), "20 disc matador jerky",  "8.999", null, 18);
+        //TODO missing item
+//        verifyParsedItem(iterator.next(), "20 disc shopkins mrkt g",  "200919.999", null, 19);
         verifyParsedItem(iterator.next(), "tax    2.43    bal",  "54.23", null, 21);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "54.23",22);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/5/16",2);
+        verifyParsedField(fieldValues, ReceiptFieldType.Saving, "employee discount       11.40-",20);
+        verifyParsedField(fieldValues, ReceiptFieldType.Recycle, "recycling fee             .02 g",14);
+
     }
 
     @Test

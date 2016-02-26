@@ -10,9 +10,12 @@ public class StoreChainFound {
     private final StoreChain chain;
     @Getter
     private final FoundChainAt foundAt;
+    @Getter
+    private final int lineNumber;
 
-    public StoreChainFound(final StoreChain c, final FoundChainAt position){
+    public StoreChainFound(final StoreChain c, final FoundChainAt position, final int line){
         this.chain = c;
         this.foundAt = position;
+        this.lineNumber = line;
     }
 }

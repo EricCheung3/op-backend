@@ -69,11 +69,11 @@ public class SimpleParser implements ReceiptParser {
         if (chainFound == null) {
             log.info("No specific store parser for this receipt yet!");
         } else {
-            log.debug("ChainRegistry find matching chain {}, at {}.", chain.getCode(), chainFound.getFoundAt());
+            log.debug("ChainRegistry: find matching chain {}, at {} at line {}.", chain.getCode(), chainFound.getFoundAt(), chainFound.getLineNumber());
         }
 
         final String genericChainCode = genericChainCodeFound.getChainCode().toLowerCase();
-        log.debug("Generic chains find matching chain " + genericChainCode + ", at "+ genericChainCodeFound.getFoundAt());
+        log.debug("Generic chains: find matching chain {} at {} at line {}", genericChainCode, genericChainCodeFound.getFoundAt(), genericChainCodeFound.getLineNumber());
 
         if (chain == null ||
                 (chainFound.getFoundAt() != FoundChainAt.BEGIN &&
