@@ -27,82 +27,82 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class LondonDrugsTest extends AbstractReceiptParserIntegrationTest {
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_18_33_38.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_18_33_38.jpg.natalie.txt")
     private Resource receipt_2015_07_18_18_33_38;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_18_35_05.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_18_35_05.jpg.natalie.txt")
     private Resource receipt_2015_07_18_18_35_05;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_18_35_15.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_18_35_15.jpg.natalie.txt")
     private Resource receipt_2015_07_18_18_35_15;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_18_35_24.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_18_35_24.jpg.natalie.txt")
     private Resource receipt_2015_07_18_18_35_24;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_18_36_12.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_18_36_12.jpg.natalie.txt")
     private Resource receipt_2015_07_18_18_36_12;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_18_36_20.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_18_36_20.jpg.natalie.txt")
     private Resource receipt_2015_07_18_18_36_20;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_18_36_29.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_18_36_29.jpg.natalie.txt")
     private Resource receipt_2015_07_18_18_36_29;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_18_36_38.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_18_36_38.jpg.natalie.txt")
     private Resource receipt_2015_07_18_18_36_38;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_18_38_11.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_18_38_11.jpg.natalie.txt")
     private Resource receipt_2015_07_18_18_38_11;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_18_38_20.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_18_38_20.jpg.natalie.txt")
     private Resource receipt_2015_07_18_18_38_20;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_18_38_29.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_18_38_29.jpg.natalie.txt")
     private Resource receipt_2015_07_18_18_38_29;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_18_38_38.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_18_38_38.jpg.natalie.txt")
     private Resource receipt_2015_07_18_18_38_38;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_18_38_48.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_18_38_48.jpg.natalie.txt")
     private Resource receipt_2015_07_18_18_38_48;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_18_38_52.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_18_38_52.jpg.natalie.txt")
     private Resource receipt_2015_07_18_18_38_52;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_18_39_02.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_18_39_02.jpg.natalie.txt")
     private Resource receipt_2015_07_18_18_39_02;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_19_53_40.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_19_53_40.jpg.natalie.txt")
     private Resource receipt_2015_07_18_19_53_40;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_19_53_50.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_19_53_50.jpg.natalie.txt")
     private Resource receipt_2015_07_18_19_53_50;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_19_53_59.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_19_53_59.jpg.natalie.txt")
     private Resource receipt_2015_07_18_19_53_59;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_19_55_53.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_19_55_53.jpg.natalie.txt")
     private Resource receipt_2015_07_18_19_55_53;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_14951StonyPlain/2015_07_18_19_58_30.jpg.natalie.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_19_58_30.jpg.natalie.txt")
     private Resource receipt_2015_07_18_19_58_30;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_88_170St/2015_04_04_21_31_37.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_88_170St/2015_04_04_21_31_37.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_31_37;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_88_170St/2015_04_04_21_47_34.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_88_170St/2015_04_04_21_47_34.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_47_34;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_88_170St/2015_06_29_16_20_29.jpg.random.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_88_170St/2015_06_29_16_20_29.jpg.random.txt")
     private Resource receipt_2015_06_29_16_20_29;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_88_170St/2015_07_02_18_14_57.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_88_170St/2015_07_02_18_14_57.jpg.henryHuang.txt")
     private Resource receipt_2015_07_02_18_14_57;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_88_170St/2015_07_02_18_15_05.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_88_170St/2015_07_02_18_15_05.jpg.henryHuang.txt")
     private Resource receipt_2015_07_02_18_15_05;
 
-    @Value("classpath:/testFiles/LondonDrugs/branch_88_170St/2015_07_03_16_51_11.jpg.haipeng.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_88_170St/2015_07_03_16_51_11.jpg.haipeng.txt")
     private Resource receipt_2015_07_03_16_51_11;
 
 
