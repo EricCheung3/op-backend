@@ -62,7 +62,7 @@ public class SportChekTest extends AbstractReceiptParserIntegrationTest {
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(0,receipt.getItems().size());
-        //TODO missing an item because no widepace?
+        //TODO missing an item because no widepace? use NonWideSpaceParserImpl, see NonWideSpaceParserImplTest
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "179.99",15);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "188.99",17);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/11/8",5);
