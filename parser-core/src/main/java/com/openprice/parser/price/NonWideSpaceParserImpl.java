@@ -10,7 +10,10 @@ import com.openprice.parser.data.ProductImpl;
 public class NonWideSpaceParserImpl implements NonWideSpaceParser{
 
     @Override
-    public ProductPrice parse(final String str){
+    public ProductPrice parse(String str){
+        str =  str.trim();
+        if(str.endsWith("$"))
+            str = str.substring(0, str.length()-1);
         final SplittingFeatures features = new SplittingFeatures(str);
         String number = StringCommon.EMPTY;
         String name = StringCommon.EMPTY;
