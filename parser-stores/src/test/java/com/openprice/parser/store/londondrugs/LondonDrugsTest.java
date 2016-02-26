@@ -117,7 +117,7 @@ public class LondonDrugsTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("londondrugs", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(4,receipt.getItems().size());
+        assertEquals(5,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "20 disc logiix usb cube",  "29.999", null, 6);
         verifyParsedItem(iterator.next(), "20 disc continental cookie",  "2.99", null, 7);
         verifyParsedItem(iterator.next(), "20 disc model f purse kit",  "6.999", null, 8);
@@ -154,7 +154,7 @@ public class LondonDrugsTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("londondrugs", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(9,receipt.getItems().size());
+        assertEquals(10,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "20 disc campbells soup",  "2.98", null, 5);
         verifyParsedItem(iterator.next(), "pepsi diet",  "2.999", null, 6);
         verifyParsedItem(iterator.next(), "20 disc always p/liners",  "4.999", null, 9);
@@ -163,9 +163,13 @@ public class LondonDrugsTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedItem(iterator.next(), "20 disc airplus hug/heels",  "6.999", null, 16);
         verifyParsedItem(iterator.next(), "20 disc airplus insole",  "12.999", null, 17);
         verifyParsedItem(iterator.next(), "20 disc matador jerky",  "8.999", null, 18);
+        verifyParsedItem(iterator.next(), "20 disc shopkins mrkt g",  "200919.999", null, 19);
         verifyParsedItem(iterator.next(), "tax    2.43    bal",  "54.23", null, 21);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "54.23",22);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/5/16",2);
+        verifyParsedField(fieldValues, ReceiptFieldType.Saving, "employee discount       11.40-",20);
+        verifyParsedField(fieldValues, ReceiptFieldType.Recycle, "recycling fee             .02 g",14);
+
     }
 
     @Test
@@ -342,7 +346,7 @@ public class LondonDrugsTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("londondrugs", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(4,receipt.getItems().size());
+        assertEquals(8,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "20 disc cubita coffee",  "4.49", null, 8);
         verifyParsedItem(iterator.next(), "20 disc conair dryer",  "29.999", null, 9);
         verifyParsedItem(iterator.next(), "20 disc smartfood",  "1.499", null, 13);
@@ -362,7 +366,7 @@ public class LondonDrugsTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("londondrugs", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(5,receipt.getItems().size());
+        assertEquals(7,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "waterbridge gums",  "2.299", null, 14);
         verifyParsedItem(iterator.next(), "waterbridge gums",  "1.719", null, 16);
         verifyParsedItem(iterator.next(), "nestle smarties",  "0.999", null, 18);
@@ -434,7 +438,7 @@ public class LondonDrugsTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("londondrugs", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(11,receipt.getItems().size());
+        assertEquals(14,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "lentil chips",  "2.799", null, 7);
         verifyParsedItem(iterator.next(), "kerr's candy",  "1.799", null, 8);
         verifyParsedItem(iterator.next(), "20 disc g.h.cretors",  "3.999", null, 9);
@@ -460,7 +464,7 @@ public class LondonDrugsTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("londondrugs", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(8,receipt.getItems().size());
+        assertEquals(11,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "rf pr kuschel slippers",  "11.999", null, 8);
         verifyParsedItem(iterator.next(), "rf pr kuschel slippers",  "11.999", null, 9);
         verifyParsedItem(iterator.next(), "20 disc kuschel slippers",  "11.999", null, 11);
@@ -639,7 +643,7 @@ public class LondonDrugsTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("londondrugs", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(1,receipt.getItems().size());
+        assertEquals(2,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "hydrasense",  "13.999", null, 4);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "14.69",30);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "(g )st         .70",11);
