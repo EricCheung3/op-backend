@@ -23,8 +23,6 @@ public class PriceParserWithCatalog {
 
     Set<Product> catalog = new HashSet<Product>();
 
-    private static int MIN_STRING_LENGTH_TO_CONTAIN_ITEM = 15;
-
     public PriceParserWithCatalog(final PriceParser parser, final Set<Product>  catalog){
         this.priceParser=parser;
         this.catalog=catalog;
@@ -105,16 +103,6 @@ public class PriceParserWithCatalog {
         }
 
         if(pPrice2!=null &&  !pPrice2.isEmpty()) return pPrice2;
-
-        //allow item from a long line with no widepaces
-        if(line.trim().length()>=MIN_STRING_LENGTH_TO_CONTAIN_ITEM ){
-            final List<String> words = pruneAndSplitLongString(line);
-            try{
-                return priceParser.fromThreeStrings(new ThreeStrings(words.get(0), "", words.get(1)));
-            }catch(Exception e){
-                log.warn("line="+ line+",fromTwoStrings after pruneAndSplitLongString: "+e.getMessage());
-            }
-        }
 
         return ProductPrice.emptyValue();
     }
