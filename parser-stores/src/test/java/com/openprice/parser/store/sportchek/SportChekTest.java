@@ -29,6 +29,9 @@ public class SportChekTest extends AbstractReceiptParserIntegrationTest {
     @Value("classpath:/testFiles/sportchek/fromPhone/HuFeb24.txt")
     private Resource receipt_HuFeb24;
 
+    @Value("classpath:/testFiles/sportchek/fromPhone/HuFeb25.txt")
+    private Resource receipt_HuFeb25;
+
     @Value("classpath:/testFiles/sportchek/fromPhone/YuanFeb24.txt")
     private Resource receipt_YuanFeb24;
 
@@ -49,6 +52,27 @@ public class SportChekTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/5/11",6);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst/hst 869618785",45);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "57.75",17);
+    }
+
+    @Test
+    public void receipt_HuFeb25()  throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_HuFeb25, (line)-> receiptLines.add(line));
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        printResult(receipt);
+        assertEquals("sportchek", receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(1,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "nike team trg",  "55.0019", null, 10);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/11/5",4);
+        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "cashier:20051 breannac",6);
+//        verifyParsedField(fieldValues, ReceiptFieldType.Card, "*k*k****************ft*ft**m*k**ttkk",19);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "57.75",14);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "55.00",12);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst                        5.00%                       $2.75",17);
+
     }
 
     @Test
