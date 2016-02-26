@@ -45,6 +45,7 @@ public class SimpleParserUtils {
                        .filter( item -> item != null &&
                                         item.getParsedName()!=null &&
                                         !item.getParsedName().isEmpty() &&
+                                        !(item.getParsedName().contains("kg") && item.getParsedName().contains("@")) &&
                                         StringCommon.countChars(item.getParsedName()) > PriceParserConstant.MIN_ITEM_NAME_LETTERS &&
                                         !parser.getStoreConfig().matchesBlackList(item.getParsedName())
                         )
