@@ -189,6 +189,25 @@ public class StringCommon {
         return count;
     }
 
+    /**
+     * If containing ".", this is the number of continuous digits before the dot
+     * otherwise, it is the maximum number of continuous digits.
+     * @param str
+     * @return
+     */
+    public static int continuousDigitsBeforeDot(final String str){
+        int lastDot = str.lastIndexOf(".");
+        int count=0;
+        for(int i=lastDot-1; i>=0; i--){
+            if(Character.isDigit(str.charAt(i)))
+                count++;
+            else
+                break;
+        }
+        return count;
+
+    }
+
 
     public static int[] countDigitAndAlphabets(final String str) {
         int[] count = new int[2];

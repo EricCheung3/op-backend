@@ -14,6 +14,15 @@ import lombok.extern.slf4j.Slf4j;
 public class StringCommonTest {
 
     @Test
+    public void continuousDigitsBeforeDotTest(){
+        assertEquals(1, StringCommon.continuousDigitsBeforeDot("1.2"));
+        assertEquals(0, StringCommon.continuousDigitsBeforeDot("1x.2"));
+        assertEquals(0, StringCommon.continuousDigitsBeforeDot(".2"));
+        assertEquals(0, StringCommon.continuousDigitsBeforeDot("12"));
+        assertEquals(5, StringCommon.continuousDigitsBeforeDot("12000.000"));
+    }
+
+    @Test
     public void removeMatchingTailExactMatchIsFine(){
         final String line="abc e 179. 9916";
         final String tail = "179. 9916";

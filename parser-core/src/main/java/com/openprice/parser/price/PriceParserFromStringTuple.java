@@ -242,10 +242,17 @@ public class PriceParserFromStringTuple implements PriceParser {
 
     public static boolean isNotPrice(final String str){
         int[] counts=StringCommon.countDigitAndLetters(str);
-        if(counts[0]<=0
-                || counts[0] >= PriceParserConstant.MIN_ITEM_NAME_LETTERS+3 // 5-digit price is not allowed
+        if(counts[0] <= 0
                 || counts[1] >= PriceParserConstant.MIN_ITEM_NAME_LETTERS+2
                 || str.trim().startsWith("0") ) return true;
+
+        // too-big-value price (like XXXXXX.) is not allowed
+        if( StringCommon.continuousDigitsBeforeDot(str) >= PriceParserConstant.MIN_ITEM_NAME_LETTERS+3)
+            return true;
+
+        //too many digits are likely not prices
+        if(counts[0] >= PriceParserConstant.MIN_ITEM_NAME_LETTERS+5)
+            return true;
 
         return false;
     }
