@@ -102,10 +102,10 @@ public class TandTTest1 extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testfiles/tandt/branch_88_170st/2015_06_04_21_15_50.jpg.henryHuang.txt")
     private Resource receipt_2015_06_04_21_15_50;
 
-    @Value("classpath:/testfiles/tandt/RCSSsellsTandT/2015_04_04_21_54_42.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/tandt/rcss_sells_tandt/2015_04_04_21_54_42.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_54_42;
 
-    @Value("classpath:/testfiles/tandt/RCSSsellsTandT/2014_12_06_23_33_53.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/tandt/rcss_sells_tandt/2014_12_06_23_33_53.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_23_33_53;
 
 
