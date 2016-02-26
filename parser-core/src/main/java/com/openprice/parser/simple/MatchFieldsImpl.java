@@ -184,8 +184,18 @@ public class MatchFieldsImpl implements MatchFields{
 //                       return !record.isFieldLine(line.getNumber());
 //                    })//just let each field matching to its favourite line
                    //threshold needs a large value because total date are important
-                   .filter(line -> ! matchesBlackListForTotal(line.getCleanText().toLowerCase(), 0.75))
-                   .filter(line -> ! matchesBlackListForDate(line.getCleanText().toLowerCase(), 0.75))
+                   .filter(line -> {
+                       if(field == ReceiptFieldType.Total)
+                           return ! matchesBlackListForTotal(line.getCleanText().toLowerCase(), 0.75);
+                       else
+                           return true;
+                   })
+                   .filter(line -> {
+                       if( field == ReceiptFieldType.Date)
+                           return ! matchesBlackListForDate(line.getCleanText().toLowerCase(), 0.75);
+                       else
+                           return true;
+                   })
                    .filter( line -> {
                 Optional<Double> maxScore =
                         headerPatterns
