@@ -25,7 +25,7 @@ public class NonWideSpaceParserImpl implements NonWideSpaceParser{
             number = str.substring(0, features.getFirstNonDigitSpace());
             name = str.substring(features.getFirstNonDigitSpace(), features.getLastNonDigitSpace()+1);
         }else{
-          //the whole stirng is the name
+          //the whole string is the name
             number = StringCommon.EMPTY;
             name = str.substring(0, features.getLastNonDigitSpace()+1);
         }

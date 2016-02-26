@@ -9,7 +9,7 @@ public class NonWideSpaceParserImplTest {
     private NonWideSpaceParserImpl parser = new NonWideSpaceParserImpl();
 
     @Test
-    public void numberNamePrice1(){
+    public void FourDigitsCanBeItemNumber(){
         final ProductPrice pp = parser.parse("1333 abc 1.3 ");
         assertEquals("1333", pp.getNumber());
         assertEquals("abc", pp.getName());
@@ -17,7 +17,7 @@ public class NonWideSpaceParserImplTest {
     }
 
     @Test
-    public void numberNamePrice2(){
+    public void twoDigitsCannotBeItemNumber(){
         final ProductPrice pp = parser.parse("13 abc 1.3 ");
         assertEquals("", pp.getNumber());
         assertEquals("13 abc", pp.getName());

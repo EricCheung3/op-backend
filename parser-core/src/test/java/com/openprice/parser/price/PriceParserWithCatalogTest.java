@@ -43,6 +43,34 @@ public class PriceParserWithCatalogTest {
         assertEquals("",pp.getNumber());
     }
 
+    @Test
+    public void nameHasTrailingNumberTest1(){
+        final String line = "380447 DUSTER 24         18.79 G";
+        final ProductPrice pp= PriceParserWithCatalog.emptyCatalog().parsePriceLine(line);
+        assertEquals("DUSTER 24",pp.getName());
+        assertEquals("18.79",pp.getPrice());
+        assertEquals("380447",pp.getNumber());
+    }
+
+    @Test
+    public void nameHasTrailingNumberTest2(){
+        final String line = "704012 WELCH'                         ; 50CT                9.99    G";
+        final ProductPrice pp= PriceParserWithCatalog.emptyCatalog().parsePriceLine(line);
+        assertEquals("WELCH'                         ; 50CT",pp.getName());
+        assertEquals("9.99",pp.getPrice());
+        assertEquals("704012",pp.getNumber());
+    }
+
+    @Test
+    public void nameHasTrailingNumberTest3(){
+        final String line = "458 MILK 2%            4.54";
+        final ProductPrice pp= PriceParserWithCatalog.emptyCatalog().parsePriceLine(line);
+        assertEquals("WELCH'                         ; 50CT",pp.getName());
+        assertEquals("9.99",pp.getPrice());
+        assertEquals("704012",pp.getNumber());
+    }
+
+
 //    @Test
 //    public void noWideSpacesIsOkay(){
 //        final ProductPrice pp= parser.parsePriceLine("7040054391580 RIDER INSULATE $179.99 16  ");
