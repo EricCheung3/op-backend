@@ -19,6 +19,7 @@ import com.openprice.common.ApiConstants;
 import com.openprice.domain.account.user.UserResetPasswordRequest;
 import com.openprice.domain.account.user.UserResetPasswordRequestRepository;
 
+@DatabaseSetup("classpath:/data/test-data.xml")
 public class ResetPasswordRestApiIT extends AbstractSiteRestApiIntegrationTest {
 
     @Test
@@ -40,7 +41,6 @@ public class ResetPasswordRestApiIT extends AbstractSiteRestApiIntegrationTest {
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testData.xml")
     public void forgetPassword_ShouldAddForgetPasswordRequest() {
         ForgetPasswordForm form = new ForgetPasswordForm(TEST_USERNAME_JOHN_DOE);
 
@@ -64,7 +64,6 @@ public class ResetPasswordRestApiIT extends AbstractSiteRestApiIntegrationTest {
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testData.xml")
     public void getResetPasswordRequest_ShouldReturnPasswordRequest() {
         ForgetPasswordForm form = new ForgetPasswordForm(TEST_USERNAME_JOHN_DOE);
 
@@ -101,7 +100,6 @@ public class ResetPasswordRestApiIT extends AbstractSiteRestApiIntegrationTest {
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testData.xml")
     public void getResetPasswordRequest_ShouldReturn404_WhenRequestExpired() {
         ForgetPasswordForm form = new ForgetPasswordForm(TEST_USERNAME_JOHN_DOE);
 
@@ -134,7 +132,6 @@ public class ResetPasswordRestApiIT extends AbstractSiteRestApiIntegrationTest {
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testData.xml")
     public void resetPassword_ShouldResetPassword() {
 
         ForgetPasswordForm form = new ForgetPasswordForm(TEST_USERNAME_JOHN_DOE);
@@ -168,7 +165,6 @@ public class ResetPasswordRestApiIT extends AbstractSiteRestApiIntegrationTest {
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testData.xml")
     public void resetPassword_ShouldReturn404_WhenRequestExpired() {
         ForgetPasswordForm form = new ForgetPasswordForm(TEST_USERNAME_JOHN_DOE);
 

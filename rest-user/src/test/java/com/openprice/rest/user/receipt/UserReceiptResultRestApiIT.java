@@ -19,7 +19,7 @@ import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptItemRepository;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
-@DatabaseSetup("classpath:/data/testData.xml")
+@DatabaseSetup("classpath:/data/test-data.xml")
 public class UserReceiptResultRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Inject

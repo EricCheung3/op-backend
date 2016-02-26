@@ -14,7 +14,7 @@ import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
-@DatabaseSetup("classpath:/data/testData.xml")
+@DatabaseSetup("classpath:/data/test-data.xml")
 public class ShoppingListRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test

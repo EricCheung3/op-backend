@@ -25,7 +25,7 @@ import com.openprice.domain.receipt.ReceiptFeedbackRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
-@DatabaseSetup("classpath:/data/testData.xml")
+@DatabaseSetup("classpath:/data/test-data.xml")
 public class UserReceiptFeedbackRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Inject
@@ -48,6 +48,7 @@ public class UserReceiptFeedbackRestApiIT extends AbstractUserRestApiIntegration
         sessionFilter2 = login(TEST_USERNAME_JANE_DOE);
         receiptUrl = userReceiptUrl(sessionFilter, TEST_RECEIPT_ID);
     }
+
     @Test
     public void addReceiptFeedback_ShouldAddFeedbackToReceipt_AndSetNeedFeedbackToFalse() {
         final String feedbackUrl = userReceiptFeedbackUrl(sessionFilter, TEST_RECEIPT_ID);

@@ -24,64 +24,64 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SubwayTest extends AbstractReceiptParserIntegrationTest {
 
-    @Value("classpath:/testFiles/subway/2015_10_10_14_53_18.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_10_14_53_18.jpg.txt")
     private Resource receipt_2015_10_10_14_53_18;
 
-    @Value("classpath:/testFiles/subway/2015_10_10_14_57_10.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_10_14_57_10.jpg.txt")
     private Resource receipt_2015_10_10_14_57_10;
 
-    @Value("classpath:/testFiles/subway/2015_10_10_14_57_37.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_10_14_57_37.jpg.txt")
     private Resource receipt_2015_10_10_14_57_37;
 
-    @Value("classpath:/testFiles/subway/2015_10_10_15_03_25.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_10_15_03_25.jpg.txt")
     private Resource receipt_2015_10_10_15_03_25;
 
-    @Value("classpath:/testFiles/subway/2015_10_10_15_04_21.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_10_15_04_21.jpg.txt")
     private Resource receipt_2015_10_10_15_04_21;
 
-    @Value("classpath:/testFiles/subway/2015_10_10_15_04_48.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_10_15_04_48.jpg.txt")
     private Resource receipt_2015_10_10_15_04_48;
 
-    @Value("classpath:/testFiles/subway/2015_10_10_15_05_02.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_10_15_05_02.jpg.txt")
     private Resource receipt_2015_10_10_15_05_02;
 
-    @Value("classpath:/testFiles/subway/2015_10_10_15_08_33.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_10_15_08_33.jpg.txt")
     private Resource receipt_2015_10_10_15_08_33;
 
-    @Value("classpath:/testFiles/subway/2015_10_10_15_08_42.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_10_15_08_42.jpg.txt")
     private Resource receipt_2015_10_10_15_08_42;
 
-    @Value("classpath:/testFiles/subway/2015_10_10_15_08_53.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_10_15_08_53.jpg.txt")
     private Resource receipt_2015_10_10_15_08_53;
 
-    @Value("classpath:/testFiles/subway/2015_10_10_15_09_25.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_10_15_09_25.jpg.txt")
     private Resource receipt_2015_10_10_15_09_25;
 
-    @Value("classpath:/testFiles/subway/2015_10_10_15_12_29.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_10_15_12_29.jpg.txt")
     private Resource receipt_2015_10_10_15_12_29;
 
-    @Value("classpath:/testFiles/subway/2015_10_10_15_12_34.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_10_15_12_34.jpg.txt")
     private Resource receipt_2015_10_10_15_12_34;
 
-    @Value("classpath:/testFiles/subway/2015_10_10_15_16_46.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_10_15_16_46.jpg.txt")
     private Resource receipt_2015_10_10_15_16_46;
 
-    @Value("classpath:/testFiles/subway/2015_10_10_15_17_51.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_10_15_17_51.jpg.txt")
     private Resource receipt_2015_10_10_15_17_51;
 
-    @Value("classpath:/testFiles/subway/2015_10_10_15_20_19.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_10_15_20_19.jpg.txt")
     private Resource receipt_2015_10_10_15_20_19;
 
-    @Value("classpath:/testFiles/subway/2015_10_17_16_54_00.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_17_16_54_00.jpg.txt")
     private Resource receipt_2015_10_17_16_54_00;
 
-    @Value("classpath:/testFiles/subway/2015_10_17_16_56_39.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_17_16_56_39.jpg.txt")
     private Resource receipt_2015_10_17_16_56_39;
 
-    @Value("classpath:/testFiles/subway/2015_10_17_16_58_41.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_17_16_58_41.jpg.txt")
     private Resource receipt_2015_10_17_16_58_41;
 
-    @Value("classpath:/testFiles/subway/2015_10_17_16_58_55.jpg.txt")
+    @Value("classpath:/testFiles/Subway/2015_10_17_16_58_55.jpg.txt")
     private Resource receipt_2015_10_17_16_58_55;
 
     @Test

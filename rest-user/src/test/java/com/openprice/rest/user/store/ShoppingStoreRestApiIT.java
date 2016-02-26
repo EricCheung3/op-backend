@@ -22,7 +22,7 @@ import com.openprice.domain.shopping.ShoppingStoreRepository;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
-@DatabaseSetup("classpath:/data/testData.xml")
+@DatabaseSetup("classpath:/data/test-data.xml")
 public class ShoppingStoreRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Inject

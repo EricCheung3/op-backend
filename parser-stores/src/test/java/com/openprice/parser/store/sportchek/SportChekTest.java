@@ -26,13 +26,14 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 public class SportChekTest extends AbstractReceiptParserIntegrationTest {
 
 
-    @Value("classpath:/testFiles/sportchek/fromPhone/HuFeb24.txt")
+    @Value("classpath:/testFiles/SportChek/fromPhone/HuFeb24.txt")
     private Resource receipt_HuFeb24;
 
     @Value("classpath:/testFiles/sportchek/fromPhone/HuFeb25.txt")
     private Resource receipt_HuFeb25;
 
     @Value("classpath:/testFiles/sportchek/fromPhone/YuanFeb24.txt")
+
     private Resource receipt_YuanFeb24;
 
     @Test

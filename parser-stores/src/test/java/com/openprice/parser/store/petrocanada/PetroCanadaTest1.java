@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +15,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.ParsedField;
-import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
@@ -24,7 +22,7 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PetroCanadaTest1 extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/petrocanada/2014_12_06_23_11_47.jpg.hengshuai.txt")
+    @Value("classpath:/testFiles/PetroCanada/2014_12_06_23_11_47.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_23_11_47;
 
     @Test
@@ -35,7 +33,6 @@ public class PetroCanadaTest1 extends AbstractReceiptParserIntegrationTest{
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         printResult(receipt);
         assertEquals("petrocanada", receipt.getChainCode());
-        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(0,receipt.getItems().size());
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "* gst incl. $      1.91",25);

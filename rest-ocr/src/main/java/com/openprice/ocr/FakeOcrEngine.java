@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FakeOcrEngine extends AbstractOcrEngine {
 
-    static final String OCR_RESULT_FILE_PATH = "ocrResult.txt";
+    static final String OCR_RESULT_FILE_PATH = "ocr-result.txt";
 
     private String staticResult;
 

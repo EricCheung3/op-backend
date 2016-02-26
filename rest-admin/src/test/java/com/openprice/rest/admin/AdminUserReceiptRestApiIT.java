@@ -23,7 +23,7 @@ import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptRepository;
 import com.openprice.rest.UtilConstants;
 
-@DatabaseSetup("classpath:/data/testAdmin.xml")
+@DatabaseSetup("classpath:/data/test-admin.xml")
 public class AdminUserReceiptRestApiIT extends AbstractAdminRestApiIntegrationTest {
 
     @Value("classpath:/data/sample1.txt")

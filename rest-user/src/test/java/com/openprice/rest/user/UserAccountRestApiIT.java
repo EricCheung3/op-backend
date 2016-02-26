@@ -14,7 +14,7 @@ import com.jayway.restassured.response.Response;
 import com.openprice.domain.account.user.UserRoleType;
 import com.openprice.rest.UtilConstants;
 
-@DatabaseSetup("classpath:/data/testData.xml")
+@DatabaseSetup("classpath:/data/test-data.xml")
 public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test

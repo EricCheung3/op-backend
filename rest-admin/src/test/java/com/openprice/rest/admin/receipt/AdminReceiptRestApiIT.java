@@ -16,7 +16,7 @@ import com.jayway.restassured.response.Response;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.rest.UtilConstants;
 
-@DatabaseSetup("classpath:/data/testAdmin.xml")
+@DatabaseSetup("classpath:/data/test-admin.xml")
 public class AdminReceiptRestApiIT extends AbstractAdminReceiptRestApiIntegrationTest {
 
     @Test

@@ -12,7 +12,7 @@ import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 
-@DatabaseSetup("classpath:/data/testAdmin.xml")
+@DatabaseSetup("classpath:/data/test-admin.xml")
 public class AdminReceiptResultRestApiIT extends AbstractAdminReceiptRestApiIntegrationTest {
 
     @Test
