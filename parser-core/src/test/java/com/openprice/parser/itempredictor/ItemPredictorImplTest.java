@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class ItemPredictorImplTest {
 
-    final private ItemPredictorImpl predictor = new ItemPredictorImpl();
+    private static final ItemPredictor predictor = new ItemPredictorImpl();
 
     @Test
     public void normalInput(){

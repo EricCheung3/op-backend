@@ -52,7 +52,7 @@ public class SportChekTest extends AbstractReceiptParserIntegrationTest {
     }
 
     @Test
-    public void receipt_YuanFeb24()  throws Exception {
+    public void receipt_YuanFeb24ThisReceiptHasAnItemOnALineWithNoWideSpace()  throws Exception {
         final List<String> receiptLines = new ArrayList<>();
         TextResourceUtils.loadFromTextResource(receipt_YuanFeb24, (line)-> receiptLines.add(line));
         assertTrue(receiptLines.size() > 0);
@@ -61,8 +61,8 @@ public class SportChekTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("sportchek", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(0,receipt.getItems().size());
-        //TODO missing an item because no widepace? use NonWideSpaceParserImpl, see NonWideSpaceParserImplTest
+        assertEquals(1,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "rider insulate",  "179.9916", null, 13);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "179.99",15);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "188.99",17);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/11/8",5);

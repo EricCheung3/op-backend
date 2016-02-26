@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.openprice.parser.api.Product;
+import com.openprice.parser.itempredictor.ItemPredictor;
+import com.openprice.parser.itempredictor.ItemPredictorImpl;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +22,8 @@ public class PriceParserWithCatalog {
 
     Set<Product> catalog = new HashSet<Product>();
 
-//    private static final NonWideSpaceParserImpl nonSpaceParser = new NonWideSpaceParserImpl();
+    private static final ItemPredictor itemPredictor = new ItemPredictorImpl();
+    private static final NonWideSpaceParserImpl nonSpaceParser = new NonWideSpaceParserImpl();
 
     public PriceParserWithCatalog(final PriceParser parser, final Set<Product>  catalog){
         this.priceParser=parser;
@@ -103,11 +106,10 @@ public class PriceParserWithCatalog {
 
         if(pPrice2!=null &&  !pPrice2.isEmpty()) return pPrice2;
 
-//        final int[] digitsChars = StringCommon.countDigitAndAlphabets(line);
-        //TODO this needs an ML algorithm!
-//        if(line.contains("$") ||
-//                (digitsChars[0] >=2 && line.contains(".")) )//likely to be an item
-//            return nonSpaceParser.parse(line);
+        //no wide space can still contain items
+        if(itemPredictor.isItemLine(line)){
+            return nonSpaceParser.parse(line);
+        }
 
         return ProductPrice.emptyValue();
     }
