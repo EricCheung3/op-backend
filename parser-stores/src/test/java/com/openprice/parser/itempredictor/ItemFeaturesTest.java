@@ -14,7 +14,7 @@ public class ItemFeaturesTest {
         final String str = "7040054391580 RIDER INSULATE $179.99 16 ";
         final ItemFeatures features = new ItemFeatures(str);
         assertEquals("7040054391580".length(), features.getNumHeadingDigits());
-        assertEquals(StringCommon.removeAllSpaces(" RIDER INSULATE").length(), features.getNumCharsAtMiddle());//'$' is not alphabetic
+        assertEquals(StringCommon.removeAllSpaces(" RIDER INSULATE").length(), features.getNumCharsAtMiddle());
         assertEquals("179.9916".length(), features.getNumTrailingDigits());//"." is counted
         assertTrue(features.isOneDollarSignAtTail());
         assertTrue(features.isOneDotAtTail());
