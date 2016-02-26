@@ -24,76 +24,76 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_22_22_29.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2014_12_06_22_22_29.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_22_22_29;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_22_24_27.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2014_12_06_22_24_27.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_22_24_27;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_22_24_27.jpg.hengshuai2.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2014_12_06_22_24_27.jpg.hengshuai2.txt")
     private Resource receipt_2014_12_06_22_24_27_2nd;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_22_24_27.jpg.hengshuai3.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2014_12_06_22_24_27.jpg.hengshuai3.txt")
     private Resource receipt_2014_12_06_22_24_27_3rd;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_22_29_55.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2014_12_06_22_29_55.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_22_29_55;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_22_55_01.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2014_12_06_22_55_01.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_22_55_01;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_22_59_35.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2014_12_06_22_59_35.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_22_59_35;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_23_23_58.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2014_12_06_23_23_58.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_23_23_58;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_23_39_28.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2014_12_06_23_39_28.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_23_39_28;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_06_23_39_56.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2014_12_06_23_39_56.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_23_39_56;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_07_00_16_33.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2014_12_07_00_16_33.jpg.hengshuai.txt")
     private Resource receipt_2014_12_07_00_16_33;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_07_00_17_03.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2014_12_07_00_17_03.jpg.hengshuai.txt")
     private Resource receipt_2014_12_07_00_17_03;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2014_12_07_00_26_16.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2014_12_07_00_26_16.jpg.hengshuai.txt")
     private Resource receipt_2014_12_07_00_26_16;
 
-    @Value("classpath:/testFiles/Sears/walmartUseSearsCard/2015_02_09_15_15_48.jpg.random.txt")
+    @Value("classpath:/testfiles/sears/walmartUseSearsCard/2015_02_09_15_15_48.jpg.random.txt")
     private Resource receipt_2015_02_09_15_15_48;
 
-    @Value("classpath:/testFiles/Sears/nofrillsUseSearsCard/2015_02_10_00_00_22.jpg.random.txt")
+    @Value("classpath:/testfiles/sears/nofrillsUseSearsCard/2015_02_10_00_00_22.jpg.random.txt")
     private Resource receipt_2015_02_10_00_00_22;
 
-    @Value("classpath:/testFiles/Sears/nofrillsUseSearsCard/2015_02_10_00_19_03.jpg.random.txt")
+    @Value("classpath:/testfiles/sears/nofrillsUseSearsCard/2015_02_10_00_19_03.jpg.random.txt")
     private Resource receipt_2015_02_10_00_19_03;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2015_02_10_13_25_05.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2015_02_10_13_25_05.jpg.hengshuai.txt")
     private Resource receipt_2015_02_10_13_25_05;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2015_04_04_21_34_04.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2015_04_04_21_34_04.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_34_04;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2015_04_04_21_40_29.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2015_04_04_21_40_29.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_40_29;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2015_05_02_21_48_09.jpg.momingzhen159.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2015_05_02_21_48_09.jpg.momingzhen159.txt")
     private Resource receipt_2015_05_02_21_48_09;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2015_07_02_10_46_12.jpg.random.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2015_07_02_10_46_12.jpg.random.txt")
     private Resource receipt_2015_07_02_10_46_12;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2015_07_03_14_38_35.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2015_07_03_14_38_35.jpg.hengshuai.txt")
     private Resource receipt_2015_07_03_14_38_35;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2015_07_03_15_22_32.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2015_07_03_15_22_32.jpg.hengshuai.txt")
     private Resource receipt_2015_07_03_15_22_32;
 
-    @Value("classpath:/testFiles/Sears/southgateEdmonton/2015_07_18_18_15_16.jpg.fuqian.txt")
+    @Value("classpath:/testfiles/sears/southgateedmonton/2015_07_18_18_15_16.jpg.fuqian.txt")
     private Resource receipt_2015_07_18_18_15_16;
 
     @Test

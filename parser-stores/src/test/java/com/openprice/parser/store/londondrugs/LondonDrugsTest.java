@@ -87,22 +87,22 @@ public class LondonDrugsTest extends AbstractReceiptParserIntegrationTest {
     @Value("classpath:/testfiles/londondrugs/branch_14951StonyPlain/2015_07_18_19_58_30.jpg.natalie.txt")
     private Resource receipt_2015_07_18_19_58_30;
 
-    @Value("classpath:/testfiles/londondrugs/branch_88_170St/2015_04_04_21_31_37.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_88_170st/2015_04_04_21_31_37.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_31_37;
 
-    @Value("classpath:/testfiles/londondrugs/branch_88_170St/2015_04_04_21_47_34.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_88_170st/2015_04_04_21_47_34.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_47_34;
 
-    @Value("classpath:/testfiles/londondrugs/branch_88_170St/2015_06_29_16_20_29.jpg.random.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_88_170st/2015_06_29_16_20_29.jpg.random.txt")
     private Resource receipt_2015_06_29_16_20_29;
 
-    @Value("classpath:/testfiles/londondrugs/branch_88_170St/2015_07_02_18_14_57.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_88_170st/2015_07_02_18_14_57.jpg.henryHuang.txt")
     private Resource receipt_2015_07_02_18_14_57;
 
-    @Value("classpath:/testfiles/londondrugs/branch_88_170St/2015_07_02_18_15_05.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_88_170st/2015_07_02_18_15_05.jpg.henryHuang.txt")
     private Resource receipt_2015_07_02_18_15_05;
 
-    @Value("classpath:/testfiles/londondrugs/branch_88_170St/2015_07_03_16_51_11.jpg.haipeng.txt")
+    @Value("classpath:/testfiles/londondrugs/branch_88_170st/2015_07_03_16_51_11.jpg.haipeng.txt")
     private Resource receipt_2015_07_03_16_51_11;
 
 

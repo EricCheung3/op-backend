@@ -22,7 +22,7 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PetroCanadaTest1 extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/PetroCanada/2014_12_06_23_11_47.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/petrocanada/2014_12_06_23_11_47.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_23_11_47;
 
     @Test
