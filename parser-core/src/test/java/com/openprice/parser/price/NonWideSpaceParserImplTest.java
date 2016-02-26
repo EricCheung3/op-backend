@@ -56,4 +56,165 @@ public class NonWideSpaceParserImplTest {
         assertEquals("", pp.getPrice());
     }
 
+    @Test
+    public void fromNameFirstTest1() throws Exception{
+        final String number="0           0 0   9 ";
+        final String name="AB C ";
+        final String price="0.1   ";
+        final String itemName=number+name;
+        final SplittingFeatures splitF = new SplittingFeatures(name+number+price);
+
+        assertEquals(number.trim(), pPrice.getNumber());
+        assertEquals(name.trim(), pPrice.getName());
+        assertEquals(price.trim(), pPrice.getPrice());
+    }
+
+    @Test
+    public void fromNameFirstTest2() throws Exception{
+        final String number="0           0 0   9 ";
+        final String name="AB C ";
+        final String price="0.1   ";
+        final String itemName=number+name;
+        final ProductPrice pPrice=ProductPrice.fromNameCut(itemName, "", price);
+        assertEquals(number.trim(), pPrice.getNumber());
+        assertEquals(name.trim(), pPrice.getName());
+        assertEquals(price.trim(), pPrice.getPrice());
+    }
+
+    //This shows that name cut won't be applied if there is already a number provided
+    @Test
+    public void fromNameFirstTest3() throws Exception{
+        final String number="0           0 0   9 ";
+        final String number2="00001 ";
+        final String name="AB C ";
+        final String price="0.1   ";
+        final String itemName=number+name;
+        final ProductPrice pPrice=ProductPrice.fromNameCut(itemName, number2, price);
+        assertEquals(number2.trim(), pPrice.getNumber());
+        assertEquals(itemName.trim(), pPrice.getName());
+        assertEquals(price.trim(), pPrice.getPrice());
+    }
+
+    @Test
+    public void fromNameFirstTest4() throws Exception{
+        final String number="0           0 0  ";
+        final String name="AB C ";
+        final String price="0.1   ";
+        final String itemName=number+name;
+        final ProductPrice pPrice=ProductPrice.fromNameCut(itemName, "", price);
+        assertEquals("", pPrice.getNumber());
+        assertEquals(itemName.trim(), pPrice.getName());
+        assertEquals(price.trim(), pPrice.getPrice());
+    }
+
+    @Test
+    public void fromNameFirstTest5() throws Exception{
+        final String number="    ";
+        final String name="AB C ";
+        final String price="0.1   ";
+        final String itemName=number+name;
+        final ProductPrice pPrice=ProductPrice.fromNameCut(itemName, "", price);
+        assertEquals("", pPrice.getNumber());
+        assertEquals(itemName.trim(), pPrice.getName());
+        assertEquals(price.trim(), pPrice.getPrice());
+    }
+
+    @Test
+    public void fromNameCutTestTrailingCharGInPriceIsChangedTo9() throws Exception{
+        final String number="    ";
+        final String name="AB C ";
+        final String price="0.1 gc   ";
+        final String itemName=number+name;
+        final ProductPrice pPrice=ProductPrice.fromNameCut(itemName, "", price);
+        assertEquals("", pPrice.getNumber());
+        assertEquals(itemName.trim(), pPrice.getName());
+        assertEquals("0.19", pPrice.getPrice());
+    }
+
+    @Test
+    public void fromNameCutTestTrailingCharGInPriceShouldRemoved() throws Exception{
+        final String number="    ";
+        final String name="AB C ";
+        final String price="0.1 G   ";
+        final String itemName=number+name;
+        final ProductPrice pPrice=ProductPrice.fromNameCut(itemName, "", price);
+        assertEquals("", pPrice.getNumber());
+        assertEquals(itemName.trim(), pPrice.getName());
+        assertEquals("0.1", pPrice.getPrice());
+    }
+
+    @Test
+    public void fromNameCutTestTrailingCharInPriceShouldRemoved() throws Exception{
+        final String number="    ";
+        final String name="AB C ";
+        final String price="0.1 c   ";
+        final String itemName=number+name;
+        final ProductPrice pPrice=ProductPrice.fromNameCut(itemName, "", price);
+        assertEquals("", pPrice.getNumber());
+        assertEquals(itemName.trim(), pPrice.getName());
+        assertEquals("0.1", pPrice.getPrice());
+    }
+
+
+    @Test
+    public void fromNameCutTesDollarInPriceShouldRemoved() throws Exception{
+        final String number="    ";
+        final String name="AB C ";
+        final String price="$0.1 c   ";
+        final String itemName=number+name;
+        final ProductPrice pPrice=ProductPrice.fromNameCut(itemName, "", price);
+        assertEquals("", pPrice.getNumber());
+        assertEquals(itemName.trim(), pPrice.getName());
+        assertEquals("0.1", pPrice.getPrice());
+    }
+
+    @Test
+    public void fromNameCutTesDollarInPriceShouldRemoved2() throws Exception{
+        final String number="    ";
+        final String name="AB C ";
+        final String price=" $ 0.1   ";
+        final String itemName=number+name;
+        final ProductPrice pPrice=ProductPrice.fromNameCut(itemName, "", price);
+        assertEquals("", pPrice.getNumber());
+        assertEquals(itemName.trim(), pPrice.getName());
+        assertEquals("0.1", pPrice.getPrice());
+    }
+
+    @Test
+    public void fromNameCutTesDollarInPriceShouldRemoved3() throws Exception{
+        final String number="    ";
+        final String name="AB C ";
+        final String price=" $ 7.84 GC  ";
+        final String itemName=number+name;
+        final ProductPrice pPrice=ProductPrice.fromNameCut(itemName, "", price);
+        assertEquals("", pPrice.getNumber());
+        assertEquals(itemName.trim(), pPrice.getName());
+        assertEquals("7.84", pPrice.getPrice());
+    }
+
+
+    @Test
+    public void fromNameFirstTest6() throws Exception{
+        final String number=" 00   ";
+        final String name="AB C ";
+        final String price="0.1   ";
+        final String itemName=number+name;
+        final ProductPrice pPrice=ProductPrice.fromNameCut(itemName, "", price);
+        assertEquals("", pPrice.getNumber());
+        assertEquals(itemName.trim(), pPrice.getName());
+        assertEquals(price.trim(), pPrice.getPrice());
+    }
+
+    @Test
+    public void fromNameFirstTest7() throws Exception{
+        final String number=" 00 00   00    000 ";
+        final String name="AB C ";
+        final String price=" 0.1   ";
+        final String itemName=number+name;
+        final ProductPrice pPrice=ProductPrice.fromNameCut(itemName, "", price);
+        assertEquals(number.trim(), pPrice.getNumber());
+        assertEquals(name.trim(), pPrice.getName());
+        assertEquals(price.trim(), pPrice.getPrice());
+    }
+
 }

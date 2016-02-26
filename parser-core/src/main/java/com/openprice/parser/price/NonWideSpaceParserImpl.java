@@ -4,12 +4,9 @@ import com.openprice.common.StringCommon;
 import com.openprice.parser.api.NonWideSpaceParser;
 import com.openprice.parser.data.ProductImpl;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * parser for lines that don't have a wide space
  */
-@Slf4j
 public class NonWideSpaceParserImpl implements NonWideSpaceParser{
 
     @Override
