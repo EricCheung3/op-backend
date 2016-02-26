@@ -3,20 +3,22 @@ package com.openprice.parser.price;
 import com.openprice.common.StringCommon;
 
 import lombok.Value;
+import lombok.extern.slf4j.Slf4j;
 
 @Value
-public class SplittingFeatures {
+@Slf4j
+public class NumberNameNumberSplitting {
 
     String str;
-    int firstNonDigitSpace;//the index of the first non-digit space char
+    int firstNonDigitSpace;//the index of the first non-digit space char. It should never begger than str.length()-1
 
   //the index of the last non-digit space char before some digits. e.g., AB12C, it should be 1 ('B')
-    int lastNonDigitSpace;
+    int lastNonDigitSpace;//It should never begger than str.length()-1
 
     int numHeadingDigits;//number of heading digits before firstNonDigitSpace
     int numTrailingDigits;//number of trailing digits after lastNonDigitSpace
 
-    public SplittingFeatures(final String str){
+    public NumberNameNumberSplitting(final String str){
         this.str = str;
         final int[] boundaries = cuttingBoundaries(str);
         this.firstNonDigitSpace = boundaries[0];
@@ -27,6 +29,23 @@ public class SplittingFeatures {
         this.numTrailingDigits = headTailNumbers[1];
     }
 
+    public String[] getSplits(){
+        log.debug("firstNonDigitSpace="+firstNonDigitSpace+", lastNonDigitSpace="+lastNonDigitSpace);
+
+        final String headDigits = firstNonDigitSpace > 0?
+                str.substring(0, firstNonDigitSpace): StringCommon.EMPTY;
+        log.debug("headDigits = "+ headDigits);
+
+        final String middleChars = lastNonDigitSpace >= 0?
+                str.substring(Math.max(0, firstNonDigitSpace), lastNonDigitSpace+1) : StringCommon.EMPTY;
+        log.debug("middle chars = "+ middleChars);
+
+        final String trailingDigits = lastNonDigitSpace > 0?
+                str.substring(lastNonDigitSpace+1) : StringCommon.EMPTY;
+        log.debug("trailingDigits = "+ trailingDigits);
+
+        return new String[]{headDigits, middleChars, trailingDigits};
+    }
 
     /**
      * find the cutting boundaries

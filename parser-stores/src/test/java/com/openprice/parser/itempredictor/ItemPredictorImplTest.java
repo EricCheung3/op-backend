@@ -10,6 +10,7 @@ public class ItemPredictorImplTest {
 
     @Test
     public void test1(){
-        assertTrue(predictor.isItemLine("7040054391580 RIDER INSULATE $179.99 16 "));
+        final String line = "7040054391580 RIDER INSULATE $179.99 16 ";
+        assertTrue(predictor.isItemLine(line));
     }
 }

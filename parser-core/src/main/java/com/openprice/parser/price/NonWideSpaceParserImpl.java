@@ -16,7 +16,7 @@ public class NonWideSpaceParserImpl implements NonWideSpaceParser{
         str =  str.trim();
         if(str.endsWith("$"))
             str = str.substring(0, str.length()-1);
-        final SplittingFeatures features = new SplittingFeatures(str);
+        final NumberNameNumberSplitting features = new NumberNameNumberSplitting(str);
         String number = StringCommon.EMPTY;
         String name = StringCommon.EMPTY;
         String price = StringCommon.EMPTY;
