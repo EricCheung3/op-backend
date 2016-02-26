@@ -404,6 +404,12 @@ public class DateParserUtilsTest {
     }
 
     @Test
+    public void yearMonthDayTest2A() throws Exception{
+        final String searsVariant = "Thu Feb 25,2016    14:40:23";
+        assertEquals("2016/2/25", DateParserUtils.findDateInALine(searsVariant));
+    }
+
+    @Test
     public void yearMonthDayTest3() throws Exception{
         final String searsVariant = "01429 15~ 7913 4606631  15/03/12             6:04P";
         assertEquals("2015/3/12", DateParserUtils.findDateInALine(searsVariant));
