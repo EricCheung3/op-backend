@@ -200,7 +200,7 @@ public class HomeDepotTest extends AbstractReceiptParserIntegrationTest{
         assertEquals(2,receipt.getItems().size());
         //TODO HINGE was missing
         verifyParsedItem(iterator.next(), "-6.75    subtotal",  "15.06", null, 11);
-        verifyParsedItem(iterator.next(), "pst/ost    0.00",  null, null, 13);
+        verifyParsedItem(iterator.next(), "pst/ost",  "0.00", null, 13);
         verifyParsedField(fieldValues, ReceiptFieldType.Time, "time:",49);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "15.82",14);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/7/20",6);
