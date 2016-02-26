@@ -26,7 +26,7 @@ public class AdminAccountRestApiIT extends AbstractAdminRestApiIntegrationTest {
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testAdmin.xml")
+    @DatabaseSetup("classpath:/data/test-admin.xml")
     public void getCurrentAdminAccount_ShouldReturnLoggedInAdmiAccount() {
         final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
 

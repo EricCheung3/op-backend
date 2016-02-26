@@ -17,7 +17,7 @@ import com.jayway.restassured.response.Response;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.user.AdminUserProfileForm;
 
-@DatabaseSetup("classpath:/data/testAdmin.xml")
+@DatabaseSetup("classpath:/data/test-admin.xml")
 public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
 
     @Test
