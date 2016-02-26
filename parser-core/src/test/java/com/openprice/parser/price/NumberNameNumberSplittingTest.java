@@ -14,8 +14,8 @@ public class NumberNameNumberSplittingTest {
         final NumberNameNumberSplitting splitF = new NumberNameNumberSplitting(str);
         String[] words = splitF.getSplits();
         assertEquals("7040054391580 ", words[0]);
-        assertEquals("RIDER INSULATE $", words[1]);
-        assertEquals("179.99 16 ", words[2]);
+        assertEquals("RIDER INSULATE", words[1]);
+        assertEquals(" $179.99 16 ", words[2]);
         assertEquals(str, words[0] + words[1] + words[2]);
     }
 

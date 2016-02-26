@@ -82,6 +82,7 @@ public class NumberNameNumberSplitting {
             if( str.charAt(i)!=' '
                     && !Character.isDigit(str.charAt(i))
                     && str.charAt(i)!='.'
+                    && str.charAt(i)!='$'
                     ){
                 lastNonDigitSpace=i;
                 break;
