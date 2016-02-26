@@ -25,16 +25,16 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class McDonaldsTest extends AbstractReceiptParserIntegrationTest {
 
-    @Value("classpath:/testFiles/McDonalds/branch_1203Parsons/2015_07_03_16_42_52.jpg.haipeng.txt")
+    @Value("classpath:/testfiles/mcdonalds/branch_1203Parsons/2015_07_03_16_42_52.jpg.haipeng.txt")
     private Resource receipt_2015_07_03_16_42_52;
 
-    @Value("classpath:/testFiles/McDonalds/branch_61_1O9St/2015_07_03_16_52_34.jpg.haipeng.txt")
+    @Value("classpath:/testfiles/mcdonalds/branch_61_1O9St/2015_07_03_16_52_34.jpg.haipeng.txt")
     private Resource receipt_2015_07_03_16_52_34;
 
-    @Value("classpath:/testFiles/McDonalds/branch_64_50St/2015_02_09_15_06_44.jpg.random.txt")
+    @Value("classpath:/testfiles/mcdonalds/branch_64_50St/2015_02_09_15_06_44.jpg.random.txt")
     private Resource receipt_2015_02_09_15_06_44;
 
-    @Value("classpath:/testFiles/McDonalds/branch_64_50St/2015_02_09_15_07_41_compression3.jpg.random.txt")
+    @Value("classpath:/testfiles/mcdonalds/branch_64_50St/2015_02_09_15_07_41_compression3.jpg.random.txt")
     private Resource receipt_2015_02_09_15_07_41_compression3;
 
     @Test
