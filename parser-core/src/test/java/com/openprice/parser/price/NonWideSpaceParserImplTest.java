@@ -33,11 +33,27 @@ public class NonWideSpaceParserImplTest {
     }
 
     @Test
-    public void namePrice2(){
+    public void numberNamePriceFromSportChek(){
         final ProductPrice pp = parser.parse("7040054391580 RIDER INSULATE $179.99 16 ");
         assertEquals("7040054391580", pp.getNumber());
         assertEquals("RIDER INSULATE", pp.getName());
         assertEquals("179.99 16", pp.getPrice());
+    }
+
+    @Test
+    public void namePrice2(){
+        final ProductPrice pp = parser.parse("RIDER INSULATE $179.99 16 ");
+        assertEquals("", pp.getNumber());
+        assertEquals("RIDER INSULATE", pp.getName());
+        assertEquals("179.99 16", pp.getPrice());
+    }
+
+    @Test
+    public void numberName1(){
+        final ProductPrice pp = parser.parse("7040054391580 RIDER INSULATE ");
+        assertEquals("7040054391580", pp.getNumber());
+        assertEquals("RIDER INSULATE", pp.getName());
+        assertEquals("", pp.getPrice());
     }
 
 }
