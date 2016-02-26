@@ -12,7 +12,7 @@ public enum ReceiptFieldType {
     Date,Time,
     GstAmount, GstNumber,
     Phone,
-    Recycle, Ref,
+    Deposit, Recycle, Ref,
     Saving,
     Slogan, StoreBranch, StoreID, SubTotal,
     Thankyou, Total, TotalSold,
