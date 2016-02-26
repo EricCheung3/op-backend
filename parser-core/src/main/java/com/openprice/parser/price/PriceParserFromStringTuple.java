@@ -107,6 +107,7 @@ public class PriceParserFromStringTuple implements PriceParser {
     //product and price from four strings
     @Override
     public ProductPrice fromThreeStrings(final ThreeStrings three) throws Exception{
+        log.debug("fromThreeStrings");
         final boolean firstIsNumber=isItemNumber(three.getFirst());
         final boolean secondIsNumber=isItemNumber(three.getSecond());
         final boolean thirdIsNumber=isItemNumber(three.getThird());
@@ -169,10 +170,11 @@ public class PriceParserFromStringTuple implements PriceParser {
             price=three.getThird();;
         }
 
-        log.debug("No item numbers.");
+        log.debug("0: No item numbers.");
         if(isNotPrice(three.getThird())){
             price=three.getSecond();
             itemName=three.getFirst();
+            log.debug("the third is not a price, treating "+ price+" as price");
         }else{
             if(isNotPrice(three.getSecond())){
                 log.debug("the second is not a price");
@@ -261,7 +263,7 @@ public class PriceParserFromStringTuple implements PriceParser {
         int[] counts=StringCommon.countDigitAndLetters(str);
         if(counts[0] <= 0
                 || counts[1] >= PriceParserConstant.MIN_ITEM_NAME_LETTERS+2
-                || str.trim().startsWith("0") ) return true;
+                || (str.trim().startsWith("0") && !str.contains(".")  )) return true;
 
         // too-big-value price (like XXXXXX.) is not allowed
         if( !str.contains(".") && StringCommon.continuousDigitsBeforeDot(str) >= PriceParserConstant.MIN_ITEM_NAME_LETTERS + 5)

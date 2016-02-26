@@ -71,6 +71,26 @@ public class PriceParserWithCatalogTest {
         assertEquals("",pp.getNumber());
     }
 
+    @Test
+    public void rcssTest1(){
+        final String line = "05719775555 RSTR INSTNT NDLE                   MRJ       0.98";
+        final ProductPrice pp= PriceParserWithCatalog.emptyCatalog().parsePriceLine(line);
+        assertEquals("RSTR INSTNT NDLE    MRJ",pp.getName());
+        assertEquals("0.98",pp.getPrice());
+        assertEquals("05719775555",pp.getNumber());
+    }
+
+    @Test
+    public void rcssTest2(){
+        final String line = "PLASTIC BAGS               GRO    0.05";
+        final ProductPrice pp= PriceParserWithCatalog.emptyCatalog().parsePriceLine(line);
+        assertEquals("PLASTIC BAGS    GRO",pp.getName());
+        assertEquals("0.05",pp.getPrice());
+        assertEquals("",pp.getNumber());
+    }
+
+
+
 
 //    @Test
 //    public void noWideSpacesIsOkay(){

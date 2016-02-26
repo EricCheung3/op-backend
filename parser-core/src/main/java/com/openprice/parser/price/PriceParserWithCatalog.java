@@ -1,11 +1,8 @@
 package com.openprice.parser.price;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import com.openprice.common.StringCommon;
 import com.openprice.parser.api.Product;
 
 import lombok.Data;
@@ -115,20 +112,20 @@ public class PriceParserWithCatalog {
         return ProductPrice.emptyValue();
     }
 
-    public static List<String> pruneAndSplitLongString(final String line){
-        final List<String> result = new ArrayList<>();
-        final String price = StringCommon.formatPrice(line);
-        final String head = StringCommon.removeMatchingTail(line, price);
-//        log.debug("head="+head);
-//        log.debug("price="+price);
-        if(head.endsWith("$"))
-            result.add(head.substring(0, head.length()-1).trim());
-        else
-            result.add(head.trim());
-
-        result.add(price.trim());
-        return result;
-    }
+//    public static List<String> pruneAndSplitLongString(final String line){
+//        final List<String> result = new ArrayList<>();
+//        final String price = StringCommon.formatPrice(line);
+//        final String head = StringCommon.removeMatchingTail(line, price);
+////        log.debug("head="+head);
+////        log.debug("price="+price);
+//        if(head.endsWith("$"))
+//            result.add(head.substring(0, head.length()-1).trim());
+//        else
+//            result.add(head.trim());
+//
+//        result.add(price.trim());
+//        return result;
+//    }
 
 
 
