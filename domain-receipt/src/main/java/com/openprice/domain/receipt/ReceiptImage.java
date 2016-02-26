@@ -47,6 +47,7 @@ public class ReceiptImage extends BaseAuditableEntity {
     private ProcessStatusType status;
 
     @Getter @Setter
+    @JsonIgnore
     @Column(name="ocr_result")
     @Lob
     private String ocrResult;

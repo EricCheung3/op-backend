@@ -53,7 +53,6 @@ public class UserReceiptImageApiDocumentation extends UserReceiptApiDocumentatio
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
                 fieldWithPath("status").description("Receipt image process status"),
-                fieldWithPath("ocrResult").description("Receipt image ocr process result"),
                 fieldWithPath("fileName").description("Receipt image file name"),
                 fieldWithPath("downloadUrl").description("Receipt image JPEG file download URL"),
                 fieldWithPath("base64Url").description("Receipt image Base64 data download URL"),
