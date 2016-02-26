@@ -26,9 +26,18 @@ public class NonWideSpaceParserImpl implements NonWideSpaceParser{
     /*
      * get item number by cutting from name
      */
-    public Product cut(final String itemName){
+    public Product cut(final String str){
+        final int [] boundaries = cuttingBoundaries(str);
         String name = StringCommon.EMPTY;
         String number = StringCommon.EMPTY;
+
+        number=str.substring(0, boundaries[1]);
+        int counts[] = StringCommon.countDigitAndChars(number);
+        if(counts[0]>=PriceParserConstant.MIN_ITEM_NUMBER_LENGTH){
+            name=str.substring(boundaries[1]);
+        }
+
+
         try{
             final String[]  nameNumber=cutTailItemNumber(itemName);
             name = nameNumber[0];
@@ -46,31 +55,6 @@ public class NonWideSpaceParserImpl implements NonWideSpaceParser{
         return ProductImpl.fromNameNumber(name, number);
     }
 
-    /**
-     * find the cutting boundaries
-     * this can be used as features for a ML approach for cutting a string
-     * @param str
-     * @return
-     */
-    public static int[] cuttingBoundaries(final String str){
-       //detecting all the continuous digits in the beginning; space will not stop
-        int firstNonDigitSpace=-1;
-        for(int i=0;i<str.length();i++){
-            if( str.charAt(i)!=' ' && !Character.isDigit(str.charAt(i))){
-                firstNonDigitSpace=i;
-                break;
-            }
-        }
-        //detecting all the continuous digits in the end; space will not stop
-        int lastNonDigitSpace=-1;
-        for(int i = str.length()-1; i >= 0; i--){
-            if( str.charAt(i)!=' ' && !Character.isDigit(str.charAt(i))){
-                lastNonDigitSpace=i;
-                break;
-            }
-        }
-        return new int[]{firstNonDigitSpace, lastNonDigitSpace};
-    }
 
     /**
      * cut heading digits in a string

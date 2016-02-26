@@ -228,6 +228,17 @@ public class StringCommon {
         return charSet.size() == 1;
     }
 
+    public static int[] countDigitAndChars(final String str, final String allowedDigitChars) {
+        int[] count = new int[2];
+        for (int i = 0; i < str.length(); i++)
+            if (Character.isDigit(str.charAt(i))
+                    || allowedDigitChars.contains(str.charAt(i)+""))
+                count[0]++;
+            else if (Character.isAlphabetic(str.charAt(i)))
+                count[1]++;
+        return count;
+    }
+
     public static int[] countDigitAndChars(final String str) {
         int[] count = new int[2];
         for (int i = 0; i < str.length(); i++)
