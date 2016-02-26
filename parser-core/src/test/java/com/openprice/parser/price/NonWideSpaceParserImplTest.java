@@ -25,6 +25,15 @@ public class NonWideSpaceParserImplTest {
     }
 
     @Test
+    public void numberNamePrice3(){
+        final String line="BOXTHORN FRUIT FRUCTU       S LYCIL $2.79 *";
+        final ProductPrice pp = parser.parse(line);
+        assertEquals("", pp.getNumber());
+        assertEquals("BOXTHORN FRUIT FRUCTU       S LYCIL", pp.getName());
+        assertEquals("2.79", pp.getPrice());
+    }
+
+    @Test
     public void namePrice1(){
         final ProductPrice pp = parser.parse("abc 1.3 ");
         assertEquals("", pp.getNumber());

@@ -23,6 +23,8 @@ public class PriceParserWithCatalog {
 
     Set<Product> catalog = new HashSet<Product>();
 
+    private static final NonWideSpaceParserImpl nonSpaceParser = new NonWideSpaceParserImpl();
+
     public PriceParserWithCatalog(final PriceParser parser, final Set<Product>  catalog){
         this.priceParser=parser;
         this.catalog=catalog;
@@ -103,6 +105,13 @@ public class PriceParserWithCatalog {
         }
 
         if(pPrice2!=null &&  !pPrice2.isEmpty()) return pPrice2;
+
+        final int[] digitsChars = StringCommon.countDigitAndAlphabets(line);
+
+        //TODO this needs an ML algorithm!
+        if(line.contains("$") ||
+                (digitsChars[0] >=2 && line.contains(".")) )//likely to be an item
+            return nonSpaceParser.parse(line);
 
         return ProductPrice.emptyValue();
     }

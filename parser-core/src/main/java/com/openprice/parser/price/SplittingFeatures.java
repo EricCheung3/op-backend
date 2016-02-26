@@ -72,9 +72,18 @@ public class SplittingFeatures {
     }
 
     public int[] computeNumDigits(){
-        int digitsCharsAtHead[] = StringCommon.countDigitAndChars(str.substring(0, firstNonDigitSpace), ".");
-        int digitsCharsAtTail[] = StringCommon.countDigitAndChars(str.substring(lastNonDigitSpace), ".");
-        return new int[]{digitsCharsAtHead[0], digitsCharsAtTail[0]};
+        int numHeadingDigits = 0;
+        if(firstNonDigitSpace > 0){
+            int digitsCharsAtHead[] = StringCommon.countDigitAndChars(str.substring(0, firstNonDigitSpace), ".");
+            numHeadingDigits = digitsCharsAtHead[0];
+        }
+
+        int numTrailingDigits = 0;
+        if(lastNonDigitSpace > 0){
+            int digitsCharsAtTail[] = StringCommon.countDigitAndChars(str.substring(lastNonDigitSpace), ".");
+            numTrailingDigits = digitsCharsAtTail[0];
+        }
+        return new int[]{numHeadingDigits, numTrailingDigits};
     }
 
 }

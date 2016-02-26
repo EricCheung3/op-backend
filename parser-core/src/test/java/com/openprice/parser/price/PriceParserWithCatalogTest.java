@@ -32,6 +32,16 @@ public class PriceParserWithCatalogTest {
         assertEquals("19.99", pp.getPrice());
     }
 
+    @Test
+    public void test12dfsf(){
+        final String line="BOXTHORN FRUIT FRUCTU       S LYCIL $2.79 *";
+        final ProductPrice pp= PriceParserWithCatalog.emptyCatalog().parsePriceLine(line);
+        assertEquals("BOXTHORN FRUIT FRUCTU    S LYCIL",pp.getName());
+        //TODO
+//        assertEquals("2.79",pp.getPrice());
+        assertEquals("",pp.getPrice());
+        assertEquals("",pp.getNumber());
+    }
 
 //    @Test
 //    public void noWideSpacesIsOkay(){

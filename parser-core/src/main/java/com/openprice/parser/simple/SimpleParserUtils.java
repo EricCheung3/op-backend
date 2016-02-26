@@ -7,6 +7,7 @@ import com.openprice.parser.ParsedItem;
 import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreParser;
+import com.openprice.parser.price.PriceParserConstant;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,6 +44,7 @@ public class SimpleParserUtils {
                        .filter( item -> item != null &&
                                         item.getParsedName()!=null &&
                                         !item.getParsedName().isEmpty() &&
+                                        item.getParsedName().length() >= PriceParserConstant.MIN_ITEM_NAME_LETTERS &&
                                         !parser.getStoreConfig().matchesBlackList(item.getParsedName())
                         )
                        .collect(Collectors.toList());
