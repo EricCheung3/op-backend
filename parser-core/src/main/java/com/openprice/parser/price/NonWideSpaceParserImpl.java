@@ -6,6 +6,8 @@ import com.openprice.parser.data.ProductImpl;
 
 /**
  * parser for lines that don't have a wide space
+ * right now this parser works well except for
+ * name number price
  */
 public class NonWideSpaceParserImpl implements NonWideSpaceParser{
 
@@ -20,13 +22,22 @@ public class NonWideSpaceParserImpl implements NonWideSpaceParser{
         String price = StringCommon.EMPTY;
 
         number = str.substring(0, features.getFirstNonDigitSpace());
-        name = str.substring(features.getFirstNonDigitSpace(), features.getLastNonDigitSpace()+1);
+        if(number.trim().length() >= PriceParserConstant.MIN_ITEM_NUMBER_LENGTH){
+            name = str.substring(features.getFirstNonDigitSpace(), features.getLastNonDigitSpace()+1);
+        }else{
+            number = StringCommon.EMPTY;
+            name = str.substring(0, features.getLastNonDigitSpace()+1);
+        }
+
         price = str.substring(features.getLastNonDigitSpace()+1);
 
         name = name.trim();
         if(name.endsWith("$"))
             name = name.substring(0, name.length()-1).trim();
-        return new ProductPrice(ProductImpl.fromNameNumber(name, number.trim()), price.trim());
+        return new ProductPrice(ProductImpl.fromNameNumber(
+                name,
+                number.trim()),
+                StringCommon.formatPrice(price));
 
     }
 

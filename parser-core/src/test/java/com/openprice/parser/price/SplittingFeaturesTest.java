@@ -24,10 +24,10 @@ public class SplittingFeaturesTest {
 
     @Test
     public void headTailBothHaveDigits(){
-        final String str = "1abc123";
+        final String str = "a123 g";
         final int[] boundaries = SplittingFeatures.cuttingBoundaries(str);
-        assertEquals(1, boundaries[0]);
-        assertEquals(3, boundaries[1]);
+        assertEquals(0, boundaries[0]);
+        assertEquals(0, boundaries[1]);
     }
 
     @Test
@@ -64,7 +64,11 @@ public class SplittingFeaturesTest {
 
     @Test
     public void numDigits2(){
-        final SplittingFeatures splitF = new SplittingFeatures("1abc123");
+        final String str = "1abc123";
+        final int[] boundaries = SplittingFeatures.cuttingBoundaries(str);
+        assertEquals(1, boundaries[0]);
+        assertEquals(3, boundaries[1]);
+        final SplittingFeatures splitF = new SplittingFeatures(str);
         final int[] arr = splitF.computeNumDigits();
         assertEquals(1, arr[0]);
         assertEquals(3, arr[1]);

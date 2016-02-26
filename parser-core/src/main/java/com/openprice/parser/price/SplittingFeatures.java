@@ -9,7 +9,9 @@ public class SplittingFeatures {
 
     String str;
     int firstNonDigitSpace;//the index of the first non-digit space char
-    int lastNonDigitSpace;//the index of the last non-digit space char
+
+  //the index of the last non-digit space char before some digits. e.g., AB12C, it should be 1 ('B')
+    int lastNonDigitSpace;
 
     int numHeadingDigits;//number of heading digits before firstNonDigitSpace
     int numTrailingDigits;//number of trailing digits after lastNonDigitSpace
@@ -44,9 +46,20 @@ public class SplittingFeatures {
                 break;
             }
         }
-        //detecting all the continuous digits in the end; space will not stop
-        int lastNonDigitSpace=-1;
+
+        //detecting all the continuous digits in the end;
+        //space will not stop
+        //must have seen digits
+        int lastDigit = -1;
         for(int i = str.length()-1; i >= 0; i--){
+            if(Character.isDigit(str.charAt(i))){
+                lastDigit = i;
+                break;
+            }
+        }
+
+        int lastNonDigitSpace= str.length()-1;
+        for(int i = lastDigit - 1; i >= 0; i--){
             if( str.charAt(i)!=' '
                     && !Character.isDigit(str.charAt(i))
                     && str.charAt(i)!='.'

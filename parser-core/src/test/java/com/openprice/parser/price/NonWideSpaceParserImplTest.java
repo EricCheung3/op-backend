@@ -19,8 +19,8 @@ public class NonWideSpaceParserImplTest {
     @Test
     public void numberNamePrice2(){
         final ProductPrice pp = parser.parse("13 abc 1.3 ");
-        assertEquals("13", pp.getNumber());
-        assertEquals("abc", pp.getName());
+        assertEquals("", pp.getNumber());
+        assertEquals("13 abc", pp.getName());
         assertEquals("1.3", pp.getPrice());
     }
 
@@ -37,7 +37,7 @@ public class NonWideSpaceParserImplTest {
         final ProductPrice pp = parser.parse("7040054391580 RIDER INSULATE $179.99 16 ");
         assertEquals("7040054391580", pp.getNumber());
         assertEquals("RIDER INSULATE", pp.getName());
-        assertEquals("179.99 16", pp.getPrice());
+        assertEquals("179.9916", pp.getPrice());
     }
 
     @Test
@@ -45,7 +45,7 @@ public class NonWideSpaceParserImplTest {
         final ProductPrice pp = parser.parse("RIDER INSULATE $179.99 16 ");
         assertEquals("", pp.getNumber());
         assertEquals("RIDER INSULATE", pp.getName());
-        assertEquals("179.99 16", pp.getPrice());
+        assertEquals("179.9916", pp.getPrice());
     }
 
     @Test
@@ -100,17 +100,16 @@ public class NonWideSpaceParserImplTest {
         assertEquals("0.1", pp.getPrice());
     }
 
-    //TODO
-//    @Test
-//    public void fromNameCutTestTrailingCharGInPriceIsChangedTo9() throws Exception{
-//        final String number="";
-//        final String name="AB C ";
-//        final String price="0.1  gc ";
-//        final ProductPrice pp = parser.parse(number+name+price);
-//        assertEquals(number.trim(), pp.getNumber());
-//        assertEquals(name.trim(), pp.getName());
-//        assertEquals(price.trim(), pp.getPrice());
-//    }
+    @Test
+    public void fromNameCutTestTrailingCharGInPriceIsChangedTo9() throws Exception{
+        final String number="";
+        final String name="AB C ";
+        final String price="0.1  gc ";
+        final ProductPrice pp = parser.parse(number+name+price);
+        assertEquals(number.trim(), pp.getNumber());
+        assertEquals(name.trim(), pp.getName());
+        assertEquals("0.19", pp.getPrice());
+    }
 
     @Test
     public void test1() throws Exception{
@@ -129,6 +128,20 @@ public class NonWideSpaceParserImplTest {
         assertEquals("29.99", pp.getPrice());
     }
 
+    @Test
+    public void test3() throws Exception{
+        final ProductPrice pp = parser.parse("067953010937 PRNAT WILD ROSE                             13.99 T");
+        assertEquals("067953010937", pp.getNumber());
+        assertEquals("PRNAT WILD ROSE", pp.getName());
+        assertEquals("13.99", pp.getPrice());
+    }
 
+    @Test
+    public void test4() throws Exception{
+        final ProductPrice pp = parser.parse("068258618309 FARMFNT EGGS LG                               5.49");
+        assertEquals("068258618309", pp.getNumber());
+        assertEquals("FARMFNT EGGS LG", pp.getName());
+        assertEquals("5.49", pp.getPrice());
+    }
 
 }
