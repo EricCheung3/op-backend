@@ -23,7 +23,7 @@ public class PriceParserWithCatalog {
 
     Set<Product> catalog = new HashSet<Product>();
 
-    private static final NonWideSpaceParserImpl nonSpaceParser = new NonWideSpaceParserImpl();
+//    private static final NonWideSpaceParserImpl nonSpaceParser = new NonWideSpaceParserImpl();
 
     public PriceParserWithCatalog(final PriceParser parser, final Set<Product>  catalog){
         this.priceParser=parser;
