@@ -21,15 +21,9 @@ public class NonWideSpaceParserImpl implements NonWideSpaceParser{
         String name = StringCommon.EMPTY;
         String price = StringCommon.EMPTY;
 
-        if(features.getFirstNonDigitSpace() > 0){
+        if(features.getNumHeadingDigits() > PriceParserConstant.MIN_ITEM_NUMBER_LENGTH){
             number = str.substring(0, features.getFirstNonDigitSpace());
-            if(number.trim().length() >= PriceParserConstant.MIN_ITEM_NUMBER_LENGTH){
-                name = str.substring(features.getFirstNonDigitSpace(), features.getLastNonDigitSpace()+1);
-            }else{
-                //the whole stirng is the name
-                number = StringCommon.EMPTY;
-                name = str.substring(0, features.getLastNonDigitSpace()+1);
-            }
+            name = str.substring(features.getFirstNonDigitSpace(), features.getLastNonDigitSpace()+1);
         }else{
           //the whole stirng is the name
             number = StringCommon.EMPTY;
