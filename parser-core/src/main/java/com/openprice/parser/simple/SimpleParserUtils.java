@@ -3,6 +3,7 @@ package com.openprice.parser.simple;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.openprice.common.StringCommon;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.ReceiptData;
@@ -44,7 +45,7 @@ public class SimpleParserUtils {
                        .filter( item -> item != null &&
                                         item.getParsedName()!=null &&
                                         !item.getParsedName().isEmpty() &&
-                                        item.getParsedName().length() >= PriceParserConstant.MIN_ITEM_NAME_LETTERS &&
+                                        StringCommon.countChars(item.getParsedName()) > PriceParserConstant.MIN_ITEM_NAME_LETTERS &&
                                         !parser.getStoreConfig().matchesBlackList(item.getParsedName())
                         )
                        .collect(Collectors.toList());

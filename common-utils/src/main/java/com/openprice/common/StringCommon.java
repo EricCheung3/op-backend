@@ -249,6 +249,22 @@ public class StringCommon {
         return count;
     }
 
+    public static int countDigits(final String str){
+        int count = 0;
+        for (int i = 0; i < str.length(); i++)
+            if (Character.isDigit(str.charAt(i)))
+                count++;
+        return count;
+    }
+
+    public static int countLetters(final String str){
+        int count = 0;
+        for (int i = 0; i < str.length(); i++)
+            if (Character.isAlphabetic(str.charAt(i)))
+                count++;
+        return count;
+    }
+
     // todo:"+" is used to escape quantity price. So should refer to
     // quantityPriceParser
     public static String formatName(final String name) {

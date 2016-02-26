@@ -52,7 +52,7 @@ public class SportChekTest extends AbstractReceiptParserIntegrationTest {
     }
 
     @Test
-    public void receipt_YuanFeb24ThisReceiptHasAnItemOnALineWithNoWideSpace()  throws Exception {
+    public void receipt_YuanFeb24SuccessfulAlghoughThisReceiptHasAnItemOnALineWithNoWideSpace()  throws Exception {
         final List<String> receiptLines = new ArrayList<>();
         TextResourceUtils.loadFromTextResource(receipt_YuanFeb24, (line)-> receiptLines.add(line));
         assertTrue(receiptLines.size() > 0);
