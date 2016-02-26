@@ -205,9 +205,7 @@ public class StringCommon {
                 break;
         }
         return count;
-
     }
-
 
     public static int[] countDigitAndAlphabets(final String str) {
         int[] count = new int[2];

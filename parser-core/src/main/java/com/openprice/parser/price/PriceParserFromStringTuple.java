@@ -144,10 +144,11 @@ public class PriceParserFromStringTuple implements PriceParser {
         }
 
         if(thirdIsNumber){
-            log.debug("Third is possibly a price");
             if(isNotPrice(three.getThird())){
+                log.debug("Third "+ three.getThird() + " is NOT considered as a price");
                 throw new Exception("String "+three.getThird()+" got to be a price");
             }
+            log.debug("Third "+ three.getThird() + " is considered as a price");
             itemName=three.getFirst()+StringCommon.WIDE_SPACES + three.getSecond();
             itemNumber=StringCommon.EMPTY;
             price=three.getThird();;
@@ -247,11 +248,7 @@ public class PriceParserFromStringTuple implements PriceParser {
                 || str.trim().startsWith("0") ) return true;
 
         // too-big-value price (like XXXXXX.) is not allowed
-        if( StringCommon.continuousDigitsBeforeDot(str) >= PriceParserConstant.MIN_ITEM_NAME_LETTERS+3)
-            return true;
-
-        //too many digits are likely not prices
-        if(counts[0] >= PriceParserConstant.MIN_ITEM_NAME_LETTERS+5)
+        if( !str.contains(".") && StringCommon.continuousDigitsBeforeDot(str) >= PriceParserConstant.MIN_ITEM_NAME_LETTERS + 5)
             return true;
 
         return false;
