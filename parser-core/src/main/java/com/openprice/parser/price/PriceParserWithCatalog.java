@@ -109,9 +109,9 @@ public class PriceParserWithCatalog {
         final int[] digitsChars = StringCommon.countDigitAndAlphabets(line);
 
         //TODO this needs an ML algorithm!
-        if(line.contains("$") ||
-                (digitsChars[0] >=2 && line.contains(".")) )//likely to be an item
-            return nonSpaceParser.parse(line);
+//        if(line.contains("$") ||
+//                (digitsChars[0] >=2 && line.contains(".")) )//likely to be an item
+//            return nonSpaceParser.parse(line);
 
         return ProductPrice.emptyValue();
     }
