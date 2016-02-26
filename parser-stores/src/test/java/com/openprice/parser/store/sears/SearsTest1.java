@@ -114,7 +114,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst/hst registr at ion i 104765698",44);
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store reg tran empli    date                              time",11);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "6.30",32);
-        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/2/3",51);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/2/3",12);
 //        verifyParsedField(fieldValues, ReceiptFieldType.Account, "card ~:           ******* 4001",50);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "6.00",30);
     }
@@ -137,7 +137,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst/hst registration 8 104765698",39);
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store reg tran empl#    date                          time",7);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "30.85",26);
-        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/1/7",47);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/1/7",8);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "card b            ************4001",46);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "29.38",24);
 
@@ -163,6 +163,8 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst/hst registration 8 104765698",39);
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store reg tran empl#    date                          time",7);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "30.85",26);
+
+        //TODO
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/1/7",47);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "card b            ************4001",46);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "29.38",24);
@@ -211,7 +213,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst/hst registration tt 104765698",41);
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store reg tran empltt   date                               time",7);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "6.30",29);
-        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/2/3",48);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/2/3",8);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "card ~:          iiihiiii'i!h 4q01",47);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "6.00",27);
     }
@@ -232,6 +234,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst/hst registration u 104765698",32);
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store reg tran empl#    date    time",8);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "4.18",24);
+        //TODO this is not correct
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/5/19",39);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "card 11        ************4001",38);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "3.98",22);
@@ -254,7 +257,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedItem(iterator.next(), "b,navy shark print hat",  "12.00", null, 31);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst/hst regi stration # 104765698",42);
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store reg tran empltt   date                            time",8);
-        verifyParsedField(fieldValues, ReceiptFieldType.Total, "51.43",34);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "51.43",9);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/7/7",49);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "card u           ************4001",48);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "48.98",32);
@@ -276,6 +279,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst / hst registration # 104765698",27);
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store reg tran empl#    date   time",7);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "15.74",21);
+        //TODO
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/4/11",34);
 //        verifyParsedField(fieldValues, ReceiptFieldType.Account, "card ~          iihjhjhiifh 4001",33);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "14.99",19);
@@ -318,7 +322,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "26.98",27);
 //        verifyParsedField(fieldValues, ReceiptFieldType.Account, "card ~.           hlfhhihh400 1",49);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "28.33",29);
-        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/2/3",50);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/2/3",9);
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store reg tran empli    date               time",8);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst/hst registration u 104765698",43);
     }
@@ -360,7 +364,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "6.00",28);
 //        verifyParsedField(fieldValues, ReceiptFieldType.Account, "card ~:            llthiltlltllhh4001",48);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "6.30",30);
-        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/2/3",49);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2013/2/3",8);
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store reg tran empl #    date                           time",7);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst / hst registration # 104765698",42);
 
@@ -611,6 +615,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "259.97",22);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "card u          ************7098",39);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "272.97",24);
+        //TODO
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/2/19",40);
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store reg tran empl u                 date           ttme",7);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst / hst registrati on u 104765698",33);
@@ -636,7 +641,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store, reg tran empltt   date      time",28);
         verifyParsedField(fieldValues, ReceiptFieldType.Phone, "phone :       780-328- 3076",26);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "626.79",45);
-        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/5/1",64);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/5/9",64);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "c a rd tt",63);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "596.94",43);
 
@@ -663,6 +668,7 @@ public class SearsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "65.91",38);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "ca  r   du                 **** **ha in11 400 1",56);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "69.21",40);
+        //TODO not correct!
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/6/15",57);
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store reg tran pl u -   date       time",8);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst/ hst reg istra tion u                1 0 '1 /6~~ ~ p",48);

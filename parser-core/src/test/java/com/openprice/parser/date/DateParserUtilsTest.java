@@ -691,5 +691,17 @@ public class DateParserUtilsTest {
         assertEquals(dateString, DateParserUtils.findDateInALine("Term Tran       Store         Oper    "+dateString));
     }
 
+    @Test
+    public void pruneDateStringTest11(){
+        assertEquals("2014/6/15", DateParserUtils.findDateInALine("DATE/ TIME              14/06/15  17:10:35"));
+    }
+
+    @Test
+    public void pruneDateStringTest12(){
+        assertEquals("2014/6/15", DateParserUtils.findDateInALine("01429 140 5102 4619352  6/15/14    5:06P"));
+    }
+
+
+
 
 }
