@@ -23,103 +23,103 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class NoFrillsTest1 extends AbstractReceiptParserIntegrationTest{
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_02_09_16_17_56.jpg.random.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_02_09_16_17_56.jpg.random.txt")
     private Resource receipt_2015_02_09_16_17_56;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_02_09_16_18_11.jpg.random.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_02_09_16_18_11.jpg.random.txt")
     private Resource receipt_2015_02_09_16_18_11;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_02_09_16_29_10.jpg.random.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_02_09_16_29_10.jpg.random.txt")
     private Resource receipt_2015_02_09_16_29_10;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_02_09_16_59_20.jpg.random.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_02_09_16_59_20.jpg.random.txt")
     private Resource receipt_2015_02_09_16_59_20;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_02_09_16_59_32.jpg.random.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_02_09_16_59_32.jpg.random.txt")
     private Resource receipt_2015_02_09_16_59_32;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_02_09_17_02_36.jpg.random.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_02_09_17_02_36.jpg.random.txt")
     private Resource receipt_2015_02_09_17_02_36;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_02_09_17_07_33.jpg.random.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_02_09_17_07_33.jpg.random.txt")
     private Resource receipt_2015_02_09_17_07_33;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_02_10_00_00_22.jpg.random.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_02_10_00_00_22.jpg.random.txt")
     private Resource receipt_2015_02_10_00_00_22;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_02_10_00_19_03.jpg.random.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_02_10_00_19_03.jpg.random.txt")
     private Resource receipt_2015_02_10_00_19_03;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_02_11_07_42_24.jpg.random.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_02_11_07_42_24.jpg.random.txt")
     private Resource receipt_2015_02_11_07_42_24;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_02_11_07_51_16.jpg.random.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_02_11_07_51_16.jpg.random.txt")
     private Resource receipt_2015_02_11_07_51_16;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_06_14_21_42_08.jpg.dana.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_06_14_21_42_08.jpg.dana.txt")
     private Resource receipt_2015_06_14_21_42_08;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_02_14_53_16.jpg.random.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_02_14_53_16.jpg.random.txt")
     private Resource receipt_2015_07_02_14_53_16;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_02_15_02_54.jpg.random.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_02_15_02_54.jpg.random.txt")
     private Resource receipt_2015_07_02_15_02_54;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_02_15_09_24.jpg.random.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_02_15_09_24.jpg.random.txt")
     private Resource receipt_2015_07_02_15_09_24;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_02_15_17_48.jpg.random.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_02_15_17_48.jpg.random.txt")
     private Resource receipt_2015_07_02_15_17_48;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_03_14_09_03.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_03_14_09_03.jpg.hengshuai.txt")
     private Resource receipt_2015_07_03_14_09_03;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_03_14_27_51.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_03_14_27_51.jpg.hengshuai.txt")
     private Resource receipt_2015_07_03_14_27_51;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_03_14_39_18.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_03_14_39_18.jpg.hengshuai.txt")
     private Resource receipt_2015_07_03_14_39_18;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_21_11_09_25.jpg.beata.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_21_11_09_25.jpg.beata.txt")
     private Resource receipt_2015_07_21_11_09_25;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_21_11_09_33.jpg.beata.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_21_11_09_33.jpg.beata.txt")
     private Resource receipt_2015_07_21_11_09_33;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_21_11_10_14.jpg.beata.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_21_11_10_14.jpg.beata.txt")
     private Resource receipt_2015_07_21_11_10_14;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_21_11_14_20.jpg.beata.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_21_11_14_20.jpg.beata.txt")
     private Resource receipt_2015_07_21_11_14_20;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_21_11_35_23.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_21_11_35_23.jpg.hengshuai.txt")
     private Resource receipt_2015_07_21_11_35_23;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_21_11_42_40.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_21_11_42_40.jpg.hengshuai.txt")
     private Resource receipt_2015_07_21_11_42_40;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_21_11_48_38.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_21_11_48_38.jpg.hengshuai.txt")
     private Resource receipt_2015_07_21_11_48_38;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_21_15_21_53.jpg.beata.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_21_15_21_53.jpg.beata.txt")
     private Resource receipt_2015_07_21_15_21_53;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_21_15_22_23.jpg.beata.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_21_15_22_23.jpg.beata.txt")
     private Resource receipt_2015_07_21_15_22_23;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_21_15_22_29.jpg.beata.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_21_15_22_29.jpg.beata.txt")
     private Resource receipt_2015_07_21_15_22_29;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_21_15_25_42.jpg.beata.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_21_15_25_42.jpg.beata.txt")
     private Resource receipt_2015_07_21_15_25_42;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_21_15_25_50.jpg.beata.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_21_15_25_50.jpg.beata.txt")
     private Resource receipt_2015_07_21_15_25_50;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_21_15_29_19.jpg.beata.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_21_15_29_19.jpg.beata.txt")
     private Resource receipt_2015_07_21_15_29_19;
 
-    @Value("classpath:/testFiles/NoFrills/MattAshley/2015_07_21_15_29_27.jpg.beata.txt")
+    @Value("classpath:/testfiles/nofrills/mattashley/2015_07_21_15_29_27.jpg.beata.txt")
     private Resource receipt_2015_07_21_15_29_27;
 
     @Test
@@ -739,6 +739,7 @@ public class NoFrillsTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "0.48",40);
     }
 
+    //TODO why homedepot?
     @Test
     public void receipt_2015_07_21_11_09_25()  throws Exception {
         final List<String> receiptLines = new ArrayList<>();

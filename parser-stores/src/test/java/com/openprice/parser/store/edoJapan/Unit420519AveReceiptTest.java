@@ -25,13 +25,13 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTest {
 
 
-    @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_02_09_11_34_51.jpg.hengshuai.txt")
-    private Resource sampleEdoJapan_2015_02_09_11_34_51;
+    @Value("classpath:/testfiles/edojapan/unit420519ave/2015_02_09_11_34_51.jpg.hengshuai.txt")
+    private Resource sampleedojapan_2015_02_09_11_34_51;
 
     @Test
-    public void testEdoJapan_2015_02_09_11_34_51() throws Exception {
+    public void testedojapan_2015_02_09_11_34_51() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(sampleEdoJapan_2015_02_09_11_34_51, (line)-> receiptLines.add(line));
+        TextResourceUtils.loadFromTextResource(sampleedojapan_2015_02_09_11_34_51, (line)-> receiptLines.add(line));
 
         assertTrue(receiptLines.size() > 0);
 
@@ -54,13 +54,13 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 
     }
 
-    @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_07_03_16_51_34.jpg.haipeng.txt")
-    private Resource sampleEdoJapan_2015_07_03_16_51_34;
+    @Value("classpath:/testfiles/edojapan/unit420519ave/2015_07_03_16_51_34.jpg.haipeng.txt")
+    private Resource sampleedojapan_2015_07_03_16_51_34;
 
     @Test
-    public void testEdoJapan_2015_07_03_16_46_11() throws Exception {
+    public void testedojapan_2015_07_03_16_46_11() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(sampleEdoJapan_2015_07_03_16_51_34, (line)-> receiptLines.add(line));
+        TextResourceUtils.loadFromTextResource(sampleedojapan_2015_07_03_16_51_34, (line)-> receiptLines.add(line));
 
         assertTrue(receiptLines.size() > 0);
 
@@ -81,13 +81,13 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 //        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "trans#: 1017394              serv : cashier",10);
     }
 
-    @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_10_10_14_53_28.jpg.txt")
-    private Resource sampleEdoJapan_2015_10_10_14_53_28;
+    @Value("classpath:/testfiles/edojapan/unit420519ave/2015_10_10_14_53_28.jpg.txt")
+    private Resource sampleedojapan_2015_10_10_14_53_28;
 
     @Test
-    public void testEdoJapan_2015_10_10_14_53_28() throws Exception {
+    public void testedojapan_2015_10_10_14_53_28() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(sampleEdoJapan_2015_10_10_14_53_28, (line)-> receiptLines.add(line));
+        TextResourceUtils.loadFromTextResource(sampleedojapan_2015_10_10_14_53_28, (line)-> receiptLines.add(line));
 
         assertTrue(receiptLines.size() > 0);
 
@@ -111,13 +111,13 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 //        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "trans#: 16555    serv: 100",9);
     }
 
-    @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_10_10_14_53_32.jpg.txt")
-    private Resource sampleEdoJapan_2015_10_10_14_53_32;
+    @Value("classpath:/testfiles/edojapan/unit420519ave/2015_10_10_14_53_32.jpg.txt")
+    private Resource sampleedojapan_2015_10_10_14_53_32;
 
     @Test
-    public void testEdoJapan_2015_10_10_14_53_32() throws Exception {
+    public void testedojapan_2015_10_10_14_53_32() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(sampleEdoJapan_2015_10_10_14_53_32, (line)-> receiptLines.add(line));
+        TextResourceUtils.loadFromTextResource(sampleedojapan_2015_10_10_14_53_32, (line)-> receiptLines.add(line));
 
         assertTrue(receiptLines.size() > 0);
 
@@ -140,13 +140,13 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 
     }
 
-    @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_10_10_14_53_56.jpg.txt")
-    private Resource sampleEdoJapan_2015_10_10_14_53_56;
+    @Value("classpath:/testfiles/edojapan/unit420519ave/2015_10_10_14_53_56.jpg.txt")
+    private Resource sampleedojapan_2015_10_10_14_53_56;
 
     @Test
-    public void testEdoJapan_2015_10_10_14_53_56() throws Exception {
+    public void testedojapan_2015_10_10_14_53_56() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(sampleEdoJapan_2015_10_10_14_53_56, (line)-> receiptLines.add(line));
+        TextResourceUtils.loadFromTextResource(sampleedojapan_2015_10_10_14_53_56, (line)-> receiptLines.add(line));
 
         assertTrue(receiptLines.size() > 0);
 
@@ -168,13 +168,13 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 //        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "trans#: 16337    serv: 300",9);
     }
 
-    @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_10_10_14_54_17.jpg.txt")
-    private Resource sampleEdoJapan_2015_10_10_14_54_17;
+    @Value("classpath:/testfiles/edojapan/unit420519ave/2015_10_10_14_54_17.jpg.txt")
+    private Resource sampleedojapan_2015_10_10_14_54_17;
 
     @Test
-    public void testEdoJapan_2015_10_10_14_54_17() throws Exception {
+    public void testedojapan_2015_10_10_14_54_17() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(sampleEdoJapan_2015_10_10_14_54_17, (line)-> receiptLines.add(line));
+        TextResourceUtils.loadFromTextResource(sampleedojapan_2015_10_10_14_54_17, (line)-> receiptLines.add(line));
 
         assertTrue(receiptLines.size() > 0);
 
@@ -196,13 +196,13 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 //        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "trans#: 16709    serv: 100",9);
     }
 
-    @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_10_10_14_55_19.jpg.txt")
-    private Resource sampleEdoJapan_2015_10_10_14_55_19;
+    @Value("classpath:/testfiles/edojapan/unit420519ave/2015_10_10_14_55_19.jpg.txt")
+    private Resource sampleedojapan_2015_10_10_14_55_19;
 
     @Test
-    public void testEdoJapan_2015_10_10_14_55_19() throws Exception {
+    public void testedojapan_2015_10_10_14_55_19() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(sampleEdoJapan_2015_10_10_14_55_19, (line)-> receiptLines.add(line));
+        TextResourceUtils.loadFromTextResource(sampleedojapan_2015_10_10_14_55_19, (line)-> receiptLines.add(line));
 
         assertTrue(receiptLines.size() > 0);
 
@@ -227,13 +227,13 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
     }
 
 
-    @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_10_10_14_56_18.jpg.txt")
-    private Resource sampleEdoJapan_2015_10_10_14_56_18;
+    @Value("classpath:/testfiles/edojapan/unit420519ave/2015_10_10_14_56_18.jpg.txt")
+    private Resource sampleedojapan_2015_10_10_14_56_18;
 
     @Test
-    public void testEdoJapan_2015_10_10_14_56_18() throws Exception {
+    public void testedojapan_2015_10_10_14_56_18() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(sampleEdoJapan_2015_10_10_14_56_18, (line)-> receiptLines.add(line));
+        TextResourceUtils.loadFromTextResource(sampleedojapan_2015_10_10_14_56_18, (line)-> receiptLines.add(line));
 
         assertTrue(receiptLines.size() > 0);
 
@@ -258,13 +258,13 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 //        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "trans#: 16945    serv: 300",9);
     }
 
-    @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_10_10_14_56_27.jpg.txt")
-    private Resource sampleEdoJapan_2015_10_10_14_56_27;
+    @Value("classpath:/testfiles/edojapan/unit420519ave/2015_10_10_14_56_27.jpg.txt")
+    private Resource sampleedojapan_2015_10_10_14_56_27;
 
     @Test
-    public void testEdoJapan_2015_10_10_14_56_27() throws Exception {
+    public void testedojapan_2015_10_10_14_56_27() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(sampleEdoJapan_2015_10_10_14_56_27, (line)-> receiptLines.add(line));
+        TextResourceUtils.loadFromTextResource(sampleedojapan_2015_10_10_14_56_27, (line)-> receiptLines.add(line));
 
         assertTrue(receiptLines.size() > 0);
 
@@ -287,13 +287,13 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 //        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "trans#: 16591    serv: 100",9);
     }
 
-    @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_10_10_14_56_31.jpg.txt")
-    private Resource sampleEdoJapan_2015_10_10_14_56_31;
+    @Value("classpath:/testfiles/edojapan/unit420519ave/2015_10_10_14_56_31.jpg.txt")
+    private Resource sampleedojapan_2015_10_10_14_56_31;
 
     @Test
-    public void testEdoJapan_2015_10_10_14_56_31() throws Exception {
+    public void testedojapan_2015_10_10_14_56_31() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(sampleEdoJapan_2015_10_10_14_56_31, (line)-> receiptLines.add(line));
+        TextResourceUtils.loadFromTextResource(sampleedojapan_2015_10_10_14_56_31, (line)-> receiptLines.add(line));
 
         assertTrue(receiptLines.size() > 0);
 
@@ -316,13 +316,13 @@ public class Unit420519AveReceiptTest extends AbstractReceiptParserIntegrationTe
 //        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "trans#: 15571    serv: 100",9);
     }
 
-    @Value("classpath:/testFiles/EdoJapan/Unit420519Ave/2015_10_10_14_57_53.jpg.txt")
-    private Resource sampleEdoJapan_2015_10_10_14_57_53;
+    @Value("classpath:/testfiles/edojapan/unit420519ave/2015_10_10_14_57_53.jpg.txt")
+    private Resource sampleedojapan_2015_10_10_14_57_53;
 
     @Test
-    public void testEdoJapan_2015_10_10_14_57_53() throws Exception {
+    public void testedojapan_2015_10_10_14_57_53() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(sampleEdoJapan_2015_10_10_14_57_53, (line)-> receiptLines.add(line));
+        TextResourceUtils.loadFromTextResource(sampleedojapan_2015_10_10_14_57_53, (line)-> receiptLines.add(line));
 
         assertTrue(receiptLines.size() > 0);
 

@@ -30,7 +30,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
     @Inject
     SimpleParser simpleParser;
 
-    @Value("classpath:/testFiles/Generic/2015_05_02_21_56_44.jpg.momingzhen159.txt")
+    @Value("classpath:/testfiles/generic/2015_05_02_21_56_44.jpg.momingzhen159.txt")
     private Resource timHortons1;
 
     @Test
@@ -58,7 +58,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 //        assertEquals(StringCommon.EMPTY, fieldValues.get(ReceiptField.Date).getFieldValue());//this receipt has no date string
     }
 
-    @Value("classpath:/testFiles/Generic/2015_05_02_21_56_44.jpg.momingzhen160_removeChainName.txt")
+    @Value("classpath:/testfiles/generic/2015_05_02_21_56_44.jpg.momingzhen160_removeChainName.txt")
     private Resource timHortons2;
 
 //TODO use some other store's receipt, because we now have tim hortons parser.
@@ -87,7 +87,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 ////        assertEquals(StringCommon.EMPTY, fieldValues.get(ReceiptField.Date).getFieldValue());//this receipt has no date string
 //    }
 
-    @Value("classpath:/testFiles/Generic/2015_06_14_21_42_08.jpg.dana.txt")
+    @Value("classpath:/testfiles/generic/2015_06_14_21_42_08.jpg.dana.txt")
     private Resource nofrills1;
 
     @Test
@@ -118,7 +118,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("2015/3/5", fieldValues.get(ReceiptFieldType.Date).getFieldValue());//this receipt has no date string
     }
 
-    @Value("classpath:/testFiles/Generic/2015_07_03_16_42_52.jpg.haipeng.txt")
+    @Value("classpath:/testfiles/generic/2015_07_03_16_42_52.jpg.haipeng.txt")
     private Resource mcDonalds1;
 
     @Test

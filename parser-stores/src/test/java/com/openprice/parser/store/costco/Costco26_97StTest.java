@@ -33,49 +33,49 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/Costco/branch_2616_91st/2015_02_11_22_51_51.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/costco/branch_2616_91st/2015_02_11_22_51_51.jpg.hengshuai.txt")
     private Resource receipt_51_51;
 
-    @Value("classpath:/testFiles/Costco/branch_2616_91st/2015_02_27_22_17_07.jpg.random.txt")
+    @Value("classpath:/testfiles/costco/branch_2616_91st/2015_02_27_22_17_07.jpg.random.txt")
     private Resource receipt_17_07;
 
-    @Value("classpath:/testFiles/Costco/branch_2616_91st/2015_04_04_21_10_54.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/costco/branch_2616_91st/2015_04_04_21_10_54.jpg.jingwang.txt")
     private Resource receipt_10_54;
 
-    @Value("classpath:/testFiles/Costco/branch_2616_91st/2015_04_04_21_11_01.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/costco/branch_2616_91st/2015_04_04_21_11_01.jpg.jingwang.txt")
     private Resource receipt_11_01;
 
-    @Value("classpath:/testFiles/Costco/branch_2616_91st/2015_04_04_21_11_07.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/costco/branch_2616_91st/2015_04_04_21_11_07.jpg.jingwang.txt")
     private Resource receipt_11_07;
 
-    @Value("classpath:/testFiles/Costco/branch_2616_91st/2015_04_04_21_12_51.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/costco/branch_2616_91st/2015_04_04_21_12_51.jpg.jingwang.txt")
     private Resource receipt_12_51;
 
-    @Value("classpath:/testFiles/Costco/branch_2616_91st/2015_04_04_21_13_05.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/costco/branch_2616_91st/2015_04_04_21_13_05.jpg.jingwang.txt")
     private Resource receipt_13_05;
 
-    @Value("classpath:/testFiles/Costco/branch_2616_91st/2015_04_04_21_14_29.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/costco/branch_2616_91st/2015_04_04_21_14_29.jpg.jingwang.txt")
     private Resource receipt_14_29;
 
-    @Value("classpath:/testFiles/Costco/branch_2616_91st/2015_04_04_21_14_36.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/costco/branch_2616_91st/2015_04_04_21_14_36.jpg.jingwang.txt")
     private Resource receipt_14_36;
 
-    @Value("classpath:/testFiles/Costco/branch_2616_91st/2015_04_04_21_14_43.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/costco/branch_2616_91st/2015_04_04_21_14_43.jpg.jingwang.txt")
     private Resource receipt_14_43;
 
-    @Value("classpath:/testFiles/Costco/branch_2616_91st/2015_04_04_21_16_53.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/costco/branch_2616_91st/2015_04_04_21_16_53.jpg.jingwang.txt")
     private Resource receipt_16_53;
 
-    @Value("classpath:/testFiles/Costco/branch_2616_91st/2015_04_04_21_17_00.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/costco/branch_2616_91st/2015_04_04_21_17_00.jpg.jingwang.txt")
     private Resource receipt_17_00;
 
-    @Value("classpath:/testFiles/Costco/branch_2616_91st/2015_04_04_21_17_07.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/costco/branch_2616_91st/2015_04_04_21_17_07.jpg.jingwang.txt")
     private Resource receipt_21_17_07;
 
-    @Value("classpath:/testFiles/Costco/branch_2616_91st/2015_04_04_21_17_15.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/costco/branch_2616_91st/2015_04_04_21_17_15.jpg.jingwang.txt")
     private Resource receipt_17_15;
 
-    @Value("classpath:/testFiles/Costco/branch_2616_91st/HuFeb25.txt")
+    @Value("classpath:/testfiles/costco/branch_2616_91st/HuFeb25.txt")
     private Resource receipt_HuFeb25;
 
     @Inject

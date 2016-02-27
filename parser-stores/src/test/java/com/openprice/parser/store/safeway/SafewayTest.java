@@ -23,8 +23,17 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SafewayTest extends AbstractReceiptParserIntegrationTest {
-    @Value("classpath:/testFiles/Safeway/Southgate/2015_02_27_20_04_24.jpg.dongcui.txt")
+    @Value("classpath:/testfiles/safeway/southgate/2015_02_27_20_04_24.jpg.dongcui.txt")
     private Resource sampleReceipt1;
+
+    @Value("classpath:/testfiles/safeway/phone/ElisFeb24.txt")
+    private Resource receipt_Elis24;
+
+    @Value("classpath:/testfiles/safeway/mgrk_elksey_cole/2014_12_06_22_36_54.txt")
+    private Resource receipt_36_54;
+
+    @Value("classpath:/testfiles/safeway/phone/csabaFeb24.txt")
+    private Resource receipt_CsabaFeb24;
 
     @Test
     public void testReceipt1TheCommentedItemsAreAllGone() throws Exception {
@@ -66,8 +75,6 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
 
     }
 
-    @Value("classpath:/testFiles/Safeway/MGRKELSEYCOLE/2014_12_06_22_36_54.txt")
-    private Resource receipt_36_54;
 
     @Test
     public void testReceipt2TheCommentedItemsAreAllGone() throws Exception {
@@ -103,7 +110,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
 //        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "817093735",2);//TODO
         verifyParsedField(fieldValues, ReceiptFieldType.Recycle, "crf / recycling fee                       0 . 01 g",11);
 //        verifyParsedField(fieldValues, ReceiptFieldType.AddressCountry, "canada",54);
-        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "0.52",31);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "",49);
         verifyParsedField(fieldValues, ReceiptFieldType.Author, "author . ii : 05790z",35);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/5/12",38);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "41.88",32);
@@ -113,8 +120,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
 
     }
 
-    @Value("classpath:/testFiles/Safeway/fromPhone/csabaFeb24.txt")
-    private Resource receipt_CsabaFeb24;
+
     @Test
     public void receipt_CsabaFeb24() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
@@ -151,8 +157,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst# 817093735",8);
     }
 
-    @Value("classpath:/testFiles/Safeway/fromPhone/ElisFeb24.txt")
-    private Resource receipt_Elis24;
+
     @Test
     public void receipt_Elis24() throws Exception {
         final List<String> receiptLines = new ArrayList<>();

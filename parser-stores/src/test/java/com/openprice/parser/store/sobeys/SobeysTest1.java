@@ -33,37 +33,37 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SobeysTest1 extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/Sobeys/branch_11_111St/2015_04_04_21_31_48.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/sobeys/branch_11_111st/2015_04_04_21_31_48.jpg.jingwang.txt")
     private Resource receipt_31_48;
 
-    @Value("classpath:/testFiles/Sobeys/branch_11_111St/2015_04_04_21_32_19.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/sobeys/branch_11_111st/2015_04_04_21_32_19.jpg.jingwang.txt")
     private Resource receipt_32_19;
 
-    @Value("classpath:/testFiles/Sobeys/branch_11_111St/2015_04_04_21_33_42.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/sobeys/branch_11_111st/2015_04_04_21_33_42.jpg.jingwang.txt")
     private Resource receipt_33_42;
 
-    @Value("classpath:/testFiles/Sobeys/branch_11_111St/2015_04_04_21_41_18.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/sobeys/branch_11_111st/2015_04_04_21_41_18.jpg.jingwang.txt")
     private Resource receipt_41_18;
 
-    @Value("classpath:/testFiles/Sobeys/branch_11_111St/2015_04_04_21_59_07.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/sobeys/branch_11_111st/2015_04_04_21_59_07.jpg.jingwang.txt")
     private Resource receipt_59_07;
 
-    @Value("classpath:/testFiles/Sobeys/branch_20_111st/2015_02_09_13_31_53.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/sobeys/branch_20_111st/2015_02_09_13_31_53.jpg.henryHuang.txt")
     private Resource receipt_31_53;
 
-    @Value("classpath:/testFiles/Sobeys/branch_82_112st/2015_07_03_15_35_54.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/sobeys/branch_82_112st/2015_07_03_15_35_54.jpg.hengshuai.txt")
     private Resource receipt_35_54;
 
-    @Value("classpath:/testFiles/Sobeys/branch_20_111st/2015_02_09_13_32_01.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/sobeys/branch_20_111st/2015_02_09_13_32_01.jpg.henryHuang.txt")
     private Resource receipt_32_01;
 
-    @Value("classpath:/testFiles/Sobeys/branch_939_James_Mowatt_Trail/2015_04_04_21_47_26.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/sobeys/branch_939_james_mowatt_trail/2015_04_04_21_47_26.jpg.jingwang.txt")
     private Resource receipt_47_26;
 
-    @Value("classpath:/testFiles/Sobeys/fromPhone/yuanji_19Feb16.txt")
+    @Value("classpath:/testfiles/sobeys/phone/yuanji_19Feb16.txt")
     private Resource receipt_yuan19Feb16;
 
-    @Value("classpath:/testFiles/Sobeys/branch_82_112st/HuFeb24.txt")
+    @Value("classpath:/testfiles/sobeys/branch_82_112st/HuFeb24.txt")
     private Resource receipt_HuFeb24;
 
     @Inject

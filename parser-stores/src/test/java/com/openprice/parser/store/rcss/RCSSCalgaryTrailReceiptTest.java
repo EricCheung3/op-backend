@@ -24,7 +24,7 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegrationTest {
 
-    @Value("classpath:/testFiles/RCSS/CalgaryTrail/2015_02_01_14_17_01.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_02_01_14_17_01.jpg.henryHuang.txt")
     private Resource sampleRCSS_2015_02_01_14_17_01;
 
     @Test
@@ -65,7 +65,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
 
     }
 
-    @Value("classpath:/testFiles/RCSS/CalgaryTrail/2015_02_09_13_15_09.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_02_09_13_15_09.jpg.henryHuang.txt")
     private Resource sampleRCSS_2015_02_09_13_15_09;
 
     @Test
@@ -101,7 +101,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
 //        verifyParsedField(fieldValues, ReceiptFieldType.AddressCity, "edmonton",20);//why not found?
     }
 
-    @Value("classpath:/testFiles/RCSS/CalgaryTrail/2015_04_04_22_22_32.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_04_04_22_22_32.jpg.jingwang.txt")
     private Resource sampleRCSS_2015_04_04_22_22_32;
 
     @Test
@@ -152,7 +152,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-430-2769",4);
     }
 
-    @Value("classpath:/testFiles/RCSS/CalgaryTrail/2015_07_21_10_50_33.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_07_21_10_50_33.jpg.henryHuang.txt")
     private Resource sampleRCSS_2015_07_21_10_50_33;
     @Test
     public void testRCSS_2015_07_21_10_50_33() throws Exception {

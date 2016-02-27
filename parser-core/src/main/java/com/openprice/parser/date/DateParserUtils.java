@@ -113,15 +113,15 @@ public class DateParserUtils {
             return DateUtils.formatDateString(result);
         }
 
-        result = dmy4.parseNoSpaces(str);
-        if(result != null && result.isBefore(DateUtils.getToday())){
-            log.debug("found dmy4 format without space."+result+"\n");
-            return DateUtils.formatDateString(result);
-        }
-
         result = y2md.parseWithSpaces(str);
         if(result != null && result.isBefore(DateUtils.getToday())){
             log.debug("found Y2MD format with space."+result+"\n");
+            return DateUtils.formatDateString(result);
+        }
+
+        result = dmy4.parseNoSpaces(str);
+        if(result != null && result.isBefore(DateUtils.getToday())){
+            log.debug("found dmy4 format without space."+result+"\n");
             return DateUtils.formatDateString(result);
         }
 

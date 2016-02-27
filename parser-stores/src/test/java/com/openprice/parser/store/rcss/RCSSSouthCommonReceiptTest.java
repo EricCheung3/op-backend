@@ -24,7 +24,7 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class RCSSSouthCommonReceiptTest extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/RCSS/SouthCommon/2015_02_09_13_15_25.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/southcommon/2015_02_09_13_15_25.jpg.henryHuang.txt")
     private Resource sampleRCSS_2015_02_09_13_15_25;
 
     @Test
@@ -74,7 +74,7 @@ public class RCSSSouthCommonReceiptTest extends AbstractReceiptParserIntegration
 
     }
 
-    @Value("classpath:/testFiles/RCSS/SouthCommon/2015_04_04_21_28_21.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/rcss/southcommon/2015_04_04_21_28_21.jpg.jingwang.txt")
     private Resource sampleRCSS_2015_04_04_21_28_21;
 
     @Test

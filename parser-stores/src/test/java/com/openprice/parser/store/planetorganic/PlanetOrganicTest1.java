@@ -24,19 +24,19 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PlanetOrganicTest1 extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/PlanetOrganic/branch_79_CalgaryTrail/2015_02_09_16_11_30.jpg.random.txt")
+    @Value("classpath:/testfiles/planetorganic/branch_79_calgarytrail/2015_02_09_16_11_30.jpg.random.txt")
     private Resource receipt_2015_02_09_16_11_30;
 
-    @Value("classpath:/testFiles/PlanetOrganic/branch_79_CalgaryTrail/2015_02_09_23_44_46.jpg.random.txt")
+    @Value("classpath:/testfiles/planetorganic/branch_79_calgarytrail/2015_02_09_23_44_46.jpg.random.txt")
     private Resource receipt_2015_02_09_23_44_46;
 
-    @Value("classpath:/testFiles/PlanetOrganic/branch_79_CalgaryTrail/2015_02_09_23_59_57.jpg.random.txt")
+    @Value("classpath:/testfiles/planetorganic/branch_79_calgarytrail/2015_02_09_23_59_57.jpg.random.txt")
     private Resource receipt_2015_02_09_23_59_57;
 
-    @Value("classpath:/testFiles/PlanetOrganic/branch_79_CalgaryTrail/2015_02_10_23_40_56.jpg.random.txt")
+    @Value("classpath:/testfiles/planetorganic/branch_79_calgarytrail/2015_02_10_23_40_56.jpg.random.txt")
     private Resource receipt_2015_02_10_23_40_56;
 
-    @Value("classpath:/testFiles/PlanetOrganic/branch_79_CalgaryTrail/2015_07_03_14_48_22.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/planetorganic/branch_79_calgarytrail/2015_07_03_14_48_22.jpg.hengshuai.txt")
     private Resource receipt_2015_07_03_14_48_22;
 
     @Test

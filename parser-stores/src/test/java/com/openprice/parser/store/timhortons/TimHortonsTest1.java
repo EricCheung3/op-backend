@@ -33,22 +33,22 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TimHortonsTest1 extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/TimHortons/branch110_51Ave/2015_02_10_13_25_20.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/timhortons/branch110_51ave/2015_02_10_13_25_20.jpg.hengshuai.txt")
     private Resource receipt_25_20;
 
-    @Value("classpath:/testFiles/TimHortons/branch110_51Ave/2015_05_02_21_56_44.jpg.momingzhen159.txt")
+    @Value("classpath:/testfiles/timhortons/branch110_51ave/2015_05_02_21_56_44.jpg.momingzhen159.txt")
     private Resource receipt_56_44;
 
-    @Value("classpath:/testFiles/TimHortons/branch110_51Ave/2015_06_04_21_37_07.jpg.shiZheng.txt")
+    @Value("classpath:/testfiles/timhortons/branch110_51ave/2015_06_04_21_37_07.jpg.shiZheng.txt")
     private Resource receipt_37_07;
 
-    @Value("classpath:/testFiles/TimHortons/branch110_51Ave/2015_07_03_14_24_24.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/timhortons/branch110_51ave/2015_07_03_14_24_24.jpg.hengshuai.txt")
     private Resource receipt_24_24;
 
     @Value("classpath:/testFiles/TimHortons/branch_Lessard183/2015_07_03_13_54_48.jpg.hengshuai.txt")
     private Resource receipt_13_54;
 
-    @Value("classpath:/testFiles/TimHortons/fromPhone/yuanji_19Feb2016.txt")
+    @Value("classpath:/testfiles/timHortons/phone/yuanji_19Feb2016.txt")
     private Resource receipt_phone_yuanji19Feb16;
 
     @Inject

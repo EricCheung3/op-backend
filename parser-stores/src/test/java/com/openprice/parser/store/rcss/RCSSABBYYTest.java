@@ -20,7 +20,7 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
-    @Value("classpath:/testFiles/RCSS/abbyy/2015_11_11_calgarytrail.txt")
+    @Value("classpath:/testfiles/rcss/abbyy/2015_11_11_calgarytrail.txt")
     private Resource sampleRCSS_2015_11_11_calgarytrail;
 
     @Test

@@ -24,16 +24,16 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ToysrusTest extends AbstractReceiptParserIntegrationTest {
 
-    @Value("classpath:/testFiles/ToysRus/branch_3521_SOUTHPARK/2014_12_06_22_32_51.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/toysrus/branch_3521_southpark/2014_12_06_22_32_51.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_22_32_51;
 
-    @Value("classpath:/testFiles/ToysRus/branch_3521_SOUTHPARK/2015_02_09_13_31_48.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/toysrus/branch_3521_southpark/2015_02_09_13_31_48.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_31_48;
 
-    @Value("classpath:/testFiles/ToysRus/branch_3521_SOUTHPARK/2015_07_03_14_09_29.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/toysrus/branch_3521_southpark/2015_07_03_14_09_29.jpg.hengshuai.txt")
     private Resource receipt_2015_07_03_14_09_29;
 
-    @Value("classpath:/testFiles/ToysRus/branch_3521_SOUTHPARK/2015_10_10_14_49_14.jpg.txt")
+    @Value("classpath:/testfiles/toysrus/branch_3521_southpark/2015_10_10_14_49_14.jpg.txt")
     private Resource receipt_2015_10_10_14_49_14;
 
     @Test

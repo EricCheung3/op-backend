@@ -24,19 +24,19 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class Lucky97Test1 extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/lucky97/branch_107_97St/2014_12_06_22_53_32.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/lucky97/branch_107_97st/2014_12_06_22_53_32.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_22_53_32;
 
-    @Value("classpath:/testFiles/lucky97/branch_107_97St/2015_02_10_13_25_35.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/lucky97/branch_107_97st/2015_02_10_13_25_35.jpg.hengshuai.txt")
     private Resource receipt_2015_02_10_13_25_35;
 
-    @Value("classpath:/testFiles/lucky97/branch_107_97St/2015_05_02_22_19_07.jpg.haipeng.txt")
+    @Value("classpath:/testfiles/lucky97/branch_107_97st/2015_05_02_22_19_07.jpg.haipeng.txt")
     private Resource receipt_2015_05_02_22_19_07;
 
-    @Value("classpath:/testFiles/lucky97/branch_107_97St/2015_07_03_16_51_02.jpg.haipeng.txt")
+    @Value("classpath:/testfiles/lucky97/branch_107_97st/2015_07_03_16_51_02.jpg.haipeng.txt")
     private Resource receipt_2015_07_03_16_51_02;
 
-    @Value("classpath:/testFiles/lucky97/branch_107_97St/2015_07_16_19_59_17.jpg.momingzhen159.txt")
+    @Value("classpath:/testfiles/lucky97/branch_107_97st/2015_07_16_19_59_17.jpg.momingzhen159.txt")
     private Resource receipt_2015_07_16_19_59_17;
 
     @Test
