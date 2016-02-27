@@ -110,7 +110,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
 //        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "817093735",2);//TODO
         verifyParsedField(fieldValues, ReceiptFieldType.Recycle, "crf / recycling fee                       0 . 01 g",11);
 //        verifyParsedField(fieldValues, ReceiptFieldType.AddressCountry, "canada",54);
-        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "0.52",31);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "",49);
         verifyParsedField(fieldValues, ReceiptFieldType.Author, "author . ii : 05790z",35);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/5/12",38);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "41.88",32);
