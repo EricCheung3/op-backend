@@ -23,67 +23,67 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class NewYorkFriesTest1 extends AbstractReceiptParserIntegrationTest{
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_51_40.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_51_40.jpg.txt")
     private Resource receipt_2015_10_10_14_51_40;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_52_30.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_52_30.jpg.txt")
     private Resource receipt_2015_10_10_14_52_30;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_52_34.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_52_34.jpg.txt")
     private Resource receipt_2015_10_10_14_52_34;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_52_44.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_52_44.jpg.txt")
     private Resource receipt_2015_10_10_14_52_44;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_52_48.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_52_48.jpg.txt")
     private Resource receipt_2015_10_10_14_52_48;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_53_05.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_53_05.jpg.txt")
     private Resource receipt_2015_10_10_14_53_05;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_53_14.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_53_14.jpg.txt")
     private Resource receipt_2015_10_10_14_53_14;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_53_23.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_53_23.jpg.txt")
     private Resource receipt_2015_10_10_14_53_23;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_53_51.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_53_51.jpg.txt")
     private Resource receipt_2015_10_10_14_53_51;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_54_09.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_54_09.jpg.txt")
     private Resource receipt_2015_10_10_14_54_09;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_54_33.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_54_33.jpg.txt")
     private Resource receipt_2015_10_10_14_54_33;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_54_57.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_54_57.jpg.txt")
     private Resource receipt_2015_10_10_14_54_57;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_55_06.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_55_06.jpg.txt")
     private Resource receipt_2015_10_10_14_55_06;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_55_43.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_55_43.jpg.txt")
     private Resource receipt_2015_10_10_14_55_43;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_55_47.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_55_47.jpg.txt")
     private Resource receipt_2015_10_10_14_55_47;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_56_00.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_56_00.jpg.txt")
     private Resource receipt_2015_10_10_14_56_00;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_56_13.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_56_13.jpg.txt")
     private Resource receipt_2015_10_10_14_56_13;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_56_54.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_56_54.jpg.txt")
     private Resource receipt_2015_10_10_14_56_54;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_57_02.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_57_02.jpg.txt")
     private Resource receipt_2015_10_10_14_57_02;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_57_14.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_57_14.jpg.txt")
     private Resource receipt_2015_10_10_14_57_14;
 
-    @Value("classpath:/testFiles/newyorkfries/southgate/2015_10_10_14_57_19.jpg.txt")
+    @Value("classpath:/testfiles/newyorkfries/southgate/2015_10_10_14_57_19.jpg.txt")
     private Resource receipt_2015_10_10_14_57_19;
 
     @Test
