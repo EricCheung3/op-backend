@@ -47,31 +47,6 @@ public class GenericParser extends AbstractStoreParser{
         fieldParsers.put(ReceiptFieldType.TotalSold,  line -> FieldParserCommon.parseTotalSold(line));
     }
 
-//    public static GenericParser selectParser(ReceiptData receipt) {
-////        List<String> blackList=null;
-////        final String blackListFileName="/config/Generic/not-catalog-item-names.txt";
-////        try{
-////            blackList=TextResourceUtils.loadStringArray(blackListFileName);
-////        }catch(Exception e){
-////            log.warn("cannot load "+blackListFileName);
-////            blackList=new ArrayList<String>();
-////        }
-////        final Properties prop = new Properties();
-////        final String headersFile="/config/Generic/Generic1/headerConfig.properties";
-////        try{
-////            prop.load(StoreParser.class.getResourceAsStream(headersFile));
-////        }catch (IOException ex) {
-////            log.warn("Cannot load " + headersFile+" for Generic store chain!");
-////        }
-//
-////        final StoreConfig config=StoreConfigImpl.fromPropCategorySkipBeforeAfterBlack(
-////                prop,
-////                new ArrayList<String>(),
-////                new ArrayList<String>(),
-////                new ArrayList<String>(),
-////                blackList);
-//        return new GenericParser(config, PriceParserWithCatalog.withCatalog(new HashSet<Product>()));
-//    }
 
     /**
      * generate StoreConfig from store chain code
@@ -107,7 +82,9 @@ public class GenericParser extends AbstractStoreParser{
             log.warn("customized header file is not availabe at meta data folder "+ genericCode);
             final String headersFile="/config/Generic/Generic1/headerConfig.properties";
             try{
-                prop.load(StoreParser.class.getResourceAsStream(headersFile));
+                final Properties header = new Properties();
+                header.load(StoreParser.class.getResourceAsStream(headersFile));
+                prop.putAll(header);
             } catch (IOException e3) {
                 log.warn("Cannot load " + headersFile+" for Generic store chain!");
             }
@@ -119,7 +96,9 @@ public class GenericParser extends AbstractStoreParser{
             log.warn("customized non-headerheader file is not availabe at meta data folder "+ genericCode);
             final String nonHeadersFile="/config/Generic/config.properties";
             try{
-                prop.load(StoreParser.class.getResourceAsStream(nonHeadersFile));
+                final Properties nonHeader = new Properties();
+                nonHeader.load(StoreParser.class.getResourceAsStream(nonHeadersFile));
+                prop.putAll(nonHeader);
             } catch (IOException e3) {
                 log.warn("Cannot load " + nonHeadersFile+" for Generic store chain!");
             }
