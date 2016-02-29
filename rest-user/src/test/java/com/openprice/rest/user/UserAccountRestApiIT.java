@@ -143,4 +143,24 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
             ;
     }
 
+    @Test
+    public void searchStore_ShouldReturnMatchingStores() throws Exception {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+        final String url = searchStoresUrl(sessionFilter, "tim");
+        final Response response =
+            given()
+                .filter(sessionFilter)
+            .when()
+                .get(url)
+            ;
+        //response.prettyPrint();
+        response
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("[0].code", equalTo("timhortons"))
+        ;
+
+    }
+
 }

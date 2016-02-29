@@ -34,4 +34,5 @@ public interface UserApiUrls {
     String URL_USER_SHOPPING_STORES_STORE_CATALOGS = "/user/stores/{storeId}/catalogs{?query}";
 
     String URL_USER_CATEGORIES = "/user/categories";
+    String URL_USER_STORES_SEARCH = "/user/searchStores{?query}";
 }
