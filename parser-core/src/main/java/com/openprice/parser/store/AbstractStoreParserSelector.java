@@ -63,7 +63,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     protected abstract void generateParser();
 
     protected StoreConfigImpl loadParserConfig(final String parserName) {
-        Properties allConfig = new Properties();
+        final Properties allConfig = new Properties();
         allConfig.putAll(metadata.getStoreChainByCode(chain.getCode()).getHeaderProperties());
         //System.out.println("allConfig.size"+allConfig.size());
         final int size1=allConfig.size();

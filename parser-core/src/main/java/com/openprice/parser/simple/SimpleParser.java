@@ -18,6 +18,7 @@ import com.openprice.parser.StoreChainUtils;
 import com.openprice.parser.api.MatchFields;
 import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.ReceiptData;
+import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.api.StoreParserSelector;
 import com.openprice.parser.data.FoundChainAt;
@@ -30,6 +31,7 @@ import com.openprice.parser.generic.GenericChains;
 import com.openprice.parser.generic.GenericParser;
 import com.openprice.store.StoreBranch;
 import com.openprice.store.StoreChain;
+import com.openprice.store.StoreMetadata;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,9 +41,12 @@ public class SimpleParser implements ReceiptParser {
 
     private final ChainRegistry chainRegistry;
 
+    private final StoreMetadata metadata;
+
     @Inject
-    public SimpleParser(final ChainRegistry chainRegistry) {
+    public SimpleParser(final ChainRegistry chainRegistry, StoreMetadata metadata) {
         this.chainRegistry = chainRegistry;
+        this.metadata = metadata;
     }
 
     @Override
@@ -83,8 +88,9 @@ public class SimpleParser implements ReceiptParser {
             }
 
             try{
-                log.debug("genericChainCode="+genericChainCode);
-                return GenericParser.parse(StoreChain.genericChainWithOnlyCode(genericChainCode), receipt);
+                log.debug("genericChainCode=" + genericChainCode);
+                final StoreConfig storeConfig = GenericParser.fromGenericCode(genericChainCode, metadata);
+                return GenericParser.parse(genericChainCode, storeConfig, receipt);
             } catch(Exception ex) {
                 log.warn("exception in calling generic parser: {}. now call cheapParser!", ex.getMessage());
                 return new CheapParser().parseReceiptOcrResult(receipt.getOriginalLines());
@@ -129,5 +135,7 @@ public class SimpleParser implements ReceiptParser {
         final ReceiptData receipt = ReceiptDataImpl.fromContentLines(lines);
         return parseReceiptData(receipt);
     }
+
+
 
 }

@@ -28,6 +28,7 @@ import com.openprice.parser.simple.SimpleParserUtils;
 import com.openprice.parser.store.AbstractStoreParser;
 import com.openprice.parser.store.FieldParserCommon;
 import com.openprice.store.StoreChain;
+import com.openprice.store.StoreMetadata;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,35 +47,78 @@ public class GenericParser extends AbstractStoreParser{
         fieldParsers.put(ReceiptFieldType.TotalSold,  line -> FieldParserCommon.parseTotalSold(line));
     }
 
-    public static GenericParser selectParser(ReceiptData receipt) {
+//    public static GenericParser selectParser(ReceiptData receipt) {
+////        List<String> blackList=null;
+////        final String blackListFileName="/config/Generic/not-catalog-item-names.txt";
+////        try{
+////            blackList=TextResourceUtils.loadStringArray(blackListFileName);
+////        }catch(Exception e){
+////            log.warn("cannot load "+blackListFileName);
+////            blackList=new ArrayList<String>();
+////        }
+////        final Properties prop = new Properties();
+////        final String headersFile="/config/Generic/Generic1/headerConfig.properties";
+////        try{
+////            prop.load(StoreParser.class.getResourceAsStream(headersFile));
+////        }catch (IOException ex) {
+////            log.warn("Cannot load " + headersFile+" for Generic store chain!");
+////        }
+//
+////        final StoreConfig config=StoreConfigImpl.fromPropCategorySkipBeforeAfterBlack(
+////                prop,
+////                new ArrayList<String>(),
+////                new ArrayList<String>(),
+////                new ArrayList<String>(),
+////                blackList);
+//        return new GenericParser(config, PriceParserWithCatalog.withCatalog(new HashSet<Product>()));
+//    }
+
+    /**
+     * generate StoreConfig from store chain code
+     * @param genericCode
+     * @return
+     */
+    public static StoreConfig fromGenericCode(final String genericCode, final StoreMetadata metadata){
         List<String> blackList=null;
-        final String blackListFileName="/config/Generic/not-catalog-item-names.txt";
-        try{
-            blackList=TextResourceUtils.loadStringArray(blackListFileName);
-        }catch(Exception e){
-            log.warn("cannot load "+blackListFileName);
-            blackList=new ArrayList<String>();
-        }
         final Properties prop = new Properties();
-        final String headersFile="/config/Generic/Generic1/headerConfig.properties";
+
+        //generate black list file first from the chain folder if there is; otherwise use a default one
         try{
-            prop.load(StoreParser.class.getResourceAsStream(headersFile));
-        }catch (IOException ex) {
-            log.warn("Cannot load " + headersFile+" for Generic store chain!");
+            blackList = metadata.getStoreChainByCode(genericCode).getNotCatalogItemNames();
+        } catch (Exception e1){
+            log.warn("customized blackList file is not availabe at meta data folder "+ genericCode);
+            final String blackListFileName="/config/Generic/not-catalog-item-names.txt";
+            try{
+                blackList=TextResourceUtils.loadStringArray(blackListFileName);
+            }catch(Exception e2){
+                log.warn("cannot load "+blackListFileName);
+                blackList=new ArrayList<String>();
+            }
         }
 
-        final StoreConfig config=StoreConfigImpl.fromPropCategorySkipBeforeAfterBlack(
+        try{
+            prop.putAll(metadata.getStoreChainByCode(genericCode).getHeaderProperties());
+        } catch(Exception e){
+            log.warn("customized header file is not availabe at meta data folder "+ genericCode);
+            final String headersFile="/config/Generic/Generic1/headerConfig.properties";
+            try{
+                prop.load(StoreParser.class.getResourceAsStream(headersFile));
+            } catch (IOException e3) {
+                log.warn("Cannot load " + headersFile+" for Generic store chain!");
+            }
+        }
+
+        return StoreConfigImpl.fromPropCategorySkipBeforeAfterBlack(
                 prop,
                 new ArrayList<String>(),
                 new ArrayList<String>(),
                 new ArrayList<String>(),
                 blackList);
-        return new GenericParser(config, PriceParserWithCatalog.withCatalog(new HashSet<Product>()));
     }
 
-    public static ParsedReceipt parse(final StoreChain genericChain, final ReceiptData receipt)
+    public static ParsedReceipt parse(final String genericChainCode, final StoreConfig config, final ReceiptData receipt)
         throws Exception{
-        final GenericParser generic=selectParser(receipt);
+        final GenericParser generic = new GenericParser(config,PriceParserWithCatalog.withCatalog(new HashSet<Product>()));//selectParser(receipt);
         // match fields
         final MatchedRecord record = new MatchedRecordImpl();
         final MatchFields matching = new MatchFieldsImpl();
@@ -90,6 +134,7 @@ public class GenericParser extends AbstractStoreParser{
 
         // parse items
         List<ParsedItem> items = SimpleParserUtils.parseItems(record, receipt, generic);
+        final StoreChain genericChain = StoreChain.genericChainWithOnlyCode(genericChainCode);
         return ParsedReceiptImpl.fromChainItemsMapBranch(genericChain, items, record.getFieldToValueLine(), StringCommon.EMPTY);
     }
 

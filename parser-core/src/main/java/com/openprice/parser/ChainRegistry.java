@@ -49,7 +49,6 @@ public class ChainRegistry {
         return chainToParserSelector.get(chainCode);
     }
 
-
     /*
      * prefer finding in the begin, then in the end, and then middle
      *
