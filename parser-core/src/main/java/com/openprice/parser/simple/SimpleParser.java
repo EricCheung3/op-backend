@@ -92,6 +92,7 @@ public class SimpleParser implements ReceiptParser {
                 final StoreConfig storeConfig = GenericParser.fromGenericCode(genericChainCode, metadata);
                 return GenericParser.parse(genericChainCode, storeConfig, receipt);
             } catch(Exception ex) {
+                ex.printStackTrace();
                 log.warn("exception in calling generic parser: {}. now call cheapParser!", ex.getMessage());
                 return new CheapParser().parseReceiptOcrResult(receipt.getOriginalLines());
             }

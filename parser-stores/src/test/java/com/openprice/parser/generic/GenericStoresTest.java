@@ -145,4 +145,34 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("2015/1/24", fieldValues.get(ReceiptFieldType.Date).getFieldValue());//this receipt has no date string
     }
 
+    @Value("classpath:/testfiles/sobeysliquor/2015_04_04_21_47_26.jpg.jingwang.txt")
+    private Resource receipt_47_26;
+
+    //TODO
+//    @Test
+//    public void receipt_47_26() throws Exception {
+//        final List<String> receiptLines = new ArrayList<>();
+//        TextResourceUtils.loadFromTextResource(receipt_47_26, (line)-> receiptLines.add(line));
+//
+//        assertTrue(receiptLines.size() > 0);
+//
+//        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+//        //printResult(receipt);
+//        assertEquals("sobeysliquor", receipt.getChainCode());
+//
+//        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+//    }
+
+
+    @Test
+    public void someStoreWedontHaveMetadataYet() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        receiptLines.add("ABc");
+        receiptLines.add("BestBuy");
+        receiptLines.add("item a    4.9");
+        receiptLines.add("item b    3.9");
+        receiptLines.add("item c    2.9");
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        assertEquals("bestbuy", receipt.getChainCode());
+    }
 }

@@ -82,6 +82,11 @@ public class GenericParser extends AbstractStoreParser{
         List<String> blackList=null;
         final Properties prop = new Properties();
 
+        log.debug("metadata="+metadata);
+        log.debug("metadata.getStoreChainMap().size() = "+metadata.getStoreChainMap().size());
+        log.debug("genericCode="+genericCode);
+        System.out.println("metadata.getStoreChainByCode(genericCode)="+metadata.getStoreChainByCode(genericCode).toString());
+
         //generate black list file first from the chain folder if there is; otherwise use a default one
         try{
             blackList = metadata.getStoreChainByCode(genericCode).getNotCatalogItemNames();
@@ -108,6 +113,18 @@ public class GenericParser extends AbstractStoreParser{
             }
         }
 
+        try{
+            prop.putAll(metadata.getStoreChainByCode(genericCode).getNonHeaderProperties());
+        } catch(Exception e){
+            log.warn("customized non-headerheader file is not availabe at meta data folder "+ genericCode);
+            final String nonHeadersFile="/config/Generic/config.properties";
+            try{
+                prop.load(StoreParser.class.getResourceAsStream(nonHeadersFile));
+            } catch (IOException e3) {
+                log.warn("Cannot load " + nonHeadersFile+" for Generic store chain!");
+            }
+        }
+
         return StoreConfigImpl.fromPropCategorySkipBeforeAfterBlack(
                 prop,
                 new ArrayList<String>(),
@@ -122,6 +139,7 @@ public class GenericParser extends AbstractStoreParser{
         // match fields
         final MatchedRecord record = new MatchedRecordImpl();
         final MatchFields matching = new MatchFieldsImpl();
+        log.debug("before matching to header");
         matching.matchToHeaders(record, receipt, generic);
 
         //globally finding the date string
@@ -133,6 +151,7 @@ public class GenericParser extends AbstractStoreParser{
         }
 
         // parse items
+        log.debug("before parse items");
         List<ParsedItem> items = SimpleParserUtils.parseItems(record, receipt, generic);
         final StoreChain genericChain = StoreChain.genericChainWithOnlyCode(genericChainCode);
         return ParsedReceiptImpl.fromChainItemsMapBranch(genericChain, items, record.getFieldToValueLine(), StringCommon.EMPTY);
