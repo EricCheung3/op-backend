@@ -41,6 +41,7 @@ public class UserApiDocumentation extends UserApiDocumentationBase {
                 linkWithRel("stores").description("The <<resources-user-stores,Stores resource>>"),
                 linkWithRel("store").description("The <<resources-user-store,Store resource>>"),
                 linkWithRel("categories").description("The <<resources-product-category,List of system defined product categories>>"),
+                linkWithRel("searchStores").description("Link to search stores by name"),
                 linkWithRel("upload").description("The <<resources-user-receipt-upload,Upload New Receipt resource>>")
             ),
             responseFields(

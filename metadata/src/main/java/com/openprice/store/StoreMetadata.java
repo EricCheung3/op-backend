@@ -59,4 +59,27 @@ public class StoreMetadata {
                 .collect(Collectors.toList());
     }
 
+    @Value
+    private static class StoreChainWithScore {
+        StoreChain chain;
+        double s;
+    }
+
+    public List<StoreChain> findMatchingStoreChainByName(final String query, final int returnCount) {
+        return storeChainMap
+                .values()
+                .stream()
+                .map(chain -> {
+                    Set<String> s = new HashSet<>(Arrays.asList(chain.getName().split("\\s+")));
+                    double score = Levenshtein.mostSimilarScoreInSetLevenshtein(query, s);
+                    return new StoreChainWithScore(chain, score);
+                })
+                .filter(scs ->scs.s > 0.5)
+                .sorted((scs1, scs2) -> Double.compare(0 - scs1.s, 0 - scs2.s))
+                .limit(returnCount)
+                .map(scs -> scs.chain)
+                .collect(Collectors.toList())
+                ;
+    }
+
 }
