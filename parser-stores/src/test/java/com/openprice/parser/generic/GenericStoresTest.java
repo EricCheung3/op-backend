@@ -174,5 +174,13 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         receiptLines.add("item c    2.9");
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         assertEquals("bestbuy", receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        //printResult(receipt);
+        assertEquals(3,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "item a",  "4.9", null, 2);
+        verifyParsedItem(iterator.next(), "item b",  "3.9", null, 3);
+        verifyParsedItem(iterator.next(), "item c",  "2.9", null, 4);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
     }
 }
