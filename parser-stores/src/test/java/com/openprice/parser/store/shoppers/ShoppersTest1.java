@@ -24,34 +24,34 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ShoppersTest1 extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/Shoppers/branch_10907_82_AVE/2015_10_10_15_20_43.jpg.txt")
+    @Value("classpath:/testfiles/shoppers/branch_10907_82_ave/2015_10_10_15_20_43.jpg.txt")
     private Resource receipt_2015_10_10_15_20_43;
 
-    @Value("classpath:/testFiles/Shoppers/branch_10907_82_AVE/2015_10_10_15_20_43_noDigitDate.jpg.txt")
+    @Value("classpath:/testfiles/shoppers/branch_10907_82_ave/2015_10_10_15_20_43_noDigitDate.jpg.txt")
     private Resource receipt_2015_10_10_15_20_43_noDigitDate;
 
-    @Value("classpath:/testFiles/Shoppers/branch_10907_82_AVE/2015_10_10_15_20_43_noLiteralDate.jpg.txt")
+    @Value("classpath:/testfiles/shoppers/branch_10907_82_ave/2015_10_10_15_20_43_noLiteralDate.jpg.txt")
     private Resource receipt_2015_10_10_15_20_43_noLiteralDate;
 
-    @Value("classpath:/testFiles/Shoppers/branch_10907_82_AVE/2015_10_17_17_47_20.jpg.txt")
+    @Value("classpath:/testfiles/shoppers/branch_10907_82_ave/2015_10_17_17_47_20.jpg.txt")
     private Resource receipt_2015_10_17_17_47_20;
 
-    @Value("classpath:/testFiles/Shoppers/branch_10907_82_AVE/2015_10_17_17_48_12.jpg.txt")
+    @Value("classpath:/testfiles/shoppers/branch_10907_82_ave/2015_10_17_17_48_12.jpg.txt")
     private Resource receipt_2015_10_17_17_48_12;
 
-    @Value("classpath:/testFiles/Shoppers/branch_62_CITY_CENTRE_EAST/2015_04_04_21_32_01.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/shoppers/branch_62_city_centre_east/2015_04_04_21_32_01.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_32_01;
 
-    @Value("classpath:/testFiles/Shoppers/branch_62_CITY_CENTRE_EAST/2015_04_04_21_47_13.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/shoppers/branch_62_city_centre_east/2015_04_04_21_47_13.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_47_13;
 
-    @Value("classpath:/testFiles/Shoppers/branch_87_AVE_156 ST/2015_06_04_21_22_16.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/shoppers/branch_87_ave_156st/2015_06_04_21_22_16.jpg.henryHuang.txt")
     private Resource receipt_2015_06_04_21_22_16;
 
-    @Value("classpath:/testFiles/Shoppers/branch_87_AVE_156 ST/2015_07_21_10_48_35.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/shoppers/branch_87_ave_156st/2015_07_21_10_48_35.jpg.henryHuang.txt")
     private Resource receipt_2015_07_21_10_48_35;
 
-    @Value("classpath:/testFiles/Shoppers/branch_87_AVE_156 ST/2015_07_21_10_57_01.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/shoppers/branch_87_ave_156st/2015_07_21_10_57_01.jpg.henryHuang.txt")
     private Resource receipt_2015_07_21_10_57_01;
 
 

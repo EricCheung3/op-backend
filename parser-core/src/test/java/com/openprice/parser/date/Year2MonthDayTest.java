@@ -65,4 +65,10 @@ public class Year2MonthDayTest {
     public void test2(){
         assertEquals(threeStrings(2015, 9, 12), parseToThreeStrings("sdfa DATE/TIME:             15/09/12 02:29:08"));
     }
+
+    @Test
+    public void test3(){
+        assertEquals(threeStrings(2014, 6, 15), parseToThreeStrings("sdfa DATE/TIME:            14/06/15 02:29:08"));
+    }
+
 }

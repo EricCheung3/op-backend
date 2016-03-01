@@ -14,7 +14,7 @@ import com.jayway.restassured.response.Response;
 import com.openprice.domain.account.user.UserRoleType;
 import com.openprice.rest.UtilConstants;
 
-@DatabaseSetup("classpath:/data/testData.xml")
+@DatabaseSetup("classpath:/data/test-data.xml")
 public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Test
@@ -141,6 +141,26 @@ public class UserAccountRestApiIT extends AbstractUserRestApiIntegrationTest {
                 .body("[35].code", equalTo("wine"))
                 .body("[35].label", equalTo("Wine & Spirits"))
             ;
+    }
+
+    @Test
+    public void searchStore_ShouldReturnMatchingStores() throws Exception {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+        final String url = searchStoresUrl(sessionFilter, "tim");
+        final Response response =
+            given()
+                .filter(sessionFilter)
+            .when()
+                .get(url)
+            ;
+        //response.prettyPrint();
+        response
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("[0].code", equalTo("timhortons"))
+        ;
+
     }
 
 }

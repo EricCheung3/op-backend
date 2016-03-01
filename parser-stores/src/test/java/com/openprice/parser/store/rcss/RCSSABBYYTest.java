@@ -20,7 +20,7 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
-    @Value("classpath:/testFiles/RCSS/abbyy/2015_11_11_calgarytrail.txt")
+    @Value("classpath:/testfiles/rcss/abbyy/2015_11_11_calgarytrail.txt")
     private Resource sampleRCSS_2015_11_11_calgarytrail;
 
     @Test
@@ -29,6 +29,7 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
 
         ParsedReceipt receipt = simpleParser.parseReceiptOcrResult(java.util.Arrays.asList(ocrResult));
         printResult(receipt);
+        assertEquals("rcss", receipt.getChainCode());
         assertEquals(9, receipt.getItems().size());
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();

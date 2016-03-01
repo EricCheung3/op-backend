@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class StoreChainData {
 
-    //chain code like "RCSS" "Safeway", no space, not starting with numbers
+    //chain code like "rcss" "safeway", underscore, lower-case letter and number only, no space, not starting with numbers
     private String code;
 
     private String name;

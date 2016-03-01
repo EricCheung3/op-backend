@@ -30,7 +30,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
     @Inject
     SimpleParser simpleParser;
 
-    @Value("classpath:/testFiles/Generic/2015_05_02_21_56_44.jpg.momingzhen159.txt")
+    @Value("classpath:/testfiles/generic/2015_05_02_21_56_44.jpg.momingzhen159.txt")
     private Resource timHortons1;
 
     @Test
@@ -41,7 +41,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
-        //printResult(receipt);
+        printResult(receipt);
         assertEquals("timhortons", receipt.getChainCode());
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
@@ -58,7 +58,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 //        assertEquals(StringCommon.EMPTY, fieldValues.get(ReceiptField.Date).getFieldValue());//this receipt has no date string
     }
 
-    @Value("classpath:/testFiles/Generic/2015_05_02_21_56_44.jpg.momingzhen160_removeChainName.txt")
+    @Value("classpath:/testfiles/generic/2015_05_02_21_56_44.jpg.momingzhen160_removeChainName.txt")
     private Resource timHortons2;
 
 //TODO use some other store's receipt, because we now have tim hortons parser.
@@ -87,7 +87,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 ////        assertEquals(StringCommon.EMPTY, fieldValues.get(ReceiptField.Date).getFieldValue());//this receipt has no date string
 //    }
 
-    @Value("classpath:/testFiles/Generic/2015_06_14_21_42_08.jpg.dana.txt")
+    @Value("classpath:/testfiles/generic/2015_06_14_21_42_08.jpg.dana.txt")
     private Resource nofrills1;
 
     @Test
@@ -98,7 +98,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
-        //printResult(receipt);
+        printResult(receipt);
         assertEquals("nofrills", receipt.getChainCode());
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
@@ -118,7 +118,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("2015/3/5", fieldValues.get(ReceiptFieldType.Date).getFieldValue());//this receipt has no date string
     }
 
-    @Value("classpath:/testFiles/Generic/2015_07_03_16_42_52.jpg.haipeng.txt")
+    @Value("classpath:/testfiles/generic/2015_07_03_16_42_52.jpg.haipeng.txt")
     private Resource mcDonalds1;
 
     @Test
@@ -145,4 +145,44 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("2015/1/24", fieldValues.get(ReceiptFieldType.Date).getFieldValue());//this receipt has no date string
     }
 
+    @Value("classpath:/testfiles/sobeysliquor/2015_04_04_21_47_26.jpg.jingwang.txt")
+    private Resource receipt_47_26;
+
+    //TODO
+//    @Test
+//    public void receipt_47_26() throws Exception {
+//        final List<String> receiptLines = new ArrayList<>();
+//        TextResourceUtils.loadFromTextResource(receipt_47_26, (line)-> receiptLines.add(line));
+//
+//        assertTrue(receiptLines.size() > 0);
+//
+//        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+//        //printResult(receipt);
+//        assertEquals("sobeysliquor", receipt.getChainCode());
+//
+//        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+//    }
+
+
+    @Test
+    public void someStoreWedontHaveMetadataYet() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        receiptLines.add("ABc");
+        receiptLines.add("BestBuy");
+        receiptLines.add("item a    4.9");
+        receiptLines.add("item b    3.9");
+        receiptLines.add("item c    2.9");
+//        receiptLines.add("AFASDFASFS    12.9");// for this test. I added just a total header file to bestbuy meta folder. It works
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        assertEquals("bestbuy", receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        //printResult(receipt);
+        assertEquals(3,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "item a",  "4.9", null, 2);
+        verifyParsedItem(iterator.next(), "item b",  "3.9", null, 3);
+        verifyParsedItem(iterator.next(), "item c",  "2.9", null, 4);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
+//        verifyParsedField(fieldValues, ReceiptFieldType.Total, "12.9", 5);
+    }
 }

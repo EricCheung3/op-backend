@@ -9,7 +9,12 @@ import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.rest.LinkBuilder;
 import com.openprice.rest.admin.AdminApiUrls;
 
+import lombok.Getter;
+
 public class AdminUserReceiptImageResource extends Resource<ReceiptImage> {
+
+    @Getter
+    private String ocrResult;
 
     public AdminUserReceiptImageResource(final ReceiptImage resource) {
         super(resource);
@@ -31,6 +36,7 @@ public class AdminUserReceiptImageResource extends Resource<ReceiptImage> {
                        .addLink("download", URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_DOWNLOAD, false, pairs)
                        .addLink("base64", URL_ADMIN_USERS_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_BASE64, false, pairs)
                        ;
+            resource.ocrResult = receiptImage.getOcrResult();
 
             return resource;
         }

@@ -3,10 +3,12 @@ package com.openprice.parser.simple;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.openprice.common.StringCommon;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreParser;
+import com.openprice.parser.price.PriceParserConstant;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +21,6 @@ public class SimpleParserUtils {
             final StoreParser parser) throws Exception {
         final int stopLine = (matchedRecord == null) ? receipt.getReceiptLines().size() :
                                                        Math.min(matchedRecord.itemStopLineNumber(), receipt.getReceiptLines().size());
-        //        parser.getStoreConfig().getCatalogFilter().getBlackList().forEach(line->log.debug(line+"\n"));
 
         return
                 receipt.getReceiptLines()
@@ -44,6 +45,8 @@ public class SimpleParserUtils {
                        .filter( item -> item != null &&
                                         item.getParsedName()!=null &&
                                         !item.getParsedName().isEmpty() &&
+                                        !(item.getParsedName().contains("kg") && item.getParsedName().contains("@")) &&
+                                        StringCommon.countChars(item.getParsedName()) > PriceParserConstant.MIN_ITEM_NAME_LETTERS &&
                                         !parser.getStoreConfig().matchesBlackList(item.getParsedName())
                         )
                        .collect(Collectors.toList());

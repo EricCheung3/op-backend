@@ -152,4 +152,13 @@ public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApi
                       .then().extract().path("_links.shoppingList.href");
     }
 
+    protected String searchStoresUrl(final SessionFilter sessionFilter, final String query) {
+        final String searchLink =
+                given().filter(sessionFilter)
+                       .when().get(userUrl())
+                       .then().extract().path("_links.searchStores.href");
+        return UriTemplate.fromTemplate(searchLink).set("query", query).expand();
+    }
+
+
 }

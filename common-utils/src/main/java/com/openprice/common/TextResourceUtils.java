@@ -70,6 +70,11 @@ public class TextResourceUtils {
         return list;
     }
 
+    /**
+     *
+     * @param resourceFileName make sure this is not a absolute path
+     * @return
+     */
     public static List<String> loadStringArray(final String resourceFileName){
         return loadStringArray(TextResourceUtils.class.getResourceAsStream(resourceFileName));
     }

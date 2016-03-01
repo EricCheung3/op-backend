@@ -24,7 +24,7 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegrationTest {
 
-    @Value("classpath:/testFiles/RCSS/CalgaryTrail/2015_02_01_14_17_01.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_02_01_14_17_01.jpg.henryHuang.txt")
     private Resource sampleRCSS_2015_02_01_14_17_01;
 
     @Test
@@ -65,7 +65,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
 
     }
 
-    @Value("classpath:/testFiles/RCSS/CalgaryTrail/2015_02_09_13_15_09.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_02_09_13_15_09.jpg.henryHuang.txt")
     private Resource sampleRCSS_2015_02_09_13_15_09;
 
     @Test
@@ -79,15 +79,13 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         //printResult(receipt);
         assertEquals(4, receipt.getItems().size());
 
-        // verify result of items
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+
         verifyParsedItem(iterator.next(), "opo squash", "2.80", "opo squash_3141", 5);
         verifyParsedItem(iterator.next(), "chinese cabbage    mrj", "1.43", null, 7);
         verifyParsedItem(iterator.next(), "muffin lemn cran", "4.87", "muffin lemn cran_06038387812", 10);
         verifyParsedItem(iterator.next(), "plastic bags", "0.05", "plastic bags", 12);
-
-        // verify parsed fields
-        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "9.15",13);
         verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-430-2769",2);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "9.15",15);
@@ -103,7 +101,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
 //        verifyParsedField(fieldValues, ReceiptFieldType.AddressCity, "edmonton",20);//why not found?
     }
 
-    @Value("classpath:/testFiles/RCSS/CalgaryTrail/2015_04_04_22_22_32.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_04_04_22_22_32.jpg.jingwang.txt")
     private Resource sampleRCSS_2015_04_04_22_22_32;
 
     @Test
@@ -154,7 +152,7 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-430-2769",4);
     }
 
-    @Value("classpath:/testFiles/RCSS/CalgaryTrail/2015_07_21_10_50_33.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_07_21_10_50_33.jpg.henryHuang.txt")
     private Resource sampleRCSS_2015_07_21_10_50_33;
     @Test
     public void testRCSS_2015_07_21_10_50_33() throws Exception {
@@ -169,6 +167,8 @@ public class RCSSCalgaryTrailReceiptTest extends AbstractReceiptParserIntegratio
         verifyParsedItem(iterator.next(), "orange navel 5lb", "5.88", "orange navel 5lb_03338311006", 42);
         verifyParsedItem(iterator.next(), "banana", "1.35", "banana_4011", 43);
         verifyParsedItem(iterator.next(), "cherries red    mrj", "7.29", null, 45);
+
+        //TODO why sometimes "XXXX    gmrj" keeps gmrj in the name, sometimes doesn't
         verifyParsedItem(iterator.next(), "tc baby powder    gmrj", "0.99", null, 48);
         verifyParsedItem(iterator.next(), "j&j baby wash    gmrj", "7.94", null, 49);
         verifyParsedItem(iterator.next(), "baby bar    gmrj", "2.49", null, 52);

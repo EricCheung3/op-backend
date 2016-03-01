@@ -1,6 +1,7 @@
 package com.openprice.rest.user;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openprice.domain.account.user.UserAccount;
@@ -70,6 +72,16 @@ public class UserAccountRestController extends AbstractUserRestController {
     @Transactional(readOnly=true)
     public HttpEntity<Collection<ProductCategory>> getCategoryList() {
         return ResponseEntity.ok(storeMetadata.getCategoryMap().values());
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = URL_USER_STORES_SEARCH)
+    @Transactional(readOnly=true)
+    public HttpEntity<Collection<StoreChainInfo>> searchStores(
+            @RequestParam("query") String query) {
+        return ResponseEntity.ok(storeMetadata.findMatchingStoreChainByName(query, 20)
+                                              .stream()
+                                              .map( chain -> new StoreChainInfo(chain.getCode(), chain.getName()))
+                                              .collect(Collectors.toList()));
     }
 
 }

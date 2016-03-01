@@ -28,7 +28,7 @@ import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
-@DatabaseSetup("classpath:/data/testData.xml")
+@DatabaseSetup("classpath:/data/test-data.xml")
 public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Value("classpath:/data/sample1.txt")

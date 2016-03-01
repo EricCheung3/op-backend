@@ -25,7 +25,7 @@ import com.jayway.restassured.response.Response;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 
-@DatabaseSetup("classpath:/data/testData.xml")
+@DatabaseSetup("classpath:/data/test-data.xml")
 public class UserReceiptUploadRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Value("classpath:/data/sample1.txt")
@@ -34,7 +34,7 @@ public class UserReceiptUploadRestApiIT extends AbstractUserRestApiIntegrationTe
     @Value("classpath:/data/sample2.txt")
     private Resource sampleReceipt2;
 
-    @Value("classpath:/data/ocrResult.txt")
+    @Value("classpath:/data/ocr-result.txt")
     private Resource sampleOcrResult;
 
     @Test

@@ -8,8 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,16 +19,12 @@ import com.openprice.parser.ParsedField;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceipt;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.simple.SimpleParser;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
 
-    @Inject
-    SimpleParser simpleParser;
-
-    @Value("classpath:/testFiles/Safeway/abbyy/2015_11_25_southgate.txt")
+    @Value("classpath:/testfiles/safeway/abbyy/2015_11_25_southgate.txt")
     private Resource sampleReceipt1;
 
     @Test
@@ -68,7 +62,7 @@ public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "22.59",16);
     }
 
-    @Value("classpath:/testFiles/Safeway/abbyy/receiptWithNoDateHeader.txt")
+    @Value("classpath:/testfiles/safeway/abbyy/receiptWithNoDateHeader.txt")
     private Resource receiptWithNoDateHeader;
 
     @Test

@@ -14,6 +14,9 @@ import lombok.Getter;
 public class AdminReceiptImageResource extends Resource<ReceiptImage> {
 
     @Getter
+    private String ocrResult;
+
+    @Getter
     private String downloadUrl;
 
     @Getter
@@ -37,6 +40,7 @@ public class AdminReceiptImageResource extends Resource<ReceiptImage> {
                        .addLink("download", URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE_DOWNLOAD, false, pairs)
                        .addLink("base64", URL_ADMIN_RECEIPTS_RECEIPT_IMAGES_IMAGE_BASE64, false, pairs)
                        ;
+            resource.ocrResult = receiptImage.getOcrResult();
             resource.downloadUrl = resource.getLink("download").getHref();
             resource.base64Url = resource.getLink("base64").getHref();
 

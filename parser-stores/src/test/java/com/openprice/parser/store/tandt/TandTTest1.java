@@ -24,88 +24,88 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TandTTest1 extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_02_01_14_10_52.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_02_01_14_10_52.jpg.henryHuang.txt")
     private Resource receipt_2015_02_01_14_10_52;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_02_01_14_15_22.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_02_01_14_15_22.jpg.henryHuang.txt")
     private Resource receipt_2015_02_01_14_15_22;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_02_01_14_17_10.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_02_01_14_17_10.jpg.henryHuang.txt")
     private Resource receipt_2015_02_01_14_17_10;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_02_09_11_36_14.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_02_09_11_36_14.jpg.hengshuai.txt")
     private Resource receipt_2015_02_09_11_36_14;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_02_09_13_15_02.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_02_09_13_15_02.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_15_02;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_02_09_13_15_52.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_02_09_13_15_52.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_15_52;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_02_09_13_16_16.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_02_09_13_16_16.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_16_16;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_02_09_13_16_46.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_02_09_13_16_46.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_16_46;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_02_09_13_21_50.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_02_09_13_21_50.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_21_50;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_02_09_13_23_52.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_02_09_13_23_52.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_23_52;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_02_09_13_33_34.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_02_09_13_33_34.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_33_34;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_02_09_13_37_31.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_02_09_13_37_31.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_37_31;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_02_19_22_58_18.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_02_19_22_58_18.jpg.hengshuai.txt")
     private Resource receipt_2015_02_19_22_58_18;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_02_27_21_51_03.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_02_27_21_51_03.jpg.hengshuai.txt")
     private Resource receipt_2015_02_27_21_51_03;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_04_04_21_25_38.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_04_04_21_25_38.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_25_38;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_04_04_21_28_08.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_04_04_21_28_08.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_28_08;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_04_04_21_31_54.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_04_04_21_31_54.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_31_54;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_04_04_21_32_09.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_04_04_21_32_09.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_32_09;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_04_04_21_33_48.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_04_04_21_33_48.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_33_48;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_04_04_22_12_29.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_04_04_22_12_29.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_12_29;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_04_04_22_17_37.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_04_04_22_17_37.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_17_37;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_05_02_21_48_23.jpg.momingzhen159.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_05_02_21_48_23.jpg.momingzhen159.txt")
     private Resource receipt_2015_05_02_21_48_23;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_05_02_21_48_33.jpg.momingzhen159.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_05_02_21_48_33.jpg.momingzhen159.txt")
     private Resource receipt_2015_05_02_21_48_33;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_05_02_22_18_32.jpg.haipeng.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_05_02_22_18_32.jpg.haipeng.txt")
     private Resource receipt_2015_05_02_22_18_32;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_05_02_22_18_50.jpg.haipeng.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_05_02_22_18_50.jpg.haipeng.txt")
     private Resource receipt_2015_05_02_22_18_50;
 
-    @Value("classpath:/testFiles/TAndT/branch_88_170st/2015_06_04_21_15_50.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/tandt/branch_88_170st/2015_06_04_21_15_50.jpg.henryHuang.txt")
     private Resource receipt_2015_06_04_21_15_50;
 
-    @Value("classpath:/testFiles/TAndT/RCSSsellsTandT/2015_04_04_21_54_42.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/tandt/rcss_sells_tandt/2015_04_04_21_54_42.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_54_42;
 
-    @Value("classpath:/testFiles/TAndT/RCSSsellsTandT/2014_12_06_23_33_53.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/tandt/rcss_sells_tandt/2014_12_06_23_33_53.jpg.hengshuai.txt")
     private Resource receipt_2014_12_06_23_33_53;
 
 

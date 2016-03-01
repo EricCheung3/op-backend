@@ -1,7 +1,5 @@
 package com.openprice.parser.generic;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +18,9 @@ public class GenericParserTest {
         lines.add("1");
         lines.add("1");
         lines.add("1");
-        final ReceiptData data=ReceiptDataImpl.fromContentLines(lines);
-        assertNotNull(GenericParser.selectParser(data));
+        final ReceiptData data = ReceiptDataImpl.fromContentLines(lines);
+
+
     }
+
 }

@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openprice.common.TextResourceUtils;
+import com.openprice.store.MetadataLoader;
 
 /** Converting not-catalog-item-name.txt to json
  *  Use this class because when editing not-catalog-item names,
@@ -14,10 +15,9 @@ import com.openprice.common.TextResourceUtils;
 public class ConvertTextToJson {
 
     public static void main(String[] args) throws Exception{
-        final String chainCode = "rona";
+        final String chainCode = MetadataLoader.SHARED_CONFIG_ROOT;
 
         final List<String> orig=TextResourceUtils.loadStringArray("/"+chainCode+"/not-catalog-item-names.txt");
-//        final List<String> orig=TextResourceUtils.loadStringArray("/shoppers/not-catalog-item-names.txt");
         final List<String> list=removeCommentEmptyLines(orig);
         toJsonForDataThatNeedEscape(list);
     }

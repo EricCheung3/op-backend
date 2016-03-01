@@ -60,7 +60,7 @@ public class ImageQueueRestApiIT {
     }
 
     @Test
-    @DatabaseSetup("classpath:/data/testData.xml")
+    @DatabaseSetup("classpath:/data/test-data.xml")
     public void addImage_ShouldAddProcessItemToQueue() {
         final String TEST_USER_ID = "user001";
         final String TEST_RECEIPT_ID = "user001rec001";

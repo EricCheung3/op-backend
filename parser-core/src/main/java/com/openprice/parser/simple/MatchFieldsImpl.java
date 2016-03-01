@@ -18,7 +18,7 @@ import com.openprice.parser.api.ReceiptLine;
 import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.common.ListCommon;
-import com.openprice.parser.data.StringDouble;
+import com.openprice.parser.data.StringDoubleInt;
 import com.openprice.parser.data.StringInt;
 import com.openprice.store.StoreBranch;
 
@@ -77,12 +77,13 @@ public class MatchFieldsImpl implements MatchFields{
 //                }
     }
 
-    private static StringDouble matchLineToList(final String line, final List<String> headers){
+    private static StringDoubleInt matchLineToList(final String line, final List<String> headers){
+        final int NOT_MEANINGFUL = -100;
         return  headers
                 .stream()
                 .map( header -> {
                     double score=StringCommon.matchStringToHeader(line, header);
-                    return new StringDouble(header, score);
+                    return new StringDoubleInt(header, score, NOT_MEANINGFUL);
                 })
                 .max( Comparator.comparing(score -> score.getValue()) ).get();
     }
@@ -124,8 +125,8 @@ public class MatchFieldsImpl implements MatchFields{
             //
             .filter(line -> ! matchesBlackListForTotal(line.getCleanText().toLowerCase(), config.similarityThresholdOfTwoStrings()))
             .forEach( line -> {
-                StringDouble scoreTotal = matchLineToList(line.getCleanText(), headersTotal);
-                StringDouble scoreTotalSold = matchLineToList(line.getCleanText(), headersTotalSold);
+                StringDoubleInt scoreTotal = matchLineToList(line.getCleanText(), headersTotal);
+                StringDoubleInt scoreTotalSold = matchLineToList(line.getCleanText(), headersTotalSold);
 //                log.debug(line.getCleanText()+" @ total score="+scoreTotal.toString());
 //                log.debug(line.getCleanText()+" @ totalSold score="+scoreTotalSold.toString());
                 if(scoreTotal.getValue() > config.similarityThresholdOfTwoStrings()
@@ -183,8 +184,18 @@ public class MatchFieldsImpl implements MatchFields{
 //                       return !record.isFieldLine(line.getNumber());
 //                    })//just let each field matching to its favourite line
                    //threshold needs a large value because total date are important
-                   .filter(line -> ! matchesBlackListForTotal(line.getCleanText().toLowerCase(), 0.75))
-                   .filter(line -> ! matchesBlackListForDate(line.getCleanText().toLowerCase(), 0.75))
+                   .filter(line -> {
+                       if(field == ReceiptFieldType.Total)
+                           return ! matchesBlackListForTotal(line.getCleanText().toLowerCase(), 0.75);
+                       else
+                           return true;
+                   })
+                   .filter(line -> {
+                       if( field == ReceiptFieldType.Date)
+                           return ! matchesBlackListForDate(line.getCleanText().toLowerCase(), 0.75);
+                       else
+                           return true;
+                   })
                    .filter( line -> {
                 Optional<Double> maxScore =
                         headerPatterns

@@ -49,22 +49,25 @@ public class AbstractReceiptParserIntegrationTest {
 
     protected void printResult(ParsedReceipt receipt) {
         System.out.println("Receipt parser result: store chain code='" + receipt.getChainCode() +
-                "', branh is '" + receipt.getBranchName() + "'.");
+                "', branch is '" + receipt.getBranchName() + "'.");
         System.out.println("===================== Items parsed:");
         System.out.println("assertEquals("+receipt.getItems().size()+"," + "receipt.getItems().size());");
         for (ParsedItem item : receipt.getItems()) {
+            String name = removeNonPrintableChars(item.getParsedName()).replace("\"", "\\\"");
             String code=null;
             if(item.getCatalogCode()!=null)
                 code="\""+ item.getCatalogCode()+"\"";
             String price=null;
             if(item.getParsedBuyPrice()!=null)
                 price=" \""+removeNonPrintableChars(item.getParsedBuyPrice())+ "\"";
-            System.out.println("verifyParsedItem(iterator.next(), \""+ removeNonPrintableChars(item.getParsedName())
+            System.out.println("verifyParsedItem(iterator.next(), \""+ name
             + "\", " + price +", " + code +", " +  item.getLineNumber()+ ");");
         }
+
         for (ReceiptFieldType field : receipt.getFields().keySet()) {
+            final String value = removeNonPrintableChars(receipt.getFields().get(field).getFieldValue()).replace("\"", "\\\"");
             System.out.println("verifyParsedField(fieldValues, ReceiptFieldType."+ field +", \""
-                    + removeNonPrintableChars(receipt.getFields().get(field).getFieldValue()) +"\","
+                    +  value +"\","
                     + receipt.getFields().get(field).getLineNumber()+");");
         }
     }

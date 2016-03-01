@@ -28,7 +28,7 @@ import com.openprice.file.FileSystemService;
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
-@ActiveProfiles("dev")
+@ActiveProfiles("trace")
 public abstract class AbstractRestApiIntegrationTest {
 
     public static final String TEST_USERID_JOHN_DOE = "user001";

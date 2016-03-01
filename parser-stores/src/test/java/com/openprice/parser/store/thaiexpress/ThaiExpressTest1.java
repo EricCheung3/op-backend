@@ -24,46 +24,46 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ThaiExpressTest1 extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/ThaiExpress/2015_10_10_14_52_39.jpg.txt")
+    @Value("classpath:/testfiles/thaiexpress/2015_10_10_14_52_39.jpg.txt")
     private Resource receipt_2015_10_10_14_52_39;
 
-    @Value("classpath:/testFiles/ThaiExpress/2015_10_10_14_52_52.jpg.txt")
+    @Value("classpath:/testfiles/thaiexpress/2015_10_10_14_52_52.jpg.txt")
     private Resource receipt_2015_10_10_14_52_52;
 
-    @Value("classpath:/testFiles/ThaiExpress/2015_10_10_14_53_09.jpg.txt")
+    @Value("classpath:/testfiles/thaiexpress/2015_10_10_14_53_09.jpg.txt")
     private Resource receipt_2015_10_10_14_53_09;
 
-    @Value("classpath:/testFiles/ThaiExpress/2015_10_10_14_53_37.jpg.txt")
+    @Value("classpath:/testfiles/thaiexpress/2015_10_10_14_53_37.jpg.txt")
     private Resource receipt_2015_10_10_14_53_37;
 
-    @Value("classpath:/testFiles/ThaiExpress/2015_10_10_14_53_41.jpg.txt")
+    @Value("classpath:/testfiles/thaiexpress/2015_10_10_14_53_41.jpg.txt")
     private Resource receipt_2015_10_10_14_53_41;
 
-    @Value("classpath:/testFiles/ThaiExpress/2015_10_10_14_54_05.jpg.txt")
+    @Value("classpath:/testfiles/thaiexpress/2015_10_10_14_54_05.jpg.txt")
     private Resource receipt_2015_10_10_14_54_05;
 
-    @Value("classpath:/testFiles/ThaiExpress/2015_10_10_14_55_01.jpg.txt")
+    @Value("classpath:/testfiles/thaiexpress/2015_10_10_14_55_01.jpg.txt")
     private Resource receipt_2015_10_10_14_55_01;
 
-    @Value("classpath:/testFiles/ThaiExpress/2015_10_10_14_55_11.jpg.txt")
+    @Value("classpath:/testfiles/thaiexpress/2015_10_10_14_55_11.jpg.txt")
     private Resource receipt_2015_10_10_14_55_11;
 
-    @Value("classpath:/testFiles/ThaiExpress/2015_10_10_14_55_15.jpg.txt")
+    @Value("classpath:/testfiles/thaiexpress/2015_10_10_14_55_15.jpg.txt")
     private Resource receipt_2015_10_10_14_55_15;
 
-    @Value("classpath:/testFiles/ThaiExpress/2015_10_10_14_56_04.jpg.txt")
+    @Value("classpath:/testfiles/thaiexpress/2015_10_10_14_56_04.jpg.txt")
     private Resource receipt_2015_10_10_14_56_04;
 
-    @Value("classpath:/testFiles/ThaiExpress/2015_10_10_14_56_44.jpg.txt")
+    @Value("classpath:/testfiles/thaiexpress/2015_10_10_14_56_44.jpg.txt")
     private Resource receipt_2015_10_10_14_56_44;
 
-    @Value("classpath:/testFiles/ThaiExpress/2015_10_10_14_56_57.jpg.txt")
+    @Value("classpath:/testfiles/thaiexpress/2015_10_10_14_56_57.jpg.txt")
     private Resource receipt_2015_10_10_14_56_57;
 
-    @Value("classpath:/testFiles/ThaiExpress/2015_10_10_14_57_23.jpg.txt")
+    @Value("classpath:/testfiles/thaiexpress/2015_10_10_14_57_23.jpg.txt")
     private Resource receipt_2015_10_10_14_57_23;
 
-    @Value("classpath:/testFiles/ThaiExpress/2015_10_10_14_57_45.jpg.txt")
+    @Value("classpath:/testfiles/thaiexpress/2015_10_10_14_57_45.jpg.txt")
     private Resource receipt_2015_10_10_14_57_45;
 
     @Test
