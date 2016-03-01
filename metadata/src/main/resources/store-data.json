@@ -539,11 +539,6 @@
   "identity" : "Tzin Wine & Tapas",
   "category" : "Restaurant"
 }, {
-  "code" : "ups",
-  "name" : "UPS",
-  "identity" : "UPS",
-  "category" : "Delivery"
-}, {
   "code" : "walmart",
   "name" : "Walmart",
   "identity" : "Walmart",

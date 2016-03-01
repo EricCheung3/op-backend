@@ -1,6 +1,7 @@
 package com.openprice.parser.generic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -173,12 +174,13 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         receiptLines.add("item b    3.9");
         receiptLines.add("item c    2.9");
 //        receiptLines.add("AFASDFASFS    12.9");// for this test. I added just a total header file to bestbuy meta folder. It works
-        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
-        assertEquals("bestbuy", receipt.getChainCode());
-        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
-        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        ParsedReceipt result = simpleParser.parseLines(receiptLines);
+        assertNotNull(result);
+        assertEquals("bestbuy", result.getChainCode());
+        Iterator<ParsedItem> iterator = result.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = result.getFields();
         //printResult(receipt);
-        assertEquals(3,receipt.getItems().size());
+        assertEquals(3,result.getItems().size());
         verifyParsedItem(iterator.next(), "item a",  "4.9", null, 2);
         verifyParsedItem(iterator.next(), "item b",  "3.9", null, 3);
         verifyParsedItem(iterator.next(), "item c",  "2.9", null, 4);

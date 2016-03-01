@@ -2,32 +2,17 @@ package com.openprice.parser.generic;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 
-import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
-import com.openprice.parser.ParsedItem;
-import com.openprice.parser.ParsedReceipt;
-import com.openprice.parser.ParsedReceiptImpl;
 import com.openprice.parser.ReceiptFieldType;
 import com.openprice.parser.StoreConfigImpl;
-import com.openprice.parser.api.MatchFields;
-import com.openprice.parser.api.MatchedRecord;
-import com.openprice.parser.api.Product;
-import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
-import com.openprice.parser.data.StringInt;
-import com.openprice.parser.date.DateParserUtils;
 import com.openprice.parser.price.PriceParserWithCatalog;
-import com.openprice.parser.simple.MatchFieldsImpl;
-import com.openprice.parser.simple.MatchedRecordImpl;
-import com.openprice.parser.simple.SimpleParserUtils;
 import com.openprice.parser.store.AbstractStoreParser;
 import com.openprice.parser.store.FieldParserCommon;
-import com.openprice.store.StoreChain;
 import com.openprice.store.StoreMetadata;
 
 import lombok.extern.slf4j.Slf4j;
@@ -111,29 +96,4 @@ public class GenericParser extends AbstractStoreParser{
                 new ArrayList<String>(),
                 blackList);
     }
-
-    public static ParsedReceipt parse(final String genericChainCode, final StoreConfig config, final ReceiptData receipt)
-        throws Exception{
-        final GenericParser generic = new GenericParser(config,PriceParserWithCatalog.withCatalog(new HashSet<Product>()));//selectParser(receipt);
-        // match fields
-        final MatchedRecord record = new MatchedRecordImpl();
-        final MatchFields matching = new MatchFieldsImpl();
-        log.debug("before matching to header");
-        matching.matchToHeaders(record, receipt, generic);
-
-        //globally finding the date string
-        if (record.valueOfField(ReceiptFieldType.Date) == null ||
-                record.valueOfField(ReceiptFieldType.Date).getValue().isEmpty()){
-            log.debug("date header not found: searching date string globally.");
-            final StringInt dateVL=DateParserUtils.findDate(receipt.getOriginalLines(), 0);
-            record.putFieldLineValue(ReceiptFieldType.Date, dateVL.getLine(), dateVL.getValue());
-        }
-
-        // parse items
-        log.debug("before parse items");
-        List<ParsedItem> items = SimpleParserUtils.parseItems(record, receipt, generic);
-        final StoreChain genericChain = StoreChain.genericChainWithOnlyCode(genericChainCode);
-        return ParsedReceiptImpl.fromChainItemsMapBranch(genericChain, items, record.getFieldToValueLine(), StringCommon.EMPTY);
-    }
-
 }

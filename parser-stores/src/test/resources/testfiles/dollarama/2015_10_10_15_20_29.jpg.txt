@@ -1,0 +1,28 @@
+
+     DOLLARAMA
+         5015 111 St. NW Unit 48
+           Edmonton AB T6H 4M6
+              GST 863624433
+WINE GUMS CANDY                     2.00    F
+WINE GUMS CANDY                     2.00    F
+TRIDENT PEPPERM                     0.77    F
+TRIDENT PEPPERM                     0.77    F
+TRIDENT PEPPERM                     0.77    F
+EXCEL BUBBLEMINT                    0.77    F 
+
+SUBTOTAL                            $7.08
+GST 5%                              $0.35
+TOTAL                               $7.43
+CASH                               $10.00
+ROUNDED AMOUNT                      $0.02
+CHANGE                              $2.55
+
+               NO EXCHANGE
+                NO RETURN
+   THANK YOU FOR SHOPPING AT DOLLARAMA
+        CUSTOMER          COPY
+DATE: 2015-10-05 TIME: 13:52:27
+000466 01 0201                           5383
+            WWW.DOLLARAMA.COM
+
+

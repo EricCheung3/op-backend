@@ -1,0 +1,70 @@
+
+
+ CANADIAN TIRE                   #30~
+           SOUTH PARK CENTRE
+           EDMONTON, ALBERTA
+            ( 780) 138-1921
+REG #:6 DATE: 02/13/2015 TIME: 21:00:04 TRANS #:78
+OPERATOR 1: 221 Float: 001
+*TRANS'N RESUMED*
+REF 1: 8212
+SUSPENDED BY: 221 ON REG 1: 6
+TRANSACTION #: 75 AT: DATE: 02/13 TIME: 20:53
+
+053-1 332-8 TIDE LQ 2X ORIG $            6.99
+(SAVED $ 2.00)
+053-2486-6  PUREX COLD 2X 4 $            8.99
+<SAVED $ 1.00)
+083-4002-1  STK,STRT HKY 40 $            5.99
+083-5589-2  MiniStk&Ball,Cr $            9.99
+                 SUBTOTAL        $      31.96
+                 5% GST          $       1.60
+                                 $       0.00
+                 TOTAL        $    33.56
+              M/C TEND         $   33.56
+MASTERCARD PURCHASE
+MASTERCARD 1: ************6125
+CHIP CARD
+DATE: 2015/02/13 TIME: 23:00:11
+REF #: 66026130 0010010011 C
+AUTHORIZATION 1: 01113B
+A0000000011010
+PC MasterCard
+MasterCard
+0000008000E800
+      01 APPROVED - THANK YOU 027
+               IMPORTANT
+   Retain this cop~ for ~our records
+ Resister for a    H~ CT  'Hone~·account.
+  Collect e-CT     'Hone~·  to redee~at
+    Canadian Tire . Visit us online at
+     canadiantire .ca or download the
+        Canadian Tire Hobile App,
+
+             TODAY YOU SAVED
+             s         6.00
+            AT CANADIAN TIRE.
+              CUSTOMER COPY
+         At Canadian Tire, We Care!
+ Tell us how we did toda~ . You could win
+ 11 S1000 Canadian Tire Gift Card! Sub~it
+ a surve~ at: www . tellcdntire.co~ OR via
+ telephone : 1-888-131-5595 . No purchase
+   necessar~. Contest ends 2-28-15. Open
+   to legal residents of Canada, age of
+    ~aJorit~ or older. Hath skill-test
+  required . Odds of winning depend on I
+  of entries received. Conditions appl~ .
+     For contest rules visit website .
+           2218-1030-70300-1217
+
+
+
+
+ Retain receipt for warranty and returns
+   The original receipt and photo ID ls
+   required for all refunds and exchanges
+  store hours 8AH-10PH Honda~ to Saturda~
+               9AH-8PH Sunde~
+       GST .REG 1139122352
+
