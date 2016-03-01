@@ -1,0 +1,29 @@
+1@@@
+      Edmonton Classic
+        7917 Ca lgary Trail outh
+            Edmonton , AB T6E 4E1
+               Cashier: Tyle r
+          .MERCHANT ID : 030000018034
+                 .TER~1 ID : 102
+                     SALE
+              ·************0523
+.M/C                      ENTR M ETHOD : CHIP
+    DATE: 2015/04/16 TIME: 17:15:33
+.INV#: 00600006390200APPR CODE: 08037B
+            .RETRI EVAL #: 00000099
+ AMOUNT                               $   110.40
+                                   ==========
+  TOTAL                               $   110.40
+             APPROVED - THANK YOU
+ .BY ENTERING AVERIFIED P[N , CARHOLDER
+   .AGREES TO PAY ISSUER SU  CH TOTAL IN
+.ACCORDAN CE WITH ISSUER 'S AGRE EMENT WITH
+                .CARDHOLDER
+
+      .Application Label:PC MasterCard
+             .AID:A000000004 1010
+              .TVR:OOOOOOBO   OO
+                  .TSI:E800
+                 .RESP CD :OO
+   Cardhol der Copy/Copie D    u Titu lai re
+

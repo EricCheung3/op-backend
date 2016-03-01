@@ -1,0 +1,45 @@
+
+     DOLLARAMA
+         5015 111 St . NW Unit 48
+           Edmonton AB T6H 4M6
+              GST 863624433
+CHINESE FAN IN S                            1.50   F
+SMARTFOOD                                   1.00    F
+NAIL SPONGE                                 1.00    F
+BBO LIGHTER                                 1.25    F
+SPOON SPATULA                               1.25   F
+LUNCH BOX                                   3.00    F
+TAXABLE 1.25$                               1.25    F
+METAL BUCKET                                3.00    F
+BUBBLES                                     2.00    F
+NAIL SPONGE                                 1.00    F
+CHINESE FAN IN S                            1.50    F
+STAINLESS LADLE                             1.25    F
+PARING KNIFE                                2.00    F
+CHESTNUTS                                   1.00
+IPAD STAND                                  2.00    F
+SUBTOTAL                               $24.00
+GST 5%                                  $1.15
+TOTAL                                  $25.15
+DEBIT                                  $25.15
+
+
+
+TYPE: PURCHASE
+ACCT: CHEOUING                 $   25.15
+Card Type: Interac
+CARD NUMBER :       """""""'"""*"7659
+DATE/TIME :         15/05/25 16:31:34
+REFERENCE # :       66228921 0010017170 c
+AUTHOR. # :         205456
+Interac
+A0000002771010
+0080008000 F800
+      00/001 APPROVED - THANK YOU
+             -- IMPORTANT --
+   Ret ain Thi s Copy For Your Records
+         """ CUSTOMER COPY """
+
+
+                 NO EXCHAI\J
+
