@@ -78,6 +78,10 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testfiles/costco/branch_2616_91st/HuFeb25.txt")
     private Resource receipt_HuFeb25;
 
+    @Value("classpath:/testfiles/costco/branch_2616_91st/RichardHouFeb29.txt")
+    private Resource receipt_HouFeb29;
+
+
     @Inject
     private ChainRegistry chainRegistry;
 
@@ -622,5 +626,36 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "15",54);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "121.82",34);
         verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "1.30",35);
+    }
+
+    @Test
+    public void receipt_HouFeb29() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_HouFeb29, (line)-> receiptLines.add(line));
+
+        assertTrue(receiptLines.size() > 0);
+
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+
+        printResult(receipt);
+        assertEquals("costco", receipt.getChainCode());
+
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(10,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "grape tomato", null, null, 12);
+        verifyParsedItem(iterator.next(), "tomatoes on", null, null, 13);
+        verifyParsedItem(iterator.next(), "trout fillet", null, null, 14);
+        verifyParsedItem(iterator.next(), "per0gies", null, null, 15);
+        verifyParsedItem(iterator.next(), "organic 2%", null, null, 16);
+        verifyParsedItem(iterator.next(), "coconut gil", null, null, 19);
+        verifyParsedItem(iterator.next(), "891    hrvst crunch", null, null, 20);
+        verifyParsedItem(iterator.next(), "cheerios", null, null, 22);
+        verifyParsedItem(iterator.next(), "vector jumbo", null, null, 24);
+        verifyParsedItem(iterator.next(), "broccolette", null, null, 26);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "101.37",31);
+        verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "otal           number      of items solo",27);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2016/1/20",35);
+        verifyParsedField(fieldValues, ReceiptFieldType.Deposit, "deposit _ ,",17);
     }
 }
