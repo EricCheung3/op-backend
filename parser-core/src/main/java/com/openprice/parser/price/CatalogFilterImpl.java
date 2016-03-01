@@ -30,8 +30,6 @@ public class CatalogFilterImpl implements CatalogFilter{
     //TODO have a threshold parameter?
     @Override
     public boolean matchesBlackList(final String str){
-        if( !PriceParserFromStringTuple.isItemName(str))
-            return true;
         if(StringCommon.removeAllSpaces(str).length()<=5)
             return lowercaseNoSpaceMatchList(str, 0.95);
         try{

@@ -121,6 +121,7 @@ public class RCSSSouthCommonReceiptTest extends AbstractReceiptParserIntegration
         final List<String> lines = new ArrayList<>();
         lines.add("    4011          BANANA                     MftJ");
         lines.add("0.940 kg 8 $1.73/kg                              1.60");
+        lines.add("    4011          BANANA                     MftJ");
         lines.add("0.940 kg @ $1.73/kg                              1.60");//should not contain this line
         lines.add("4068            ONION GREN                MRJ      0,67");
         lines.add("4068            ONION GREN                MRJ      0,67");
@@ -132,11 +133,12 @@ public class RCSSSouthCommonReceiptTest extends AbstractReceiptParserIntegration
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
 
-        assertEquals(4,receipt.getItems().size());
-        verifyParsedItem(iterator.next(), "banana",  "mftj", null, 0);
-        verifyParsedItem(iterator.next(), "onion gren    mrj",  "067", null, 3);
-        verifyParsedItem(iterator.next(), "onion gren    mrj",  "067", null, 4);
-        verifyParsedItem(iterator.next(), "ducks fr7n    mrj",  "15.23", null, 6);
+        assertEquals(5,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "banana",  "1.60", null, 0);
+        verifyParsedItem(iterator.next(), "banana",  "1.60", null, 2);
+        verifyParsedItem(iterator.next(), "onion gren    mrj",  "067", null, 4);//TODO price formatter
+        verifyParsedItem(iterator.next(), "onion gren    mrj",  "067", null, 5);
+        verifyParsedItem(iterator.next(), "ducks fr7n    mrj",  "15.23", null, 7);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
 
     }
