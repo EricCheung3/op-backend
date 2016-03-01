@@ -118,7 +118,7 @@ public class MetadataLoader {
             final List<String> notItemOfThisChain = loadStringList(ChainConfigFiles.getBlackList(chain.getCode()));
             final ImmutableSet.Builder<String> builder = new ImmutableSet.Builder<>();
             builder.add(chain.getName());
-//            builder.addAll(notItemOfThisChain);
+            builder.addAll(notItemOfThisChain);
             builder.addAll(sharedNotCatalogItemNames);
             final List<String> notCatalogItemNames = builder.build().stream().collect(Collectors.toList());
 
