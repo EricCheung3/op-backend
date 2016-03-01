@@ -1,0 +1,57 @@
+
+     DOLLARAMA
+            5015 111 St. NW Unit 48
+              Edmonton AB T6H 4M6
+                 GST 863624433
+
+CASHEWS                                       2.00F
+CASHEWS                                       2.00F
+DIET PEPSI                                    1.00F
+  Deposit                                     0.10
+  CRF                                         0.02F
+TRIDENT WATERM.                               5.00F
+  5 ® 1.00
+
+SUBTOTAL                                $10.12
+GST 5%                                   $0.50
+TOTAL                                  $10.62
+D E B I T                               $10.62
+
+
+
+
+TYPE: PURCHASE
+
+ACCT: CHEQUING              $       10.62
+
+Card Type: Interac
+
+CARD NUMBER:        xxxxxxxxxxxx5805
+DATE/TIME:          15/10/12 11:48:20
+REFERENCE #:        66228225 0010013560 C
+AUTHOR. #:          497018
+
+INTERAC
+A0000002771010
+8080008000 6800
+
+      00/001     APPROVED - THANK YOU
+
+            - IMPORTANT -
+   Retain This Copy For Your Records
+
+            *** CUSTOMER COPY ***
+
+
+
+               NO EXCHANGE
+                NO RETURN
+   THANK YOU FOR SHOPPING AT DOLLARAMA
+
+           CUSTOMER             COPY
+DATE: 2015-10-12 TIME: 11:48:27
+000466 01 0201                                7666
+
+               WWW.DOLLARAMA.COM
+
+

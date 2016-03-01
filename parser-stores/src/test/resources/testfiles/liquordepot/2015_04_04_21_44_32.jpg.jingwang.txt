@@ -1,0 +1,85 @@
+
+            Liquor Depot - Southgate
+                  Store # 528
+                11011 - 51 Ave
+             Edmonton , AB T6H 5Tl
+                  780-438-4071
+
+          Sa es                    ece1                      """I:
+
+
+
+Transaction #:                  933465
+Date: 3/12/2015                Time: 5:42:14 PM
+Cashier: kevinw                 Register#: 2
+
+CSPC      Descript ion                                                Amount
+=========== ==== === ====== === == === ==== == ====
+752701 SECRET CELLARS CABERNE                                    $6.97
+       Discount code: HALF CA
+       Discount                                                 ($0.70)
+752701 SECRET CELLARS CABERNE                                    $6.97
+       Discount code: HALF CA
+       Discount                                                 ($0.70)
+752701 SECRET CELLARS CABERNE                                    $6.97
+       Discount code: HALF CA
+       Discount                                                 ($0.70)
+752701 SECRET CELLARS CABERNE                                    $6.97
+       Discount code: HALF CA
+       Discount                                                 ($0.70)
+752701 SECRET CELLARS CABERNE                                    $6.97
+       Discount code : HALF CA
+       Discount                                                 ($0.70)
+752701 SECRET CELLARS CABERNE                                    $6.97
+       Discount code : HALF CA
+       Discount                                                 ($0.70)
+752465 REVERSE ZINFANDEL 750M                                    $6.97
+       Discount code: HALF CA
+       Discount                                                 ($0.70 )
+752465 REVERSE ZINFANDEL 750M                                    $6.97
+       Discount code: HALF CA
+       Discount                                                 ($0.70 )
+752465 REVERSE ZINFANDEL 750M                                    $6.97
+       Discount code: HALF CA
+       Discount                                                 ($0.70)
+752465 REVERSE ZINFANDEL 750M                                    $6.97
+       Discount code: HALF CA
+       Discount                                                 ($0.70)
+752465 REVERSE ZINFANDEL 750M                                    $6.97
+       Discount code: HALF CA
+       Discount                                                 ($0.70)
+752465 REVERSE ZINFANDEL 750M                                    $6.97
+       Discount code : HALF CA
+       Discount                                                 ($0.70 )
+752701 SECRET CELLARS CABERNE                                    $6.97
+       Discount code : HALF CA
+       Discount                                                 ($0.70)
+                                                             ============
+                           Sub Total                     $81.51
+                                 GST                      $4.08
+                        Deposit (0.10)                    $1.30
+                               Total                     $86.89          MC-1833-012565 Tendered                                  $86.89
+                       Change Due                         $0.00
+ 
+
+
+               Item Quantity: 13
+
+
+      You saved                             $9.10
+
+                 1111111111111111111111111111111111111111
+                     x933465x
+                XXXXXXXXXXXX1833
+           Transaction Reference: 50
+          Authorization Code: 012565
+
+          Thank You For Shopping
+Refunds Ava i lable Within 30 Days of Purchas
+          PLEASE DRINK RESPO   NSIBLY
+                GST# 850157470
+        Tell us how we are doi ng at
+       www . liquordepot.ca/customersurvey
+            for your chance to win a
+                $200 Gift Card
+ 
