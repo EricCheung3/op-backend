@@ -1,0 +1,20 @@
+
+              IM THINKING
+              ARBY'S
+     S O U T H G A T E CNTR
+     # 18 4                 IN
+ 1   GRT CAN                  5.09
+ 1   MEDIUM CURLY             2.49
+ 1   MED DIET                 2.19
+ 1   COMBO DISC.             -1.68
+ 1   VAL/MOZZA                2.29
+
+            SBTL             10.38
+
+            GST                 .52
+            TOTAL           10.90
+            CASH             10.90
+REG #01
+  0799 TIME: 16:50 #01 DATE: 0CT.08'15 REG0001
+
+
