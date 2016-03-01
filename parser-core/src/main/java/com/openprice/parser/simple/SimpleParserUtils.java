@@ -41,7 +41,10 @@ public class SimpleParserUtils {
                                            return !parser.getStoreConfig().matchesSkipBefore(line.getCleanText(), parser.getStoreConfig().similarityThresholdOfTwoStrings())
                                         && !parser.getStoreConfig().matchesSkipAfter(line.getCleanText(), parser.getStoreConfig().similarityThresholdOfTwoStrings());
                         })
-                       .map( line -> parser.parseItemLine(line.getCleanText(), line.getNumber()))
+                       .map( line -> {
+//                           log.debug("line.getCleanText()="+line.getCleanText());
+                           return parser.parseItemLine(line.getCleanText(), line.getNumber());
+                       })
                        .filter( item -> item != null &&
                                         item.getParsedName()!=null &&
                                         !item.getParsedName().isEmpty() &&
