@@ -7,7 +7,7 @@
   "RecycleHeader" : "ECOLOGY FEE ",
   "DepositHeader" : "enu fee,bottle deposit,DEPOSIT 1",
   "RegularPriceHeader" : "",
-  "SavingHeader" : "you saved,mark down:",
+  "SavingHeader" : "(SAVED $,you saved,mark down:",
   "ApprovedHeader" : "APPROVED",
   "SubTotalHeader" : "net sale,SUBTOTAL",
   "GstAmountHeader" : "Sales tax amount, G=GST 5% ",
@@ -20,6 +20,6 @@
   "StoreIDHeader" : "STORE:",
   "DateHeader2" : "REDEEM HERE FOR FREE GROCERIES**",
   "CashierHeader" : "",
-  "RefHeader" : "",
-  "AuthorHeader" : "REF #           AUTH #      RESP"
+  "RefHeader" : "Ref#",
+  "AuthorHeader" : "AUTHORIZATION 1,REF #           AUTH #      RESP"
 }
