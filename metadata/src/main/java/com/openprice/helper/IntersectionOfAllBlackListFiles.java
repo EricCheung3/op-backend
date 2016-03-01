@@ -11,6 +11,8 @@ import com.openprice.common.TextResourceUtils;
 
 /**
  * this prints the intersection of all the not-catalog-name *.txt file
+ * After printing, I copied the content to sharedConfiguratrationFileS**
+ * and then deleted all the files in
  */
 public class IntersectionOfAllBlackListFiles {
 
