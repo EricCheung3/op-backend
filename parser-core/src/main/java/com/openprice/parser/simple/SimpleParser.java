@@ -62,8 +62,10 @@ public class SimpleParser implements ReceiptParser {
         }
     }
 
+    /*
+     *  find chains from two kinds of chains: specialized chain for which we have parser; generic chains from store-data.json
+     */
     private ParsedReceipt parseReceiptData(final ReceiptData receipt) throws Exception {
-        // find chain first through chainRegistry (which we have specialized store parser)
         final StoreChainFound parserChainFound = chainRegistry.findParserChain(receipt);
         final StoreChainFound genericChainFound = ChainRegistry.findBestMatchedChain(receipt, metadata.allStoreChains());
 

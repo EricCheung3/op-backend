@@ -1,7 +1,6 @@
 package com.openprice.parser.store.timhortons;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -22,9 +21,7 @@ import com.openprice.parser.ChainRegistry;
 import com.openprice.parser.ParsedField;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.ParsedReceipt;
-import com.openprice.parser.ReceiptDataImpl;
 import com.openprice.parser.ReceiptFieldType;
-import com.openprice.parser.data.StoreChainFound;
 import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
 import lombok.extern.slf4j.Slf4j;
@@ -53,20 +50,6 @@ public class TimHortonsTest1 extends AbstractReceiptParserIntegrationTest{
 
     @Inject
     private ChainRegistry chainRegistry;
-
-    @Test
-    public void test_receipt_25_20_StoreChain() throws Exception {
-        final List<String> receiptLines = new ArrayList<>();
-        TextResourceUtils.loadFromTextResource(receipt_25_20, (line)-> receiptLines.add(line));
-        assertTrue(receiptLines.size() > 0);
-        assertNotNull(chainRegistry);
-        assertTrue(chainRegistry.allStoreChains().size()>0);
-        log.debug(chainRegistry.allStoreChains().toString());
-        final StoreChainFound chain=chainRegistry.findBestMatchedChain(ReceiptDataImpl.fromContentLines(receiptLines));
-        assertNotNull(chain.getChain());
-        assertEquals("timhortons", chain.getChain().getCode());
-        log.debug(chain.getChain().getHeaderProperties().toString());
-    }
 
     @Test
     public void receipt_25_20() throws Exception {
