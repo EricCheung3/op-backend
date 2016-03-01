@@ -31,6 +31,14 @@ public class StoreMetadata {
         return categoryMap.get(code);
     }
 
+    public List<StoreChain> allStoreChains(){
+        return storeChainMap
+                .entrySet()
+                .stream()
+                .map(e->e.getValue())
+                .collect(Collectors.toList());
+    }
+
     @Value
     private static class ProductWithScore {
         CatalogProduct p;

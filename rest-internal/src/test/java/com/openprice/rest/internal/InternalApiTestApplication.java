@@ -14,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import com.openprice.file.FileFolderSettings;
 import com.openprice.file.FileSystemService;
 import com.openprice.process.ProcessSettings;
+import com.openprice.store.MetadataLoader;
+import com.openprice.store.StoreMetadata;
 
 @SpringBootApplication
 @ComponentScan({ "com.openprice.domain", "com.openprice.rest", "com.openprice.process", "com.openprice.parser" })
@@ -54,4 +56,10 @@ public class InternalApiTestApplication extends WebSecurityConfigurerAdapter {
     public ProcessSettings processSettings() {
         return new ProcessSettings(); // it will trigger StaticResultImageProcessor
     }
+
+    @Bean
+    public StoreMetadata storeMetadata() {
+        return MetadataLoader.loadMetadata();
+    }
+
 }

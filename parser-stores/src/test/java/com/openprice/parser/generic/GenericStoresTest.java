@@ -145,4 +145,44 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("2015/1/24", fieldValues.get(ReceiptFieldType.Date).getFieldValue());//this receipt has no date string
     }
 
+    @Value("classpath:/testfiles/sobeysliquor/2015_04_04_21_47_26.jpg.jingwang.txt")
+    private Resource receipt_47_26;
+
+    //TODO
+//    @Test
+//    public void receipt_47_26() throws Exception {
+//        final List<String> receiptLines = new ArrayList<>();
+//        TextResourceUtils.loadFromTextResource(receipt_47_26, (line)-> receiptLines.add(line));
+//
+//        assertTrue(receiptLines.size() > 0);
+//
+//        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+//        //printResult(receipt);
+//        assertEquals("sobeysliquor", receipt.getChainCode());
+//
+//        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+//    }
+
+
+    @Test
+    public void someStoreWedontHaveMetadataYet() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        receiptLines.add("ABc");
+        receiptLines.add("BestBuy");
+        receiptLines.add("item a    4.9");
+        receiptLines.add("item b    3.9");
+        receiptLines.add("item c    2.9");
+//        receiptLines.add("AFASDFASFS    12.9");// for this test. I added just a total header file to bestbuy meta folder. It works
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        assertEquals("bestbuy", receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        //printResult(receipt);
+        assertEquals(3,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "item a",  "4.9", null, 2);
+        verifyParsedItem(iterator.next(), "item b",  "3.9", null, 3);
+        verifyParsedItem(iterator.next(), "item c",  "2.9", null, 4);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
+//        verifyParsedField(fieldValues, ReceiptFieldType.Total, "12.9", 5);
+    }
 }

@@ -18,7 +18,6 @@ public class ConvertTextToJson {
         final String chainCode = MetadataLoader.SHARED_CONFIG_ROOT;
 
         final List<String> orig=TextResourceUtils.loadStringArray("/"+chainCode+"/not-catalog-item-names.txt");
-//        final List<String> orig=TextResourceUtils.loadStringArray("/shoppers/not-catalog-item-names.txt");
         final List<String> list=removeCommentEmptyLines(orig);
         toJsonForDataThatNeedEscape(list);
     }

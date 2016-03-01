@@ -35,13 +35,14 @@ public class ChainRegistry {
     //limit on the number of lines that are searched when looking for chain
     private static final int CHAIN_SEARCH_NUMBER_LINES = 10;
 
+    //specialized chains that have parser
     @Getter
-    private final List<StoreChain> storeChains = Collections.synchronizedList(new ArrayList<>());
+    private final List<StoreChain> parserChains = Collections.synchronizedList(new ArrayList<>());
 
     private final Map<String, StoreParserSelector> chainToParserSelector=new HashMap<>();
 
     public synchronized void addChain(final StoreChain chain, final StoreParserSelector selector) {
-        storeChains.add(chain);
+        parserChains.add(chain);
         chainToParserSelector.put(chain.getCode(), selector);
     }
 
@@ -49,14 +50,17 @@ public class ChainRegistry {
         return chainToParserSelector.get(chainCode);
     }
 
+    public StoreChainFound findParserChain(final ReceiptData receipt) {
+        return findBestMatchedChain(receipt, parserChains);
+    }
 
     /*
      * prefer finding in the begin, then in the end, and then middle
      *
      */
-    public StoreChainFound findBestMatchedChain(final ReceiptData receipt) {
+    public static StoreChainFound findBestMatchedChain(final ReceiptData receipt, final List<StoreChain> chains) {
         final int lastLineOfBegin=CHAIN_SEARCH_NUMBER_LINES;
-        final ScoreWithMatchPair<StoreChain> foundAtBegin = findBestMatchedChain(receipt, 0, lastLineOfBegin);
+        final ScoreWithMatchPair<StoreChain> foundAtBegin = findBestMatchedChain(receipt, chains, 0, lastLineOfBegin);
         log.debug("receipt.size="+receipt.getOriginalLines().size());
         if(foundAtBegin==null)
             log.debug("foundAtBegin=null");
@@ -65,7 +69,7 @@ public class ChainRegistry {
 
         final int firstLineOfEnd=receipt.getReceiptLines().size() - CHAIN_SEARCH_NUMBER_LINES;
         //TODO: is receipt.getReceiptLines().size() the same as the largest original line number? Did you guarantee this through interface?
-        final ScoreWithMatchPair<StoreChain> foundAtEnd = findBestMatchedChain(receipt,  firstLineOfEnd, receipt.getReceiptLines().size());
+        final ScoreWithMatchPair<StoreChain> foundAtEnd = findBestMatchedChain(receipt, chains, firstLineOfEnd, receipt.getReceiptLines().size());
         if(foundAtEnd==null)
             log.debug("foundAtEnd=null");
         else
@@ -91,7 +95,7 @@ public class ChainRegistry {
                 && foundAtEnd.getScore() > CHAIN_IDENTIFY_MATCH_THRESHOLD)
             return new StoreChainFound(foundAtEnd.getMatch(), FoundChainAt.END, foundAtEnd.getLineNumber());
 
-        final ScoreWithMatchPair<StoreChain> foundAtMiddle = findBestMatchedChain(receipt, lastLineOfBegin+1, firstLineOfEnd-1);
+        final ScoreWithMatchPair<StoreChain> foundAtMiddle = findBestMatchedChain(receipt, chains, lastLineOfBegin+1, firstLineOfEnd-1);
         if(foundAtMiddle == null)
             log.debug("foundAtMiddle=null");
         else
@@ -103,7 +107,7 @@ public class ChainRegistry {
         return null;
     }
 
-    public ScoreWithMatchPair<StoreChain> findBestMatchedChain(final ReceiptData receipt, final int begin, final int end) {
+    public static ScoreWithMatchPair<StoreChain> findBestMatchedChain(final ReceiptData receipt, final List<StoreChain> chains, final int begin, final int end) {
         final List<ReceiptLine> lines = receipt.getReceiptLines();
         //log.debug("TopBottom matching lines:\n"+lines);
         //log.debug("search chains in registry with "+storeChains);
@@ -111,7 +115,7 @@ public class ChainRegistry {
         //storeChains.forEach(c -> log.debug(c.getCode()));
 
         final Optional<ScoreWithMatchPair<StoreChain>> maxChainMatch =
-                storeChains
+                chains
                 .stream()
                 .map( chain -> {
                     // score sum for all match identify fields whose matching score is > CHAIN_IDENTIFY_MATCH_THRESHOLD
