@@ -50,7 +50,6 @@ public class TextResourceUtils {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is), 1024)) {
             String line;
             while ((line = br.readLine()) != null) {
-                log.debug("line="+line);
                 lineConsumer.accept(line);
             }
         } catch (IOException e) {
@@ -66,14 +65,17 @@ public class TextResourceUtils {
     }
 
     public static List<String> loadStringArray(final InputStream is){
-        log.debug("is="+is);
         final List<String> list =new ArrayList<>();
         loadFromInputStream(is, line->list.add(line));
         return list;
     }
 
+    /**
+     *
+     * @param resourceFileName make sure this is not a absolute path
+     * @return
+     */
     public static List<String> loadStringArray(final String resourceFileName){
-        log.debug("resourceFileName="+resourceFileName);
         return loadStringArray(TextResourceUtils.class.getResourceAsStream(resourceFileName));
     }
 
