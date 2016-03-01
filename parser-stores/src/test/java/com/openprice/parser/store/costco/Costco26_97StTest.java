@@ -117,7 +117,7 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "47.66",15);
     }
 
-    //TODO: interesting: trusing generic chain found in the head is not alwasy correct!
+    //TODO: interesting: trusting generic chain found in the head is not alwasy correct!
 //    @Test
 //    public void test_receipt_51_51() throws Exception {
 //        final List<String> receiptLines = new ArrayList<>();
