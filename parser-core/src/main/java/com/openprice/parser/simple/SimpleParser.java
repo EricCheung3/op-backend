@@ -22,12 +22,10 @@ import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.api.StoreParserSelector;
 import com.openprice.parser.data.FoundChainAt;
-import com.openprice.parser.data.StoreChainCodeFound;
 import com.openprice.parser.data.StoreChainFound;
 import com.openprice.parser.data.StringInt;
 import com.openprice.parser.date.DateParserUtils;
 import com.openprice.parser.generic.CheapParser;
-import com.openprice.parser.generic.GenericChains;
 import com.openprice.parser.generic.GenericParser;
 import com.openprice.store.StoreBranch;
 import com.openprice.store.StoreChain;
@@ -66,31 +64,29 @@ public class SimpleParser implements ReceiptParser {
 
     private ParsedReceipt parseReceiptData(final ReceiptData receipt) throws Exception {
         // find chain first through chainRegistry (which we have specialized store parser)
-        final StoreChainFound chainFound = chainRegistry.findBestMatchedChain(receipt);
-        final GenericChains chains = new GenericChains("/config/Generic/chain.list"); //TODO use meta data
-        final StoreChainCodeFound genericChainCodeFound = chains.findChain(receipt.getOriginalLines());
+        final StoreChainFound parserChainFound = chainRegistry.findParserChain(receipt);
+        final StoreChainFound genericChainFound = ChainRegistry.findBestMatchedChain(receipt, metadata.allStoreChains());
 
-        final StoreChain chain = (chainFound == null)? null : chainFound.getChain();
-        if (chainFound == null) {
+        final StoreChain parserChain = (parserChainFound == null)? null : parserChainFound.getChain();
+        if (parserChainFound == null) {
             log.info("No specific store parser for this receipt yet!");
         } else {
-            log.debug("ChainRegistry: find matching chain {}, at {} at line {}.", chain.getCode(), chainFound.getFoundAt(), chainFound.getLineNumber());
+            log.debug("ChainRegistry: find matching chain {}, at {} at line {}.", parserChain.getCode(), parserChainFound.getFoundAt(), parserChainFound.getLineNumber());
         }
 
-        final String genericChainCode = genericChainCodeFound.getChainCode().toLowerCase();
-        log.debug("Generic chains: find matching chain {} at {} at line {}", genericChainCode, genericChainCodeFound.getFoundAt(), genericChainCodeFound.getLineNumber());
+        final StoreChain genericChain = genericChainFound.getChain();
+        log.debug("Generic chains: find matching chain {} at {} at line {}", genericChain.getCode(), genericChainFound.getFoundAt(), genericChainFound.getLineNumber());
 
-        if (chain == null ||
-                (chainFound.getFoundAt() != FoundChainAt.BEGIN &&
-                genericChainCodeFound.getFoundAt() == FoundChainAt.BEGIN)) {
-            if (chain != null) {
+        if (parserChain == null ||
+                (parserChainFound.getFoundAt() != FoundChainAt.BEGIN &&
+                genericChainFound.getFoundAt() == FoundChainAt.BEGIN)) {
+            if (parserChain != null) {
                 log.info("With ChainRegistry, the chain code was found at the end. We decide to trust generic chain which is found in the beginning. ");
             }
-
             try{
-                log.debug("genericChainCode=" + genericChainCode);
-                final StoreConfig storeConfig = GenericParser.fromGenericCode(genericChainCode, metadata);
-                return GenericParser.parse(genericChainCode, storeConfig, receipt);
+                log.debug("genericChainCode=" + genericChain.getCode());
+                final StoreConfig storeConfig = GenericParser.fromGenericCode(genericChain.getCode(), metadata);
+                return GenericParser.parse(genericChain.getCode(), storeConfig, receipt);
             } catch(Exception ex) {
                 ex.printStackTrace();
                 log.warn("exception in calling generic parser: {}. now call cheapParser!", ex.getMessage());
@@ -99,14 +95,14 @@ public class SimpleParser implements ReceiptParser {
         }
 
         // get store branch
-        final StoreBranch branch = StoreChainUtils.matchBranchByScoreSum(chain, receipt);
+        final StoreBranch branch = StoreChainUtils.matchBranchByScoreSum(parserChain, receipt);
         if (branch != null) {
             log.info("Parser find matching branch {}.", branch.getName());
         }
         log.debug("branch="+branch);
 
         // get store parser
-        final StoreParserSelector selector = chainRegistry.getParserSelector(chain.getCode());
+        final StoreParserSelector selector = chainRegistry.getParserSelector(parserChain.getCode());
         final StoreParser parser = selector.selectParser(receipt);
 
         // matching fields and record the results
@@ -128,8 +124,8 @@ public class SimpleParser implements ReceiptParser {
         // parse items
         List<ParsedItem> items = SimpleParserUtils.parseItems(record, receipt, parser);
         if(branch!=null)
-            return ParsedReceiptImpl.fromChainItemsMapBranch(chain, items, record.getFieldToValueLine(), branch.getName());
-        return ParsedReceiptImpl.fromChainItemsMapBranch(chain, items, record.getFieldToValueLine(), StringCommon.EMPTY);
+            return ParsedReceiptImpl.fromChainItemsMapBranch(parserChain, items, record.getFieldToValueLine(), branch.getName());
+        return ParsedReceiptImpl.fromChainItemsMapBranch(parserChain, items, record.getFieldToValueLine(), StringCommon.EMPTY);
     }
 
     public ParsedReceipt parseLines(final List<String> lines) throws Exception {

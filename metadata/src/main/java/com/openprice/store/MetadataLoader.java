@@ -74,6 +74,10 @@ public class MetadataLoader {
         return categoryMapBuilder.build();
     }
 
+    /*
+     * only the chain code and name are used from store-data.json
+     * we should use them if such data is available.
+     */
     static Map<String, StoreChain> loadStoreChains(final Map<String, ProductCategory> categoryMap){
         final ImmutableMap.Builder<String, StoreChain> chainMapBuilder = new ImmutableMap.Builder<>();
         final String storeFile=UniversalConfigFiles.getStoresFile();

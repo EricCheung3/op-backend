@@ -60,8 +60,8 @@ public class TimHortonsTest1 extends AbstractReceiptParserIntegrationTest{
         TextResourceUtils.loadFromTextResource(receipt_25_20, (line)-> receiptLines.add(line));
         assertTrue(receiptLines.size() > 0);
         assertNotNull(chainRegistry);
-        assertTrue(chainRegistry.getStoreChains().size()>0);
-        log.debug(chainRegistry.getStoreChains().toString());
+        assertTrue(chainRegistry.allStoreChains().size()>0);
+        log.debug(chainRegistry.allStoreChains().toString());
         final StoreChainFound chain=chainRegistry.findBestMatchedChain(ReceiptDataImpl.fromContentLines(receiptLines));
         assertNotNull(chain.getChain());
         assertEquals("timhortons", chain.getChain().getCode());
