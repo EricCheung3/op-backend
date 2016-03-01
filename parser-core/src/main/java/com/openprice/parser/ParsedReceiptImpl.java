@@ -36,7 +36,7 @@ public class ParsedReceiptImpl implements ParsedReceipt{
 
     @Override
     public String getChainCode() {
-        if(chain.getCode()==null || chain.getCode().isEmpty())
+        if(chain.getCode() == null || chain.getCode().isEmpty())
             return null;
         return chain.getCode();
     }
