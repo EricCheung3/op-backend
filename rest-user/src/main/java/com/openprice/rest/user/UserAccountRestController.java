@@ -78,7 +78,7 @@ public class UserAccountRestController extends AbstractUserRestController {
     @Transactional(readOnly=true)
     public HttpEntity<Collection<StoreChainInfo>> searchStores(
             @RequestParam("query") String query) {
-        return ResponseEntity.ok(storeMetadata.findMatchingStoreChainByName(query, 20)
+        return ResponseEntity.ok(storeMetadata.findMatchingStoreChainByName(query, 10)
                                               .stream()
                                               .map( chain -> new StoreChainInfo(chain.getCode(), chain.getName()))
                                               .collect(Collectors.toList()));

@@ -82,7 +82,7 @@ public class StoreMetadata {
                     double score = Levenshtein.mostSimilarScoreInSetLevenshtein(query, s);
                     return new StoreChainWithScore(chain, score);
                 })
-                .filter(scs ->scs.s > 0.5)
+                .filter(scs ->scs.s > 0.3)
                 .sorted((scs1, scs2) -> Double.compare(0 - scs1.s, 0 - scs2.s))
                 .limit(returnCount)
                 .map(scs -> scs.chain)
