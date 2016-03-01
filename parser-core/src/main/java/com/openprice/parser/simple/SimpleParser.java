@@ -94,7 +94,7 @@ public class SimpleParser implements ReceiptParser {
                 final GenericParser genericParser = new GenericParser(storeConfig, PriceParserWithCatalog.withCatalog(new HashSet<Product>()));//selectParser(receipt);
                 return applyParser(genericParser, receipt, genericChain, null);
             } catch(Exception ex) {
-//                ex.printStackTrace();
+//                ex.printStackTrace();//for debugging.
                 log.warn("exception in calling generic parser: {}. now call cheapParser!", ex.getMessage());
                 return new CheapParser().parseReceiptOcrResult(receipt.getOriginalLines());
             }
@@ -148,7 +148,5 @@ public class SimpleParser implements ReceiptParser {
         final ReceiptData receipt = ReceiptDataImpl.fromContentLines(lines);
         return parseReceiptData(receipt);
     }
-
-
 
 }

@@ -1,0 +1,39 @@
+       DOLLARAMA
+               10455 80th Ave. NW
+              Edmonton AB T6E 1V1
+                 GST 863624433
+EASY FEET                               3.00     F
+MEN'S CREW SOCK                         2.00     F
+SLIPPERS                                3.00     F
+TOOTHBRUSHES                            3.00     F
+CREST TOOTHPASTE                        2.00     F
+TOOTHBRUSH                              1.50     F
+EXCEL POLAR ICE                         0.77 F
+EXCEL POLAR ICE                         0.77 F
+DEODORANT                               3.00 F
+STORAGE BAGS                            1.00     F
+FREEMAN                                 2.00     F
+CHOCO DUET!                             0.50     F
+LOTION                                  1.50     F
+SHAVE CREAM                             1.25     F
+CHOCO DUET!                             0.50     F
+SUBTOTAL                               $25.79
+GST 5%                                  $1.29
+TOTAL                                  $27.08
+DEBIT                                  $27.08
+Card payment DEBIT
+Amount                    $27.08
+DATE: 2015-02-08                    TIME: 16:23
+~~ Payment success   *~
+
+
+
+   ==== = ===================~=============
+                NO EXCHANGE
+                 NO RETURN
+    THANK YOU FOR SHOPPING AT DOLLARAMA
+            CUSTOMER COPY
+DATE: 2015-02-08 TIME: 16:23:58
+000473 04 0204                            1575
+              WWW.DOLLARAMA .COM
+

@@ -1,0 +1,22 @@
+ 
+ 
+PARTSOURCE
+     STORE # 721
+     6511 104 ST . (AT 66TH AVE N.W.
+      EDMONTON, AB T6H2L3
+     G ST #GSH R10Q7730j9
+     (780)430··4249
+                    REF. #: 79551 7
+REGISTER# 15~)      RECEIPT# 171753
+CASHIER# JAMCOS7 DATE: 09/05/2015 TIME: 11:56 AM
+
+
+   1 SVG 3057ALL .BP2                    TX
+     3057ALL.BP2 LAMP BUL  REG: 5.49     EXT:   5.49 YY
+           SUB-TOTAL              5.49
+       -   GS1 TAX     -          0.27
+           PST TAX                0.00
+           TOTAL                  5.76
+           VISA                   5.76
+     **FINAL SALE ON CLEARANCE ITEMS*
+ 

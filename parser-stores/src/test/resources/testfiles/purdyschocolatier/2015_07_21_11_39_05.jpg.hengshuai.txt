@@ -1,0 +1,36 @@
+1@@@
+
+Purdys Chocolatier
+
+DATE: 6/19/2015 TIME: 12:16:35 PM             JESSICA B
+Trans:41586      Terminal :040103025-608003
+              Purdys Chocolatier
+               SouthGate Centre
+                 Edmonton, AB
+              Transaction Record
+Type:                                  PURCHASE
+Account                             t4ASTERCP.RD
+Amount :                                   2.30
+Card Number                ************0523
+Date/Time :             2015/06/19 12:16:58
+Reference #             662293jL 0010011250
+Termi nal Id                           66229332
+Auth #: 091088               PC ~1asterl.a rd
+AID: A0000000041010
+TVR: 0000008000
+CardEntry: C
+Invoice: 41586
+        01 APPROVED - THANK YOU 027
+CARDHOLDER WI LL PAYCARD ISS U  ER ABOV  E
+AMOUNT PURSUANT TO C ARDHOLDER AGREEMENT
+           *** CUSTOMER COPY ***
+        Important - Retain this copy
+              for your records
+Trans:41586        Termina l :040103025-608003
+          L ve Purdys Chocolatier'.?
+
+     Become part of a social circle!
+   Sign up for our E -club at purdys.com
+       facebook.com/purdyschocolatier
+          twitter.com/purdys.com
+

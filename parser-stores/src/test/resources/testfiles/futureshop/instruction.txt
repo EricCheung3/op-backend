@@ -1,0 +1,25 @@
+
+
+Ignore receipts with 
+
+1. no items
+2. hand written receipts
+3. parking receipts. 
+4. coupons. 
+
+For each receipt to clean, the priority to clean is
+1. Store name is important: make sure store name is fixed. For example "fufureshop", please correct it to "futureshop". 
+2. Branch info is not important: do not have to clean the branch info like phone number, street address, GST number, etc. 
+3. The word "Total" and Total amount is important. Make sure the dot "." in the decimal is not missing. 
+4. Date and Time is important. Make sure the date time is correct format as in the receipt.  
+4. Prices matters more than the names. 
+5. Fix obvious typos in the names. 
+
+In short, clean these:
+1. store name
+2. total amount
+3. Time 
+4. Prices
+5. Names. 
+"STTPN"
+
