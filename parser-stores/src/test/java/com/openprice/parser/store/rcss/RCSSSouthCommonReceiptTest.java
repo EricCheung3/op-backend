@@ -116,32 +116,8 @@ public class RCSSSouthCommonReceiptTest extends AbstractReceiptParserIntegration
 //        verifyParsedField(fieldValues, ReceiptFieldType.AddressCity, "edmonton",25);
     }
 
-    @Test
-    public void multilineItemTest1() throws Exception {
-        final List<String> lines = new ArrayList<>();
-        lines.add("    4011          BANANA                     MftJ");
-        lines.add("0.940 kg 8 $1.73/kg                              1.60");
-        lines.add("    4011          BANANA                     MftJ");
-        lines.add("0.940 kg @ $1.73/kg                              1.60");//should not contain this line
-        lines.add("4068            ONION GREN                MRJ      0,67");
-        lines.add("4068            ONION GREN                MRJ      0,67");
-        lines.add("31-MEA1S");
-        lines.add("2021000          DUCKS FR7N                MRJ      15.23");
 
-        ParsedReceipt receipt = simpleParser.parseLines(lines);
-        printResult(receipt);
-        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
-        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
 
-        assertEquals(5,receipt.getItems().size());
-        verifyParsedItem(iterator.next(), "banana",  "1.60", null, 0);
-        verifyParsedItem(iterator.next(), "banana",  "1.60", null, 2);
-        verifyParsedItem(iterator.next(), "onion gren    mrj",  "067", null, 4);//TODO price formatter
-        verifyParsedItem(iterator.next(), "onion gren    mrj",  "067", null, 5);
-        verifyParsedItem(iterator.next(), "ducks fr7n    mrj",  "15.23", null, 7);
-        verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
-
-    }
 
 
 

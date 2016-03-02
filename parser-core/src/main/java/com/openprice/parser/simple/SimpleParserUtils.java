@@ -7,6 +7,7 @@ import com.openprice.common.StringCommon;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.ReceiptData;
+import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.data.ParsedItemImpl;
 import com.openprice.parser.price.PriceParserConstant;
@@ -50,21 +51,23 @@ public class SimpleParserUtils {
                        })
                        .filter( item -> item != null &&
                                         item.getParsedName()!=null &&
-                                        !item.getParsedName().isEmpty() &&
-                                        !parser.getStoreConfig().matchesBlackList(item.getParsedName())
+                                        !item.getParsedName().isEmpty()
                         )
                        .collect(Collectors.toList());
         // TODO stop if match skipAfter strings
 
         //now adjust multi-line items' price
-        final List<ParsedItem> adjusted = getPriceFromNextLine(itemsWithMultilineUnAdjusted);
-        return adjusted.stream()
-        .filter(item->
-              PriceParserFromStringTuple.isItemName(item.getParsedName()) &&
-              !(item.getParsedName().contains("kg") && item.getParsedName().contains("@")) &&
-              StringCommon.countChars(item.getParsedName()) > PriceParserConstant.MIN_ITEM_NAME_LETTERS
-        ).collect(Collectors.toList());
+        log.debug("before adjusting multiline: items are");
+        itemsWithMultilineUnAdjusted.forEach(item-> System.out.println(item.getParsedName()+": "+ item.getParsedBuyPrice()));
+        final List<ParsedItem> adjusted = getPriceFromNextLines(itemsWithMultilineUnAdjusted, parser.getStoreConfig());
+        return adjusted.stream().filter(item-> isGoodItem(item, parser.getStoreConfig())).collect(Collectors.toList());
+    }
 
+    public static boolean isGoodItem(final ParsedItem item, final StoreConfig config){
+        return PriceParserFromStringTuple.isItemName(item.getParsedName()) &&
+                !(item.getParsedName().contains("kg") && item.getParsedName().contains("@")) &&
+                StringCommon.countChars(item.getParsedName()) > PriceParserConstant.MIN_ITEM_NAME_LETTERS &&
+                !config.matchesBlackList(item.getParsedName());
     }
 
     /**
@@ -72,33 +75,44 @@ public class SimpleParserUtils {
      * @param rawItems
      * @return
      */
-    public static List<ParsedItem> getPriceFromNextLine(final List<ParsedItem> rawItems){
+    public static List<ParsedItem> getPriceFromNextLines(final List<ParsedItem> rawItems, final StoreConfig config){
         for(int i=0; i<rawItems.size() -1; i++){
             final ParsedItem item = rawItems.get(i);
-            final ParsedItem next = rawItems.get(i+1);
-            log.debug("item="+item.getParsedName()+ ", price= "+ item.getParsedBuyPrice());
-            log.debug("next="+next.getParsedName());
-            final int[] digitsLetters = StringCommon.countDigitAndChars(item.getParsedName());
-            if(item.getParsedBuyPrice() == null || item.getParsedBuyPrice().isEmpty() || digitsLetters[0] <= 0){
-                log.debug("item price is empty, next.getParsedBuyPrice()="+next.getParsedBuyPrice());
-                if(isUnitPriceLine(next.getParsedName()) && next.getParsedBuyPrice() != null
-                        && !next.getParsedBuyPrice().isEmpty()
-                        ){
-                    System.out.println("adjusting!");
-                    ParsedItem newItem = ParsedItemImpl.fromNamePriceCodeLine(
-                            item.getParsedName(),
-                            next.getParsedBuyPrice(),
-                            item.getCatalogCode(),
-                            item.getLineNumber());
-                    rawItems.set(i, newItem);
+            log.debug("item="+item.getParsedName()+ ", price="+ item.getParsedBuyPrice());
+            if(item.getParsedBuyPrice() != null){
+                final int[] digitsLetters = StringCommon.countDigitAndChars(item.getParsedBuyPrice());
+                if(!item.getParsedBuyPrice().isEmpty() && digitsLetters[0] > 0){
+                    continue;
                 }
             }
+
+            //find the next good price
+            int increment = i+1;
+            ParsedItem next = rawItems.get(increment);
+            while(next != null && !isGoodItem(next, config) && increment < rawItems.size()-1 ){
+                increment ++;
+                next = rawItems.get(increment);
+            }
+            if(increment >= 1){
+                next = rawItems.get(increment-1);//roll back to the previous un-good item
+                if(!next.equals(item))
+                    log.debug("found delayed good price at line "+next.getParsedName());
+                else
+                    log.debug("No next good item is. No adjusting. ");
+            }
+
+            log.debug("item price is empty, next.getParsedBuyPrice()="+next.getParsedBuyPrice());
+            if(next.getParsedBuyPrice() != null && !next.getParsedBuyPrice().isEmpty()){
+                System.out.println("adjusting!");
+                ParsedItem newItem = ParsedItemImpl.fromNamePriceCodeLine(
+                        item.getParsedName() + StringCommon.WIDE_SPACES+ item.getParsedBuyPrice(),
+                        next.getParsedBuyPrice(),
+                        item.getCatalogCode(),
+                        item.getLineNumber());
+                rawItems.set(i, newItem);
+            }
+
         }
         return rawItems;
-    }
-
-    public static boolean isUnitPriceLine(final String line){
-        final int[] digitsLetters = StringCommon.countDigitAndAlphabets(line);
-        return line.contains("kg") && digitsLetters[0] >= 4;
     }
 }
