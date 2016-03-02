@@ -249,8 +249,8 @@ public class PriceParserFromStringTuple implements PriceParser {
     }
 
     public static boolean isItemName(final String str){
-        final String noSpace=str.replaceAll("\\s+", "");
-        int[] counts=StringCommon.countDigitAndLetters(noSpace);
+//        final String noSpace=str.replaceAll("\\s+", "");
+        int[] counts=StringCommon.countDigitAndLetters(str);
 //        log.debug("counts[1]="+counts[1]);
         if(counts[1] < PriceParserConstant.MIN_ITEM_NAME_LETTERS)
             return false;

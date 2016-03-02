@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
-public class Test1 extends AbstractReceiptParserIntegrationTest{
+public class CanadianTireTest1 extends AbstractReceiptParserIntegrationTest{
 
     @Value("classpath:/testfiles/canadiantire/2015_02_14_09_59_40.jpg.hengshuai.txt")
     private Resource receipt_2015_02_14_09_59_40;
