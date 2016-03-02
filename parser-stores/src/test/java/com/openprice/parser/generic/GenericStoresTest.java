@@ -105,7 +105,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         assertEquals(7,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "no name all purp", "5.99", null, 7);
-        verifyParsedItem(iterator.next(), "red del. apples", null, null, 9);
+        verifyParsedItem(iterator.next(), "red del. apples", "3.43", null, 9);
         verifyParsedItem(iterator.next(), "pear bartlett", "2.43", null, 11);
         verifyParsedItem(iterator.next(), "mango red", "1.67", null, 13);
         verifyParsedItem(iterator.next(), "pto russet 1olb    r", "3.97", null, 14);
@@ -207,7 +207,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
 
         assertEquals(4,receipt.getItems().size());
-        verifyParsedItem(iterator.next(), "banana",  "mftj", null, 0);
+        verifyParsedItem(iterator.next(), "banana    mftj",  "1.60", null, 0);
         verifyParsedItem(iterator.next(), "onion gren    mrj",  "067", null, 3);
         verifyParsedItem(iterator.next(), "onion gren    mrj",  "067", null, 4);
         verifyParsedItem(iterator.next(), "ducks fr7n    mrj",  "15.23", null, 6);
