@@ -1,6 +1,8 @@
 package com.openprice.parser.price;
 
 import com.openprice.common.StringCommon;
+import com.openprice.parser.LineType;
+import com.openprice.parser.linepredictor.SimpleLinePredcitor;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 public class PriceParserFromStringTuple implements PriceParser {
 
     private static NonWideSpaceParserImpl nonSpaceParser = new NonWideSpaceParserImpl();
+
+    private final static SimpleLinePredcitor linePredictor = new SimpleLinePredcitor();
 
     //product and price from four strings
     //product and price from four strings
@@ -54,7 +58,7 @@ public class PriceParserFromStringTuple implements PriceParser {
         if(firstIsNumber){//second is not item number
             //            log.debug("first is item numbers");
             itemNumber=four.getFirst();
-            if(isItemName(four.getThird())){
+            if(linePredictor.classify(four.getThird()) == LineType.Item){
                 itemName=four.getSecond()+StringCommon.WIDE_SPACES+four.getThird();
                 price=four.getFourth();
             }else{
@@ -66,7 +70,7 @@ public class PriceParserFromStringTuple implements PriceParser {
 
         //        log.debug("assumed to be no item numbers");
         //TODO: put item number splitting detection
-        if(isItemName(four.getThird())){
+        if(linePredictor.classify(four.getThird()) == LineType.Item){
             itemName=four.getFirst()+StringCommon.WIDE_SPACES+
                     four.getSecond()+StringCommon.WIDE_SPACES+four.getThird();
             price=four.getFourth();
@@ -248,17 +252,17 @@ public class PriceParserFromStringTuple implements PriceParser {
         return score>=PriceParserConstant.MIN_ITEM_NUMBER_PERCENT;
     }
 
-    public static boolean isItemName(final String str){
-//        final String noSpace=str.replaceAll("\\s+", "");
-        int[] counts=StringCommon.countDigitAndLetters(str);
-//        log.debug("counts[1]="+counts[1]);
-        if(counts[1] < PriceParserConstant.MIN_ITEM_NAME_LETTERS)
-            return false;
-        final double ratioOfChars=(double)counts[1]/(counts[0]+counts[1]);
-//        if(ratioOfChars < PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT)
-//            log.debug("score="+ratioOfChars+", PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT= "+ PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT);
-        return ratioOfChars >= PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT;
-    }
+//    public static boolean isItemName(final String str){
+////        final String noSpace=str.replaceAll("\\s+", "");
+//        int[] counts=StringCommon.countDigitAndLetters(str);
+////        log.debug("counts[1]="+counts[1]);
+//        if(counts[1] < PriceParserConstant.MIN_ITEM_NAME_LETTERS)
+//            return false;
+//        final double ratioOfChars=(double)counts[1]/(counts[0]+counts[1]);
+////        if(ratioOfChars < PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT)
+////            log.debug("score="+ratioOfChars+", PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT= "+ PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT);
+//        return ratioOfChars >= PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT;
+//    }
 
 
     public static boolean isNotPrice(final String str){

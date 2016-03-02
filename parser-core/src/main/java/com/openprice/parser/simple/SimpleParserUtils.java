@@ -5,19 +5,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.openprice.common.StringCommon;
+import com.openprice.parser.LineType;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.data.ParsedItemImpl;
-import com.openprice.parser.price.PriceParserConstant;
-import com.openprice.parser.price.PriceParserFromStringTuple;
+import com.openprice.parser.linepredictor.SimpleLinePredcitor;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SimpleParserUtils {
+
+    private final static SimpleLinePredcitor linePredictor = new SimpleLinePredcitor();
 
     public static List<ParsedItem> parseItems(
             final MatchedRecord matchedRecord,
@@ -63,19 +65,13 @@ public class SimpleParserUtils {
         final List<ParsedItem> adjusted = getPriceFromNextLines(itemsWithMultilineUnAdjusted, parser.getStoreConfig());
         return adjusted.stream()
                 .filter(item-> {
-                            if(! isGoodItem(item, parser.getStoreConfig()))
-                                log.debug("item "+ item.getParsedName()+" is considered Not good.");
-                            return isGoodItem(item, parser.getStoreConfig());
+                                  final LineType type = linePredictor.classify(item.getParsedName(), parser.getStoreConfig());
+                            if(type != LineType.Item)
+                                log.debug("item "+ item.getParsedName()+" is considered Not an item.");
+                            return type == LineType.Item;
             })
             .collect(Collectors.toList());
 
-    }
-
-    public static boolean isGoodItem(final ParsedItem item, final StoreConfig config){
-        return PriceParserFromStringTuple.isItemName(item.getParsedName()) &&
-                !(item.getParsedName().contains("kg") && item.getParsedName().contains("@")) &&
-                StringCommon.countChars(item.getParsedName()) > PriceParserConstant.MIN_ITEM_NAME_LETTERS &&
-                !config.matchesBlackList(item.getParsedName());
     }
 
     /**
@@ -102,7 +98,7 @@ public class SimpleParserUtils {
             ParsedItem next = null;
             for(; increment < rawItems.size(); increment ++ ){
                 next = rawItems.get(increment);
-                if(next != null && isGoodItem(next, config))//stop at the first good item or end of list
+                if(next != null && linePredictor.classify(next.getParsedName(), config) == LineType.Item)//stop at the first good item or end of list
                     break;
             }
             next = rawItems.get(increment-1);//roll back to the previous un-good item
