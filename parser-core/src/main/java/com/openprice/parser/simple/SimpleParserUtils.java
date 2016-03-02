@@ -91,7 +91,7 @@ public class SimpleParserUtils {
             if(item.getParsedBuyPrice() != null){
                 final int[] digitsLetters = StringCommon.countDigitAndChars(item.getParsedBuyPrice());
                 if(!item.getParsedBuyPrice().isEmpty() && digitsLetters[0] > 0){
-//                    log.debug("digitsLetters[0]= " +digitsLetters[0] + "item is good. no need to adjust. just add. ");
+                    log.debug("digitsLetters[0]= " +digitsLetters[0] + "item is good. no need to adjust. just add. ");
                     newItems.add(item);
                     continue;
                 }
@@ -105,13 +105,6 @@ public class SimpleParserUtils {
                 if(next != null && isGoodItem(next, config))//stop at the first good item or end of list
                     break;
             }
-//            ParsedItem next = rawItems.get(increment);
-//            while(next != null && !isGoodItem(next, config) && increment <= rawItems.size()-1 ){
-//                next = rawItems.get(increment);
-//                log.debug("--increment = "+ increment);
-//                log.debug("--line = "+ next.getParsedName());
-//                increment ++;
-//            }
             next = rawItems.get(increment-1);//roll back to the previous un-good item
             if(next.equals(item))
                 log.debug("No next good item is. No adjusting. ");
@@ -132,6 +125,8 @@ public class SimpleParserUtils {
                 newItems.add(newItem);
             }
         }
+        //add the last item without any adjusting
+        newItems.add(rawItems.get(rawItems.size()-1));
         log.debug("newItems.size="+newItems.size());
         return newItems;
     }
