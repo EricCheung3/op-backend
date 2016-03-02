@@ -11,14 +11,14 @@ public class CatalogFilterTest {
     @Test
     public void notCatalogItemNameTest1() throws Exception{
         final CatalogFilter filter=CatalogFilterImpl.emptyFilter();
-        assertTrue(filter.matchesBlackList(" "));
-        assertTrue(filter.matchesBlackList(" "));
-        assertTrue(filter.matchesBlackList(""));
-        assertTrue(filter.matchesBlackList("1"));
-        assertTrue(filter.matchesBlackList("1233343"));
-        assertTrue(filter.matchesBlackList("a"));
-        assertTrue(filter.matchesBlackList("b"));
-        assertTrue(filter.matchesBlackList("~~~"));
+        assertTrue(!filter.matchesBlackList(" "));
+        assertTrue(!filter.matchesBlackList(" "));
+        assertTrue(!filter.matchesBlackList(""));
+        assertTrue(!filter.matchesBlackList("1"));
+        assertTrue(!filter.matchesBlackList("1233343"));
+        assertTrue(!filter.matchesBlackList("a"));
+        assertTrue(!filter.matchesBlackList("b"));
+        assertTrue(!filter.matchesBlackList("~~~"));
 
         assertTrue(!filter.matchesBlackList("ab"));
         assertTrue(!filter.matchesBlackList("abc"));
