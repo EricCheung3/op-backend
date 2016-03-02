@@ -141,12 +141,12 @@ public class SimpleLinePredcitorTest {
 
     @Test
     public void isUnitPriceTest20(){
-        assertEquals(LineType.UnitPrice, pred.classify("  0.860 kg @$3.26/kg                          "));
+        assertEquals(LineType.WeightPrice, pred.classify("  0.860 kg @$3.26/kg                          "));
     }
 
     @Test
     public void isUnitPriceTest21(){
-        assertEquals(LineType.UnitPrice, pred.classify("  0.830 kg@ $1.72/kg                      "));
+        assertEquals(LineType.WeightPrice, pred.classify("  0.830 kg@ $1.72/kg                      "));
     }
 
     @Test
@@ -174,5 +174,34 @@ public class SimpleLinePredcitorTest {
         assertEquals(LineType.UnitPrice, pred.classify("      1 @ $1.99 ea  "));
     }
 
+    @Test
+    public void itemTest10(){
+        assertEquals(LineType.Item, pred.classify("      05870325083 CORD TRIM JUNGL GMRJ         4.00  "));
+    }
+
+    @Test
+    public void itemTest11(){
+        assertEquals(LineType.Item, pred.classify("   08978200269 GARDEN WAFER                     MRJ      2.56  "));
+    }
+
+    @Test
+    public void itemTest12(){
+        assertEquals(LineType.Item, pred.classify("   693491804007 RICE STICK                      HRJ      1.08  "));
+    }
+
+    @Test
+    public void itemTest13(){
+        assertEquals(LineType.Item, pred.classify("   06340004440    CNTRY HVST BRD                MRJ     2.98 "));
+    }
+
+    @Test
+    public void itemTest13ItsOkay(){
+        assertEquals(LineType.Item, pred.classify("  34-BAKERV COMMERCIAL "));
+    }
+
+    @Test
+    public void itemTest14(){
+        assertEquals(LineType.Item, pred.classify(" (2)9               PLASTIC BAGS              GRO     0.10"));
+    }
 
 }
