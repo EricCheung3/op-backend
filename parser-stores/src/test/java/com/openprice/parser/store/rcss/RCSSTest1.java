@@ -23,121 +23,121 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
-    @Value("classpath:/testFiles/rcss/abbyy/2015_11_11_calgarytrail.txt")
+    @Value("classpath:/testfiles/rcss/abbyy/2015_11_11_calgarytrail.txt")
     private Resource receipt_2015_11_11_calgarytrail;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2014_12_06_22_13_28.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2014_12_06_22_13_28.txt")
     private Resource receipt_2014_12_06_22_13_28;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_02_01_14_17_01.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_02_01_14_17_01.jpg.henryHuang.txt")
     private Resource receipt_2015_02_01_14_17_01;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_02_09_13_15_09.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_02_09_13_15_09.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_15_09;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_02_09_13_15_42.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_02_09_13_15_42.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_15_42;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_02_09_13_16_07.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_02_09_13_16_07.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_16_07;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_02_09_13_16_07.jpg.henryHuang_train.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_02_09_13_16_07.jpg.henryHuang_train.txt")
     private Resource receipt_2015_02_09_13_16_07_train;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_02_09_13_16_22.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_02_09_13_16_22.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_16_22;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_02_09_13_17_18.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_02_09_13_17_18.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_17_18;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_04_04_22_22_32.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_04_04_22_22_32.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_22_32;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_04_04_22_22_40.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_04_04_22_22_40.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_22_40;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_05_02_22_18_59.jpg.haipeng.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_05_02_22_18_59.jpg.haipeng.txt")
     private Resource receipt_2015_05_02_22_18_59;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_06_04_21_23_19.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_06_04_21_23_19.jpg.henryHuang.txt")
     private Resource receipt_2015_06_04_21_23_19;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_06_04_21_25_41.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_06_04_21_25_41.jpg.henryHuang.txt")
     private Resource receipt_2015_06_04_21_25_41;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_06_14_21_42_17.jpg.dana.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_06_14_21_42_17.jpg.dana.txt")
     private Resource receipt_2015_06_14_21_42_17;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_07_02_18_03_26.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_07_02_18_03_26.jpg.henryHuang.txt")
     private Resource receipt_2015_07_02_18_03_26;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_07_02_18_03_47.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_07_02_18_03_47.jpg.henryHuang.txt")
     private Resource receipt_2015_07_02_18_03_47;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_07_02_18_13_07.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_07_02_18_13_07.jpg.henryHuang.txt")
     private Resource receipt_2015_07_02_18_13_07;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_07_18_18_22_04.jpg.fuqian.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_07_18_18_22_04.jpg.fuqian.txt")
     private Resource receipt_2015_07_18_18_22_04;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_07_18_18_26_52.jpg.fuqian.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_07_18_18_26_52.jpg.fuqian.txt")
     private Resource receipt_2015_07_18_18_26_52;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_07_21_10_49_11.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_07_21_10_49_11.jpg.henryHuang.txt")
     private Resource receipt_2015_07_21_10_49_11;
 
-    @Value("classpath:/testFiles/rcss/calgarytrail/2015_07_21_10_50_33.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/calgarytrail/2015_07_21_10_50_33.jpg.henryHuang.txt")
     private Resource receipt_2015_07_21_10_50_33;
 
-    @Value("classpath:/testFiles/rcss/noisy/nullPointer1.txt")
+    @Value("classpath:/testfiles/rcss/noisy/nullPointer1.txt")
     private Resource receipt_nullPointer1;
 
-    @Value("classpath:/testFiles/rcss/noisy/rcssPhone1.txt")
+    @Value("classpath:/testfiles/rcss/noisy/rcssPhone1.txt")
     private Resource receipt_rcssPhone1;
 
-    @Value("classpath:/testFiles/rcss/southcommon/2015_02_09_13_15_25.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/southcommon/2015_02_09_13_15_25.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_15_25;
 
-    @Value("classpath:/testFiles/rcss/southcommon/2015_02_09_13_32_16.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/rcss/southcommon/2015_02_09_13_32_16.jpg.henryHuang.txt")
     private Resource receipt_2015_02_09_13_32_16;
 
-    @Value("classpath:/testFiles/rcss/southcommon/2015_04_04_21_25_02.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/rcss/southcommon/2015_04_04_21_25_02.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_25_02;
 
-    @Value("classpath:/testFiles/rcss/southcommon/2015_04_04_21_28_21.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/rcss/southcommon/2015_04_04_21_28_21.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_28_21;
 
-    @Value("classpath:/testFiles/rcss/southcommon/2015_04_04_21_34_12.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/rcss/southcommon/2015_04_04_21_34_12.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_34_12;
 
-    @Value("classpath:/testFiles/rcss/southcommon/2015_04_04_21_41_31.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/rcss/southcommon/2015_04_04_21_41_31.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_41_31;
 
-    @Value("classpath:/testFiles/rcss/southcommon/2015_04_04_21_44_23.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/rcss/southcommon/2015_04_04_21_44_23.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_44_23;
 
-    @Value("classpath:/testFiles/rcss/southcommon/2015_04_04_21_54_42.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/rcss/southcommon/2015_04_04_21_54_42.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_54_42;
 
-    @Value("classpath:/testFiles/rcss/southcommon/2015_04_04_21_54_58.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/rcss/southcommon/2015_04_04_21_54_58.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_54_58;
 
-    @Value("classpath:/testFiles/rcss/southcommon/2015_04_04_21_55_47.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/rcss/southcommon/2015_04_04_21_55_47.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_55_47;
 
-    @Value("classpath:/testFiles/rcss/southcommon/2015_04_04_21_59_17.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/rcss/southcommon/2015_04_04_21_59_17.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_59_17;
 
-    @Value("classpath:/testFiles/rcss/southcommon/2015_04_04_22_03_18.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/rcss/southcommon/2015_04_04_22_03_18.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_03_18;
 
-    @Value("classpath:/testFiles/rcss/southcommon/2015_04_04_22_03_26.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/rcss/southcommon/2015_04_04_22_03_26.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_03_26;
 
-    @Value("classpath:/testFiles/rcss/southcommon/2015_07_21_15_19_03.jpg.beata.txt")
+    @Value("classpath:/testfiles/rcss/southcommon/2015_07_21_15_19_03.jpg.beata.txt")
     private Resource receipt_2015_07_21_15_19_03;
 
-    @Value("classpath:/testFiles/rcss/phone/hengshuaiMarch2.txt")
+    @Value("classpath:/testfiles/rcss/phone/hengshuaiMarch2.txt")
     private Resource receipt_hengshuaiMarch2;
 
     @Test
