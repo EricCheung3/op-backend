@@ -9,7 +9,7 @@ import com.openprice.parser.api.CatalogFilter;
 public class CatalogFilterTest {
 
     @Test
-    public void notCatalogItemNameTest1() throws Exception{
+    public void shortNameIsOkayTest1() throws Exception{
         final CatalogFilter filter=CatalogFilterImpl.emptyFilter();
         assertTrue(!filter.matchesBlackList(" "));
         assertTrue(!filter.matchesBlackList(" "));
