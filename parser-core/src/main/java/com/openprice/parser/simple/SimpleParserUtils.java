@@ -86,20 +86,26 @@ public class SimpleParserUtils {
                 }
             }
 
-            //find the next good price
+            //find the delayed price at a later line that is not a good item
             int increment = i+1;
-            ParsedItem next = rawItems.get(increment);
-            while(next != null && !isGoodItem(next, config) && increment < rawItems.size()-1 ){
-                increment ++;
+            ParsedItem next = null;
+            for(; increment < rawItems.size(); increment ++ ){
                 next = rawItems.get(increment);
+                if(next != null && isGoodItem(next, config))//stop at the first good item or end of list
+                    break;
             }
-            if(increment >= 1){
-                next = rawItems.get(increment-1);//roll back to the previous un-good item
-                if(!next.equals(item))
-                    log.debug("found delayed good price at line "+next.getParsedName());
-                else
-                    log.debug("No next good item is. No adjusting. ");
-            }
+//            ParsedItem next = rawItems.get(increment);
+//            while(next != null && !isGoodItem(next, config) && increment <= rawItems.size()-1 ){
+//                next = rawItems.get(increment);
+//                log.debug("--increment = "+ increment);
+//                log.debug("--line = "+ next.getParsedName());
+//                increment ++;
+//            }
+            next = rawItems.get(increment-1);//roll back to the previous un-good item
+            if(next.equals(item))
+                log.debug("No next good item is. No adjusting. ");
+            else
+                log.debug("found delayed good price at line "+next.getParsedName());
 
             log.debug("item price is empty, next.getParsedBuyPrice()="+next.getParsedBuyPrice());
             if(next.getParsedBuyPrice() != null && !next.getParsedBuyPrice().isEmpty()){
