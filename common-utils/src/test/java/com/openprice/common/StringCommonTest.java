@@ -13,9 +13,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StringCommonTest {
 
+    @Test
+    public void formatPriceDashReplacedByComma(){
+        assertEquals("21.69", StringCommon.formatPrice(
+                "TOTAL                        21 - 69                                           l:   "));
+    }
 
     @Test
-    public void formatPriceTest1(){
+    public void formatPriceCommaReplacedByDot(){
         assertEquals("0.67", StringCommon.formatPrice("0,67"));
     }
 

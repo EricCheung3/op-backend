@@ -176,7 +176,7 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals(5,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "banana    mftj",  "1.60", null, 0);
         verifyParsedItem(iterator.next(), "fdasfda    mftj",  "1.60", null, 2);
-        verifyParsedItem(iterator.next(), "onion gren    mrj",  "0.67", null, 4);//TODO price formatter
+        verifyParsedItem(iterator.next(), "onion gren    mrj",  "0.67", null, 4);
         verifyParsedItem(iterator.next(), "onion gren    mrj",  "0.67", null, 5);
         verifyParsedItem(iterator.next(), "ducks fr7n    mrj",  "15.23", null, 7);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);

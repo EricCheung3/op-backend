@@ -673,19 +673,19 @@ public class StringCommon {
                 priceStr=priceStr.substring(numHeadDots-1).trim();//keep the last one
             }
         }
-//         log.debug("str1:"+priceStr);
+        log.debug("str1:"+priceStr);
 
         //if price is like "38 99" "3 99", then likely it is "38.99" "3.99"
         if(!priceStr.contains("."))
-            priceStr=priceStr.replaceAll("['%,]", ".");
+            priceStr=priceStr.replaceAll("['%,-]", ".");
 
         //if(priceStr.length()==4 || priceStr.length()==5){
-        if(!priceStr.contains(".")&& priceStr.contains(" "))
+        if(!priceStr.contains(".") && priceStr.contains(" "))
         {
             priceStr=priceStr.replaceAll("\\s+", ".");
         }
         //}
-//         log.debug("str2:"+priceStr);
+         log.debug("str2:"+priceStr);
 
         //remove spaces
         priceStr=priceStr.replaceAll("\\s+", "");
@@ -724,7 +724,7 @@ public class StringCommon {
                 }
             }
         }
-//         log.debug("str3:"+priceStr);
+         log.debug("str3:"+priceStr);
         // System.exit(1);
 
         priceStr=priceStr.replaceAll("[_]", ".");
