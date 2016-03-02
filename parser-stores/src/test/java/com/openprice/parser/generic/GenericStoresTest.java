@@ -208,8 +208,8 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
 
         assertEquals(4,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "banana    mftj",  "1.60", null, 0);
-        verifyParsedItem(iterator.next(), "onion gren    mrj",  "067", null, 3);
-        verifyParsedItem(iterator.next(), "onion gren    mrj",  "067", null, 4);
+        verifyParsedItem(iterator.next(), "onion gren    mrj",  "0.67", null, 3);
+        verifyParsedItem(iterator.next(), "onion gren    mrj",  "0.67", null, 4);
         verifyParsedItem(iterator.next(), "ducks fr7n    mrj",  "15.23", null, 6);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
 

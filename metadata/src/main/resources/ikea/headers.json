@@ -13,7 +13,7 @@
   "GstAmountHeader" : "GST                5.00 %,G=GST 5% ",
   "ThankYouHeader" : "Thank You, Come Again !",
   "PhoneHeader" : "Phone#",
-  "TotalHeader" : "Total sales, TOTAL",
+  "TotalHeader" : "Total to pay,Total sales,TOTAL",
   "CardHeader" : "Member card number:",
   "CouponHeader" : "Store Cpn,VENDOR COUPON",
   "GstNumberHeader" : "GST #",

@@ -38,7 +38,7 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedItem(iterator.next(), "organic 2% milk", "8.98", "organic 2% milk_06870030942", 13);
         verifyParsedItem(iterator.next(), "rooster garlic", "0.68", "rooster garlic_06038388591", 17);
         verifyParsedItem(iterator.next(), "banana    mftj", "1.60", "banana_4011", 18);
-        verifyParsedItem(iterator.next(), "onion green", "067", "onion green_4068", 20);
+        verifyParsedItem(iterator.next(), "onion green", "0.67", "onion green_4068", 20);
         verifyParsedItem(iterator.next(), "ducks fr7n    mrj", "15.23", null, 22);
         verifyParsedItem(iterator.next(), "ducks frzh    mrj", "16.81", null, 23);
         verifyParsedItem(iterator.next(), "hairtail", "7.36", "hairtail_77016160104", 25);

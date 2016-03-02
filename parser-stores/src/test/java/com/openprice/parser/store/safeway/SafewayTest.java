@@ -138,7 +138,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 22);
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 26);
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.0", "lucerne milk 2% 2l", 30);
-        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "349.", "lucerne milk 2% 2l", 33);
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 33);
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 36);
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 39);
         verifyParsedItem(iterator.next(), "bread a rti san french",  "1.29", "bread a rti san french", 46);
@@ -175,7 +175,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 22);
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 26);
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.0", "lucerne milk 2% 2l", 30);
-        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "349.", "lucerne milk 2% 2l", 33);
+        verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 33);
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 36);
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 39);
         verifyParsedItem(iterator.next(), "bread a rti san french",  "1.29", "bread a rti san french", 46);
