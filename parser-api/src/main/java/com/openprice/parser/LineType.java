@@ -9,5 +9,6 @@ public enum LineType {
     Address,
     Noise,
     UnitPrice,
+    WeightPrice,
     Unpredictable
 }
