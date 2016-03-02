@@ -63,8 +63,8 @@ public class SimpleParserUtils {
         final List<ParsedItem> adjusted = getPriceFromNextLines(itemsWithMultilineUnAdjusted, parser.getStoreConfig());
         return adjusted.stream()
                 .filter(item-> {
-//                            if(! isGoodItem(item, parser.getStoreConfig()))
-//                                log.debug("item "+ item.getParsedName()+" is considered no good.");
+                            if(! isGoodItem(item, parser.getStoreConfig()))
+                                log.debug("item "+ item.getParsedName()+" is considered Not good.");
                             return isGoodItem(item, parser.getStoreConfig());
             })
             .collect(Collectors.toList());
@@ -123,10 +123,14 @@ public class SimpleParserUtils {
                         item.getCatalogCode(),
                         item.getLineNumber());
                 newItems.add(newItem);
+            }else{
+                //no meaningful delayed price found
+                newItems.add(item);
             }
         }
         //add the last item without any adjusting
-        newItems.add(rawItems.get(rawItems.size()-1));
+        if(rawItems.size() > 0)
+            newItems.add(rawItems.get(rawItems.size()-1));
         log.debug("newItems.size="+newItems.size());
         return newItems;
     }
