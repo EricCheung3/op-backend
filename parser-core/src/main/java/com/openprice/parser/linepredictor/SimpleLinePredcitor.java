@@ -3,6 +3,7 @@ package com.openprice.parser.linepredictor;
 import com.openprice.parser.LineType;
 import com.openprice.parser.api.LinePredictor;
 import com.openprice.parser.api.StoreConfig;
+import com.openprice.parser.linefeatures.StatisticalFeatures;
 import com.openprice.parser.price.PriceParserConstant;
 
 public class SimpleLinePredcitor implements LinePredictor{
@@ -25,7 +26,7 @@ public class SimpleLinePredcitor implements LinePredictor{
 //
 
 
-        final LineFeatures features =  featureGen.getFeatures(str);
+        final StatisticalFeatures features =  featureGen.getFeatures(str);
         if(features.getNumberOfChars() > PriceParserConstant.MIN_ITEM_NAME_LETTERS
               && features.getCharsToCharsAndLetters() >= PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT)
             return LineType.Item;

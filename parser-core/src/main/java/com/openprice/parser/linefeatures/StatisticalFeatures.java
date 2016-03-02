@@ -1,9 +1,9 @@
-package com.openprice.parser.linepredictor;
+package com.openprice.parser.linefeatures;
 
 import lombok.Value;
 
 @Value
-public class LineFeatures {
+public class StatisticalFeatures implements Features{
 
     String str;
     int numberOfChars;
@@ -13,7 +13,7 @@ public class LineFeatures {
     int numberOfWideSpaces;
     double charsToCharsAndLetters;//ratio
 
-    public static LineFeatures fromCharsDigitsNonLengthWideRatio(
+    public static StatisticalFeatures fromCharsDigitsNonLengthWideRatio(
             String str,
             final int chars,
             final int digits,
@@ -21,7 +21,7 @@ public class LineFeatures {
             final int length,
             final int wideSpaces,
             final double charsToCharsAndLetters){
-        return new LineFeatures(
+        return new StatisticalFeatures(
                 str,
                 chars,
                 digits,
@@ -29,5 +29,10 @@ public class LineFeatures {
                 length,
                 wideSpaces,
                 charsToCharsAndLetters);
+    }
+
+    @Override
+    public int size() {
+        return 6;
     }
 }
