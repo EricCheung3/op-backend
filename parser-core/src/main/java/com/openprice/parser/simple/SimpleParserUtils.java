@@ -1,5 +1,6 @@
 package com.openprice.parser.simple;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,13 +61,20 @@ public class SimpleParserUtils {
         log.debug("before adjusting multiline: items are");
         itemsWithMultilineUnAdjusted.forEach(item-> System.out.println(item.getParsedName()+": "+ item.getParsedBuyPrice()));
         final List<ParsedItem> adjusted = getPriceFromNextLines(itemsWithMultilineUnAdjusted, parser.getStoreConfig());
-        return adjusted.stream().filter(item-> isGoodItem(item, parser.getStoreConfig())).collect(Collectors.toList());
+        return adjusted.stream()
+                .filter(item-> {
+//                            if(! isGoodItem(item, parser.getStoreConfig()))
+//                                log.debug("item "+ item.getParsedName()+" is considered no good.");
+                            return isGoodItem(item, parser.getStoreConfig());
+            })
+            .collect(Collectors.toList());
+
     }
 
     public static boolean isGoodItem(final ParsedItem item, final StoreConfig config){
         return PriceParserFromStringTuple.isItemName(item.getParsedName()) &&
                 !(item.getParsedName().contains("kg") && item.getParsedName().contains("@")) &&
-                StringCommon.countChars(item.getParsedName()) > PriceParserConstant.MIN_ITEM_NAME_LETTERS &&
+                StringCommon.countChars(item.getParsedName()) >= PriceParserConstant.MIN_ITEM_NAME_LETTERS &&
                 !config.matchesBlackList(item.getParsedName());
     }
 
@@ -76,12 +84,15 @@ public class SimpleParserUtils {
      * @return
      */
     public static List<ParsedItem> getPriceFromNextLines(final List<ParsedItem> rawItems, final StoreConfig config){
+        final List<ParsedItem> newItems = new ArrayList<ParsedItem>();
         for(int i=0; i<rawItems.size() -1; i++){
             final ParsedItem item = rawItems.get(i);
-            log.debug("item="+item.getParsedName()+ ", price="+ item.getParsedBuyPrice());
+            log.debug("i = "+ i+ "," + "item="+item.getParsedName()+ ", price="+ item.getParsedBuyPrice());
             if(item.getParsedBuyPrice() != null){
                 final int[] digitsLetters = StringCommon.countDigitAndChars(item.getParsedBuyPrice());
                 if(!item.getParsedBuyPrice().isEmpty() && digitsLetters[0] > 0){
+//                    log.debug("digitsLetters[0]= " +digitsLetters[0] + "item is good. no need to adjust. just add. ");
+                    newItems.add(item);
                     continue;
                 }
             }
@@ -118,10 +129,10 @@ public class SimpleParserUtils {
                         next.getParsedBuyPrice(),
                         item.getCatalogCode(),
                         item.getLineNumber());
-                rawItems.set(i, newItem);
+                newItems.add(newItem);
             }
-
         }
-        return rawItems;
+        log.debug("newItems.size="+newItems.size());
+        return newItems;
     }
 }
