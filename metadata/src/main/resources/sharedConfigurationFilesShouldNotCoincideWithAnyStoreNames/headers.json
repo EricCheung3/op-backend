@@ -6,7 +6,7 @@
   "TotalSoldHeader" : "",
   "RecycleHeader" : "",
   "DepositHeader" : "",
-  "GstHeader" : "GST,**** 5.0% GST,5% GST,TOTAL TAX,**** TAX,G=GST 5%",
+  "GstHeader" : "GST,**** 5.0% GST,5% GST,TOTAL TAX,**** TAX,G=GST 5%,Sales tax 5.00%",
   "RegularPriceHeader" : "",
   "SavingHeader" : "",
   "ApprovedHeader" : "",

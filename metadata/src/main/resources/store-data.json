@@ -4,6 +4,16 @@
   "identity" : "A&W",
   "category" : "Restaurant"
 }, {
+  "code" : "canadapost",
+  "name" : "Canada-Post",
+  "identity" : "Canada-Post",
+  "category" : "Mail"
+}, {
+  "code" : "sephora",
+  "name" : "Sephora",
+  "identity" : "Sephora",
+  "category" : "Cosmetic,Beauty"
+}, {
   "code" : "albertahealthservices",
   "name" : "Alberta Health Services",
   "identity" : "Alberta Health Services",

@@ -23,16 +23,16 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class WinnersTest extends AbstractReceiptParserIntegrationTest {
-    @Value("classpath:/testFiles/winners/2015_02_09_15_27_18.jpg.random.txt")
+    @Value("classpath:/testfiles/winners/2015_02_09_15_27_18.jpg.random.txt")
     private Resource receipt_2015_02_09_15_27_18;
 
-    @Value("classpath:/testFiles/winners/2015_02_09_16_51_42.jpg.random.txt")
+    @Value("classpath:/testfiles/winners/2015_02_09_16_51_42.jpg.random.txt")
     private Resource receipt_2015_02_09_16_51_42;
 
-    @Value("classpath:/testFiles/winners/yuanMarch2.txt")
+    @Value("classpath:/testfiles/winners/yuanMarch2.txt")
     private Resource receipt_yuanMarch2;
 
-    @Value("classpath:/testFiles/winners/yuanMarch2_nowinners.txt")
+    @Value("classpath:/testfiles/winners/yuanMarch2_nowinners.txt")
     private Resource receipt_yuanMarch2_nowinners;
 
     @Test

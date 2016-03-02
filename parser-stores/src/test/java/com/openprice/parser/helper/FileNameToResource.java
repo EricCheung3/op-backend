@@ -21,7 +21,7 @@ public class FileNameToResource {
 
     public static void main(String[] args) throws Exception{
         final String chainTestRoot = "winners";
-        final String testFileRoot = "/testFiles/"+chainTestRoot;
+        final String testFileRoot = "/testfiles/"+chainTestRoot;
 
         final List<String> fileNames = getAllFileNames(testFileRoot);
         final List<String> all = getAllResources(fileNames);

@@ -27,67 +27,67 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class Test1 extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/canadiantire/2015_02_14_09_59_40.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_02_14_09_59_40.jpg.hengshuai.txt")
     private Resource receipt_2015_02_14_09_59_40;
 
-    @Value("classpath:/testFiles/canadiantire/2015_02_14_09_59_51.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_02_14_09_59_51.jpg.hengshuai.txt")
     private Resource receipt_2015_02_14_09_59_51;
 
-    @Value("classpath:/testFiles/canadiantire/2015_02_14_10_00_00.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_02_14_10_00_00.jpg.hengshuai.txt")
     private Resource receipt_2015_02_14_10_00_00;
 
-    @Value("classpath:/testFiles/canadiantire/2015_04_04_21_37_11.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_04_04_21_37_11.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_37_11;
 
-    @Value("classpath:/testFiles/canadiantire/2015_04_04_21_47_19.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_04_04_21_47_19.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_47_19;
 
-    @Value("classpath:/testFiles/canadiantire/2015_04_04_21_52_10.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_04_04_21_52_10.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_52_10;
 
-    @Value("classpath:/testFiles/canadiantire/2015_04_04_21_52_17.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_04_04_21_52_17.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_52_17;
 
-    @Value("classpath:/testFiles/canadiantire/2015_04_04_21_52_24.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_04_04_21_52_24.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_52_24;
 
-    @Value("classpath:/testFiles/canadiantire/2015_04_04_21_52_31.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_04_04_21_52_31.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_52_31;
 
-    @Value("classpath:/testFiles/canadiantire/2015_04_04_21_52_39.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_04_04_21_52_39.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_21_52_39;
 
-    @Value("classpath:/testFiles/canadiantire/2015_04_04_22_11_08.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_04_04_22_11_08.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_11_08;
 
-    @Value("classpath:/testFiles/canadiantire/2015_04_04_22_17_07.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_04_04_22_17_07.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_17_07;
 
-    @Value("classpath:/testFiles/canadiantire/2015_04_04_22_22_48.jpg.jingwang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_04_04_22_22_48.jpg.jingwang.txt")
     private Resource receipt_2015_04_04_22_22_48;
 
-    @Value("classpath:/testFiles/canadiantire/2015_05_02_21_56_51.jpg.momingzhen159.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_05_02_21_56_51.jpg.momingzhen159.txt")
     private Resource receipt_2015_05_02_21_56_51;
 
-    @Value("classpath:/testFiles/canadiantire/2015_07_02_18_13_23.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_07_02_18_13_23.jpg.henryHuang.txt")
     private Resource receipt_2015_07_02_18_13_23;
 
-    @Value("classpath:/testFiles/canadiantire/2015_07_02_18_14_49.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_07_02_18_14_49.jpg.henryHuang.txt")
     private Resource receipt_2015_07_02_18_14_49;
 
-    @Value("classpath:/testFiles/canadiantire/2015_07_03_15_23_05.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_07_03_15_23_05.jpg.hengshuai.txt")
     private Resource receipt_2015_07_03_15_23_05;
 
-    @Value("classpath:/testFiles/canadiantire/2015_07_03_15_35_46.jpg.hengshuai.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_07_03_15_35_46.jpg.hengshuai.txt")
     private Resource receipt_2015_07_03_15_35_46;
 
-    @Value("classpath:/testFiles/canadiantire/2015_07_21_10_49_03.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_07_21_10_49_03.jpg.henryHuang.txt")
     private Resource receipt_2015_07_21_10_49_03;
 
-    @Value("classpath:/testFiles/canadiantire/2015_07_21_10_56_27.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_07_21_10_56_27.jpg.henryHuang.txt")
     private Resource receipt_2015_07_21_10_56_27;
 
-    @Value("classpath:/testFiles/canadiantire/2015_07_21_10_57_34.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_07_21_10_57_34.jpg.henryHuang.txt")
     private Resource receipt_2015_07_21_10_57_34;
 
     @Test
