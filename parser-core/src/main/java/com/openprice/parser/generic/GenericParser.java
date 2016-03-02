@@ -45,7 +45,8 @@ public class GenericParser extends AbstractStoreParser{
         log.debug("metadata="+metadata);
         log.debug("metadata.getStoreChainMap().size() = "+metadata.getStoreChainMap().size());
         log.debug("genericCode="+genericCode);
-        System.out.println("metadata.getStoreChainByCode(genericCode)="+metadata.getStoreChainByCode(genericCode).toString());
+        if(genericCode != null)
+            System.out.println("metadata.getStoreChainByCode(genericCode)="+metadata.getStoreChainByCode(genericCode).toString());
 
         //generate black list file first from the chain folder if there is; otherwise use a default one
         try{

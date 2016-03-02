@@ -255,7 +255,7 @@ public class PriceParserFromStringTuple implements PriceParser {
             return false;
         final double score=(double)counts[1]/(counts[0]+counts[1]);
         //        log.debug("score="+score);
-        return score>=PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT;
+        return score >= PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT;
     }
 
 

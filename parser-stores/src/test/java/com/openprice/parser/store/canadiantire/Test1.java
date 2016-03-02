@@ -164,7 +164,18 @@ public class Test1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("canadiantire", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        assertEquals(5,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "set, titn 230pc $",  "64.99", null, 8);
+        verifyParsedItem(iterator.next(), "met sl fl ms m6 $",  "1.50", null, 11);
+        verifyParsedItem(iterator.next(), "m/s ph-ph ss 8- $",  "1.00", null, 13);
+        verifyParsedItem(iterator.next(), "s/m ph- sd ss 14 $",  "1.50", null, 15);
+        verifyParsedItem(iterator.next(), "ss lag 1/4x2    $",  "1.80", null, 17);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst. reg #139888598",64);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "card expires : 2 august",24);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "70.79",18);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/8/1",6);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "74.33",21);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store hours 8ah- 10ph monday to satur day",62);
     }
 
     @Test
@@ -177,7 +188,16 @@ public class Test1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("canadiantire", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        assertEquals(1,receipt.getItems().size());
+//        verifyParsedItem(iterator.next(), "south park cen    tre", null, null, 2);
+        verifyParsedItem(iterator.next(), "1x073-4880- 6 ccm floor pump    $",  "8.99", null, 8);
+//        verifyParsedItem(iterator.next(), "reg: s",  "17.0", null, 9);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "8.99",12);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store hours 8ah- 10ph hondah to saturdah",56);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "card expires: 11 september 2014",18);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "9.44",15);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/9/6",5);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst . reg #139888598",58);
     }
 
     @Test
@@ -190,7 +210,14 @@ public class Test1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("canadiantire", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        assertEquals(1,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "- 1x073-1880- 6 ccm floor pump    $",  "8.99", null, 10);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst . reg #139888598",49);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "9.44",14);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store hours 8ah- 10ph honda~ to satur da~",47);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "8.99",11);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/9/6",6);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "card expires: 7 september 2015",19);
     }
 
     @Test
@@ -203,7 +230,13 @@ public class Test1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("canadiantire", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        assertEquals(1,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "ccm floor pump",  "8.99", null, 9);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "9.44",15);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "st ore hours 8am- 1()jm monday to saturday",58);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "8.99",12);
+        verifyParsedField(fieldValues, ReceiptFieldType.Ref, "refund card balance :          $ 84.59",17);//TODO wrong match
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/8/1",6);
     }
 
     @Test
@@ -216,7 +249,16 @@ public class Test1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("canadiantire", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        assertEquals(1,receipt.getItems().size());
+//        verifyParsedItem(iterator.next(), "orig trn", null, null, 8);
+        verifyParsedItem(iterator.next(), "-1x046- 2652- 8 grpst.bro.eth.j    $",  "89.93", null, 11);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst . reg 1139888598",52);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "94.43",16);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store hours 8ah- 10ph honda~ to saturda~",50);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "89.93",13);
+        verifyParsedField(fieldValues, ReceiptFieldType.Ref, "refund card issu ed               $       94.03",19);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/8/1",6);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "card expires : 2 august 2015",21);
     }
 
     @Test
@@ -229,7 +271,16 @@ public class Test1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("canadiantire", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        assertEquals(1,receipt.getItems().size());
+//        verifyParsedItem(iterator.next(), "orig trn", null, null, 8);
+        verifyParsedItem(iterator.next(), "- 1x088- 0888- 0 offset umb. sut    $",  "159.99", null, 10);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "167.99",14);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "159.99",11);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst . reg #139888598",57);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "authorization # : 328518",21);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/8/1",19);
+        verifyParsedField(fieldValues, ReceiptFieldType.Ref, "ref # : 66026'130 0010010011 c",20);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store hours 8ah-10ph honda~ to saturda~",55);
     }
 
     @Test
@@ -242,7 +293,16 @@ public class Test1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("canadiantire", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        assertEquals(2,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "- 1x046- 2652-8 grpst ,bro, eth,j    $",  "89.93", null, 10);
+        verifyParsedItem(iterator.next(), "- 1x016- 2617-1 lvrst, br lgn e    $",  "35.93", null, 11);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "authorization #: 3'11771",23);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "132.15",16);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "125.86",13);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst . reg #139888598",61);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "st ore hours 8rh 10pm monday to saturday",59);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/8/1",21);
+        verifyParsedField(fieldValues, ReceiptFieldType.Ref, "ref #: 66026430 0010010011 c",22);
     }
 
     @Test
@@ -255,7 +315,16 @@ public class Test1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("canadiantire", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        assertEquals(1,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "med duty corn b",  "7.79", null, 8);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst . reg    #13~8885~8",56);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "8.18",14);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store hours 8ah- 10ph hondaw to saturda~",54);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "7.79",11);
+        verifyParsedField(fieldValues, ReceiptFieldType.Ref, "refund card balance : $   2.38",17);
+        verifyParsedField(fieldValues, ReceiptFieldType.Saving, "(saved $   6.20)",9);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/8/1",6);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "card expires: 2 augus",18);
     }
 
     @Test
@@ -268,7 +337,22 @@ public class Test1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("canadiantire", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        assertEquals(7,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "brkly fusion sp $",  "49.99", null, 8);
+        verifyParsedItem(iterator.next(), "liteup twilites $",  "20.93", null, 9);
+        verifyParsedItem(iterator.next(), "pwrbait,nat wor $",  "5.49", null, 11);
+        verifyParsedItem(iterator.next(), "rig jackfish    $",  "23.03", null, 13);
+        verifyParsedItem(iterator.next(), "ldr wire 30lb 1 $",  "11.96", null, 15);
+        verifyParsedItem(iterator.next(), "snkr bass 3/40z $",  "3.98", null, 17);
+        verifyParsedItem(iterator.next(), "curlytail 2\"pmk $",  "4.49", null, 18);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "authorization # : 016752",31);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "125.86",22);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "119.87",19);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst .reg #139122352",74);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store hours 8rh- 10ph monday to saturda~",72);
+        verifyParsedField(fieldValues, ReceiptFieldType.Saving, "<saved $ 9.06}",10);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/4/4",27);
+//        verifyParsedField(fieldValues, ReceiptFieldType.Ref, "ref # : 66026130 0010010011 c     .-m    15",29);
     }
 
     @Test
@@ -281,7 +365,16 @@ public class Test1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("canadiantire", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        assertEquals(2,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "charcoal,lump    $",  "19.98", null, 10);
+        verifyParsedItem(iterator.next(), "starter fluid",  "3.29", null, 11);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "24.43",16);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "23.27",13);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst.reg #139122352",65);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "authorization 1: 0:23126",23);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/4/4",21);
+        verifyParsedField(fieldValues, ReceiptFieldType.Ref, "ref 1: 66026430 0010010011 c",22);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "s tore hours 8am- l(fm monday to saturday",63);
     }
 
     @Test
@@ -294,6 +387,15 @@ public class Test1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("canadiantire", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(1,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "black super spr s",  "12.99", null, 6);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "authorization 1: 05091b",18);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst.reg 1139122352",54);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "24.13",11);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store hours 8ah-10ph honda~ to saturda~",52);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "22.98",8);
+        verifyParsedField(fieldValues, ReceiptFieldType.Ref, "ref 1 : 66026430 0010010011 c",17);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/5/1",4);
 
     }
 
