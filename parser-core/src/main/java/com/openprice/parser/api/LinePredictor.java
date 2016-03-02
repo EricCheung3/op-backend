@@ -7,6 +7,7 @@ import com.openprice.parser.LineType;
  */
 public interface LinePredictor {
 
+    //classify a line with a store config
     LineType classify(String str, StoreConfig config);
 
     LineType classify(String str);
