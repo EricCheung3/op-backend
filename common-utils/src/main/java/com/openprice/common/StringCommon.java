@@ -676,8 +676,8 @@ public class StringCommon {
 //         log.debug("str1:"+priceStr);
 
         //if price is like "38 99" "3 99", then likely it is "38.99" "3.99"
-        if(priceStr.indexOf(".") < 0)
-            priceStr=priceStr.replaceAll("['%]", ".");
+        if(!priceStr.contains("."))
+            priceStr=priceStr.replaceAll("['%,]", ".");
 
         //if(priceStr.length()==4 || priceStr.length()==5){
         if(!priceStr.contains(".")&& priceStr.contains(" "))
