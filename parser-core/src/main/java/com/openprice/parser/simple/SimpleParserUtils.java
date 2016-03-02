@@ -110,8 +110,11 @@ public class SimpleParserUtils {
             log.debug("item price is empty, next.getParsedBuyPrice()="+next.getParsedBuyPrice());
             if(next.getParsedBuyPrice() != null && !next.getParsedBuyPrice().isEmpty()){
                 System.out.println("adjusting!");
+                final String name = item.getParsedBuyPrice() == null ?
+                        item.getParsedName() :
+                        item.getParsedName() + StringCommon.WIDE_SPACES + item.getParsedBuyPrice();//the getParsedBuyPrice could be part of name
                 ParsedItem newItem = ParsedItemImpl.fromNamePriceCodeLine(
-                        item.getParsedName() + StringCommon.WIDE_SPACES+ item.getParsedBuyPrice(),
+                        name,
                         next.getParsedBuyPrice(),
                         item.getCatalogCode(),
                         item.getLineNumber());
