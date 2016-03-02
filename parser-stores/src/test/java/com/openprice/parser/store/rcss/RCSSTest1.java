@@ -940,9 +940,16 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("tandt", receipt.getChainCode());//TODO ML to detect layout
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        //TODO Why no items?
+        assertEquals(0,receipt.getItems().size());
+//        verifyParsedField(fieldValues, ReceiptFieldType.Recycle, "ecdluby fee 0.08",12);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "",27);
+        verifyParsedField(fieldValues, ReceiptFieldType.Deposit, " deposit 1 0.25",13);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "cardkz *$k*****#$***",5);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
     }
 
+    //TODO why no items?
     @Test
     public void receipt_rcssPhone1()  throws Exception {
         final List<String> receiptLines = new ArrayList<>();
@@ -966,7 +973,33 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rcss", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        assertEquals(13,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "rooster rice",  "25.78", "rooster rice_05719777953", 5);
+        verifyParsedItem(iterator.next(), "van bircrm mx",  "3.50", "van bircrm mx", 7);
+        verifyParsedItem(iterator.next(), "cm dis prncs cnd",  "2.99", "cm dis prncs cnd", 8);
+        verifyParsedItem(iterator.next(), "cm scribblers ha",  "4.49", "cm scribblers ha", 9);
+        verifyParsedItem(iterator.next(), "dh fc starter",  "2.79", "dh fc starter", 10);
+        verifyParsedItem(iterator.next(), "after bite kids",  "4.99", "after bite kids", 12);
+        verifyParsedItem(iterator.next(), "c&c astringent",  "6.49", "c&c astringent", 14);
+        verifyParsedItem(iterator.next(), "acne wash",  "8.49", "acne wash", 15);
+        verifyParsedItem(iterator.next(), "st ives vanilla",  "2.98", "st ives vanilla", 16);
+        verifyParsedItem(iterator.next(), "shower creme sof",  "3.93", "shower creme sof", 17);
+        verifyParsedItem(iterator.next(), "wlin cpck dcrtng",  "5.04", "wlin cpck dcrtng", 19);
+        verifyParsedItem(iterator.next(), "hp jar scraper",  "5.00", "hp jar scraper", 20);
+        verifyParsedItem(iterator.next(), "measure cup    gmrj",  "4.29", null, 21);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "82.97",25);
+        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "big on fresh, low on price",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "9711 23 ave nw",29);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store : 01549",71);
+        verifyParsedField(fieldValues, ReceiptFieldType.Chain, "superstore",28);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "ref #          auth #      resp 001",37);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "80.76",23);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "pproved",43);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-490-3918",2);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "card # ~~~~~~~~~~~8017       exp ~~~~~",35);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/8/16",61);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "12223-5922 rt0001",54);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "2.21",24);
     }
 
     @Test
@@ -979,6 +1012,22 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rcss", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(2,receipt.getItems().size());
+        //TODO negative price
+        verifyParsedItem(iterator.next(), "van btrcrm mx",  "3.50", "van btrcrm mx_r06563345804", 6);
+        verifyParsedItem(iterator.next(), "van btrcrm mx",  "3.50", "van btrcrm mx_r06563345804", 7);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "7.00",9);
+        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "big on fresh, lou on price",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "9711 23 ave nw",13);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store : 01549",48);
+        verifyParsedField(fieldValues, ReceiptFieldType.Chain, "superstore",12);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "ref #            auth#       resp 000",21);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "7.00",8);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "approueo",27);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-490-3918",2);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "**************************************",50);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/8/16",39);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "12223-5922 rt0001",32);
 
     }
 
@@ -992,7 +1041,39 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rcss", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        assertEquals(19,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "pep red swt 4ct",  "2.96", "pep red swt 4ct_03338370119", 6);
+        verifyParsedItem(iterator.next(), "pep grn swt 4ct",  "2.96", "pep grn swt 4ct_03338370178", 7);
+        verifyParsedItem(iterator.next(), "eggplant",  "3.37", "eggplant_4081", 8);
+        verifyParsedItem(iterator.next(), "potato white",  "3.98", "potato white_4083", 10);
+        verifyParsedItem(iterator.next(), "chinese cabbage    hrj",  "2.06", null, 12);
+        verifyParsedItem(iterator.next(), "don qua",  "3.08", "don qua_668", 14);
+        verifyParsedItem(iterator.next(), "pork loin ccut",  "7.56", "pork loin ccut_2114990", 17);
+        verifyParsedItem(iterator.next(), "pork loin chop",  "9.33", "pork loin chop_2180330", 18);
+        verifyParsedItem(iterator.next(), "sr xfirm tofu",  "3.98", "sr xfirm tofu_05786400008", 20);
+        verifyParsedItem(iterator.next(), "fresh tofu",  "1.79", "fresh tofu_05786400009", 22);
+        verifyParsedItem(iterator.next(), "toothpicks",  "1.79", "toothpicks_62565980312", 24);
+        verifyParsedItem(iterator.next(), "leathr vst",  "8.94", "leathr vst_06366414260", 26);
+        verifyParsedItem(iterator.next(), "opp jean",  "3.94", "opp jean_06366415825", 27);
+        verifyParsedItem(iterator.next(), "opp jean",  "3.94", "opp jean_06366415825", 28);
+        verifyParsedItem(iterator.next(), "opp jean",  "3.94", "opp jean_06366415825", 29);
+        verifyParsedItem(iterator.next(), "opp jean",  "3.94", "opp jean_06366415825", 30);
+        verifyParsedItem(iterator.next(), "gathr yoke",  "3.94", "gathr yoke_06366421664", 31);
+        verifyParsedItem(iterator.next(), "rb fl st p",  "6.94", "rb fl st p_06366433269", 32);
+        verifyParsedItem(iterator.next(), "micro set",  "4.94", "micro set_06366436582", 33);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "85.50",36);
+        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "big on fresh. lou on price",4);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "9711 23 ave nw",40);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store: 01549",81);
+        verifyParsedField(fieldValues, ReceiptFieldType.Chain, "superstore",39);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "re f#            auth #     resp 001",48);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "83.38",34);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "ap p rov ed",55);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-490-3918",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "********************************'*****",83);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/2/21",71);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "12223-5922 rt0001",64);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "2.12",35);
     }
 
     @Test
@@ -1005,6 +1086,26 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rcss", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(7,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "chap ic snde sd",  "4.99", "chap ic snde sd_06294200366", 8);
+        verifyParsedItem(iterator.next(), "shana naan",  "1.99", "shana naan_06457970003", 9);
+        verifyParsedItem(iterator.next(), "shana lacha para",  "1.99", "shana lacha para_503003900298", 10);
+        verifyParsedItem(iterator.next(), "wfz dmp rd rice",  "8.97", "wfz dmp rd rice_690761966247", 11);
+        verifyParsedItem(iterator.next(), "banana",  "4.36", "banana_4011", 14);
+        verifyParsedItem(iterator.next(), "tilapia whole",  "8.87", "tilapia whole_2121080", 17);
+        verifyParsedItem(iterator.next(), "fzn tilapia",  "4.01", "fzn tilapia_2863070", 18);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "35.18",20);
+        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "big on fresh. lou on price",5);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "9711 23 ave nw",24);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store: 01549",70);
+        verifyParsedField(fieldValues, ReceiptFieldType.Chain, "supersto re",23);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "ref #            auth #      resp 001",33);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "35.18",19);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "approved",39);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-490-3918",4);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "'' ******\"'****~****~*'*********~*''",72);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/9/14",56);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "12223-5922 rt0001",49);
 
     }
 
@@ -1018,7 +1119,24 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rcss", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        assertEquals(5,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "cocon yogo ice m",  "1.48", "cocon yogo ice m_955643700364", 6);
+        verifyParsedItem(iterator.next(), "ccn pudding",  "5.97", "ccn pudding_955643700584", 7);
+        verifyParsedItem(iterator.next(), "wfz dmp mixed",  "11.96", "wfz dmp mixed_690761966252", 10);
+        verifyParsedItem(iterator.next(), "squid tentacles",  "11.96", "squid tentacles_77016150318", 13);
+        verifyParsedItem(iterator.next(), "plastic bags",  "0.05", "plastic bags", 16);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "31.50",19);
+        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "big on fresh. low on price",4);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "9711 23 ave nw",23);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store: 01549",62);
+        verifyParsedField(fieldValues, ReceiptFieldType.Chain, "superstore",22);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "31.42",17);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "approued",37);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-490-3918",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "~~******'******'*******'*****",64);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/10/11",53);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "12223-5922 rt0001",46);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "0.08",18);
     }
 
     @Test
@@ -1031,7 +1149,23 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rcss", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        assertEquals(2,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "cll05844952001 np rice puffs    hrj",  "8.97", null, 7);
+        verifyParsedItem(iterator.next(), "organic 2% milk",  "7.98", "organic 2% milk_06870030942", 9);
+        verifyParsedField(fieldValues, ReceiptFieldType.Recycle, "ecology fee                                       0.08",12);
+        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "big on fresh, lou on price",4);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "9711 23 ave nw",19);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store: 01549",61);
+        verifyParsedField(fieldValues, ReceiptFieldType.Chain, "rcss - 1549     9711-23ave",2);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "ref \"              auth #      resp 001",29);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-490-3918",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "******'****'**'*'********************",63);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "12223-5922 rt0001",45);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "17.28",15);
+        verifyParsedField(fieldValues, ReceiptFieldType.Deposit, "deposit 1                                         0.25",13);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "17.28",14);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "approved",35);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/2/19",52);
     }
 
     @Test
@@ -1044,7 +1178,41 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rcss", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        assertEquals(21,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "banana",  "3.93", "banana_4011", 6);
+        verifyParsedItem(iterator.next(), "orange navel lg",  "4.07", "orange navel lg_4012", 8);
+        verifyParsedItem(iterator.next(), "zucchini green",  "7.43", "zucchini green_4067", 10);
+        verifyParsedItem(iterator.next(), "onion green",  "1.34", "onion green_4068", 12);
+        verifyParsedItem(iterator.next(), "tomato roma",  "3.08", "tomato roma_4087", 14);
+        verifyParsedItem(iterator.next(), "spinach bunched    mrj",  "3.34", null, 16);
+        verifyParsedItem(iterator.next(), "ginger root",  "1.84", "ginger root_4612", 18);
+        verifyParsedItem(iterator.next(), "cilantro",  "0.87", "cilantro_4889", 20);
+        verifyParsedItem(iterator.next(), "8.2540144065 pep grn swt 4ct    mrj",  "2.98", null, 21);
+        verifyParsedItem(iterator.next(), "nn wieners chkn",  "1.67", "nn wieners chkn_06038301737", 23);
+        verifyParsedItem(iterator.next(), "blue cod fillets",  "10.00", "blue cod fillets_06038387647", 25);
+        verifyParsedItem(iterator.next(), "tilapia whole",  "8.75", "tilapia whole_2121080", 26);
+        verifyParsedItem(iterator.next(), "czl7701f,j503 16 squid tentacles    hrj",  "13.96", null, 27);
+        verifyParsedItem(iterator.next(), "sr xfirm tofu",  "1.99", "sr xfirm tofu_05786400008", 30);
+        verifyParsedItem(iterator.next(), "fresh tofu",  "1.79", "fresh tofu_05786400009", 31);
+        verifyParsedItem(iterator.next(), "chinese ssg",  "4.48", "chinese ssg_06673657688", 32);
+        verifyParsedItem(iterator.next(), "battery 9v",  "4.99", "battery 9v_04133311601", 34);
+        verifyParsedItem(iterator.next(), "jkw hula hoop",  "2.37", "jkw hula hoop_05870321931", 35);
+        verifyParsedItem(iterator.next(), "chalk ast",  "0.94", "chalk ast_06365236250", 36);
+        verifyParsedItem(iterator.next(), "lacepencil",  "6.94", "lacepencil_06366447081", 38);
+        verifyParsedItem(iterator.next(), "ladies sportwear",  "4.94", "ladies sportwear_*8092", 39);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "90.69",45);
+        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "e:ig on fresh, lm1 on price",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "9711 23 ave nw",49);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store coupon savings (2)                                            2.02",69);
+        verifyParsedField(fieldValues, ReceiptFieldType.Chain, "sup:3rsto r e!",48);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "ref #                auth #     re sp 001",58);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "89.68",43);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "approv ed",64);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-490-3918",2);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "***\"****~'*******************************",72);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/3/21",86);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "12223-5922 rt0001",79);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "1.01",44);
     }
 
     @Test
@@ -1057,6 +1225,44 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rcss", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(21,receipt.getItems().size());
+        //TODO items are missing because having 5+ widespaces
+        verifyParsedItem(iterator.next(), "ajishima r sea'n",  "3.28", "ajishima r sea'n_0111522231", 6);
+        verifyParsedItem(iterator.next(), "pocky",  "3.99", "pocky_073141551811", 7);
+        verifyParsedItem(iterator.next(), "pei pa kao syr",  "5.98", "pei pa kao syr_08136436369", 8);
+        verifyParsedItem(iterator.next(), "t&t pork floss",  "7.99", "t&t pork floss_77670324991", 9);
+        verifyParsedItem(iterator.next(), "pc bm brown eggs",  "3.48", "pc bm brown eggs_6038375010", 11);
+        verifyParsedItem(iterator.next(), "organic 2% milk",  "8.89", "organic 2% milk_06870030942", 21);
+        verifyParsedItem(iterator.next(), "eo alm bev og",  "2.49", "eo alm bev og_62602770031", 24);
+        verifyParsedItem(iterator.next(), "ffo apl swt pto",  "4.49", "ffo apl swt pto_63463300023", 26);
+        verifyParsedItem(iterator.next(), "ffo bna kale",  "4.49", "ffo bna kale_63463300024", 27);
+        verifyParsedItem(iterator.next(), "lc pr kale peas",  "1.89", "lc pr kale peas_85886000105", 28);
+        verifyParsedItem(iterator.next(), "lc apl btr sq cr",  "1.89", "lc apl btr sq cr_85886000106", 29);
+        verifyParsedItem(iterator.next(), "blues pints",  "3.88", "blues pints_03338322201", 31);
+        verifyParsedItem(iterator.next(), "eggplant lng",  "2.25", "eggplant lng_3089", 32);
+        verifyParsedItem(iterator.next(), "grape red sol cs",  "7.22", "grape red sol cs_4023", 34);
+        verifyParsedItem(iterator.next(), "onion green",  "1.34", "onion green_4068", 36);
+        verifyParsedItem(iterator.next(), "cilantro",  "0.87", "cilantro_4889", 38);
+        verifyParsedItem(iterator.next(), "strawberries 2lb",  "5.94", "strawberries 2lb_74007500085", 39);
+        verifyParsedItem(iterator.next(), "banana organic",  "4.56", "banana organic_94011", 40);
+        verifyParsedItem(iterator.next(), "gerber grad lilt",  "6.49", "gerber grad lilt_86513178887", 43);
+        verifyParsedItem(iterator.next(), "colouring book",  "5.23", "colouring book_978037586363", 45);
+        verifyParsedItem(iterator.next(), "colouring book",  "5.23", "colouring book_978037586363", 46);
+        verifyParsedField(fieldValues, ReceiptFieldType.Recycle, "ecology fee                                               0.08",22);
+        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "big on fresh, low on price",4);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "9711 23 ave nw",55);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store 01549              terti z0154914c",57);
+        verifyParsedField(fieldValues, ReceiptFieldType.Chain, "superstore",54);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "ref d          auth #      resp 001",64);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-490-3918",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "*'**'*'***'******'**'''*'*\"*''***'*'",89);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "12223-5922 rt0001",79);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "1.15",49);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "105.70",51);
+        verifyParsedField(fieldValues, ReceiptFieldType.Deposit, "deposit 1                                                 0.30",25);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "104.55",47);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "approued",70);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/2/28",87);
 
     }
 
@@ -1070,6 +1276,28 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rcss", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(9,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "choco pie 12s",  "2.98", "choco pie 12s_880111780763", 5);
+        verifyParsedItem(iterator.next(), "wfz dmp rd rice",  "5.98", "wfz dmp rd rice_690761966247", 7);
+        verifyParsedItem(iterator.next(), "vege chick steam",  "5.99", "vege chick steam_79878232414", 9);
+        verifyParsedItem(iterator.next(), "eggplant lng",  "0.92", "eggplant lng_3089", 11);
+        verifyParsedItem(iterator.next(), "banana",  "4.21", "banana_4011", 13);
+        verifyParsedItem(iterator.next(), "onion green",  "0.57", "onion green_4068", 15);
+        verifyParsedItem(iterator.next(), "fresh garlic",  "1.02", "fresh garlic_4610", 16);
+        verifyParsedItem(iterator.next(), "whl catfish",  "16.22", "whl catfish_2860330", 19);
+        verifyParsedItem(iterator.next(), "frzn bay scallps",  "7.98", "frzn bay scallps_81526101197", 20);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "45.87",22);
+        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "big on fresh. low on price",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "9711 23 ave nw",26);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store: 01549",67);
+        verifyParsedField(fieldValues, ReceiptFieldType.Chain, "superstore",25);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "ref ~           auth ~       resp 001",34);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "45.87",21);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "approved",40);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-490-3918",2);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "******\"~*******************~** ***'**",69);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/9/6",57);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "12223-5922 rt0001",49);
 
     }
 
@@ -1083,7 +1311,34 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rcss", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-
+        assertEquals(14,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "sesame oil",  "6.99", "sesame oil_01282202202", 5);
+        verifyParsedItem(iterator.next(), "np rice puffs",  "8.04", "np rice puffs_05844962001", 7);
+        verifyParsedItem(iterator.next(), "gb zesty orange",  "5.99", "gb zesty orange_83463900001", 9);
+        verifyParsedItem(iterator.next(), "eggplant lng",  "1.60", "eggplant lng_3089", 11);
+        verifyParsedItem(iterator.next(), "banana",  "2.41", "banana_4011", 13);
+        verifyParsedItem(iterator.next(), "broccoli",  "2.27", "broccoli_4060", 15);
+        verifyParsedItem(iterator.next(), "onion green",  "0.67", "onion green_4068", 16);
+        verifyParsedItem(iterator.next(), "cabbage green    hrj",  "3.46", null, 17);
+        verifyParsedItem(iterator.next(), "cilantro",  "0.87", "cilantro_4889", 19);
+        verifyParsedItem(iterator.next(), "organic cauliflo",  "5.48", "organic cauliflo_94079", 20);
+        verifyParsedItem(iterator.next(), "tilapia whole",  "7.00", "tilapia whole_2121080", 22);
+        verifyParsedItem(iterator.next(), "sr medium tofu",  "1.77", "sr medium tofu_05786400001", 24);
+        verifyParsedItem(iterator.next(), "firm tofu",  "1.99", "firm tofu_05786400011", 25);
+        verifyParsedItem(iterator.next(), "egg tube tofu",  "1.59", "egg tube tofu_06638709305", 26);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "50.43",29);
+        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "big on fresh. lowon price",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "9711 23 ave nw",33);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store: 01549",72);
+        verifyParsedField(fieldValues, ReceiptFieldType.Chain, "superstore",32);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "ref #            ruth #      resp 001",41);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "50.13",27);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "approved",47);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-490-3918",2);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "'**h**~***                      ************'*",74);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/3/14",63);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "12223-5922 rt0001",56);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "0.30",28);
     }
 
     @Test
@@ -1096,6 +1351,31 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rcss", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(12,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "pc udon noodles",  "1.69", "pc udon noodles_06038389752", 6);
+        verifyParsedItem(iterator.next(), "poppan crackers",  "1.99", "poppan crackers_08978201939", 9);
+        verifyParsedItem(iterator.next(), "wfz   dmp     juju mng",  "5.98", "wfz   dmp     juju mng_690761966245", 11);
+        verifyParsedItem(iterator.next(), "blues pints",  "3.88", "blues pints_03338322201", 14);
+        verifyParsedItem(iterator.next(), "strawberries 2lb",  "5.97", "strawberries 2lb_07143001105", 15);
+        verifyParsedItem(iterator.next(), "banana organic",  "5.44", "banana organic_94011", 16);
+        verifyParsedItem(iterator.next(), "opp fl mit",  "3.94", "opp fl mit_06366423936", 19);
+        verifyParsedItem(iterator.next(), "rb fl st p",  "6.94", "rb fl st p_06366433269", 20);
+        verifyParsedItem(iterator.next(), "dptslp set",  "6.94", "dptslp set_06366442879", 21);
+        verifyParsedItem(iterator.next(), "men's sportwear",  "0.94", "men's sportwear_8093", 22);
+        verifyParsedItem(iterator.next(), "inerwr/slp/hosry",  "0.94", "inerwr/slp/hosry_*8097", 23);
+        verifyParsedItem(iterator.next(), "pc charity",  "1.00", null, 25);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "46.64",28);
+        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "big on fresh. lou on price",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "9711 23 ave nw",32);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "stobe:     0 15~",78);
+        verifyParsedField(fieldValues, ReceiptFieldType.Chain, "superstore",31);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "ref n           auth n               resp 001",40);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "45.65",26);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "approved",46);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-490-3918",2);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "*'\"***********************'*****n~***",80);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/2/22",66);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "12223-5922 rt0001",59);
 
     }
 
@@ -1109,6 +1389,25 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rcss", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(6,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "heinz ket sqz",  "4.87", "heinz ket sqz_05700006308", 5);
+        verifyParsedItem(iterator.next(), "stky rice dmplng",  "6.99", "stky rice dmplng_061163601187", 9);
+        verifyParsedItem(iterator.next(), "wfz   dmp     red bn",  "2.99", "wfz   dmp     red bn_690761966243", 10);
+        verifyParsedItem(iterator.next(), "wfz dmp rd rice",  "2.99", "wfz dmp rd rice_690761966247", 11);
+        verifyParsedItem(iterator.next(), "wfz dmp mixed",  "2.99", "wfz dmp mixed_690761966252", 12);
+        verifyParsedItem(iterator.next(), "rd sdls grapes    hrj",  "3.96", null, 14);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "24.79",16);
+        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "big on fresh. lmj on price",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "9711 23 ave nw",20);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store : 01549",59);
+        verifyParsedField(fieldValues, ReceiptFieldType.Chain, "superstore",19);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "ref ii          auth n     resp 001",28);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "24.79",15);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "appro ued",34);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-490-3918",2);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "*************~************************",61);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/11/23",50);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "12223-5922 rt0001",43);
 
     }
 
@@ -1122,6 +1421,28 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rcss", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(9,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "mj gnt pnd chclt",  "4.28", "mj gnt pnd chclt_888607710207", 5);
+        verifyParsedItem(iterator.next(), "wfz   dmp     red bn",  "2.99", "wfz   dmp     red bn_690761966243", 7);
+        verifyParsedItem(iterator.next(), "wfz dmp rd rice",  "5.98", "wfz dmp rd rice_690761966247", 8);
+        verifyParsedItem(iterator.next(), "wfz dmp mixed",  "5.98", "wfz dmp mixed_690761966252", 10);
+        verifyParsedItem(iterator.next(), "tt pancake sesme",  "3.59", "tt pancake sesme_77670302223", 12);
+        verifyParsedItem(iterator.next(), "raspberries pint    hrj",  "3.48", null, 14);
+        verifyParsedItem(iterator.next(), "rd sdls grapes",  "4.88", "rd sdls grapes_85495700132", 15);
+        verifyParsedItem(iterator.next(), "crb flvrd flakes",  "2.69", "crb flvrd flakes_06038368835", 17);
+        verifyParsedItem(iterator.next(), "whl catfish",  "16.60", "whl catfish_2860330", 18);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "50.68",21);
+        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "big on fresh, low on price",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "9711 23 ave nw",25);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store : 01549",66);
+        verifyParsedField(fieldValues, ReceiptFieldType.Chain, "superstore",24);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "50.47",19);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "approueid",39);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-490-3918",2);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "               ***********~ ** '\"",49);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/11/16",57);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "12223-5922 rt0001",50);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "0.21",20);
 
     }
 
@@ -1135,6 +1456,23 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("rcss", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(4,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "raspberries pint",  "4.96", "raspberries pint_71575610003", 8);
+        verifyParsedItem(iterator.next(), "french bread",  "1.00", "french bread_46038347442", 10);
+        verifyParsedItem(iterator.next(), "chery strudl",  "4.99", "chery strudl_46038373178", 11);
+        verifyParsedItem(iterator.next(), "focaccia triangl",  "6.00", "focaccia triangl_62855307101", 12);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "16.95",14);
+        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "big on fresh. lou on price",4);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "9711 23 ave nw",19);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store: 0 49",58);
+        verifyParsedField(fieldValues, ReceiptFieldType.Chain, "superstore",18);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "f!ef #               ruth #       resp 001",27);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "16.95",13);
+        verifyParsedField(fieldValues, ReceiptFieldType.Approved, "approued",31);
+        verifyParsedField(fieldValues, ReceiptFieldType.Phone, "780-490-3918",3);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "\"**'**'\"******************'********'*",60);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/4/14",29);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "12223-5922 rt0001",42);
 
     }
 
