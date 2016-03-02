@@ -10,7 +10,7 @@
   "RegularPriceHeader" : "",
   "SavingHeader" : "",
   "ApprovedHeader" : "",
-  "StoreBranchHeader" : "",
+  "StoreBranchHeader" : "Store#",
   "SubTotalHeader" : "SubtotaL,Net Total",
   "ThankYouHeader" : "Thank You",
   "TotalHeader" : "VISA,TaKE-Out TotaL,Eat-in total,TOTAL:,T O T A L",

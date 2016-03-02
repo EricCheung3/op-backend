@@ -74,7 +74,7 @@ public class SimpleParserUtils {
     public static boolean isGoodItem(final ParsedItem item, final StoreConfig config){
         return PriceParserFromStringTuple.isItemName(item.getParsedName()) &&
                 !(item.getParsedName().contains("kg") && item.getParsedName().contains("@")) &&
-                StringCommon.countChars(item.getParsedName()) >= PriceParserConstant.MIN_ITEM_NAME_LETTERS &&
+                StringCommon.countChars(item.getParsedName()) > PriceParserConstant.MIN_ITEM_NAME_LETTERS &&
                 !config.matchesBlackList(item.getParsedName());
     }
 
