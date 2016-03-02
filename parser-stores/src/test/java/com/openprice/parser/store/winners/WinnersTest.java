@@ -45,7 +45,7 @@ public class WinnersTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("dollartree", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(10,receipt.getItems().size());
+        assertEquals(9,receipt.getItems().size());
 //        verifyParsedItem(iterator.next(), "description    qty    price",  "0", null, 7);
         verifyParsedItem(iterator.next(), "bowl 7in    1",  "1.0", null, 8);
         verifyParsedItem(iterator.next(), "dinner fork    1",  "1.0", null, 9);
@@ -73,7 +73,7 @@ public class WinnersTest extends AbstractReceiptParserIntegrationTest {
         assertEquals("dollartree", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(9,receipt.getItems().size());
+        assertEquals(10,receipt.getItems().size());
 //        verifyParsedItem(iterator.next(), "description    qty    price",  "0", null, 8);
         verifyParsedItem(iterator.next(), "bridge mix    1",  "1.0", null, 9);
         verifyParsedItem(iterator.next(), "crackerfuls    1",  "0.0", null, 10);

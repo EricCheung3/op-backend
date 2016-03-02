@@ -46,7 +46,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     public void afterPropertiesSet() throws Exception {
         chain=metadata.getStoreChainByCode(getParserBaseCode().toLowerCase());
         chainRegistry.addChain(chain, this);
-        System.out.println("afterPropertiesSet: chain.getCode()="+chain.getCode());
+//        log.debug("afterPropertiesSet: chain.getCode()="+chain.getCode());
         baseConfig=metadata.getStoreChainByCode(chain.getCode()).getNonHeaderProperties();
         generateParser();
     }
@@ -65,7 +65,6 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
     protected StoreConfigImpl loadParserConfig(final String parserName) {
         final Properties allConfig = new Properties();
         allConfig.putAll(metadata.getStoreChainByCode(chain.getCode()).getHeaderProperties());
-        //System.out.println("allConfig.size"+allConfig.size());
         final int size1=allConfig.size();
         allConfig.putAll(baseConfig);
         final int size2=allConfig.size();
@@ -106,7 +105,7 @@ public abstract class AbstractStoreParserSelector implements StoreParserSelector
                 .stream()
                 .map(c->ProductImpl.fromNameNumber(c.getReceiptName(), c.getNumber()))
                 .collect(Collectors.toSet());
-        System.out.println("chain:"+chain.getCode()+", catalog size="+catalog.size());
+//        log.debug("chain:"+chain.getCode()+", catalog size="+catalog.size());
         return PriceParserWithCatalog.withCatalog(catalog);
     }
 }
