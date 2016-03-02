@@ -137,6 +137,9 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testFiles/rcss/southcommon/2015_07_21_15_19_03.jpg.beata.txt")
     private Resource receipt_2015_07_21_15_19_03;
 
+    @Value("classpath:/testFiles/rcss/phone/hengshuaiMarch2.txt")
+    private Resource receipt_hengshuaiMarch2;
+
     @Test
     public void multilineItemTest0() throws Exception {
         final List<String> lines = new ArrayList<>();
@@ -962,6 +965,34 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
 
     }
+
+
+    @Test
+    public void receipt_hengshuaiMarch2() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_hengshuaiMarch2, (line)-> receiptLines.add(line));
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        printResult(receipt);
+        //TODO chain was not recognized
+        assertEquals(null, receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(5,receipt.getItems().size());
+        //TODO KUMO SOYA were missed
+        verifyParsedItem(iterator.next(), "jelcone *    _",  "36.19", null, 3);
+        verifyParsedItem(iterator.next(), "blueberries 180z", null, null, 18);
+        verifyParsedItem(iterator.next(), "shitaki organic", null, null, 19);
+        verifyParsedItem(iterator.next(), "159    endive/chicory",  "30.78", null, 20);
+        verifyParsedItem(iterator.next(), "nci bi irmtui     ..", null, null, 59);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "card*: *'t**",4);
+        verifyParsedField(fieldValues, ReceiptFieldType.Slogan, "gig on fresn.",2);
+        verifyParsedField(fieldValues, ReceiptFieldType.Deposit, "deposit 1",8);
+        verifyParsedField(fieldValues, ReceiptFieldType.Chain, "? acss 1570 - 48* i",0);
+        verifyParsedField(fieldValues, ReceiptFieldType.Recycle, "ecology fee",7);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
+    }
+
 
     @Test
     public void receipt_2015_02_09_13_15_25()  throws Exception {
