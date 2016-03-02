@@ -100,11 +100,6 @@ public class SimpleLinePredcitorTest {
     }
 
     @Test
-    public void isUnitPriceTest12(){
-        assertEquals(LineType.WeightPrice, pred.classify("   1.415 kg ~ $3.24/ kg                                  4.58"));
-    }
-
-    @Test
     public void isUnitPriceTest13(){
         assertEquals(LineType.UnitPrice, pred.classify("   $3 .28 lnt 4, $3.67 ea"));
     }

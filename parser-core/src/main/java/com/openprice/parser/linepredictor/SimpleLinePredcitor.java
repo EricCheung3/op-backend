@@ -9,6 +9,7 @@ public class SimpleLinePredcitor implements LinePredictor{
 
     private static final FeatureGenerator featureGen = new FeatureGenerator();
 
+
     @Override
     public LineType classify(final String str, final StoreConfig config) {
         if(config.matchesBlackList(str))
@@ -20,6 +21,10 @@ public class SimpleLinePredcitor implements LinePredictor{
     public LineType classify(final String str) {
         if(str.contains("kg") && str.contains("@"))
             return LineType.WeightPrice;
+
+//
+
+
         final LineFeatures features =  featureGen.getFeatures(str);
         if(features.getNumberOfChars() > PriceParserConstant.MIN_ITEM_NAME_LETTERS
               && features.getCharsToCharsAndLetters() >= PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT)

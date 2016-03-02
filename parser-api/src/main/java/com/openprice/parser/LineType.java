@@ -4,11 +4,14 @@ package com.openprice.parser;
  * a line content type
  */
 public enum LineType {
+    Address,
     Date,
     Item,
-    Address,
     Noise,
+    Phone,
     UnitPrice,
     WeightPrice,
     Unpredictable
 }
+
+
