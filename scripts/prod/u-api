@@ -4,7 +4,7 @@ cd $gitroot/op-backend
 git pull
 
 cd $gitroot/op-backend
-mvn clean install -P prod
+mvn clean install -P prod -DskipTests
 
 docker stop op-server-admin-api
 docker rm op-server-admin-api

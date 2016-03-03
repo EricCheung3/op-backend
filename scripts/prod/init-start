@@ -5,7 +5,7 @@ gitroot=~/openprice
 cd $gitroot/op-backend
 git pull
 
-mvn clean install -P prod
+mvn clean install -P prod -DskipTests
 
 
 docker run --name op-mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=openprice -e MYSQL_USER=openprice -e MYSQL_PASSWORD=openprice -d mysql:5.6
