@@ -1,4 +1,4 @@
-package com.openprice.parser.ml;
+package com.openprice.parser.linesplitter;
 
 import com.openprice.common.StringCommon;
 
@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Value
 @Slf4j
-public class NumberNameNumberSplitting {
+public class NumberNamePriceSplitting {
 
     String str;
     int firstNonDigitSpace;//the index of the first non-digit space char. It should never begger than str.length()-1
@@ -18,7 +18,7 @@ public class NumberNameNumberSplitting {
     int numHeadingDigits;//number of heading digits before firstNonDigitSpace
     int numTrailingDigits;//number of trailing digits after lastNonDigitSpace
 
-    public NumberNameNumberSplitting(final String str){
+    public NumberNamePriceSplitting(final String str){
         this.str = str;
         final int[] boundaries = cuttingBoundaries(str);
         this.firstNonDigitSpace = boundaries[0];

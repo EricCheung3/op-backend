@@ -3,7 +3,7 @@ package com.openprice.parser.price;
 import com.openprice.common.StringCommon;
 import com.openprice.parser.api.NonWideSpaceParser;
 import com.openprice.parser.data.ProductImpl;
-import com.openprice.parser.ml.NumberNameNumberSplitting;
+import com.openprice.parser.linesplitter.NumberNamePriceSplitting;
 import com.openprice.parser.ml.api.PriceParserConstant;
 
 /**
@@ -18,7 +18,7 @@ public class NonWideSpaceParserImpl implements NonWideSpaceParser{
         str =  str.trim();
         if(str.endsWith("$"))
             str = str.substring(0, str.length()-1);
-        final NumberNameNumberSplitting features = new NumberNameNumberSplitting(str);
+        final NumberNamePriceSplitting features = new NumberNamePriceSplitting(str);
         String number = StringCommon.EMPTY;
         String name = StringCommon.EMPTY;
         String price = StringCommon.EMPTY;

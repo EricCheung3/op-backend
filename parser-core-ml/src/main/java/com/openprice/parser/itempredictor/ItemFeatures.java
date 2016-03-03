@@ -1,7 +1,7 @@
 package com.openprice.parser.itempredictor;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.ml.NumberNameNumberSplitting;
+import com.openprice.parser.linesplitter.NumberNamePriceSplitting;
 
 import lombok.Value;
 
@@ -11,8 +11,8 @@ import lombok.Value;
 @Value
 public class ItemFeatures {
 
-    public SplittingFeatures getFeatures(final String line){
-        final NumberNameNumberSplitting splitF = new NumberNameNumberSplitting(line);
+    public NumberNamePriceFeatures getFeatures(final String line){
+        final NumberNamePriceSplitting splitF = new NumberNamePriceSplitting(line);
         final int numHeadingDigits = splitF.getNumHeadingDigits();
         final int numTrailingDigits = splitF.getNumTrailingDigits();
 
@@ -26,7 +26,7 @@ public class ItemFeatures {
         final int[] digitsChars = StringCommon.countDigitAndChars(words[1]);
         final int numCharsAtMiddle = digitsChars[1];
 
-        return SplittingFeatures.fromHeadMiddleTailDotDollar(
+        return NumberNamePriceFeatures.fromHeadMiddleTailDotDollar(
                 numHeadingDigits,
                 numCharsAtMiddle,
                 numTrailingDigits,

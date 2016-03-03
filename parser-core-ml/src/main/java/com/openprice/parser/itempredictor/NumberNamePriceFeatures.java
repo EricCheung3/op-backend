@@ -5,7 +5,7 @@ import com.openprice.parser.ml.api.Features;
 import lombok.Value;
 
 @Value
-public class SplittingFeatures implements Features{
+public class NumberNamePriceFeatures implements Features{
 
     int numHeadingDigits;
     int numCharsAtMiddle;
@@ -14,13 +14,13 @@ public class SplittingFeatures implements Features{
     boolean oneDotAtTail;
     boolean oneDollarSignAtTail;
 
-    public static SplittingFeatures fromHeadMiddleTailDotDollar(
+    public static NumberNamePriceFeatures fromHeadMiddleTailDotDollar(
             final int headDigits,
             final int middleChars,
             final int trailingDigits,
             final boolean dotAtTail,
             final boolean dollarAtTail){
-        return new SplittingFeatures(
+        return new NumberNamePriceFeatures(
                 headDigits,
                 middleChars,
                 trailingDigits,

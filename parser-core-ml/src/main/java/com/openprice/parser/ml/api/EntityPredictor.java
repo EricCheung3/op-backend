@@ -1,4 +1,4 @@
-package com.openprice.parser.entitypredictor;
+package com.openprice.parser.ml.api;
 
 public interface EntityPredictor {
 
