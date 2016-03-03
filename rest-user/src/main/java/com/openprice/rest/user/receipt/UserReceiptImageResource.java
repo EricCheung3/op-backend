@@ -19,6 +19,9 @@ public class UserReceiptImageResource extends Resource<ReceiptImage> {
     @Getter
     private String base64Url;
 
+    @Getter
+    private String base64;
+
     public UserReceiptImageResource(final ReceiptImage resource) {
         super(resource);
     }
@@ -38,6 +41,7 @@ public class UserReceiptImageResource extends Resource<ReceiptImage> {
                        ;
             resource.downloadUrl = resource.getLink("download").getHref();
             resource.base64Url = resource.getLink("base64").getHref();
+            resource.base64 = receiptImage.getBase64();
 
             return resource;
         }
