@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PriceParserFromStringTuple implements PriceParser {
 
-    private static NonWideSpaceParserImpl nonSpaceParser = new NonWideSpaceParserImpl();
+//    private static NonWideSpaceParserImpl nonSpaceParser = new NonWideSpaceParserImpl();
 
     private final static SimpleLinePredcitor linePredictor = new SimpleLinePredcitor();
 

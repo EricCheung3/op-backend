@@ -66,9 +66,11 @@ public class SimpleParserUtils {
         return adjusted.stream()
                 .filter(item-> {
                                 final LineType type = linePredictor.classify(item.getParsedName());
-                                if(type != LineType.Item && !parser.getStoreConfig().matchesBlackList(item.getParsedName()))
+                                final boolean isGoodItem = type == LineType.Item
+                                                                && !parser.getStoreConfig().matchesBlackList(item.getParsedName());
+                                if(isGoodItem)
                                     log.debug("item "+ item.getParsedName()+" is NOT considered as an item.");
-                                return type == LineType.Item;
+                                return isGoodItem;
             })
             .collect(Collectors.toList());
     }
