@@ -74,14 +74,14 @@ public class SimpleParser implements ReceiptParser {
 
         final StoreChain parserChain = (parserChainFound == null)? null : parserChainFound.getChain();
         if (parserChainFound == null) {
-            log.info("No specific store parser for this receipt yet!");
+            log.debug("No specific store parser for this receipt yet!");
         } else {
             log.debug("ChainRegistry: find matching chain {}, at {} at line {}.", parserChain.getCode(), parserChainFound.getFoundAt(), parserChainFound.getLineNumber());
         }
 
         final StoreChain genericChain = genericChainFound == null? null: genericChainFound.getChain();
         if(genericChain == null){
-            log.warn("Generic chains: no chain found");
+            log.info("Generic chains: no chain found");
         }
 
         if (parserChain == null ||
@@ -100,14 +100,14 @@ public class SimpleParser implements ReceiptParser {
                 return applyParser(genericParser, receipt, genericChain, null);
             } catch(Exception ex) {
                 ex.printStackTrace();//for debugging.
-                log.warn("exception in calling generic parser: {}. now call cheapParser!", ex.getMessage());
+                log.info("exception in calling generic parser: {}. now call cheapParser!", ex.getMessage());
                 return new CheapParser().parseReceiptOcrResult(receipt.getOriginalLines());
             }
         }
         final StoreBranch branch = StoreChainUtils.matchBranchByScoreSum(parserChain, receipt);
-        if (branch != null)
-            log.info("Parser find matching branch {}.", branch.getName());
-        log.debug("branch="+branch);
+        if (branch != null) {
+            log.debug("Parser find matching branch {}.", branch.getName());
+        }
         final StoreParserSelector selector = chainRegistry.getParserSelector(parserChain.getCode());
         final StoreParser parser = selector.selectParser(receipt);
         return applyParser(parser, receipt, parserChain, branch);

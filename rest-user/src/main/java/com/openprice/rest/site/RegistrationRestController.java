@@ -133,26 +133,26 @@ public class RegistrationRestController extends AbstractExternalRestController i
     }
 
     private void sendWelcomeEmailToNewUser(final UserAccount user) {
-        final String subject = "Welcome to OpenPrice";
+        final String subject = "Welcome to Openprice";
         final String message = String.format(WELCOME_MESSAGE_TEMPLATE, user.getProfile().getDisplayName(), user.getEmail()); //TODO impl activation feature
         emailService.sendEmail(EmailMessage.createEmail(emailProperties, user.getEmail(), user.getProfile().getDisplayName(), subject, message, null));
     }
 
     private void sendResetPasswordLinkToUser(final UserAccount user, final UserResetPasswordRequest request) {
         final String url = emailProperties.getWebServerUrl() + RESET_PASSWORD_PATH + request.getId();
-        final String subject = "Reset Password in OpenPrice";
+        final String subject = "Reset Password in Openprice";
         final String message = String.format(FORGET_PASSWORD_TEMPLATE, user.getProfile().getDisplayName(), url, url);
         emailService.sendEmail(EmailMessage.createEmail(emailProperties, user.getEmail(), user.getProfile().getDisplayName(), subject, message, null));
     }
 
-    private static final String WELCOME_MESSAGE_TEMPLATE = "Hi %s,\n"+
-            "Welcome to OpenPrice System. You have registered with this email '%s', " +
-            "and enjoy the app! \n" +
-            "Sincerely, \n OpenPrice Team\n";
+    private static final String WELCOME_MESSAGE_TEMPLATE = "Dear %s,\n"+
+            "Welcome to OpenPrice System. You, or someone on your behalf have registered with the email '%s'.\n" +
+            "Enjoy the app! \n" +
+            "Sincerely, \n Openprice Team\n";
 
     private static final String FORGET_PASSWORD_TEMPLATE = "Hi %s, \n" +
             "You have requested to reset your password. Please click following url to reset your password:\n" +
             "<a href=\"%s\"> %s</a>\n This link will be expired after two hours.\n" +
             "If you didn't request password reset, please ignore this email.\n" +
-            "Sincerely, \n OpenPrice Team\n";
+            "Sincerely, \n Openprice Team\n";
 }
