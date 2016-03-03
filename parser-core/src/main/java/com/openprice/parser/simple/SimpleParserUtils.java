@@ -12,7 +12,7 @@ import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.data.ParsedItemImpl;
-import com.openprice.parser.linepredictor.predictor.SimpleLinePredcitor;
+import com.openprice.parser.linepredictor.SimpleLinePredcitor;
 
 import lombok.extern.slf4j.Slf4j;
 

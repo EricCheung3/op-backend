@@ -1,9 +1,8 @@
-package com.openprice.parser.linepredictor.predictor;
+package com.openprice.parser.linepredictor;
 
 import com.openprice.parser.LineType;
 import com.openprice.parser.api.LinePredictor;
 import com.openprice.parser.api.StoreConfig;
-import com.openprice.parser.linepredictor.features.StatisticalFeatures;
 import com.openprice.parser.price.PriceParserConstant;
 
 public class SimpleLinePredcitor implements LinePredictor{

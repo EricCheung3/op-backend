@@ -1,4 +1,4 @@
-package com.openprice.parser.linepredictor.features;
+package com.openprice.parser.api;
 
 public interface Features {
 

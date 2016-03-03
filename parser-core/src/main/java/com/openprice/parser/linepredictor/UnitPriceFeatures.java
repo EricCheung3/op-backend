@@ -1,4 +1,6 @@
-package com.openprice.parser.linepredictor.features;
+package com.openprice.parser.linepredictor;
+
+import com.openprice.parser.api.Features;
 
 public class UnitPriceFeatures implements Features{
 
