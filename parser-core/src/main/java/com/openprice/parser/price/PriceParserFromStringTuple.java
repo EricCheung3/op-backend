@@ -298,7 +298,9 @@ public class PriceParserFromStringTuple implements PriceParser {
         final boolean result=
                 counts[0] <= 5 &&
                 counts[0] > 0  &&
-                ( str.contains(".") || str.contains("$") );
+                    ( str.contains(".")
+                        || str.contains("$")
+                        || !str.contains(".") && str.contains(","));
         //        if(result)
         //            log.debug(str+" is a very likely a price");
         return result;
