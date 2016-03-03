@@ -30,7 +30,7 @@
     </appender>
 
     <appender name="LOGGLY" class="ch.qos.logback.ext.loggly.LogglyAppender">
-        <endpointUrl>https://logs-01.loggly.com/inputs/14a534cc-b254-452a-adf7-cbd5d4362680/tag/openprice,${SERVER_NAME}</endpointUrl>
+        <endpointUrl>https://logs-01.loggly.com/inputs/14a534cc-b254-452a-adf7-cbd5d4362680/tag/${ENV_NAME},${SERVER_NAME}</endpointUrl>
         <pattern>%d %-6contextName %-5level [%thread] %c.%M\(%L\): %msg%n</pattern>
     </appender>
 
