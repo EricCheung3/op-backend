@@ -11,7 +11,7 @@
     <artifactId>parser-core-ml</artifactId>
     <packaging>jar</packaging>
 
-    <name>System Metadata Module</name>
+    <name>Parser Machine Learning Module</name>
     <description>Machine learning algorithms used by parser.</description>
 
     <dependencies>

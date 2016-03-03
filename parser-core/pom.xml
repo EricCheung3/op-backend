@@ -31,7 +31,7 @@
             <version>${project.version}</version>
         </dependency>
         
-                <dependency>
+        <dependency>
             <groupId>com.openprice</groupId>
             <artifactId>parser-core-ml</artifactId>
             <version>${project.version}</version>
