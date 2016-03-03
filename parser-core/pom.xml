@@ -33,7 +33,7 @@
         
         <dependency>
             <groupId>com.openprice</groupId>
-            <artifactId>parser-core-ml</artifactId>
+            <artifactId>op-parser-core-ml</artifactId>
             <version>${project.version}</version>
         </dependency>
         
