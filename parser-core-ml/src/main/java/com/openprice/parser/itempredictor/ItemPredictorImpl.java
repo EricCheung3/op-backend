@@ -1,6 +1,6 @@
 package com.openprice.parser.itempredictor;
 
-import com.openprice.parser.price.PriceParserConstant;
+import com.openprice.parser.ml.api.PriceParserConstant;
 
 public class ItemPredictorImpl implements ItemPredictor{
     private static final ItemFeatures generator = new ItemFeatures();

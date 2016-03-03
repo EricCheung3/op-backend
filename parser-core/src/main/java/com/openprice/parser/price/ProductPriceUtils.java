@@ -3,6 +3,7 @@ package com.openprice.parser.price;
 import com.openprice.common.StringCommon;
 import com.openprice.parser.api.Product;
 import com.openprice.parser.data.ProductImpl;
+import com.openprice.parser.ml.api.PriceParserConstant;
 
 /**
  * TODO this class should be removed

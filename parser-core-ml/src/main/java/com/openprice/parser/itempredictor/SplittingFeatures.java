@@ -1,9 +1,11 @@
 package com.openprice.parser.itempredictor;
 
+import com.openprice.parser.ml.api.Features;
+
 import lombok.Value;
 
 @Value
-public class SplittingFeatures {
+public class SplittingFeatures implements Features{
 
     int numHeadingDigits;
     int numCharsAtMiddle;
@@ -24,5 +26,10 @@ public class SplittingFeatures {
                 trailingDigits,
                 dotAtTail,
                 dollarAtTail);
+    }
+
+    @Override
+    public int size() {
+        return 5;
     }
 }

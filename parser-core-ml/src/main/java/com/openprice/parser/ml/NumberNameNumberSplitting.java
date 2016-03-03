@@ -1,4 +1,4 @@
-package com.openprice.parser.price;
+package com.openprice.parser.ml;
 
 import com.openprice.common.StringCommon;
 

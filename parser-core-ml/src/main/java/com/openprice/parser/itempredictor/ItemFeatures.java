@@ -1,7 +1,7 @@
 package com.openprice.parser.itempredictor;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.price.NumberNameNumberSplitting;
+import com.openprice.parser.ml.NumberNameNumberSplitting;
 
 import lombok.Value;
 
