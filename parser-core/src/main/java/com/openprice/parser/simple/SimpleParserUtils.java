@@ -65,13 +65,12 @@ public class SimpleParserUtils {
         final List<ParsedItem> adjusted = getPriceFromNextLines(itemsWithMultilineUnAdjusted, parser.getStoreConfig());
         return adjusted.stream()
                 .filter(item-> {
-                                  final LineType type = linePredictor.classify(item.getParsedName(), parser.getStoreConfig());
-                            if(type != LineType.Item)
-                                log.debug("item "+ item.getParsedName()+" is considered Not an item.");
-                            return type == LineType.Item;
+                                final LineType type = linePredictor.classify(item.getParsedName());
+                                if(type != LineType.Item && !parser.getStoreConfig().matchesBlackList(item.getParsedName()))
+                                    log.debug("item "+ item.getParsedName()+" is NOT considered as an item.");
+                                return type == LineType.Item;
             })
             .collect(Collectors.toList());
-
     }
 
     /**
@@ -98,7 +97,9 @@ public class SimpleParserUtils {
             ParsedItem next = null;
             for(; increment < rawItems.size(); increment ++ ){
                 next = rawItems.get(increment);
-                if(next != null && linePredictor.classify(next.getParsedName(), config) == LineType.Item)//stop at the first good item or end of list
+                if(next != null
+                        && linePredictor.classify(next.getParsedName()) == LineType.Item
+                        && !config.matchesBlackList(next.getParsedName()))//stop at the first good item or end of list
                     break;
             }
             next = rawItems.get(increment-1);//roll back to the previous un-good item
