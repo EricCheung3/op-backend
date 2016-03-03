@@ -9,7 +9,7 @@ import com.openprice.common.StringCommon;
 
 public class ItemFeaturesTest {
 
-    private final ItemFeatures generator = new ItemFeatures();
+    private final NumberNamePriceFeaturesGenerator generator = new NumberNamePriceFeaturesGenerator();
 
     @Test
     public void normalInput(){

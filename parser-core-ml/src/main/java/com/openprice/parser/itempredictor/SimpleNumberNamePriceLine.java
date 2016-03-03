@@ -1,12 +1,13 @@
 package com.openprice.parser.itempredictor;
 
+import com.openprice.parser.ml.api.NumberNamePriceLine;
 import com.openprice.parser.ml.api.PriceParserConstant;
 
-public class ItemPredictorImpl implements ItemPredictor{
-    private static final ItemFeatures generator = new ItemFeatures();
+public class SimpleNumberNamePriceLine implements NumberNamePriceLine{
+    private static final NumberNamePriceFeaturesGenerator generator = new NumberNamePriceFeaturesGenerator();
 
     @Override
-    public boolean isItemLine(String line) {
+    public boolean isNumberNamePriceFormat(String line) {
         final NumberNamePriceFeatures features = generator.getFeatures(line);
         return  features.getNumCharsAtMiddle() >= PriceParserConstant.MIN_ITEM_NAME_LETTERS
              && features.getNumHeadingDigits() >= PriceParserConstant.MIN_ITEM_NUMBER_LENGTH

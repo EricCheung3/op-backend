@@ -9,7 +9,7 @@ import lombok.Value;
  * item features
  */
 @Value
-public class ItemFeatures {
+public class NumberNamePriceFeaturesGenerator {
 
     public NumberNamePriceFeatures getFeatures(final String line){
         final NumberNamePriceSplitting splitF = new NumberNamePriceSplitting(line);
