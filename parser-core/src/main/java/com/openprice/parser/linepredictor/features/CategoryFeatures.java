@@ -1,6 +1,6 @@
-package com.openprice.parser.linefeatures;
+package com.openprice.parser.linepredictor.features;
 
-public class UnitPriceFeatures implements Features{
+public class CategoryFeatures implements Features{
 
     @Override
     public int size() {

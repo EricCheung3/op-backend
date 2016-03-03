@@ -1,4 +1,4 @@
-package com.openprice.parser.linepredictor;
+package com.openprice.parser.linepredictor.predictor;
 
 import static org.junit.Assert.assertEquals;
 

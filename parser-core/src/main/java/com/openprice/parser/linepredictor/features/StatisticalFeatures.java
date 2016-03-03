@@ -1,4 +1,4 @@
-package com.openprice.parser.linefeatures;
+package com.openprice.parser.linepredictor.features;
 
 import lombok.Value;
 

@@ -1,7 +1,7 @@
-package com.openprice.parser.linepredictor;
+package com.openprice.parser.linepredictor.predictor;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.linefeatures.StatisticalFeatures;
+import com.openprice.parser.linepredictor.features.StatisticalFeatures;
 
 public class FeatureGenerator {
 
