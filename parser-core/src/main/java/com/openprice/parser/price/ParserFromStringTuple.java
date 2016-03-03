@@ -1,7 +1,7 @@
 package com.openprice.parser.price;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.linepredictor.SimpleLinePredcitor;
+import com.openprice.parser.line.SimpleLinePredcitor;
 import com.openprice.parser.ml.api.LineType;
 import com.openprice.parser.ml.api.PriceParserConstant;
 
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-public class PriceParserFromStringTuple implements PriceParser {
+public class ParserFromStringTuple implements ParserFromNStrings {
 
 //    private static NonWideSpaceParserImpl nonSpaceParser = new NonWideSpaceParserImpl();
 

@@ -11,7 +11,7 @@ import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.data.ParsedItemImpl;
-import com.openprice.parser.linepredictor.SimpleLinePredcitor;
+import com.openprice.parser.line.SimpleLinePredcitor;
 import com.openprice.parser.ml.api.LineType;
 
 import lombok.extern.slf4j.Slf4j;

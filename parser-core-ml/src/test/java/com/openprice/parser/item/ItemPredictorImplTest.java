@@ -1,9 +1,10 @@
-package com.openprice.parser.itempredictor;
+package com.openprice.parser.item;
 
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.openprice.parser.item.SimpleNumberNamePriceLine;
 import com.openprice.parser.ml.api.NumberNamePriceLine;
 
 public class ItemPredictorImplTest {

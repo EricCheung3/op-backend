@@ -1,4 +1,4 @@
-package com.openprice.parser.itempredictor;
+package com.openprice.parser.item;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.openprice.common.StringCommon;
+import com.openprice.parser.item.NumberNamePriceFeatures;
+import com.openprice.parser.item.NumberNamePriceFeaturesGenerator;
 
 public class ItemFeaturesTest {
 

@@ -1,8 +1,8 @@
-package com.openprice.parser.entitypredictor;
+package com.openprice.parser.entity;
 
 import com.openprice.parser.ml.api.Features;
 
-public class PriceFeatures implements Features{
+public class NameFeatures implements Features{
 
     @Override
     public int size() {

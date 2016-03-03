@@ -1,4 +1,4 @@
-package com.openprice.parser.linesplitter;
+package com.openprice.parser.splitter;
 
 import com.openprice.common.StringCommon;
 

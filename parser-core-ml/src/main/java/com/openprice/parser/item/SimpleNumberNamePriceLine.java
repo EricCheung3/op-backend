@@ -1,4 +1,4 @@
-package com.openprice.parser.itempredictor;
+package com.openprice.parser.item;
 
 import com.openprice.parser.ml.api.NumberNamePriceLine;
 import com.openprice.parser.ml.api.PriceParserConstant;

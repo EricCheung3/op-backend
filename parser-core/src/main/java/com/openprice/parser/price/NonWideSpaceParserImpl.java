@@ -3,8 +3,8 @@ package com.openprice.parser.price;
 import com.openprice.common.StringCommon;
 import com.openprice.parser.api.NonWideSpaceParser;
 import com.openprice.parser.data.ProductImpl;
-import com.openprice.parser.linesplitter.NumberNamePriceSplitting;
 import com.openprice.parser.ml.api.PriceParserConstant;
+import com.openprice.parser.splitter.NumberNamePriceSplitting;
 
 /**
  * parser for lines that don't have a wide space

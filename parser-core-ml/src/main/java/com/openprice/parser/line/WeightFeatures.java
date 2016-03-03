@@ -1,8 +1,8 @@
-package com.openprice.parser.linepredictor;
+package com.openprice.parser.line;
 
 import com.openprice.parser.ml.api.Features;
 
-public class PhoneFeatures implements Features{
+public class WeightFeatures implements Features{
 
     @Override
     public int size() {

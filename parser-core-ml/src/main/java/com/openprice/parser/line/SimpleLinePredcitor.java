@@ -1,4 +1,4 @@
-package com.openprice.parser.linepredictor;
+package com.openprice.parser.line;
 
 import com.openprice.parser.ml.api.LinePredictor;
 import com.openprice.parser.ml.api.LineType;

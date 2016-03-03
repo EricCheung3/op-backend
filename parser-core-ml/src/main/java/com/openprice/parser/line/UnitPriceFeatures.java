@@ -1,8 +1,8 @@
-package com.openprice.parser.linepredictor;
+package com.openprice.parser.line;
 
 import com.openprice.parser.ml.api.Features;
 
-public class FooterFeatures implements Features{
+public class UnitPriceFeatures implements Features{
 
     @Override
     public int size() {
