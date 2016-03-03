@@ -111,16 +111,17 @@ public abstract class AbstractImageProcessor implements ImageProcessor {
         receiptImageRepository.save(image);
 
         Receipt receipt = image.getReceipt();
-        receipt = receiptParsingService.parseScannedReceiptImages(receipt);
 
         if (true) { // for test purpose to see what happens in Cloud. TODO change to debug
             final UserAccount owner = userAccountRepository.findOne(item.getOwnerId()); // we assume only user can be owner now
             if (owner != null) {
                 log.info("Process receipt from user '{}' ...", owner.getProfile().getDisplayName());
             }
-            log.info("After OCR process, receipt status is : "+receipt.getStatus());
-            log.info("After parsing, receipt status is : "+receipt.getStatus());
         }
+
+        log.info("After OCR process, receipt status is : "+receipt.getStatus());
+        receipt = receiptParsingService.parseScannedReceiptImages(receipt);
+        log.info("After parsing, receipt status is : "+receipt.getStatus());
 
     }
 }
