@@ -5,6 +5,8 @@ import java.nio.file.Path;
 
 import javax.transaction.Transactional;
 
+import com.openprice.domain.account.user.UserAccount;
+import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.domain.receipt.OcrProcessLog;
 import com.openprice.domain.receipt.OcrProcessLogRepository;
 import com.openprice.domain.receipt.ProcessStatusType;
@@ -25,17 +27,20 @@ public abstract class AbstractImageProcessor implements ImageProcessor {
     private final ReceiptParsingService receiptParsingService;
     private final OcrProcessLogRepository ocrProcessLogRepository;
     private final ReceiptImageRepository receiptImageRepository;
+    private final UserAccountRepository userAccountRepository;
 
     public AbstractImageProcessor(final String name,
                                   final FileSystemService fileSystemService,
                                   final ReceiptParsingService receiptParsingService,
                                   final OcrProcessLogRepository ocrProcessLogRepository,
-                                  final ReceiptImageRepository receiptImageRepository) {
+                                  final ReceiptImageRepository receiptImageRepository,
+                                  final UserAccountRepository userAccountRepository) {
         this.name = name;
         this.fileSystemService = fileSystemService;
         this.receiptParsingService = receiptParsingService;
         this.ocrProcessLogRepository = ocrProcessLogRepository;
         this.receiptImageRepository = receiptImageRepository;
+        this.userAccountRepository = userAccountRepository;
     }
 
     @Override
@@ -106,9 +111,17 @@ public abstract class AbstractImageProcessor implements ImageProcessor {
         receiptImageRepository.save(image);
 
         Receipt receipt = image.getReceipt();
-        log.info("After OCR process, receipt status is : "+receipt.getStatus()); // for test purpose to see what happens in Cloud. TODO change to debug
+
+        if (true) { // for test purpose to see what happens in Cloud. TODO change to debug
+            final UserAccount owner = userAccountRepository.findOne(item.getOwnerId()); // we assume only user can be owner now
+            if (owner != null) {
+                log.info("Process receipt from user '{}' ...", owner.getProfile().getDisplayName());
+            }
+        }
+
+        log.info("After OCR process, receipt status is : "+receipt.getStatus());
         receipt = receiptParsingService.parseScannedReceiptImages(receipt);
-        log.info("After parsing, receipt status is : "+receipt.getStatus()); // for test purpose to see what happens in Cloud. TODO change to debug
+        log.info("After parsing, receipt status is : "+receipt.getStatus());
 
     }
 }

@@ -46,7 +46,8 @@ public class RemoteOCRImageProcessorTest extends AbstractProcessorTest {
                                                       ocrServiceMock,
                                                       receiptParsingServiceMock,
                                                       processLogRepositoryMock,
-                                                      receiptImageRepositoryMock);
+                                                      receiptImageRepositoryMock,
+                                                      userAccountRepositoryMock);
     }
 
     @Test

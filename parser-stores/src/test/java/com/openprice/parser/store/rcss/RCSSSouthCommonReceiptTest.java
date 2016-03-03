@@ -115,4 +115,10 @@ public class RCSSSouthCommonReceiptTest extends AbstractReceiptParserIntegration
 //        verifyParsedField(fieldValues, ReceiptFieldType.AddressCountry, "canada",14);
 //        verifyParsedField(fieldValues, ReceiptFieldType.AddressCity, "edmonton",25);
     }
+
+
+
+
+
+
 }

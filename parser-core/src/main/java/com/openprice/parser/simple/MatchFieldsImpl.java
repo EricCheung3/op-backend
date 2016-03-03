@@ -169,7 +169,7 @@ public class MatchFieldsImpl implements MatchFields{
             final List<String> headerPatterns = config.getFieldHeaderMatchStrings(field);
             if(headerPatterns==null || headerPatterns.size()==0)
                 continue;
-//            log.debug("field="+field+", headerPatterns="+headerPatterns.toString());
+            log.debug("field="+field+", headerPatterns="+headerPatterns.toString());
             if (headerPatterns == null || headerPatterns.isEmpty())
                 continue;
 

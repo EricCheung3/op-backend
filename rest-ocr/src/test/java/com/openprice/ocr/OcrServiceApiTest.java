@@ -14,6 +14,7 @@ import javax.inject.Inject;
 
 import org.apache.http.HttpStatus;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,6 +54,7 @@ public class OcrServiceApiTest {
     }
 
     @Test
+    @Ignore
     public void process_ShouldReturnOcrResult() {
         final String TEST_FILENAME = "2015_09_09_12_00_01_001.jpg";
         final String TEST_USERID = "user001";

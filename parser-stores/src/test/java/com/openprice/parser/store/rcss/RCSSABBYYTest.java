@@ -24,7 +24,7 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
     private Resource sampleRCSS_2015_11_11_calgarytrail;
 
     @Test
-    public void testRCSS_2015_02_01_14_17_01TheCommentedItemsAreAllGone() throws Exception {
+    public void sampleRCSS_2015_11_11_calgarytrail() throws Exception {
         final String ocrResult = TextResourceUtils.loadTextResource(sampleRCSS_2015_11_11_calgarytrail);
 
         ParsedReceipt receipt = simpleParser.parseReceiptOcrResult(java.util.Arrays.asList(ocrResult));
@@ -33,12 +33,12 @@ public class RCSSABBYYTest extends AbstractReceiptParserIntegrationTest {
         assertEquals(9, receipt.getItems().size());
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
-        verifyParsedItem(iterator.next(), "yelw calros", "rice", null, 8);
+        verifyParsedItem(iterator.next(), "yelw calros    rice", "49.76", null, 8);
         verifyParsedItem(iterator.next(), "k dgon cook    wine    mrj", "2.69", null, 11);
         verifyParsedItem(iterator.next(), "organic 2% milk", "8.98", "organic 2% milk_06870030942", 13);
         verifyParsedItem(iterator.next(), "rooster garlic", "0.68", "rooster garlic_06038388591", 17);
-        verifyParsedItem(iterator.next(), "banana", "mftj", "banana_4011", 18);
-        verifyParsedItem(iterator.next(), "onion green", "067", "onion green_4068", 20);
+        verifyParsedItem(iterator.next(), "banana    mftj", "1.60", "banana_4011", 18);
+        verifyParsedItem(iterator.next(), "onion green", "0.67", "onion green_4068", 20);
         verifyParsedItem(iterator.next(), "ducks fr7n    mrj", "15.23", null, 22);
         verifyParsedItem(iterator.next(), "ducks frzh    mrj", "16.81", null, 23);
         verifyParsedItem(iterator.next(), "hairtail", "7.36", "hairtail_77016160104", 25);

@@ -251,11 +251,13 @@ public class PriceParserFromStringTuple implements PriceParser {
     public static boolean isItemName(final String str){
         final String noSpace=str.replaceAll("\\s+", "");
         int[] counts=StringCommon.countDigitAndLetters(noSpace);
-        if(counts[1]<PriceParserConstant.MIN_ITEM_NAME_LETTERS)
+//        log.debug("counts[1]="+counts[1]);
+        if(counts[1] < PriceParserConstant.MIN_ITEM_NAME_LETTERS)
             return false;
-        final double score=(double)counts[1]/(counts[0]+counts[1]);
-        //        log.debug("score="+score);
-        return score>=PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT;
+        final double ratioOfChars=(double)counts[1]/(counts[0]+counts[1]);
+//        if(ratioOfChars < PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT)
+//            log.debug("score="+ratioOfChars+", PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT= "+ PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT);
+        return ratioOfChars >= PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT;
     }
 
 

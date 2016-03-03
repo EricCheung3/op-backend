@@ -15,6 +15,7 @@ import com.openprice.store.MetadataLoader;
 public class ConvertTextToJson {
 
     public static void main(String[] args) throws Exception{
+//        final String chainCode = "canadiantire";
         final String chainCode = MetadataLoader.SHARED_CONFIG_ROOT;
 
         final List<String> orig=TextResourceUtils.loadStringArray("/"+chainCode+"/not-catalog-item-names.txt");

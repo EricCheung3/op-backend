@@ -16,13 +16,22 @@ public class PriceParserWithCatalogTest {
         assertEquals("2.39", pp.getPrice());
     }
 
-  @Test
-  public void headingItemNumberIsOkay(){
+    @Test
+    public void test11(){
+        final ProductPrice pp= parser.parsePriceLine("      ~ oc             P LUM            RED                     HRJ");
+        assertEquals("~ oc    P LUM    RED", pp.getName());
+        assertEquals("", pp.getNumber());
+        assertEquals("HRJ", pp.getPrice());
+    }
+
+
+    @Test
+    public void headingItemNumberIsOkay(){
       final ProductPrice pp= parser.parsePriceLine("140543 RIDER INSULATE $179.99 16  ");
       assertEquals("RIDER INSULATE", pp.getName());
       assertEquals("140543", pp.getNumber());
       assertEquals("179.9916", pp.getPrice());
-  }
+    }
 
     //TODO not supported yet
 //    @Test

@@ -105,7 +105,7 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         assertEquals(7,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "no name all purp", "5.99", null, 7);
-        verifyParsedItem(iterator.next(), "red del. apples", null, null, 9);
+        verifyParsedItem(iterator.next(), "red del. apples", "3.43", null, 9);
         verifyParsedItem(iterator.next(), "pear bartlett", "2.43", null, 11);
         verifyParsedItem(iterator.next(), "mango red", "1.67", null, 13);
         verifyParsedItem(iterator.next(), "pto russet 1olb    r", "3.97", null, 14);
@@ -186,5 +186,32 @@ public class GenericStoresTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedItem(iterator.next(), "item c",  "2.9", null, 4);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
 //        verifyParsedField(fieldValues, ReceiptFieldType.Total, "12.9", 5);
+    }
+
+    @Test
+    public void genericChainCodeIsNullIsFine() throws Exception {
+        final List<String> lines = new ArrayList<>();
+        lines.add("    4011          BANANA                     MftJ");
+        lines.add("0.940 kg 8 $1.73/kg                              1.60");
+        lines.add("0.940 kg @ $1.73/kg                              1.60");//should not contain this line
+        lines.add("4068            ONION GREN                MRJ      0,67");
+        lines.add("4068            ONION GREN                MRJ      0,67");
+        lines.add("31-MEA1S");
+        lines.add("2021000          DUCKS FR7N                MRJ      15.23");
+
+        ParsedReceipt receipt = simpleParser.parseLines(lines);
+        assertTrue(receipt.getChainCode() == null);
+
+        printResult(receipt);
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+
+        assertEquals(4,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "banana    mftj",  "1.60", null, 0);
+        verifyParsedItem(iterator.next(), "onion gren    mrj",  "0.67", null, 3);
+        verifyParsedItem(iterator.next(), "onion gren    mrj",  "0.67", null, 4);
+        verifyParsedItem(iterator.next(), "ducks fr7n    mrj",  "15.23", null, 6);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
+
     }
 }

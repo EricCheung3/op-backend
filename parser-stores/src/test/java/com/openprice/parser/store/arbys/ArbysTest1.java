@@ -27,70 +27,70 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ArbysTest1 extends AbstractReceiptParserIntegrationTest{
 
-    @Value("classpath:/testFiles/arbys/2015_10_10_14_55_54.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_10_14_55_54.jpg.txt")
     private Resource receipt_2015_10_10_14_55_54;
 
-    @Value("classpath:/testFiles/arbys/2015_10_10_14_57_05.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_10_14_57_05.jpg.txt")
     private Resource receipt_2015_10_10_14_57_05;
 
-    @Value("classpath:/testFiles/arbys/2015_10_10_14_57_47.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_10_14_57_47.jpg.txt")
     private Resource receipt_2015_10_10_14_57_47;
 
-    @Value("classpath:/testFiles/arbys/2015_10_10_15_11_37.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_10_15_11_37.jpg.txt")
     private Resource receipt_2015_10_10_15_11_37;
 
-    @Value("classpath:/testFiles/arbys/2015_10_10_15_12_03.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_10_15_12_03.jpg.txt")
     private Resource receipt_2015_10_10_15_12_03;
 
-    @Value("classpath:/testFiles/arbys/2015_10_10_15_17_20.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_10_15_17_20.jpg.txt")
     private Resource receipt_2015_10_10_15_17_20;
 
-    @Value("classpath:/testFiles/arbys/2015_10_10_15_18_30.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_10_15_18_30.jpg.txt")
     private Resource receipt_2015_10_10_15_18_30;
 
-    @Value("classpath:/testFiles/arbys/2015_10_17_16_53_25.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_17_16_53_25.jpg.txt")
     private Resource receipt_2015_10_17_16_53_25;
 
-    @Value("classpath:/testFiles/arbys/2015_10_17_16_56_59.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_17_16_56_59.jpg.txt")
     private Resource receipt_2015_10_17_16_56_59;
 
-    @Value("classpath:/testFiles/arbys/2015_10_17_17_03_29.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_17_17_03_29.jpg.txt")
     private Resource receipt_2015_10_17_17_03_29;
 
-    @Value("classpath:/testFiles/arbys/2015_10_17_17_04_16.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_17_17_04_16.jpg.txt")
     private Resource receipt_2015_10_17_17_04_16;
 
-    @Value("classpath:/testFiles/arbys/2015_10_17_17_04_50.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_17_17_04_50.jpg.txt")
     private Resource receipt_2015_10_17_17_04_50;
 
-    @Value("classpath:/testFiles/arbys/2015_10_17_17_04_55.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_17_17_04_55.jpg.txt")
     private Resource receipt_2015_10_17_17_04_55;
 
-    @Value("classpath:/testFiles/arbys/2015_10_17_17_17_42.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_17_17_17_42.jpg.txt")
     private Resource receipt_2015_10_17_17_17_42;
 
-    @Value("classpath:/testFiles/arbys/2015_10_17_17_25_53.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_17_17_25_53.jpg.txt")
     private Resource receipt_2015_10_17_17_25_53;
 
-    @Value("classpath:/testFiles/arbys/2015_10_17_17_31_25.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_17_17_31_25.jpg.txt")
     private Resource receipt_2015_10_17_17_31_25;
 
-    @Value("classpath:/testFiles/arbys/2015_10_17_17_31_47.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_17_17_31_47.jpg.txt")
     private Resource receipt_2015_10_17_17_31_47;
 
-    @Value("classpath:/testFiles/arbys/2015_10_17_17_34_25.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_17_17_34_25.jpg.txt")
     private Resource receipt_2015_10_17_17_34_25;
 
-    @Value("classpath:/testFiles/arbys/2015_10_17_17_35_32.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_17_17_35_32.jpg.txt")
     private Resource receipt_2015_10_17_17_35_32;
 
-    @Value("classpath:/testFiles/arbys/2015_10_17_17_35_36.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_17_17_35_36.jpg.txt")
     private Resource receipt_2015_10_17_17_35_36;
 
-    @Value("classpath:/testFiles/arbys/2015_10_17_17_36_31.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_17_17_36_31.jpg.txt")
     private Resource receipt_2015_10_17_17_36_31;
 
-    @Value("classpath:/testFiles/arbys/2015_10_17_17_45_14.jpg.txt")
+    @Value("classpath:/testfiles/arbys/2015_10_17_17_45_14.jpg.txt")
     private Resource receipt_2015_10_17_17_45_14;
 
     @Test
