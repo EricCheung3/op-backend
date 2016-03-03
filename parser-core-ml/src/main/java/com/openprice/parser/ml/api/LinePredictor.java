@@ -1,6 +1,6 @@
-package com.openprice.parser.api;
+package com.openprice.parser.ml.api;
 
-import com.openprice.parser.LineType;
+import com.openprice.parser.api.StoreConfig;
 
 /**
  * predictin a line's content is about date, item, address or noise.

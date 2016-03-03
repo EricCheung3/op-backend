@@ -1,4 +1,4 @@
-package com.openprice.parser.category;
+package com.openprice.parser.categorypredictor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.openprice.parser.categorypredictor.SimpleCategoryPredictor;
 
 import lombok.extern.slf4j.Slf4j;
 

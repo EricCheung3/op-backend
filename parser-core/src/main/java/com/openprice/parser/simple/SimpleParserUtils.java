@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.LineType;
 import com.openprice.parser.ParsedItem;
 import com.openprice.parser.api.MatchedRecord;
 import com.openprice.parser.api.ReceiptData;
@@ -13,6 +12,7 @@ import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.data.ParsedItemImpl;
 import com.openprice.parser.linepredictor.SimpleLinePredcitor;
+import com.openprice.parser.ml.api.LineType;
 
 import lombok.extern.slf4j.Slf4j;
 

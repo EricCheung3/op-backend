@@ -1,8 +1,8 @@
 package com.openprice.parser.price;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.LineType;
 import com.openprice.parser.linepredictor.SimpleLinePredcitor;
+import com.openprice.parser.ml.api.LineType;
 
 import lombok.extern.slf4j.Slf4j;
 

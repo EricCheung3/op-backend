@@ -1,4 +1,4 @@
-package com.openprice.parser;
+package com.openprice.parser.ml.api;
 
 /**
  * a line content type

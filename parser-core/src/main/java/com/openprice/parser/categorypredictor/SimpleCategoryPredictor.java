@@ -1,4 +1,4 @@
-package com.openprice.parser.category;
+package com.openprice.parser.categorypredictor;
 
 import java.util.Arrays;
 import java.util.HashMap;

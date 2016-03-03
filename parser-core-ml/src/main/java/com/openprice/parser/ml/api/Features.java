@@ -1,4 +1,4 @@
-package com.openprice.parser.api;
+package com.openprice.parser.ml.api;
 
 public interface Features {
 

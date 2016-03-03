@@ -1,6 +1,6 @@
 package com.openprice.parser.linepredictor;
 
-import com.openprice.parser.api.Features;
+import com.openprice.parser.ml.api.Features;
 
 public class PhoneFeatures implements Features{
 

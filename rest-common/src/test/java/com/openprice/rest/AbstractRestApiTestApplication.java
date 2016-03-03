@@ -30,7 +30,7 @@ import com.openprice.file.FileSystemService;
 import com.openprice.mail.EmailProperties;
 import com.openprice.mail.EmailService;
 import com.openprice.mail.stub.DummyEmailService;
-import com.openprice.parser.category.SimpleCategoryPredictor;
+import com.openprice.parser.categorypredictor.SimpleCategoryPredictor;
 import com.openprice.predictor.CategoryPredictor;
 import com.openprice.store.MetadataLoader;
 import com.openprice.store.StoreMetadata;
