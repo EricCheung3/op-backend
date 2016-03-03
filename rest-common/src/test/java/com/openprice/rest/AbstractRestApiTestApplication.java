@@ -12,6 +12,7 @@ import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -90,6 +91,7 @@ public abstract class AbstractRestApiTestApplication extends WebSecurityConfigur
     }
 
     @Bean
+    @Lazy
     public StoreMetadata storeMetadata() {
         return MetadataLoader.loadMetadata();
     }
