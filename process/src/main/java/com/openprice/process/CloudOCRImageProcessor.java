@@ -1,5 +1,6 @@
 package com.openprice.process;
 
+import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.domain.receipt.OcrProcessLogRepository;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptParsingService;
@@ -20,8 +21,14 @@ public class CloudOCRImageProcessor extends AbstractImageProcessor {
                                   final CloudOcrService cloudOcrService,
                                   final ReceiptParsingService receiptParsingService,
                                   final OcrProcessLogRepository ocrProcessLogRepository,
-                                  final ReceiptImageRepository receiptImageRepository) {
-        super("ABBYY Cloud SDK", fileSystemService, receiptParsingService, ocrProcessLogRepository, receiptImageRepository);
+                                  final ReceiptImageRepository receiptImageRepository,
+                                  final UserAccountRepository userAccountRepository) {
+        super("ABBYY Cloud SDK",
+              fileSystemService,
+              receiptParsingService,
+              ocrProcessLogRepository,
+              receiptImageRepository,
+              userAccountRepository);
         this.cloudOcrService = cloudOcrService;
     }
 

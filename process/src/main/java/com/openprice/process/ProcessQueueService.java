@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.openprice.common.client.ServiceSettings;
+import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.domain.receipt.OcrProcessLogRepository;
 import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptParsingService;
@@ -33,13 +34,15 @@ public class ProcessQueueService {
     private final ReceiptImageRepository receiptImageRepository;
     private final FileSystemService fileSystemService;
     private final ReceiptParsingService receiptParsingService;
+    private final UserAccountRepository userAccountRepository;
 
     @Inject
     public ProcessQueueService(final ProcessSettings processSettings,
                                final OcrProcessLogRepository processLogRepository,
                                final ReceiptImageRepository receiptImageRepository,
                                final FileSystemService fileSystemService,
-                               final ReceiptParsingService receiptParsingService) {
+                               final ReceiptParsingService receiptParsingService,
+                               final UserAccountRepository userAccountRepository) {
         this.queue = new LinkedBlockingQueue<>();
         this.consumers = new ArrayList<>();
         this.processSettings = processSettings;
@@ -47,6 +50,7 @@ public class ProcessQueueService {
         this.receiptImageRepository = receiptImageRepository;
         this.fileSystemService = fileSystemService;
         this.receiptParsingService = receiptParsingService;
+        this.userAccountRepository = userAccountRepository;
     }
 
     @PostConstruct
@@ -70,6 +74,7 @@ public class ProcessQueueService {
                                                                     receiptParsingService,
                                                                     processLogRepository,
                                                                     receiptImageRepository,
+                                                                    userAccountRepository,
                                                                     processSettings.getWaitSeconds());
             final ProcessQueueConsumer consumer = new ProcessQueueConsumer(queue, p);
             consumers.add(consumer);
@@ -85,7 +90,8 @@ public class ProcessQueueService {
                                                                       ocrService,
                                                                       receiptParsingService,
                                                                       processLogRepository,
-                                                                      receiptImageRepository);
+                                                                      receiptImageRepository,
+                                                                      userAccountRepository);
         final ProcessQueueConsumer consumer = new ProcessQueueConsumer(queue, p);
         consumers.add(consumer);
         new Thread(consumer).start();
@@ -98,7 +104,8 @@ public class ProcessQueueService {
                                                                     cloudOcrService,
                                                                     receiptParsingService,
                                                                     processLogRepository,
-                                                                    receiptImageRepository);
+                                                                    receiptImageRepository,
+                                                                    userAccountRepository);
         final ProcessQueueConsumer consumer = new ProcessQueueConsumer(queue, p);
         consumers.add(consumer);
         new Thread(consumer).start();

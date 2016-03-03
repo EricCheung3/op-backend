@@ -3,6 +3,7 @@ package com.openprice.process;
 import org.mockito.Mock;
 
 import com.openprice.domain.account.user.UserAccount;
+import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.domain.receipt.OcrProcessLogRepository;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
@@ -28,6 +29,9 @@ public abstract class AbstractProcessorTest {
 
     @Mock
     protected ReceiptImageRepository receiptImageRepositoryMock;
+
+    @Mock
+    protected UserAccountRepository userAccountRepositoryMock;
 
     protected FileSystemService fileSystemService = new FileSystemService(new FileFolderSettings()); // in memory VFS
 

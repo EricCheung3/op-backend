@@ -33,6 +33,7 @@ public class StaticResultImageProcessorTest extends AbstractProcessorTest {
                                                          receiptParsingServiceMock,
                                                          processLogRepositoryMock,
                                                          receiptImageRepositoryMock,
+                                                         userAccountRepositoryMock,
                                                          0);
     }
 
