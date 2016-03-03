@@ -25,14 +25,16 @@ docker rm op-server-internal-api
 # Internal RESTful API Server, internal usage only
 cd $gitroot/op-backend/server-internal-api
 mvn docker:build
-docker run --name op-server-internal-api -e ENV_NAME=openprice-prod -e SERVER_NAME=INTAPI -e SPRING_PROFILES_ACTIVE=sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link op-mysql:mysql -d opgt/op-server-internal-api
+docker run --name op-server-internal-api -e ENV_NAME=openprice-prod -e SERVER_NAME=INTAPI -e SPRING_PROFILES_ACTIVE=sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v /groundtruth/logs:/groundtruth/logs -v /groundtruth/images:/groundtruth/images --link op-mysql:mysql -d opgt/op-server-internal-api
 
 # Web RESTful API Server, for Web UI
 cd $gitroot/op-backend/server-web-api
 mvn docker:build
-docker run --name op-server-web-api -p 8080:8080 -e ENV_NAME=openprice-prod -e SERVER_NAME=WEBAPI -e SPRING_PROFILES_ACTIVE=sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link op-mysql:mysql --link op-server-internal-api:op-server-internal-api -d opgt/op-server-web-api
+docker run --name op-server-web-api -p 8080:8080 -e ENV_NAME=openprice-prod -e SERVER_NAME=WEBAPI -e SPRING_PROFILES_ACTIVE=sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v /groundtruth/logs:/groundtruth/logs -v /groundtruth/images:/groundtruth/images --link op-mysql:mysql --link op-server-internal-api:op-server-internal-api -d opgt/op-server-web-api
 
 # ADMIN RESTful API Server, for Admin UI
 cd $gitroot/op-backend/server-admin-api
 mvn docker:build
-docker run --name op-server-admin-api -p 8081:8080 -e ENV_NAME=openprice-prod -e SERVER_NAME=ADMAPI -e SPRING_PROFILES_ACTIVE=sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v ~/groundtruth/logs:/groundtruth/logs -v ~/groundtruth/images:/groundtruth/images --link op-mysql:mysql --link op-server-internal-api:op-server-internal-api -d opgt/op-server-admin-api
+docker run --name op-server-admin-api -p 8081:8080 -e ENV_NAME=openprice-prod -e SERVER_NAME=ADMAPI -e SPRING_PROFILES_ACTIVE=sendgrid -e SENDGRID_USERNAME=groundtruthinc -e SENDGRID_PASSWORD=flrqth983PNRq -e LOGGING_FILE_FOLDER=/groundtruth/logs -v /groundtruth/logs:/groundtruth/logs -v /groundtruth/images:/groundtruth/images --link op-mysql:mysql --link op-server-internal-api:op-server-internal-api -d opgt/op-server-admin-api
+
+
