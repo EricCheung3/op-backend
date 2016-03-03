@@ -45,18 +45,18 @@ public class GenericParser extends AbstractStoreParser{
         log.debug("metadata="+metadata);
         log.debug("metadata.getStoreChainMap().size() = "+metadata.getStoreChainMap().size());
         log.debug("genericCode="+genericCode);
-        if(genericCode != null)
-            System.out.println("metadata.getStoreChainByCode(genericCode)="+metadata.getStoreChainByCode(genericCode).toString());
+//        if(genericCode != null)
+//            System.out.println("metadata.getStoreChainByCode(genericCode)="+metadata.getStoreChainByCode(genericCode).toString());
 
         //generate black list file first from the chain folder if there is; otherwise use a default one
-        try{
+        try {
             blackList = metadata.getStoreChainByCode(genericCode).getNotCatalogItemNames();
-        } catch (Exception e1){
-            log.warn("customized blackList file is not availabe at meta data folder "+ genericCode);
+        } catch (Exception e1) {
+            log.debug("customized blackList file is not availabe at meta data folder "+ genericCode);
             final String blackListFileName="/config/Generic/not-catalog-item-names.txt";
-            try{
+            try {
                 blackList=TextResourceUtils.loadStringArray(blackListFileName);
-            }catch(Exception e2){
+            } catch (Exception e2) {
                 log.warn("cannot load "+blackListFileName);
                 blackList=new ArrayList<String>();
             }
@@ -65,7 +65,7 @@ public class GenericParser extends AbstractStoreParser{
         try{
             prop.putAll(metadata.getStoreChainByCode(genericCode).getHeaderProperties());
         } catch(Exception e){
-            log.warn("customized header file is not availabe at meta data folder "+ genericCode);
+            log.debug("customized header file is not availabe at meta data folder "+ genericCode);
             final String headersFile="/config/Generic/Generic1/headerConfig.properties";
             try{
                 final Properties header = new Properties();
@@ -79,7 +79,7 @@ public class GenericParser extends AbstractStoreParser{
         try{
             prop.putAll(metadata.getStoreChainByCode(genericCode).getNonHeaderProperties());
         } catch(Exception e){
-            log.warn("customized non-headerheader file is not availabe at meta data folder "+ genericCode);
+            log.debug("customized non-headerheader file is not availabe at meta data folder "+ genericCode);
             final String nonHeadersFile="/config/Generic/config.properties";
             try{
                 final Properties nonHeader = new Properties();

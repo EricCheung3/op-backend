@@ -74,8 +74,9 @@ public class MatchedRecordImpl implements MatchedRecord{
                       .filter( value -> value != null )
                       .min( Comparator.comparing(StringInt::getLine) );
         //the results will be contain lines in the footer--usually noisy
-        if(!stopLine.isPresent())
-            log.warn("no stop line (total, gst, subtotal) detected. results are likely noisy");
+        if(!stopLine.isPresent()) {
+            log.info("no stop line (total, gst, subtotal) detected. results are likely noisy");
+        }
 
         return stopLine.isPresent()? stopLine.get().getLine() : Integer.MAX_VALUE;
     }
