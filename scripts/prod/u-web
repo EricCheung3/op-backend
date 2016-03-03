@@ -4,7 +4,7 @@ cd $gitroot/op-web-ui
 git pull
 npm install
 bower install
-gulp build --env development
+gulp build --env production
 
 cd $gitroot/op-web-ui/docker
 docker build -t opgt/op-server-web-ui .
