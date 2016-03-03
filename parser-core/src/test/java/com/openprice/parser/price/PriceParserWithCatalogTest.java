@@ -8,6 +8,16 @@ public class PriceParserWithCatalogTest {
 
     private final PriceParserWithCatalog parser =PriceParserWithCatalog.emptyCatalog();
 
+    //TODO number should be cut out from name
+    @Test
+    public void numberNamePriceTest1(){
+        final String line="    (2) 06038369066 PC EGG BROWN ORG MRJ                                12,38 ";
+        final ProductPrice pp= PriceParserWithCatalog.emptyCatalog().parsePriceLine(line);
+        assertEquals("(2) 06038369066 PC EGG BROWN ORG MRJ",pp.getName());
+        assertEquals("",pp.getNumber());
+        assertEquals("12.38",pp.getPrice());
+    }
+
     @Test
     public void withWideSpacesIsOkay(){
         final ProductPrice pp= parser.parsePriceLine("pepsi 591ml         6900000991                                   $2.39 GC");

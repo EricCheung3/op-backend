@@ -196,15 +196,18 @@ public class PriceParserFromStringTuple implements PriceParser {
         return ProductPriceUtils.fromNameCut(itemName, itemNumber, price);
     }
 
+    //TODO actually no exception thrown
     @Override
     public ProductPrice fromTwoStrings(final TwoStrings two) throws Exception{
+        log.debug("from two strings");
         final boolean firstIsNumber=isItemNumber(two.getFirst());
         final boolean secondIsNumber=isItemNumber(two.getSecond());
 
         String itemName="";
         String itemNumber="";
         String price="";
-        if(firstIsNumber && secondIsNumber){//all numbers
+        if(firstIsNumber && secondIsNumber){//all number
+            log.debug("both first second are numbers.");
             itemNumber=two.getFirst() + StringCommon.WIDE_SPACES+two.getSecond();
             return ProductPriceUtils.fromNameCut(itemName, itemNumber, price);
         }
@@ -212,6 +215,7 @@ public class PriceParserFromStringTuple implements PriceParser {
         if(firstIsNumber){
             itemNumber=two.getFirst();
             if(isNotPrice(two.getSecond())){
+                log.debug(two.getSecond()+ " is not a price");
                 itemName=two.getSecond();
             }else{
                 price=two.getSecond();
@@ -221,7 +225,9 @@ public class PriceParserFromStringTuple implements PriceParser {
 
         if(secondIsNumber){
             itemName=two.getFirst();
-            itemNumber=two.getSecond();
+//            itemNumber=two.getSecond();
+            price = two.getSecond();
+            log.debug("itemName = "+itemName + ", itemNumber= "+ itemNumber+", price="+price );
             return ProductPriceUtils.fromNameCut(itemName, itemNumber, price);
         }
 
@@ -243,12 +249,12 @@ public class PriceParserFromStringTuple implements PriceParser {
     //The string is an item number
     public static boolean isItemNumber(final String str){
         int[] counts=StringCommon.countDigitAndLetters(str);
-        if(counts[0]<PriceParserConstant.MIN_ITEM_NUMBER_LENGTH)
+        if(counts[0] < PriceParserConstant.MIN_ITEM_NUMBER_LENGTH)
             return false;
         if(isVeryLikelyPrice(str)){
             return false;
         }
-        final double score=(double)counts[0]/(counts[0]+counts[1]);
+        final double score= (double)counts[0] / (counts[0]+counts[1]);
         //        log.debug("score="+score);
         return score>=PriceParserConstant.MIN_ITEM_NUMBER_PERCENT;
     }
@@ -286,8 +292,10 @@ public class PriceParserFromStringTuple implements PriceParser {
         //        log.debug("letters="+counts[1]);
         //        log.debug(str.contains(".")+"");
         //        log.debug(str.contains("$")+"");
-        final boolean result= counts[0]<=5 && counts[0]>0
-                &&  ( str.contains(".") || str.contains("$") );
+        final boolean result=
+                counts[0] <= 5 &&
+                counts[0] > 0  &&
+                ( str.contains(".") || str.contains("$") );
         //        if(result)
         //            log.debug(str+" is a very likely a price");
         return result;

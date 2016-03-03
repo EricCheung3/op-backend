@@ -208,6 +208,28 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "10",4);
 
     }
+
+    @Test
+    public void multilineItemTest3() throws Exception {
+        final List<String> lines = new ArrayList<>();
+        lines.add("   (2) 06038369066 PC EGG BROWN ORG MRJ                                         12,38");
+        lines.add("2    3 S6.19");
+        lines.add("    27-PRODUCE");
+        lines.add("03338322241                     BLUEBERRIES 180Z                            HRJ    4.96");
+        lines.add("total 10");
+
+        ParsedReceipt receipt = simpleParser.parseLines(lines);
+        printResult(receipt);
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(2,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "(2) 06038369066 pc egg brown org mrj",  "12.38", null, 0);
+        verifyParsedItem(iterator.next(), "blueberries 180z    hrj",  "4.96", null, 3);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "10",4);
+    }
+
+
     @Test
     public void receipt_2015_11_11_calgarytrail()  throws Exception {
         final List<String> receiptLines = new ArrayList<>();

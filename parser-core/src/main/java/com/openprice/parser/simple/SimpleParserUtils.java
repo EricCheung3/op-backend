@@ -50,7 +50,7 @@ public class SimpleParserUtils {
                         })
                        .map( line -> {
                            log.debug("line.getCleanText()="+line.getCleanText());
-                           return parser.parseItemLine(line.getCleanText(), line.getNumber());
+                           return parser.parseItemLine(line.getCleanText().trim(), line.getNumber());
                        })
                        .filter( item -> item != null &&
                                         item.getParsedName()!=null &&

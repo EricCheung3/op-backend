@@ -79,7 +79,9 @@ public class PriceParserWithCatalog {
         ProductPrice pPrice3 = null;
         try{
             tri=StringsFromWideSpace.trippleStrings(line);
+            log.debug("tri="+tri);
             pPrice3=priceParser.fromThreeStrings(tri);
+            log.debug("pPrice3="+pPrice3);
         }catch(Exception e){
             log.warn("line="+ line+", fromThreeStrings: "+e.getMessage());
         }
@@ -96,11 +98,14 @@ public class PriceParserWithCatalog {
         ProductPrice pPrice2 = null;
         try{
             two=StringsFromWideSpace.twoStrings(line);
-            pPrice2=priceParser.fromTwoStrings(two);
+            log.debug("two="+two);
+            pPrice2 = priceParser.fromTwoStrings(two);
+            log.debug("pPrice2="+pPrice2);
         }catch(Exception e){
             log.warn("line="+ line+",fromTwoStrings: "+e.getMessage());
         }
         if( !matched.isEmpty() && !pPrice2.isEmpty()){
+            log.debug("pPrice2.getPrice()="+pPrice2.getPrice());
             return new ProductPrice(matched, pPrice2.getPrice(), true);
         }
 
