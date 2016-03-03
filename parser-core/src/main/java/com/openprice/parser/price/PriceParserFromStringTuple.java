@@ -226,7 +226,10 @@ public class PriceParserFromStringTuple implements PriceParser {
         if(secondIsNumber){
             itemName=two.getFirst();
 //            itemNumber=two.getSecond();
-            price = two.getSecond();
+            if(isVeryLikelyPrice(two.getSecond()))
+                price = two.getSecond();
+            else
+                itemNumber=two.getSecond();
             log.debug("itemName = "+itemName + ", itemNumber= "+ itemNumber+", price="+price );
             return ProductPriceUtils.fromNameCut(itemName, itemNumber, price);
         }
