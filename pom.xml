@@ -27,6 +27,7 @@
 
         <module>parser-api</module>
         <module>parser-core</module>
+        <module>parser-core-ml</module>
         <module>parser-stores</module>
 
         <module>api-common</module>
