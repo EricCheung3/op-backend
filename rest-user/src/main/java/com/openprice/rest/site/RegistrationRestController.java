@@ -147,12 +147,12 @@ public class RegistrationRestController extends AbstractExternalRestController i
 
     private static final String WELCOME_MESSAGE_TEMPLATE = "Dear %s,\n"+
             "Welcome to OpenPrice. You, or someone on your behalf have registered with the email '%s'.\n" +
-            "Enjoy the app! \n" +
+            "Enjoy the app! \n\n" +
             "Sincerely, \n Openprice Team\n";
 
     private static final String FORGET_PASSWORD_TEMPLATE = "Hi %s, \n" +
             "You have requested to reset your password. Please click following url to reset your password:\n" +
             "<a href=\"%s\"> %s</a>\n This link will be expired after two hours.\n" +
-            "If you didn't request password reset, please ignore this email.\n" +
+            "If you didn't request password reset, please ignore this email.\n\n" +
             "Sincerely, \n Openprice Team\n";
 }
