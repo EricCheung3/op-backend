@@ -4,7 +4,7 @@ import com.openprice.common.StringCommon;
 import com.openprice.parser.api.NonWideSpaceParser;
 import com.openprice.parser.data.ProductImpl;
 import com.openprice.parser.ml.api.PriceParserConstant;
-import com.openprice.parser.splitter.NumberNamePriceSplitting;
+import com.openprice.parser.structure.NumberNamePriceFeatures;
 
 /**
  * parser for lines that don't have a wide space
@@ -18,7 +18,7 @@ public class NonWideSpaceParserImpl implements NonWideSpaceParser{
         str =  str.trim();
         if(str.endsWith("$"))
             str = str.substring(0, str.length()-1);
-        final NumberNamePriceSplitting features = new NumberNamePriceSplitting(str);
+        final NumberNamePriceFeatures features = new NumberNamePriceFeatures(str);
         String number = StringCommon.EMPTY;
         String name = StringCommon.EMPTY;
         String price = StringCommon.EMPTY;

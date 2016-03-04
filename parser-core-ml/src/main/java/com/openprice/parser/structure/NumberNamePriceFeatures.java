@@ -1,24 +1,31 @@
-package com.openprice.parser.splitter;
+package com.openprice.parser.structure;
 
 import com.openprice.common.StringCommon;
+import com.openprice.parser.ml.api.Features;
 
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
 @Value
 @Slf4j
-public class NumberNamePriceSplitting {
+public class NumberNamePriceFeatures implements Features {
 
     String str;
-    int firstNonDigitSpace;//the index of the first non-digit space char. It should never begger than str.length()-1
+    String parsedNumber;
+    String parsedName;
+    String parsedPrice;
 
+  //the index of the first non-digit space char. It should never bigger than str.length()-1
+    int firstNonDigitSpace;
   //the index of the last non-digit space char before some digits. e.g., AB12C, it should be 1 ('B')
-    int lastNonDigitSpace;//It should never begger than str.length()-1
-
+    int lastNonDigitSpace;//It should never bigger than str.length()-1
     int numHeadingDigits;//number of heading digits before firstNonDigitSpace
     int numTrailingDigits;//number of trailing digits after lastNonDigitSpace
+    int length;//length of str
 
-    public NumberNamePriceSplitting(final String str){
+    //other features? number of widespaces? and their index
+
+    public NumberNamePriceFeatures(final String str){
         this.str = str;
         final int[] boundaries = cuttingBoundaries(str);
         this.firstNonDigitSpace = boundaries[0];
@@ -27,9 +34,16 @@ public class NumberNamePriceSplitting {
         final int[] headTailNumbers = computeNumDigits();
         this.numHeadingDigits = headTailNumbers[0];
         this.numTrailingDigits = headTailNumbers[1];
+
+        this.length = str.length();
+
+        final String[] splits = getSplits();
+        parsedNumber = splits[0];
+        parsedName = splits[1];
+        parsedPrice = splits[2];
     }
 
-    public String[] getSplits(){
+    private String[] getSplits(){
         log.debug("firstNonDigitSpace="+firstNonDigitSpace+", lastNonDigitSpace="+lastNonDigitSpace);
 
         final String headDigits = firstNonDigitSpace > 0?
@@ -104,6 +118,11 @@ public class NumberNamePriceSplitting {
             numTrailingDigits = digitsCharsAtTail[0];
         }
         return new int[]{numHeadingDigits, numTrailingDigits};
+    }
+
+    @Override
+    public int size() {
+        return 4;
     }
 
 }
