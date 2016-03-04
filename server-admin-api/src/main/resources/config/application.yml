@@ -15,9 +15,9 @@ spring:
 application:
     settings:
         email:
-            systemName: GroundTruth Inc.
-            systemEmail: no-reply@theopenprice.com
-            adminName: Open Price
+            systemName: Openprice Support
+            systemEmail: support@theopenprice.com
+            adminName: Openprice Admin
             adminEmail: admin@theopenprice.com
         internal:
             serverHost: op-server-internal-api
