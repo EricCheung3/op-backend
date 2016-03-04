@@ -18,8 +18,8 @@ application:
             systemName: GroundTruth Inc.
             systemEmail: no-reply@theopenprice.com
             adminName: Open Price
-            adminEmail: admin@theopenprice.com
-            webServerUrl: http://104.154.88.206:8080
+            adminEmail: #{openprice.support.email}
+            webServerUrl: #{openprice.web.url}
         file:
             virtual: false
             imageRootFolder: /groundtruth/images
