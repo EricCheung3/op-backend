@@ -11,7 +11,7 @@ import lombok.Value;
 @Value
 public class NumberNamePriceFeaturesGenerator {
 
-    public NumberNamePriceFeatures getFeatures(final String line){
+    public NumberNamePriceFeaturesData getFeatures(final String line){
         final NumberNamePriceFeatures splitF = new NumberNamePriceFeatures(line);
         final int numHeadingDigits = splitF.getNumHeadingDigits();
         final int numTrailingDigits = splitF.getNumTrailingDigits();
@@ -25,7 +25,7 @@ public class NumberNamePriceFeaturesGenerator {
         final int[] digitsChars = StringCommon.countDigitAndChars(splitF.getParsedName());
         final int numCharsAtMiddle = digitsChars[1];
 
-        return NumberNamePriceFeatures.fromHeadMiddleTailDotDollar(
+        return NumberNamePriceFeaturesData.fromHeadMiddleTailDotDollar(
                 numHeadingDigits,
                 numCharsAtMiddle,
                 numTrailingDigits,

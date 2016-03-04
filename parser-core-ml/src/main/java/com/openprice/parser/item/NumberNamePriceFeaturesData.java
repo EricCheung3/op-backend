@@ -5,7 +5,7 @@ import com.openprice.parser.ml.api.Features;
 import lombok.Value;
 
 @Value
-public class NumberNamePriceFeatures implements Features{
+public class NumberNamePriceFeaturesData implements Features{
 
     int numHeadingDigits;
     int numCharsAtMiddle;
@@ -14,13 +14,13 @@ public class NumberNamePriceFeatures implements Features{
     boolean oneDotAtTail;
     boolean oneDollarSignAtTail;
 
-    public static NumberNamePriceFeatures fromHeadMiddleTailDotDollar(
+    public static NumberNamePriceFeaturesData fromHeadMiddleTailDotDollar(
             final int headDigits,
             final int middleChars,
             final int trailingDigits,
             final boolean dotAtTail,
             final boolean dollarAtTail){
-        return new NumberNamePriceFeatures(
+        return new NumberNamePriceFeaturesData(
                 headDigits,
                 middleChars,
                 trailingDigits,
