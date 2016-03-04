@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.item.NumberNamePriceFeatures;
-import com.openprice.parser.item.NumberNamePriceFeaturesGenerator;
+import com.openprice.parser.ml.item.NumberNamePriceFeatures;
+import com.openprice.parser.ml.item.NumberNamePriceFeaturesGenerator;
 
 public class ItemFeaturesTest {
 

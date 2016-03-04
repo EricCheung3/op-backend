@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.openprice.parser.api.Product;
-import com.openprice.parser.item.SimpleNumberNamePriceLine;
-import com.openprice.parser.ml.api.NumberNamePriceLine;
+import com.openprice.parser.ml.api.predictor.NumberNamePriceLine;
+import com.openprice.parser.ml.item.SimpleNumberNamePriceLine;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;

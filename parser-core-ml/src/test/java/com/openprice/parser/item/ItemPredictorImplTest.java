@@ -4,8 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.openprice.parser.item.SimpleNumberNamePriceLine;
-import com.openprice.parser.ml.api.NumberNamePriceLine;
+import com.openprice.parser.ml.api.predictor.NumberNamePriceLine;
+import com.openprice.parser.ml.item.SimpleNumberNamePriceLine;
 
 public class ItemPredictorImplTest {
 

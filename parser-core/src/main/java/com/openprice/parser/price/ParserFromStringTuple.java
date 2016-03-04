@@ -1,9 +1,9 @@
 package com.openprice.parser.price;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.line.SimpleLinePredcitor;
-import com.openprice.parser.ml.api.LineType;
-import com.openprice.parser.ml.api.PriceParserConstant;
+import com.openprice.parser.ml.data.LineType;
+import com.openprice.parser.ml.data.PriceParserConstant;
+import com.openprice.parser.ml.line.SimpleLinePredcitor;
 
 import lombok.extern.slf4j.Slf4j;
 

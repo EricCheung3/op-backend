@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.openprice.common.StringCommon;
-import com.openprice.parser.structure.NumberNamePriceFeatures;
+import com.openprice.parser.ml.structure.NumberNamePriceFeatures;
 
 public class NumberNameNumberSplittingTest {
 
