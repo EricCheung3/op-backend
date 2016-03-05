@@ -3,8 +3,6 @@ gitroot=~/openprice
 # ========== Backend ==========
 
 cd $gitroot/op-backend
-git pull
-
 mvn clean install -P prod -DskipTests
 
 
@@ -41,7 +39,6 @@ docker run --name op-server-docs -d opgt/op-server-docs
 
 # Web UI Server
 cd $gitroot/op-web-ui
-git pull
 npm install
 bower install
 gulp build --env development
@@ -54,7 +51,6 @@ docker run --name op-server-web-ui -d opgt/op-server-web-ui
 
 # Admin UI Server
 cd $gitroot/op-admin-ui
-git pull
 npm install
 bower install
 gulp build --env development
