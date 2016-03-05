@@ -1,4 +1,4 @@
-= OpenPrice RESTful API Guide for User API
+= Openprice RESTful API Guide for User API
 Yuan Ji;
 :doctype: book
 :toc: left
@@ -10,16 +10,16 @@ Yuan Ji;
 [[overview]]
 = Overview
 
-This is the RESTful API documentation for OpenPrice User API, used by web-ui application.
+This is the RESTful API documentation for Openprice User API, used by web-ui application.
 
 [[Authentication]]
 
-User API client can signin to User API through this endpoint: 
+User API client can signin to User API through this endpoint:
 `POST http://104.154.88.206:7800/api/signin`, with content of JSON data:
 
 `{username : 'jiwhiz@gmail.com', password : 'groundtruth'}`
 
-`username` is the end user login ID, should be user's email. 
+`username` is the end user login ID, should be user's email.
 
 [[resources-user]]
 == User
@@ -323,7 +323,7 @@ include::{snippets}/user-receipt-parser-result-retrieve-example/http-response.ad
 
 include::{snippets}/user-receipt-parser-result-retrieve-example/links.adoc[]
 
- 
+
 [[resources-user-receipt-parser-result-items]]
 == User Receipt Parser Result Items Resource
 
@@ -602,7 +602,7 @@ include::{snippets}/user-shopping-item-delete-example/http-response.adoc[]
 User Shopping Store Catalogs resource is for searching catalogs by user entered query for a store.
 
 [[resources-user-shopping-store-catalogs-query]]
-=== Search catalogs by query string for a shopping store. 
+=== Search catalogs by query string for a shopping store.
 Assume the shopping store has linked StoreChain.
 
 A `GET` request will get matching Catalog list.

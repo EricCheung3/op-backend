@@ -146,7 +146,7 @@ public class RegistrationRestController extends AbstractExternalRestController i
     }
 
     private static final String WELCOME_MESSAGE_TEMPLATE = "Dear %s,\n"+
-            "Welcome to OpenPrice. You, or someone on your behalf have registered with the email '%s'.\n" +
+            "Welcome to Openprice. You, or someone on your behalf have registered with the email '%s'.\n" +
             "Enjoy the app! \n\n" +
             "Sincerely, \n Openprice Team\n";
 

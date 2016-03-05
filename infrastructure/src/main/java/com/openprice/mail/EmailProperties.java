@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EmailProperties {
     /**
-     * OpenPrice Web UI Server url
+     * Openprice Web UI Server url
      */
     private String webServerUrl;
 

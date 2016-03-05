@@ -1,4 +1,4 @@
-= OpenPrice RESTful API Guide
+= Openprice RESTful API Guide
 Yuan Ji;
 :doctype: book
 :toc: left
@@ -74,7 +74,7 @@ include::{snippets}/error-example/http-response.adoc[]
 [[overview-hypermedia]]
 == Hypermedia
 
-OpenPrice RESTful API uses hypermedia and resources include links to other resources in their
+Openprice RESTful API uses hypermedia and resources include links to other resources in their
 responses. Responses are in http://stateless.co/hal_specification.html[Hypertext Application
 Language (HAL)] format. Links can be found beneath the `_links` key. Users of the API should
 not created URIs themselves, instead they should use the above-described links to navigate

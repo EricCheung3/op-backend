@@ -1,4 +1,4 @@
-= OpenPrice RESTful API Guide for Admin API
+= Openprice RESTful API Guide for Admin API
 Yuan Ji;
 :doctype: book
 :toc: left
@@ -10,11 +10,11 @@ Yuan Ji;
 [[overview]]
 = Overview
 
-This is the RESTful API documentation for OpenPrice Admin API, used by admin-ui application.
+This is the RESTful API documentation for Openprice Admin API, used by admin-ui application.
 
 [[Authentication]]
 
-Admin API client can signin to Admin API through this endpoint: 
+Admin API client can signin to Admin API through this endpoint:
 `POST http://104.154.88.206:7801/api/signin`, with content of JSON data:
 
 `{username : 'jiwhiz', password : 'groundtruth'}`
