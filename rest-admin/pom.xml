@@ -5,14 +5,14 @@
     <parent>
         <groupId>com.openprice</groupId>
         <artifactId>op-project</artifactId>
-        <version>0.3.0</version>
+        <version>0.4.0</version>
     </parent>
 
     <artifactId>op-rest-admin</artifactId>
     <packaging>jar</packaging>
 
     <name>Admin Rest API Module</name>
-    <description>OpenPrice Rest API module for admin management.</description>
+    <description>Openprice Rest API module for admin management.</description>
 
     <dependencies>
         <dependency>

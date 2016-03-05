@@ -11,10 +11,10 @@
 
     <groupId>com.openprice</groupId>
     <artifactId>op-project</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
     <packaging>pom</packaging>
 
-    <name>Open Price Project</name>
+    <name>Openprice Project</name>
     <url>https://theopenprice.com/</url>
     <inceptionYear>2015-2016</inceptionYear>
 

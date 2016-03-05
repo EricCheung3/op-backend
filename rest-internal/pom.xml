@@ -5,14 +5,14 @@
     <parent>
         <groupId>com.openprice</groupId>
         <artifactId>op-project</artifactId>
-        <version>0.3.0</version>
+        <version>0.4.0</version>
     </parent>
 
     <artifactId>op-rest-internal</artifactId>
     <packaging>jar</packaging>
 
     <name>Internal Rest Service Module</name>
-    <description>OpenPrice Rest Service module for internal service.</description>
+    <description>Openprice Rest Service module for internal service.</description>
 
     <dependencies>
         <dependency>

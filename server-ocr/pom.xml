@@ -5,14 +5,14 @@
     <parent>
         <groupId>com.openprice</groupId>
         <artifactId>op-project</artifactId>
-        <version>0.3.0</version>
+        <version>0.4.0</version>
     </parent>
 
     <artifactId>op-server-ocr</artifactId>
     <packaging>jar</packaging>
 
     <name>OCR RESTful API Server</name>
-    <description>OpenPrice RESTful API Server for OCR service.</description>
+    <description>Openprice RESTful API Server for OCR service.</description>
 
     <properties>
         <start-class>com.openprice.ocr.OcrServerApplication</start-class>
