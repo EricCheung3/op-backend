@@ -6,14 +6,13 @@ import com.openprice.parser.ml.data.PriceParserConstant;
 
 public class SimpleLinePredcitor implements LinePredictor{
 
-    private static final StatisticalFeaturesGenerator featureGen = new StatisticalFeaturesGenerator();
 
     @Override
     public LineType classify(final String str) {
         if(str.contains("kg") && str.contains("@"))
             return LineType.WeightPrice;
 
-        final StatisticalFeatures features =  featureGen.getFeatures(str);
+        final StatisticalFeatures features =  StatisticalFeatures.fromString(str);
         if(features.getNumberOfChars() > PriceParserConstant.MIN_ITEM_NAME_LETTERS
               && features.getCharsToCharsAndLetters() >= PriceParserConstant.MIN_ITEM_NAME_LETTERS_PERCENT)
             return LineType.Item;
