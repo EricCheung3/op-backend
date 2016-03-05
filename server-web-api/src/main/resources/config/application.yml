@@ -30,3 +30,6 @@ application:
             virtual: false
             imageRootFolder: /groundtruth/images
 
+server:
+    tomcat:
+        internal-proxies: 
