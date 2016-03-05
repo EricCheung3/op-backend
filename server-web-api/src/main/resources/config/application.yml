@@ -29,8 +29,3 @@ application:
         file:
             virtual: false
             imageRootFolder: /groundtruth/images
-
-server:
-    use-forward-headers: true
-    tomcat:
-        internal-proxies: 
