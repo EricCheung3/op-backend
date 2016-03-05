@@ -15,3 +15,6 @@ docker rm op-server-web-ui
 
 docker stop op-mysql
 docker rm op-mysql
+
+docker stop op-server-proxy
+docker rm op-server-proxy
