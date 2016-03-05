@@ -56,6 +56,7 @@ public class UserReceiptImageApiDocumentation extends UserReceiptApiDocumentatio
                 fieldWithPath("fileName").description("Receipt image file name"),
                 fieldWithPath("downloadUrl").description("Receipt image JPEG file download URL"),
                 fieldWithPath("base64Url").description("Receipt image Base64 data download URL"),
+                fieldWithPath("base64").description("Receipt image Base64 data for mobile display"),
                 fieldWithPath("_links").description("<<resources-user-receipt-image-links, Links>> to other resources")
             )
         ));

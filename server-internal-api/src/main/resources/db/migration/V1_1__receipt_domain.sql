@@ -35,6 +35,7 @@ CREATE TABLE receipt_image (
     file_name VARCHAR(255) NOT NULL,
     status VARCHAR(50) NOT NULL,
     ocr_result LONGTEXT,
+    base64 LONGTEXT,
 
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;

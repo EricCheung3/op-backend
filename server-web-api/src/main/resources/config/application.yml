@@ -19,10 +19,10 @@ application:
     settings:
         email:
             systemName: Openprice Support
-            systemEmail: support@theopenprice.com
+            systemEmail: #{openprice.support.email}
             adminName: Openprice Admin
-            adminEmail: admin@theopenprice.com
-            webServerUrl: http://104.154.88.206:8080
+            adminEmail: #{openprice.admin.email}
+            webServerUrl: #{openprice.web.url}
         internal:
             serverHost: op-server-internal-api
             serverPort: 8080
