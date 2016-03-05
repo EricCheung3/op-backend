@@ -7,16 +7,26 @@ import com.openprice.common.StringCommon;
 import com.openprice.parser.ml.api.predictor.LineParser;
 import com.openprice.parser.ml.data.ItemEntity;
 
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
-@Value
 @Slf4j
+/**
+ * split according to the order of "number name price"
+ */
 public class NumberNamePriceSplit implements LineParser {
 
+    private final Map<ItemEntity, String> entityToValue;
 
-    @Override
-    public Map<ItemEntity, String> splitAndRecognize(final String str) {
+    public NumberNamePriceSplit(final String str){
+        entityToValue = splitAndRecognize(str);
+    }
+
+    /**
+     * split a line and Recognize each token to give structure values of the line
+     * @param origLine original line from a receipt
+     * @return the map, key being ItemEntity, value being the value of ItemEntity
+     */
+    public static Map<ItemEntity, String> splitAndRecognize(final String str) {
         final NumberNamePrice features = new NumberNamePrice(str);
         final int firstNonDigitSpace = features.boundary1();
         final int lastNonDigitSpace = features.boundary2();
@@ -43,6 +53,20 @@ public class NumberNamePriceSplit implements LineParser {
     }
 
 
+    @Override
+    public String getParsedName(){
+        return entityToValue.get(ItemEntity.Name);
+    }
+
+    @Override
+    public String getParsedNumber() {
+        return entityToValue.get(ItemEntity.Number);
+    }
+
+    @Override
+    public String getParsedPrice() {
+        return entityToValue.get(ItemEntity.Price);
+    }
 
 
 }

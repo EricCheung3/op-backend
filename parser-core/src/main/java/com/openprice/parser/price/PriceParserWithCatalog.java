@@ -4,7 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.openprice.parser.api.Product;
-import com.openprice.parser.ml.item.SimpleNumberNamePriceLine;
+import com.openprice.parser.ml.data.LineStructure;
+import com.openprice.parser.ml.structure.SimpleStructurePredictor;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,7 @@ public class PriceParserWithCatalog {
 
     Set<Product> catalog = new HashSet<Product>();
 
-    private static final SimpleNumberNamePriceLine itemPredictor = new SimpleNumberNamePriceLine();
+    private static final SimpleStructurePredictor structurePredict = new SimpleStructurePredictor();
     private static final NonWideSpaceParserImpl nonSpaceParser = new NonWideSpaceParserImpl();
 
     public PriceParserWithCatalog(final ParserFromNStrings parser, final Set<Product>  catalog){
@@ -111,7 +112,7 @@ public class PriceParserWithCatalog {
         if(pPrice2!=null &&  !pPrice2.isEmpty()) return pPrice2;
 
         //no wide space can still contain items
-        if(itemPredictor.isNumberNamePriceFormat(line)){
+        if(structurePredict.classify(line) == LineStructure.NumberNamePrice){
             return nonSpaceParser.parse(line);
         }
 
