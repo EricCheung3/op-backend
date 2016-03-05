@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.openprice.parser.api.Product;
-import com.openprice.parser.ml.api.predictor.NumberNamePriceLine;
 import com.openprice.parser.ml.item.SimpleNumberNamePriceLine;
 
 import lombok.Data;
@@ -22,7 +21,7 @@ public class PriceParserWithCatalog {
 
     Set<Product> catalog = new HashSet<Product>();
 
-    private static final NumberNamePriceLine itemPredictor = new SimpleNumberNamePriceLine();
+    private static final SimpleNumberNamePriceLine itemPredictor = new SimpleNumberNamePriceLine();
     private static final NonWideSpaceParserImpl nonSpaceParser = new NonWideSpaceParserImpl();
 
     public PriceParserWithCatalog(final ParserFromNStrings parser, final Set<Product>  catalog){

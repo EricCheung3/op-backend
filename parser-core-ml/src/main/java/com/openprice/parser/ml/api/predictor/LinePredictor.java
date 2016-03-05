@@ -8,5 +8,5 @@ import com.openprice.parser.ml.data.LineType;
 public interface LinePredictor {
 
     //classify a line
-    LineType classify(String str);
+    LineType classify(final String origLine);
 }
