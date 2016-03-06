@@ -35,4 +35,4 @@ docker run --name op-server-admin-api -e ENV_NAME=openprice-prod -e SERVER_NAME=
 docker stop op-server-proxy
 docker rm op-server-proxy
 
-docker run --name op-server-proxy -p 80:80 -v $gitroot/nginx/conf.d:/etc/nginx/conf.d --link op-server-web-ui:op-server-web-ui --link op-server-web-api:op-server-web-api --link op-server-admin-ui:op-server-admin-ui --link op-server-admin-api:op-server-admin-api --link op-server-docs:op-server-docs -d nginx
+docker run --name op-server-proxy -p 80:80 -v $gitroot/nginx/conf.d:/etc/nginx/conf.d --link op-server-web-ui:op-server-web-ui --link op-server-web-api:op-server-web-api --link op-server-admin-ui:op-server-admin-ui --link op-server-admin-api:op-server-admin-api -d nginx
