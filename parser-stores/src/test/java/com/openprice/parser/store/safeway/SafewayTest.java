@@ -141,7 +141,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 33);
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 36);
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 39);
-        verifyParsedItem(iterator.next(), "bread a rti san french",  "1.29", "bread a rti san french", 46);
+        verifyParsedItem(iterator.next(), "bread artisan french",  "1.29", "bread artisan french", 46);
         verifyParsedField(fieldValues, ReceiptFieldType.Approved, "approved",76);
 //        verifyParsedField(fieldValues, ReceiptFieldType.Author, "auth # 093472                                                                     ref  00000224",75);
         verifyParsedField(fieldValues, ReceiptFieldType.Phone, "phone. 780.435.5132",7);
@@ -178,7 +178,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 33);
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 36);
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 39);
-        verifyParsedItem(iterator.next(), "bread a rti san french",  "1.29", "bread a rti san french", 46);
+        verifyParsedItem(iterator.next(), "bread artisan french",  "1.29", "bread artisan french", 46);
         //TODO missing banana because it is multi-line
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst# 817093735",8);
         verifyParsedField(fieldValues, ReceiptFieldType.Card, "card mastercard                                                                   rcpt 3321000",72);
