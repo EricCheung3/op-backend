@@ -71,7 +71,8 @@ public abstract class AbstractUserReceiptRestController extends AbstractUserRest
     protected ReceiptImage newReceiptImageWithBase64ImageData(final String receiptId, final String base64Data) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
-        log.info("User {} upload image base64 string for receipt {}.", currentUser.getUsername(), receiptId);
+        log.info("User {} upload image base64 string for receipt {}, size is {}.",
+                currentUser.getUsername(), receiptId, base64Data.length());
         return receiptUploadService.appendImageToReceipt(receipt, base64Data);
     }
 
