@@ -82,6 +82,7 @@ public class SimpleCategoryPredictor implements CategoryPredictor {
                 .map(e->{
                     final double score = Levenshtein.mostSimilarScoreInSetTwoWay(queryName, e.getValue());
                     final String matchedName = Levenshtein.mostSimilarInSetTwoWay(queryName, e.getValue());
+//                    log.debug("matchedName=" + matchedName+", score="+score);
                     return new ThreeStrings(e.getKey(), matchedName, score+StringCommon.EMPTY);})
                 .reduce((p1,p2) -> {
                     if(Double.valueOf(p1.getThird()) > Double.valueOf(p2.getThird())) return p1;

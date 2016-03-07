@@ -14,7 +14,7 @@
   "SubTotalHeader" : "SubtotaL,Net Total",
   "ThankYouHeader" : "Thank You",
   "PhoneHeader" : "AT 'S nofrills ",
-  "TotalHeader" : "Amount,MASTERCARD,Items              TOTAL:,TOTAL:,T O T A L",
+  "TotalHeader" : "Amount:,MASTERCARD,Items              TOTAL:,TOTAL:,T O T A L",
   "CardHeader" : "CARD NUMBER,CARD # ************  ",
   "CouponHeader" : "",
   "GstNumberHeader" : "GST #",

@@ -44,6 +44,8 @@ public class MatchFieldsImpl implements MatchFields{
         totalBlackList.add("Total Savings Value");
         totalBlackList.add("total discounts");
         totalBlackList.add("loyalty offer");
+        totalBlackList.add(" TOTAL DISC");
+        totalBlackList.add(" TOTAL DISCOUNT");
         totalBlackList.add("| Total Miles Earned ");
     }
 

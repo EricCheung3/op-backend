@@ -10,8 +10,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.openprice.parser.categorypredictor.SimpleCategoryPredictor;
-
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -63,6 +61,12 @@ public class SimpleCategoryPredictorTest {
     public void configTestCatetegoryNames() throws Exception{
         assertEquals("babyfood", simplePredictorFromConfig.mostMatchingCategory("babyfood"));
         assertEquals("babyitems", simplePredictorFromConfig.mostMatchingCategory("babyitems"));
+    }
+
+    //TODO. This is not good. It matches "fish" with score 0.75. because I used two-way matching
+    @Test
+    public void configTestCatetegoryNamesNotGood() throws Exception{
+        assertEquals("seafood", simplePredictorFromConfig.mostMatchingCategory("nail polish"));
     }
 
     @Test

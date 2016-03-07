@@ -10,6 +10,7 @@ import com.openprice.parser.ml.item.NumberNamePriceFeatures;
  * parser for lines that don't have a wide space
  * right now this parser works well except for
  * name number price
+ * TODO this one overlaps with StructurePrediction
  */
 public class NonWideSpaceParserImpl implements NonWideSpaceParser{
 

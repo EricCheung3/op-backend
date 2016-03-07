@@ -26,7 +26,7 @@
   "name" : "jam strawberry 500 ml",
   "number" : "",
   "price" : "3.5",
-  "naturalName" : "Strawberry Jam",
+  "naturalName" : "Strawberry Jam 500 ml",
   "displayName" : "Strawberry Jam",
   "labelCodes" : "uncategorized",
   "productCategory" : "jams"
@@ -34,7 +34,7 @@
   "name" : "redbull blue edition",
   "number" : "",
   "price" : "2.799",
-  "naturalName" : "Redbull",
+  "naturalName" : "Redbull blue edition",
   "displayName" : "Redbull",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -50,7 +50,7 @@
   "name" : "pears bosc",
   "number" : "",
   "price" : "2.31",
-  "naturalName" : "Pears",
+  "naturalName" : "Pears bosc",
   "displayName" : "Pears",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -58,7 +58,7 @@
   "name" : "skim milk ff 4l",
   "number" : "",
   "price" : "4.49",
-  "naturalName" : "Skim Milk",
+  "naturalName" : "Skim Milk ff 4l",
   "displayName" : "Skim Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -74,7 +74,7 @@
   "name" : "potato chips regular",
   "number" : "",
   "price" : "3.009",
-  "naturalName" : "Chips",
+  "naturalName" : "potato chips regular",
   "displayName" : "Chips",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -90,7 +90,7 @@
   "name" : "eggs med1um",
   "number" : "5820003460",
   "price" : "5.79",
-  "naturalName" : "Eggs",
+  "naturalName" : "Eggs medium",
   "displayName" : "Eggs",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -98,7 +98,7 @@
   "name" : "hilroy refill sheets",
   "number" : "",
   "price" : "3.19",
-  "naturalName" : "Paper",
+  "naturalName" : "hilroy refill sheets",
   "displayName" : "Paper",
   "labelCodes" : "uncategorized",
   "productCategory" : "papergoods"
@@ -106,7 +106,7 @@
   "name" : "milk 2% jug",
   "number" : "5820007810",
   "price" : "4.59",
-  "naturalName" : "Milk",
+  "naturalName" : "milk 2% jug",
   "displayName" : "Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -114,7 +114,7 @@
   "name" : "eggs large 18ea",
   "number" : "557474235756",
   "price" : "4.29",
-  "naturalName" : "Eggs",
+  "naturalName" : "eggs large 18ea",
   "displayName" : "Eggs",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -138,7 +138,7 @@
   "name" : "red tomato on vine",
   "number" : "4664",
   "price" : "5.94",
-  "naturalName" : "Tomato",
+  "naturalName" : "red tomato on vine",
   "displayName" : "Tomato",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -146,7 +146,7 @@
   "name" : "hearts of rom salad",
   "number" : "",
   "price" : "3.69",
-  "naturalName" : "Romaine Salad",
+  "naturalName" : "hearts of rom salad",
   "displayName" : "Romaine Salad",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -170,7 +170,7 @@
   "name" : "tomato reg large",
   "number" : "4064",
   "price" : "2.17",
-  "naturalName" : "Tomato",
+  "naturalName" : "tomato reg large",
   "displayName" : "Tomato",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -186,7 +186,7 @@
   "name" : "potato red bulk",
   "number" : "4073",
   "price" : "3.14",
-  "naturalName" : "Red Potatoes",
+  "naturalName" : "potato red bulk",
   "displayName" : "Red Potatoes",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -202,7 +202,7 @@
   "name" : "bread arlisan french",
   "number" : "",
   "price" : "1.99",
-  "naturalName" : "Bread",
+  "naturalName" : "bread arlisan french",
   "displayName" : "Bread",
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
@@ -218,7 +218,7 @@
   "name" : "pineapple golden",
   "number" : "",
   "price" : "5.99",
-  "naturalName" : "Pineapple",
+  "naturalName" : "Pineapple golden",
   "displayName" : "Pineapple",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -226,7 +226,7 @@
   "name" : "pancakes bmilk 310g",
   "number" : "",
   "price" : "2.5",
-  "naturalName" : "Frozen Pancakes",
+  "naturalName" : "pancakes bmilk 310g",
   "displayName" : "Frozen Pancakes",
   "labelCodes" : "uncategorized",
   "productCategory" : "frozen"
@@ -234,7 +234,7 @@
   "name" : "tuna tom onion",
   "number" : "6136243484",
   "price" : "3.79",
-  "naturalName" : "Tuna",
+  "naturalName" : "Tuna tom onion",
   "displayName" : "Tuna",
   "labelCodes" : "uncategorized",
   "productCategory" : "canned"
@@ -266,7 +266,7 @@
   "name" : "peanut butter 1kg",
   "number" : "",
   "price" : "4.99",
-  "naturalName" : "Peanut Butter",
+  "naturalName" : "Peanut Butter 1kg",
   "displayName" : "Peanut Butter",
   "labelCodes" : "uncategorized",
   "productCategory" : "jams"
@@ -274,7 +274,7 @@
   "name" : "gerber grad 42g",
   "number" : "1500004591",
   "price" : "2.99",
-  "naturalName" : "Gerber Graduates",
+  "naturalName" : "Gerber Graduates 42g",
   "displayName" : "Gerber Graduates",
   "labelCodes" : "uncategorized",
   "productCategory" : "babyfood"
