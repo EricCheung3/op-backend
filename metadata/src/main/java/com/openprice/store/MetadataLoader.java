@@ -208,27 +208,41 @@ public class MetadataLoader {
         return loadObjectFromJsonResource(ChainConfigFiles.getNonHeaderProperties(chainCode), Properties.class);
     }
 
+    //TODO apply category predictor for those products missing categories?
     static Map<String, CatalogProduct> loadCatalogProducts(final String chainCode, final Map<String, ProductCategory> categoryMap) {
         final ImmutableMap.Builder<String, CatalogProduct> productListBuilder = new ImmutableMap.Builder<>();
         final String catalogFileName = ChainConfigFiles.getCatalog(chainCode);
-        final ProductData[] products = loadArrayFromJsonResource(catalogFileName, ProductData[].class);
+        final ProductData[] productsFromCatalog = loadArrayFromJsonResource(catalogFileName, ProductData[].class);
+        final String flyerFileName = ChainConfigFiles.getCatalogFromFlyers(chainCode);
+        final ProductData[] productsFromFlyers = loadArrayFromJsonResource(flyerFileName, ProductData[].class);
 
-        if (products != null) {
-            final Set<String> codeSet = new HashSet<>();
-            for(ProductData product : products) {
-                if (StringUtils.isEmpty(product.getName())) {
-                    throw new RuntimeException("Empty name at " + catalogFileName + " for " + product);
-                }
-                final String code = ProductUtils.generateCatalogCode(product.getName(), product.getNumber());
-                if (codeSet.contains(code)) {
-                    throw new RuntimeException("Duplicate product catalog code found at " + catalogFileName + " for " + product);
-                }
-                ProductCategory category = categoryMap.get(product.getProductCategory());
-                if (category == null) {
-                    throw new RuntimeException("Invalid category code found at " + catalogFileName + " for " + product);
-                }
-                productListBuilder.put(code, new CatalogProduct(product, category));
+        final Set<ProductData> products = new HashSet<>();
+        if (productsFromFlyers != null){
+            log.debug("chainCode=" + chainCode +", productsFromFlyers.length=" + productsFromFlyers.length);
+            products.addAll(Arrays.asList(productsFromFlyers));
+        }
+        if(productsFromCatalog != null){
+            log.debug("chainCode"+ chainCode+", productsFromCatalog.length=" + productsFromCatalog.length);
+            products.addAll(Arrays.asList(productsFromCatalog));
+        }
+        if(productsFromFlyers != null && productsFromCatalog != null){
+            log.warn("there are " + (productsFromCatalog.length + productsFromFlyers.length-products.size()) +" duplicate products across these catalog and flyers data.");
+        }
+
+        final Set<String> codeSet = new HashSet<>();
+        for(ProductData product : products) {
+            if (StringUtils.isEmpty(product.getName())) {
+                throw new RuntimeException("Empty name at " + catalogFileName + " for " + product);
             }
+            final String code = ProductUtils.generateCatalogCode(product.getName(), product.getNumber());
+            if (codeSet.contains(code)) {
+                throw new RuntimeException("Duplicate product catalog code found at " + catalogFileName + " for " + product);
+            }
+            ProductCategory category = categoryMap.get(product.getProductCategory());
+            if (category == null) {
+                throw new RuntimeException("Invalid category code found at " + catalogFileName + " for " + product);
+            }
+            productListBuilder.put(code, new CatalogProduct(product, category));
         }
         return productListBuilder.build();
     }
@@ -238,7 +252,7 @@ public class MetadataLoader {
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         try (final InputStream is = MetadataLoader.class.getResourceAsStream(resourceFileName)){
             if (is == null) {
-                log.warn("Inputstream returns null for file "+resourceFileName);
+//                log.warn("Inputstream returns null for file "+resourceFileName);
                 return null;
             }
             return mapper.readValue(is, clazz);

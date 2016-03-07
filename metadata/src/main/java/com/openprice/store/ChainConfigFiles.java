@@ -9,8 +9,10 @@ public class ChainConfigFiles {
 
     private static String PREFIX="/";
 
-    //catalog
+    //catalog from receipts
     private static final String CATALOG_DATA_JSON = "catalog-data.json";
+    //catalog from flyers
+    private static final String FLYERS_DATA_JSON = "flyers-data.json";
     //branches
     private static final String BRANCH_DATA_JSON = "branch-data.json";
     //identification field that can be used to find stores
@@ -55,6 +57,10 @@ public class ChainConfigFiles {
 
     public static String getCatalog(final String chainCode){
         return getChainFile(chainCode, CATALOG_DATA_JSON);
+    }
+
+    public static String getCatalogFromFlyers(final String chainCode){
+        return getChainFile(chainCode, FLYERS_DATA_JSON);
     }
 
     public static String getIdentify(final String chainCode){
