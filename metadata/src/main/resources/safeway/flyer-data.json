@@ -1,0 +1,842 @@
+[ {
+  "name" : "Strawberries",
+  "number" : "",
+  "price" : "4.99",
+  "naturalName" : "Strawberries",
+  "labelCodes" : "",
+  "productCategory" : "fruit"
+}, {
+  "name" : "Little Potato Company Potatoes",
+  "number" : "",
+  "price" : "2.00",
+  "naturalName" : "Little Potato Company Potatoes",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Green Onion",
+  "number" : "",
+  "price" : "0.69",
+  "naturalName" : "Green Onion",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Organic Potatoes",
+  "number" : "",
+  "price" : "2.99",
+  "naturalName" : "Organic Potatoes",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Organic Gala Apples",
+  "number" : "",
+  "price" : "7.99",
+  "naturalName" : "Organic Gala Apples",
+  "labelCodes" : "",
+  "productCategory" : "fruit"
+}, {
+  "name" : "Cantaloupes",
+  "number" : "",
+  "price" : "3.99",
+  "naturalName" : "Cantaloupes",
+  "labelCodes" : "",
+  "productCategory" : "apparel"
+}, {
+  "name" : "Lemons",
+  "number" : "",
+  "price" : "0.89",
+  "naturalName" : "Lemons",
+  "labelCodes" : "",
+  "productCategory" : "fruit"
+}, {
+  "name" : "Compliments Brussels Sprouts",
+  "number" : "",
+  "price" : "2.59",
+  "naturalName" : "Compliments Brussels Sprouts",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Compliments Organic Baby Greens or Spinach",
+  "number" : "",
+  "price" : "6.49",
+  "naturalName" : "Compliments Organic Baby Greens or Spinach",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Compliments Grape Tomatoes",
+  "number" : "",
+  "price" : "3.29",
+  "naturalName" : "Compliments Grape Tomatoes",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Romaine Hearts",
+  "number" : "",
+  "price" : "2.69",
+  "naturalName" : "Romaine Hearts",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Iceberg Lettuce",
+  "number" : "",
+  "price" : "1.99",
+  "naturalName" : "Iceberg Lettuce",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Blackberries",
+  "number" : "",
+  "price" : "3.49",
+  "naturalName" : "Blackberries",
+  "labelCodes" : "",
+  "productCategory" : "fruit"
+}, {
+  "name" : "Grimms Pepperoni",
+  "number" : "",
+  "price" : "7.49",
+  "naturalName" : "Grimms Pepperoni",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Compliments Regular or BBQ Style Bulk Wieners",
+  "number" : "",
+  "price" : "1.99",
+  "naturalName" : "Compliments Regular or BBQ Style Bulk Wieners",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Compliments Beef or Chorizo Sausage",
+  "number" : "",
+  "price" : "3.49",
+  "naturalName" : "Compliments Beef or Chorizo Sausage",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Compliments Cooked Sliced Ham",
+  "number" : "",
+  "price" : "3.99",
+  "naturalName" : "Compliments Cooked Sliced Ham",
+  "labelCodes" : "",
+  "productCategory" : "deli"
+}, {
+  "name" : "Butterball Turkey Franks",
+  "number" : "",
+  "price" : "3.49",
+  "naturalName" : "Butterball Turkey Franks",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "Johnsonville Sausage - Buy 3 get 20 Air Miles=C2=AE Bonus Miles",
+  "number" : "",
+  "price" : "4.49",
+  "naturalName" : "Johnsonville Sausage - Buy 3 get 20 Air Miles=C2=AE Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "sauces"
+}, {
+  "name" : "Harvest Farmer Sausage",
+  "number" : "",
+  "price" : "5.99",
+  "naturalName" : "Harvest Farmer Sausage",
+  "labelCodes" : "",
+  "productCategory" : "sauces"
+}, {
+  "name" : "Schneiders Sausage Rings",
+  "number" : "",
+  "price" : "5.69",
+  "naturalName" : "Schneiders Sausage Rings",
+  "labelCodes" : "",
+  "productCategory" : "sauces"
+}, {
+  "name" : "Olymel Wieners - Buy 2 Get 10 Air Miles Bonus Miles",
+  "number" : "",
+  "price" : "6.49",
+  "naturalName" : "Olymel Wieners - Buy 2 Get 10 Air Miles Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Mitchells Thick Sliced Heritage Bacon",
+  "number" : "",
+  "price" : "13.99",
+  "naturalName" : "Mitchells Thick Sliced Heritage Bacon",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Compliments Cooked or Raw Shrimp",
+  "number" : "",
+  "price" : "7.99",
+  "naturalName" : "Compliments Cooked or Raw Shrimp",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Wild Sockeye Salmon Fillets",
+  "number" : "",
+  "price" : "9.99",
+  "naturalName" : "Wild Sockeye Salmon Fillets",
+  "labelCodes" : "",
+  "productCategory" : "seafood"
+}, {
+  "name" : "Basa Fillets",
+  "number" : "",
+  "price" : "7.99",
+  "naturalName" : "Basa Fillets",
+  "labelCodes" : "",
+  "productCategory" : "seafood"
+}, {
+  "name" : "Easter Turkey Dinner Kit",
+  "number" : "",
+  "price" : "79.99",
+  "naturalName" : "Easter Turkey Dinner Kit",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "High Liner Fish Fillets",
+  "number" : "",
+  "price" : "9.99",
+  "naturalName" : "High Liner Fish Fillets",
+  "labelCodes" : "",
+  "productCategory" : "seafood"
+}, {
+  "name" : "Compliments Sliced Side Bacon",
+  "number" : "",
+  "price" : "5.99",
+  "naturalName" : "Compliments Sliced Side Bacon",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Classico Pasta Sauce",
+  "number" : "",
+  "price" : "1.99",
+  "naturalName" : "Classico Pasta Sauce",
+  "labelCodes" : "",
+  "productCategory" : "pasta"
+}, {
+  "name" : "Compliments Pasta",
+  "number" : "",
+  "price" : "1.99",
+  "naturalName" : "Compliments Pasta",
+  "labelCodes" : "",
+  "productCategory" : "pasta"
+}, {
+  "name" : "Kraft Shredded Cheese 320 g or Block, 450 g",
+  "number" : "",
+  "price" : "4.99",
+  "naturalName" : "Kraft Shredded Cheese 320 g or Block, 450 g",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "Maple Leaf Ready Crisp Cooked Pieces or Sliced Side Bacon",
+  "number" : "",
+  "price" : "4.99",
+  "naturalName" : "Maple Leaf Ready Crisp Cooked Pieces or Sliced Side Bacon",
+  "labelCodes" : "",
+  "productCategory" : "snacks"
+}, {
+  "name" : "Maple Leaf Prime Fully Cooked Entr=C3=A9es",
+  "number" : "",
+  "price" : "6.99",
+  "naturalName" : "Maple Leaf Prime Fully Cooked Entr=C3=A9es",
+  "labelCodes" : "",
+  "productCategory" : "grains"
+}, {
+  "name" : "Laughing Cow VQR",
+  "number" : "",
+  "price" : "2.99",
+  "naturalName" : "Laughing Cow VQR",
+  "labelCodes" : "",
+  "productCategory" : "snacks"
+}, {
+  "name" : "Sunny D 500 mL, Crunch N Munch or Orville Redenbachers Microwave Popcorn, 50 - 113 g",
+  "number" : "",
+  "price" : "0.99",
+  "naturalName" : "Sunny D 500 mL, Crunch N Munch or Orville Redenbachers Microwave Popcorn, 50 - 113 g",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Bulls Eye BBQ Sauce - Buy 2 get 6 Air Miles Bonus Miles",
+  "number" : "",
+  "price" : "3.29",
+  "naturalName" : "Bulls Eye BBQ Sauce - Buy 2 get 6 Air Miles Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "sauces"
+}, {
+  "name" : "Heinz Mustard",
+  "number" : "",
+  "price" : "2.99",
+  "naturalName" : "Heinz Mustard",
+  "labelCodes" : "",
+  "productCategory" : "sauces"
+}, {
+  "name" : "Starbucks Refreshers",
+  "number" : "",
+  "price" : "1.99",
+  "naturalName" : "Starbucks Refreshers",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Old Dutch Crunch Chips",
+  "number" : "",
+  "price" : "2.99",
+  "naturalName" : "Old Dutch Crunch Chips",
+  "labelCodes" : "",
+  "productCategory" : "snacks"
+}, {
+  "name" : "Heinz Ketchup - Buy 2 get 8 Air Miles Bonus Miles",
+  "number" : "",
+  "price" : "4.29",
+  "naturalName" : "Heinz Ketchup - Buy 2 get 8 Air Miles Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "sauces"
+}, {
+  "name" : "Clover Leaf Tuna Snacks",
+  "number" : "",
+  "price" : "2.99",
+  "naturalName" : "Clover Leaf Tuna Snacks",
+  "labelCodes" : "",
+  "productCategory" : "snacks"
+}, {
+  "name" : "Orville Redenbachers Popcorn",
+  "number" : "",
+  "price" : "2.99",
+  "naturalName" : "Orville Redenbachers Popcorn",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Bounty Paper Towel - 30 Air Miles Bonus Miles When You Buy 3 Mix Match Any Participating Item",
+  "number" : "",
+  "price" : "13.99",
+  "naturalName" : "Bounty Paper Towel - 30 Air Miles Bonus Miles When You Buy 3 Mix Match Any Participating Item",
+  "labelCodes" : "",
+  "productCategory" : "papergoods"
+}, {
+  "name" : "Danone Yogourt 650 g, 8 x 90 g - 100 g or Danette Dessert, 4 x 100 g",
+  "number" : "",
+  "price" : "3.49",
+  "naturalName" : "Danone Yogourt 650 g, 8 x 90 g - 100 g or Danette Dessert, 4 x 100 g",
+  "labelCodes" : "",
+  "productCategory" : "deli"
+}, {
+  "name" : "Kraft Cheez Whiz",
+  "number" : "",
+  "price" : "7.99",
+  "naturalName" : "Kraft Cheez Whiz",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "Imperial Margarine",
+  "number" : "",
+  "price" : "4.49",
+  "naturalName" : "Imperial Margarine",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "Coffee-mate",
+  "number" : "",
+  "price" : "3.99",
+  "naturalName" : "Coffee-mate",
+  "labelCodes" : "",
+  "productCategory" : "pasta"
+}, {
+  "name" : "Heluva Good! Dip 250 g or Baileys Coffee Creamer, 400 mL - Buy 2 Get 10 Air Miles Bonus Miles",
+  "number" : "",
+  "price" : "1.99",
+  "naturalName" : "Heluva Good! Dip 250 g or Baileys Coffee Creamer, 400 mL - Buy 2 Get 10 Air Miles Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "Tropicana Juice - Buy 2 Get 15 Air Miles Bonus Miles",
+  "number" : "",
+  "price" : "6.49",
+  "naturalName" : "Tropicana Juice - Buy 2 Get 15 Air Miles Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "beverages"
+}, {
+  "name" : "Pillsbury Pizza Pops 400 g, Pillsbury Pizza Minis, 278 - 385 g or Toaster Strudel, 326 g",
+  "number" : "",
+  "price" : "2.99",
+  "naturalName" : "Pillsbury Pizza Pops 400 g, Pillsbury Pizza Minis, 278 - 385 g or Toaster Strudel, 326 g",
+  "labelCodes" : "",
+  "productCategory" : "bakery"
+}, {
+  "name" : "Cheemo Perogies",
+  "number" : "",
+  "price" : "1.99",
+  "naturalName" : "Cheemo Perogies",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "McCain Superfries",
+  "number" : "",
+  "price" : "3.29",
+  "naturalName" : "McCain Superfries",
+  "labelCodes" : "",
+  "productCategory" : "grains"
+}, {
+  "name" : "Nestl=C3=A9 Parlour 1.5 L, Sundae, 875 mL or Novelties, 12s",
+  "number" : "",
+  "price" : "3.99",
+  "naturalName" : "Nestl=C3=A9 Parlour 1.5 L, Sundae, 875 mL or Novelties, 12s",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Janes Natural Goodness Chicken Breast Strips",
+  "number" : "",
+  "price" : "9.99",
+  "naturalName" : "Janes Natural Goodness Chicken Breast Strips",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Robin Hood All Purpose Flour or Selected Varieties, 1.8 - 2.5 kg or Brodie Self Raising Flour, 2.5 kg",
+  "number" : "",
+  "price" : "4.99",
+  "naturalName" : "Robin Hood All Purpose Flour or Selected Varieties, 1.8 - 2.5 kg or Brodie Self Raising Flour, 2.5 kg",
+  "labelCodes" : "",
+  "productCategory" : "nuts"
+}, {
+  "name" : "Dr. Oetkers Baking Mixes",
+  "number" : "",
+  "price" : "1.29",
+  "naturalName" : "Dr. Oetkers Baking Mixes",
+  "labelCodes" : "",
+  "productCategory" : "baking"
+}, {
+  "name" : "Compliments Cocoa",
+  "number" : "",
+  "price" : "3.99",
+  "naturalName" : "Compliments Cocoa",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Sun-Maid California Raisins",
+  "number" : "",
+  "price" : "5.79",
+  "naturalName" : "Sun-Maid California Raisins",
+  "labelCodes" : "",
+  "productCategory" : "nuts"
+}, {
+  "name" : "Huggies Box Diapers SnugDry, Little Snugglers or Little Movers",
+  "number" : "",
+  "price" : "22.99",
+  "naturalName" : "Huggies Box Diapers SnugDry, Little Snugglers or Little Movers",
+  "labelCodes" : "",
+  "productCategory" : "babyitems"
+}, {
+  "name" : "Compliments Pie Filling",
+  "number" : "",
+  "price" : "3.99",
+  "naturalName" : "Compliments Pie Filling",
+  "labelCodes" : "",
+  "productCategory" : "bakery"
+}, {
+  "name" : "Compliments Canned Vegetables",
+  "number" : "",
+  "price" : "1.00",
+  "naturalName" : "Compliments Canned Vegetables",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Compliments Spring Water",
+  "number" : "",
+  "price" : "3.49",
+  "naturalName" : "Compliments Spring Water",
+  "labelCodes" : "",
+  "productCategory" : "beverages"
+}, {
+  "name" : "Compliments Entr=C3=A9es or Balance",
+  "number" : "",
+  "price" : "2.29",
+  "naturalName" : "Compliments Entr=C3=A9es or Balance",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Compliments Cream Cheese",
+  "number" : "",
+  "price" : "3.29",
+  "naturalName" : "Compliments Cream Cheese",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "Organic White Mushrooms",
+  "number" : "",
+  "price" : "1.99",
+  "naturalName" : "Organic White Mushrooms",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Compliments Organic Peanut Butter",
+  "number" : "",
+  "price" : "3.99",
+  "naturalName" : "Compliments Organic Peanut Butter",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "Natures path Oatmeal",
+  "number" : "",
+  "price" : "4.49",
+  "naturalName" : "Natures path Oatmeal",
+  "labelCodes" : "",
+  "productCategory" : "cereal"
+}, {
+  "name" : "Sensible Portions Veggie Straws or Selected varieties",
+  "number" : "",
+  "price" : "2.99",
+  "naturalName" : "Sensible Portions Veggie Straws or Selected varieties",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "Raincoast Pink Salmon",
+  "number" : "",
+  "price" : "2.49",
+  "naturalName" : "Raincoast Pink Salmon",
+  "labelCodes" : "",
+  "productCategory" : "seafood"
+}, {
+  "name" : "ED Smith Spreads - Buy 3 get 15 Bonus Miles",
+  "number" : "",
+  "price" : "2.99",
+  "naturalName" : "ED Smith Spreads - Buy 3 get 15 Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "bakery"
+}, {
+  "name" : "Carnation Hot Chocolate - Buy 3 get 15 Bonus Miles",
+  "number" : "",
+  "price" : "3.99",
+  "naturalName" : "Carnation Hot Chocolate - Buy 3 get 15 Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "snacks"
+}, {
+  "name" : "Nestl=C3=A9 Chocolate Bars",
+  "number" : "",
+  "price" : "2.99",
+  "naturalName" : "Nestl=C3=A9 Chocolate Bars",
+  "labelCodes" : "",
+  "productCategory" : "snacks"
+}, {
+  "name" : "Cadbury Chocolate Bars",
+  "number" : "",
+  "price" : "0.88",
+  "naturalName" : "Cadbury Chocolate Bars",
+  "labelCodes" : "",
+  "productCategory" : "snacks"
+}, {
+  "name" : "Christie Premium Plus Crackers",
+  "number" : "",
+  "price" : "3.69",
+  "naturalName" : "Christie Premium Plus Crackers",
+  "labelCodes" : "",
+  "productCategory" : "snacks"
+}, {
+  "name" : "Nabob Coffee",
+  "number" : "",
+  "price" : "7.49",
+  "naturalName" : "Nabob Coffee",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "Yoplait Tubes- Buy 4 get 20 Bonus Miles",
+  "number" : "",
+  "price" : "2.99",
+  "naturalName" : "Yoplait Tubes- Buy 4 get 20 Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "General Mills Cheerios",
+  "number" : "",
+  "price" : "4.99",
+  "naturalName" : "General Mills Cheerios",
+  "labelCodes" : "",
+  "productCategory" : "cereal"
+}, {
+  "name" : "Eggo Waffles",
+  "number" : "",
+  "price" : "4.99",
+  "naturalName" : "Eggo Waffles",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "Kelloggs Jumbo Cereal - Buy 5 get 100 Bonus Miles",
+  "number" : "",
+  "price" : "6.99",
+  "naturalName" : "Kelloggs Jumbo Cereal - Buy 5 get 100 Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "cereal"
+}, {
+  "name" : "Kashi Cereal - Buy 4 get 25 Bonus Miles",
+  "number" : "",
+  "price" : "3.99",
+  "naturalName" : "Kashi Cereal - Buy 4 get 25 Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "cereal"
+}, {
+  "name" : "Maple Leaf Natural Selections Lunch Box or Schneiders Lunch Mate Stackers",
+  "number" : "",
+  "price" : "2.99",
+  "naturalName" : "Maple Leaf Natural Selections Lunch Box or Schneiders Lunch Mate Stackers",
+  "labelCodes" : "",
+  "productCategory" : "snacks"
+}, {
+  "name" : "Mitchells Boneless Ham",
+  "number" : "",
+  "price" : "13.99",
+  "naturalName" : "Mitchells Boneless Ham",
+  "labelCodes" : "",
+  "productCategory" : "deli"
+}, {
+  "name" : "Compliments Pizza Dough Ball",
+  "number" : "",
+  "price" : "3.00",
+  "naturalName" : "Compliments Pizza Dough Ball",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Super Seed Grain Bread",
+  "number" : "",
+  "price" : "3.00",
+  "naturalName" : "Super Seed Grain Bread",
+  "labelCodes" : "",
+  "productCategory" : "bakery"
+}, {
+  "name" : "Croissants - Buy 2 Get 5 Air Miles Bonus Miles",
+  "number" : "",
+  "price" : "3.00",
+  "naturalName" : "Croissants - Buy 2 Get 5 Air Miles Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "bakery"
+}, {
+  "name" : "Grandmas Old Fashioned Banana Loaf",
+  "number" : "",
+  "price" : "3.00",
+  "naturalName" : "Grandmas Old Fashioned Banana Loaf",
+  "labelCodes" : "",
+  "productCategory" : "fruit"
+}, {
+  "name" : "Apple Pie or Pumpkin Pie",
+  "number" : "",
+  "price" : "3.00",
+  "naturalName" : "Apple Pie or Pumpkin Pie",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Petite Strudels - Buy 2 Get 8 Air Miles Bonus Miles",
+  "number" : "",
+  "price" : "3.69",
+  "naturalName" : "Petite Strudels - Buy 2 Get 8 Air Miles Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "fruit"
+}, {
+  "name" : "Villaggio Bread - Buy 3 Get 10 Air Miles Bonus Miles",
+  "number" : "",
+  "price" : "3.69",
+  "naturalName" : "Villaggio Bread - Buy 3 Get 10 Air Miles Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "bakery"
+}, {
+  "name" : "Natures Blend Bread",
+  "number" : "",
+  "price" : "3.29",
+  "naturalName" : "Natures Blend Bread",
+  "labelCodes" : "",
+  "productCategory" : "bakery"
+}, {
+  "name" : "Dempsters 7 Tortillas",
+  "number" : "",
+  "price" : "3.99",
+  "naturalName" : "Dempsters 7 Tortillas",
+  "labelCodes" : "",
+  "productCategory" : "personalitems"
+}, {
+  "name" : "Compliments Hot Dog or Burger Buns",
+  "number" : "",
+  "price" : "3.29",
+  "naturalName" : "Compliments Hot Dog or Burger Buns",
+  "labelCodes" : "",
+  "productCategory" : "bakery"
+}, {
+  "name" : "Compliments Winnipeg Rye Bread",
+  "number" : "",
+  "price" : "3.49",
+  "naturalName" : "Compliments Winnipeg Rye Bread",
+  "labelCodes" : "",
+  "productCategory" : "bakery"
+}, {
+  "name" : "Oxalis, Baby Tears or Ivy Plants",
+  "number" : "",
+  "price" : "3.99",
+  "naturalName" : "Oxalis, Baby Tears or Ivy Plants",
+  "labelCodes" : "",
+  "productCategory" : "beverages"
+}, {
+  "name" : "Purex Bath Tissue",
+  "number" : "",
+  "price" : "7.99",
+  "naturalName" : "Purex Bath Tissue",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "Sunlight Dish Soap",
+  "number" : "",
+  "price" : "2.49",
+  "naturalName" : "Sunlight Dish Soap",
+  "labelCodes" : "",
+  "productCategory" : "personalitems"
+}, {
+  "name" : "Sunlight Liquid Laundry Detergent",
+  "number" : "",
+  "price" : "10.99",
+  "naturalName" : "Sunlight Liquid Laundry Detergent",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "Purina Beneful Dog Food 1.6 - 2 kg or Friskies Cat Food, 1.4 - 1.5 kg",
+  "number" : "",
+  "price" : "4.99",
+  "naturalName" : "Purina Beneful Dog Food 1.6 - 2 kg or Friskies Cat Food, 1.4 - 1.5 kg",
+  "labelCodes" : "",
+  "productCategory" : "babyitems"
+}, {
+  "name" : "Glade Wax Melts Refills 6s or Candles",
+  "number" : "",
+  "price" : "3.99",
+  "naturalName" : "Glade Wax Melts Refills 6s or Candles",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Energizer Max AA, 4s, AAA/C/D, 2s, 9V, 1s or Eco Advanced AA, 4s - Buy 2 Get 10 Air Miles Bonus Miles",
+  "number" : "",
+  "price" : "4.00",
+  "naturalName" : "Energizer Max AA, 4s, AAA/C/D, 2s, 9V, 1s or Eco Advanced AA, 4s - Buy 2 Get 10 Air Miles Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "Compliments Foil Wrap 7.62 m - 15.24 m, Wax Paper, 30.5 m, Parchment Paper, 10 m, Plastic Wrap, 30 m - 90 m, Lunch, Snack, Sandwich or Freezer Bags, 15s - 100s",
+  "number" : "",
+  "price" : "2.00",
+  "naturalName" : "Compliments Foil Wrap 7.62 m - 15.24 m, Wax Paper, 30.5 m, Parchment Paper, 10 m, Plastic Wrap, 30 m - 90 m, Lunch, Snack, Sandwich or Freezer Bags, 15s - 100s",
+  "labelCodes" : "",
+  "productCategory" : "bakery"
+}, {
+  "name" : "Azalea Plant",
+  "number" : "",
+  "price" : "8.99",
+  "naturalName" : "Azalea Plant",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Mini Carnation Bouquet",
+  "number" : "",
+  "price" : "7.99",
+  "naturalName" : "Mini Carnation Bouquet",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Libert=C3=A9 Greek Yogourt - Buy 3 get 30 Bonus Miles",
+  "number" : "",
+  "price" : "3.99",
+  "naturalName" : "Libert=C3=A9 Greek Yogourt - Buy 3 get 30 Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "Crest or Colgate",
+  "number" : "",
+  "price" : "1.69",
+  "naturalName" : "Crest or Colgate",
+  "labelCodes" : "",
+  "productCategory" : "personalitems"
+}, {
+  "name" : "Dove or Lever Bar Soap 2 x 113 - 120 g or 4 x 89 g or Lever Bodywash, 665 mL",
+  "number" : "",
+  "price" : "2.99",
+  "naturalName" : "Dove or Lever Bar Soap 2 x 113 - 120 g or 4 x 89 g or Lever Bodywash, 665 mL",
+  "labelCodes" : "",
+  "productCategory" : "personalitems"
+}, {
+  "name" : "Freestyle Precision Test Strips - Buy 1 Get 150 Air Miles Bonus Miles",
+  "number" : "",
+  "price" : "65.00",
+  "naturalName" : "Freestyle Precision Test Strips - Buy 1 Get 150 Air Miles Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "GE 200 Blood Glucose Test Strips - Buy 1 Get 100 Air Miles Bonus Miles",
+  "number" : "",
+  "price" : "55.00",
+  "naturalName" : "GE 200 Blood Glucose Test Strips - Buy 1 Get 100 Air Miles Bonus Miles",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "Tums 60 - 150s, Chewies, 32s",
+  "number" : "",
+  "price" : "3.99",
+  "naturalName" : "Tums 60 - 150s, Chewies, 32s",
+  "labelCodes" : "",
+  "productCategory" : "dairy"
+}, {
+  "name" : "Tomatoes on the Vine",
+  "number" : "",
+  "price" : "6.59/kg",
+  "naturalName" : "Tomatoes on the Vine",
+  "labelCodes" : "",
+  "productCategory" : "vegetables"
+}, {
+  "name" : "Asian Yellow Pear",
+  "number" : "",
+  "price" : "3.73/kg",
+  "naturalName" : "Asian Yellow Pear",
+  "labelCodes" : "",
+  "productCategory" : "fruit"
+}, {
+  "name" : "Compliments Chicken Breast",
+  "number" : "",
+  "price" : "6.59/kg",
+  "naturalName" : "Compliments Chicken Breast",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Fresh Pork Shoulder Blade Steak",
+  "number" : "",
+  "price" : "6.59/kg",
+  "naturalName" : "Fresh Pork Shoulder Blade Steak",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Sensations by Compliments Fresh Frying Chicken Legs",
+  "number" : "",
+  "price" : "6.59/kg",
+  "naturalName" : "Sensations by Compliments Fresh Frying Chicken Legs",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Regular Ground Beef",
+  "number" : "",
+  "price" : "8.80/kg",
+  "naturalName" : "Regular Ground Beef",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Fresh Lean Ground Beef Traditional or Mexican Meatloaf",
+  "number" : "",
+  "price" : "13.21/kg",
+  "naturalName" : "Fresh Lean Ground Beef Traditional or Mexican Meatloaf",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Fresh Lean Ground Beef Italian or Korean Style Meatballs",
+  "number" : "",
+  "price" : "13.21/kg",
+  "naturalName" : "Fresh Lean Ground Beef Italian or Korean Style Meatballs",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Sterling Silver Inside Round Marinating Steak or Oven Roast",
+  "number" : "",
+  "price" : "17.61/kg",
+  "naturalName" : "Sterling Silver Inside Round Marinating Steak or Oven Roast",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}, {
+  "name" : "Sterling Silver Fast Fry Minute Steak",
+  "number" : "",
+  "price" : "17.61/kg",
+  "naturalName" : "Sterling Silver Fast Fry Minute Steak",
+  "labelCodes" : "",
+  "productCategory" : "meat"
+}]
+

@@ -25,8 +25,9 @@ public class MergeDealsFromFlyers {
         System.out.println("byQuantity.size="+byQuantity.size());
         final List<ProductData> catByQuantity = fromByQuantity(byQuantity);
         catByQuantity.forEach(p->System.out.println(p.getNaturalName()+","+p.getPrice()+ ", "+p.getProductCategory()));
-        System.out.println("@@@@@End of catalog sold by quantity\n\n");
         writeDataToJsonFile(catByQuantity, "/Users/dongcui/Downloads/safewayflyers/simple_deals_extracted_byQuantity.json");
+
+        System.out.println("@@@@@End of catalog sold by quantity\n\n");
 
         final String byKgFile = "/Users/dongcui/Downloads/safewayflyers/simple_deals_extracted_byKg.txt";
         final List<String> byKg = TextResourceUtils.loadStringArrayFromAbolutePath(Paths.get(byKgFile));
