@@ -1,9 +1,12 @@
 package com.openprice.parser.helper;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openprice.common.StringCommon;
 import com.openprice.common.TextResourceUtils;
 import com.openprice.parser.categorypredictor.SimpleCategoryPredictor;
@@ -23,12 +26,14 @@ public class MergeDealsFromFlyers {
         final List<ProductData> catByQuantity = fromByQuantity(byQuantity);
         catByQuantity.forEach(p->System.out.println(p.getNaturalName()+","+p.getPrice()+ ", "+p.getProductCategory()));
         System.out.println("@@@@@End of catalog sold by quantity\n\n");
+        writeDataToJsonFile(catByQuantity, "/Users/dongcui/Downloads/safewayflyers/simple_deals_extracted_byQuantity.json");
 
         final String byKgFile = "/Users/dongcui/Downloads/safewayflyers/simple_deals_extracted_byKg.txt";
         final List<String> byKg = TextResourceUtils.loadStringArrayFromAbolutePath(Paths.get(byKgFile));
         System.out.println("byKg.size="+byKg.size());
         final List<ProductData> catByKg = fromByKg(byKg);
         catByKg.forEach(p->System.out.println(p.getNaturalName()+","+p.getPrice() + ", "+p.getProductCategory()));
+        writeDataToJsonFile(catByKg, "/Users/dongcui/Downloads/safewayflyers/simple_deals_extracted_byKg.json");
     }
 
     public static List<ProductData> fromByQuantity(final List<String> namePrices){
@@ -66,6 +71,22 @@ public class MergeDealsFromFlyers {
                 naturalName.trim(),
                 StringCommon.EMPTY,
                 category);
+    }
+
+    public static String writeDataToJsonFile(final List<ProductData> data, final String file)
+            throws Exception{
+        ObjectMapper mapper = new ObjectMapper();
+        //        mapper.writeValue(new File(file), data);
+        final String jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(data);
+        writeString(jsonInString, file);
+        return jsonInString;
+    }
+
+    public static void writeString(final String strToWrite, final String fileName)
+            throws IOException, Exception{
+        FileWriter writer=new FileWriter(fileName);
+        writer.write(strToWrite);
+        writer.close();
     }
 
 }
