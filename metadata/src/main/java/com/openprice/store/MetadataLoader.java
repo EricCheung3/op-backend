@@ -21,6 +21,9 @@ import com.openprice.store.data.ProductData;
 import com.openprice.store.data.StoreBranchData;
 import com.openprice.store.data.StoreChainData;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MetadataLoader {
 
     public static final String GENERIC_STORE_CODE = "generic";  // special store chain code for unknown generic store
@@ -235,6 +238,7 @@ public class MetadataLoader {
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         try (final InputStream is = MetadataLoader.class.getResourceAsStream(resourceFileName)){
             if (is == null) {
+                log.warn("Inputstream returns null for file "+resourceFileName);
                 return null;
             }
             return mapper.readValue(is, clazz);
