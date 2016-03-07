@@ -1,6 +1,7 @@
 package com.openprice.store;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -213,24 +214,25 @@ public class MetadataLoader {
         final ImmutableMap.Builder<String, CatalogProduct> productListBuilder = new ImmutableMap.Builder<>();
         final String catalogFileName = ChainConfigFiles.getCatalog(chainCode);
         final ProductData[] productsFromCatalog = loadArrayFromJsonResource(catalogFileName, ProductData[].class);
+        final Set<ProductData> productsFromCatalogSet = getSet(chainCode, productsFromCatalog);
         final String flyerFileName = ChainConfigFiles.getCatalogFromFlyers(chainCode);
         final ProductData[] productsFromFlyers = loadArrayFromJsonResource(flyerFileName, ProductData[].class);
+        final Set<ProductData> productsFromFlyersSet = getSet(chainCode, productsFromFlyers);
 
-        final Set<ProductData> products = new HashSet<>();
-        if (productsFromFlyers != null){
-            log.debug("chainCode=" + chainCode +", productsFromFlyers.length=" + productsFromFlyers.length);
-            products.addAll(Arrays.asList(productsFromFlyers));
-        }
-        if(productsFromCatalog != null){
-            log.debug("chainCode"+ chainCode+", productsFromCatalog.length=" + productsFromCatalog.length);
-            products.addAll(Arrays.asList(productsFromCatalog));
-        }
-        if(productsFromFlyers != null && productsFromCatalog != null){
-            log.warn("there are " + (productsFromCatalog.length + productsFromFlyers.length-products.size()) +" duplicate products across these catalog and flyers data.");
+        final Set<ProductData> allProducts = new HashSet<>();
+        allProducts.addAll(productsFromFlyersSet);
+        allProducts.addAll(productsFromCatalogSet);
+        final int numDuplicates = productsFromCatalogSet.size() + productsFromFlyersSet.size() - allProducts.size();
+        if(numDuplicates > 0){
+            log.warn("there are " + numDuplicates +" duplicate products across these catalog and flyers data:");
+            productsFromFlyersSet
+            .stream()
+            .filter(p -> productsFromCatalogSet.contains(p))
+            .forEach(p ->System.out.println(p));
         }
 
         final Set<String> codeSet = new HashSet<>();
-        for(ProductData product : products) {
+        for(ProductData product : allProducts) {
             if (StringUtils.isEmpty(product.getName())) {
                 throw new RuntimeException("Empty name at " + catalogFileName + " for " + product);
             }
@@ -245,6 +247,21 @@ public class MetadataLoader {
             productListBuilder.put(code, new CatalogProduct(product, category));
         }
         return productListBuilder.build();
+    }
+
+    final static Set<ProductData> getSet(final String chainCode, final ProductData[] array){
+        if(array==null)
+            return new HashSet<ProductData>();
+        final List<ProductData> list = Arrays.asList(array);
+        final Set<ProductData> set = list.stream().collect(Collectors.toSet());
+        final int duplicates = list.size() - set.size();
+        if(duplicates > 0){
+            log.warn(chainCode+": There are " + duplicates +" duplicates");
+            final List<ProductData> listCopy = new ArrayList<>(list);
+            set.stream().forEach(p -> listCopy.remove(p));
+            listCopy.forEach(p -> log.warn("duplicate: "+p));
+        }
+        return set;
     }
 
     public static <T> T[] loadArrayFromJsonResource(String resourceFileName, Class<T[]> clazz) {
