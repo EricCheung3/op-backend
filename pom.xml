@@ -180,7 +180,7 @@
                 <logback.loglevel>DEBUG</logback.loglevel>
                 <logback.loggly.loglevel>OFF</logback.loggly.loglevel>
                 <!-- Openprice env -->
-                <openprice.web.url>http://dev.theopenprice.com:8080</openprice.web.url>
+                <openprice.web.url>https://dev.theopenprice.com</openprice.web.url>
                 <openprice.admin.email>jiwhiz@gmail.com</openprice.admin.email>
                 <openprice.support.email>jiwhiz@gmail.com</openprice.support.email>
             </properties>
@@ -198,7 +198,7 @@
                 <logback.loglevel>INFO</logback.loglevel>
                 <logback.loggly.loglevel>INFO</logback.loggly.loglevel>
                 <!-- Openprice env -->
-                <openprice.web.url>http://www.theopenprice.com:8080</openprice.web.url>
+                <openprice.web.url>https://www.theopenprice.com</openprice.web.url>
                 <openprice.admin.email>admin@theopenprice.com</openprice.admin.email>
                 <openprice.support.email>support@theopenprice.com</openprice.support.email>
             </properties>
