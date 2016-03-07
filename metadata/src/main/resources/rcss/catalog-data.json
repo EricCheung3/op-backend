@@ -543,18 +543,10 @@
   "labelCodes" : "Body",
   "productCategory" : "personalitems"
 }, {
-  "name" : "o fm unslt but",
-  "number" : "0614837201",
-  "price" : "",
-  "naturalName" : "o Fm Unsalted Butter",
-  "displayName" : "Butter",
-  "labelCodes" : "Dairy",
-  "productCategory" : "dairy"
-}, {
   "name" : "wfz   dmp     juju mng",
   "number" : "690761966245",
   "price" : "5.98",
-  "naturalName" : "Dumplings",
+  "naturalName" : "Dumplings wfz juju",
   "displayName" : "Dumplings",
   "labelCodes" : "Foods",
   "productCategory" : "frozen"
@@ -1799,14 +1791,6 @@
   "labelCodes" : "Noodles",
   "productCategory" : "pasta"
 }, {
-  "name" : "split chkn wing",
-  "number" : "216382",
-  "price" : "",
-  "naturalName" : "Split Chicken Wing",
-  "displayName" : "Chicken Wing",
-  "labelCodes" : "Meat",
-  "productCategory" : "meat"
-}, {
   "name" : "fresh tofu",
   "number" : "05786400009",
   "price" : "1.79",
@@ -2154,7 +2138,7 @@
   "name" : "phil crm cheese",
   "number" : "06810001166",
   "price" : "5.99",
-  "naturalName" : "Phil Crm Cheese",
+  "naturalName" : "Phil Cream Cheese",
   "displayName" : "Cheese",
   "labelCodes" : "Dairy",
   "productCategory" : "dairy"
@@ -2282,7 +2266,7 @@
   "name" : "grbr grds                    blubry",
   "number" : "01500014138",
   "price" : "",
-  "naturalName" : "Blueberries",
+  "naturalName" : "grbr grds Blueberries",
   "displayName" : "Blueberries",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"

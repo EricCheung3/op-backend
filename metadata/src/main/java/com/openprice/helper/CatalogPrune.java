@@ -20,7 +20,7 @@ public class CatalogPrune {
     private static final double THRESHOLD = 0.75;
 
     public static void main(String[] args) throws Exception{
-        final String chainCode = "safeway";
+        final String chainCode = "rcss";// "safeway";
         printSimilarNaturalName(chainCode);
     }
 
