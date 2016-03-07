@@ -611,7 +611,7 @@ public class MetadataLoaderTest {
             assertNotNull(safeway);
             assertEquals("Safeway", safeway.getName());
             assertEquals(22, safeway.getBranches().size());
-            assertEquals(588, safeway.getProducts().size());
+            assertEquals(708, safeway.getProducts().size());
             assertEquals(2, safeway.getIdentifyFields().size());
         }
 
