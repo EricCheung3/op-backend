@@ -23,14 +23,6 @@
   "labelCodes" : "Cookie",
   "productCategory" : "snacks"
 }, {
-  "name" : "jam strawberry 500 ml",
-  "number" : "",
-  "price" : "3.5",
-  "naturalName" : "Strawberry Jam 500 ml",
-  "displayName" : "Strawberry Jam",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "jams"
-}, {
   "name" : "redbull blue edition",
   "number" : "",
   "price" : "2.799",
@@ -86,14 +78,6 @@
   "displayName" : "Apples",
   "labelCodes" : "Fruit",
   "productCategory" : "fruit"
-}, {
-  "name" : "eggs med1um",
-  "number" : "5820003460",
-  "price" : "5.79",
-  "naturalName" : "Eggs medium",
-  "displayName" : "Eggs",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "dairy"
 }, {
   "name" : "hilroy refill sheets",
   "number" : "",
@@ -350,14 +334,6 @@
   "displayName" : "Cranberry Juice",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
-}, {
-  "name" : "bugles 0rig snacks",
-  "number" : "",
-  "price" : "2.99",
-  "naturalName" : "Bugles Orig snacks",
-  "displayName" : "Bugles",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "snacks"
 }, {
   "name" : "p/apple chunk in jce",
   "number" : "",
@@ -783,14 +759,6 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
 }, {
-  "name" : "veg b eef &bar lev",
-  "number" : "",
-  "price" : "1.99",
-  "naturalName" : "Vegetable Beef & Barley Soup",
-  "displayName" : "Vegetable Beef & Barley Soup",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "soup"
-}, {
   "name" : "humm cocktail oni",
   "number" : "",
   "price" : "4.99",
@@ -1031,14 +999,6 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
 }, {
-  "name" : "strawberries 1lb    '",
-  "number" : "",
-  "price" : "",
-  "naturalName" : "Strawberries 1lb '",
-  "displayName" : "Strawberries 1lb '",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "uncategorized"
-}, {
   "name" : "salsa ensalada 397g",
   "number" : "",
   "price" : "4.99",
@@ -1239,14 +1199,6 @@
   "labelCodes" : "Drink",
   "productCategory" : "beverages"
 }, {
-  "name" : "2 qty    bo cheestrings",
-  "number" : "",
-  "price" : "6.0",
-  "naturalName" : "Cheestrings",
-  "displayName" : "Cheestrings",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "dairy"
-}, {
   "name" : "pepsi 591ml",
   "number" : "6900000991",
   "price" : "",
@@ -1270,22 +1222,6 @@
   "displayName" : "Soup",
   "labelCodes" : "Soup",
   "productCategory" : "soup"
-}, {
-  "name" : "spring water 500ml",
-  "number" : "",
-  "price" : "0.499",
-  "naturalName" : "Spring Water 500ml",
-  "displayName" : "Spring Water",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "beverages"
-}, {
-  "name" : "foe brd a rt jalapc hs",
-  "number" : "",
-  "price" : "3.59",
-  "naturalName" : "Jalapeno Bread",
-  "displayName" : "Jalapeno Bread",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "bakery"
 }, {
   "name" : "heinz beans",
   "number" : "5700000703",
@@ -1375,14 +1311,6 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "pasta"
 }, {
-  "name" : "tml pch 325g 10pk",
-  "number" : "",
-  "price" : "3.33",
-  "naturalName" : "Tml Pch 325g 10pk",
-  "displayName" : "Tml Pch 325g 10pk",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "uncategorized"
-}, {
   "name" : "spinach & arugala",
   "number" : "7127927406",
   "price" : "3.99",
@@ -1410,7 +1338,7 @@
   "name" : "2 qty    bd cheestrings",
   "number" : "",
   "price" : "6.0",
-  "naturalName" : "bd Cheesestring",
+  "naturalName" : "2 qty bd Cheesestring",
   "displayName" : "Cheesestring",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -1647,14 +1575,6 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "frozen"
 }, {
-  "name" : "0 organics eggs",
-  "number" : "",
-  "price" : "5.79",
-  "naturalName" : "organics Eggs",
-  "displayName" : "Eggs",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "dairy"
-}, {
   "name" : "christie ritz orig",
   "number" : "",
   "price" : "2.99",
@@ -1746,7 +1666,7 @@
   "name" : "2 qty    grapt tomatoes",
   "number" : "",
   "price" : "7.98",
-  "naturalName" : "Grape Tomatoes",
+  "naturalName" : "2 qty Grape Tomatoes",
   "displayName" : "Grape Tomatoes",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -1895,14 +1815,6 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
 }, {
-  "name" : "dutch brd",
-  "number" : "243u180cjuoii",
-  "price" : "1.89",
-  "naturalName" : "dutch Bread",
-  "displayName" : "Bread",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "bakery"
-}, {
   "name" : "pastry dgh fzn 454g",
   "number" : "",
   "price" : "4.29",
@@ -2044,14 +1956,6 @@
   "price" : "5.99",
   "naturalName" : "Margarine s/f tub",
   "displayName" : "Margarine",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "dairy"
-}, {
-  "name" : "buttermilk",
-  "number" : "5820007838",
-  "price" : "1.99",
-  "naturalName" : "Buttermilk",
-  "displayName" : "Buttermilk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
 }, {
@@ -2647,14 +2551,6 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
 }, {
-  "name" : "eggs large 18eai574zj",
-  "number" : "5756",
-  "price" : "4.29",
-  "naturalName" : "Eggs large 18ea",
-  "displayName" : "Eggs",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "dairy"
-}, {
   "name" : "non spill cap",
   "number" : "30089",
   "price" : "0.259",
@@ -2783,14 +2679,6 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
 }, {
-  "name" : "gingerale",
-  "number" : "6210l001fll",
-  "price" : "1.99",
-  "naturalName" : "Ginger Ale",
-  "displayName" : "Ginger Ale",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "beverages"
-}, {
   "name" : "outside round roast",
   "number" : "",
   "price" : "11.18",
@@ -2802,7 +2690,7 @@
   "name" : "2 qty    0 organics eggs",
   "number" : "",
   "price" : "11.58",
-  "naturalName" : "organics Eggs",
+  "naturalName" : "2 qty organics Eggs",
   "displayName" : "Eggs",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -2879,14 +2767,6 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
 }, {
-  "name" : "green onions",
-  "number" : "",
-  "price" : "0.79",
-  "naturalName" : "Green Onions",
-  "displayName" : "Green Onions",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "vegetables"
-}, {
   "name" : "yogurt exotik",
   "number" : "5692006076",
   "price" : "3.79",
@@ -2911,14 +2791,6 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "deli"
 }, {
-  "name" : "water refill 189l",
-  "number" : "32639",
-  "price" : "",
-  "naturalName" : "Water Refill 189l",
-  "displayName" : "Water Refill 189l",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "uncategorized"
-}, {
   "name" : "chckn oven roasted",
   "number" : "",
   "price" : "11.999",
@@ -2934,14 +2806,6 @@
   "displayName" : "Spaghettini",
   "labelCodes" : "uncategorized",
   "productCategory" : "pasta"
-}, {
-  "name" : "egg fr run om3",
-  "number" : "b565 100429",
-  "price" : "5.29",
-  "naturalName" : "Eggs free run omega3",
-  "displayName" : "Eggs",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "dairy"
 }, {
   "name" : "apple gala",
   "number" : "94135",
@@ -3031,10 +2895,10 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
 }, {
-  "name" : "toothbrush",
+  "name" : "tooth brush",
   "number" : "5800030996",
   "price" : "3.999",
-  "naturalName" : "Toothbrush",
+  "naturalName" : "Tooth brush",
   "displayName" : "Toothbrush",
   "labelCodes" : "uncategorized",
   "productCategory" : "personalitems"
@@ -3951,14 +3815,6 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
 }, {
-  "name" : "lemons lrg",
-  "number" : "4053",
-  "price" : "0.79",
-  "naturalName" : "Lemons Large",
-  "displayName" : "Lemons",
-  "labelCodes" : "Fruit",
-  "productCategory" : "fruit"
-}, {
   "name" : "maplelea bacon",
   "number" : "6310021940",
   "price" : "8.29",
@@ -4271,14 +4127,6 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
 }, {
-  "name" : "bananas    011",
-  "number" : "",
-  "price" : "1.15",
-  "naturalName" : "Bananas",
-  "displayName" : "Bananas",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "fruit"
-}, {
   "name" : "yogurt grk sty plain",
   "number" : "",
   "price" : "5.29",
@@ -4290,7 +4138,7 @@
   "name" : "2 qty    grape tomatoes",
   "number" : "",
   "price" : "7.98",
-  "naturalName" : "Grape Tomatoes",
+  "naturalName" : "2 qty Grape Tomatoes",
   "displayName" : "Grape Tomatoes",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
