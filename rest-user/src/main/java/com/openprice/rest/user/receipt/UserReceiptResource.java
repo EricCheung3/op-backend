@@ -40,6 +40,9 @@ public class UserReceiptResource extends Resource<Receipt> {
     private String chainCode = "generic";
 
     @Getter @Setter
+    private String icon = "generic";
+
+    @Getter @Setter
     private String storeName = "[Unknown]";
 
     @Getter @Setter
@@ -119,6 +122,7 @@ public class UserReceiptResource extends Resource<Receipt> {
                         if (chain != null) {
                             resource.setStoreName(chain.getName());
                             resource.setChainCode(chainCode);
+                            resource.setIcon(chain.getIcon());
                         }
                     }
 

@@ -86,6 +86,7 @@ public class UserReceiptApiDocumentation extends UserReceiptApiDocumentationBase
                 fieldWithPath("receiptDate").description("Date of receipt, default to upload date, change to shopping date after processing"),
                 fieldWithPath("total").description("Total price from parser, null if no result yet."),
                 fieldWithPath("chainCode").description("Parser result store chain code, 'generic' if no result."),
+                fieldWithPath("icon").description("Icon name, 'generic' if parser couldn't recoginze or no grapic icon for the store."),
                 fieldWithPath("storeName").description("Parser result store chain name, [Unknown] if no result yet."),
                 fieldWithPath("needFeedback").description("Whether user can give feedback"),
                 fieldWithPath("_links").description("<<resources-user-receipt-links,Links>> to other resources")

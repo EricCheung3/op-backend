@@ -11,6 +11,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -20,11 +21,16 @@ import com.openprice.domain.shopping.ShoppingItemRepository;
 import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.rest.LinkBuilder;
 import com.openprice.rest.user.UserApiUrls;
+import com.openprice.store.StoreChain;
+import com.openprice.store.StoreMetadata;
 
 import lombok.Getter;
 import lombok.Setter;
 
 public class ShoppingStoreResource extends Resource<ShoppingStore> {
+
+    @Getter @Setter
+    private String icon = "generic";
 
     @JsonInclude(Include.NON_EMPTY)
     @JsonProperty("_embedded")
@@ -38,12 +44,15 @@ public class ShoppingStoreResource extends Resource<ShoppingStore> {
     @Component
     public static class Assembler implements ResourceAssembler<ShoppingStore, ShoppingStoreResource>, UserApiUrls {
 
+        private final StoreMetadata storeMetadata;
         private final ShoppingItemRepository shoppingItemRepository;
         private final ShoppingItemResource.Assembler itemResourceAssembler;
 
         @Inject
-        public Assembler(final ShoppingItemRepository shoppingItemRepository,
+        public Assembler(final StoreMetadata storeMetadata,
+                         final ShoppingItemRepository shoppingItemRepository,
                          final ShoppingItemResource.Assembler itemResourceAssembler) {
+            this.storeMetadata = storeMetadata;
             this.itemResourceAssembler = itemResourceAssembler;
             this.shoppingItemRepository = shoppingItemRepository;
         }
@@ -65,6 +74,14 @@ public class ShoppingStoreResource extends Resource<ShoppingStore> {
                 items.add(itemResourceAssembler.toResource(item));
             }
             resource.getEmbeddedItems().put("shoppingItems", items);
+
+            final String chainCode = store.getChainCode();
+            if (!StringUtils.isEmpty(chainCode)) {
+                final StoreChain chain = storeMetadata.getStoreChainByCode(chainCode);
+                if (chain != null) {
+                    resource.setIcon(chain.getIcon());
+                }
+            }
 
             return resource;
         }
