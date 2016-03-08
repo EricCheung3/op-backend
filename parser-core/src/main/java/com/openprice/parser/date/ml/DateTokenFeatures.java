@@ -10,7 +10,7 @@ import lombok.Value;
 public class DateTokenFeatures implements Features {
 
     private final static int INVALID = -1;
-    private final static MonthLiterals monthLiterals= new MonthLiterals();
+    private final static MonthLiterals MONTH_LITERALS= new MonthLiterals();
 
     String str;//original String
 
@@ -41,8 +41,8 @@ public class DateTokenFeatures implements Features {
                 digitsChars[0],
                 digitsChars[1],
                 str.trim().length(),
-                monthLiterals.mostSimilarMonthLiteralScore(trim),
-                monthLiterals.mostSimilarMonthLiteral(trim));
+                MONTH_LITERALS.mostSimilarMonthLiteralScore(trim),
+                MONTH_LITERALS.mostSimilarMonthLiteral(trim));
     }
 
     @Override
