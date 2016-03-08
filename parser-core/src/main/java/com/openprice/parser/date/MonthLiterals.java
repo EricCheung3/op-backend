@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.openprice.common.Levenshtein;
+import com.openprice.common.StringCommon;
 
 //TODO enum?
 public class MonthLiterals {
@@ -52,19 +53,26 @@ public class MonthLiterals {
         return monthLiteralToNumber.keySet();
     }
 
-    public String mostSimilarMonthLiteral(final String str){
-        final double maxScore = monthLiteralToNumber
-        .keySet()
-        .stream()
-        .map(m -> Levenshtein.compare(m, str))
-        .max(Comparator.comparing(s->s)).get();
+    public double mostSimilarMonthLiteralScore(final String str) {
+        final String trimLower = str.trim().toLowerCase();
+        return monthLiteralToNumber
+                .keySet()
+                .stream()
+                .map(m -> Levenshtein.compare(m, trimLower))
+                .max(Comparator.comparing(s->s))
+                .get();
+    }
 
+    public String mostSimilarMonthLiteral(final String str){
+        final String trimLower = str.trim().toLowerCase();
+        final double maxScore = mostSimilarMonthLiteralScore(trimLower);
         if(maxScore > 0.6){
             return monthLiteralToNumber
                     .keySet()
                     .stream()
-                    .max(Comparator.comparing(m->Levenshtein.compare(m, str))).get();
+                    .max(Comparator.comparing(m->Levenshtein.compare(m, trimLower)))
+                    .get();
         }
-        return null;
+        return StringCommon.EMPTY;
     }
 }

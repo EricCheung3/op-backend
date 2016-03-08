@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.openprice.common.StringCommon;
+
 
 public class MonthLiteralsTest {
 
@@ -21,6 +23,6 @@ public class MonthLiteralsTest {
 
     @Test
     public void notResult(){
-        assertEquals(null, months.mostSimilarMonthLiteral("afafdafds"));
+        assertEquals(StringCommon.EMPTY, months.mostSimilarMonthLiteral("afafdafds"));
     }
 }
