@@ -59,10 +59,13 @@ public abstract class AbstractImageProcessor implements ImageProcessor {
         }
         log.debug("Start processing image {} saved at {} by calling {}...",
                 item.getImageId(), imageFile.toString(), name);
+
         final ImageProcessResult result = getImageProcessResult(imageFile.toString());
+
         final long duration = System.currentTimeMillis() - start;
         log.info("Finish processing image {} with {}, took {} milli-seconds.",
                 item.getImageId(), name, duration);
+
         saveProcessResult(item, result, start, duration);
     }
 

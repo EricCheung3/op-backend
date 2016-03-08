@@ -3,7 +3,6 @@ package com.openprice.domain.receipt;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.when;
 
@@ -46,9 +45,6 @@ public class ReceiptUploadServiceTest {
     @Mock
     MultipartFile ocrMock;
 
-    @Mock
-    ReceiptParsingService receiptParsingServiceMock;
-
     FileSystemService fileSystemService;
 
     ReceiptUploadService serviceToTest;
@@ -57,8 +53,7 @@ public class ReceiptUploadServiceTest {
     @Before
     public void setup() throws Exception {
         fileSystemService = new FileSystemService(new FileFolderSettings());
-        serviceToTest = new ReceiptUploadService(receiptParsingServiceMock,
-                                                 receiptRepositoryMock,
+        serviceToTest = new ReceiptUploadService(receiptRepositoryMock,
                                                  receiptImageRepositoryMock,
                                                  fileSystemService);
     }
@@ -241,72 +236,6 @@ public class ReceiptUploadServiceTest {
         BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
         assertEquals(TEST_CONTENT, reader.readLine());
 
-    }
-
-    @Test
-    public void hackloadImageFileAndOcrResultForNewReceipt_ShouldSaveImageFile_andCreateReceiptWithOcrResult()
-            throws Exception {
-        final UserAccount testUser = getTestUserAccount();
-
-        when(receiptImageRepositoryMock.save(isA(ReceiptImage.class))).thenAnswer( new Answer<ReceiptImage>() {
-            @Override
-            public ReceiptImage answer(InvocationOnMock invocation) throws Throwable {
-                final ReceiptImage image = (ReceiptImage)invocation.getArguments()[0];
-                image.setId("image123");
-                return image;
-            }
-
-        });
-
-        when(receiptRepositoryMock.save(isA(Receipt.class))).thenAnswer( new Answer<Receipt>() {
-            @Override
-            public Receipt answer(InvocationOnMock invocation) throws Throwable {
-                final Receipt receipt = (Receipt)invocation.getArguments()[0];
-                receipt.setId("receipt123");
-                return receipt;
-            }
-
-        });
-
-        when(fileMock.getBytes()).thenReturn(TEST_CONTENT.getBytes());
-        when(ocrMock.getBytes()).thenReturn(TEST_OCR.getBytes());
-
-        final ReceiptImage image = serviceToTest.hackloadImageFileAndOcrResultForNewReceipt(testUser, fileMock, ocrMock);
-
-        //receipt image has been saved
-        assertEquals("image123", image.getId());
-        assertEquals(ProcessStatusType.SCANNED, image.getStatus());
-        assertEquals(TEST_OCR, image.getOcrResult());
-
-        //receipt has correct data
-        assertEquals("receipt123", image.getReceipt().getId());
-        assertEquals(testUser, image.getReceipt().getUser());
-
-        // check file exists and content is the same as test content
-        final Path imageFile = fileSystemService.getReceiptImageSubFolder(testUser.getId()).resolve(image.getFileName());
-        assertTrue(Files.exists(imageFile));
-        BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
-        assertEquals(TEST_CONTENT, reader.readLine());
-
-    }
-
-    @Test
-    public void hackloadOcrResult_ShouldUpdateReceiptOcrResultAndParse()
-            throws Exception {
-        final UserAccount testUser = getTestUserAccount();
-        final Receipt receipt = Receipt.testObjectBuilder().id("receipt123").user(testUser).build();
-
-        final ReceiptImage image = receipt.createImage();
-
-        when(receiptImageRepositoryMock.countByReceipt(eq(receipt))).thenReturn(1l);
-        when(receiptImageRepositoryMock.findFirstByReceiptOrderByCreatedTime(eq(receipt))).thenReturn(image);
-        when(ocrMock.getBytes()).thenReturn(TEST_OCR.getBytes());
-
-        serviceToTest.hackloadOcrResult(receipt, ocrMock);
-
-        //receipt image has ocr data
-        assertEquals(ProcessStatusType.SCANNED, image.getStatus());
-        assertEquals(TEST_OCR, image.getOcrResult());
     }
 
     private UserAccount getTestUserAccount() {

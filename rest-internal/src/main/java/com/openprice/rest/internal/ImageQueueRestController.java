@@ -24,8 +24,8 @@ public class ImageQueueRestController {
     @Inject
     public ImageQueueRestController(final ProcessQueueService queueService) {
         this.queueService = queueService;
-
     }
+
     @RequestMapping(method = RequestMethod.POST, value = InternalServiceApiUrls.URL_IMAGE_QUEUE)
     public HttpEntity<ImageQueueResult> addImageToQueue(@RequestBody final ImageQueueRequest request) {
         queueService.addImage(request.getImageId(), request.getOwnerId(), request.getRequesterId());

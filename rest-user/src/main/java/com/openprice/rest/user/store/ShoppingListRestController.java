@@ -49,7 +49,7 @@ public class ShoppingListRestController extends AbstractUserStoreRestController 
     private ShoppingStore saveShoppingList(final ShoppingListForm form) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
         final String chainCode = form.getChainCode();
-        log.info("User {} add items to shopping store '{}'.", currentUser.getUsername(), chainCode);
+        log.info("User <{}> add items to shopping store '{}'.", currentUser.getUsername(), chainCode);
 
         final ShoppingStore store = shoppingService.getShoppingStoreForStoreChain(currentUser, chainCode);
         for (final CreateShoppingItemForm item : form.getItems()) {
