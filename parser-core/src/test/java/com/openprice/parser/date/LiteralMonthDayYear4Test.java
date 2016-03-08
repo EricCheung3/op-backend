@@ -10,6 +10,9 @@ import org.junit.Test;
 
 import com.openprice.parser.price.ThreeStrings;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class LiteralMonthDayYear4Test {
 
     private final LiteralMonthDayYear4 literalMDY4 = new LiteralMonthDayYear4();
@@ -237,6 +240,24 @@ public class LiteralMonthDayYear4Test {
     @Test
     public void twoDayWillHaveNull(){
        assertNull(literalMDY4.parseWithSpaces("Apr 11 27 , 2015"));
+    }
+
+    @Test
+    public void singleQuoteNonUnicodeIsOkay(){
+        final List<String> words = LiteralMonthDayYear4.literalMonthDayYearSplit("OCT.08’2015");
+        assertEquals(3, words.size());
+        assertEquals("OCT", words.get(0));
+        assertEquals("08", words.get(1));
+        assertEquals("2015", words.get(2));
+    }
+
+    @Test
+    public void singleQuoteIsOkay(){
+        final List<String> words = LiteralMonthDayYear4.literalMonthDayYearSplit("OCT.08'2015");
+        assertEquals(3, words.size());
+        assertEquals("OCT", words.get(0));
+        assertEquals("08", words.get(1));
+        assertEquals("2015", words.get(2));
     }
 
 }

@@ -1,6 +1,7 @@
 package com.openprice.store;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -21,6 +22,9 @@ import com.openprice.store.data.ProductData;
 import com.openprice.store.data.StoreBranchData;
 import com.openprice.store.data.StoreChainData;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MetadataLoader {
 
     public static final String GENERIC_STORE_CODE = "generic";  // special store chain code for unknown generic store
@@ -205,29 +209,59 @@ public class MetadataLoader {
         return loadObjectFromJsonResource(ChainConfigFiles.getNonHeaderProperties(chainCode), Properties.class);
     }
 
+    //TODO apply category predictor for those products missing categories?
     static Map<String, CatalogProduct> loadCatalogProducts(final String chainCode, final Map<String, ProductCategory> categoryMap) {
         final ImmutableMap.Builder<String, CatalogProduct> productListBuilder = new ImmutableMap.Builder<>();
         final String catalogFileName = ChainConfigFiles.getCatalog(chainCode);
-        final ProductData[] products = loadArrayFromJsonResource(catalogFileName, ProductData[].class);
+        final ProductData[] productsFromCatalog = loadArrayFromJsonResource(catalogFileName, ProductData[].class);
+        final Set<ProductData> productsFromCatalogSet = getSet(chainCode, productsFromCatalog);
+        final String flyerFileName = ChainConfigFiles.getCatalogFromFlyers(chainCode);
+        final ProductData[] productsFromFlyers = loadArrayFromJsonResource(flyerFileName, ProductData[].class);
+        final Set<ProductData> productsFromFlyersSet = getSet(chainCode, productsFromFlyers);
 
-        if (products != null) {
-            final Set<String> codeSet = new HashSet<>();
-            for(ProductData product : products) {
-                if (StringUtils.isEmpty(product.getName())) {
-                    throw new RuntimeException("Empty name at " + catalogFileName + " for " + product);
-                }
-                final String code = ProductUtils.generateCatalogCode(product.getName(), product.getNumber());
-                if (codeSet.contains(code)) {
-                    throw new RuntimeException("Duplicate product catalog code found at " + catalogFileName + " for " + product);
-                }
-                ProductCategory category = categoryMap.get(product.getProductCategory());
-                if (category == null) {
-                    throw new RuntimeException("Invalid category code found at " + catalogFileName + " for " + product);
-                }
-                productListBuilder.put(code, new CatalogProduct(product, category));
+        final Set<ProductData> allProducts = new HashSet<>();
+        allProducts.addAll(productsFromFlyersSet);
+        allProducts.addAll(productsFromCatalogSet);
+        final int numDuplicates = productsFromCatalogSet.size() + productsFromFlyersSet.size() - allProducts.size();
+        if(numDuplicates > 0){
+            log.warn("there are " + numDuplicates +" duplicate products across these catalog and flyers data:");
+            productsFromFlyersSet
+            .stream()
+            .filter(p -> productsFromCatalogSet.contains(p))
+            .forEach(p ->System.out.println(p));
+        }
+
+        final Set<String> codeSet = new HashSet<>();
+        for(ProductData product : allProducts) {
+            if (StringUtils.isEmpty(product.getName())) {
+                throw new RuntimeException("Empty name at " + catalogFileName + " for " + product);
             }
+            final String code = ProductUtils.generateCatalogCode(product.getName(), product.getNumber());
+            if (codeSet.contains(code)) {
+                throw new RuntimeException("Duplicate product catalog code found at " + catalogFileName + " for " + product);
+            }
+            ProductCategory category = categoryMap.get(product.getProductCategory());
+            if (category == null) {
+                throw new RuntimeException("Invalid category code found at " + catalogFileName + " for " + product);
+            }
+            productListBuilder.put(code, new CatalogProduct(product, category));
         }
         return productListBuilder.build();
+    }
+
+    final static Set<ProductData> getSet(final String chainCode, final ProductData[] array){
+        if(array==null)
+            return new HashSet<ProductData>();
+        final List<ProductData> list = Arrays.asList(array);
+        final Set<ProductData> set = list.stream().collect(Collectors.toSet());
+        final int duplicates = list.size() - set.size();
+        if(duplicates > 0){
+            log.warn(chainCode+": There are " + duplicates +" duplicates");
+            final List<ProductData> listCopy = new ArrayList<>(list);
+            set.stream().forEach(p -> listCopy.remove(p));
+            listCopy.forEach(p -> log.warn("duplicate: "+p));
+        }
+        return set;
     }
 
     public static <T> T[] loadArrayFromJsonResource(String resourceFileName, Class<T[]> clazz) {
@@ -235,6 +269,7 @@ public class MetadataLoader {
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         try (final InputStream is = MetadataLoader.class.getResourceAsStream(resourceFileName)){
             if (is == null) {
+//                log.warn("Inputstream returns null for file "+resourceFileName);
                 return null;
             }
             return mapper.readValue(is, clazz);

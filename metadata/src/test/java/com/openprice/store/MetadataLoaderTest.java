@@ -12,9 +12,12 @@ import org.junit.Test;
 
 import com.openprice.store.data.StoreChainData;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  *  TODO printing test code for a store.
  */
+@Slf4j
 public class MetadataLoaderTest {
     private final StoreMetadata metadata = MetadataLoader.loadMetadata();
 
@@ -278,6 +281,11 @@ public class MetadataLoaderTest {
     }
 
     @Test
+    public void catalog() {
+        assertTrue(validateCatalog(SAFEWAY_CODE));
+    }
+
+    @Test
     public void skipBefore() throws Exception {
         //assertTrue(validateSkipBefore(EDO_JAPAN_CODE));
         assertTrue(validateSkipBefore(RCSS_CODE));
@@ -366,6 +374,11 @@ public class MetadataLoaderTest {
 
     public boolean validateSkipAfter(final String chainCode){
         return metadata.getStoreChainByCode(chainCode).getSkipAfter().size() > 0;
+    }
+
+    public boolean validateCatalog(final String chainCode){
+        log.debug("for chain "+chainCode+", there are "+metadata.getStoreChainByCode(chainCode).getProducts().size()+" products.");
+        return metadata.getStoreChainByCode(chainCode).getProducts().size() > 0;
     }
 
     public boolean validateLoadingCategory(final String chainCode){
@@ -588,7 +601,7 @@ public class MetadataLoaderTest {
             assertNotNull(rcss);
             assertEquals("Superstore", rcss.getName());
             assertEquals(8, rcss.getBranches().size());
-            assertEquals(323, rcss.getProducts().size());
+            assertEquals(321, rcss.getProducts().size());
             assertEquals(4, rcss.getIdentifyFields().size());
         }
 
@@ -598,7 +611,7 @@ public class MetadataLoaderTest {
             assertNotNull(safeway);
             assertEquals("Safeway", safeway.getName());
             assertEquals(22, safeway.getBranches().size());
-            assertEquals(608, safeway.getProducts().size());
+            assertEquals(708, safeway.getProducts().size());
             assertEquals(2, safeway.getIdentifyFields().size());
         }
 

@@ -327,26 +327,26 @@ public class DateParserUtilsTest {
 
     @Test
     public void findDateInALineTest() throws Exception{
-        final String fromSear = "01429 388 1953 1621487 2/28/ 15 4 :07P";
-        assertEquals("2015/2/28", DateParserUtils.findDateInALine(fromSear));
+        final String line = "01429 388 1953 1621487 2/28/ 15 4 :07P";
+        assertEquals("2015/2/28", DateParserUtils.findDateInALine(line));
     }
 
     @Test
     public void findDateInALineTest2() throws Exception{
-        final String fromSear = "01429 15~ 4884 4601652 4/11/13 4:15P";
-        assertEquals("2013/4/11", DateParserUtils.findDateInALine(fromSear));
+        final String line = "01429 15~ 4884 4601652 4/11/13 4:15P";
+        assertEquals("2013/4/11", DateParserUtils.findDateInALine(line));
     }
 
     @Test
     public void findDateInALineTest3() throws Exception{
-        final String fromSear = "0142 054 8913 4629940 5/3 1/ 15 4:58P";
-        assertEquals("2015/5/31", DateParserUtils.findDateInALine(fromSear));
+        final String line = "0142 054 8913 4629940 5/3 1/ 15 4:58P";
+        assertEquals("2015/5/31", DateParserUtils.findDateInALine(line));
     }
 
     @Test
     public void shouldFind2AsMonth() throws Exception{
-        final String fromSear = "01429 15~ 7913 4606631  2/3/13             6:04P";
-        assertEquals("2013/2/3", DateParserUtils.findDateInALine(fromSear));
+        final String line = "01429 15~ 7913 4606631  2/3/13             6:04P";
+        assertEquals("2013/2/3", DateParserUtils.findDateInALine(line));
     }
 
     @Test
@@ -701,7 +701,45 @@ public class DateParserUtilsTest {
         assertEquals("2014/6/15", DateParserUtils.findDateInALine("01429 140 5102 4619352  6/15/14    5:06P"));
     }
 
+    @Test
+    public void pruneDateStringTest13() throws Exception{
+        final String line = "3973 02782 05 051 46296                                     3/05/16 11:16 ";
+        assertEquals("2016/3/5", DateParserUtils.findDateInALine(line));
+    }
 
+    @Test
+    public void pruneDateStringTest14() throws Exception{
+        final String line = "3/05/16 12 3* 0970 04 0209 2189  ";
+        assertEquals("2016/3/5", DateParserUtils.findDateInALine(line));
+    }
 
+    @Test
+    public void pruneDateStringTest15() throws Exception{
+        final String line = "03/06/16 ";
+        assertEquals("2016/3/6", DateParserUtils.findDateInALine(line));
+    }
 
+    @Test
+    public void pruneDateStringTest16() throws Exception{
+        final String line = "Sep 04 2013 10:12 am Trans# 002475 ";
+        assertEquals("2013/9/4", DateParserUtils.findDateInALine(line));
+    }
+
+    @Test
+    public void pruneDateStringYear4() throws Exception{
+        final String line = "OCT.08’2015 Trans# 002475 ";
+        assertEquals("2015/10/8", DateParserUtils.findDateInALine(line));
+    }
+
+    @Test
+    public void pruneDateStringYear2() throws Exception{
+        final String line = "OCT.08’15 Trans# 002475 ";
+        assertEquals("2015/10/8", DateParserUtils.findDateInALine(line));
+    }
+
+    @Test
+    public void pruneDateStringTest18() throws Exception{
+        final String line = "OCT.08’2015 Trans# 002475 ";
+        assertEquals("2015/10/8", DateParserUtils.findDateInALine(line));
+    }
 }
