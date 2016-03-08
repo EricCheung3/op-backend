@@ -5,14 +5,14 @@
     <parent>
         <groupId>com.openprice</groupId>
         <artifactId>op-project</artifactId>
-        <version>0.3.0</version>
+        <version>0.4.0</version>
     </parent>
 
     <artifactId>op-api-common</artifactId>
     <packaging>jar</packaging>
 
     <name>Common API Module</name>
-    <description>OpenPrice Public API common shared code.</description>
+    <description>Openprice Public API common shared code.</description>
 
     <dependencies>
         <dependency>

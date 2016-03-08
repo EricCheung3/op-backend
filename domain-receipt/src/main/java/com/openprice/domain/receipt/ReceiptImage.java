@@ -52,6 +52,12 @@ public class ReceiptImage extends BaseAuditableEntity {
     @Lob
     private String ocrResult;
 
+    @Getter @Setter
+    @JsonIgnore
+    @Column(name="base64")
+    @Lob
+    private String base64;
+
     ReceiptImage() {}
 
     @Builder(builderMethodName="testObjectBuilder")

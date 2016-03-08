@@ -5,14 +5,14 @@
     <parent>
         <groupId>com.openprice</groupId>
         <artifactId>op-project</artifactId>
-        <version>0.3.0</version>
+        <version>0.4.0</version>
     </parent>
 
     <artifactId>op-infrastructure</artifactId>
     <packaging>jar</packaging>
 
     <name>Infrastructure API Module</name>
-    <description>Infrastructure API for email, messaging with dummy implementation.</description>
+    <description>Openprice Infrastructure API for email, messaging with dummy implementation.</description>
 
     <dependencies>
         <dependency>

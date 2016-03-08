@@ -97,8 +97,9 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
     }
 
     @RequestMapping(method = RequestMethod.POST, value = URL_USER_RECEIPTS_RECEIPT_IMAGES)
-    public HttpEntity<Void> createReceiptImageWithBase64String(@PathVariable("receiptId") final String receiptId,
-                                                               @RequestBody final ImageDataForm imageDataForm) {
+    public HttpEntity<Void> createReceiptImageWithBase64String(
+            @PathVariable("receiptId") final String receiptId,
+            @RequestBody final ImageDataForm imageDataForm) {
         final ReceiptImage image = newReceiptImageWithBase64ImageData(receiptId, imageDataForm.getBase64String());
         addReceiptImageToProcessQueue(image);
 

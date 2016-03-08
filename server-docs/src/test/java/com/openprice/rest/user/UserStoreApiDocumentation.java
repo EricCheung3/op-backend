@@ -73,6 +73,7 @@ public class UserStoreApiDocumentation extends UserApiDocumentationBase {
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
                 fieldWithPath("chainCode").description("Store Chain code this shopping list belongs to. Can be null?"),
+                fieldWithPath("icon").description("Icon name, 'generic' if no grapic icon for the store."),
                 fieldWithPath("displayName").description("Shopping list display name"),
                 fieldWithPath("_embedded.shoppingItems").description("Shopping list items"),
                 fieldWithPath("_links").description("<<resources-user-shopping-store-retrieve-links,Links>> to other resources")

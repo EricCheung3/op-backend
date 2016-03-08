@@ -73,10 +73,10 @@ public class ApiDocsApplication {
     @Bean
     public EmailProperties emailProperties() {
         return new EmailProperties("http://openprice,com",
-                                   "OpenPrice Admin",
+                                   "Openprice Admin",
                                    "admin@openprice.com",
-                                   "OpenPrice Team",
-                                   "noreply@openprice.com");
+                                   "Openprice Team",
+                                   "support@openprice.com");
     }
 
     @Bean

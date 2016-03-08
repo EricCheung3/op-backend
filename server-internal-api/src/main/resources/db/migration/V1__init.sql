@@ -6,7 +6,7 @@ CREATE TABLE user_account (
     last_modified_by VARCHAR(50),
     last_modified_time TIMESTAMP,
 
-    email VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(100) NOT NULL,
     account_locked BOOLEAN DEFAULT false,
     trusted_account BOOLEAN DEFAULT false,
@@ -51,7 +51,7 @@ CREATE TABLE admin_account (
     last_modified_by VARCHAR(50),
     last_modified_time TIMESTAMP,
 
-    username VARCHAR(100) NOT NULL,
+    username VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
     account_locked BOOLEAN DEFAULT false,

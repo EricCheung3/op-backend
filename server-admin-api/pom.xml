@@ -5,14 +5,14 @@
     <parent>
         <groupId>com.openprice</groupId>
         <artifactId>op-project</artifactId>
-        <version>0.3.0</version>
+        <version>0.4.0</version>
     </parent>
 
     <artifactId>op-server-admin-api</artifactId>
     <packaging>jar</packaging>
 
     <name>Admin RESTful API Server</name>
-    <description>OpenPrice RESTful API server for admin functions.</description>
+    <description>Openprice RESTful API server for admin functions.</description>
 
     <properties>
         <start-class>com.openprice.AdminApiApplication</start-class>

@@ -11,10 +11,10 @@
 
     <groupId>com.openprice</groupId>
     <artifactId>op-project</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
     <packaging>pom</packaging>
 
-    <name>Open Price Project</name>
+    <name>Openprice Project</name>
     <url>https://theopenprice.com/</url>
     <inceptionYear>2015-2016</inceptionYear>
 
@@ -145,6 +145,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <delimiters>
+                        <delimiter>#{*}</delimiter>
+                    </delimiters>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -175,6 +180,10 @@
                 <!-- log configuration -->
                 <logback.loglevel>DEBUG</logback.loglevel>
                 <logback.loggly.loglevel>OFF</logback.loggly.loglevel>
+                <!-- Openprice env -->
+                <openprice.web.url>https://dev.theopenprice.com</openprice.web.url>
+                <openprice.admin.email>jiwhiz@gmail.com</openprice.admin.email>
+                <openprice.support.email>jiwhiz@gmail.com</openprice.support.email>
             </properties>
             <dependencies>
                 <dependency>
@@ -189,6 +198,10 @@
                 <!-- log configuration -->
                 <logback.loglevel>INFO</logback.loglevel>
                 <logback.loggly.loglevel>INFO</logback.loggly.loglevel>
+                <!-- Openprice env -->
+                <openprice.web.url>https://www.theopenprice.com</openprice.web.url>
+                <openprice.admin.email>admin@theopenprice.com</openprice.admin.email>
+                <openprice.support.email>support@theopenprice.com</openprice.support.email>
             </properties>
             <dependencies>
                 <dependency>

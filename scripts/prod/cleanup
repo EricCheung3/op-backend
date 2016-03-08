@@ -7,20 +7,14 @@ docker rm op-server-web-api
 docker stop op-server-internal-api
 docker rm op-server-internal-api
 
-#docker stop op-server-ocr-1
-#docker rm op-server-ocr-1
-
-#docker stop op-server-ocr-2
-#docker rm op-server-ocr-2
-
-docker stop op-server-docs
-docker rm op-server-docs
-
 docker stop op-server-admin-ui
 docker rm op-server-admin-ui
 
-#docker stop op-server-web-ui
-#docker rm op-server-web-ui
+docker stop op-server-web-ui
+docker rm op-server-web-ui
 
 docker stop op-mysql
 docker rm op-mysql
+
+docker stop op-server-proxy
+docker rm op-server-proxy

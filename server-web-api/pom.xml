@@ -5,14 +5,14 @@
     <parent>
         <groupId>com.openprice</groupId>
         <artifactId>op-project</artifactId>
-        <version>0.3.0</version>
+        <version>0.4.0</version>
     </parent>
 
     <artifactId>op-server-web-api</artifactId>
     <packaging>jar</packaging>
 
     <name>Web RESTful API Server</name>
-    <description>OpenPrice RESTful API Server for public or end user services.</description>
+    <description>Openprice RESTful API Server for public or end user services.</description>
 
     <properties>
         <start-class>com.openprice.WebApiApplication</start-class>

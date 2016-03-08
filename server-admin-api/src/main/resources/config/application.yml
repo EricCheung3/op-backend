@@ -16,9 +16,9 @@ application:
     settings:
         email:
             systemName: Openprice Support
-            systemEmail: support@theopenprice.com
+            systemEmail: #{openprice.support.email}
             adminName: Openprice Admin
-            adminEmail: admin@theopenprice.com
+            adminEmail: #{openprice.admin.email}
         internal:
             serverHost: op-server-internal-api
             serverPort: 8080
