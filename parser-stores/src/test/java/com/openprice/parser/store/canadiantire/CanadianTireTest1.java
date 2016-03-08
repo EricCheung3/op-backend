@@ -387,14 +387,15 @@ public class CanadianTireTest1 extends AbstractReceiptParserIntegrationTest{
         assertEquals("canadiantire", receipt.getChainCode());
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(1,receipt.getItems().size());
+        assertEquals(2,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "black super spr s",  "12.99", null, 6);
-        verifyParsedField(fieldValues, ReceiptFieldType.Author, "authorization 1: 05091b",18);
-        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst.reg 1139122352",54);
+        verifyParsedItem(iterator.next(), "ken 26x1 .25/1 .5 s",  "9.99", null, 7);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "24.13",11);
         verifyParsedField(fieldValues, ReceiptFieldType.StoreID, "store hours 8ah-10ph honda~ to saturda~",52);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "22.98",8);
         verifyParsedField(fieldValues, ReceiptFieldType.Ref, "ref 1 : 66026430 0010010011 c",17);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst.reg 1139122352",54);
+        verifyParsedField(fieldValues, ReceiptFieldType.Author, "authorization 1: 05091b",18);
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/5/1",4);
 
     }
