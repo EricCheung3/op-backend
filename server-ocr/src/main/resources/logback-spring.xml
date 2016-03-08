@@ -14,7 +14,7 @@
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOGGING_FILE_FOLDER}/logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/groundtruth/logs/logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>90</maxHistory>
         </rollingPolicy>
         <encoder>
@@ -29,19 +29,19 @@
     </appender>
 
     <appender name="LOGGLY" class="ch.qos.logback.ext.loggly.LogglyAppender">
-        <endpointUrl>https://logs-01.loggly.com/inputs/14a534cc-b254-452a-adf7-cbd5d4362680/tag/openprice</endpointUrl>
+        <endpointUrl>https://logs-01.loggly.com/inputs/14a534cc-b254-452a-adf7-cbd5d4362680/tag/#{openprice.loggly.tag},${SERVER_NAME}</endpointUrl>
         <pattern>%d %-6contextName %-5level [%thread] %c.%M\(%L\): %msg%n</pattern>
     </appender>
 
     <appender name="ASYNC_LOGGLY" class="ch.qos.logback.classic.AsyncAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>@logback.loggly.loglevel@</level>
+            <level>#{logback.loggly.loglevel}</level>
         </filter>
         <queueSize>512</queueSize>
         <appender-ref ref="LOGGLY"/>
     </appender>
 
-    <logger name="com.openprice" level="@logback.loglevel@"/>
+    <logger name="com.openprice" level="#{logback.loglevel}"/>
     
     <logger name="sun.net.www.protocol.http" level="OFF"/>
     <logger name="javax.activation" level="WARN"/>
@@ -75,7 +75,7 @@
         <resetJUL>true</resetJUL>
     </contextListener>
 
-    <root level="@logback.loglevel@">
+    <root level="#{logback.loglevel}">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="ASYNC_FILE"/>
         <appender-ref ref="ASYNC_LOGGLY"/>
