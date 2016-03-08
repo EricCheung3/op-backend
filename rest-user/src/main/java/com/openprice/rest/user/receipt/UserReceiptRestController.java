@@ -91,7 +91,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
     public HttpEntity<Void> deleteReceiptById(@PathVariable("receiptId") final String receiptId)
             throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
-        log.info("User {} delete receipt {}...", receipt.getUser().getUsername(), receiptId);
+        log.info("User <{}> delete receipt {}...", receipt.getUser().getUsername(), receiptId);
         receiptRepository.delete(receipt);
         return ResponseEntity.noContent().build();
     }
@@ -173,7 +173,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
             @PathVariable("receiptId") final String receiptId,
             @RequestBody final FeedbackForm form) throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
-        log.info("User {} gave feedback on receipt {}...", receipt.getUser().getUsername(), receiptId);
+        log.info("User <{}> gave feedback on receipt {}...", receipt.getUser().getUsername(), receiptId);
         receiptService.addFeedback(receipt, form.getRating(), form.getComment());
         return ResponseEntity.noContent().build();
     }
@@ -190,6 +190,5 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         receiptUploadService.hackloadOcrResult(receipt, ocr);
     }
-
 
 }
