@@ -26,10 +26,11 @@ public class LiteralMonthDayYear4 implements DateParser{
           +"||JAN(?:UARY)?|FEB(?:RUARY)?||MAR(?:CH)?||APR(?:IL)?||MAY?"
           +"||Jun(?:e)?||Jul(?:y)?||Aug(?:ust)?||Sep(?:tember)?||Oct(?:ober)?||Nov(?:ember)?||Dec(?:ember)?"
           +"||JUN(?:E)?||JUL(?:Y)?||AUG(?:UST)?||SEP(?:TEMBER)?||OCT(?:OBER)?||NOV(?:EMBER)?||DEC(?:EMBER)?)"
-          + "\\s*"
+          + "(\\s*||,||\\.||_||')"
+          //+ "\\s*"
           + "([1-9]|0[1-9]|[12][0-9]|3[01])"
           + "\\s*"
-          + "(\\s*||,||\\.||_)"
+          + "(\\s*||,||\\.||_||')"
           + "\\s*"
           + "(?:19[7-9]\\d|2\\d{3})(?=\\D|$)");
 
@@ -38,7 +39,7 @@ public class LiteralMonthDayYear4 implements DateParser{
         final String literalMDY4 = DateParserUtils.pruneDateStringWithMatch(origLine,
                 patternLiteralMonthDayYear4);
         final List<String> words = literalMonthDayYearSplit(literalMDY4);
-        log.debug("words.length="+words.size());
+        log.debug("words.size()="+words.size());
         for(String str: words)
             log.debug(str);
         if(words.size() < 3)
@@ -59,8 +60,8 @@ public class LiteralMonthDayYear4 implements DateParser{
     public static List<String> literalMonthDayYearSplit(final String dateString){
 //      final String[] words = dateString.split("-|_|\\.|\\s+");//not correct. only one dilimiter is selected
 //      http://stackoverflow.com/questions/3654446/java-regex-help-splitting-string-on-spaces-and-commas
-      final String[] words = dateString.split("\\s*(\\.|_|-|,|\\s)\\s*");
-//      log.debug("words.length="+words.length);
+      final String[] words = dateString.split("\\s*(\\.|_|-|,|\\s|’|')\\s*");
+      log.debug("dateString="+dateString+", words.length="+words.length);
       final List<String> list = new ArrayList<>();
       for(String w : words){
           if(w.length()==1
