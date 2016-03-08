@@ -48,6 +48,9 @@ public class ReceiptParsingService {
      * Whenever we have receipt image processed (scanned by OCR engine), we call this function to parse all scanned
      * images with successful OCR result.
      *
+     * TODO right now front end only allow one image per receipt, we may not need the complicated code for parsing.
+     *      see https://github.com/opgt/op-mobile/issues/59
+     *      re-write the code later for one image per receipt, and return result without saving to database
      * @param receipt
      * @return
      */
