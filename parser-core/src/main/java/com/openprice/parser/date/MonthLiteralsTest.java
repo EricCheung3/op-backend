@@ -19,5 +19,8 @@ public class MonthLiteralsTest {
         assertEquals("jun", months.mostSimilarMonthLiteral("jen"));
     }
 
-
+    @Test
+    public void notResult(){
+        assertEquals(null, months.mostSimilarMonthLiteral("afafdafds"));
+    }
 }
