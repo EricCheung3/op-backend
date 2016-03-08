@@ -731,11 +731,11 @@ public class DateParserUtilsTest {
         assertEquals("2015/10/8", DateParserUtils.findDateInALine(line));
     }
 
-    @Test
-    public void pruneDateStringYear2() throws Exception{
-        final String line = "OCT.08’15 Trans# 002475 ";
-        assertEquals("2015/10/8", DateParserUtils.findDateInALine(line));
-    }
+//    @Test
+//    public void pruneDateStringYear2() throws Exception{
+//        final String line = "OCT.08’15 Trans# 002475 ";
+//        assertEquals("2015/10/8", DateParserUtils.findDateInALine(line));
+//    }
 
     @Test
     public void pruneDateStringTest18() throws Exception{
