@@ -20,7 +20,7 @@ public class SimpleStructurePredictor implements StructurePredictor{
              && features.isOneDotAtTail())
             return LineStructure.NumberNamePrice;
 
-        return LineStructure.Unpreditable;
+        return LineStructure.Unpredictable;
     }
 
 }

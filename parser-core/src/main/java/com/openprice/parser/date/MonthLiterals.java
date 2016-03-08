@@ -1,9 +1,13 @@
 package com.openprice.parser.date;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import com.openprice.common.Levenshtein;
+
+//TODO enum?
 public class MonthLiterals {
 
     private Map<String, Integer> monthLiteralToNumber = new HashMap<>();
@@ -46,5 +50,21 @@ public class MonthLiterals {
 
     public Set<String> monthLiterals(){
         return monthLiteralToNumber.keySet();
+    }
+
+    public String mostSimilarMonthLiteral(final String str){
+        final double maxScore = monthLiteralToNumber
+        .keySet()
+        .stream()
+        .map(m -> Levenshtein.compare(m, str))
+        .max(Comparator.comparing(s->s)).get();
+
+        if(maxScore > 0.6){
+            return monthLiteralToNumber
+                    .keySet()
+                    .stream()
+                    .max(Comparator.comparing(m->Levenshtein.compare(m, str))).get();
+        }
+        return null;
     }
 }
