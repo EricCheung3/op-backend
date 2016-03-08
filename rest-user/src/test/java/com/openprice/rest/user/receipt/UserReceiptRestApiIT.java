@@ -3,7 +3,6 @@ package com.openprice.rest.user.receipt;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertNull;
 
 import javax.inject.Inject;
@@ -31,25 +30,6 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Inject
     private ReceiptImageRepository receiptImageRepository;
-
-    @Test
-    public void getCurrentUserAllReceipts_ShouldReturnAllUserReceipts() {
-        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-
-        Response response =
-            given()
-                .filter(sessionFilter)
-            .when()
-                .get(userAllReceiptsUrl(sessionFilter))
-            ;
-        //response.prettyPrint();
-        response
-        .then()
-            .statusCode(HttpStatus.SC_OK)
-            .contentType(ContentType.JSON)
-            .body("", hasSize(14))
-        ;
-    }
 
     @Test
     public void getCurrentUserReceipts_ShouldReturnFirstPageOfUserReceipts() {

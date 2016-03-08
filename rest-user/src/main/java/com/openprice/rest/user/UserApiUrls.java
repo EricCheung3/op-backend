@@ -20,8 +20,6 @@ public interface UserApiUrls {
     String URL_USER_RECEIPTS_RECEIPT_RESULT_ITEMS_ITEM = "/user/receipts/{receiptId}/result/items/{itemId}";
 
     String URL_USER_RECEIPTS_UPLOAD = "/user/receipts/upload";
-    String URL_USER_RECEIPTS_HACKLOAD = "/user/receipts/hackload";
-    String URL_USER_RECEIPTS_RECEIPT_HACKLOAD_OCR = "/user/receipts/{receiptId}/hackload";
     String URL_USER_RECEIPTS_RECEIPT_IMAGES_UPLOAD = "/user/receipts/{receiptId}/images/upload";
     String URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_DOWNLOAD = "/user/receipts/{receiptId}/images/{imageId}/download";
     String URL_USER_RECEIPTS_RECEIPT_IMAGES_IMAGE_BASE64 = "/user/receipts/{receiptId}/images/{imageId}/base64";
