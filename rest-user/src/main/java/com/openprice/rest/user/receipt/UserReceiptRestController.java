@@ -181,7 +181,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
     @Transactional
     protected ReceiptImage newReceiptWithImageAndOcrFile(final MultipartFile image, final MultipartFile ocr) {
         final UserAccount currentUser = getCurrentAuthenticatedUser();
-        log.debug("User {} HACKLoad image file for new receipt and OCR result.", currentUser.getUsername());
+        log.debug("User <{}> HACKLoad image file for new receipt and OCR result.", currentUser.getUsername());
         return receiptUploadService.hackloadImageFileAndOcrResultForNewReceipt(currentUser, image, ocr);
     }
 

@@ -101,14 +101,16 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
             @PathVariable("storeId") final String storeId,
             @PathVariable("itemId") final String itemId) throws ResourceNotFoundException {
         final ShoppingItem item = getShoppingItemByIdAndCheckStore(storeId, itemId);
+        log.info("User <{}> delete shopping item {}.", item.getStore().getUser().getUsername(), item.toString());
         shoppingItemRepository.delete(item);
         return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = URL_USER_SHOPPING_STORES_STORE_ITEMS)
-    public HttpEntity<Void> deleteStoreShoppingItemByAll(
+    public HttpEntity<Void> deleteAllStoreShoppingItem(
             @PathVariable("storeId") final String storeId) throws ResourceNotFoundException {
         final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
+        log.info("User <{}> deletes all shopping item for store '{}'.", store.getUser().getUsername(), store.getChainCode());
         final List<ShoppingItem> itemList = shoppingItemRepository.findByStoreOrderByName(store);
         shoppingItemRepository.delete(itemList);
         return ResponseEntity.noContent().build();
@@ -132,14 +134,14 @@ public class ShoppingItemRestController extends AbstractUserStoreRestController 
     @Transactional
     private ShoppingItem newShoppingItem(final String storeId, final CreateShoppingItemForm form) {
         final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
-        log.info("User {} creat shopping item {} for store '{}'.", store.getUser().getUsername(), form.toString(), store.getChainCode());
+        log.info("User <{}> creat shopping item {} for store '{}'.", store.getUser().getUsername(), form.toString(), store.getChainCode());
         return shoppingService.addShoppingItemToStore(store, form.getCatalogCode(), form.getName());
     }
 
     @Transactional
     private void updateShoppingItem(final String storeId, final String itemId, final UpdateShoppingItemForm form) {
         final ShoppingItem item = getShoppingItemByIdAndCheckStore(storeId, itemId);
-
+        log.info("User <{}> update shopping item {}.", item.getStore().getUser().getUsername(), item.toString());
         final ProductCategory productCategory = storeMetadata.getProductCategoryByCode(form.getCategoryCode());
         if (productCategory == null) {
             log.warn("Update Shopping Item with invalid categoryCode '{}'.", form.getCategoryCode());
