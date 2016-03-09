@@ -8,5 +8,5 @@ public enum LineStructure {
     NumberNamePrice,
     NamePrice,
     Number,
-    Unpreditable
+    Unpredictable
 }
