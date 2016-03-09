@@ -69,7 +69,7 @@
   "name" : "Best Buy",
   "identity" : "Best Buy",
   "category" : "Electronics",
-  "icon" : "bestbuy"
+  "icon" : "generic"
 }, {
   "code" : "bigals",
   "name" : "Big AL's",
