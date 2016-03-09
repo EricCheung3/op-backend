@@ -13,7 +13,9 @@ import com.openprice.common.Levenshtein;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Value;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @AllArgsConstructor
 public class StoreMetadata {
 
@@ -78,11 +80,18 @@ public class StoreMetadata {
                 .values()
                 .stream()
                 .map(chain -> {
-                    Set<String> s = new HashSet<>(Arrays.asList(chain.getName().split("\\s+")));
-                    double score = Levenshtein.mostSimilarScoreInSetLevenshtein(query, s);
+                    List<String> s = Arrays.asList(chain.getName().split("\\s+"));
+//                    Set<String> s = new HashSet<>(Arrays.asList(chain.getName().split("\\s+")));
+//                    double score = Levenshtein.mostSimilarScoreInSetLevenshtein(query, s);
+//                    double score = Levenshtein.mostSimilarScoreInSetTwoWay(query, s);
+                    double score = Levenshtein.weightedScoreByPositionOrder(query, s);
+                    log.debug("score="+ score);
                     return new StoreChainWithScore(chain, score);
                 })
-                .filter(scs ->scs.s > 0.3)
+                .filter(scs -> {
+                    log.debug("chain="+scs.getChain().getName()+ ", score="+scs.getS());
+                    return scs.s > 0.3;
+                 })
                 .sorted((scs1, scs2) -> Double.compare(0 - scs1.s, 0 - scs2.s))
                 .limit(returnCount)
                 .map(scs -> scs.chain)

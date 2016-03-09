@@ -19,4 +19,37 @@ public class CatalogSearchTest {
          assertEquals("Apples", result.get(0).getNaturalName());
     }
 
+    @Test
+    public void findMatchingStoreChainByNameTest_b() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+        List<StoreChain> result = metadata.findMatchingStoreChainByName("b", 10);
+        result.stream().forEach( c -> System.out.println(c.getName()));
+        assertTrue(result.size() > 0);
+    }
+
+    @Test
+    public void findMatchingStoreChainByNameTest_f() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+        List<StoreChain> result = metadata.findMatchingStoreChainByName("f", 10);
+        result.stream().forEach( c -> System.out.println(c.getName()));
+        assertTrue(result.size() > 0);
+    }
+
+    @Test
+    public void findMatchingStoreChainByNameTest_S() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+        List<StoreChain> result = metadata.findMatchingStoreChainByName("S", 10);
+        result.stream().forEach( c -> System.out.println(c.getName()));
+        assertTrue(result.size() > 0);
+    }
+
+    @Test
+    public void findMatchingStoreChainByNameTest_Su() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+        List<StoreChain> result = metadata.findMatchingStoreChainByName("Su", 10);
+        result.stream().forEach( c -> System.out.println(c.getName()));
+        assertTrue(result.size() > 0);
+    }
+
+
 }

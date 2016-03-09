@@ -10,8 +10,13 @@ import java.util.Set;
  *
  * See http://www.codeproject.com/Articles/162790/Fuzzy-String-Matching-with-Edit-Distance
  */
+
+
 public class Levenshtein
 {
+    //decay factor for an ordered list of words. "A B C". The decay is applied to "A", "B", "C" in order
+    final static double WORD_POSITION_DECAY = 0.8;
+
     public static String mostSimilarInSetLevenshtein(final String key, final Set<String> set)
             throws IllegalArgumentException{
         if(set.size()==0) throw new IllegalArgumentException("set.size should not be 0.");
@@ -31,6 +36,24 @@ public class Levenshtein
         return set.stream().reduce((p1,p2) ->
             StringCommon.matchStringToSubStringTwoWay(key, p1) >
             StringCommon.matchStringToSubStringTwoWay(key, p2) ? p1:p2).get();
+    }
+
+    /**
+     * giving priority to the matching scores of first words in the list
+     * @param key
+     * @param words
+     * @return
+     * @throws IllegalArgumentException
+     */
+    public static double weightedScoreByPositionOrder(final String key, final List<String> words) throws IllegalArgumentException{
+        if(words.size()==0) throw new IllegalArgumentException("set.size() should not be 0.");
+        double weight = 1;
+        double sum = 0;
+        for(String w: words){
+            sum += StringCommon.matchStringToSubStringTwoWay(key, w) * weight;
+            weight *= WORD_POSITION_DECAY;
+        }
+        return sum;
     }
 
     public static double mostSimilarScoreInSetTwoWay(final String key, final Set<String> set) throws IllegalArgumentException{
