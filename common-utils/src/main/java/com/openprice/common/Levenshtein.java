@@ -48,12 +48,15 @@ public class Levenshtein
     public static double weightedScoreByPositionOrder(final String key, final List<String> words) throws IllegalArgumentException{
         if(words.size()==0) throw new IllegalArgumentException("set.size() should not be 0.");
         double weight = 1;
-        double sum = 0;
+        double max = Double.MIN_VALUE;
         for(String w: words){
-            sum += StringCommon.matchStringToSubStringTwoWay(key, w) * weight;
+            final double score = StringCommon.matchStringToSubStringTwoWay(key, w) * weight;
+            if(score > max){
+                max = score;
+            }
             weight *= WORD_POSITION_DECAY;
         }
-        return sum;
+        return max;
     }
 
     public static double mostSimilarScoreInSetTwoWay(final String key, final Set<String> set) throws IllegalArgumentException{
