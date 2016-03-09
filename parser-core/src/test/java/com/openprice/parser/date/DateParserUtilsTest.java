@@ -742,4 +742,25 @@ public class DateParserUtilsTest {
         final String line = "OCT.08’2015 Trans# 002475 ";
         assertEquals("2015/10/8", DateParserUtils.findDateInALine(line));
     }
+
+    @Test
+    public void pruneDateStringTest19() throws Exception{
+        final String line = "10/15/14 15:24 0026 75 007'1 5'1'139 ";
+        assertEquals("2014/10/15", DateParserUtils.findDateInALine(line));
+    }
+
+    @Test
+    public void pruneDateStringTest20() throws Exception{
+        final String line = "10 / 15 / 14 15 :24 : 1'1 AUTH : 02506'1 ";
+        assertEquals("2014/10/15", DateParserUtils.findDateInALine(line));
+    }
+
+    //TODO
+    @Test
+    public void pruneDateStringTest21ThisIsNotADate() throws Exception{
+        final String line = "LD WEST EDMONTON MALL  780 9'1'1 '1526 ";
+        assertEquals("1526/1/1", DateParserUtils.findDateInALine(line));
+    }
+
+
 }
