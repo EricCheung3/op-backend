@@ -5,4 +5,5 @@ package com.openprice.parser.date;
  */
 public class WriteTrainingForTokenPrediction {
 
+
 }

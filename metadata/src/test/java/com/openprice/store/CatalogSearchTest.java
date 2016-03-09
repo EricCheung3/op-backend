@@ -51,5 +51,13 @@ public class CatalogSearchTest {
         assertTrue(result.size() > 0);
     }
 
+    @Test
+    public void findMatchingStoreChainByNameTest_St() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+        List<StoreChain> result = metadata.findMatchingStoreChainByName("St", 10);
+        result.stream().forEach( c -> System.out.println(c.getName()));
+        assertTrue(result.size() > 0);
+    }
+
 
 }
