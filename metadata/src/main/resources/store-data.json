@@ -65,6 +65,12 @@
   "category" : "Liquor",
   "icon" : "generic"
 }, {
+  "code" : "bedbathbeyond",
+  "name" : "Bed Bath & Beyond",
+  "identity" : "Bed Bath & Beyond",
+  "category" : "Home furnishings",
+  "icon" : "generic"
+}, {
   "code" : "bestbuy",
   "name" : "Best Buy",
   "identity" : "Best Buy",
@@ -232,6 +238,12 @@
   "identity" : "Elsafadi Supermarket",
   "category" : "Grocery",
   "icon" : "generic"
+},{
+  "code" : "fairwaystores",
+  "name" : "Fairway Stores",
+  "identity" : "Fairway Stores",
+  "category" : "Grocery",
+  "icon" : "generic"
 }, {
   "code" : "fasgas",
   "name" : "FAS GAS CALMAR SERVICE",
@@ -245,6 +257,12 @@
   "category" : "Restaurant",
   "icon" : "generic"
 }, {
+  "code" : "foodbasics",
+  "name" : "Food Basics",
+  "identity" : "Food Basics",
+  "category" : "Grocery",
+  "icon" : "generic"
+}, {
   "code" : "futureshop",
   "name" : "Future Shop",
   "identity" : "Future Shop",
@@ -255,6 +273,12 @@
   "name" : "Gap",
   "identity" : "Gap",
   "category" : "Clothes",
+  "icon" : "generic"
+},{
+  "code" : "gianttiger",
+  "name" : "Giant Tiger",
+  "identity" : "Giant Tiger",
+  "category" : "Discount,Grocery",
   "icon" : "generic"
 }, {
   "code" : "greyhound",
@@ -293,6 +317,12 @@
   "category" : "Gas",
   "icon" : "generic"
 }, {
+  "code" : "ikea",
+  "name" : "Ikea",
+  "identity" : "Ikea",
+  "category" : "Home furnishings",
+  "icon" : "ikea"
+}, {
   "code" : "impark",
   "name" : "Impark",
   "identity" : "Impark",
@@ -309,6 +339,12 @@
   "name" : "Julio's Barrio",
   "identity" : "Julio's Barrio",
   "category" : "Restaurant",
+  "icon" : "generic"
+}, {
+  "code" : "kohls",
+  "name" : "Kohl's",
+  "identity" : "Kohl's",
+  "category" : "Department",
   "icon" : "generic"
 }, {
   "code" : "leehouserestaurant",
@@ -370,6 +406,12 @@
   "identity" : "Mac@",
   "category" : "Cosmetics",
   "icon" : "generic"
+},{
+  "code" : "marketbasket",
+  "name" : "Market Basket",
+  "identity" : "Market Basket",
+  "category" : "Grocery",
+  "icon" : "generic"
 }, {
   "code" : "mcdonalds",
   "name" : "McDonald's",
@@ -400,6 +442,12 @@
   "identity" : "New York Fries",
   "category" : "Restaurant",
   "icon" : "newyorkfries"
+}, {
+  "code" : "nobhill",
+  "name" : "Nob Hill Foods",
+  "identity" : "Nob Hill Foods",
+  "category" : "Grocery",
+  "icon" : "generic"
 }, {
   "code" : "nofrills",
   "name" : "Nofrills",
@@ -461,6 +509,12 @@
   "category" : "Grocery",
   "icon" : "planetorganic"
 }, {
+  "code" : "publix",
+  "name" : "Publix",
+  "identity" : "Publix",
+  "category" : "Grocery",
+  "icon" : "generic"
+}, {
   "code" : "purdyschocolatier",
   "name" : "Purdys Chocolatier",
   "identity" : "Purdys Chocolatier",
@@ -471,6 +525,12 @@
   "name" : "Quizino's Subs",
   "identity" : "Quizino's Subs",
   "category" : "Restaurant",
+  "icon" : "generic"
+},{
+  "code" : "raleys",
+  "name" : "Raley's",
+  "identity" : "Raley's",
+  "category" : "Grocery",
   "icon" : "generic"
 }, {
   "code" : "rcls",
@@ -490,6 +550,12 @@
   "identity" : "Rice Bowl Deluxe",
   "category" : "Restaurant",
   "icon" : "generic"
+}, {
+  "code" : "rona",
+  "name" : "Rona",
+  "identity" : "Rona",
+  "category" : "Home Improvement",
+  "icon" : "rona"
 }, {
   "code" : "royalpizza",
   "name" : "Royal Pizza",
@@ -575,6 +641,12 @@
   "category" : "Sports",
   "icon" : "sportchek"
 }, {
+  "code" : "sproutsfarmersmarket",
+  "name" : "Sprouts Farmers Market",
+  "identity" : "Sprouts Farmers Market",
+  "category" : "Grocery",
+  "icon" : "generic"
+}, {
   "code" : "staplescanada",
   "name" : "Staples Canada",
   "identity" : "Staples Canada",
@@ -598,6 +670,24 @@
   "identity" : "Superstore,RCSS Superstore, ",
   "category" : "Grocery",
   "icon" : "rcss"
+}, {
+  "code" : "smartfinal",
+  "name" : "Smart & Final",
+  "identity" : "Smart & Final",
+  "category" : "Grocery",
+  "icon" : "generic"
+},{
+  "code" : "staterbros",
+  "name" : "Stater Bros",
+  "identity" : "Stater Bros",
+  "category" : "Grocery",
+  "icon" : "generic"
+}, {
+  "code" : "subway",
+  "name" : "Subway",
+  "identity" : "Subway",
+  "category" : "Restaurant",
+  "icon" : "subway"
 }, {
   "code" : "supplysurgeant",
   "name" : "Supply Surgeant",
@@ -653,22 +743,46 @@
   "category" : "Kids",
   "icon" : "toysrus"
 }, {
+  "code" : "traderjoes",
+  "name" : "Trader Joe's",
+  "identity" : "Trader Joe's",
+  "category" : "Grocery",
+  "icon" : "generic"
+}, {
   "code" : "tzinwinetapas",
   "name" : "Tzin Wine & Tapas",
   "identity" : "Tzin Wine & Tapas",
   "category" : "Restaurant",
   "icon" : "generic"
 }, {
+  "code" : "walgreens",
+  "name" : "Walgreens",
+  "identity" : "Walgreens",
+  "category" : "Pharmacy",
+  "icon" : "generic"
+}, {
   "code" : "walmart",
   "name" : "Walmart",
   "identity" : "Walmart",
   "category" : "Grocery",
-  "icon" : "warmart"
+  "icon" : "walmart"
+},  {
+  "code" : "wegmans",
+  "name" : "Wegmans",
+  "identity" : "Wegmans",
+  "category" : "Grocery",
+  "icon" : "generic"
 }, {
   "code" : "wendysstore",
   "name" : "Wendy's Store",
   "identity" : "Wendy's Store",
   "category" : "Restaurant",
+  "icon" : "generic"
+}, {
+  "code" : "wholefoods",
+  "name" : "Whole Foods Market",
+  "identity" : "Whole Foods Market",
+  "category" : "Grocery",
   "icon" : "generic"
 }, {
   "code" : "wildwing",
@@ -693,120 +807,6 @@
   "name" : "Yellow Cab",
   "identity" : "Yellow Cab",
   "category" : "Taxi",
-  "icon" : "generic"
-}, {
-  "code" : "subway",
-  "name" : "Subway",
-  "identity" : "Subway",
-  "category" : "Restaurant",
-  "icon" : "subway"
-}, {
-  "code" : "traderjoes",
-  "name" : "Trader Joe's",
-  "identity" : "Trader Joe's",
-  "category" : "Grocery",
-  "icon" : "generic"
-}, {
-  "code" : "walgreens",
-  "name" : "Walgreens",
-  "identity" : "Walgreens",
-  "category" : "Pharmacy",
-  "icon" : "generic"
-}, {
-  "code" : "foodbasics",
-  "name" : "Food Basics",
-  "identity" : "Food Basics",
-  "category" : "Grocery",
-  "icon" : "generic"
-}, {
-  "code" : "nobhill",
-  "name" : "Nob Hill Foods",
-  "identity" : "Nob Hill Foods",
-  "category" : "Grocery",
-  "icon" : "generic"
-}, {
-  "code" : "smartfinal",
-  "name" : "Smart & Final",
-  "identity" : "Smart & Final",
-  "category" : "Grocery",
-  "icon" : "generic"
-}, {
-  "code" : "wholefoods",
-  "name" : "Whole Foods Market",
-  "identity" : "Whole Foods Market",
-  "category" : "Grocery",
-  "icon" : "generic"
-}, {
-  "code" : "kohls",
-  "name" : "Kohl's",
-  "identity" : "Kohl's",
-  "category" : "Department",
-  "icon" : "generic"
-}, {
-  "code" : "bedbathbeyond",
-  "name" : "Bed Bath & Beyond",
-  "identity" : "Bed Bath & Beyond",
-  "category" : "Home furnishings",
-  "icon" : "generic"
-}, {
-  "code" : "ikea",
-  "name" : "Ikea",
-  "identity" : "Ikea",
-  "category" : "Home furnishings",
-  "icon" : "ikea"
-}, {
-  "code" : "rona",
-  "name" : "Rona",
-  "identity" : "Rona",
-  "category" : "Home Improvement",
-  "icon" : "rona"
-},  {
-  "code" : "wegmans",
-  "name" : "Wegmans",
-  "identity" : "Wegmans",
-  "category" : "Grocery",
-  "icon" : "generic"
-}, {
-  "code" : "publix",
-  "name" : "Publix",
-  "identity" : "Publix",
-  "category" : "Grocery",
-  "icon" : "generic"
-}, {
-  "code" : "sproutsfarmersmarket",
-  "name" : "Sprouts Farmers Market",
-  "identity" : "Sprouts Farmers Market",
-  "category" : "Grocery",
-  "icon" : "generic"
-},{
-  "code" : "gianttiger",
-  "name" : "Giant Tiger",
-  "identity" : "Giant Tiger",
-  "category" : "Discount,Grocery",
-  "icon" : "generic"
-},{
-  "code" : "marketbasket",
-  "name" : "Market Basket",
-  "identity" : "Market Basket",
-  "category" : "Grocery",
-  "icon" : "generic"
-},{
-  "code" : "raleys",
-  "name" : "Raley's",
-  "identity" : "Raley's",
-  "category" : "Grocery",
-  "icon" : "generic"
-},{
-  "code" : "fairwaystores",
-  "name" : "Fairway Stores",
-  "identity" : "Fairway Stores",
-  "category" : "Grocery",
-  "icon" : "generic"
-},{
-  "code" : "staterbros",
-  "name" : "Stater Bros",
-  "identity" : "Stater Bros",
-  "category" : "Grocery",
   "icon" : "generic"
 }  ]
 
