@@ -500,6 +500,60 @@ public class DateParserUtilsTest {
     }
 
     @Test
+    public void testMonthDayYearSpaces9(){
+        final String str = " 3/05/16 12 3* 0970 04 0209 2189 ";
+        assertEquals("2016/3/5", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearOneDigitDay(){
+        final String str = " 3/5/16 12 3* 0970 04 0209 2189 ";
+        assertEquals("2016/3/5", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearOneDigitDaySpaces1(){
+        final String str = "  3 /5/16 12 3* 0970 04 0209 2189 ";
+        assertEquals("2016/3/5", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearOneDigitDaySpaces2(){
+        final String str = "  3 / 5/16 12 3* 0970 04 0209 2189 ";
+        assertEquals("2016/3/5", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearOneDigitDaySpaces3(){
+        final String str = "  3 / 5 /16 12 3* 0970 04 0209 2189 ";
+        assertEquals("2016/3/5", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearOneDigitDaySpaces4(){
+        final String str = "  3 / 5 / 16 12 3* 0970 04 0209 2189 ";
+        assertEquals("2016/3/5", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearOneDigitDaySpaces5(){
+        final String str = "  3 / 5 / 1 6 12 3* 0970 04 0209 2189 ";
+        assertEquals("2016/3/5", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearOneDigitDaySpaces6(){
+        final String str = "  3 / 5 / 1 6  12 3* 0970 04 0209 2189 ";
+        assertEquals("2016/3/5", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearOneDigitDaySpaces7(){
+        final String str = "  3 / 5 / 1 612 3* 0970 04 0209 2189 ";
+        assertEquals("2016/3/5", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
     public void testMonthDayYearInALine(){
         final String str = " 3973 02782 05 051 46296                                     3/05/16 11:16 ";
         assertEquals("2016/3/5", DateParserUtils.findDateInALine(str));
