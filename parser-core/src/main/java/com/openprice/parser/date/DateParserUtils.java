@@ -157,6 +157,60 @@ public class DateParserUtils {
         return null;
     }
 
+    public static List<LocalDate> allPossibleDatesInALine(final List<String> lines, final int lineNumber){
+        final List<LocalDate> result = new ArrayList<>();
+        final String str = lines.get(lineNumber);
+//        log.debug("line string is "+str+"\n");
+        LocalDate date = y4md.parseWithSpaces(str);
+        if(isGoodDateBestGuess(date)){
+            result.add(date);
+        }
+
+        date = mdy4.parseWithSpaces(str);
+        if(isGoodDateBestGuess(date)){
+            result.add(date);
+        }
+
+        date = mdy2.parseWithSpaces(str);
+        if(isGoodDateBestGuess(date)){
+            result.add(date);
+        }
+
+        date = y2md.parseWithSpaces(str);
+        if(isGoodDateBestGuess(date)){
+            result.add(date);
+        }
+
+        date = dmy4.parseWithSpaces(str);
+        if(isGoodDateBestGuess(date)){
+            result.add(date);
+        }
+
+        date = dmy2.parseWithSpaces(str);
+        if(isGoodDateBestGuess(date)){
+            result.add(date);
+        }
+
+        date = mdy2.parseWithSpaces(str);
+        if(isGoodDateBestGuess(date)){
+            log.debug("found mDY2 format with space."+result+"\n");
+            return result;
+        }
+
+        date=literalmdy4.parseWithSpaces(str);
+        if(isGoodDateBestGuess(date)){
+            result.add(date);
+        }
+
+        date=literalmdy2.parseWithSpaces(str);
+        if(isGoodDateBestGuess(date)){
+            result.add(date);
+        }
+
+        log.debug("not date pattern is matched.");
+        return null;
+    }
+
     public static boolean isGoodDateBestGuess(final LocalDate date) {
         return date != null &&
                (date.isBefore(DateUtils.getToday()) || date.equals(DateUtils.getToday())) &&
