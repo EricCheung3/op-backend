@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.openprice.common.StringCommon;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -19,12 +17,6 @@ public class Year2MonthDay implements DateParser{
             + "](\\d{1,2})"
             );
 
-    @Override
-    public LocalDate parseNoSpaces(final String line) {
-        final String dateString = DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line), patternYear2MonthDay);
-        log.debug("dateString=" + dateString);
-        return parseToDate(dateString);
-    }
 
     @Override
     public LocalDate parseWithSpaces(String line) {

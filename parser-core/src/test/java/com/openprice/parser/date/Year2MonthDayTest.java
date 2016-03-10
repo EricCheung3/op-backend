@@ -26,7 +26,7 @@ public class Year2MonthDayTest {
     }
 
     public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(y2md.parseNoSpaces(line));
+        return threeStrings(y2md.parseWithSpaces(line));
     }
 
     @Test

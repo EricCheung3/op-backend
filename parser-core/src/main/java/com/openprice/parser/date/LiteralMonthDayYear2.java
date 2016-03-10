@@ -72,9 +72,4 @@ public class LiteralMonthDayYear2 implements DateParser{
       return list;
   }
 
-    @Override
-    public LocalDate parseNoSpaces(String lineWithNoSpace) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }

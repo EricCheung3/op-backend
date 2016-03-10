@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.openprice.common.StringCommon;
-
 public class MonthDayYear2 implements DateParser{
 
     //month(one or two digits) and day (one or two digits), 2-digit year
@@ -16,11 +14,6 @@ public class MonthDayYear2 implements DateParser{
             + "]\\s*\\d{1,2}\\s*[" + DateConstants.DATE_SPLITTERS+"]\\s*\\d\\s*\\d\\s*"
             );
 
-    @Override
-    public LocalDate parseNoSpaces(final String line) {
-        final String dateStr=DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line), patternMonthDayYear2);
-        return parseToDate(dateStr);
-    }
 
     @Override
     public LocalDate parseWithSpaces(String line) {

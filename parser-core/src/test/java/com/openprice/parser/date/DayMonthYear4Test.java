@@ -21,7 +21,7 @@ public class DayMonthYear4Test {
     }
 
     public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(dmy4.parseNoSpaces(line));
+        return threeStrings(dmy4.parseWithSpaces(line));
     }
     @Test
     public void testPattern(){

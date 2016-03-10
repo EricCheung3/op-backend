@@ -22,7 +22,7 @@ public class MonthDayYear4Test {
     }
 
     public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(mdy4.parseNoSpaces(line));
+        return threeStrings(mdy4.parseWithSpaces(line));
     }
 
     @Test

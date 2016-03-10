@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.openprice.common.StringCommon;
-
 import lombok.Getter;
 
 public class DayMonthYear2 implements DateParser{
@@ -17,11 +15,11 @@ public class DayMonthYear2 implements DateParser{
               + "]\\s*\\d{1,2}\\s*[" + DateConstants.DATE_SPLITTERS+"]\\s*\\d\\s*\\d\\s*"
               );
 
-      @Override
-      public LocalDate parseNoSpaces(final String line) {
-          final String dateStr=DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line), pattern);
-          return parseToDate(dateStr);
-      }
+//      @Override
+//      public LocalDate parseNoSpaces(final String line) {
+//          final String dateStr=DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line), pattern);
+//          return parseToDate(dateStr);
+//      }
 
       @Override
       public LocalDate parseWithSpaces(final String line) {

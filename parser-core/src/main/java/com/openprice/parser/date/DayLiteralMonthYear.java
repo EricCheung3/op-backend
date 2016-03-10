@@ -10,10 +10,4 @@ public class DayLiteralMonthYear implements DateParser{
         return null;
     }
 
-    @Override
-    public LocalDate parseNoSpaces(String lineWithNoSpace) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

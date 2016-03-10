@@ -10,5 +10,5 @@ public interface DateParser {
 
     LocalDate parseWithSpaces(String line);
 
-    LocalDate parseNoSpaces(String lineWithNoSpace);
+//    LocalDate parseNoSpaces(String lineWithNoSpace);
 }
