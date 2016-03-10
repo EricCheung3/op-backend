@@ -10,8 +10,8 @@ public class DayMonthYear2 implements DateParser{
 
     // day (one or two digits), month(one or two digits), 4-digit year
       public static Pattern pattern= Pattern.compile(
-              "\\d{1,2}[" + DateConstants.DATE_SPLITTERS
-              + "]\\d{1,2}[" + DateConstants.DATE_SPLITTERS+"]\\d\\d"
+              "\\d{1,2}\\s*[" + DateConstants.DATE_SPLITTERS
+              + "]\\s*\\d{1,2}\\s*[" + DateConstants.DATE_SPLITTERS+"]\\s*\\d\\s*\\d\\s*"
               );
 
       @Override

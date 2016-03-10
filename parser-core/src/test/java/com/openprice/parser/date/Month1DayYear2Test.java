@@ -51,4 +51,10 @@ public class Month1DayYear2Test {
     public void testSearsMessupIsOkay3() throws Exception{
         assertEquals(threeStrings(2013, 2, 3), parseToThreeStrings("01429 15~ 7913 4606631  2/3/13             6:04P"));
     }
+
+    @Test
+    public void dmy2Spaces() throws Exception{
+        final String str = "  3 / 5 /16 12 3* 0970 04 0209 2189 ";
+        assertEquals(threeStrings(2016, 3, 5), parseToThreeStrings(str));
+    }
 }
