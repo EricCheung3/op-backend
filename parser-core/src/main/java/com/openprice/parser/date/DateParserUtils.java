@@ -26,7 +26,6 @@ public class DateParserUtils {
 
     //TODO in case there are dates in multiple lines, it makes sense to keep all the date variants found by different patterns in a line; and then take intersection
     public static StringInt findDateInLinesAndSelect(final List<String> origLines, final int start){
-//        log.debug("date line searching from line "+start+":"+origLines.get(start)+"\n");
         for(int i = start; i < origLines.size(); i++){
             final String dateString = findDateInALine(origLines, i);
             if(dateString.isEmpty()) continue;
@@ -85,6 +84,7 @@ public class DateParserUtils {
     private final static DayMonthYear4 dmy4 = new DayMonthYear4();
     private final static DayMonthYear2 dmy2 = new DayMonthYear2();
     private final static LiteralMonthDayYear4 literalmdy4 = new LiteralMonthDayYear4();
+    private final static LiteralMonthDayYear2 literalmdy2 = new LiteralMonthDayYear2();
 
     public static String findDateInALine(final String str){
         final List<String> lines = new ArrayList<String>();
@@ -100,7 +100,6 @@ public class DateParserUtils {
 
     public static LocalDate findDateInALineLocalDate(final List<String> lines, final int lineNumber){
         final String str = lines.get(lineNumber);
-//        final String strNoSpace=StringCommon.removeAllSpaces(str);
 //        log.debug("line string is "+str+"\n");
         LocalDate result = y4md.parseNoSpaces(str);
         if (result!=null && result.isBefore(DateUtils.getToday())){
@@ -167,7 +166,13 @@ public class DateParserUtils {
         //note it's str not strNoSpace
         result=literalmdy4.parseWithSpaces(str);
         if(result != null && result.isBefore(DateUtils.getToday())){
-            log.debug("found literalMonthDayYear format with space."+result);
+            log.debug("found literalMonthDayYear4 format with space."+result);
+            return result;// DateUtils.formatDateString(result);
+        }
+
+        result=literalmdy2.parseWithSpaces(str);
+        if(result != null && result.isBefore(DateUtils.getToday())){
+            log.debug("found literalMonthDayYear2 format with space."+result);
             return result;// DateUtils.formatDateString(result);
         }
 
