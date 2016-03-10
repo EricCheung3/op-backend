@@ -63,7 +63,7 @@ public class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter
                                             final HttpServletResponse response,
                                             final FilterChain chain,
                                             final Authentication authentication) throws IOException, ServletException {
-        log.info("User '{}' successfully logged in.", authentication.getName());
+        log.info("User <{}> successfully logged in.", authentication.getName());
         // Lookup the complete User object from the database and create an Authentication for it
         final UserDetails authenticatedUser = userDetailsService.loadUserByUsername(authentication.getName());
         final UserAuthentication userAuthentication = new UserAuthentication(authenticatedUser);

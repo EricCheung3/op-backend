@@ -60,7 +60,7 @@ public class RegistrationRestController extends AbstractExternalRestController i
 
         //if user already exist, return 409 conflict
         if (this.userAccountRepository.findByEmail(registration.getEmail()) != null) {
-            log.warn("Same user '{}' already registered!", registration.getEmail());
+            log.warn("Same user <{}> already registered!", registration.getEmail());
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
 
@@ -72,7 +72,8 @@ public class RegistrationRestController extends AbstractExternalRestController i
 
         sendNewUserRegistered(newUser);
         sendWelcomeEmailToNewUser(newUser);
-        log.info("Successfully registered user {} {}", registration.getFirstName(), registration.getLastName());
+        log.info("Successfully registered user '{} {}' with email <{}>",
+                registration.getFirstName(), registration.getLastName(), registration.getEmail());
 
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
@@ -82,7 +83,7 @@ public class RegistrationRestController extends AbstractExternalRestController i
     public HttpEntity<Void> forgetPassword(@RequestBody final ForgetPasswordForm form)
                 throws ResourceNotFoundException {
         final String email = form.getEmail();
-        log.info("User {} tried to reset password.", email);
+        log.info("User <{}> tried to reset password.", email);
         final UserResetPasswordRequest request = userAccountService.createResetPasswordRequest(email);
 
         if (request == null) {
@@ -114,7 +115,7 @@ public class RegistrationRestController extends AbstractExternalRestController i
             throw new ResourceNotFoundException("No such reset password request.");
         }
         userAccountService.resetPassword(request.getEmail(), form.getNewPassword());
-        log.info("User {} successfully reset password.", request.getEmail());
+        log.info("User <{}> successfully reset password.", request.getEmail());
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
