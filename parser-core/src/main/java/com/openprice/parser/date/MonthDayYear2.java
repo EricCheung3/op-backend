@@ -13,7 +13,7 @@ public class MonthDayYear2 implements DateParser{
 //            "([1-9]|0[1-9]|1[012])[" + DateConstants.DATE_SPLITTER
             "\\d{1,2}\\s*[" + DateConstants.DATE_SPLITTERS
 //            + "]([1-9]|0[1-9]|[12][0-9]|3[01])[" + DateConstants.DATE_SPLITTER+"]\\d\\d"
-            + "]\\s*\\d{1,2}[" + DateConstants.DATE_SPLITTERS+"]\\s*\\d\\s*\\d\\s*"
+            + "]\\s*\\d{1,2}\\s*[" + DateConstants.DATE_SPLITTERS+"]\\s*\\d\\s*\\d\\s*"
             );
 
     @Override
@@ -34,9 +34,9 @@ public class MonthDayYear2 implements DateParser{
             return null;
         final List<String> clean = DateParserUtils.getMeaningfulDateWords(mDY2);
         return DateUtils.fromDayMonthYear(
-                clean.get(1),
-                clean.get(0),
-                "20" + clean.get(2)
+                clean.get(1).trim(),
+                clean.get(0).trim(),
+                "20" + clean.get(2).trim()
                 );
     }
 
