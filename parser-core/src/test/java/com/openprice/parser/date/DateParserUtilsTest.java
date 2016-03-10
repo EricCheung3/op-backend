@@ -738,6 +738,30 @@ public class DateParserUtilsTest {
     }
 
     @Test
+    public void pruneDateStringYear2Spaces() throws Exception{
+        final String line = "OCT.08’ 15 Trans# 002475 ";
+        assertEquals("2015/10/8", DateParserUtils.findDateInALine(line));
+    }
+
+    @Test
+    public void pruneDateStringYear2Spaces2() throws Exception{
+        final String line = "OCT.08  ’ 15 Trans# 002475 ";
+        assertEquals("2015/10/8", DateParserUtils.findDateInALine(line));
+    }
+
+    @Test
+    public void pruneDateStringYear2Spaces3() throws Exception{
+        final String line = "OCT.  08  ’ 15 Trans# 002475 ";
+        assertEquals("2015/10/8", DateParserUtils.findDateInALine(line));
+    }
+
+    @Test
+    public void pruneDateStringYear2Spaces4() throws Exception{
+        final String line = "OCT  .  08  ’ 15 Trans# 002475 ";
+        assertEquals("2015/10/8", DateParserUtils.findDateInALine(line));
+    }
+
+    @Test
     public void pruneDateStringTest18() throws Exception{
         final String line = "OCT.08’2015 Trans# 002475 ";
         assertEquals("2015/10/8", DateParserUtils.findDateInALine(line));
