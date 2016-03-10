@@ -1,6 +1,7 @@
 package com.openprice.domain.receipt;
 
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -124,6 +125,9 @@ public class ReceiptUploadService {
                 final int height = (int)(inputImage.getHeight() / scale);
                 final BufferedImage outputImage = new BufferedImage(width, height, inputImage.getType());
                 final Graphics2D g2d = outputImage.createGraphics();
+                g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED); // prefer speed
+                g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE); // disable dithering
+                g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
                 g2d.drawImage(inputImage, 0, 0, width, height, null);
                 g2d.dispose();
 

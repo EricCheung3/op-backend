@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 
+import com.damnhandy.uri.template.UriTemplate;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.google.common.io.ByteStreams;
 import com.jayway.restassured.filter.session.SessionFilter;
@@ -32,7 +33,7 @@ public class UserReceiptUploadRestApiIT extends AbstractUserRestApiIntegrationTe
     private Resource sampleOcrResult;
 
     @Test
-    public void createNewReceipt_ShouldCreateReceipt_AndSaveImage_FromBase64String() throws Exception {
+    public void createNewReceiptWIthBase64String_ShouldCreateReceipt_AndSaveImage_FromBase64String() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         // add new image as base64 encoded string
@@ -72,12 +73,26 @@ public class UserReceiptUploadRestApiIT extends AbstractUserRestApiIntegrationTe
             .body("_links.images.href", endsWith(URL_USER_RECEIPTS + "/" + receiptId + "/images" + UtilConstants.PAGINATION_TEMPLATES))
         ;
 
+        verifyImage(sessionFilter, response.then().extract().path("_links.images.href"));
+
+    }
+
+    private void verifyImage(final SessionFilter sessionFilter,
+                             final String imagesLink) throws Exception {
+        Response response =
+            given()
+                .filter(sessionFilter)
+            .when()
+                .get(UriTemplate.fromTemplate(imagesLink).set("page", null).set("size", null).set("sort", null).expand())
+            ;
+        //response.prettyPrint();
+
         // verify image in FileSystem
         String fileName = response.then().extract().path("_embedded.receiptImages[0].fileName");
         Path imageFile = fileSystemService.getReceiptImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
         assertTrue(Files.exists(imageFile));
         byte[] data = Files.readAllBytes(imageFile);
-        assertEquals(sampleImageContent.length, data.length);
+        assertTrue(data.length > 0);
 
         String downloadUrl = response.then().extract().path("_embedded.receiptImages[0]._links.download.href");
         given()
@@ -88,10 +103,21 @@ public class UserReceiptUploadRestApiIT extends AbstractUserRestApiIntegrationTe
             .statusCode(HttpStatus.SC_OK)
             .contentType("image/jpeg")
         ;
+
+        String imageUrl = response.then().extract().path("_embedded.receiptImages[0]._links.self.href");
+        response = given()
+            .filter(sessionFilter)
+        .when()
+            .get(imageUrl)
+        ;
+
+        String base64 = response.then().extract().path("base64");
+        assertEquals(501348, base64.length());
+
     }
 
     @Test
-    public void uploadNewReceipt_ShouldCreateReceipt_AndSaveImageFile() throws Exception {
+    public void uploadNewReceiptWIthImageFile_ShouldCreateReceipt_AndSaveImageFile() throws Exception {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         // add new image as base64 encoded string
@@ -125,23 +151,7 @@ public class UserReceiptUploadRestApiIT extends AbstractUserRestApiIntegrationTe
         ;
         //response.prettyPrint();
 
-        // verify image in FileSystem
-        String fileName = response.then().extract().path("_embedded.receiptImages[0].fileName");
-        Path imageFile = fileSystemService.getReceiptImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
-        assertTrue(Files.exists(imageFile));
-        byte[] data = Files.readAllBytes(imageFile);
-        byte[] sampleImageContent = ByteStreams.toByteArray(sampleImage.getInputStream());
-        assertEquals(sampleImageContent.length, data.length);
-
-        String downloadUrl = response.then().extract().path("_embedded.receiptImages[0]._links.download.href");
-        given()
-            .filter(sessionFilter)
-        .when()
-            .get(downloadUrl)
-        .then()
-            .statusCode(HttpStatus.SC_OK)
-            .contentType("image/jpeg")
-        ;
+        verifyImage(sessionFilter, response.then().extract().path("_links.images.href"));
     }
 
 }
