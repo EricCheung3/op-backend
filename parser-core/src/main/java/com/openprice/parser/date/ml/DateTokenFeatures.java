@@ -59,4 +59,16 @@ public class DateTokenFeatures implements Features {
                 mostSimMonthLiteralScore;
 
     }
+
+    public String toString(final String featureSplitter, final String valueSplitter) {
+        return  formatFeatureValue(1, intValue+"", valueSplitter)   + featureSplitter +
+                formatFeatureValue(2, numDigits+"", valueSplitter)  + featureSplitter +
+                formatFeatureValue(3, numChars+"", valueSplitter)   + featureSplitter +
+                formatFeatureValue(4, trimLength+"", valueSplitter)  + featureSplitter +
+                formatFeatureValue(5, mostSimMonthLiteralScore+"", valueSplitter) ;
+    }
+
+    public String formatFeatureValue(int index, final String value, final String splitter) {
+        return index + splitter + value;
+    }
 }

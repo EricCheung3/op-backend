@@ -138,7 +138,7 @@ public class SimpleParser implements ReceiptParser {
         if (record.valueOfField(ReceiptFieldType.Date) == null ||
                 record.valueOfField(ReceiptFieldType.Date).getValue().isEmpty()) {
             log.debug("date header not found: searching date string globally.");
-            final StringInt dateVL=DateParserUtils.findDate(receipt.getOriginalLines(), 0);
+            final StringInt dateVL=DateParserUtils.findDateInLinesAndSelect(receipt.getOriginalLines(), 0);
             record.putFieldLineValue(ReceiptFieldType.Date, dateVL.getLine(), dateVL.getValue());
         }
 
