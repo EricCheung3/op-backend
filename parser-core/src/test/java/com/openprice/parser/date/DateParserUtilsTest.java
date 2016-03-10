@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -17,6 +18,22 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DateParserUtilsTest {
 
+    @Test
+    public void todayIsGoodDate() {
+        assertTrue(DateParserUtils.isGoodDateBestGuess(LocalDate.now()));
+    }
+
+    @Test
+    public void daysBetweenIsNotSymmetric() {
+        assertEquals(-1, ChronoUnit.DAYS.between(DateUtils.getToday(), DateUtils.getToday().minusDays(1)));
+        assertEquals(1, ChronoUnit.DAYS.between(DateUtils.getToday().minusDays(1), DateUtils.getToday()));
+    }
+
+    @Test
+    public void TooManyYearsAgoIsNotGoodDate() {
+        final LocalDate veryOld = LocalDate.now().minusYears(1000);
+        assertTrue(!DateParserUtils.isGoodDateBestGuess(veryOld));
+    }
 
     @Test
     public void getMeaningfulDateWordsTest1(){

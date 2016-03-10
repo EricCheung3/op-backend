@@ -2,6 +2,7 @@ package com.openprice.parser.date;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -15,6 +16,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class DateParserUtils {
+
+    //oldest receipts allowed
+    private static final int OLDEST_RECEIPT_IN_DAYS = 20 * 365;
 
     @Getter
     private static MonthLiterals monthLiterals = new MonthLiterals();
@@ -79,7 +83,6 @@ public class DateParserUtils {
     private final static Year4MonthDay y4md = new Year4MonthDay();
     private final static MonthDayYear4 mdy4 = new MonthDayYear4();
     private final static MonthDayYear2 mdy2 = new MonthDayYear2();
-//    private final static Month1DayYear2 m1dy2 = new Month1DayYear2();
     private final static Year2MonthDay y2md = new Year2MonthDay();
     private final static DayMonthYear4 dmy4 = new DayMonthYear4();
     private final static DayMonthYear2 dmy2 = new DayMonthYear2();
@@ -93,168 +96,71 @@ public class DateParserUtils {
     }
     public static String findDateInALine(final List<String> lines, final int lineNumber){
 //        final LocalDate localDate = findDateInALineLocalDate(lines, lineNumber);
-        final LocalDate localDate = findDateInALineLocalDateWithSpaces(lines, lineNumber);
+        final LocalDate localDate = selectDateInALine(lines, lineNumber);
         if(localDate == null)
             return StringCommon.EMPTY;
         return DateUtils.localDateToString(localDate);
     }
 
-//    public static LocalDate findDateInALineLocalDate(final List<String> lines, final int lineNumber){
-//        final String str = lines.get(lineNumber);
-////        log.debug("line string is "+str+"\n");
-//        LocalDate result = y4md.parseNoSpaces(str);
-//        if (result!=null && result.isBefore(DateUtils.getToday())){
-//            log.debug("found y4md format without space."+result+"\n");
-//            return result;//DateUtils.formatDateString(result);
-//        }
-//
-//        //first prefer to find valid date with space
-//        result = mdy4.parseWithSpaces(str);
-//        if(result != null && result.isBefore(DateUtils.getToday())){
-//            log.debug("found mDY4 format from string (with space)."+result+"\n");
-//            return result;//DateUtils.formatDateString(result);
-//        }
-//
-//        result = mdy4.parseNoSpaces(str);
-//        if(result != null && result.isBefore(DateUtils.getToday())){
-//            log.debug("found mDY4 format without space."+result+"\n");
-//            return result;//DateUtils.formatDateString(result);
-//        }
-//
-//        System.out.println("str="+str);
-//        result = mdy2.parseWithSpaces(str);
-//        if(result != null && result.isBefore(DateUtils.getToday())){
-//            log.debug("found mDY2 format from string (with space)."+result+"\n");
-//            return result;//DateUtils.formatDateString(result);
-//        }
-//
-//        result = y2md.parseWithSpaces(str);
-//        if(result != null && result.isBefore(DateUtils.getToday())){
-//            log.debug("found Y2MD format with space."+result+"\n");
-//            return result;//DateUtils.formatDateString(result);
-//        }
-//
-//        result = dmy4.parseNoSpaces(str);
-//        if(result != null && result.isBefore(DateUtils.getToday())){
-//            log.debug("found dmy4 format without space."+result+"\n");
-//            return result;//DateUtils.formatDateString(result);
-//        }
-//
-//        result = dmy2.parseNoSpaces(str);
-//        if(result != null && result.isBefore(DateUtils.getToday())){
-//            log.debug("found dmy2 format without space."+result+"\n");
-//            return result;//DateUtils.formatDateString(result);
-//        }
-//
-//        result = m1dy2.parseWithSpaces(str);
-//        if(result != null && result.isBefore(DateUtils.getToday())){
-//            log.debug("found m1dy2 format with space."+result);
-//            return result;//DateUtils.formatDateString(result);
-//        }
-//
-//        result = mdy2.parseNoSpaces(str);
-//        if(result != null && result.isBefore(DateUtils.getToday())){
-//            log.debug("found mDY2 format without space."+result+"\n");
-//            return result;//DateUtils.formatDateString(result);
-//        }
-//
-//        result = m1dy2.parseNoSpaces(str);
-//        if(result != null && result.isBefore(DateUtils.getToday())){
-//            log.debug("found m1dy2 format without space."+result);
-//            return result;//DateUtils.formatDateString(result);
-//        }
-//
-//        //note it's str not strNoSpace
-//        result=literalmdy4.parseWithSpaces(str);
-//        if(result != null && result.isBefore(DateUtils.getToday())){
-//            log.debug("found literalMonthDayYear4 format with space."+result);
-//            return result;// DateUtils.formatDateString(result);
-//        }
-//
-//        result=literalmdy2.parseWithSpaces(str);
-//        if(result != null && result.isBefore(DateUtils.getToday())){
-//            log.debug("found literalMonthDayYear2 format with space."+result);
-//            return result;// DateUtils.formatDateString(result);
-//        }
-//
-//        log.debug("not date pattern is matched.");
-//        return null;//StringCommon.EMPTY;
-//    }
-
-    public static LocalDate findDateInALineLocalDateWithSpaces(final List<String> lines, final int lineNumber){
+    public static LocalDate selectDateInALine(final List<String> lines, final int lineNumber){
         final String str = lines.get(lineNumber);
 //        log.debug("line string is "+str+"\n");
         LocalDate result = y4md.parseWithSpaces(str);
-        if (result!=null && result.isBefore(DateUtils.getToday())){
-            log.debug("found y4md format with space."+result+"\n");
-            return result;//DateUtils.formatDateString(result);
+        if(isGoodDateBestGuess(result)){
+            return result;
         }
 
-        //first prefer to find valid date with space
         result = mdy4.parseWithSpaces(str);
-        if(result != null && result.isBefore(DateUtils.getToday())){
-            log.debug("found mDY4 format from string (with space)."+result+"\n");
-            return result;//DateUtils.formatDateString(result);
+        if(isGoodDateBestGuess(result)){
+            return result;
         }
 
-        System.out.println("str="+str);
         result = mdy2.parseWithSpaces(str);
-        if(result != null && result.isBefore(DateUtils.getToday())){
-            log.debug("found mDY2 format from string (with space)."+result+"\n");
-            return result;//DateUtils.formatDateString(result);
+        if(isGoodDateBestGuess(result)){
+            return result;
         }
 
         result = y2md.parseWithSpaces(str);
-        if(result != null && result.isBefore(DateUtils.getToday())){
-            log.debug("found Y2MD format with space."+result+"\n");
-            return result;//DateUtils.formatDateString(result);
+        if(isGoodDateBestGuess(result)){
+            return result;
         }
 
         result = dmy4.parseWithSpaces(str);
-        if(result != null && result.isBefore(DateUtils.getToday())){
-            log.debug("found dmy4 format with space."+result+"\n");
-            return result;//DateUtils.formatDateString(result);
+        if(isGoodDateBestGuess(result)){
+            return result;
         }
 
         result = dmy2.parseWithSpaces(str);
-        if(result != null && result.isBefore(DateUtils.getToday())){
-            log.debug("found dmy2 format with space."+result+"\n");
-            return result;//DateUtils.formatDateString(result);
+        if(isGoodDateBestGuess(result)){
+            return result;
         }
-
-//        result = m1dy2.parseWithSpaces(str);
-//        if(result != null && result.isBefore(DateUtils.getToday())){
-//            log.debug("found m1dy2 format with space."+result);
-//            return result;//DateUtils.formatDateString(result);
-//        }
 
         result = mdy2.parseWithSpaces(str);
-        if(result != null && result.isBefore(DateUtils.getToday())){
+        if(isGoodDateBestGuess(result)){
             log.debug("found mDY2 format with space."+result+"\n");
-            return result;//DateUtils.formatDateString(result);
+            return result;
         }
 
-//        result = m1dy2.parseWithSpaces(str);
-//        if(result != null && result.isBefore(DateUtils.getToday())){
-//            log.debug("found m1dy2 format with space."+result);
-//            return result;//DateUtils.formatDateString(result);
-//        }
-
-        //note it's str not strNoSpace
         result=literalmdy4.parseWithSpaces(str);
-        if(result != null && result.isBefore(DateUtils.getToday())){
+        if(isGoodDateBestGuess(result)){
             log.debug("found literalMonthDayYear4 format with space."+result);
-            return result;// DateUtils.formatDateString(result);
+            return result;
         }
 
         result=literalmdy2.parseWithSpaces(str);
-        if(result != null && result.isBefore(DateUtils.getToday())){
+        if(isGoodDateBestGuess(result)){
             log.debug("found literalMonthDayYear2 format with space."+result);
-            return result;// DateUtils.formatDateString(result);
+            return result;
         }
 
         log.debug("not date pattern is matched.");
-        return null;//StringCommon.EMPTY;
+        return null;
+    }
+
+    public static boolean isGoodDateBestGuess(final LocalDate date) {
+        return date != null &&
+               (date.isBefore(DateUtils.getToday()) || date.equals(DateUtils.getToday())) &&
+               Math.abs(ChronoUnit.DAYS.between(date, DateUtils.getToday())) <= OLDEST_RECEIPT_IN_DAYS;
     }
 
     public static String pruneDateStringWithMatch(final String str, final Pattern pattern){
@@ -280,7 +186,7 @@ public class DateParserUtils {
         return list.get(0);
     }
 
-    //all spaces should be removed
+    //note all spaces in the returned strings are all removed
     public static List<String> getMeaningfulDateWords(final String[] words){
         final List<String> cleanWords = new ArrayList<String>();
         for(String w: words){
