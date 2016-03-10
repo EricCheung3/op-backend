@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DateUtils {
 
-    public static String formatDateString(final LocalDate date){
+    public static String localDateToString(final LocalDate date){
         return    date.getYear() + DateConstants.DATE_SPLITTER_UNIFORM
                 + date.getMonthValue() + DateConstants.DATE_SPLITTER_UNIFORM
                 + date.getDayOfMonth();

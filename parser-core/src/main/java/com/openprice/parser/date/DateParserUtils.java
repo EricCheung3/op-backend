@@ -31,17 +31,16 @@ public class DateParserUtils {
             final String dateString = findDateInALine(origLines, i);
             if(dateString.isEmpty()) continue;
             //TODO select the date parsed from the first line
-//            return new StringInt(DateUtils.formatDateString(formatToLocalDate(dateString)), i);
             return finalFormat(dateString, i);
         }
         return StringInt.emptyValue();
     }
 
     public static StringInt finalFormat(final String dateString, final int lineNumber) {
-        return new StringInt(DateUtils.formatDateString(formatToLocalDate(dateString)), lineNumber);
+        return new StringInt(DateUtils.localDateToString(parseToLocalDate(dateString)), lineNumber);
     }
 
-    public static LocalDate formatToLocalDate(final String dateStr) {
+    public static LocalDate parseToLocalDate(final String dateStr) {
         final String[] words=dateStr.split("_|-|\\.|/");//this is dependent on the DateConstants.DATE_SPLITTER
         String yMD="";
         LocalDate result = null;
@@ -86,12 +85,19 @@ public class DateParserUtils {
     private final static DayMonthYear4 dmy4 = new DayMonthYear4();
     private final static DayMonthYear2 dmy2 = new DayMonthYear2();
     private final static LiteralMonthDayYear4 literalmdy4 = new LiteralMonthDayYear4();
+
+    public static String findDateInALine(final String str){
+        final List<String> lines = new ArrayList<String>();
+        lines.add(str);
+        return findDateInALine(lines, 0);
+    }
     public static String findDateInALine(final List<String> lines, final int lineNumber){
         final LocalDate localDate = findDateInALineLocalDate(lines, lineNumber);
         if(localDate == null)
             return StringCommon.EMPTY;
-        return DateUtils.formatDateString(localDate);
+        return DateUtils.localDateToString(localDate);
     }
+
     public static LocalDate findDateInALineLocalDate(final List<String> lines, final int lineNumber){
         final String str = lines.get(lineNumber);
 //        final String strNoSpace=StringCommon.removeAllSpaces(str);
