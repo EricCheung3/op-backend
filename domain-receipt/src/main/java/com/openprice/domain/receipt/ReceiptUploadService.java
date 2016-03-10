@@ -108,6 +108,9 @@ public class ReceiptUploadService {
         final byte[] resizedContent = ImageResourceUtils.resizeJpgImage(content);
         image.setBase64(new String(Base64.getEncoder().encode(resizedContent)));
 
+        // investigation log TODO change to debug later
+        log.info("Original image size {}K, after resize become {}K.", content.length/1000, resizedContent.length/1000);
+
         return receiptImageRepository.save(image);
     }
 }
