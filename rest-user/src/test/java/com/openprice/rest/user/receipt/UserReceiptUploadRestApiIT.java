@@ -112,7 +112,7 @@ public class UserReceiptUploadRestApiIT extends AbstractUserRestApiIntegrationTe
         ;
 
         String base64 = response.then().extract().path("base64");
-        assertEquals(501348, base64.length());
+        assertEquals(97256, base64.length());
 
     }
 

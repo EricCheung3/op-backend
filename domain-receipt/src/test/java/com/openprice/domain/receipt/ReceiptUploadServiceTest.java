@@ -97,9 +97,7 @@ public class ReceiptUploadServiceTest {
         assertNotNull(image.getReceipt().getReceiptDate());
         verifySavedImage(testUser.getId(), image.getFileName(), content);
 
-        System.out.println(base64.length());
-        System.out.println(image.getBase64().length());
-    }
+   }
 
     @Test
     public void uploadImageFileForNewReceipt_ShouldSaveImage_andCreateReceipt() throws Exception {
