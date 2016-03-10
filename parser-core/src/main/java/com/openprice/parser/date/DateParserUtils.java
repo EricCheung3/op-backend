@@ -79,7 +79,7 @@ public class DateParserUtils {
     private final static Year4MonthDay y4md = new Year4MonthDay();
     private final static MonthDayYear4 mdy4 = new MonthDayYear4();
     private final static MonthDayYear2 mdy2 = new MonthDayYear2();
-    private final static Month1DayYear2 m1dy2 = new Month1DayYear2();
+//    private final static Month1DayYear2 m1dy2 = new Month1DayYear2();
     private final static Year2MonthDay y2md = new Year2MonthDay();
     private final static DayMonthYear4 dmy4 = new DayMonthYear4();
     private final static DayMonthYear2 dmy2 = new DayMonthYear2();
@@ -222,11 +222,11 @@ public class DateParserUtils {
             return result;//DateUtils.formatDateString(result);
         }
 
-        result = m1dy2.parseWithSpaces(str);
-        if(result != null && result.isBefore(DateUtils.getToday())){
-            log.debug("found m1dy2 format with space."+result);
-            return result;//DateUtils.formatDateString(result);
-        }
+//        result = m1dy2.parseWithSpaces(str);
+//        if(result != null && result.isBefore(DateUtils.getToday())){
+//            log.debug("found m1dy2 format with space."+result);
+//            return result;//DateUtils.formatDateString(result);
+//        }
 
         result = mdy2.parseWithSpaces(str);
         if(result != null && result.isBefore(DateUtils.getToday())){
@@ -234,11 +234,11 @@ public class DateParserUtils {
             return result;//DateUtils.formatDateString(result);
         }
 
-        result = m1dy2.parseWithSpaces(str);
-        if(result != null && result.isBefore(DateUtils.getToday())){
-            log.debug("found m1dy2 format with space."+result);
-            return result;//DateUtils.formatDateString(result);
-        }
+//        result = m1dy2.parseWithSpaces(str);
+//        if(result != null && result.isBefore(DateUtils.getToday())){
+//            log.debug("found m1dy2 format with space."+result);
+//            return result;//DateUtils.formatDateString(result);
+//        }
 
         //note it's str not strNoSpace
         result=literalmdy4.parseWithSpaces(str);

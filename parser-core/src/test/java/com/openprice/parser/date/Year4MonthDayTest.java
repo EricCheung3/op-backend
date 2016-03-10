@@ -97,6 +97,41 @@ public class Year4MonthDayTest {
     }
 
     @Test
+    public void spacesInner4()throws Exception{
+        assertEquals(threeStrings(2014, 5, 1), parseToThreeStrings("2  0 14/5/01 "));
+    }
+
+    @Test
+    public void spacesInner5()throws Exception{
+        assertEquals(threeStrings(2014, 5, 1), parseToThreeStrings("2  0 1 4/5/01 "));
+    }
+
+    @Test
+    public void spacesInner6()throws Exception{
+        assertEquals(threeStrings(2014, 5, 1), parseToThreeStrings("2  0 1 4 /5/01 "));
+    }
+
+    @Test
+    public void twoDigitMonths()throws Exception{
+        assertEquals(threeStrings(2014, 5, 1), parseToThreeStrings("2  0 1 4 /05/01 "));
+    }
+
+    @Test
+    public void twoDigitMonthsSpace1()throws Exception{
+        assertEquals(threeStrings(2014, 5, 1), parseToThreeStrings("2  0 1 4 / 05/01 "));
+    }
+
+    @Test
+    public void twoDigitMonthsSpace2()throws Exception{
+        assertEquals(threeStrings(2014, 5, 1), parseToThreeStrings("2  0 1 4 / 0 5/01 "));
+    }
+
+    @Test
+    public void twoDigitMonthsSpac3()throws Exception{
+        assertEquals(threeStrings(2014, 5, 1), parseToThreeStrings("2  0 1 4 / 0 5 / 0 1  "));
+    }
+
+    @Test
     public void patternY4MD2TestDayHasOneDigitsSpaceIsOkay()throws Exception{
         assertEquals(threeStrings(2014, 5, 1), parseToThreeStrings("abd 2 014 /5 /0  1 efre"));
     }

@@ -9,12 +9,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Year2MonthDay implements DateParser{
 
+    public final static String YEAR_2_PATTERN = "\\s*\\d\\s*\\d\\s*";//"\\d\\d";
+
     private static Pattern patternYear2MonthDay= Pattern.compile(
-            "\\d\\d[" + DateConstants.DATE_SPLITTERS
-//            + "]([1-9]|0[1-9]|1[012])[" + DateConstants.DATE_SPLITTER
-            + "]\\d{1,2}[" + DateConstants.DATE_SPLITTERS
-//            + "]([1-9]|0[1-9]|[12][0-9]|3[01])"
-            + "](\\d{1,2})"
+            YEAR_2_PATTERN
+                 + "[" + DateConstants.DATE_SPLITTERS + "]" +
+            Year4MonthDay.DAY_MONTH_PATTERN
+                +"[" + DateConstants.DATE_SPLITTERS + "]" +
+            Year4MonthDay.DAY_MONTH_PATTERN
             );
 
 

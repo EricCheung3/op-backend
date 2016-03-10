@@ -14,11 +14,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Year4MonthDay implements DateParser{
 
+    //pattern for month and day
+    public final static String DAY_MONTH_PATTERN = "\\s*(0?\\s*\\d|\\d\\s*\\d|\\d\\d)\\s*";
+    public final static String YEAR_4_PATTERN = "\\s*(1\\s*9|2\\s*0)\\s*\\d\\s*\\d\\s*";
+
     private static Pattern patternYear4MonthDay = Pattern.compile(
-            "(1\\s*9|2\\s*0)\\s*\\d\\s*\\d\\s*["+DateConstants.DATE_SPLITTERS
-            + "]\\s*\\d{1,2}\\s*[" + DateConstants.DATE_SPLITTERS
-//            + "]\\s*\\d{1,2}");
-    + "]\\s*(0?\\s*\\d|\\d\\s*\\d|\\d\\d)");
+                YEAR_4_PATTERN
+                    + "[" + DateConstants.DATE_SPLITTERS + "]"
+                + DAY_MONTH_PATTERN
+                    + "[" + DateConstants.DATE_SPLITTERS + "]"
+                + DAY_MONTH_PATTERN
+        );
 
 
     @Override

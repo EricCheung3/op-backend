@@ -11,12 +11,11 @@ import java.util.regex.Pattern;
 public class MonthDayYear4 implements DateParser{
 
     private static Pattern patternMonthDayYear4 = Pattern.compile(
-//            "([1-9]|0[1-9]|1[012])[" + DateConstants.DATE_SPLITTER +
-            "\\d{1,2}[" + DateConstants.DATE_SPLITTERS +
-//            "]([1-9]|0[1-9]|[12][0-9]|3[01])[" + DateConstants.DATE_SPLITTER +
-            "]\\d{1,2}[" + DateConstants.DATE_SPLITTERS +
-            "](19|20)\\d\\d");
-
+            Year4MonthDay.DAY_MONTH_PATTERN
+                + "["+ DateConstants.DATE_SPLITTERS + "]"
+            + Year4MonthDay.DAY_MONTH_PATTERN
+                + "["+ DateConstants.DATE_SPLITTERS + "]"
+            +Year4MonthDay.YEAR_4_PATTERN);
 
     @Override
     public LocalDate parseWithSpaces(String line) {
