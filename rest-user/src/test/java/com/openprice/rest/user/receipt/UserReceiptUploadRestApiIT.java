@@ -5,8 +5,6 @@ import static org.hamcrest.Matchers.endsWith;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.BufferedReader;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Base64;
@@ -17,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.google.common.io.ByteStreams;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
@@ -26,11 +25,8 @@ import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 @DatabaseSetup("classpath:/data/test-data.xml")
 public class UserReceiptUploadRestApiIT extends AbstractUserRestApiIntegrationTest {
 
-    @Value("classpath:/data/sample1.txt")
-    private Resource sampleReceipt1;
-
-    @Value("classpath:/data/sample2.txt")
-    private Resource sampleReceipt2;
+    @Value("classpath:/data/BostonPizza.JPG")
+    private Resource sampleImage;
 
     @Value("classpath:/data/ocr-result.txt")
     private Resource sampleOcrResult;
@@ -40,7 +36,8 @@ public class UserReceiptUploadRestApiIT extends AbstractUserRestApiIntegrationTe
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
 
         // add new image as base64 encoded string
-        final String base64String = Base64.getEncoder().encodeToString("test".getBytes());
+        final byte[] sampleImageContent = ByteStreams.toByteArray(sampleImage.getInputStream());
+        final String base64String = Base64.getEncoder().encodeToString(sampleImageContent);
         final ImageDataForm form = new ImageDataForm(base64String);
 
         Response response =
@@ -79,8 +76,8 @@ public class UserReceiptUploadRestApiIT extends AbstractUserRestApiIntegrationTe
         String fileName = response.then().extract().path("_embedded.receiptImages[0].fileName");
         Path imageFile = fileSystemService.getReceiptImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
         assertTrue(Files.exists(imageFile));
-        BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
-        assertEquals("test", reader.readLine());
+        byte[] data = Files.readAllBytes(imageFile);
+        assertEquals(sampleImageContent.length, data.length);
 
         String downloadUrl = response.then().extract().path("_embedded.receiptImages[0]._links.download.href");
         given()
@@ -101,7 +98,7 @@ public class UserReceiptUploadRestApiIT extends AbstractUserRestApiIntegrationTe
         Response response =
             given()
                 .filter(sessionFilter)
-                .multiPart("file", sampleReceipt1.getFile())
+                .multiPart("file", sampleImage.getFile())
             .when()
                 .post(userReceiptUploadUrl(sessionFilter))
             ;
@@ -132,8 +129,9 @@ public class UserReceiptUploadRestApiIT extends AbstractUserRestApiIntegrationTe
         String fileName = response.then().extract().path("_embedded.receiptImages[0].fileName");
         Path imageFile = fileSystemService.getReceiptImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
         assertTrue(Files.exists(imageFile));
-        BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
-        assertEquals("test", reader.readLine());
+        byte[] data = Files.readAllBytes(imageFile);
+        byte[] sampleImageContent = ByteStreams.toByteArray(sampleImage.getInputStream());
+        assertEquals(sampleImageContent.length, data.length);
 
         String downloadUrl = response.then().extract().path("_embedded.receiptImages[0]._links.download.href");
         given()
@@ -145,4 +143,5 @@ public class UserReceiptUploadRestApiIT extends AbstractUserRestApiIntegrationTe
             .contentType("image/jpeg")
         ;
     }
+
 }

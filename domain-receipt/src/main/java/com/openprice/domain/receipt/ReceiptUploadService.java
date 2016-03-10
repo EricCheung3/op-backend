@@ -1,9 +1,15 @@
 package com.openprice.domain.receipt;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.Base64;
 
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -102,7 +108,34 @@ public class ReceiptUploadService {
         final ReceiptImage image = receipt.createImage();
         final Path imageFile = fileSystemService.saveReceiptImage(receipt.getUser().getId(), image.getFileName(), content);
         image.setStatus(ProcessStatusType.UPLOADED);
+        image.setBase64(resizeAndReturnBase64(content));
         log.debug("Save uploaded receipt image to {}.", imageFile);
         return receiptImageRepository.save(image);
+    }
+
+    private String resizeAndReturnBase64(final byte[] content) {
+        byte[] resizedContent = content; // default to original content
+
+        try (final InputStream is = new ByteArrayInputStream(content)) {
+            final BufferedImage inputImage = ImageIO.read(is);
+            if (inputImage.getWidth() > 1024) {
+                final float scale = inputImage.getWidth() / 1024;
+                final int width = (int)(inputImage.getWidth() / scale);
+                final int height = (int)(inputImage.getHeight() / scale);
+                final BufferedImage outputImage = new BufferedImage(width, height, inputImage.getType());
+                final Graphics2D g2d = outputImage.createGraphics();
+                g2d.drawImage(inputImage, 0, 0, width, height, null);
+                g2d.dispose();
+
+                try (final ByteArrayOutputStream os = new ByteArrayOutputStream()) {
+                    ImageIO.write(outputImage, "JPG", os);
+                    resizedContent = os.toByteArray();
+                }
+            }
+        } catch (IOException ex) {
+            log.error("Cannot resize receipt image: {}", ex.getMessage());
+        }
+
+        return new String(Base64.getEncoder().encode(resizedContent));
     }
 }

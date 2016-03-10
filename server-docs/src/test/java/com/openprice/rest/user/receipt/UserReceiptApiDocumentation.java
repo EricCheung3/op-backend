@@ -22,6 +22,8 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 
+import com.google.common.io.ByteStreams;
+
 public class UserReceiptApiDocumentation extends UserReceiptApiDocumentationBase {
 
     @Test
@@ -44,7 +46,7 @@ public class UserReceiptApiDocumentation extends UserReceiptApiDocumentationBase
 
     @Test
     public void uploadReceiptExample() throws Exception {
-        MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
+        MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", ByteStreams.toByteArray(sampleImage.getInputStream()));
 
         mockMvc
         .perform(

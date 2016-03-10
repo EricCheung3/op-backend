@@ -6,8 +6,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.when;
 
-import java.io.BufferedReader;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Base64;
@@ -19,8 +17,11 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.common.io.ByteStreams;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.file.FileFolderSettings;
 import com.openprice.file.FileSystemService;
@@ -30,7 +31,6 @@ public class ReceiptUploadServiceTest {
 
     static final String USER_ID = "user123";
     static final String USER_EMAIL = "john.doe@email.com";
-    static final String TEST_CONTENT = "test";
     static final String TEST_OCR = "Superstore";
 
     @Mock
@@ -59,9 +59,9 @@ public class ReceiptUploadServiceTest {
     }
 
     @Test
-    public void uploadImageForNewReceipt_ShouldSaveImageBase64String_andCreateReceipt() throws Exception {
-        final byte[] content = TEST_CONTENT.getBytes();
-        final String base64String = Base64.getEncoder().encodeToString(content);
+    public void uploadImageBase64StringForNewReceipt_ShouldSaveImage_andCreateReceipt() throws Exception {
+        final byte[] content = getTestImageContent();
+        final String base64 = new String(Base64.getEncoder().encode(content));
         final UserAccount testUser = getTestUserAccount();
 
         when(receiptImageRepositoryMock.save(isA(ReceiptImage.class))).thenAnswer( new Answer<ReceiptImage>() {
@@ -84,7 +84,7 @@ public class ReceiptUploadServiceTest {
 
         });
 
-        final ReceiptImage image = serviceToTest.uploadImageForNewReceipt(testUser, base64String);
+        final ReceiptImage image = serviceToTest.uploadImageForNewReceipt(testUser, base64);
 
         // receipt image has been saved
         assertEquals("image123", image.getId());
@@ -95,18 +95,15 @@ public class ReceiptUploadServiceTest {
         assertEquals(testUser, image.getReceipt().getUser());
         assertEquals(ReceiptStatusType.WAIT_FOR_RESULT, image.getReceipt().getStatus());
         assertNotNull(image.getReceipt().getReceiptDate());
+        verifySavedImage(testUser.getId(), image.getFileName(), content);
 
-        // check file exists and content is the same as test content
-        final Path imageFile = fileSystemService.getReceiptImageSubFolder(testUser.getId()).resolve(image.getFileName());
-        assertTrue(Files.exists(imageFile));
-        BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
-        assertEquals(TEST_CONTENT, reader.readLine());
-
+        System.out.println(base64.length());
+        System.out.println(image.getBase64().length());
     }
 
     @Test
-    public void uploadImageForNewReceipt_ShouldSaveImageFile_andCreateReceipt() throws Exception {
-        final byte[] content = TEST_CONTENT.getBytes();
+    public void uploadImageFileForNewReceipt_ShouldSaveImage_andCreateReceipt() throws Exception {
+        final byte[] content = getTestImageContent();
         final UserAccount testUser = getTestUserAccount();
 
         when(receiptImageRepositoryMock.save(isA(ReceiptImage.class))).thenAnswer( new Answer<ReceiptImage>() {
@@ -142,18 +139,13 @@ public class ReceiptUploadServiceTest {
         assertEquals(testUser, image.getReceipt().getUser());
         assertEquals(ReceiptStatusType.WAIT_FOR_RESULT, image.getReceipt().getStatus());
         assertNotNull(image.getReceipt().getReceiptDate());
-
-        // check file exists and content is the same as test content
-        final Path imageFile = fileSystemService.getReceiptImageSubFolder(testUser.getId()).resolve(image.getFileName());
-        assertTrue(Files.exists(imageFile));
-        BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
-        assertEquals(TEST_CONTENT, reader.readLine());
+        verifySavedImage(testUser.getId(), image.getFileName(), content);
 
     }
 
     @Test
-    public void appendImageToReceipt_ShouldSaveImageFile_andUpdateReceipt() throws Exception {
-        final byte[] content = TEST_CONTENT.getBytes();
+    public void appendImageFileToReceipt_ShouldSaveImage_andUpdateReceipt() throws Exception {
+        final byte[] content = getTestImageContent();
         final UserAccount testUser = getTestUserAccount();
         final Receipt receipt = Receipt.testObjectBuilder().user(testUser).build();
 
@@ -186,18 +178,13 @@ public class ReceiptUploadServiceTest {
         assertEquals("image456", image.getId());
         assertEquals(receipt, image.getReceipt());
         assertEquals(ProcessStatusType.UPLOADED, image.getStatus());
-
-        // check file exists and content is the same as test content
-        final Path imageFile = fileSystemService.getReceiptImageSubFolder(testUser.getId()).resolve(image.getFileName());
-        assertTrue(Files.exists(imageFile));
-        BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
-        assertEquals(TEST_CONTENT, reader.readLine());
+        verifySavedImage(testUser.getId(), image.getFileName(), content);
 
     }
 
     @Test
-    public void appendImageToReceipt_ShouldSaveImageBase64String_andUpdateReceipt() throws Exception {
-        final byte[] content = TEST_CONTENT.getBytes();
+    public void appendImageBase64StringToReceipt_ShouldSaveImage_andUpdateReceipt() throws Exception {
+        final byte[] content = getTestImageContent();
         final String base64String = Base64.getEncoder().encodeToString(content);
         final UserAccount testUser = getTestUserAccount();
         final Receipt receipt = Receipt.testObjectBuilder().user(testUser).build();
@@ -229,12 +216,7 @@ public class ReceiptUploadServiceTest {
         assertEquals("image456", image.getId());
         assertEquals(receipt, image.getReceipt());
         assertEquals(ProcessStatusType.UPLOADED, image.getStatus());
-
-        // check file exists and content is the same as test content
-        final Path imageFile = fileSystemService.getReceiptImageSubFolder(testUser.getId()).resolve(image.getFileName());
-        assertTrue(Files.exists(imageFile));
-        BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
-        assertEquals(TEST_CONTENT, reader.readLine());
+        verifySavedImage(testUser.getId(), image.getFileName(), content);
 
     }
 
@@ -243,5 +225,17 @@ public class ReceiptUploadServiceTest {
                           .id(USER_ID)
                           .email(USER_EMAIL)
                           .build();
+    }
+
+    private byte[] getTestImageContent() throws Exception {
+        Resource imageResource = new ClassPathResource("BostonPizza.JPG");
+        return ByteStreams.toByteArray(imageResource.getInputStream());
+    }
+
+    private void verifySavedImage(final String userId, final String fileName, final byte[] content) throws Exception {
+        final Path imageFile = fileSystemService.getReceiptImageSubFolder(userId).resolve(fileName);
+        assertTrue(Files.exists(imageFile));
+        byte[] data = Files.readAllBytes(imageFile);
+        assertEquals(content.length, data.length);
     }
 }

@@ -3,6 +3,9 @@ package com.openprice;
 import javax.inject.Inject;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Profile;
@@ -71,6 +74,22 @@ public abstract class AbstractApiApplication {
     @Bean
     public StoreMetadata storeMetadata() {
         return MetadataLoader.loadMetadata();
+    }
+
+    // Set maxPostSize of embedded tomcat server to 10 megabytes (default is 2 MB, not large enough to support file uploads > 1.5 MB)
+    // See http://stackoverflow.com/questions/33232849/increase-http-post-maxpostsize-in-spring-boot
+    @Bean
+    EmbeddedServletContainerCustomizer containerCustomizer() throws Exception {
+        return (ConfigurableEmbeddedServletContainer container) -> {
+            if (container instanceof TomcatEmbeddedServletContainerFactory) {
+                TomcatEmbeddedServletContainerFactory tomcat = (TomcatEmbeddedServletContainerFactory) container;
+                tomcat.addConnectorCustomizers(
+                    (connector) -> {
+                        connector.setMaxPostSize(10000000); // 10 MB
+                    }
+                );
+            }
+        };
     }
 
     /**

@@ -17,6 +17,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.Test;
 import org.springframework.mock.web.MockMultipartFile;
 
+import com.google.common.io.ByteStreams;
+
 public class UserReceiptImageApiDocumentation extends UserReceiptApiDocumentationBase {
 
     @Test
@@ -65,7 +67,7 @@ public class UserReceiptImageApiDocumentation extends UserReceiptApiDocumentatio
 
     @Test
     public void receiptImageUploadExample() throws Exception {
-        final MockMultipartFile file = new MockMultipartFile("file", "image2.jpg", "image/jpeg", "base64codedimg".getBytes());
+        final MockMultipartFile file = new MockMultipartFile("file", "image2.jpg", "image/jpeg", ByteStreams.toByteArray(sampleImage.getInputStream()));
         mockMvc
         .perform(
             fileUpload(userReceiptImageUploadUrl())

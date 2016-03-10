@@ -5,7 +5,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.Base64;
 
 import javax.inject.Inject;
 
@@ -27,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.common.io.ByteStreams;
+import com.openprice.common.ImageResourceUtils;
 import com.openprice.domain.account.user.UserAccountService;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
@@ -149,8 +148,7 @@ public class UserReceiptImageRestController extends AbstractUserReceiptRestContr
         final Resource resource = new PathResource(receiptUploadService.getImageFile(image));
 
         try {
-            final byte[] content = ByteStreams.toByteArray(resource.getInputStream());
-            final String base64String = new String(Base64.getEncoder().encode(content));
+            final String base64String = ImageResourceUtils.loadImageAsBase64String(resource);
             return ResponseEntity.ok(base64String);
         } catch (IOException ex) {
             log.error("Cannot load image file from {}, please check file system!", image.getFileName());
