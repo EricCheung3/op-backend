@@ -40,18 +40,22 @@ public class StringsFromWideSpace {
         String[] words=line.split("\\s{5,}");
         try{
             if(words.length==3){
+//                log.debug("5:words= "+ words);
                 return ThreeStrings.fromArray(words);
             }
             words=line.split("\\s{4,}");
             if(words.length==3){
+//                log.debug("4:words= "+ words);
                 return ThreeStrings.fromArray(words);
             }
             words=line.split("\\s{3,}");
             if(words.length==3){
+//                log.debug("3:words= "+ words);
                 return ThreeStrings.fromArray(words);
             }
             words=line.split("\\s{2,}");
             if(words.length==3){
+//                log.debug("2:words= "+ words);
                 return ThreeStrings.fromArray(words);
             }
         }catch(Exception e){

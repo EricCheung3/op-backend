@@ -112,7 +112,7 @@ public class UserReceiptResultRestController extends AbstractUserReceiptRestCont
             @RequestBody final UserReceiptItemForm form) throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         final ReceiptItem item = getReceiptItemByIdAndCheckReceipt(itemId, receipt);
-        log.info("User {} update receipt item {}.", receipt.getUser().getUsername(), item.toString());
+        log.info("User <{}> update receipt item {}.", receipt.getUser().getUsername(), item.toString());
         receiptItemRepository.save(form.updateReceiptItem(item));
         return ResponseEntity.noContent().build();
     }
@@ -130,7 +130,7 @@ public class UserReceiptResultRestController extends AbstractUserReceiptRestCont
             @PathVariable("itemId") final String itemId) throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
         final ReceiptItem item = getReceiptItemByIdAndCheckReceipt(itemId, receipt);
-        log.info("User {} delete receipt item {}.", receipt.getUser().getUsername(), item.toString());
+        log.info("User <{}> delete receipt item {}.", receipt.getUser().getUsername(), item.toString());
         item.setIgnored(true);
         receiptItemRepository.save(item);
         return ResponseEntity.noContent().build();

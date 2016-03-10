@@ -4,8 +4,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -16,7 +14,6 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,23 +51,6 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
         this.receiptResourceAssembler = receiptResourceAssembler;
     }
 
-    /**
-     * This is a temp solution to return all user receipts. In the future we will still use URL_USER_RECEIPTS endpoint
-     * to get receipts in pagination.
-     * @deprecated This end point does not work. The resource presentation is not HAL. Don't know why.
-     * @return
-     */
-    @Deprecated
-    @RequestMapping(method = RequestMethod.GET, value = URL_USER_ALL_RECEIPTS)
-    public HttpEntity<List<UserReceiptResource>> getCurrentUserAllReceipts() {
-        final UserAccount currentUser = getCurrentAuthenticatedUser();
-        final List<UserReceiptResource> receipts = new ArrayList<>();
-        for (final Receipt receipt : receiptRepository.findByUser(currentUser)) {
-            receipts.add(receiptResourceAssembler.toResource(receipt));
-        }
-        return ResponseEntity.ok(receipts);
-    }
-
     @RequestMapping(method = RequestMethod.GET, value = URL_USER_RECEIPTS)
     public HttpEntity<PagedResources<UserReceiptResource>> getCurrentUserReceipts(
             @PageableDefault(size = 10, page = 0) final Pageable pageable,
@@ -91,7 +71,7 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
     public HttpEntity<Void> deleteReceiptById(@PathVariable("receiptId") final String receiptId)
             throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
-        log.info("User {} delete receipt {}...", receipt.getUser().getUsername(), receiptId);
+        log.info("User <{}> delete receipt {}...", receipt.getUser().getUsername(), receiptId);
         receiptRepository.delete(receipt);
         return ResponseEntity.noContent().build();
     }
@@ -123,73 +103,14 @@ public class UserReceiptRestController extends AbstractUserReceiptRestController
         }
     }
 
-    /**
-     * Temp solution to upload receipt image with OCR result text.
-     * @param file
-     * @return
-     * @deprecated
-     */
-    @Deprecated
-    @RequestMapping(method = RequestMethod.POST, value = URL_USER_RECEIPTS_HACKLOAD)
-    public HttpEntity<Void> hackloadNewReceiptWithOcrResult(
-            @RequestParam("image") final MultipartFile image,
-            @RequestParam("ocr") final MultipartFile ocr) {
-        if (!image.isEmpty() && !ocr.isEmpty()) {
-            final ReceiptImage receitImage = newReceiptWithImageAndOcrFile(image, ocr);
-            final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receitImage.getReceipt().getId())).toUri();
-            return ResponseEntity.created(location).body(null);
-        }
-        else {
-            log.error("No file uploaded!");
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    /**
-     *
-     * @param receiptId
-     * @param ocr
-     * @return
-     * @deprecated
-     */
-    @Deprecated
-    @RequestMapping(method = RequestMethod.POST, value = URL_USER_RECEIPTS_RECEIPT_HACKLOAD_OCR)
-    public HttpEntity<Void> hackloadOcrResult(
-            @PathVariable("receiptId") final String receiptId,
-            @RequestParam("ocr") final MultipartFile ocr) {
-        if (!ocr.isEmpty()) {
-            setOcrResultOfReceipt(receiptId, ocr);
-            final URI location = linkTo(methodOn(UserReceiptRestController.class).getUserReceiptById(receiptId)).toUri();
-            return ResponseEntity.created(location).body(null);
-        }
-        else {
-            log.error("No file uploaded!");
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
     @RequestMapping(method = RequestMethod.POST, value = URL_USER_RECEIPTS_RECEIPT_FEEDBACK)
     public HttpEntity<Void> addReceiptFeedback(
             @PathVariable("receiptId") final String receiptId,
             @RequestBody final FeedbackForm form) throws ResourceNotFoundException {
         final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
-        log.info("User {} gave feedback on receipt {}...", receipt.getUser().getUsername(), receiptId);
+        log.info("User <{}> gave feedback on receipt {}...", receipt.getUser().getUsername(), receiptId);
         receiptService.addFeedback(receipt, form.getRating(), form.getComment());
         return ResponseEntity.noContent().build();
     }
-
-    @Transactional
-    protected ReceiptImage newReceiptWithImageAndOcrFile(final MultipartFile image, final MultipartFile ocr) {
-        final UserAccount currentUser = getCurrentAuthenticatedUser();
-        log.debug("User {} HACKLoad image file for new receipt and OCR result.", currentUser.getUsername());
-        return receiptUploadService.hackloadImageFileAndOcrResultForNewReceipt(currentUser, image, ocr);
-    }
-
-    @Transactional
-    private void setOcrResultOfReceipt(final String receiptId, final MultipartFile ocr) {
-        final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
-        receiptUploadService.hackloadOcrResult(receipt, ocr);
-    }
-
 
 }

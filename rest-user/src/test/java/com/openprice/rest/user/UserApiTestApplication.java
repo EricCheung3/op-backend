@@ -46,4 +46,5 @@ public class UserApiTestApplication extends AbstractRestApiTestApplication {
     InternalService internalService() {
         return new InternalService(new ServiceSettings());
     }
+
 }

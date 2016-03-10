@@ -15,10 +15,10 @@ spring:
 application:
     settings:
         email:
-            systemName: GroundTruth Inc.
-            systemEmail: no-reply@theopenprice.com
-            adminName: Open Price
-            adminEmail: admin@theopenprice.com
+            systemName: Openprice Support
+            systemEmail: #{openprice.support.email}
+            adminName: Openprice Admin
+            adminEmail: #{openprice.admin.email}
         internal:
             serverHost: op-server-internal-api
             serverPort: 8080

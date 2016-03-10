@@ -4,7 +4,7 @@ cd $gitroot/op-admin-ui
 git pull
 npm install
 bower install
-gulp build --env development
+gulp build --env production
 
 cd $gitroot/op-admin-ui/docker
 docker build -t opgt/op-server-admin-ui .
@@ -12,4 +12,10 @@ docker build -t opgt/op-server-admin-ui .
 docker stop op-server-admin-ui
 docker rm op-server-admin-ui
 
-docker run --name op-server-admin-ui -p 8090:80 -d opgt/op-server-admin-ui
+docker run --name op-server-admin-ui -d opgt/op-server-admin-ui
+
+# Proxy Server
+docker stop op-server-proxy
+docker rm op-server-proxy
+
+docker run --name op-server-proxy -p 80:80 -v $gitroot/nginx/conf.d:/etc/nginx/conf.d --link op-server-web-ui:op-server-web-ui --link op-server-web-api:op-server-web-api --link op-server-admin-ui:op-server-admin-ui --link op-server-admin-api:op-server-admin-api -d nginx

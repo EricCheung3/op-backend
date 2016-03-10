@@ -21,7 +21,7 @@ import com.openprice.internal.client.InternalService;
 import com.openprice.mail.EmailProperties;
 import com.openprice.mail.EmailService;
 import com.openprice.mail.stub.DummyEmailService;
-import com.openprice.parser.category.SimpleCategoryPredictor;
+import com.openprice.parser.categorypredictor.SimpleCategoryPredictor;
 import com.openprice.predictor.CategoryPredictor;
 import com.openprice.store.MetadataLoader;
 import com.openprice.store.StoreMetadata;
@@ -73,10 +73,10 @@ public class ApiDocsApplication {
     @Bean
     public EmailProperties emailProperties() {
         return new EmailProperties("http://openprice,com",
-                                   "OpenPrice Admin",
+                                   "Openprice Admin",
                                    "admin@openprice.com",
-                                   "OpenPrice Team",
-                                   "noreply@openprice.com");
+                                   "Openprice Team",
+                                   "support@openprice.com");
     }
 
     @Bean

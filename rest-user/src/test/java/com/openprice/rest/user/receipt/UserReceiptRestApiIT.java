@@ -3,7 +3,6 @@ package com.openprice.rest.user.receipt;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertNull;
 
 import javax.inject.Inject;
@@ -15,7 +14,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
-import com.openprice.domain.receipt.ProcessStatusType;
 import com.openprice.domain.receipt.Receipt;
 import com.openprice.domain.receipt.ReceiptImage;
 import com.openprice.domain.receipt.ReceiptImageRepository;
@@ -31,25 +29,6 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
 
     @Inject
     private ReceiptImageRepository receiptImageRepository;
-
-    @Test
-    public void getCurrentUserAllReceipts_ShouldReturnAllUserReceipts() {
-        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
-
-        Response response =
-            given()
-                .filter(sessionFilter)
-            .when()
-                .get(userAllReceiptsUrl(sessionFilter))
-            ;
-        //response.prettyPrint();
-        response
-        .then()
-            .statusCode(HttpStatus.SC_OK)
-            .contentType(ContentType.JSON)
-            .body("", hasSize(14))
-        ;
-    }
 
     @Test
     public void getCurrentUserReceipts_ShouldReturnFirstPageOfUserReceipts() {
@@ -107,13 +86,9 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .body("status", equalTo("HAS_RESULT"))
             .body("needFeedback", equalTo(true))
             .body("chainCode", equalTo("rcss"))
+            .body("icon", equalTo("rcss"))
             .body("storeName", equalTo("Superstore"))
             .body("total", equalTo("10.45"))
-            .body("_embedded.receiptImages[0].id", equalTo("rec001image001"))
-            .body("_embedded.receiptImages[0].status", equalTo(ProcessStatusType.SCANNED.name()))
-            .body("_embedded.receiptImages[1].id", equalTo("rec001image003"))
-            .body("_embedded.receiptImages[2].id", equalTo("rec001image002"))
-            .body("_embedded.receiptImages[3].id", equalTo("rec001image004"))
             .body("_links.images.href", endsWith("/images" + UtilConstants.PAGINATION_TEMPLATES))
             .body("_links.image.href", endsWith("/images/{imageId}"))
             .body("_links.items.href", endsWith("/items" + UtilConstants.PAGINATION_TEMPLATES))
@@ -136,12 +111,6 @@ public class UserReceiptRestApiIT extends AbstractUserRestApiIntegrationTest {
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("id", equalTo("receipt002"))
-            .body("_embedded.receiptImages[0].id", equalTo("rec002image001"))
-            .body("_embedded.receiptImages[0].fileName", equalTo("test.jpg"))
-            .body("_embedded.receiptImages[0].status", equalTo(ProcessStatusType.UPLOADED.name()))
-            .body("_embedded.receiptImages[1].id", equalTo("rec002image002"))
-            .body("_embedded.receiptImages[1].fileName", equalTo("test.jpg"))
-            .body("_embedded.receiptImages[1].status", equalTo(ProcessStatusType.UPLOADED.name()))
             .body("_links.images.href", endsWith("/images" + UtilConstants.PAGINATION_TEMPLATES))
             .body("_links.image.href", endsWith("/images/{imageId}"))
             .body("_links.items.href", endsWith("/items" + UtilConstants.PAGINATION_TEMPLATES))

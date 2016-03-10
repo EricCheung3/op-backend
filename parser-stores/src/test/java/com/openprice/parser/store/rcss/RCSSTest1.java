@@ -137,8 +137,11 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testfiles/rcss/southcommon/2015_07_21_15_19_03.jpg.beata.txt")
     private Resource receipt_2015_07_21_15_19_03;
 
-    @Value("classpath:/testfiles/rcss/phone/hengshuaiMarch2.txt")
+    @Value("classpath:/testfiles/rcss/phone/hengshuai_march2.txt")
     private Resource receipt_hengshuaiMarch2;
+
+    @Value("classpath:/testfiles/rcss/phone/hengshuai_march2_2nd.txt")
+    private Resource receipt_hengshuaiMarch2_2nd;
 
     @Test
     public void multilineItemTest0() throws Exception {
@@ -205,6 +208,28 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "10",4);
 
     }
+
+    @Test
+    public void multilineItemTest3() throws Exception {
+        final List<String> lines = new ArrayList<>();
+        lines.add("   (2) 06038369066 PC EGG BROWN ORG MRJ                                         12,38");
+        lines.add("2    3 S6.19");
+        lines.add("    27-PRODUCE");
+        lines.add("03338322241                     BLUEBERRIES 180Z                            HRJ    4.96");
+        lines.add("total 10");
+
+        ParsedReceipt receipt = simpleParser.parseLines(lines);
+        printResult(receipt);
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(2,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "(2) 06038369066 pc egg brown org mrj",  "12.38", null, 0);
+        verifyParsedItem(iterator.next(), "blueberries 180z    hrj",  "4.96", null, 3);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "10",4);
+    }
+
+
     @Test
     public void receipt_2015_11_11_calgarytrail()  throws Exception {
         final List<String> receiptLines = new ArrayList<>();
@@ -993,6 +1018,43 @@ public class RCSSTest1 extends AbstractReceiptParserIntegrationTest{
         verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
     }
 
+    @Test
+    public void receipt_hengshuaiMarch2_2nd() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_hengshuaiMarch2_2nd, (line)-> receiptLines.add(line));
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        printResult(receipt);
+        assertEquals(null, receipt.getChainCode());
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(18,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "05j86420002 soya unswt    hrj",  ".49", null, 5);
+        verifyParsedItem(iterator.next(), "roasted and unsa    hrj", null, null, 9);
+        verifyParsedItem(iterator.next(), "0.405 kg net 3 $20.00/kg",  "8.10", null, 12);
+        verifyParsedItem(iterator.next(), "(2) 06038369066 pc egg brown org mrj",  "36.19", null, 14);
+        verifyParsedItem(iterator.next(), "blueberries 180z    hrj",  "4.96", null, 17);
+        verifyParsedItem(iterator.next(), "shitaki organic    hrj",  "3.98", null, 18);
+        verifyParsedItem(iterator.next(), "159    endive/chicory    hrj",  "1.98", null, 19);
+        verifyParsedItem(iterator.next(), "kiwi    hrj",  "2.34", null, 21);
+        verifyParsedItem(iterator.next(), "3    3 so.78    cantaloupe    hrj",  "hrj", null, 22);
+        verifyParsedItem(iterator.next(), "pepper green swt    hrj",  "2.87", null, 24);
+        verifyParsedItem(iterator.next(), "mush wht bulk    hrj", null, null, 26);
+        verifyParsedItem(iterator.next(), "0.300 kg grass",  "2.35", null, 27);
+        verifyParsedItem(iterator.next(), "kg net",  "38.119", null, 29);
+        verifyParsedItem(iterator.next(), "tomato roma    hrj",  "3.88", null, 30);
+        verifyParsedItem(iterator.next(), "44 baby bok choy/pa    hrj",  "4.02", null, 32);
+        verifyParsedItem(iterator.next(), "(2)80426418400 young cocont    hrj",  "5.96", null, 34);
+        verifyParsedItem(iterator.next(), "advil drops    grq",  "8.99", null, 37);
+        verifyParsedItem(iterator.next(), "$6.48 int 2, j8.96 ea",  "6.48", null, 39);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "",-1);
+        verifyParsedField(fieldValues, ReceiptFieldType.Recycle, "ecolosv fee                                                                                  0.10",6);
+        verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "",44);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "78.69",48);
+        verifyParsedField(fieldValues, ReceiptFieldType.Chain, "pcss 1570 - oalflflrv trftil",0);
+        verifyParsedField(fieldValues, ReceiptFieldType.Deposit, "deposit '                                                                                    0.25",7);
+        verifyParsedField(fieldValues, ReceiptFieldType.Account, "card*: **",3);
+    }
 
     @Test
     public void receipt_2015_02_09_13_15_25()  throws Exception {

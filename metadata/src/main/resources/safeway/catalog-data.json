@@ -23,18 +23,10 @@
   "labelCodes" : "Cookie",
   "productCategory" : "snacks"
 }, {
-  "name" : "jam strawberry 500 ml",
-  "number" : "",
-  "price" : "3.5",
-  "naturalName" : "Strawberry Jam",
-  "displayName" : "Strawberry Jam",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "jams"
-}, {
   "name" : "redbull blue edition",
   "number" : "",
   "price" : "2.799",
-  "naturalName" : "Redbull",
+  "naturalName" : "Redbull blue edition",
   "displayName" : "Redbull",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -50,7 +42,7 @@
   "name" : "pears bosc",
   "number" : "",
   "price" : "2.31",
-  "naturalName" : "Pears",
+  "naturalName" : "Pears bosc",
   "displayName" : "Pears",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -58,7 +50,7 @@
   "name" : "skim milk ff 4l",
   "number" : "",
   "price" : "4.49",
-  "naturalName" : "Skim Milk",
+  "naturalName" : "Skim Milk ff 4l",
   "displayName" : "Skim Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -74,7 +66,7 @@
   "name" : "potato chips regular",
   "number" : "",
   "price" : "3.009",
-  "naturalName" : "Chips",
+  "naturalName" : "potato chips regular",
   "displayName" : "Chips",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -87,18 +79,10 @@
   "labelCodes" : "Fruit",
   "productCategory" : "fruit"
 }, {
-  "name" : "eggs med1um",
-  "number" : "5820003460",
-  "price" : "5.79",
-  "naturalName" : "Eggs",
-  "displayName" : "Eggs",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "dairy"
-}, {
   "name" : "hilroy refill sheets",
   "number" : "",
   "price" : "3.19",
-  "naturalName" : "Paper",
+  "naturalName" : "hilroy refill sheets",
   "displayName" : "Paper",
   "labelCodes" : "uncategorized",
   "productCategory" : "papergoods"
@@ -106,7 +90,7 @@
   "name" : "milk 2% jug",
   "number" : "5820007810",
   "price" : "4.59",
-  "naturalName" : "Milk",
+  "naturalName" : "milk 2% jug",
   "displayName" : "Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -114,7 +98,7 @@
   "name" : "eggs large 18ea",
   "number" : "557474235756",
   "price" : "4.29",
-  "naturalName" : "Eggs",
+  "naturalName" : "eggs large 18ea",
   "displayName" : "Eggs",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -138,7 +122,7 @@
   "name" : "red tomato on vine",
   "number" : "4664",
   "price" : "5.94",
-  "naturalName" : "Tomato",
+  "naturalName" : "red tomato on vine",
   "displayName" : "Tomato",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -146,7 +130,7 @@
   "name" : "hearts of rom salad",
   "number" : "",
   "price" : "3.69",
-  "naturalName" : "Romaine Salad",
+  "naturalName" : "hearts of rom salad",
   "displayName" : "Romaine Salad",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -170,7 +154,7 @@
   "name" : "tomato reg large",
   "number" : "4064",
   "price" : "2.17",
-  "naturalName" : "Tomato",
+  "naturalName" : "tomato reg large",
   "displayName" : "Tomato",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -186,7 +170,7 @@
   "name" : "potato red bulk",
   "number" : "4073",
   "price" : "3.14",
-  "naturalName" : "Red Potatoes",
+  "naturalName" : "potato red bulk",
   "displayName" : "Red Potatoes",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -202,7 +186,7 @@
   "name" : "bread arlisan french",
   "number" : "",
   "price" : "1.99",
-  "naturalName" : "Bread",
+  "naturalName" : "bread arlisan french",
   "displayName" : "Bread",
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
@@ -218,7 +202,7 @@
   "name" : "pineapple golden",
   "number" : "",
   "price" : "5.99",
-  "naturalName" : "Pineapple",
+  "naturalName" : "Pineapple golden",
   "displayName" : "Pineapple",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -226,7 +210,7 @@
   "name" : "pancakes bmilk 310g",
   "number" : "",
   "price" : "2.5",
-  "naturalName" : "Frozen Pancakes",
+  "naturalName" : "pancakes bmilk 310g",
   "displayName" : "Frozen Pancakes",
   "labelCodes" : "uncategorized",
   "productCategory" : "frozen"
@@ -234,7 +218,7 @@
   "name" : "tuna tom onion",
   "number" : "6136243484",
   "price" : "3.79",
-  "naturalName" : "Tuna",
+  "naturalName" : "Tuna tom onion",
   "displayName" : "Tuna",
   "labelCodes" : "uncategorized",
   "productCategory" : "canned"
@@ -266,7 +250,7 @@
   "name" : "peanut butter 1kg",
   "number" : "",
   "price" : "4.99",
-  "naturalName" : "Peanut Butter",
+  "naturalName" : "Peanut Butter 1kg",
   "displayName" : "Peanut Butter",
   "labelCodes" : "uncategorized",
   "productCategory" : "jams"
@@ -274,7 +258,7 @@
   "name" : "gerber grad 42g",
   "number" : "1500004591",
   "price" : "2.99",
-  "naturalName" : "Gerber Graduates",
+  "naturalName" : "Gerber Graduates 42g",
   "displayName" : "Gerber Graduates",
   "labelCodes" : "uncategorized",
   "productCategory" : "babyfood"
@@ -306,7 +290,7 @@
   "name" : "renees dressing",
   "number" : "",
   "price" : "4.99",
-  "naturalName" : "Salad Dressing",
+  "naturalName" : "renees Salad Dressing",
   "displayName" : "Salad Dressing",
   "labelCodes" : "uncategorized",
   "productCategory" : "sauces"
@@ -314,7 +298,7 @@
   "name" : "carrots bulk",
   "number" : "4562",
   "price" : "0.28",
-  "naturalName" : "Carrots",
+  "naturalName" : "Carrots bulk",
   "displayName" : "Carrots",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -327,10 +311,10 @@
   "labelCodes" : "Pasta",
   "productCategory" : "canned"
 }, {
-  "name" : "colgate b my 40ml 580rj00u832",
-  "number" : "",
+  "name" : "colgate b my 40ml",
+  "number" : "580rj00u832",
   "price" : "4.389",
-  "naturalName" : "Toothpaste",
+  "naturalName" : "Toothpaste colgate 40ml",
   "displayName" : "Toothpaste",
   "labelCodes" : "uncategorized",
   "productCategory" : "personalitems"
@@ -351,14 +335,6 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
 }, {
-  "name" : "bugles 0rig snacks",
-  "number" : "",
-  "price" : "2.99",
-  "naturalName" : "Bugles",
-  "displayName" : "Bugles",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "snacks"
-}, {
   "name" : "p/apple chunk in jce",
   "number" : "",
   "price" : "1.49",
@@ -370,7 +346,7 @@
   "name" : "lydale turkey breasts",
   "number" : "",
   "price" : "8.99",
-  "naturalName" : "Turkey Breasts",
+  "naturalName" : "lydale Turkey Breasts",
   "displayName" : "Turkey Breasts",
   "labelCodes" : "uncategorized",
   "productCategory" : "meat"
@@ -394,7 +370,7 @@
   "name" : "almonds oven roasted",
   "number" : "",
   "price" : "7.59",
-  "naturalName" : "Almonds",
+  "naturalName" : "almonds oven roasted",
   "displayName" : "Almonds",
   "labelCodes" : "uncategorized",
   "productCategory" : "nuts"
@@ -402,7 +378,7 @@
   "name" : "ice cream 500ml",
   "number" : "5877954312",
   "price" : "6.99",
-  "naturalName" : "Ice Cream",
+  "naturalName" : "Ice Cream 500ml",
   "displayName" : "Ice Cream",
   "labelCodes" : "uncategorized",
   "productCategory" : "frozen"
@@ -434,15 +410,15 @@
   "name" : "breadsticks cheese",
   "number" : "",
   "price" : "4.49",
-  "naturalName" : "Cheesy Breadsticks",
-  "displayName" : "Cheesy Breadsticks",
+  "naturalName" : "Cheese Breadsticks",
+  "displayName" : "Cheese Breadsticks",
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
 }, {
   "name" : "soup shrimp 100g",
   "number" : "",
   "price" : "0.99",
-  "naturalName" : "Shrimp Soup",
+  "naturalName" : "Shrimp Soup 100g",
   "displayName" : "Shrimp Soup",
   "labelCodes" : "uncategorized",
   "productCategory" : "soup"
@@ -450,7 +426,7 @@
   "name" : "noodles beef 100g",
   "number" : "",
   "price" : "0.99",
-  "naturalName" : "Beef Noodles",
+  "naturalName" : "Beef Noodles 100g",
   "displayName" : "Beef Noodles",
   "labelCodes" : "uncategorized",
   "productCategory" : "pasta"
@@ -466,7 +442,7 @@
   "name" : "bread 60%whole wheat",
   "number" : "",
   "price" : "2.19",
-  "naturalName" : "Whole Wheat Bread",
+  "naturalName" : "bread 60%whole wheat",
   "displayName" : "Whole Wheat Bread",
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
@@ -474,7 +450,7 @@
   "name" : "fruit integration",
   "number" : "",
   "price" : "0.999",
-  "naturalName" : "Fruitopia",
+  "naturalName" : "fruit integration",
   "displayName" : "Fruitopia",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -482,7 +458,7 @@
   "name" : "bc smoked sausage",
   "number" : "",
   "price" : "7.99",
-  "naturalName" : "Smoked Sausage",
+  "naturalName" : "bc Smoked Sausage",
   "displayName" : "Smoked Sausage",
   "labelCodes" : "uncategorized",
   "productCategory" : "meat"
@@ -490,7 +466,7 @@
   "name" : "hickory 1/2 ham",
   "number" : "5745962111",
   "price" : "15.99",
-  "naturalName" : "Ham",
+  "naturalName" : "hickory 1/2 Ham",
   "displayName" : "Ham",
   "labelCodes" : "uncategorized",
   "productCategory" : "deli"
@@ -498,7 +474,7 @@
   "name" : "sumr fruit sld 600g",
   "number" : "",
   "price" : "6.99",
-  "naturalName" : "Fruit Salad",
+  "naturalName" : "Salad sumr fruit sld 600g",
   "displayName" : "Fruit Salad",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -514,7 +490,7 @@
   "name" : "chips wavy original",
   "number" : "",
   "price" : "2.5",
-  "naturalName" : "Chips",
+  "naturalName" : "chips wavy original",
   "displayName" : "Chips",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -522,7 +498,7 @@
   "name" : "iogo nomad drink",
   "number" : "",
   "price" : "2.199",
-  "naturalName" : "Yoghurt Drink",
+  "naturalName" : "Yoghurt iogo nomad drink",
   "displayName" : "Yoghurt Drink",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -530,7 +506,7 @@
   "name" : "yogurt greek lemon",
   "number" : "",
   "price" : "3.0",
-  "naturalName" : "Lemon Greek Yoghurt",
+  "naturalName" : "Yoghurt Lemon Greek",
   "displayName" : "Lemon Greek Yoghurt",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -559,10 +535,10 @@
   "labelCodes" : "Cereal",
   "productCategory" : "cereal"
 }, {
-  "name" : "logo nand drink",
+  "name" : "Iogo nand drink",
   "number" : "",
   "price" : "4.69",
-  "naturalName" : "Yoghurt Drink",
+  "naturalName" : "Iogo Yoghurt Drink",
   "displayName" : "Yoghurt Drink",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -570,7 +546,7 @@
   "name" : "melitta filt",
   "number" : "5543762441",
   "price" : "3.999",
-  "naturalName" : "Coffee Filters",
+  "naturalName" : "Coffee Filters melitta",
   "displayName" : "Coffee Filters",
   "labelCodes" : "uncategorized",
   "productCategory" : "papergoods"
@@ -578,7 +554,7 @@
   "name" : "oikos 0% peach mango",
   "number" : "",
   "price" : "4.49",
-  "naturalName" : "Peach Mango Yoghurt",
+  "naturalName" : "oikos 0% Peach Mango Yoghurt",
   "displayName" : "Peach Mango Yoghurt",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -594,7 +570,7 @@
   "name" : "organic gala apple",
   "number" : "",
   "price" : "6.99",
-  "naturalName" : "Apple",
+  "naturalName" : "organic gala apple",
   "displayName" : "Apple",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -642,7 +618,7 @@
   "name" : "2 qty    mini mandarins",
   "number" : "",
   "price" : "4.0",
-  "naturalName" : "Mandarins",
+  "naturalName" : "mini Mandarins",
   "displayName" : "Mandarins",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -650,7 +626,7 @@
   "name" : "wdlnd p/bry 600g",
   "number" : "",
   "price" : "6.99",
-  "naturalName" : "Blueberry",
+  "naturalName" : "wdlnd Blueberry 600g",
   "displayName" : "Blueberry",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -658,7 +634,7 @@
   "name" : "fivealive citrus i",
   "number" : "960007012",
   "price" : "2.0",
-  "naturalName" : "Citrus Juice",
+  "naturalName" : "fivealive Citrus Juice",
   "displayName" : "Citrus Juice",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -666,7 +642,7 @@
   "name" : "cocacola classic",
   "number" : "",
   "price" : "1.99",
-  "naturalName" : "Cocacola",
+  "naturalName" : "Cocacola classic",
   "displayName" : "Cocacola",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -682,7 +658,7 @@
   "name" : "celery sticks",
   "number" : "4576",
   "price" : "1.14",
-  "naturalName" : "Celery",
+  "naturalName" : "Celery sticks",
   "displayName" : "Celery",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -730,7 +706,7 @@
   "name" : "pork rib roast",
   "number" : "23129900000",
   "price" : "10.81",
-  "naturalName" : "Pork Ribs",
+  "naturalName" : "Pork Ribs roast",
   "displayName" : "Pork Ribs",
   "labelCodes" : "uncategorized",
   "productCategory" : "meat"
@@ -754,7 +730,7 @@
   "name" : "energy drink 250ml",
   "number" : "",
   "price" : "2.509",
-  "naturalName" : "Energy Drink",
+  "naturalName" : "Energy Drink 250ml",
   "displayName" : "Energy Drink",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -770,7 +746,7 @@
   "name" : "lucerne milk 2% 4l",
   "number" : "",
   "price" : "4.49",
-  "naturalName" : "Milk",
+  "naturalName" : "lucerne milk 2% 4L",
   "displayName" : "Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -778,23 +754,15 @@
   "name" : "lucerne medium egg",
   "number" : "",
   "price" : "2.75",
-  "naturalName" : "Eggs",
+  "naturalName" : "lucerne medium egg",
   "displayName" : "Eggs",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
 }, {
-  "name" : "veg b eef &bar lev",
-  "number" : "",
-  "price" : "1.99",
-  "naturalName" : "Vegetable Beef & Barley Soup",
-  "displayName" : "Vegetable Beef & Barley Soup",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "soup"
-}, {
   "name" : "humm cocktail oni",
   "number" : "",
   "price" : "4.99",
-  "naturalName" : "Hummus",
+  "naturalName" : "Hummus cocktail oni",
   "displayName" : "Hummus",
   "labelCodes" : "uncategorized",
   "productCategory" : "deli"
@@ -802,7 +770,7 @@
   "name" : "iogo str/rs/cr/bl/bl",
   "number" : "",
   "price" : "8.49",
-  "naturalName" : "Yoghurt",
+  "naturalName" : "iogo Yoghurt",
   "displayName" : "Yoghurt",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -826,18 +794,18 @@
   "name" : "2 qty    comp potato chips",
   "number" : "",
   "price" : "4.009",
-  "naturalName" : "Chips",
+  "naturalName" : "comp potato chips",
   "displayName" : "Chips",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
 }, {
-  "name" : "wt    fuji",
+  "name" : "fuji",
   "number" : "",
   "price" : "8.82",
-  "naturalName" : "Fiji Water",
-  "displayName" : "Fiji Water",
+  "naturalName" : "Fiji Apple",
+  "displayName" : "Fiji Apple",
   "labelCodes" : "uncategorized",
-  "productCategory" : "beverages"
+  "productCategory" : "fruit"
 }, {
   "name" : "cup of soup chkn 64g",
   "number" : "",
@@ -850,7 +818,7 @@
   "name" : "milk homo gb",
   "number" : "5820007815",
   "price" : "3.59",
-  "naturalName" : "Milk",
+  "naturalName" : "milk homo gb",
   "displayName" : "Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -866,7 +834,7 @@
   "name" : "bread smart",
   "number" : "5577101319",
   "price" : "4.19",
-  "naturalName" : "Sliced Bread",
+  "naturalName" : "Bread smart",
   "displayName" : "Sliced Bread",
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
@@ -882,7 +850,7 @@
   "name" : "carrots 907g",
   "number" : "",
   "price" : "1.99",
-  "naturalName" : "Carrots",
+  "naturalName" : "Carrots 907g",
   "displayName" : "Carrots",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -890,7 +858,7 @@
   "name" : "europbst pch 600g",
   "number" : "",
   "price" : "6.99",
-  "naturalName" : "Frozen Peaches",
+  "naturalName" : "Frozen Peaches 600g",
   "displayName" : "Frozen Peaches",
   "labelCodes" : "uncategorized",
   "productCategory" : "frozen"
@@ -914,7 +882,7 @@
   "name" : "spring water gb",
   "number" : "5820024300",
   "price" : "0.399",
-  "naturalName" : "Spring Water",
+  "naturalName" : "Spring Water gb",
   "displayName" : "Spring Water",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -922,7 +890,7 @@
   "name" : "extra crm raspbry",
   "number" : "",
   "price" : "3.0",
-  "naturalName" : "Raspberry Yoghurt",
+  "naturalName" : "extra crm Raspberry Yoghurt",
   "displayName" : "Raspberry Yoghurt",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -930,7 +898,7 @@
   "name" : "hot soup small",
   "number" : "2113006680",
   "price" : "2.999",
-  "naturalName" : "Soup",
+  "naturalName" : "hot soup small",
   "displayName" : "Soup",
   "labelCodes" : "uncategorized",
   "productCategory" : "soup"
@@ -946,15 +914,15 @@
   "name" : "catelli spaghettini",
   "number" : "",
   "price" : "2.5",
-  "naturalName" : "Spaghettini",
+  "naturalName" : "catelli Spaghettini",
   "displayName" : "Spaghettini",
   "labelCodes" : "uncategorized",
   "productCategory" : "pasta"
 }, {
-  "name" : "trophy de 1uxe mixed",
+  "name" : "trophy deluxe mixed",
   "number" : "96994",
   "price" : "8.299",
-  "naturalName" : "Mixed Nuts",
+  "naturalName" : "Mixed Nuts trophy deluxe",
   "displayName" : "Mixed Nuts",
   "labelCodes" : "uncategorized",
   "productCategory" : "nuts"
@@ -962,7 +930,7 @@
   "name" : "2 qty    iogo nano duo",
   "number" : "",
   "price" : "6.0",
-  "naturalName" : "Yoghurt Drink",
+  "naturalName" : "Yoghurt Drink iogo nano duo",
   "displayName" : "Yoghurt Drink",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -978,7 +946,7 @@
   "name" : "chowder clam 540ml",
   "number" : "",
   "price" : "2.49",
-  "naturalName" : "Clam Chowder",
+  "naturalName" : "Clam Chowder 540ml",
   "displayName" : "Clam Chowder",
   "labelCodes" : "uncategorized",
   "productCategory" : "soup"
@@ -994,7 +962,7 @@
   "name" : "sauce capri 650ml",
   "number" : "",
   "price" : "4.49",
-  "naturalName" : "Pasta Sauce",
+  "naturalName" : "Pasta Sauce capri 650ml",
   "displayName" : "Pasta Sauce",
   "labelCodes" : "uncategorized",
   "productCategory" : "sauces"
@@ -1010,7 +978,7 @@
   "name" : "quaker hrty mdly",
   "number" : "",
   "price" : "4.49",
-  "naturalName" : "Hot Cereal",
+  "naturalName" : "quaker hrty Cereal",
   "displayName" : "Hot Cereal",
   "labelCodes" : "uncategorized",
   "productCategory" : "cereal"
@@ -1026,23 +994,15 @@
   "name" : "tomato san marzano",
   "number" : "",
   "price" : "4.69",
-  "naturalName" : "Tomato",
+  "naturalName" : "Tomato san marzano",
   "displayName" : "Tomato",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
 }, {
-  "name" : "strawberries 1lb    '",
-  "number" : "",
-  "price" : "",
-  "naturalName" : "Strawberries 1lb '",
-  "displayName" : "Strawberries 1lb '",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "uncategorized"
-}, {
   "name" : "salsa ensalada 397g",
   "number" : "",
   "price" : "4.99",
-  "naturalName" : "Salsa",
+  "naturalName" : "Salsa ensalada 397g",
   "displayName" : "Salsa",
   "labelCodes" : "uncategorized",
   "productCategory" : "sauces"
@@ -1050,7 +1010,7 @@
   "name" : "yogurt kefir plain",
   "number" : "",
   "price" : "5.38",
-  "naturalName" : "Plain Yoghurt",
+  "naturalName" : "kefir Plain Yoghurt",
   "displayName" : "Plain Yoghurt",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -1066,7 +1026,7 @@
   "name" : "soup miso 100g",
   "number" : "7618600007",
   "price" : "0.99",
-  "naturalName" : "Miso Soup",
+  "naturalName" : "Miso Soup 100g",
   "displayName" : "Miso Soup",
   "labelCodes" : "uncategorized",
   "productCategory" : "soup"
@@ -1098,7 +1058,7 @@
   "name" : "bananas organic",
   "number" : "",
   "price" : "0.89",
-  "naturalName" : "Bananas",
+  "naturalName" : "Bananas organic",
   "displayName" : "Bananas",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -1106,7 +1066,7 @@
   "name" : "unico tomato",
   "number" : "",
   "price" : "2.59",
-  "naturalName" : "Tomatoes",
+  "naturalName" : "unico Tomatoes",
   "displayName" : "Tomatoes",
   "labelCodes" : "uncategorized",
   "productCategory" : "canned"
@@ -1122,7 +1082,7 @@
   "name" : "salsa mild chunky",
   "number" : "",
   "price" : "3.99",
-  "naturalName" : "Salsa",
+  "naturalName" : "Salsa mild chunky",
   "displayName" : "Salsa",
   "labelCodes" : "uncategorized",
   "productCategory" : "sauces"
@@ -1130,15 +1090,15 @@
   "name" : "potato bakers",
   "number" : "4072",
   "price" : "3.45",
-  "naturalName" : "Potatoes",
+  "naturalName" : "Potatoes bakers",
   "displayName" : "Potatoes",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
 }, {
-  "name" : "wt    organic zucchini",
+  "name" : "organic zucchini",
   "number" : "",
   "price" : "1.1",
-  "naturalName" : "Zucchini",
+  "naturalName" : "organic Zucchini",
   "displayName" : "Zucchini",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -1162,7 +1122,7 @@
   "name" : "lysol wipes citrus",
   "number" : "",
   "price" : "2.509",
-  "naturalName" : "Wipes",
+  "naturalName" : "lysol Wipes citrus",
   "displayName" : "Wipes",
   "labelCodes" : "uncategorized",
   "productCategory" : "cleaningsupplies"
@@ -1175,10 +1135,10 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
 }, {
-  "name" : "gatorade b1ue rasp",
+  "name" : "gatorade blue rasp",
   "number" : "",
   "price" : "2.399",
-  "naturalName" : "Gatorade",
+  "naturalName" : "Gatorade blue rasp",
   "displayName" : "Gatorade",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -1202,7 +1162,7 @@
   "name" : "donuts cake plain",
   "number" : "",
   "price" : "3.89",
-  "naturalName" : "Donuts",
+  "naturalName" : "Donuts cake plain",
   "displayName" : "Donuts",
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
@@ -1210,7 +1170,7 @@
   "name" : "fruit tray sm deli",
   "number" : "",
   "price" : "3.699",
-  "naturalName" : "Fruit Tray",
+  "naturalName" : "Fruit Tray sm deli",
   "displayName" : "Fruit Tray",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -1226,7 +1186,7 @@
   "name" : "slcd olives",
   "number" : "5380010964",
   "price" : "2.29",
-  "naturalName" : "Olives",
+  "naturalName" : "slcd Olives",
   "displayName" : "Olives",
   "labelCodes" : "uncategorized",
   "productCategory" : "canned"
@@ -1238,14 +1198,6 @@
   "displayName" : "Almond Choc",
   "labelCodes" : "Drink",
   "productCategory" : "beverages"
-}, {
-  "name" : "2 qty    bo cheestrings",
-  "number" : "",
-  "price" : "6.0",
-  "naturalName" : "Cheestrings",
-  "displayName" : "Cheestrings",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "dairy"
 }, {
   "name" : "pepsi 591ml",
   "number" : "6900000991",
@@ -1271,26 +1223,10 @@
   "labelCodes" : "Soup",
   "productCategory" : "soup"
 }, {
-  "name" : "spring water 500ml",
-  "number" : "",
-  "price" : "0.499",
-  "naturalName" : "Spring Water",
-  "displayName" : "Spring Water",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "beverages"
-}, {
-  "name" : "foe brd a rt jalapc hs",
-  "number" : "",
-  "price" : "3.59",
-  "naturalName" : "Jalapeno Bread",
-  "displayName" : "Jalapeno Bread",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "bakery"
-}, {
   "name" : "heinz beans",
   "number" : "5700000703",
   "price" : "1.59",
-  "naturalName" : "Beans",
+  "naturalName" : "heinz Beans",
   "displayName" : "Beans",
   "labelCodes" : "uncategorized",
   "productCategory" : "canned"
@@ -1298,7 +1234,7 @@
   "name" : "baby spinach 312g",
   "number" : "",
   "price" : "6.99",
-  "naturalName" : "Baby Spinach",
+  "naturalName" : "Baby Spinach 312g",
   "displayName" : "Baby Spinach",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -1306,7 +1242,7 @@
   "name" : "juice grape 200ml5pk",
   "number" : "",
   "price" : "2.49",
-  "naturalName" : "Grape Juice",
+  "naturalName" : "Grape Juice 200ml5pk",
   "displayName" : "Grape Juice",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -1314,7 +1250,7 @@
   "name" : "raspberries 1/2 pint",
   "number" : "",
   "price" : "2.5",
-  "naturalName" : "Raspberries",
+  "naturalName" : "Raspberries 1/2 pint",
   "displayName" : "Raspberries",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -1322,7 +1258,7 @@
   "name" : "lucerne milk 1% 4l",
   "number" : "",
   "price" : "4.49",
-  "naturalName" : "Milk",
+  "naturalName" : "lucerne milk 1% 4L",
   "displayName" : "Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -1338,7 +1274,7 @@
   "name" : "stop light peppers",
   "number" : "",
   "price" : "4.99",
-  "naturalName" : "Peppers",
+  "naturalName" : "stop light Peppers",
   "displayName" : "Peppers",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -1362,7 +1298,7 @@
   "name" : "cabbage napa",
   "number" : "4552",
   "price" : "3.5",
-  "naturalName" : "Cabbage",
+  "naturalName" : "Cabbage napa",
   "displayName" : "Cabbage",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -1370,18 +1306,10 @@
   "name" : "wun tun noodles",
   "number" : "62226300017",
   "price" : "2.19",
-  "naturalName" : "Noodles",
+  "naturalName" : "wun tun Noodles",
   "displayName" : "Noodles",
   "labelCodes" : "uncategorized",
   "productCategory" : "pasta"
-}, {
-  "name" : "tml pch 325g 10pk",
-  "number" : "",
-  "price" : "3.33",
-  "naturalName" : "Tml Pch 325g 10pk",
-  "displayName" : "Tml Pch 325g 10pk",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "uncategorized"
 }, {
   "name" : "spinach & arugala",
   "number" : "7127927406",
@@ -1402,7 +1330,7 @@
   "name" : "o org homo milk",
   "number" : "",
   "price" : "4.99",
-  "naturalName" : "Milk",
+  "naturalName" : "organic homo milk",
   "displayName" : "Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -1410,7 +1338,7 @@
   "name" : "2 qty    bd cheestrings",
   "number" : "",
   "price" : "6.0",
-  "naturalName" : "Cheesestring",
+  "naturalName" : "2 qty bd Cheesestring",
   "displayName" : "Cheesestring",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -1418,7 +1346,7 @@
   "name" : "string marble swirl",
   "number" : "",
   "price" : "4.89",
-  "naturalName" : "Cheesestring",
+  "naturalName" : "Cheesestring string marble swirl",
   "displayName" : "Cheesestring",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -1434,7 +1362,7 @@
   "name" : "margarine soft 907g",
   "number" : "",
   "price" : "5.99",
-  "naturalName" : "Margarine",
+  "naturalName" : "Margarine soft 907g",
   "displayName" : "Margarine",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -1442,7 +1370,7 @@
   "name" : "yoplait minigo imm",
   "number" : "",
   "price" : "3.65",
-  "naturalName" : "Yoghurt",
+  "naturalName" : "Yoghurt minigo imm",
   "displayName" : "Yoghurt",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -1450,7 +1378,7 @@
   "name" : "bd cheestrings",
   "number" : "",
   "price" : "4.99",
-  "naturalName" : "Cheestrings",
+  "naturalName" : "bd Cheestrings",
   "displayName" : "Cheestrings",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -1466,7 +1394,7 @@
   "name" : "xtra lean grd beef",
   "number" : "",
   "price" : "7.58",
-  "naturalName" : "Ground Beef",
+  "naturalName" : "extra lean Ground Beef",
   "displayName" : "Ground Beef",
   "labelCodes" : "uncategorized",
   "productCategory" : "meat"
@@ -1474,7 +1402,7 @@
   "name" : "blk frst ham",
   "number" : "5962069906",
   "price" : "18.29",
-  "naturalName" : "Black Forst Ham",
+  "naturalName" : "Black Forest Ham",
   "displayName" : "Ham",
   "labelCodes" : "Ham",
   "productCategory" : "deli"
@@ -1490,7 +1418,7 @@
   "name" : "wrap ham lc",
   "number" : "5820000496",
   "price" : "3.999",
-  "naturalName" : "Ham",
+  "naturalName" : "wrap ham lc",
   "displayName" : "Ham",
   "labelCodes" : "uncategorized",
   "productCategory" : "deli"
@@ -1498,7 +1426,7 @@
   "name" : "0 organic carrots",
   "number" : "",
   "price" : "4.49",
-  "naturalName" : "Carrots",
+  "naturalName" : "organic Carrots",
   "displayName" : "Carrots",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -1514,7 +1442,7 @@
   "name" : "whipping cream 33%",
   "number" : "",
   "price" : "4.99",
-  "naturalName" : "Whipping Cream",
+  "naturalName" : "Whipping Cream 33%",
   "displayName" : "Whipping Cream",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -1530,7 +1458,7 @@
   "name" : "comp peas",
   "number" : "5574236027",
   "price" : "1.0",
-  "naturalName" : "Peas",
+  "naturalName" : "comp Peas",
   "displayName" : "Peas",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -1538,15 +1466,15 @@
   "name" : "old dutch box chip",
   "number" : "",
   "price" : "2.509",
-  "naturalName" : "Chips",
+  "naturalName" : "old dutch box chips",
   "displayName" : "Chips",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
 }, {
-  "name" : "bread a rti san french",
+  "name" : "bread artisan french",
   "number" : "",
   "price" : "0.95",
-  "naturalName" : "Bread",
+  "naturalName" : "artisan french Bread",
   "displayName" : "Bread",
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
@@ -1615,10 +1543,10 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
 }, {
-  "name" : "spring water 5ooml",
+  "name" : "spring water 500ml",
   "number" : "",
   "price" : "0.289",
-  "naturalName" : "Spring Water",
+  "naturalName" : "Spring Water 500ml",
   "displayName" : "Spring Water",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -1634,7 +1562,7 @@
   "name" : "apples gala 3lb j338",
   "number" : "300741",
   "price" : "4.99",
-  "naturalName" : "Apples",
+  "naturalName" : "apples gala 3lb",
   "displayName" : "Apples",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -1646,14 +1574,6 @@
   "displayName" : "Potato Wedges",
   "labelCodes" : "uncategorized",
   "productCategory" : "frozen"
-}, {
-  "name" : "0 organics eggs",
-  "number" : "",
-  "price" : "5.79",
-  "naturalName" : "Eggs",
-  "displayName" : "Eggs",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "dairy"
 }, {
   "name" : "christie ritz orig",
   "number" : "",
@@ -1698,7 +1618,7 @@
   "name" : "chips lightly salted",
   "number" : "",
   "price" : "3.999",
-  "naturalName" : "Chips",
+  "naturalName" : "Chips lightly salted",
   "displayName" : "Chips",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -1714,7 +1634,7 @@
   "name" : "apples gala",
   "number" : "4174",
   "price" : "3.62",
-  "naturalName" : "Apples",
+  "naturalName" : "Apples gala",
   "displayName" : "Apples",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -1738,7 +1658,7 @@
   "name" : "sensodyn mint",
   "number" : "",
   "price" : "6.599",
-  "naturalName" : "Toothpase",
+  "naturalName" : "Toothpase sensodyn mint",
   "displayName" : "Toothpase",
   "labelCodes" : "uncategorized",
   "productCategory" : "personalitems"
@@ -1746,7 +1666,7 @@
   "name" : "2 qty    grapt tomatoes",
   "number" : "",
   "price" : "7.98",
-  "naturalName" : "Grape Tomatoes",
+  "naturalName" : "2 qty Grape Tomatoes",
   "displayName" : "Grape Tomatoes",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -1754,8 +1674,8 @@
   "name" : "rib eye stk    2h2 t ooooo",
   "number" : "",
   "price" : "13.64",
-  "naturalName" : "Rib Eye Steak",
-  "displayName" : "Rib Eye Steak",
+  "naturalName" : "Rib Eye Stock",
+  "displayName" : "Rib Eye Stock",
   "labelCodes" : "uncategorized",
   "productCategory" : "meat"
 }, {
@@ -1770,7 +1690,7 @@
   "name" : "3 cheese mexicana",
   "number" : "",
   "price" : "6.99",
-  "naturalName" : "Shredded Cheese",
+  "naturalName" : "Shredded Cheese mexicana",
   "displayName" : "Shredded Cheese",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -1786,7 +1706,7 @@
   "name" : "wt    org rd grape sdlss",
   "number" : "",
   "price" : "5.76",
-  "naturalName" : "Wt Organic Red Grape Seedless",
+  "naturalName" : "Organic Red Grape Seedless",
   "displayName" : "Grapes",
   "labelCodes" : "Fruit",
   "productCategory" : "fruit"
@@ -1794,7 +1714,7 @@
   "name" : "cruisers s4    sup",
   "number" : "",
   "price" : "24.999",
-  "naturalName" : "Diapers",
+  "naturalName" : "Diapers cruisers s4",
   "displayName" : "Diapers",
   "labelCodes" : "uncategorized",
   "productCategory" : "babyitems"
@@ -1802,7 +1722,7 @@
   "name" : "yorkshire pudding sf",
   "number" : "",
   "price" : "2.18",
-  "naturalName" : "Pudding",
+  "naturalName" : "yorkshire Pudding",
   "displayName" : "Pudding",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -1810,7 +1730,7 @@
   "name" : "artisan rolls",
   "number" : "97028",
   "price" : "0.58",
-  "naturalName" : "Rolls",
+  "naturalName" : "artisan Rolls",
   "displayName" : "Rolls",
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
@@ -1850,7 +1770,7 @@
   "name" : "org apples    j 4jo",
   "number" : "",
   "price" : "6.89",
-  "naturalName" : "Apples",
+  "naturalName" : "Organic Apples",
   "displayName" : "Apples",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -1858,7 +1778,7 @@
   "name" : "apple fuji",
   "number" : "94131",
   "price" : "7.91",
-  "naturalName" : "Apples",
+  "naturalName" : "Apples fuji",
   "displayName" : "Apples",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -1866,7 +1786,7 @@
   "name" : "rustico funghi",
   "number" : "7192195658",
   "price" : "3.99",
-  "naturalName" : "Frozen Pizza",
+  "naturalName" : "Frozen Pizza rustico funghi",
   "displayName" : "Frozen Pizza",
   "labelCodes" : "uncategorized",
   "productCategory" : "frozen"
@@ -1874,15 +1794,15 @@
   "name" : "oranges navel med",
   "number" : "",
   "price" : "5.94",
-  "naturalName" : "Oranges",
+  "naturalName" : "Oranges navel med",
   "displayName" : "Oranges",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
 }, {
-  "name" : "toilt / bwl clnr 71oml",
+  "name" : "toilt / bwl clnr 710ml",
   "number" : "",
   "price" : "2.509",
-  "naturalName" : "Toilet Bowl Cleaner",
+  "naturalName" : "Toilet Bowl Cleaner 710ml",
   "displayName" : "Toilet Bowl Cleaner",
   "labelCodes" : "uncategorized",
   "productCategory" : "cleaningsupplies"
@@ -1895,18 +1815,10 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
 }, {
-  "name" : "dutch brd    243u180cjuoii",
-  "number" : "",
-  "price" : "1.89",
-  "naturalName" : "Bread",
-  "displayName" : "Bread",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "bakery"
-}, {
   "name" : "pastry dgh fzn 454g",
   "number" : "",
   "price" : "4.29",
-  "naturalName" : "Pastry Dough Frozen",
+  "naturalName" : "Pastry Dough Frozen 454g",
   "displayName" : "Pastry Dough",
   "labelCodes" : "Pastry",
   "productCategory" : "frozen"
@@ -1938,7 +1850,7 @@
   "name" : "sugar berry 1kg",
   "number" : "6311110954",
   "price" : "3.38",
-  "naturalName" : "Sugar",
+  "naturalName" : "Sugar berry 1kg",
   "displayName" : "Sugar",
   "labelCodes" : "uncategorized",
   "productCategory" : "baking"
@@ -1954,7 +1866,7 @@
   "name" : "salsa mild",
   "number" : "!l634:3~i2i'07",
   "price" : "4.89",
-  "naturalName" : "Salsa",
+  "naturalName" : "Salsa mild",
   "displayName" : "Salsa",
   "labelCodes" : "uncategorized",
   "productCategory" : "sauces"
@@ -1962,7 +1874,7 @@
   "name" : "drumstick 4pk 560ml",
   "number" : "",
   "price" : "6.999",
-  "naturalName" : "Drumsticks",
+  "naturalName" : "Drumsticks 4pk 560ml",
   "displayName" : "Drumsticks",
   "labelCodes" : "uncategorized",
   "productCategory" : "meat"
@@ -1970,7 +1882,7 @@
   "name" : "pastry bulk",
   "number" : "",
   "price" : "1.299",
-  "naturalName" : "Pastries",
+  "naturalName" : "Pastries bulk",
   "displayName" : "Pastries",
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
@@ -1978,7 +1890,7 @@
   "name" : "sunburst mango 600g",
   "number" : "",
   "price" : "5.0",
-  "naturalName" : "Mango",
+  "naturalName" : "sunburst Mango 600g",
   "displayName" : "Mango",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -1986,7 +1898,7 @@
   "name" : "cream 10%",
   "number" : "82195407824",
   "price" : "1.89",
-  "naturalName" : "Cream",
+  "naturalName" : "Cream 10%",
   "displayName" : "Cream",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -2002,7 +1914,7 @@
   "name" : "bunch spinach",
   "number" : "",
   "price" : "1.99",
-  "naturalName" : "Spinach",
+  "naturalName" : "bunch Spinach",
   "displayName" : "Spinach",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -2010,7 +1922,7 @@
   "name" : "canada dry ginger",
   "number" : "",
   "price" : "1.009",
-  "naturalName" : "Ginger Ale",
+  "naturalName" : "Ginger Ale canada dry ginger",
   "displayName" : "Ginger Ale",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -2026,7 +1938,7 @@
   "name" : "salad kit super kale",
   "number" : "",
   "price" : "6.499",
-  "naturalName" : "Kale Salad",
+  "naturalName" : "salad kit super kale",
   "displayName" : "Kale Salad",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -2042,16 +1954,8 @@
   "name" : "margarine s/f tub",
   "number" : "",
   "price" : "5.99",
-  "naturalName" : "Margarine",
+  "naturalName" : "Margarine s/f tub",
   "displayName" : "Margarine",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "dairy"
-}, {
-  "name" : "buttermilk",
-  "number" : "5820007838",
-  "price" : "1.99",
-  "naturalName" : "Buttermilk",
-  "displayName" : "Buttermilk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
 }, {
@@ -2066,7 +1970,7 @@
   "name" : "lmate pizza",
   "number" : "6200019348",
   "price" : "3.5",
-  "naturalName" : "Frozen Pizza",
+  "naturalName" : "Frozen Pizza lmate",
   "displayName" : "Frozen Pizza",
   "labelCodes" : "uncategorized",
   "productCategory" : "frozen"
@@ -2090,7 +1994,7 @@
   "name" : "mand orange 284ml",
   "number" : "",
   "price" : "0.99",
-  "naturalName" : "Mandarin Orange",
+  "naturalName" : "Mandarin Orange 284ml",
   "displayName" : "Mandarin Orange",
   "labelCodes" : "uncategorized",
   "productCategory" : "canned"
@@ -2098,7 +2002,7 @@
   "name" : "salmon pink aplwd",
   "number" : "",
   "price" : "11.99",
-  "naturalName" : "Salmon",
+  "naturalName" : "Salmon pink aplwd",
   "displayName" : "Salmon",
   "labelCodes" : "uncategorized",
   "productCategory" : "seafood"
@@ -2106,7 +2010,7 @@
   "name" : "juice orange nfc",
   "number" : "",
   "price" : "6.99",
-  "naturalName" : "Orange Juice",
+  "naturalName" : "Orange Juice nfc",
   "displayName" : "Orange Juice",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -2135,10 +2039,10 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "babyfood"
 }, {
-  "name" : "kiwi or gani c",
+  "name" : "kiwi organic",
   "number" : "",
   "price" : "1.98",
-  "naturalName" : "Kiwi",
+  "naturalName" : "organic Kiwi",
   "displayName" : "Kiwi",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -2162,13 +2066,13 @@
   "name" : "butter lettuce",
   "number" : "",
   "price" : "3.49",
-  "naturalName" : "Lettuce",
+  "naturalName" : "butter Lettuce",
   "displayName" : "Lettuce",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
 }, {
-  "name" : "onions green    4053",
-  "number" : "",
+  "name" : "onions green",
+  "number" : "4053",
   "price" : "0.99",
   "naturalName" : "Green Onions",
   "displayName" : "Green Onions",
@@ -2207,18 +2111,18 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "soup"
 }, {
-  "name" : "rib eye stk    21t 2131loodo",
-  "number" : "",
+  "name" : "rib eye stk",
+  "number" : "21t 2131loodo",
   "price" : "10.3",
-  "naturalName" : "Rib Eye Steak",
-  "displayName" : "Rib Eye Steak",
+  "naturalName" : "Rib Eye Stock",
+  "displayName" : "Rib Eye Stock",
   "labelCodes" : "uncategorized",
   "productCategory" : "meat"
 }, {
   "name" : "trtlla chps swt chil",
   "number" : "",
   "price" : "3.999",
-  "naturalName" : "Tortilla Chips",
+  "naturalName" : "Tortilla Chips swt chil",
   "displayName" : "Tortilla Chips",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -2226,7 +2130,7 @@
   "name" : "scotchbrite sponge",
   "number" : "",
   "price" : "3.229",
-  "naturalName" : "Sponge",
+  "naturalName" : "scotchbrite Sponge",
   "displayName" : "Sponge",
   "labelCodes" : "uncategorized",
   "productCategory" : "cleaningsupplies"
@@ -2234,7 +2138,7 @@
   "name" : "sugar cones 12ea",
   "number" : "",
   "price" : "3.29",
-  "naturalName" : "Sugar Cones",
+  "naturalName" : "Sugar Cones 12ea",
   "displayName" : "Sugar Cones",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -2242,7 +2146,7 @@
   "name" : "wt    red sdlss grapes",
   "number" : "",
   "price" : "4.31",
-  "naturalName" : "Red Grapes",
+  "naturalName" : "Red Seedless Grapes",
   "displayName" : "Red Grapes",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -2266,7 +2170,7 @@
   "name" : "wt    bulk minibits cook",
   "number" : "",
   "price" : "0.89",
-  "naturalName" : "Minibits",
+  "naturalName" : "bulk minibits cook",
   "displayName" : "Minibits",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -2274,7 +2178,7 @@
   "name" : "yakisoba chicken",
   "number" : "",
   "price" : "2.58",
-  "naturalName" : "Chicken Noodles",
+  "naturalName" : "yakisoba Chicken Noodles",
   "displayName" : "Chicken Noodles",
   "labelCodes" : "uncategorized",
   "productCategory" : "pasta"
@@ -2282,7 +2186,7 @@
   "name" : "crystlgt 376g",
   "number" : "6618806859",
   "price" : "3.299",
-  "naturalName" : "Lemonade Powder",
+  "naturalName" : "Lemonade Powder crystlgt 376g",
   "displayName" : "Lemonade Powder",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -2290,15 +2194,15 @@
   "name" : "soup chicken 58g",
   "number" : "",
   "price" : "2.59",
-  "naturalName" : "Chicken Soup",
+  "naturalName" : "Chicken Soup 58g",
   "displayName" : "Chicken Soup",
   "labelCodes" : "uncategorized",
   "productCategory" : "soup"
 }, {
-  "name" : "watermelon reg sdls",
+  "name" : "watermelon red sdls",
   "number" : "",
   "price" : "7.99",
-  "naturalName" : "Watermelon Reg Seedless",
+  "naturalName" : "Watermelon Red Seedless",
   "displayName" : "Watermelon",
   "labelCodes" : "Fruit",
   "productCategory" : "fruit"
@@ -2346,7 +2250,7 @@
   "name" : "chicken strips froze",
   "number" : "",
   "price" : "12.99",
-  "naturalName" : "Chicken Strips",
+  "naturalName" : "Chicken Strips frozen",
   "displayName" : "Chicken Strips",
   "labelCodes" : "uncategorized",
   "productCategory" : "frozen"
@@ -2354,15 +2258,15 @@
   "name" : "fr/onion dip 250g",
   "number" : "",
   "price" : "3.49",
-  "naturalName" : "French Onion Dip",
+  "naturalName" : "French Onion Dip 250g",
   "displayName" : "French Onion Dip",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
 }, {
-  "name" : "bread 12 grain 6oog",
+  "name" : "bread 12 grain 600g",
   "number" : "",
   "price" : "3.5",
-  "naturalName" : "Bread",
+  "naturalName" : "bread 12 grain 600g",
   "displayName" : "Bread",
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
@@ -2378,7 +2282,7 @@
   "name" : "cheese slices mozz",
   "number" : "",
   "price" : "6.18",
-  "naturalName" : "Cheese Slices",
+  "naturalName" : "Cheese Slices mozz",
   "displayName" : "Cheese Slices",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -2386,7 +2290,7 @@
   "name" : "kraft dress cucumbe",
   "number" : "",
   "price" : "3.39",
-  "naturalName" : "Cucumber Dressing",
+  "naturalName" : "kraft Cucumber Dressing",
   "displayName" : "Cucumber Dressing",
   "labelCodes" : "uncategorized",
   "productCategory" : "sauces"
@@ -2402,7 +2306,7 @@
   "name" : "nest i alsoy 2",
   "number" : "",
   "price" : "30.99",
-  "naturalName" : "Baby Formula",
+  "naturalName" : "Nestle Baby Formula",
   "displayName" : "Baby Formula",
   "labelCodes" : "uncategorized",
   "productCategory" : "babyfood"
@@ -2410,7 +2314,7 @@
   "name" : "frsh whole smell",
   "number" : "",
   "price" : "3.64",
-  "naturalName" : "Air Freshener",
+  "naturalName" : "Air Freshener fresh whole smell",
   "displayName" : "Air Freshener",
   "labelCodes" : "uncategorized",
   "productCategory" : "cleaningsupplies"
@@ -2418,12 +2322,12 @@
   "name" : "coast to coast bun",
   "number" : "",
   "price" : "3.99",
-  "naturalName" : "Buns",
+  "naturalName" : "coast to coast bun",
   "displayName" : "Buns",
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
 }, {
-  "name" : "buffa1o flings hot",
+  "name" : "buffalo flings hot",
   "number" : "",
   "price" : "7.849",
   "naturalName" : "Hot Buffalo Flings",
@@ -2434,7 +2338,7 @@
   "name" : "aveeno baby sun",
   "number" : "",
   "price" : "11.199",
-  "naturalName" : "Baby Sunscreen",
+  "naturalName" : "aveeno Baby Sunscreen",
   "displayName" : "Baby Sunscreen",
   "labelCodes" : "uncategorized",
   "productCategory" : "babyitems"
@@ -2442,7 +2346,7 @@
   "name" : "onions shallots",
   "number" : "4662",
   "price" : "1.72",
-  "naturalName" : "Onions",
+  "naturalName" : "Onions shallots",
   "displayName" : "Onions",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -2450,7 +2354,7 @@
   "name" : "lays chips baked",
   "number" : "",
   "price" : "3.009",
-  "naturalName" : "Chips",
+  "naturalName" : "lays chips baked",
   "displayName" : "Chips",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -2466,7 +2370,7 @@
   "name" : "tea green hon 695ml",
   "number" : "",
   "price" : "0.99",
-  "naturalName" : "Green Tea",
+  "naturalName" : "Green Tea hon 695ml",
   "displayName" : "Green Tea",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -2474,7 +2378,7 @@
   "name" : "yogurt m/ p 100g 16pk",
   "number" : "",
   "price" : "8.59",
-  "naturalName" : "Yogurt",
+  "naturalName" : "Yogurt m/ p 100g 16pk",
   "displayName" : "Yogurt",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -2490,7 +2394,7 @@
   "name" : "wt    organic bananas",
   "number" : "",
   "price" : "2.89",
-  "naturalName" : "Bananas",
+  "naturalName" : "organic Bananas",
   "displayName" : "Bananas",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -2498,7 +2402,7 @@
   "name" : "nectar prune",
   "number" : "5820031144",
   "price" : "4.68",
-  "naturalName" : "Juice",
+  "naturalName" : "Juice nectar prune",
   "displayName" : "Juice",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -2538,7 +2442,7 @@
   "name" : "lean cuisine orien",
   "number" : "",
   "price" : "3.0",
-  "naturalName" : "Frozen Meal",
+  "naturalName" : "Frozen Meal lean cuisine orien",
   "displayName" : "Frozen Meal",
   "labelCodes" : "uncategorized",
   "productCategory" : "frozen"
@@ -2546,7 +2450,7 @@
   "name" : "waffles 280g",
   "number" : "6410023962",
   "price" : "2.5",
-  "naturalName" : "Frozen Waffles",
+  "naturalName" : "Frozen Waffles 280g",
   "displayName" : "Frozen Waffles",
   "labelCodes" : "uncategorized",
   "productCategory" : "frozen"
@@ -2562,7 +2466,7 @@
   "name" : "bry muffin mx 900g",
   "number" : "",
   "price" : "5.19",
-  "naturalName" : "Muffin Mix",
+  "naturalName" : "Muffin Mix 900g",
   "displayName" : "Muffin Mix",
   "labelCodes" : "uncategorized",
   "productCategory" : "baking"
@@ -2578,7 +2482,7 @@
   "name" : "lysol wipes spr 35ea",
   "number" : "",
   "price" : "2.509",
-  "naturalName" : "Wipes",
+  "naturalName" : "lysol wipes spr 35ea",
   "displayName" : "Wipes",
   "labelCodes" : "uncategorized",
   "productCategory" : "cleaningsupplies"
@@ -2586,7 +2490,7 @@
   "name" : "eggs jumbo",
   "number" : "5574250636",
   "price" : "3.29",
-  "naturalName" : "Eggs",
+  "naturalName" : "Eggs jumbo",
   "displayName" : "Eggs",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -2602,13 +2506,13 @@
   "name" : "4\"rose w/hat pick",
   "number" : "",
   "price" : "6.999",
-  "naturalName" : "Rose",
+  "naturalName" : "4\" rose w/hat pick",
   "displayName" : "Rose",
   "labelCodes" : "uncategorized",
   "productCategory" : "floral"
 }, {
-  "name" : "eggs exlg cda a 5820003177",
-  "number" : "",
+  "name" : "eggs exlg cda a",
+  "number" : "5820003177",
   "price" : "5.15",
   "naturalName" : "Eggs Extra Large Canada a",
   "displayName" : "Eggs",
@@ -2634,7 +2538,7 @@
   "name" : "lctse/fr cream 10%",
   "number" : "",
   "price" : "4.59",
-  "naturalName" : "Lactose Free Cream",
+  "naturalName" : "Lactose Free Cream 10%",
   "displayName" : "Lactose Free Cream",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -2642,18 +2546,10 @@
   "name" : "pears packham sm",
   "number" : "",
   "price" : "2.07",
-  "naturalName" : "Pears",
+  "naturalName" : "Pears packham sm",
   "displayName" : "Pears",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
-}, {
-  "name" : "eggs large 18eai574zj",
-  "number" : "5756",
-  "price" : "4.29",
-  "naturalName" : "Eggs",
-  "displayName" : "Eggs",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "dairy"
 }, {
   "name" : "non spill cap",
   "number" : "30089",
@@ -2666,7 +2562,7 @@
   "name" : "hazelnut fam 100g",
   "number" : "",
   "price" : "2.69",
-  "naturalName" : "Hazelnut Spread",
+  "naturalName" : "Hazelnut Spread fam 100g",
   "displayName" : "Hazelnut Spread",
   "labelCodes" : "uncategorized",
   "productCategory" : "jams"
@@ -2674,7 +2570,7 @@
   "name" : "7-up regular",
   "number" : "",
   "price" : "1.009",
-  "naturalName" : "7-up",
+  "naturalName" : "7-up regular",
   "displayName" : "7-up",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -2682,7 +2578,7 @@
   "name" : "iogo str/ ras/ bl/vn",
   "number" : "",
   "price" : "8.49",
-  "naturalName" : "Yoghurt",
+  "naturalName" : "Yoghurt iogo str/ ras/ bl/vn",
   "displayName" : "Yoghurt",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -2698,7 +2594,7 @@
   "name" : "2 qty    royale bath tissue",
   "number" : "",
   "price" : "15.989",
-  "naturalName" : "Toilet Paper",
+  "naturalName" : "royale bath tissue",
   "displayName" : "Toilet Paper",
   "labelCodes" : "uncategorized",
   "productCategory" : "papergoods"
@@ -2722,7 +2618,7 @@
   "name" : "coffee beans kenya",
   "number" : "",
   "price" : "12.28",
-  "naturalName" : "Coffee Beans",
+  "naturalName" : "Coffee Beans kenya",
   "displayName" : "Coffee Beans",
   "labelCodes" : "uncategorized",
   "productCategory" : "international"
@@ -2730,7 +2626,7 @@
   "name" : "cream half &half",
   "number" : "",
   "price" : "1.89",
-  "naturalName" : "Cream",
+  "naturalName" : "Cream half &half",
   "displayName" : "Cream",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -2746,7 +2642,7 @@
   "name" : "pro-keratine g15",
   "number" : "",
   "price" : "13.89",
-  "naturalName" : "Hair Dye",
+  "naturalName" : "Hair Dye pro-keratine g15",
   "displayName" : "Hair Dye",
   "labelCodes" : "uncategorized",
   "productCategory" : "health"
@@ -2778,23 +2674,15 @@
   "name" : "straw berr ies 1lb",
   "number" : "",
   "price" : "2.99",
-  "naturalName" : "Strawberries",
+  "naturalName" : "Strawberries 1lb",
   "displayName" : "Strawberries",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
 }, {
-  "name" : "gingerale    6210l001fll",
-  "number" : "",
-  "price" : "1.99",
-  "naturalName" : "Ginger Ale",
-  "displayName" : "Ginger Ale",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "beverages"
-}, {
   "name" : "outside round roast",
   "number" : "",
   "price" : "11.18",
-  "naturalName" : "Beef",
+  "naturalName" : "Beef outside round roast",
   "displayName" : "Beef",
   "labelCodes" : "uncategorized",
   "productCategory" : "meat"
@@ -2802,7 +2690,7 @@
   "name" : "2 qty    0 organics eggs",
   "number" : "",
   "price" : "11.58",
-  "naturalName" : "Eggs",
+  "naturalName" : "2 qty organics Eggs",
   "displayName" : "Eggs",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -2810,7 +2698,7 @@
   "name" : "welch white grape",
   "number" : "",
   "price" : "4.49",
-  "naturalName" : "White Grapes",
+  "naturalName" : "welch White Grapes",
   "displayName" : "White Grapes",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -2826,7 +2714,7 @@
   "name" : "scotties 2 ply 100s",
   "number" : "",
   "price" : "5.0",
-  "naturalName" : "Tissue Paper",
+  "naturalName" : "Tissue Paper scotties 2 ply 100s",
   "displayName" : "Tissue Paper",
   "labelCodes" : "uncategorized",
   "productCategory" : "papergoods"
@@ -2834,15 +2722,15 @@
   "name" : "h/cho m/mallo",
   "number" : "6500036882",
   "price" : "6.59",
-  "naturalName" : "Hot Chocolate Powder",
+  "naturalName" : "Hot Chocolate Powder h/cho m/mallo",
   "displayName" : "Hot Chocolate Powder",
   "labelCodes" : "uncategorized",
   "productCategory" : "cereal"
 }, {
-  "name" : "sauce sorrento 410m    l",
+  "name" : "sauce sorrento 410ml",
   "number" : "",
   "price" : "4.69",
-  "naturalName" : "Sorrento Sauce",
+  "naturalName" : "Sorrento Sauce 410ml",
   "displayName" : "Sorrento Sauce",
   "labelCodes" : "uncategorized",
   "productCategory" : "sauces"
@@ -2850,16 +2738,16 @@
   "name" : "tomato tray 200z",
   "number" : "",
   "price" : "3.99",
-  "naturalName" : "Tomatoes",
-  "displayName" : "Tomatoes",
+  "naturalName" : "Tomatoes tray 200z",
+  "displayName" : "Tomatoes tray 200z",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
 }, {
   "name" : "tofurky tempeh",
   "number" : "2558300161",
   "price" : "4.99",
-  "naturalName" : "Tofurky",
-  "displayName" : "Tofurky",
+  "naturalName" : "Tofurky tempeh",
+  "displayName" : "Tofurky tempeh",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
 }, {
@@ -2871,26 +2759,18 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "frozen"
 }, {
-  "name" : "lucerne who1e mi1k4l",
+  "name" : "lucerne whole milk 4L",
   "number" : "",
   "price" : "5.09",
-  "naturalName" : "Milk",
+  "naturalName" : "lucerne whole milk 4L",
   "displayName" : "Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
 }, {
-  "name" : "green onions",
-  "number" : "",
-  "price" : "0.79",
-  "naturalName" : "Green Onions",
-  "displayName" : "Green Onions",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "vegetables"
-}, {
   "name" : "yogurt exotik",
   "number" : "5692006076",
   "price" : "3.79",
-  "naturalName" : "Yogurt",
+  "naturalName" : "Yogurt exotik",
   "displayName" : "Yogurt",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -2906,18 +2786,10 @@
   "name" : "mortadella sliced",
   "number" : "",
   "price" : "4.49",
-  "naturalName" : "Mortadella",
+  "naturalName" : "Mortadella sliced",
   "displayName" : "Mortadella",
   "labelCodes" : "uncategorized",
   "productCategory" : "deli"
-}, {
-  "name" : "water refill 189l",
-  "number" : "32639",
-  "price" : "",
-  "naturalName" : "Water Refill 189l",
-  "displayName" : "Water Refill 189l",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "uncategorized"
 }, {
   "name" : "chckn oven roasted",
   "number" : "",
@@ -2935,18 +2807,10 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "pasta"
 }, {
-  "name" : "egg fr run om3 b565 100429'",
-  "number" : "",
-  "price" : "5.29",
-  "naturalName" : "Eggs",
-  "displayName" : "Eggs",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "dairy"
-}, {
   "name" : "apple gala",
   "number" : "94135",
   "price" : "3.56",
-  "naturalName" : "Apples",
+  "naturalName" : "Apples gala",
   "displayName" : "Apples",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -2954,7 +2818,7 @@
   "name" : "lucerne milk 2% 2l",
   "number" : "",
   "price" : "3.39",
-  "naturalName" : "Milk",
+  "naturalName" : "lucerne milk 2% 2l",
   "displayName" : "Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -2962,8 +2826,8 @@
   "name" : "2 qty    campari tomatoes",
   "number" : "",
   "price" : "9.98",
-  "naturalName" : "Tomatoes",
-  "displayName" : "Tomatoes",
+  "naturalName" : "campari Tomatoes",
+  "displayName" : "campari Tomatoes",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
 }, {
@@ -2986,7 +2850,7 @@
   "name" : "paper refill plain",
   "number" : "",
   "price" : "3.19",
-  "naturalName" : "Paper",
+  "naturalName" : "paper refill plain",
   "displayName" : "Paper",
   "labelCodes" : "uncategorized",
   "productCategory" : "papergoods"
@@ -3002,8 +2866,8 @@
   "name" : "org rdppr tomato bsq",
   "number" : "",
   "price" : "4.28",
-  "naturalName" : "Red Pepper & Tomato Soup",
-  "displayName" : "Red Pepper & Tomato Soup",
+  "naturalName" : "Orgnanic Red Pepper & Tomato Soup",
+  "displayName" : "Org. Red Pepper & Tomato Soup",
   "labelCodes" : "uncategorized",
   "productCategory" : "soup"
 }, {
@@ -3018,23 +2882,23 @@
   "name" : "cut broccoli",
   "number" : "5905214173",
   "price" : "3.78",
-  "naturalName" : "Broccoli",
-  "displayName" : "Broccoli",
+  "naturalName" : "cut Broccoli",
+  "displayName" : "cut Broccoli",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
 }, {
   "name" : "nestle cer yog/ b/ bry",
   "number" : "",
   "price" : "4.89",
-  "naturalName" : "Yoghurt",
+  "naturalName" : "nestle Yoghurt b/ bry",
   "displayName" : "Yoghurt",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
 }, {
-  "name" : "toothbrush",
+  "name" : "tooth brush",
   "number" : "5800030996",
   "price" : "3.999",
-  "naturalName" : "Toothbrush",
+  "naturalName" : "Tooth brush",
   "displayName" : "Toothbrush",
   "labelCodes" : "uncategorized",
   "productCategory" : "personalitems"
@@ -3058,31 +2922,31 @@
   "name" : "tresemme shampoo",
   "number" : "",
   "price" : "3.999",
-  "naturalName" : "Shampoo",
-  "displayName" : "Shampoo",
+  "naturalName" : "tresemme Shampoo",
+  "displayName" : "tresemme Shampoo",
   "labelCodes" : "uncategorized",
   "productCategory" : "personalitems"
 }, {
   "name" : "european wieners",
   "number" : "",
   "price" : "8.65",
-  "naturalName" : "Wieners",
-  "displayName" : "Wieners",
+  "naturalName" : "european Wieners",
+  "displayName" : "european Wieners",
   "labelCodes" : "uncategorized",
   "productCategory" : "meat"
 }, {
   "name" : "comporg eggs",
   "number" : "5574250632",
   "price" : "5.79",
-  "naturalName" : "Eggs",
-  "displayName" : "Eggs",
+  "naturalName" : "comp organic Eggs",
+  "displayName" : "comp organic Eggs",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
 }, {
   "name" : "soup beef 540ml",
   "number" : "6321100550",
   "price" : "2.99",
-  "naturalName" : "Beef Soup",
+  "naturalName" : "Beef Soup 540ml",
   "displayName" : "Beef Soup",
   "labelCodes" : "uncategorized",
   "productCategory" : "soup"
@@ -3098,15 +2962,15 @@
   "name" : "water refill 18.9l",
   "number" : "32639",
   "price" : "2.99",
-  "naturalName" : "Water Refill",
-  "displayName" : "Water Refill",
+  "naturalName" : "Water Refill 18.9l",
+  "displayName" : "Water Refill 18.9l",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
 }, {
   "name" : "3color deli slaw",
   "number" : "",
   "price" : "1.79",
-  "naturalName" : "Coleslaw",
+  "naturalName" : "Coleslaw 3color deli slaw",
   "displayName" : "Coleslaw",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -3122,7 +2986,7 @@
   "name" : "mozza smok sausage",
   "number" : "",
   "price" : "7.99",
-  "naturalName" : "Smoked Sausage",
+  "naturalName" : "mozza Smoked Sausage",
   "displayName" : "Smoked Sausage",
   "labelCodes" : "uncategorized",
   "productCategory" : "meat"
@@ -3130,7 +2994,7 @@
   "name" : "pure pram oj 946ml",
   "number" : "",
   "price" : "2.99",
-  "naturalName" : "Orange Juice",
+  "naturalName" : "pure pram Orange Juice 946ml",
   "displayName" : "Orange Juice",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -3138,7 +3002,7 @@
   "name" : "tree ripe peaches",
   "number" : "4044",
   "price" : "10.12",
-  "naturalName" : "Peaches",
+  "naturalName" : "tree ripe Peaches",
   "displayName" : "Peaches",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -3146,7 +3010,7 @@
   "name" : "bicks relish",
   "number" : "5900000342",
   "price" : "3.59",
-  "naturalName" : "Relish",
+  "naturalName" : "bicks Relish",
   "displayName" : "Relish",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -3154,7 +3018,7 @@
   "name" : "salami chorizo",
   "number" : "6008505315",
   "price" : "6.49",
-  "naturalName" : "Salami",
+  "naturalName" : "Salami chorizo",
   "displayName" : "Salami",
   "labelCodes" : "uncategorized",
   "productCategory" : "deli"
@@ -3170,7 +3034,7 @@
   "name" : "s flex straw",
   "number" : "",
   "price" : "1.49",
-  "naturalName" : "Straws",
+  "naturalName" : "s flex Straws",
   "displayName" : "Straws",
   "labelCodes" : "uncategorized",
   "productCategory" : "home"
@@ -3210,7 +3074,7 @@
   "name" : "mozzarella shred p/s",
   "number" : "",
   "price" : "8.99",
-  "naturalName" : "Shredded Mozarella",
+  "naturalName" : "Shredded Mozarella p/s",
   "displayName" : "Shredded Mozarella",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -3218,7 +3082,7 @@
   "name" : "danone danactive",
   "number" : "",
   "price" : "6.46",
-  "naturalName" : "Yoghurt",
+  "naturalName" : "Yoghurt danone danactive",
   "displayName" : "Yoghurt",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -3226,7 +3090,7 @@
   "name" : "coke classic",
   "number" : "6700000462",
   "price" : "1.999",
-  "naturalName" : "Coke",
+  "naturalName" : "Coke classic",
   "displayName" : "Coke",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -3242,7 +3106,7 @@
   "name" : "croissant roll bulk",
   "number" : "97107",
   "price" : "0.9",
-  "naturalName" : "Croissants",
+  "naturalName" : "Croissants roll bulk",
   "displayName" : "Croissants",
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
@@ -3250,7 +3114,7 @@
   "name" : "grapes green sd ls",
   "number" : "4022",
   "price" : "3.3",
-  "naturalName" : "Green Grapes",
+  "naturalName" : "Green Grapes seedless",
   "displayName" : "Green Grapes",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -3298,7 +3162,7 @@
   "name" : "lychee fruit",
   "number" : "",
   "price" : "3.3",
-  "naturalName" : "Lychee",
+  "naturalName" : "Lychee fruit",
   "displayName" : "Lychee",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -3306,7 +3170,7 @@
   "name" : "o organics eggs",
   "number" : "",
   "price" : "5.79",
-  "naturalName" : "Eggs",
+  "naturalName" : "organics Eggs",
   "displayName" : "Eggs",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -3338,7 +3202,7 @@
   "name" : "milk 1% jug",
   "number" : "5820007794",
   "price" : "4.59",
-  "naturalName" : "Milk",
+  "naturalName" : "milk 1% jug",
   "displayName" : "Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -3354,7 +3218,7 @@
   "name" : "yams jumbo",
   "number" : "4817",
   "price" : "1.78",
-  "naturalName" : "Yams",
+  "naturalName" : "Yams jumbo",
   "displayName" : "Yams",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -3362,7 +3226,7 @@
   "name" : "skim milk ff 2l",
   "number" : "",
   "price" : "3.49",
-  "naturalName" : "Skim Milk",
+  "naturalName" : "Skim Milk ff 2L",
   "displayName" : "Skim Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -3370,7 +3234,7 @@
   "name" : "ml bacon less salt",
   "number" : "",
   "price" : "4.99",
-  "naturalName" : "Bacon",
+  "naturalName" : "ml bacon less salt",
   "displayName" : "Bacon",
   "labelCodes" : "uncategorized",
   "productCategory" : "meat"
@@ -3378,7 +3242,7 @@
   "name" : "bread white",
   "number" : "582qq18022",
   "price" : "1.89",
-  "naturalName" : "Bread",
+  "naturalName" : "Bread white",
   "displayName" : "Bread",
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
@@ -3386,7 +3250,7 @@
   "name" : "lettuce red leaf",
   "number" : "4075",
   "price" : "2.49",
-  "naturalName" : "Red Lettuce",
+  "naturalName" : "Red Lettuce leaf",
   "displayName" : "Red Lettuce",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -3418,7 +3282,7 @@
   "name" : "aveeno",
   "number" : "6260006230",
   "price" : "11.789",
-  "naturalName" : "Lotion",
+  "naturalName" : "Lotion aveeno",
   "displayName" : "Lotion",
   "labelCodes" : "uncategorized",
   "productCategory" : "personalitems"
@@ -3426,7 +3290,7 @@
   "name" : "corn yellow",
   "number" : "4078",
   "price" : "3.96",
-  "naturalName" : "Corn",
+  "naturalName" : "Corn yellow",
   "displayName" : "Corn",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -3434,7 +3298,7 @@
   "name" : "lettuce leaf green",
   "number" : "4076",
   "price" : "2.99",
-  "naturalName" : "Lettuce",
+  "naturalName" : "Lettuce leaf green",
   "displayName" : "Lettuce",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -3442,7 +3306,7 @@
   "name" : "hot dog buns white",
   "number" : "",
   "price" : "3.69",
-  "naturalName" : "Hot Dog Buns",
+  "naturalName" : "Hot Dog Buns white",
   "displayName" : "Hot Dog Buns",
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
@@ -3466,7 +3330,7 @@
   "name" : "lysol cleaner",
   "number" : "",
   "price" : "3.009",
-  "naturalName" : "Cleaner",
+  "naturalName" : "lysol Cleaner",
   "displayName" : "Cleaner",
   "labelCodes" : "uncategorized",
   "productCategory" : "cleaningsupplies"
@@ -3474,8 +3338,8 @@
   "name" : "a&w root beer",
   "number" : "",
   "price" : "1.009",
-  "naturalName" : "Root Beer",
-  "displayName" : "Root Beer",
+  "naturalName" : "a&w Root Beer",
+  "displayName" : "a&w Root Beer",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
 }, {
@@ -3506,7 +3370,7 @@
   "name" : "waffles bmilk 280g",
   "number" : "",
   "price" : "2.5",
-  "naturalName" : "Frozen Waffles",
+  "naturalName" : "Frozen Waffles bmilk 280g",
   "displayName" : "Frozen Waffles",
   "labelCodes" : "uncategorized",
   "productCategory" : "frozen"
@@ -3546,7 +3410,7 @@
   "name" : "onions sweet 136kg",
   "number" : "",
   "price" : "3.49",
-  "naturalName" : "Sweet Onions",
+  "naturalName" : "Sweet Onions 136kg",
   "displayName" : "Sweet Onions",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -3554,7 +3418,7 @@
   "name" : "egg large white",
   "number" : "",
   "price" : "1.97",
-  "naturalName" : "Eggs",
+  "naturalName" : "eggs large white",
   "displayName" : "Eggs",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -3567,10 +3431,10 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
 }, {
-  "name" : "hot soup medium  1130() 663 1",
-  "number" : "",
+  "name" : "hot soup medium",
+  "number" : "1130() 663 1",
   "price" : "3.999",
-  "naturalName" : "Hot Soup",
+  "naturalName" : "Hot Soup medium",
   "displayName" : "Hot Soup",
   "labelCodes" : "uncategorized",
   "productCategory" : "soup"
@@ -3578,7 +3442,7 @@
   "name" : "tostitos chips",
   "number" : "6041004923",
   "price" : "4.49",
-  "naturalName" : "Chips",
+  "naturalName" : "tostitos Chips",
   "displayName" : "Chips",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -3610,7 +3474,7 @@
   "name" : "lucenre milk 2% 2l",
   "number" : "",
   "price" : "3.49",
-  "naturalName" : "Milk",
+  "naturalName" : "lucenre milk 2% 2l",
   "displayName" : "Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -3618,7 +3482,7 @@
   "name" : "peppers pkg",
   "number" : "3338303081",
   "price" : "3.99",
-  "naturalName" : "Peppers",
+  "naturalName" : "Peppers pkg",
   "displayName" : "Peppers",
   "labelCodes" : "Vegetable",
   "productCategory" : "vegetables"
@@ -3626,7 +3490,7 @@
   "name" : "romaine premium",
   "number" : "7127910808",
   "price" : "2.49",
-  "naturalName" : "Romaine Lettuce",
+  "naturalName" : "Romaine Lettuce premium",
   "displayName" : "Romaine Lettuce",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -3634,7 +3498,7 @@
   "name" : "strawberry jam 500ml",
   "number" : "",
   "price" : "4.99",
-  "naturalName" : "Strawberry Jam",
+  "naturalName" : "Strawberry Jam 500ml",
   "displayName" : "Strawberry Jam",
   "labelCodes" : "uncategorized",
   "productCategory" : "jams"
@@ -3642,7 +3506,7 @@
   "name" : "snackpac vanilla f/ f",
   "number" : "",
   "price" : "2.29",
-  "naturalName" : "Vanilla Pudding",
+  "naturalName" : "Vanilla Pudding snackpac vanilla f/ f",
   "displayName" : "Vanilla Pudding",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -3655,10 +3519,10 @@
   "labelCodes" : "Vegetable",
   "productCategory" : "vegetables"
 }, {
-  "name" : "sweet peas bag 75og",
+  "name" : "sweet peas bag 750g",
   "number" : "",
   "price" : "3.99",
-  "naturalName" : "Sweet Peas",
+  "naturalName" : "Sweet Peas bag 750g",
   "displayName" : "Sweet Peas",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -3666,23 +3530,23 @@
   "name" : "pork side ribs",
   "number" : "",
   "price" : "10.58",
-  "naturalName" : "Ribs",
-  "displayName" : "Ribs",
+  "naturalName" : "pork side ribs ",
+  "displayName" : "pork side ribs",
   "labelCodes" : "uncategorized",
   "productCategory" : "meat"
 }, {
   "name" : "strudel braided",
   "number" : "",
   "price" : "5.0",
-  "naturalName" : "Strudel",
-  "displayName" : "Strudel",
+  "naturalName" : "Strudel braided",
+  "displayName" : "Strudel braided",
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
 }, {
   "name" : "kraft ores 1000 isd",
   "number" : "",
   "price" : "3.0",
-  "naturalName" : "Oreos",
+  "naturalName" : "kraft Oreos 1000",
   "displayName" : "Oreos",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -3706,7 +3570,7 @@
   "name" : "ready crisp bacon",
   "number" : "",
   "price" : "4.99",
-  "naturalName" : "Bacon",
+  "naturalName" : "ready crisp Bacon",
   "displayName" : "Bacon",
   "labelCodes" : "uncategorized",
   "productCategory" : "meat"
@@ -3730,7 +3594,7 @@
   "name" : "r/maid juice box",
   "number" : "",
   "price" : "4.989",
-  "naturalName" : "Juice Boxes",
+  "naturalName" : "Juice Boxes r/maid",
   "displayName" : "Juice Boxes",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -3746,7 +3610,7 @@
   "name" : "red cluster tom vine",
   "number" : "",
   "price" : "5.15",
-  "naturalName" : "Tomatoes",
+  "naturalName" : "red cluster Tomatoes vine",
   "displayName" : "Tomatoes",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -3786,7 +3650,7 @@
   "name" : "ns ramen noodles",
   "number" : "",
   "price" : "1.25",
-  "naturalName" : "Ramen Noodles",
+  "naturalName" : "ns Ramen Noodles",
   "displayName" : "Ramen Noodles",
   "labelCodes" : "uncategorized",
   "productCategory" : "pasta"
@@ -3794,7 +3658,7 @@
   "name" : "danone strawberry",
   "number" : "",
   "price" : "5.87",
-  "naturalName" : "Strawberry Yoghurt",
+  "naturalName" : "danone Strawberry Yoghurt",
   "displayName" : "Strawberry Yoghurt",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -3818,15 +3682,15 @@
   "name" : "lamb milk chocolate",
   "number" : "",
   "price" : "1.19",
-  "naturalName" : "Milk Chocolate",
-  "displayName" : "Milk Chocolate",
+  "naturalName" : "lamb Milk Chocolate",
+  "displayName" : "lamb Milk Chocolate",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
 }, {
   "name" : "toppers drypizza pep",
   "number" : "",
   "price" : "7.49",
-  "naturalName" : "Pepperoni Pizza",
+  "naturalName" : "toppers Pepperoni Pizza",
   "displayName" : "Pepperoni Pizza",
   "labelCodes" : "uncategorized",
   "productCategory" : "frozen"
@@ -3842,7 +3706,7 @@
   "name" : "value red mac&cheese",
   "number" : "",
   "price" : "0.98",
-  "naturalName" : "Mac&cheese",
+  "naturalName" : "value red Mac&cheese",
   "displayName" : "Mac&cheese",
   "labelCodes" : "uncategorized",
   "productCategory" : "canned"
@@ -3850,7 +3714,7 @@
   "name" : "iogo zip tube",
   "number" : "62902534000",
   "price" : "4.29",
-  "naturalName" : "Kid's Yoghurt",
+  "naturalName" : "Kid's Yoghurt iogo zip tube",
   "displayName" : "Kid's Yoghurt",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -3858,7 +3722,7 @@
   "name" : "milk 1% gb",
   "number" : "5820007796",
   "price" : "3.39",
-  "naturalName" : "Milk",
+  "naturalName" : "milk 1% gb",
   "displayName" : "Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -3866,7 +3730,7 @@
   "name" : "smart vermicelli pas",
   "number" : "",
   "price" : "3.19",
-  "naturalName" : "Pasta",
+  "naturalName" : "smart vermicelli pasta",
   "displayName" : "Pasta",
   "labelCodes" : "uncategorized",
   "productCategory" : "pasta"
@@ -3874,7 +3738,7 @@
   "name" : "smoothie s/b banana",
   "number" : "",
   "price" : "4.99",
-  "naturalName" : "Banana Smoothie",
+  "naturalName" : "banana s/b Smoothie",
   "displayName" : "Banana Smoothie",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -3898,7 +3762,7 @@
   "name" : "olymel bacon regular",
   "number" : "",
   "price" : "7.49",
-  "naturalName" : "Bacon",
+  "naturalName" : "olymel bacon regular",
   "displayName" : "Bacon",
   "labelCodes" : "uncategorized",
   "productCategory" : "meat"
@@ -3906,7 +3770,7 @@
   "name" : "milk 2% gb",
   "number" : "5820007808",
   "price" : "3.39",
-  "naturalName" : "Milk",
+  "naturalName" : "milk 2% gb",
   "displayName" : "Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -3922,7 +3786,7 @@
   "name" : "snack art peanuts",
   "number" : "",
   "price" : "7.999",
-  "naturalName" : "Peanuts",
+  "naturalName" : "snack art peanuts",
   "displayName" : "Peanuts",
   "labelCodes" : "uncategorized",
   "productCategory" : "nuts"
@@ -3930,7 +3794,7 @@
   "name" : "tropicana lemonade",
   "number" : "",
   "price" : "2.299",
-  "naturalName" : "Lemonade",
+  "naturalName" : "tropicana Lemonade",
   "displayName" : "Lemonade",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -3938,12 +3802,12 @@
   "name" : "lysol wipes p&f b&t",
   "number" : "",
   "price" : "3.99",
-  "naturalName" : "Wipes",
+  "naturalName" : "lysol wipes p&f b&t",
   "displayName" : "Wipes",
   "labelCodes" : "uncategorized",
   "productCategory" : "cleaningsupplies"
 }, {
-  "name" : "banana apple kal e",
+  "name" : "banana apple kale",
   "number" : "",
   "price" : "1.99",
   "naturalName" : "Banana Apple Kale",
@@ -3951,18 +3815,10 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
 }, {
-  "name" : "lemons lrg",
-  "number" : "4053",
-  "price" : "0.79",
-  "naturalName" : "Lemons Large",
-  "displayName" : "Lemons",
-  "labelCodes" : "Fruit",
-  "productCategory" : "fruit"
-}, {
   "name" : "maplelea bacon",
   "number" : "6310021940",
   "price" : "8.29",
-  "naturalName" : "Bacon",
+  "naturalName" : "maplelea Bacon",
   "displayName" : "Bacon",
   "labelCodes" : "uncategorized",
   "productCategory" : "meat"
@@ -3970,7 +3826,7 @@
   "name" : "select coffee clmban",
   "number" : "",
   "price" : "15.49",
-  "naturalName" : "Coffee",
+  "naturalName" : "select coffee clmban",
   "displayName" : "Coffee",
   "labelCodes" : "uncategorized",
   "productCategory" : "cereal"
@@ -3986,7 +3842,7 @@
   "name" : "apples mcintosh sm",
   "number" : "",
   "price" : "3.38",
-  "naturalName" : "Apples",
+  "naturalName" : "Apples mcintosh sm",
   "displayName" : "Apples",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -3994,7 +3850,7 @@
   "name" : "lucerne 2% milk",
   "number" : "",
   "price" : "0.0",
-  "naturalName" : "Milk",
+  "naturalName" : "lucerne 2% milk",
   "displayName" : "Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -4018,7 +3874,7 @@
   "name" : "bagel sesame 6pk",
   "number" : "",
   "price" : "3.99",
-  "naturalName" : "Sesame Seed Bagels",
+  "naturalName" : "Sesame Seed Bagels 6pk",
   "displayName" : "Sesame Seed Bagels",
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
@@ -4066,7 +3922,7 @@
   "name" : "corn chips org",
   "number" : "6041003968",
   "price" : "4.38",
-  "naturalName" : "Chips",
+  "naturalName" : "corn Chips organic",
   "displayName" : "Chips",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -4082,7 +3938,7 @@
   "name" : "lemons large",
   "number" : "4053",
   "price" : "1.29",
-  "naturalName" : "Lemons",
+  "naturalName" : "Lemons large",
   "displayName" : "Lemons",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -4090,7 +3946,7 @@
   "name" : "good haven bread",
   "number" : "",
   "price" : "2.79",
-  "naturalName" : "Bread",
+  "naturalName" : "good haven bread",
   "displayName" : "Bread",
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
@@ -4098,7 +3954,7 @@
   "name" : "sfwy stuffed manza",
   "number" : "",
   "price" : "5.28",
-  "naturalName" : "Stuffed Manzanilla",
+  "naturalName" : "safeway Stuffed Manzanilla",
   "displayName" : "Stuffed Manzanilla",
   "labelCodes" : "uncategorized",
   "productCategory" : "canned"
@@ -4122,7 +3978,7 @@
   "name" : "ms pk dbl loin",
   "number" : "",
   "price" : "4.35",
-  "naturalName" : "Pork Loin",
+  "naturalName" : "Pork Loin ms pk dbl",
   "displayName" : "Pork Loin",
   "labelCodes" : "uncategorized",
   "productCategory" : "meat"
@@ -4146,7 +4002,7 @@
   "name" : "peppers red bell",
   "number" : "4088",
   "price" : "14.61",
-  "naturalName" : "Red Peppers",
+  "naturalName" : "Red bell Peppers",
   "displayName" : "Red Peppers",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -4178,7 +4034,7 @@
   "name" : "coke diet caffeinefr",
   "number" : "",
   "price" : "4.5",
-  "naturalName" : "Diet Coke",
+  "naturalName" : "Diet Coke caffeinefr",
   "displayName" : "Diet Coke",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -4210,7 +4066,7 @@
   "name" : "cod brd fillets 680g",
   "number" : "",
   "price" : "17.99",
-  "naturalName" : "Breaded Cod Fillets",
+  "naturalName" : "Breaded Cod Fillets 680g",
   "displayName" : "Breaded Cod Fillets",
   "labelCodes" : "uncategorized",
   "productCategory" : "frozen"
@@ -4234,7 +4090,7 @@
   "name" : "pears organic lg",
   "number" : "",
   "price" : "1.41",
-  "naturalName" : "Pears",
+  "naturalName" : "Pears organic large",
   "displayName" : "Pears",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -4242,7 +4098,7 @@
   "name" : "2 qty    sea scallops 20/30",
   "number" : "",
   "price" : "23.98",
-  "naturalName" : "Sea Scallops",
+  "naturalName" : "Sea Scallops 20/30",
   "displayName" : "Sea Scallops",
   "labelCodes" : "uncategorized",
   "productCategory" : "seafood"
@@ -4250,15 +4106,15 @@
   "name" : "wings/flings w/mojos",
   "number" : "",
   "price" : "4.999",
-  "naturalName" : "Wings",
+  "naturalName" : "Wings/flings w/mojos",
   "displayName" : "Wings",
   "labelCodes" : "uncategorized",
   "productCategory" : "frozen"
 }, {
-  "name" : "lucerne whole milk4l",
+  "name" : "lucerne whole milk 4L",
   "number" : "",
   "price" : "5.09",
-  "naturalName" : "Milk",
+  "naturalName" : "lucerne whole milk 4L",
   "displayName" : "Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -4271,14 +4127,6 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
 }, {
-  "name" : "bananas    011",
-  "number" : "",
-  "price" : "1.15",
-  "naturalName" : "Bananas",
-  "displayName" : "Bananas",
-  "labelCodes" : "uncategorized",
-  "productCategory" : "fruit"
-}, {
   "name" : "yogurt grk sty plain",
   "number" : "",
   "price" : "5.29",
@@ -4290,7 +4138,7 @@
   "name" : "2 qty    grape tomatoes",
   "number" : "",
   "price" : "7.98",
-  "naturalName" : "Grape Tomatoes",
+  "naturalName" : "2 qty Grape Tomatoes",
   "displayName" : "Grape Tomatoes",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -4314,7 +4162,7 @@
   "name" : "lucerne 4l milk",
   "number" : "",
   "price" : "0.33",
-  "naturalName" : "Milk",
+  "naturalName" : "lucerne 4l milk",
   "displayName" : "Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -4359,10 +4207,10 @@
   "labelCodes" : "Vegetable",
   "productCategory" : "vegetables"
 }, {
-  "name" : "whl stwbry 6oog 557",
+  "name" : "whl stwbry 600g 557",
   "number" : "1236575",
   "price" : "5.99",
-  "naturalName" : "Whl Strawberry",
+  "naturalName" : "Whl Strawberry 600g",
   "displayName" : "Strawberry",
   "labelCodes" : "Fruit",
   "productCategory" : "fruit"
@@ -4394,7 +4242,7 @@
   "name" : "cheese slices single",
   "number" : "",
   "price" : "4.99",
-  "naturalName" : "Cheese Slices",
+  "naturalName" : "Cheese Slices single",
   "displayName" : "Cheese Slices",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -4402,8 +4250,8 @@
   "name" : "baby food apple crsp",
   "number" : "",
   "price" : "1.99",
-  "naturalName" : "Apple Crisp",
-  "displayName" : "Apple Crisp",
+  "naturalName" : "baby food Apple Crisp",
+  "displayName" : "baby food Apple Crisp",
   "labelCodes" : "uncategorized",
   "productCategory" : "babyfood"
 }, {
@@ -4426,7 +4274,7 @@
   "name" : "eye of round steak",
   "number" : "",
   "price" : "4.12",
-  "naturalName" : "Steak",
+  "naturalName" : "eye of round Steak",
   "displayName" : "Steak",
   "labelCodes" : "uncategorized",
   "productCategory" : "meat"
@@ -4434,7 +4282,7 @@
   "name" : "fresh brush max",
   "number" : "6291333456",
   "price" : "3.99",
-  "naturalName" : "Toilet Cleaner",
+  "naturalName" : "Toilet fresh brush max",
   "displayName" : "Toilet Cleaner",
   "labelCodes" : "uncategorized",
   "productCategory" : "cleaningsupplies"
@@ -4442,7 +4290,7 @@
   "name" : "tostitos ar r/pep",
   "number" : "",
   "price" : "3.69",
-  "naturalName" : "Tortilla Chips",
+  "naturalName" : "Tortilla Chips r/pep",
   "displayName" : "Tortilla Chips",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -4450,7 +4298,7 @@
   "name" : "biscuit banana 150g",
   "number" : "",
   "price" : "3.28",
-  "naturalName" : "Banana Biscuits",
+  "naturalName" : "Banana Biscuits 150g",
   "displayName" : "Banana Biscuits",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -4466,7 +4314,7 @@
   "name" : "tod biscuits",
   "number" : "5700000267",
   "price" : "3.19",
-  "naturalName" : "Biscuits",
+  "naturalName" : "tod Biscuits",
   "displayName" : "Biscuits",
   "labelCodes" : "Biscuits",
   "productCategory" : "snacks"
@@ -4474,16 +4322,16 @@
   "name" : "mandarins 1.36kg",
   "number" : "",
   "price" : "4.69",
-  "naturalName" : "Mandarins",
+  "naturalName" : "Mandarins 1.36kg",
   "displayName" : "Mandarins",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
 }, {
-  "name" : "banana organic 9j011",
-  "number" : "",
+  "name" : "banana organic",
+  "number" : "9j011",
   "price" : "",
-  "naturalName" : "Banana Organic 9j011",
-  "displayName" : "Banana Organic 9j011",
+  "naturalName" : "Banana Organic",
+  "displayName" : "Banana Organic",
   "labelCodes" : "uncategorized",
   "productCategory" : "uncategorized"
 }, {
@@ -4498,7 +4346,7 @@
   "name" : "cantaloupe sm",
   "number" : "4049",
   "price" : "4.49",
-  "naturalName" : "Cantaloupe",
+  "naturalName" : "Cantaloupe sm",
   "displayName" : "Cantaloupe",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -4511,10 +4359,10 @@
   "labelCodes" : "uncategorized",
   "productCategory" : "bakery"
 }, {
-  "name" : "eggs m ed ium",
+  "name" : "eggs medium",
   "number" : "5820003460",
   "price" : "5.79",
-  "naturalName" : "Eggs",
+  "naturalName" : "Eggs medium",
   "displayName" : "Eggs",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -4530,7 +4378,7 @@
   "name" : "lucerne skim milk ff",
   "number" : "",
   "price" : "2.09",
-  "naturalName" : "Milk",
+  "naturalName" : "lucerne skim milk ff",
   "displayName" : "Milk",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -4538,7 +4386,7 @@
   "name" : "naturegg omega 3",
   "number" : "",
   "price" : "4.27",
-  "naturalName" : "Eggs",
+  "naturalName" : "nature eggs omega 3",
   "displayName" : "Eggs",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -4554,7 +4402,7 @@
   "name" : "broccoli florets 340",
   "number" : "",
   "price" : "3.49",
-  "naturalName" : "Broccoli",
+  "naturalName" : "Broccoli florets 340",
   "displayName" : "Broccoli",
   "labelCodes" : "uncategorized",
   "productCategory" : "vegetables"
@@ -4562,7 +4410,7 @@
   "name" : "fresca fridge mate",
   "number" : "",
   "price" : "4.5",
-  "naturalName" : "Fresca Soda",
+  "naturalName" : "Fresca Soda fridge mate",
   "displayName" : "Fresca Soda",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -4594,7 +4442,7 @@
   "name" : "malt drnk class 400g",
   "number" : "",
   "price" : "6.0",
-  "naturalName" : "Malt Drink",
+  "naturalName" : "Malt Drink class 400g",
   "displayName" : "Malt Drink",
   "labelCodes" : "uncategorized",
   "productCategory" : "beverages"
@@ -4602,7 +4450,7 @@
   "name" : "bar mozarella",
   "number" : "6810002746",
   "price" : "8.49",
-  "naturalName" : "Mozarella",
+  "naturalName" : "bar Mozarella",
   "displayName" : "Mozarella",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -4618,7 +4466,7 @@
   "name" : "christie wheat thins",
   "number" : "",
   "price" : "2.99",
-  "naturalName" : "Wheat Thins",
+  "naturalName" : "christie Wheat Thins",
   "displayName" : "Wheat Thins",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -4626,7 +4474,7 @@
   "name" : "cereal wh omeal 227g",
   "number" : "",
   "price" : "4.78",
-  "naturalName" : "Oatmeal Cereal",
+  "naturalName" : "Oatmeal Cereal wh 227g",
   "displayName" : "Oatmeal Cereal",
   "labelCodes" : "uncategorized",
   "productCategory" : "cereal"
@@ -4642,7 +4490,7 @@
   "name" : "plate design 6 7/8in",
   "number" : "",
   "price" : "3.39",
-  "naturalName" : "Plates",
+  "naturalName" : "Plates design 6 7/8in",
   "displayName" : "Plates",
   "labelCodes" : "uncategorized",
   "productCategory" : "home"
@@ -4658,7 +4506,7 @@
   "name" : "mini babybel light",
   "number" : "",
   "price" : "11.49",
-  "naturalName" : "Babybel",
+  "naturalName" : "mini Babybel light",
   "displayName" : "Babybel",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -4674,7 +4522,7 @@
   "name" : "prawns raw quickpeel",
   "number" : "",
   "price" : "14.99",
-  "naturalName" : "Prawns",
+  "naturalName" : "Prawns raw quickpeel",
   "displayName" : "Prawns",
   "labelCodes" : "uncategorized",
   "productCategory" : "seafood"
@@ -4682,7 +4530,7 @@
   "name" : "singles fatfree 24s",
   "number" : "",
   "price" : "6.19",
-  "naturalName" : "Cheese Slices",
+  "naturalName" : "Cheese Slices singles fatfree 24s",
   "displayName" : "Cheese Slices",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -4698,7 +4546,7 @@
   "name" : "wt    anjou pears",
   "number" : "",
   "price" : "3.94",
-  "naturalName" : "Pears",
+  "naturalName" : "anjou Pears",
   "displayName" : "Pears",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -4730,7 +4578,7 @@
   "name" : "gerber crchtom 42g",
   "number" : "",
   "price" : "2.999",
-  "naturalName" : "Gerber Crchtom",
+  "naturalName" : "Gerber Crchtom 42g",
   "displayName" : "Gerber Crchtom",
   "labelCodes" : "uncategorized",
   "productCategory" : "babyfood"
@@ -4738,7 +4586,7 @@
   "name" : "b1ackberries 170g",
   "number" : "",
   "price" : "4.99",
-  "naturalName" : "B1ackberries",
+  "naturalName" : "B1ackberries 170g",
   "displayName" : "B1ackberries",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -4754,7 +4602,7 @@
   "name" : "cheerios multigrain",
   "number" : "",
   "price" : "3.33",
-  "naturalName" : "Cheerios",
+  "naturalName" : "Cheerios multigrain",
   "displayName" : "Cheerios",
   "labelCodes" : "uncategorized",
   "productCategory" : "cereal"
@@ -4762,7 +4610,7 @@
   "name" : "wdlnd blu/ bry 51jog",
   "number" : "",
   "price" : "5.99",
-  "naturalName" : "Blueberries",
+  "naturalName" : "Blueberries wdlnd",
   "displayName" : "Blueberries",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -4778,7 +4626,7 @@
   "name" : "heinzjr og chr sw",
   "number" : "",
   "price" : "1.88",
-  "naturalName" : "Yoghurt",
+  "naturalName" : "Yoghurt heinzjr og chr sw",
   "displayName" : "Yoghurt",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"
@@ -4794,7 +4642,7 @@
   "name" : "kraft peanut butter",
   "number" : "",
   "price" : "4.69",
-  "naturalName" : "Peanut Butter",
+  "naturalName" : "kraft Peanut Butter",
   "displayName" : "Peanut Butter",
   "labelCodes" : "uncategorized",
   "productCategory" : "jams"
@@ -4810,7 +4658,7 @@
   "name" : "olive oil x virgin",
   "number" : "",
   "price" : "10.79",
-  "naturalName" : "Olive Oil",
+  "naturalName" : "Olive Oil x virgin",
   "displayName" : "Olive Oil",
   "labelCodes" : "uncategorized",
   "productCategory" : "oil"
@@ -4818,7 +4666,7 @@
   "name" : "lays chips ketchup",
   "number" : "",
   "price" : "2.759",
-  "naturalName" : "Ketchup Chips",
+  "naturalName" : "lays Ketchup Chips",
   "displayName" : "Ketchup Chips",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -4826,7 +4674,7 @@
   "name" : "olddutch ketchup",
   "number" : "",
   "price" : "3.999",
-  "naturalName" : "Ketchup Chips",
+  "naturalName" : "olddutch Ketchup Chips",
   "displayName" : "Ketchup Chips",
   "labelCodes" : "uncategorized",
   "productCategory" : "snacks"
@@ -4834,7 +4682,7 @@
   "name" : "2 qty    organic strawberry",
   "number" : "",
   "price" : "8.98",
-  "naturalName" : "Strawberries",
+  "naturalName" : "organic Strawberries",
   "displayName" : "Strawberries",
   "labelCodes" : "uncategorized",
   "productCategory" : "fruit"
@@ -4842,7 +4690,7 @@
   "name" : "cot chs dry crd",
   "number" : "5820000037",
   "price" : "4.99",
-  "naturalName" : "Cheese Curds",
+  "naturalName" : "Cheese Curds cot chs dry crd",
   "displayName" : "Cheese Curds",
   "labelCodes" : "uncategorized",
   "productCategory" : "dairy"

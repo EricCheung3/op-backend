@@ -11,10 +11,10 @@
 
     <groupId>com.openprice</groupId>
     <artifactId>op-project</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
     <packaging>pom</packaging>
 
-    <name>Open Price Project</name>
+    <name>Openprice Project</name>
     <url>https://theopenprice.com/</url>
     <inceptionYear>2015-2016</inceptionYear>
 
@@ -27,6 +27,7 @@
 
         <module>parser-api</module>
         <module>parser-core</module>
+        <module>parser-core-ml</module>
         <module>parser-stores</module>
 
         <module>api-common</module>
@@ -144,6 +145,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <delimiters>
+                        <delimiter>#{*}</delimiter>
+                    </delimiters>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -174,6 +180,10 @@
                 <!-- log configuration -->
                 <logback.loglevel>DEBUG</logback.loglevel>
                 <logback.loggly.loglevel>OFF</logback.loggly.loglevel>
+                <openprice.web.url>http://192.168.99.101:8080</openprice.web.url>
+                <openprice.admin.email>jiwhiz@gmail.com</openprice.admin.email>
+                <openprice.support.email>jiwhiz@gmail.com</openprice.support.email>
+                <openprice.loggly.tag>openprice-local</openprice.loggly.tag>
             </properties>
             <dependencies>
                 <dependency>
@@ -195,6 +205,24 @@
                     <artifactId>spring-boot-starter-tomcat</artifactId>
                 </dependency>
             </dependencies>
+        </profile>
+        <profile>
+            <id>cloud-dev</id> <!-- config for openprice development environment -->
+            <properties>
+                <openprice.web.url>https://dev.theopenprice.com</openprice.web.url>
+                <openprice.admin.email>jiwhiz@gmail.com</openprice.admin.email>
+                <openprice.support.email>jiwhiz@gmail.com</openprice.support.email>
+                <openprice.loggly.tag>openprice-dev</openprice.loggly.tag>
+            </properties>
+        </profile>
+        <profile>
+            <id>cloud-prod</id> <!-- config for openprice production environment -->
+            <properties>
+                <openprice.web.url>https://www.theopenprice.com</openprice.web.url>
+                <openprice.admin.email>admin@theopenprice.com</openprice.admin.email>
+                <openprice.support.email>support@theopenprice.com</openprice.support.email>
+                <openprice.loggly.tag>openprice-prod</openprice.loggly.tag>
+            </properties>
         </profile>
 
     </profiles>

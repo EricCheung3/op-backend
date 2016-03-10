@@ -88,6 +88,10 @@ public class StoreChain {
         return receiptCategories;
     }
 
+    public String getIcon() {
+        return storeChainData.getIcon();
+    }
+
     public String getName() {
         return storeChainData.getName();
     }

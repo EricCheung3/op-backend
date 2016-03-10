@@ -63,6 +63,7 @@ public class ShoppingStoreRestController extends AbstractUserStoreRestController
     public HttpEntity<ShoppingStoreResource> getUserShoppingStoreById(
             @PathVariable("storeId") final String storeId) throws ResourceNotFoundException {
         final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
+        log.info("User <{}> access shopping store '{}'.", store.getUser().getUsername(), store.getChainCode());
         return ResponseEntity.ok(shoppingStoreResourceAssembler.toResource(store));
     }
 
@@ -78,7 +79,7 @@ public class ShoppingStoreRestController extends AbstractUserStoreRestController
     public HttpEntity<Void> deleteUserShoppingStoreById(
             @PathVariable("storeId") final String storeId) throws ResourceNotFoundException {
         final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
-        log.info("User {} delete shopping store '{}'.", store.getUser().getUsername(), store.getChainCode());
+        log.info("User <{}> delete shopping store '{}'.", store.getUser().getUsername(), store.getChainCode());
         shoppingStoreRepository.delete(store);
         return ResponseEntity.noContent().build();
     }

@@ -11,13 +11,15 @@ import com.openprice.parser.api.ReceiptData;
 import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.data.ParsedItemImpl;
-import com.openprice.parser.price.PriceParserConstant;
-import com.openprice.parser.price.PriceParserFromStringTuple;
+import com.openprice.parser.ml.data.LineType;
+import com.openprice.parser.ml.line.SimpleLinePredcitor;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SimpleParserUtils {
+
+    private final static SimpleLinePredcitor linePredictor = new SimpleLinePredcitor();
 
     public static List<ParsedItem> parseItems(
             final MatchedRecord matchedRecord,
@@ -48,7 +50,7 @@ public class SimpleParserUtils {
                         })
                        .map( line -> {
                            log.debug("line.getCleanText()="+line.getCleanText());
-                           return parser.parseItemLine(line.getCleanText(), line.getNumber());
+                           return parser.parseItemLine(line.getCleanText().trim(), line.getNumber());
                        })
                        .filter( item -> item != null &&
                                         item.getParsedName()!=null &&
@@ -63,19 +65,14 @@ public class SimpleParserUtils {
         final List<ParsedItem> adjusted = getPriceFromNextLines(itemsWithMultilineUnAdjusted, parser.getStoreConfig());
         return adjusted.stream()
                 .filter(item-> {
-                            if(! isGoodItem(item, parser.getStoreConfig()))
-                                log.debug("item "+ item.getParsedName()+" is considered Not good.");
-                            return isGoodItem(item, parser.getStoreConfig());
+                                final LineType type = linePredictor.classify(item.getParsedName());
+                                final boolean isGoodItem = type == LineType.Item
+                                                                && !parser.getStoreConfig().matchesBlackList(item.getParsedName());
+                                if(isGoodItem)
+                                    log.debug("item "+ item.getParsedName()+" is NOT considered as an item.");
+                                return isGoodItem;
             })
             .collect(Collectors.toList());
-
-    }
-
-    public static boolean isGoodItem(final ParsedItem item, final StoreConfig config){
-        return PriceParserFromStringTuple.isItemName(item.getParsedName()) &&
-                !(item.getParsedName().contains("kg") && item.getParsedName().contains("@")) &&
-                StringCommon.countChars(item.getParsedName()) > PriceParserConstant.MIN_ITEM_NAME_LETTERS &&
-                !config.matchesBlackList(item.getParsedName());
     }
 
     /**
@@ -102,7 +99,9 @@ public class SimpleParserUtils {
             ParsedItem next = null;
             for(; increment < rawItems.size(); increment ++ ){
                 next = rawItems.get(increment);
-                if(next != null && isGoodItem(next, config))//stop at the first good item or end of list
+                if(next != null
+                        && linePredictor.classify(next.getParsedName()) == LineType.Item
+                        && !config.matchesBlackList(next.getParsedName()))//stop at the first good item or end of list
                     break;
             }
             next = rawItems.get(increment-1);//roll back to the previous un-good item

@@ -43,7 +43,7 @@ public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedItem(iterator.next(), "clabatta buns 4pk", "2.50", null, 8);
         verifyParsedItem(iterator.next(), "clabatta buns 4pk", "2.50", null, 10);
         verifyParsedItem(iterator.next(), "spinach bunch", "1.49", null, 11);
-        verifyParsedItem(iterator.next(), "lucerne who1e mi1k4l", "3.79", "lucerne who1e mi1k4l", 12);
+        verifyParsedItem(iterator.next(), "lucerne whole milk 4L", "3.79", "lucerne whole milk 4L", 12);
 
         // verify parsed fields
         Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();

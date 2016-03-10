@@ -16,6 +16,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.mock.web.MockMultipartFile;
 
 import com.damnhandy.uri.template.UriTemplate;
+import com.google.common.io.ByteStreams;
 import com.jayway.jsonpath.JsonPath;
 import com.openprice.common.ApiConstants;
 import com.openprice.common.TextResourceUtils;
@@ -44,8 +45,12 @@ public abstract class UserReceiptApiDocumentationBase extends UserApiDocumentati
     @Value("classpath:/ocrResult.txt")
     private Resource ocrResultResource;
 
+    @Value("classpath:/BostonPizza.JPG")
+    Resource sampleImage;
+
+
     protected void createReceipts() throws Exception {
-        MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
+        MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", ByteStreams.toByteArray(sampleImage.getInputStream()));
 
         String receiptLocation =
             mockMvc
@@ -68,7 +73,7 @@ public abstract class UserReceiptApiDocumentationBase extends UserApiDocumentati
             .getContentAsString();
         String uploadLink = JsonPath.read(responseContent, "_links.upload.href");
 
-        file = new MockMultipartFile("file", "image2.jpg", "image/jpeg", "base64codedimg".getBytes());
+        file = new MockMultipartFile("file", "image2.jpg", "image/jpeg", ByteStreams.toByteArray(sampleImage.getInputStream()));
 
         mockMvc
         .perform(

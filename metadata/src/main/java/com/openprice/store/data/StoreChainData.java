@@ -24,7 +24,9 @@ public class StoreChainData {
 
     private String category;
 
+    private String icon; // the icon name for the store. "generic" if designer hasn't put icon image.
+
     public static StoreChainData fromCodeOnly(final String code){
-        return new StoreChainData(code, StringCommon.EMPTY, StringCommon.EMPTY, StringCommon.EMPTY);
+        return new StoreChainData(code, StringCommon.EMPTY, StringCommon.EMPTY, StringCommon.EMPTY, "generic"); // TODO put "generic" as constant
     }
 }

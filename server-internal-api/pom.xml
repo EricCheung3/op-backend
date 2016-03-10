@@ -5,14 +5,14 @@
     <parent>
         <groupId>com.openprice</groupId>
         <artifactId>op-project</artifactId>
-        <version>0.3.0</version>
+        <version>0.4.0</version>
     </parent>
 
     <artifactId>op-server-internal-api</artifactId>
     <packaging>jar</packaging>
 
     <name>Internal RESTful API Server</name>
-    <description>OpenPrice RESTful API server for internal functions.</description>
+    <description>Openprice RESTful API server for internal functions.</description>
 
     <properties>
         <start-class>com.openprice.InternalApiApplication</start-class>

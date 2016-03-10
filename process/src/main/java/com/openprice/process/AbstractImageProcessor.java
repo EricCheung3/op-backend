@@ -59,10 +59,13 @@ public abstract class AbstractImageProcessor implements ImageProcessor {
         }
         log.debug("Start processing image {} saved at {} by calling {}...",
                 item.getImageId(), imageFile.toString(), name);
+
         final ImageProcessResult result = getImageProcessResult(imageFile.toString());
+
         final long duration = System.currentTimeMillis() - start;
         log.info("Finish processing image {} with {}, took {} milli-seconds.",
                 item.getImageId(), name, duration);
+
         saveProcessResult(item, result, start, duration);
     }
 
@@ -112,11 +115,9 @@ public abstract class AbstractImageProcessor implements ImageProcessor {
 
         Receipt receipt = image.getReceipt();
 
-        if (true) { // for test purpose to see what happens in Cloud. TODO change to debug
-            final UserAccount owner = userAccountRepository.findOne(item.getOwnerId()); // we assume only user can be owner now
-            if (owner != null) {
-                log.info("Process receipt from user '{}' ...", owner.getProfile().getDisplayName());
-            }
+        final UserAccount owner = userAccountRepository.findOne(item.getOwnerId()); // we assume only user can be owner now
+        if (owner != null) {
+            log.info("Process receipt from user <{}> ...", owner.getUsername());
         }
 
         log.info("After OCR process, receipt status is : "+receipt.getStatus());

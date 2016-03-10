@@ -22,6 +22,8 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 
+import com.google.common.io.ByteStreams;
+
 public class UserReceiptApiDocumentation extends UserReceiptApiDocumentationBase {
 
     @Test
@@ -44,7 +46,7 @@ public class UserReceiptApiDocumentation extends UserReceiptApiDocumentationBase
 
     @Test
     public void uploadReceiptExample() throws Exception {
-        MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", "base64codedimg".getBytes());
+        MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", ByteStreams.toByteArray(sampleImage.getInputStream()));
 
         mockMvc
         .perform(
@@ -80,12 +82,12 @@ public class UserReceiptApiDocumentation extends UserReceiptApiDocumentationBase
             ),
             responseFields(
                 fieldWithPath("id").description("Primary ID"),
-                fieldWithPath("_embedded.receiptImages").description("Receipt image list"),
                 fieldWithPath("_embedded.receiptItems").description("Receipt parsed item list"),
                 fieldWithPath("status").description("Receipt process status, can be WAIT_FOR_RESULT, OCR_ERROR, PARSER_ERROR, HAS_RESULT"),
                 fieldWithPath("receiptDate").description("Date of receipt, default to upload date, change to shopping date after processing"),
                 fieldWithPath("total").description("Total price from parser, null if no result yet."),
                 fieldWithPath("chainCode").description("Parser result store chain code, 'generic' if no result."),
+                fieldWithPath("icon").description("Icon name, 'generic' if parser couldn't recoginze or no grapic icon for the store."),
                 fieldWithPath("storeName").description("Parser result store chain name, [Unknown] if no result yet."),
                 fieldWithPath("needFeedback").description("Whether user can give feedback"),
                 fieldWithPath("_links").description("<<resources-user-receipt-links,Links>> to other resources")

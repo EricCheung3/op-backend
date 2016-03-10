@@ -3,14 +3,7 @@ package com.openprice.rest.user.receipt;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.BufferedReader;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import javax.inject.Inject;
 
@@ -31,11 +24,8 @@ import com.openprice.rest.user.AbstractUserRestApiIntegrationTest;
 @DatabaseSetup("classpath:/data/test-data.xml")
 public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTest {
 
-    @Value("classpath:/data/sample1.txt")
-    private Resource sampleReceipt1;
-
-    @Value("classpath:/data/sample2.txt")
-    private Resource sampleReceipt2;
+    @Value("classpath:/data/BostonPizza.JPG")
+    private Resource sampleImage;
 
     @Inject
     private ReceiptImageRepository receiptImageRepository;
@@ -78,7 +68,7 @@ public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTes
         Response response =
             given()
                 .filter(sessionFilter)
-                .multiPart("file", sampleReceipt1.getFile())
+                .multiPart("file", sampleImage.getFile())
             .when()
                 .post(uploadUrl)
             ;
@@ -107,7 +97,7 @@ public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTes
         uploadUrl = response.then().extract().path("_links.upload.href");
         response = given()
             .filter(sessionFilter)
-            .multiPart("file", sampleReceipt2.getFile())
+            .multiPart("file", sampleImage.getFile())
         .when()
             .post(uploadUrl)
         ;
@@ -128,13 +118,6 @@ public class UserReceiptImageRestApiIT extends AbstractUserRestApiIntegrationTes
             .body("downloadUrl", endsWith("/download"))
             .body("base64Url", endsWith("/base64"))
         ;
-
-        // verify image in FileSystem
-        String fileName = response.then().extract().path("fileName");
-        Path imageFile = fileSystemService.getReceiptImageSubFolder(TEST_USERID_JOHN_DOE).resolve(fileName);
-        assertTrue(Files.exists(imageFile));
-        BufferedReader reader = Files.newBufferedReader(imageFile, Charset.defaultCharset());
-        assertEquals("Another Test", reader.readLine());
 
         String downloadUrl = response.then().extract().path("_links.download.href");
         given()
