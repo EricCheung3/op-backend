@@ -8,8 +8,9 @@ import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.openprice.common.ApiConstants;
 import com.openprice.rest.AbstractRestApiIntegrationTest;
+import com.openprice.rest.TomcatConfig;
 
-@SpringApplicationConfiguration(classes = {UserApiTestApplication.class})
+@SpringApplicationConfiguration(classes = {UserApiTestApplication.class,TomcatConfig.class})
 public abstract class AbstractUserRestApiIntegrationTest extends AbstractRestApiIntegrationTest implements UserApiUrls {
 
     protected String userUrl() {

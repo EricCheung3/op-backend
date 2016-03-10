@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.openprice.common.ImageResourceUtils;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.file.FileSystemService;
 
@@ -101,8 +102,15 @@ public class ReceiptUploadService {
     private ReceiptImage saveImage(final Receipt receipt, final byte[] content) {
         final ReceiptImage image = receipt.createImage();
         final Path imageFile = fileSystemService.saveReceiptImage(receipt.getUser().getId(), image.getFileName(), content);
-        image.setStatus(ProcessStatusType.UPLOADED);
         log.debug("Save uploaded receipt image to {}.", imageFile);
+
+        image.setStatus(ProcessStatusType.UPLOADED);
+        final byte[] resizedContent = ImageResourceUtils.resizeJpgImage(content);
+        image.setBase64(new String(Base64.getEncoder().encode(resizedContent)));
+
+        // investigation log TODO change to debug later
+        log.info("Original image size {}K, after resize become {}K.", content.length/1000, resizedContent.length/1000);
+
         return receiptImageRepository.save(image);
     }
 }

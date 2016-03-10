@@ -18,8 +18,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.openprice.domain.receipt.Receipt;
-import com.openprice.domain.receipt.ReceiptImage;
-import com.openprice.domain.receipt.ReceiptImageRepository;
 import com.openprice.domain.receipt.ReceiptItem;
 import com.openprice.domain.receipt.ReceiptItemRepository;
 import com.openprice.domain.receipt.ReceiptResult;
@@ -62,25 +60,19 @@ public class UserReceiptResource extends Resource<Receipt> {
     public static class Assembler implements ResourceAssembler<Receipt, UserReceiptResource>, UserApiUrls {
 
         private final StoreMetadata storeMetadata;
-        private final ReceiptImageRepository receiptImageRepository;
         private final ReceiptResultRepository receiptResultRepository;
         private final ReceiptItemRepository receiptItemRepository;
-        private final UserReceiptImageResource.Assembler imageResourceAssembler;
         private final UserReceiptItemResource.Assembler itemResourceAssembler;
 
         @Inject
         public Assembler(final StoreMetadata storeMetadata,
-                         final ReceiptImageRepository receiptImageRepository,
                          final ReceiptResultRepository receiptResultRepository,
                          final ReceiptItemRepository receiptItemRepository,
-                         final UserReceiptItemResource.Assembler itemResourceAssembler,
-                         final UserReceiptImageResource.Assembler imageResourceAssembler) {
+                         final UserReceiptItemResource.Assembler itemResourceAssembler) {
             this.storeMetadata = storeMetadata;
-            this.receiptImageRepository = receiptImageRepository;
             this.receiptResultRepository = receiptResultRepository;
             this.receiptItemRepository = receiptItemRepository;
             this.itemResourceAssembler = itemResourceAssembler;
-            this.imageResourceAssembler = imageResourceAssembler;
         }
 
         @Override
@@ -97,12 +89,6 @@ public class UserReceiptResource extends Resource<Receipt> {
                        .addLink("feedback", URL_USER_RECEIPTS_RECEIPT_FEEDBACK, false, pairs)
                        .addLink("upload", URL_USER_RECEIPTS_RECEIPT_IMAGES_UPLOAD, false, pairs)
                        ;
-
-            final List<UserReceiptImageResource> images = new ArrayList<>();
-            for (ReceiptImage image : receiptImageRepository.findByReceiptOrderByCreatedTime(receipt)) {
-                images.add(imageResourceAssembler.toResource(image));
-            }
-            resource.getEmbedded().put("receiptImages", images);
 
             // load result
             if (receipt.getStatus() == ReceiptStatusType.HAS_RESULT) {
