@@ -440,6 +440,91 @@ public class DateParserUtilsTest {
     }
 
     @Test
+    public void test11(){
+        final String str = "Sep 04 2013 10:12 am Trans# 002475";
+        assertEquals("2013/9/4", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYear(){
+        final String str = " 03/06/16";
+        assertEquals("2016/3/6", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearSpaces1(){
+        final String str = " 03 /06/16";
+        assertEquals("2016/3/6", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearSpaces2(){
+        final String str = " 03 / 06/16";
+        assertEquals("2016/3/6", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearSpaces3(){
+        final String str = " 03 / 06 /16";
+        assertEquals("2016/3/6", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearSpaces4(){
+        final String str = " 03 / 06 / 16";
+        assertEquals("2016/3/6", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearSpaces5(){
+        final String str = " 0 3 / 06 / 16";
+        assertEquals("2016/3/6", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearSpaces6(){
+        final String str = " 0 3 / 0 6 / 16";
+        assertEquals("2016/3/6", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearSpaces7(){
+        final String str = " 0 3 / 0 6 / 1 6";
+        assertEquals("2016/3/6", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearSpaces8(){
+        final String str = " 0 3 / 0 6 / 1 6 ";
+        assertEquals("2016/3/6", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearInALine(){
+        final String str = " 3973 02782 05 051 46296                                     3/05/16 11:16 ";
+        assertEquals("2016/3/5", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearInALineSpaces1(){
+        final String str = " 3973 02782 05 051 46296                                     3 /05/16 11:16 ";
+        assertEquals("2016/3/5", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearInALineSpaces2(){
+        final String str = " 3973 02782 05 051 46296                                     3 /05 /16 11:16 ";
+        assertEquals("2016/3/5", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
+    public void testMonthDayYearInALineSpaces3(){
+        final String str = " 3973 02782 05 051 46296                                     3 /05/ 16 11:16 ";
+        assertEquals("2016/3/5", DateParserUtils.findDateInALine(str));
+    }
+
+
+    @Test
     public void testDate1()throws Exception{
         final List<String> lines=new ArrayList<String>();
         lines.add("DATE            TIME            AMOUNT");
