@@ -47,11 +47,11 @@ public class MonthDayYear4Test {
 
     @Test
     public void invalidMonthWillReturnNull(){
-        assertNull(mdy4.parseNoSpaces("15/8/2014"));
+        assertNull(mdy4.parseWithSpaces("15/8/2014"));
     }
 
     @Test
     public void invalidDayWillReturnNull(){
-        assertNull(mdy4.parseNoSpaces("12/40/2014"));
+        assertNull(mdy4.parseWithSpaces("12/40/2014"));
     }
 }

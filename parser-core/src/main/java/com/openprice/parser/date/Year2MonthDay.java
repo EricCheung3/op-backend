@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.openprice.parser.date.ml.StringGeneralFeatures;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -21,10 +23,11 @@ public class Year2MonthDay implements DateParser{
 
 
     @Override
-    public LocalDate parseWithSpaces(String line) {
+    public LocalDateFeatures parseWithSpaces(String line) {
         final String dateString = DateParserUtils.pruneDateStringWithMatch(line, patternYear2MonthDay);
-        log.debug("dateString=" + dateString);
-        return parseToDate(dateString);
+//        log.debug("dateString=" + dateString);
+        final LocalDate localDate = parseToDate(dateString);
+        return new LocalDateFeatures(localDate, DateStringFormat.Year2MonthDay, dateString, StringGeneralFeatures.fromString(dateString));
     }
 
     private static LocalDate parseToDate(final String dateStr) {

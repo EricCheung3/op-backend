@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
@@ -579,6 +580,7 @@ public class DateParserUtilsTest {
     @Test
     public void testMonthDayYearInALineSpaces1(){
         final String str = " 3973 02782 05 051 46296                                     3 /05/16 11:16 ";
+//        final Map<DateStringFormat, LocalDateFeatures> map = DateParserUtils.allPossibleDatesInALine(str);
         assertEquals("2016/3/5", DateParserUtils.findDateInALine(str));
     }
 
@@ -614,6 +616,13 @@ public class DateParserUtilsTest {
     }
 
     @Test
+    public void testDate2A()throws Exception{
+        final String str = "DATE 03/ 06/ 2015                TIME 14 :49:48";
+        final Set<LocalDate> set = DateParserUtils.allPossibleDatesInALine(str);
+        log.debug("set ="+set);
+    }
+
+    @Test
     public void testDateFile1()throws Exception{
         final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/2015_02_09_11_34_51.jpg.hengshuai.txt"));
         assertEquals("2015/2/1", DateParserUtils.findDateInLinesAndSelect(lines, 0).getValue());
@@ -644,9 +653,21 @@ public class DateParserUtilsTest {
     }
 
     @Test
+    public void testSw1_Line(){
+        final String str = "DATE: 5/12/14 TIME: 12:55 0877 08 029L          b.";
+        assertEquals("2014/5/12", DateParserUtils.findDateInALine(str));
+    }
+
+    @Test
     public void testSw1(){
         final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/Safeway/2014_12_06_22_36_54.jpg.hengshuai.txt"));
         assertEquals("2014/5/12", DateParserUtils.findDateInLinesAndSelect(lines, 0).getValue());
+    }
+
+    @Test
+    public void testSw2_Line(){
+        final String str = "DATE: 2/01/14    TIME: 12:11 0877 08 0220 3645";
+        assertEquals("2014/2/1", DateParserUtils.findDateInALine(str));
     }
 
     @Test
@@ -939,7 +960,7 @@ public class DateParserUtilsTest {
     @Test
     public void pruneDateStringTest21ThisIsNotADate() throws Exception{
         final String line = "LD WEST EDMONTON MALL  780 9'1'1 '1526 ";
-        assertEquals("1526/1/1", DateParserUtils.findDateInALine(line));
+        assertEquals("2015/1/1", DateParserUtils.findDateInALine(line));
     }
 
 

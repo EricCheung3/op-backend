@@ -14,15 +14,19 @@ public class MonthDayYear2Test {
 
     private final MonthDayYear2 mdy2 = new MonthDayYear2();
 
-    public static ThreeStrings threeStrings(final LocalDate date){
+    public static ThreeStrings threeStrings(final LocalDate date) throws Exception{
+        if(date==null)
+            throw new Exception("parsed result is null");
         return new ThreeStrings(date.getYear()+"", date.getMonthValue()+"", date.getDayOfMonth()+"");
     }
     public static ThreeStrings threeStrings(final int a, final int b, final int c){
         return new ThreeStrings(a+"", b+"", c+"");
     }
 
-    public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(mdy2.parseWithSpaces(line));
+    public ThreeStrings parseToThreeStrings(final String line) throws Exception{
+        final LocalDateFeatures dateFeatures = mdy2.parseWithSpaces(line);
+        if(dateFeatures==null) return null;
+        return threeStrings(dateFeatures.getDate());
     }
 
     @Test
@@ -38,6 +42,39 @@ public class MonthDayYear2Test {
         assertEquals(threeStrings(2014, 5, 12), parseToThreeStrings("5/12/14a b ce"));
     }
 
+    @Test
+    public void monthDayYear2AfterNoisyNumbers1A() throws Exception{
+        final String str = " 3973 02782 05 051 46296                                     3 /05/ 16 11:16 ";
+//        assertEquals(threeStrings(2016, 3, 5), parseToThreeStrings(str));
+        LocalDateFeatures dateFeatures = mdy2.parseWithSpaces(str);
+        assertEquals(5, dateFeatures.getDate().getDayOfMonth());
+        assertEquals(2016, dateFeatures.getDate().getYear());
+        assertEquals(3, dateFeatures.getDate().getMonth());
+    }
+
+    @Test
+    public void monthDayYear2OneSpaceAfterNoisyNumbers2() throws Exception{
+        final String str = " 1 2 /05/ 16 11:16 ";
+        assertEquals(threeStrings(2016, 12, 5), parseToThreeStrings(str));
+    }
+
+    @Test
+    public void monthDayYear2TwoSpacesAfterNoisyNumbers3() throws Exception{
+        final String str = " 1  2 /05/ 16 11:16 ";
+        assertEquals(threeStrings(2016, 2, 5), parseToThreeStrings(str));
+    }
+
+    @Test
+    public void monthDayYear2ThreeSpacesAfterNoisyNumbers3() throws Exception{
+        final String str = " 1   2 /05/ 16 11:16 ";
+        assertEquals(threeStrings(2016, 2, 5), parseToThreeStrings(str));
+    }
+
+    @Test
+    public void monthDayYear2NoNoisyNumbersBefore() throws Exception{
+        final String str = " 12 /05/ 16 11:16 ";
+        assertEquals(threeStrings(2016, 12, 5), parseToThreeStrings(str));
+    }
 
     @Test
     public void patternMDY2TestDayHasTwoDigits() throws Exception{
@@ -56,7 +93,7 @@ public class MonthDayYear2Test {
 
     @Test
     public void invalidDateStringWillReturnNull() throws Exception{
-        assertNull(mdy2.parseNoSpaces("15/12/14a b ce"));
+        assertNull(mdy2.parseWithSpaces("15/12/14a b ce"));
     }
 
 

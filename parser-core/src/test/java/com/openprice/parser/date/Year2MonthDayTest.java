@@ -48,17 +48,17 @@ public class Year2MonthDayTest {
 
     @Test
     public void test2YearShouldHaveAtLeastTwoDigits(){
-        assertEquals(null, y2md.parseNoSpaces("5/03/14"));
+        assertEquals(null, y2md.parseWithSpaces("5/03/14"));
     }
 
     @Test
     public void invalidDayWillReturnNull(){
-        assertNull(y2md.parseNoSpaces("15/03/67"));
+        assertNull(y2md.parseWithSpaces("15/03/67"));
     }
 
     @Test
     public void invalidMonthWillReturnNull(){
-        assertNull(y2md.parseNoSpaces("15/13/6"));
+        assertNull(y2md.parseWithSpaces("15/13/6"));
     }
 
     @Test

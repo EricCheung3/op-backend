@@ -4,8 +4,12 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import lombok.Getter;
+import com.openprice.parser.date.ml.StringGeneralFeatures;
 
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class DayMonthYear2 implements DateParser{
 
     // day (one or two digits), month(one or two digits), 4-digit year
@@ -25,9 +29,10 @@ public class DayMonthYear2 implements DateParser{
 //      }
 
       @Override
-      public LocalDate parseWithSpaces(final String line) {
+      public LocalDateFeatures parseWithSpaces(final String line) {
           final String dateStr=DateParserUtils.pruneDateStringWithMatch(line, pattern);
-          return parseToDate(dateStr);
+          final LocalDate date = parseToDate(dateStr);
+          return new LocalDateFeatures(date, DateStringFormat.DayMonthYear2, dateStr, StringGeneralFeatures.fromString(dateStr));
       }
 
       private static LocalDate parseToDate(final String dateStr) {
@@ -35,6 +40,7 @@ public class DayMonthYear2 implements DateParser{
           if(mDY2.length < 3)
               return null;
           final List<String> cleanWords = DateParserUtils.getMeaningfulDateWords(mDY2);
+          log.debug("cleanWords="+cleanWords);
           return DateUtils.fromDayMonthYear(
                   cleanWords.get(0),
                   cleanWords.get(1),

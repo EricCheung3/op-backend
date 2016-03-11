@@ -132,6 +132,11 @@ public class Year4MonthDayTest {
     }
 
     @Test
+    public void twoDigitDay()throws Exception{
+        assertEquals(threeStrings(2014, 11, 25), parseToThreeStrings("2014/11/25"));
+    }
+
+    @Test
     public void patternY4MD2TestDayHasOneDigitsSpaceIsOkay()throws Exception{
         assertEquals(threeStrings(2014, 5, 1), parseToThreeStrings("abd 2 014 /5 /0  1 efre"));
     }

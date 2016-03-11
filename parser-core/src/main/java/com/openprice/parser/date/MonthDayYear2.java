@@ -4,6 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.openprice.parser.date.ml.StringGeneralFeatures;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MonthDayYear2 implements DateParser{
 
     //month(one or two digits) and day (one or two digits), 2-digit year
@@ -17,12 +22,19 @@ public class MonthDayYear2 implements DateParser{
 
 
     @Override
-    public LocalDate parseWithSpaces(String line) {
+    public LocalDateFeatures parseWithSpaces(String line) {
         final String dateStr=DateParserUtils.pruneDateStringWithMatch(line, patternMonthDayYear2);
-        return parseToDate(dateStr);
+        final LocalDate localDate = parseToDate(dateStr);
+        return new LocalDateFeatures(
+                        localDate,
+                        DateStringFormat.MonthDayYear2,
+                        dateStr,
+                        StringGeneralFeatures.fromString(dateStr)
+                        );
     }
 
     private static LocalDate parseToDate(final String dateStr) {
+        log.debug("dateStr="+dateStr);
         final String[] mDY2 = dateStr.split("[" + DateConstants.DATE_SPLITTERS +"]");
         if(mDY2.length < 3)
             return null;

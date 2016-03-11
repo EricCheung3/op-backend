@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -102,113 +104,98 @@ public class DateParserUtils {
         return DateUtils.localDateToString(localDate);
     }
 
+    //This can be implemented as ML
     public static LocalDate selectDateInALine(final List<String> lines, final int lineNumber){
-        final String str = lines.get(lineNumber);
-//        log.debug("line string is "+str+"\n");
-        LocalDate result = y4md.parseWithSpaces(str);
-        if(isGoodDateBestGuess(result)){
-            return result;
+        final Map<DateStringFormat, LocalDateFeatures> map = allPossibleDatesInALine(lines.get(lineNumber));
+        if(map.containsKey(DateStringFormat.Year4MonthDay)){
+            return map.get(DateStringFormat.Year4MonthDay).getDate();
         }
 
-        result = mdy4.parseWithSpaces(str);
-        if(isGoodDateBestGuess(result)){
-            return result;
+        if(map.containsKey(DateStringFormat.MonthDayYear4)){
+            return map.get(DateStringFormat.MonthDayYear4).getDate();
         }
 
-        result = mdy2.parseWithSpaces(str);
-        if(isGoodDateBestGuess(result)){
-            return result;
+        if(map.containsKey(DateStringFormat.MonthDayYear2)){
+            return map.get(DateStringFormat.MonthDayYear2).getDate();
         }
 
-        result = y2md.parseWithSpaces(str);
-        if(isGoodDateBestGuess(result)){
-            return result;
+        if(map.containsKey(DateStringFormat.Year2MonthDay)){
+            return map.get(DateStringFormat.Year2MonthDay).getDate();
         }
 
-        result = dmy4.parseWithSpaces(str);
-        if(isGoodDateBestGuess(result)){
-            return result;
+        if(map.containsKey(DateStringFormat.MonthDayYear2)){
+            return map.get(DateStringFormat.MonthDayYear2).getDate();
         }
 
-        result = dmy2.parseWithSpaces(str);
-        if(isGoodDateBestGuess(result)){
-            return result;
+        if(map.containsKey(DateStringFormat.LiteralMonthDayYear4)){
+            return map.get(DateStringFormat.LiteralMonthDayYear4).getDate();
         }
 
-        result = mdy2.parseWithSpaces(str);
-        if(isGoodDateBestGuess(result)){
-            log.debug("found mDY2 format with space."+result+"\n");
-            return result;
-        }
-
-        result=literalmdy4.parseWithSpaces(str);
-        if(isGoodDateBestGuess(result)){
-            log.debug("found literalMonthDayYear4 format with space."+result);
-            return result;
-        }
-
-        result=literalmdy2.parseWithSpaces(str);
-        if(isGoodDateBestGuess(result)){
-            log.debug("found literalMonthDayYear2 format with space."+result);
-            return result;
+        if(map.containsKey(DateStringFormat.LiteralMonthDayYear2)){
+            return map.get(DateStringFormat.LiteralMonthDayYear2).getDate();
         }
 
         log.debug("not date pattern is matched.");
         return null;
     }
 
-    public static List<LocalDate> allPossibleDatesInALine(final List<String> lines, final int lineNumber){
-        final List<LocalDate> result = new ArrayList<>();
-        final String str = lines.get(lineNumber);
+    public static Map<DateStringFormat, LocalDateFeatures> allPossibleDatesInALine(final String str){
+        final Map<DateStringFormat, LocalDateFeatures> result = new HashMap<>();
 //        log.debug("line string is "+str+"\n");
-        LocalDate date = y4md.parseWithSpaces(str);
-        if(isGoodDateBestGuess(date)){
-            result.add(date);
+        LocalDateFeatures dateFeatures = y4md.parseWithSpaces(str);
+        if(dateFeatures !=null &&  isGoodDateBestGuess(dateFeatures.getDate())){
+            log.debug("y4md:" + dateFeatures.getDate());
+            result.put(DateStringFormat.Year4MonthDay, dateFeatures);
         }
 
-        date = mdy4.parseWithSpaces(str);
-        if(isGoodDateBestGuess(date)){
-            result.add(date);
+        dateFeatures =  mdy4.parseWithSpaces(str);
+        if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
+            log.debug("mdy4:"+dateFeatures.getDate());
+            result.put(DateStringFormat.MonthDayYear4, dateFeatures);
         }
 
-        date = mdy2.parseWithSpaces(str);
-        if(isGoodDateBestGuess(date)){
-            result.add(date);
+        dateFeatures =  mdy2.parseWithSpaces(str);
+        if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
+            log.debug("mdy2:"+dateFeatures.getDate());
+            result.put(DateStringFormat.LiteralMonthDayYear2, dateFeatures);
         }
 
-        date = y2md.parseWithSpaces(str);
-        if(isGoodDateBestGuess(date)){
-            result.add(date);
+        dateFeatures =  y2md.parseWithSpaces(str);
+        if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
+            log.debug("y2md:"+dateFeatures.getDate());
+            result.put(DateStringFormat.Year2MonthDay, dateFeatures);
         }
 
-        date = dmy4.parseWithSpaces(str);
-        if(isGoodDateBestGuess(date)){
-            result.add(date);
+        dateFeatures =  dmy4.parseWithSpaces(str);
+        if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
+            log.debug("dmy4:"+dateFeatures.getDate());
+            result.put(DateStringFormat.DayMonthYear4, dateFeatures);
         }
 
-        date = dmy2.parseWithSpaces(str);
-        if(isGoodDateBestGuess(date)){
-            result.add(date);
+        dateFeatures =  dmy2.parseWithSpaces(str);
+        if(dateFeatures !=null &&  isGoodDateBestGuess(dateFeatures.getDate())){
+            log.debug("dmy2:"+dateFeatures.getDate());
+            result.put(DateStringFormat.DayMonthYear2, dateFeatures);
         }
 
-        date = mdy2.parseWithSpaces(str);
-        if(isGoodDateBestGuess(date)){
-            log.debug("found mDY2 format with space."+result+"\n");
-            return result;
+        dateFeatures =  mdy2.parseWithSpaces(str);
+        if(dateFeatures !=null &&  isGoodDateBestGuess(dateFeatures.getDate())){
+            log.debug("mdy2:"+dateFeatures.getDate());
+            result.put(DateStringFormat.MonthDayYear2, dateFeatures);
         }
 
-        date=literalmdy4.parseWithSpaces(str);
-        if(isGoodDateBestGuess(date)){
-            result.add(date);
+        dateFeatures = literalmdy4.parseWithSpaces(str);
+        if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
+            log.debug("literalmdy4:"+dateFeatures.getDate());
+            result.put(DateStringFormat.LiteralMonthDayYear4, dateFeatures);
         }
 
-        date=literalmdy2.parseWithSpaces(str);
-        if(isGoodDateBestGuess(date)){
-            result.add(date);
+        dateFeatures = literalmdy2.parseWithSpaces(str);
+        if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
+            log.debug("literalmdy2:"+dateFeatures.getDate());
+            result.put(DateStringFormat.LiteralMonthDayYear2, dateFeatures);
         }
-
-        log.debug("not date pattern is matched.");
-        return null;
+        return result;
     }
 
     public static boolean isGoodDateBestGuess(final LocalDate date) {
@@ -235,8 +222,8 @@ public class DateParserUtils {
      * @return
      */
     public static String selectDateString(final List<String> list){
-        log.debug("all date strings are:\n");
-        list.forEach(str->log.debug(str+"\n"));
+//        log.debug("all date strings are:\n");
+//        list.forEach(str->log.debug(str+"\n"));
         return list.get(0);
     }
 

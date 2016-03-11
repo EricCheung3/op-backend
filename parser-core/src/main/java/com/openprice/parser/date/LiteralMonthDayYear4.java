@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.openprice.common.StringCommon;
+import com.openprice.parser.date.ml.StringGeneralFeatures;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,21 +37,22 @@ public class LiteralMonthDayYear4 implements DateParser{
           + "(?:19[7-9]\\d|2\\d{3})(?=\\D|$)");
 
     @Override
-    public LocalDate parseWithSpaces(String origLine) {
+    public LocalDateFeatures parseWithSpaces(String origLine) {
         final String literalMDY4 = DateParserUtils.pruneDateStringWithMatch(origLine,
                 patternLiteralMonthDayYear4);
         final List<String> words = literalMonthDayYearSplit(literalMDY4);
-        log.debug("words.size()="+words.size());
-        for(String str: words)
-            log.debug(str);
+//        log.debug("words.size()="+words.size());
+//        for(String str: words)
+//            log.debug(str);
         if(words.size() < 3)
             return null;
         try{
-            return DateUtils.fromDayMonthYear(
+            LocalDate date = DateUtils.fromDayMonthYear(
                     words.get(1),
                     DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
                     words.get(2)
                     );
+            return new LocalDateFeatures(date, DateStringFormat.LiteralMonthDayYear4, literalMDY4, StringGeneralFeatures.fromString(literalMDY4));
         }catch(Exception e){
             log.warn(e.getMessage());
         }
@@ -62,7 +64,7 @@ public class LiteralMonthDayYear4 implements DateParser{
 //      final String[] words = dateString.split("-|_|\\.|\\s+");//not correct. only one dilimiter is selected
 //      http://stackoverflow.com/questions/3654446/java-regex-help-splitting-string-on-spaces-and-commas
       final String[] words = dateString.split("\\s*(\\.|_|-|,|\\s|’|')\\s*");
-      log.debug("dateString="+dateString+", words.length="+words.length);
+//      log.debug("dateString="+dateString+", words.length="+words.length);
       final List<String> list = new ArrayList<>();
       for(String w : words){
           if(w.length()==1

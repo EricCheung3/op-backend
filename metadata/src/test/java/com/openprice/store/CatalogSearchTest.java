@@ -50,6 +50,15 @@ public class CatalogSearchTest {
     }
 
     @Test
+    public void findMatchingStoreChainByNameTest_H_AllStartsWithH() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+        List<StoreChain> result = metadata.findMatchingStoreChainByName("H", 10);
+        result.stream().forEach( c -> System.out.println(c.getName()));
+        assertTrue(result.size() > 0);
+        assertTrue(result.stream().anyMatch(c -> c.getName().toLowerCase().startsWith("h")));
+    }
+
+    @Test
     public void findMatchingStoreChainByNameTest_f_AllStartsWithf() throws Exception {
         StoreMetadata metadata = MetadataLoader.loadMetadata();
         List<StoreChain> result = metadata.findMatchingStoreChainByName("f", 10);

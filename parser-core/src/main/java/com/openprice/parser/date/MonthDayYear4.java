@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.openprice.parser.date.ml.StringGeneralFeatures;
+
 /**
  * "month day year (4-digit)" format
  *  month and day could one or two digits
@@ -18,9 +20,10 @@ public class MonthDayYear4 implements DateParser{
             +Year4MonthDay.YEAR_4_PATTERN);
 
     @Override
-    public LocalDate parseWithSpaces(String line) {
+    public LocalDateFeatures parseWithSpaces(String line) {
         final String mdy4 = DateParserUtils.pruneDateStringWithMatch(line, patternMonthDayYear4);
-        return parseToDate(mdy4);
+        final LocalDate localDate = parseToDate(mdy4);
+        return new LocalDateFeatures(localDate, DateStringFormat.MonthDayYear4, mdy4, StringGeneralFeatures.fromString(mdy4));
     }
 
     private static LocalDate parseToDate(final String mdy4) {
