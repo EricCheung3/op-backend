@@ -14,6 +14,12 @@ public class MonthDayYear2Test {
 
     private final MonthDayYear2 mdy2 = new MonthDayYear2();
 
+    public static void verify(final LocalDateFeatures features, final ThreeStrings three){
+        assertEquals(three.getFirst(), features.getDate().getYear()+"");
+        assertEquals(three.getSecond(), features.getDate().getMonthValue()+"");
+        assertEquals(three.getThird(), features.getDate().getDayOfMonth()+"");
+    }
+
     public static ThreeStrings threeStrings(final LocalDate date) throws Exception{
         if(date==null)
             throw new Exception("parsed result is null");
@@ -47,6 +53,7 @@ public class MonthDayYear2Test {
         final String str = " 3973 02782 05 051 46296                                     3 /05/ 16 11:16 ";
 //        assertEquals(threeStrings(2016, 3, 5), parseToThreeStrings(str));
         LocalDateFeatures dateFeatures = mdy2.parseWithSpaces(str);
+        verify(dateFeatures, threeStrings(2016,3,5));
         assertEquals(5, dateFeatures.getDate().getDayOfMonth());
         assertEquals(2016, dateFeatures.getDate().getYear());
         assertEquals(3, dateFeatures.getDate().getMonthValue());

@@ -4,13 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.openprice.parser.date.ml.StringGeneralFeatures;
-
 /**
  * "month day year (4-digit)" format
  *  month and day could one or two digits
  */
-public class MonthDayYear4 implements DateParser{
+public class MonthDayYear4 extends MonthDayYear{
 
     private static Pattern patternMonthDayYear4 = Pattern.compile(
             Year4MonthDay.DAY_MONTH_PATTERN
@@ -21,17 +19,11 @@ public class MonthDayYear4 implements DateParser{
 
     @Override
     public LocalDateFeatures parseWithSpaces(String line) {
-        final String mdy4 = DateParserUtils.pruneDateStringWithMatch(line, patternMonthDayYear4);
-        final LocalDate localDate = parseToDate(mdy4);
-        return new LocalDateFeatures(
-                localDate,
-                DateStringFormat.MonthDayYear4,
-                mdy4,
-                StringGeneralFeatures.fromString(mdy4),
-                DateStringFeatures.fromString(mdy4));
+        return selectAccordingToWideSpace(line, patternMonthDayYear4, DateStringFormat.MonthDayYear4);
     }
 
-    private static LocalDate parseToDate(final String mdy4) {
+    @Override
+    public LocalDate parseToDate(final String mdy4) {
         final String[] mdy4Splits = mdy4.split("[" + DateConstants.DATE_SPLITTERS +"]");
         if(mdy4Splits.length < 3)
             return null;
