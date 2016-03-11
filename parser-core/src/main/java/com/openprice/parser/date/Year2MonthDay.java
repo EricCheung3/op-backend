@@ -27,7 +27,12 @@ public class Year2MonthDay implements DateParser{
         final String dateString = DateParserUtils.pruneDateStringWithMatch(line, patternYear2MonthDay);
 //        log.debug("dateString=" + dateString);
         final LocalDate localDate = parseToDate(dateString);
-        return new LocalDateFeatures(localDate, DateStringFormat.Year2MonthDay, dateString, StringGeneralFeatures.fromString(dateString));
+        return new LocalDateFeatures(
+                localDate,
+                DateStringFormat.Year2MonthDay,
+                dateString,
+                StringGeneralFeatures.fromString(dateString),
+                DateStringFeatures.fromString(dateString));
     }
 
     private static LocalDate parseToDate(final String dateStr) {

@@ -32,7 +32,14 @@ public class DayMonthYear2 implements DateParser{
       public LocalDateFeatures parseWithSpaces(final String line) {
           final String dateStr=DateParserUtils.pruneDateStringWithMatch(line, pattern);
           final LocalDate date = parseToDate(dateStr);
-          return new LocalDateFeatures(date, DateStringFormat.DayMonthYear2, dateStr, StringGeneralFeatures.fromString(dateStr));
+          return new LocalDateFeatures(
+                  date,
+                  DateStringFormat.
+                  DayMonthYear2,
+                  dateStr,
+                  StringGeneralFeatures.fromString(dateStr),
+                  DateStringFeatures.fromString(dateStr)
+                  );
       }
 
       private static LocalDate parseToDate(final String dateStr) {

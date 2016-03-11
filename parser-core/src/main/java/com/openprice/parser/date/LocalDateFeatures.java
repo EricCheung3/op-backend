@@ -17,5 +17,7 @@ public class LocalDateFeatures {
     final DateStringFormat format;
 
     final String dateString;//date string from which the date is parsed
-    final StringGeneralFeatures dateStringFeatures;
+    final StringGeneralFeatures dateStringGeneralFeatures;
+    final DateStringFeatures dateStringFeatures;
+
 }

@@ -24,13 +24,36 @@ public class MonthDayYear2 implements DateParser{
     @Override
     public LocalDateFeatures parseWithSpaces(String line) {
         final String dateStr=DateParserUtils.pruneDateStringWithMatch(line, patternMonthDayYear2);
-        final LocalDate localDate = parseToDate(dateStr);
-        return new LocalDateFeatures(
-                        localDate,
-                        DateStringFormat.MonthDayYear2,
-                        dateStr,
-                        StringGeneralFeatures.fromString(dateStr)
-                        );
+        final LocalDateFeatures fromWholeString = parseToFeatures(dateStr);
+//        log.debug("localDate="+localDate);
+        if(fromWholeString != null && !fromWholeString.getDateStringFeatures().isContainsWideSpace()){
+           log.warn("parsing from whole string success.");
+           return fromWholeString;
+        }
+        final DateStringFeatures wholeStringFeatures = DateStringFeatures.fromString(dateStr);
+        final LocalDateFeatures fromBeforeSpace = parseToFeatures(wholeStringFeatures.getBeforeWideSpace());
+        if(fromBeforeSpace != null){
+            log.warn("parsing from before string success.");
+            return fromBeforeSpace;
+        }
+        final LocalDateFeatures fromAfterSpace = parseToFeatures(wholeStringFeatures.getAfterWideSpace());
+//        if(fromAfterSpace != null){
+            log.warn("parsing from after string success.");
+//        }
+        return fromAfterSpace;
+    }
+
+    public static LocalDateFeatures parseToFeatures(final String str){
+        final LocalDate date = parseToDate(str);
+        if(date != null)
+            return new LocalDateFeatures(
+                date,
+                DateStringFormat.MonthDayYear2,
+                str,
+                StringGeneralFeatures.fromString(str),
+                DateStringFeatures.fromString(str)
+                );
+        return null;
     }
 
     private static LocalDate parseToDate(final String dateStr) {

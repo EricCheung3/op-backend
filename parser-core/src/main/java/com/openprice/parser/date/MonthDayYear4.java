@@ -23,7 +23,12 @@ public class MonthDayYear4 implements DateParser{
     public LocalDateFeatures parseWithSpaces(String line) {
         final String mdy4 = DateParserUtils.pruneDateStringWithMatch(line, patternMonthDayYear4);
         final LocalDate localDate = parseToDate(mdy4);
-        return new LocalDateFeatures(localDate, DateStringFormat.MonthDayYear4, mdy4, StringGeneralFeatures.fromString(mdy4));
+        return new LocalDateFeatures(
+                localDate,
+                DateStringFormat.MonthDayYear4,
+                mdy4,
+                StringGeneralFeatures.fromString(mdy4),
+                DateStringFeatures.fromString(mdy4));
     }
 
     private static LocalDate parseToDate(final String mdy4) {

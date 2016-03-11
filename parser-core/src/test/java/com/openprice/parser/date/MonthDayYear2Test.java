@@ -49,7 +49,7 @@ public class MonthDayYear2Test {
         LocalDateFeatures dateFeatures = mdy2.parseWithSpaces(str);
         assertEquals(5, dateFeatures.getDate().getDayOfMonth());
         assertEquals(2016, dateFeatures.getDate().getYear());
-        assertEquals(3, dateFeatures.getDate().getMonth());
+        assertEquals(3, dateFeatures.getDate().getMonthValue());
     }
 
     @Test
@@ -61,12 +61,24 @@ public class MonthDayYear2Test {
     @Test
     public void monthDayYear2TwoSpacesAfterNoisyNumbers3() throws Exception{
         final String str = " 1  2 /05/ 16 11:16 ";
-        assertEquals(threeStrings(2016, 2, 5), parseToThreeStrings(str));
+        assertEquals(threeStrings(2016, 12, 5), parseToThreeStrings(str));
     }
 
     @Test
     public void monthDayYear2ThreeSpacesAfterNoisyNumbers3() throws Exception{
         final String str = " 1   2 /05/ 16 11:16 ";
+        assertEquals(threeStrings(2016, 12, 5), parseToThreeStrings(str));
+    }
+
+    @Test
+    public void monthDayYear2FourSpacesAfterNoisyNumbers3() throws Exception{
+        final String str = " 1    2 /05/ 16 11:16 ";
+        assertEquals(threeStrings(2016, 2, 5), parseToThreeStrings(str));
+    }
+
+    @Test
+    public void monthDayYear2FiveSpacesAfterNoisyNumbers3() throws Exception{
+        final String str = " 1     2 /05/ 16 11:16 ";
         assertEquals(threeStrings(2016, 2, 5), parseToThreeStrings(str));
     }
 

@@ -50,7 +50,12 @@ public class LiteralMonthDayYear2 implements DateParser{
                     DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
                     "20" + words.get(2)
                     );
-            return new LocalDateFeatures(date, DateStringFormat.LiteralMonthDayYear2, literalMDY2, StringGeneralFeatures.fromString(literalMDY2));
+            return new LocalDateFeatures(
+                    date,
+                    DateStringFormat.LiteralMonthDayYear2,
+                    literalMDY2,
+                    StringGeneralFeatures.fromString(literalMDY2),
+                    DateStringFeatures.fromString(literalMDY2));
         }catch(Exception e){
             log.warn(e.getMessage());
         }

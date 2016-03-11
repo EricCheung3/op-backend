@@ -35,7 +35,12 @@ public class Year4MonthDay implements DateParser{
         final String y4MD = DateParserUtils.pruneDateStringWithMatch(line, patternYear4MonthDay);
         log.debug("y4MD="+y4MD);
         final LocalDate localDate = parseToDate(y4MD);
-        return new LocalDateFeatures(localDate, DateStringFormat.Year4MonthDay, y4MD, StringGeneralFeatures.fromString(y4MD));
+        return new LocalDateFeatures(
+                localDate,
+                DateStringFormat.Year4MonthDay,
+                y4MD,
+                StringGeneralFeatures.fromString(y4MD),
+                DateStringFeatures.fromString(y4MD));
     }
 
     private static LocalDate parseToDate(final String y4MD ) {

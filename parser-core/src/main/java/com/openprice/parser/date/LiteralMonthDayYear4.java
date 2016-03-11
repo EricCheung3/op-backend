@@ -52,7 +52,12 @@ public class LiteralMonthDayYear4 implements DateParser{
                     DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
                     words.get(2)
                     );
-            return new LocalDateFeatures(date, DateStringFormat.LiteralMonthDayYear4, literalMDY4, StringGeneralFeatures.fromString(literalMDY4));
+            return new LocalDateFeatures(
+                    date,
+                    DateStringFormat.LiteralMonthDayYear4,
+                    literalMDY4,
+                    StringGeneralFeatures.fromString(literalMDY4),
+                    DateStringFeatures.fromString(literalMDY4));
         }catch(Exception e){
             log.warn(e.getMessage());
         }
