@@ -63,7 +63,48 @@ public class MonthDayYear4Test {
     }
 
     @Test
-    public void wideSpaceBefore() throws Exception {
+    public void fiveSpaceBefore() throws Exception {
         assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("1     5/8/2014     133"));
+    }
+
+    @Test
+    public void fourSpaceBefore() throws Exception {
+        assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("1    5/8/2014     133"));
+    }
+
+    @Test
+    public void fourSpaceBefore2() throws Exception {
+        assertEquals(threeStrings(2014, 2, 8), parseToThreeStrings("1    2/8/2014     133"));
+    }
+
+    @Test
+    public void threeSpaceBefore2() throws Exception {
+        assertEquals(threeStrings(2014, 12, 8), parseToThreeStrings("1   2/8/2014     133"));
+    }
+
+    @Test
+    public void twoSpaceBefore2() throws Exception {
+        assertEquals(threeStrings(2014, 12, 8), parseToThreeStrings("1  2/8/2014     133"));
+    }
+
+    @Test
+    public void oneSpaceBefore1() throws Exception {
+        assertEquals(threeStrings(2014, 12, 8), parseToThreeStrings("1 2/8/2014     133"));
+    }
+
+//    @Test
+//    public void threeSpacesBefore() throws Exception {
+//        assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("1   5/8/2014     133"));
+//    }
+
+    //TODO this makes sense to pass
+//    @Test
+//    public void twoSpacesBefore() throws Exception {
+//        assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("1  5/8/2014     133"));
+//    }
+
+    @Test(expected = Exception.class)
+    public void noSpacesBefore() throws Exception {
+        assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("15/8/2014     133"));
     }
 }
