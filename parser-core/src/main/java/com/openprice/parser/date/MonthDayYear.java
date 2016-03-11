@@ -45,6 +45,28 @@ public abstract class MonthDayYear implements DateParser{
 //        if(fromAfterSpace != null){
             log.warn("parsing from after string success.");
 //        }
+        if(fromAfterSpace == null) {
+            final String[] words = dateStr.split("\\s+");
+            for(String w: words) {
+                final LocalDateFeatures features = selectAccordingToSpace(w, pattern, format);
+                if(features != null) {
+                    return features;
+                }
+            }
+        }
         return fromAfterSpace;
+    }
+
+    public LocalDateFeatures selectAccordingToSpace(final String str,
+            final Pattern pattern,
+            final DateStringFormat format) {
+        final String dateStr=DateParserUtils.pruneDateStringWithMatch(str, pattern);
+        final LocalDateFeatures fromWholeString = parseToFeatures(dateStr, format);
+//        log.debug("localDate="+localDate);
+        if(fromWholeString != null){
+           log.warn("parsing from whole string success.");
+           return fromWholeString;
+        }
+        return null;
     }
 }

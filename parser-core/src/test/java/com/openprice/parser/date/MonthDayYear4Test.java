@@ -92,16 +92,15 @@ public class MonthDayYear4Test {
         assertEquals(threeStrings(2014, 12, 8), parseToThreeStrings("1 2/8/2014     133"));
     }
 
-//    @Test
-//    public void threeSpacesBefore() throws Exception {
-//        assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("1   5/8/2014     133"));
-//    }
+    @Test
+    public void threeSpacesBefore() throws Exception {
+        assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("1   5/8/2014     133"));
+    }
 
-    //TODO this makes sense to pass
-//    @Test
-//    public void twoSpacesBefore() throws Exception {
-//        assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("1  5/8/2014     133"));
-//    }
+    @Test
+    public void twoSpacesBefore() throws Exception {
+        assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("1  5/8/2014     133"));
+    }
 
     @Test(expected = Exception.class)
     public void noSpacesBefore() throws Exception {

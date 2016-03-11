@@ -21,7 +21,7 @@ public class DayMonthYear4Test {
     }
 
     public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(dmy4.parseWithSpaces(line));
+        return threeStrings(dmy4.parseWithSpaces(line).getDate());
     }
     @Test
     public void testPattern(){
@@ -54,5 +54,9 @@ public class DayMonthYear4Test {
         assertEquals(threeStrings(2015, 5, 3), parseToThreeStrings("3 / 5 /2 0   15 sdfs "));
     }
 
-
+    @Test
+    public void fromLucky99()throws Exception{
+        final String fromLucky99 = "DATE: 23/05/2015 TIME: 5:02:29 PM               HUA";
+        assertEquals(threeStrings(2015, 5, 23), parseToThreeStrings(fromLucky99));
+    }
 }

@@ -123,6 +123,14 @@ public class DateParserUtils {
             return map.get(DateStringFormat.Year2MonthDay).getDate();
         }
 
+        if(map.containsKey(DateStringFormat.DayMonthYear4)){
+            return map.get(DateStringFormat.DayMonthYear4).getDate();
+        }
+
+        if(map.containsKey(DateStringFormat.DayMonthYear2)){
+            return map.get(DateStringFormat.DayMonthYear2).getDate();
+        }
+
         if(map.containsKey(DateStringFormat.MonthDayYear2)){
             return map.get(DateStringFormat.MonthDayYear2).getDate();
         }

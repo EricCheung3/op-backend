@@ -115,5 +115,24 @@ public class MonthDayYear2Test {
         assertNull(mdy2.parseWithSpaces("15/12/14a b ce"));
     }
 
+    @Test
+    public void twoSpacesBefore() throws Exception{
+        assertEquals(threeStrings(2014, 6, 15), parseToThreeStrings("01429 140 5102 4619352  6/15/14    5:06P"));
+    }
+
+    @Test
+    public void oneSpacesBefore() throws Exception{
+        assertEquals(threeStrings(2014, 6, 15), parseToThreeStrings("01429 140 5102 4619352 6/15/14    5:06P"));
+    }
+
+    @Test
+    public void noSpacesBefore() throws Exception{
+        assertEquals(null, parseToThreeStrings("01429 140 5102 46193526/15/14    5:06P"));
+    }
+
+    @Test
+    public void noSpacesBeforeA() throws Exception{
+        assertEquals(threeStrings(2014, 6, 15), parseToThreeStrings("01429 140 5102 46193506/15/14    5:06P"));
+    }
 
 }

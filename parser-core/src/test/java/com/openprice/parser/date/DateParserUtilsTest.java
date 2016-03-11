@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
@@ -444,17 +443,17 @@ public class DateParserUtilsTest {
     @Test
     public void yearMonthDayTest5() throws Exception{
         final String searsVariant = "01429 15~ 7913 4606631  1  5/  0  3/1  2             6:04P";
-//        assertEquals("2015/3/12", DateParserUtils.findDateInALine(searsVariant));
+        assertEquals("2015/3/12", DateParserUtils.findDateInALine(searsVariant));
 //        assertEquals("2012/5/3", DateParserUtils.findDateInALine(searsVariant));
-        assertEquals("2012/3/15", DateParserUtils.findDateInALine(searsVariant));
+//        assertEquals("2012/3/15", DateParserUtils.findDateInALine(searsVariant));
     }
 
     @Test
     public void yearMonthDayTest6() throws Exception{
         final String searsVariant = "01429 15~ 7913 46066311  5/  0  3/1  2             6:04P";
-//        assertEquals("2015/3/12", DateParserUtils.findDateInALine(searsVariant));
+        assertEquals("2015/3/12", DateParserUtils.findDateInALine(searsVariant));
 //        assertEquals("2012/5/3", DateParserUtils.findDateInALine(searsVariant));
-        assertEquals("2012/3/15", DateParserUtils.findDateInALine(searsVariant));
+//        assertEquals("2012/3/15", DateParserUtils.findDateInALine(searsVariant));
     }
 
     @Test
@@ -615,12 +614,12 @@ public class DateParserUtilsTest {
         assertEquals("2015/3/6", DateParserUtils.findDateInLinesAndSelect(lines, 0).getValue());
     }
 
-    @Test
-    public void testDate2A()throws Exception{
-        final String str = "DATE 03/ 06/ 2015                TIME 14 :49:48";
-        final Set<LocalDate> set = DateParserUtils.allPossibleDatesInALine(str);
-        log.debug("set ="+set);
-    }
+//    @Test
+//    public void testDate2A()throws Exception{
+//        final String str = "DATE 03/ 06/ 2015                TIME 14 :49:48";
+//        final Set<LocalDate> set = DateParserUtils.allPossibleDatesInALine(str);
+//        log.debug("set ="+set);
+//    }
 
     @Test
     public void testDateFile1()throws Exception{

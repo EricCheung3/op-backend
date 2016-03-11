@@ -20,7 +20,7 @@ public class Year4MonthDayTest {
     }
 
     public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(y4MD.parseWithSpaces(line));
+        return threeStrings(y4MD.parseWithSpaces(line).getDate());
     }
 
     @Test
@@ -140,5 +140,9 @@ public class Year4MonthDayTest {
     public void patternY4MD2TestDayHasOneDigitsSpaceIsOkay()throws Exception{
         assertEquals(threeStrings(2014, 5, 1), parseToThreeStrings("abd 2 014 /5 /0  1 efre"));
     }
+
+
+
+
 
 }
