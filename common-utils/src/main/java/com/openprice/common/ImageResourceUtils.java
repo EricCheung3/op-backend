@@ -29,14 +29,13 @@ public class ImageResourceUtils {
 
         try (final InputStream is = new ByteArrayInputStream(content)) {
             final BufferedImage inputImage = ImageIO.read(is);
-            if (inputImage.getWidth() > 512) {
-                final float scale = inputImage.getWidth() / 512.0f;
+            if (inputImage.getWidth() > 720) {
+                final float scale = inputImage.getWidth() / 720.0f;
                 final int width = (int)(inputImage.getWidth() / scale);
                 final int height = (int)(inputImage.getHeight() / scale);
                 final BufferedImage outputImage = new BufferedImage(width, height, inputImage.getType());
                 final Graphics2D g2d = outputImage.createGraphics();
-                g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED); // prefer speed
-                g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE); // disable dithering
+                g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
                 g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
                 g2d.drawImage(inputImage, 0, 0, width, height, null);
                 g2d.dispose();
