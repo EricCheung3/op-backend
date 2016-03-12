@@ -65,7 +65,7 @@ public class DateParserUtils {
                     +words[1];
             }
         }
-        log.debug("yMD="+yMD);
+//        log.debug("yMD="+yMD);
 //        log.debug("parsing using simpledateformatter: "+SIMPLE_DATE_FORMATTER.parse(yMD));
         result = LocalDate.parse(yMD, DATE_FORMATTER);//cannot handle single digit month or day
         if(DateUtils.getToday().isBefore(result)) //prefer a parsed date that is before yesterday

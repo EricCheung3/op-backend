@@ -21,7 +21,7 @@ public class DayMonthYear2Test {
             allMatches.add(match.group());
         }
         assertEquals(1, allMatches.size());
-        assertEquals("25/01/15 ", allMatches.get(0));
+        assertEquals(" 25/01/15 ", allMatches.get(0));
     }
 
 }

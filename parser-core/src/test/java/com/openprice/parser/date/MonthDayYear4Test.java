@@ -79,17 +79,17 @@ public class MonthDayYear4Test {
 
     @Test
     public void threeSpaceBefore2() throws Exception {
-        assertEquals(threeStrings(2014, 12, 8), parseToThreeStrings("1   2/8/2014     133"));
+        assertEquals(threeStrings(2014, 2, 8), parseToThreeStrings("1   2/8/2014     133"));
     }
 
     @Test
     public void twoSpaceBefore2() throws Exception {
-        assertEquals(threeStrings(2014, 12, 8), parseToThreeStrings("1  2/8/2014     133"));
+        assertEquals(threeStrings(2014, 2, 8), parseToThreeStrings("1  2/8/2014     133"));
     }
 
     @Test
     public void oneSpaceBefore1() throws Exception {
-        assertEquals(threeStrings(2014, 12, 8), parseToThreeStrings("1 2/8/2014     133"));
+        assertEquals(threeStrings(2014, 2, 8), parseToThreeStrings("1 2/8/2014     133"));
     }
 
     @Test
