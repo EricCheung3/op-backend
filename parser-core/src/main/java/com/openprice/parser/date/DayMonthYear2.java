@@ -20,12 +20,6 @@ public class DayMonthYear2 implements DateParser{
              Year2MonthDay.YEAR_2_PATTERN
              );
 
-//      @Override
-//      public LocalDate parseNoSpaces(final String line) {
-//          final String dateStr=DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line), pattern);
-//          return parseToDate(dateStr);
-//      }
-
       @Override
       public LocalDateFeatures parseWithSpaces(final String line) {
           final String dateStr=DateParserUtils.pruneDateStringWithMatch(line, pattern);

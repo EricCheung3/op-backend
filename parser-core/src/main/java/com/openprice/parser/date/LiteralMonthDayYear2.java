@@ -15,7 +15,7 @@ import com.openprice.parser.date.ml.StringGeneralFeatures;
  */
 public class LiteralMonthDayYear2 implements DateParser{
 
-    //format like "Feb 9, 2015"
+    //format like "OCT.08’ 15"
     //http://stackoverflow.com/questions/2655476/regex-to-match-month-name-followed-by-year
     private static Pattern patternLiteralMonthDayYear4=Pattern.compile(
             "\\b(?:Jan(?:uary)?|Feb(?:ruary)?||Mar(?:ch)?||Apr(?:il)?||May?"

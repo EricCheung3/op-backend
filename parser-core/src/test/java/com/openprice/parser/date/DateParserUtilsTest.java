@@ -374,7 +374,7 @@ public class DateParserUtilsTest {
     }
 
     @Test
-    public void RespectSpaceShouldFind2AsMonthTwoSpaceBeforeDateString() throws Exception{
+    public void respectSpaceShouldFind2AsMonthTwoSpaceBeforeDateString() throws Exception{
         final String line = "01429 15~ 7913 4606631  2/3/13             6:04P";
         assertEquals("2013/2/3", DateParserUtils.findDateInALine(line));
     }

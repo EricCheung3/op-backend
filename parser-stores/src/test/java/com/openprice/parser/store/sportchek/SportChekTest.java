@@ -25,7 +25,6 @@ import com.openprice.parser.store.AbstractReceiptParserIntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SportChekTest extends AbstractReceiptParserIntegrationTest {
 
-
     @Value("classpath:/testfiles/sportchek/phone/hufeb24.txt")
     private Resource receipt_HuFeb24;
 

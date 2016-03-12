@@ -8,5 +8,4 @@ public interface DateParser {
 
     LocalDateFeatures parseWithSpaces(String line);
 
-//    LocalDate parseNoSpaces(String lineWithNoSpace);
 }
