@@ -110,6 +110,12 @@ public class MonthDayYear2Test {
 //    }
 
     @Test
+    public void RespectSpaceShouldFind2AsMonthTwoSpaceBeforeDateString() throws Exception{
+        final String line = "01429 15~ 7913 4606631  2/3/13             6:04P";
+        assertEquals(threeStrings(2013, 2, 3), parseToThreeStrings(line));
+    }
+
+    @Test
     public void patternMDY2TestMonthHasTwoDigits() throws Exception{
         assertEquals(threeStrings(2014, 11, 12), parseToThreeStrings("11/12/14a b ce"));
     }

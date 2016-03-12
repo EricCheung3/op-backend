@@ -25,7 +25,7 @@ public class LiteralMonthDayYear4Test {
     }
 
     public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(literalMDY4.parseWithSpaces(line));
+        return threeStrings(literalMDY4.parseWithSpaces(line).getDate());
     }
 
     @Test

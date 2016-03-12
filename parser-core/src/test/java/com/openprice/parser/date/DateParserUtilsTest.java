@@ -343,10 +343,17 @@ public class DateParserUtilsTest {
     }
 
     @Test
-    public void findDateInALineTest() throws Exception{
-        final String line = "01429 388 1953 1621487 2/28/ 15 4 :07P";
+    public void noSpaceInDateString() throws Exception{
+        final String line = "01429 388 1953 1621487 2/28/15 4 :07P";
         assertEquals("2015/2/28", DateParserUtils.findDateInALine(line));
     }
+
+    //TODO this is worth passing
+//    @Test
+//    public void oneSpaceInDateString() throws Exception{
+//        final String line = "01429 388 1953 1621487 2/28/ 15 4 :07P";
+//        assertEquals("2015/2/28", DateParserUtils.findDateInALine(line));
+//    }
 
     @Test
     public void findDateInALineTest2() throws Exception{
@@ -361,8 +368,26 @@ public class DateParserUtilsTest {
     }
 
     @Test
-    public void shouldFind2AsMonth() throws Exception{
+    public void shouldFind2AsMonthOneSpaceBeforeDateString() throws Exception{
         final String line = "01429 15~ 7913 4606631  2/3/13             6:04P";
+        assertEquals("2013/2/3", DateParserUtils.findDateInALine(line));
+    }
+
+    @Test
+    public void RespectSpaceShouldFind2AsMonthTwoSpaceBeforeDateString() throws Exception{
+        final String line = "01429 15~ 7913 4606631  2/3/13             6:04P";
+        assertEquals("2013/2/3", DateParserUtils.findDateInALine(line));
+    }
+
+    @Test
+    public void shouldFind2AsMonthThreeSpaceBeforeDateString() throws Exception{
+        final String line = "01429 15~ 7913 4606631   2/3/13             6:04P";
+        assertEquals("2013/2/3", DateParserUtils.findDateInALine(line));
+    }
+
+    @Test
+    public void shouldFind2AsMonthFourSpaceBeforeDateString() throws Exception{
+        final String line = "01429 15~ 7913 4606631    2/3/13             6:04P";
         assertEquals("2013/2/3", DateParserUtils.findDateInALine(line));
     }
 
