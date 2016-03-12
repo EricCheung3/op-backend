@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class MonthDayYear2 extends MonthDayYear{
+public class MonthDayYear2 extends DateParserFromSpaces{
 
     //month(one or two digits) and day (one or two digits), 2-digit year
     public static Pattern patternMonthDayYear2= Pattern.compile(

@@ -8,7 +8,7 @@ import com.openprice.parser.date.ml.StringGeneralFeatures;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public abstract class MonthDayYear implements DateParser{
+public abstract class DateParserFromSpaces implements DateParser{
 
     public abstract LocalDate parseToDate(final String dateStr);
 
@@ -30,7 +30,6 @@ public abstract class MonthDayYear implements DateParser{
             final DateStringFormat format) {
         final String dateStr=DateParserUtils.pruneDateStringWithMatch(line, pattern);
         final LocalDateFeatures fromWholeString = parseToFeatures(dateStr, format);
-//        log.debug("localDate="+localDate);
         if(fromWholeString != null && !fromWholeString.getDateStringFeatures().isContainsWideSpace()){
            log.warn("parsing from whole string success.");
            return fromWholeString;
@@ -42,9 +41,9 @@ public abstract class MonthDayYear implements DateParser{
             return fromBeforeSpace;
         }
         final LocalDateFeatures fromAfterSpace = parseToFeatures(wholeStringFeatures.getAfterWideSpace(), format);
-//        if(fromAfterSpace != null){
+        if(fromAfterSpace != null){
             log.warn("parsing from after string success.");
-//        }
+        }
         if(fromAfterSpace == null) {
             final String[] words = dateStr.split("\\s+");
             for(String w: words) {
@@ -54,6 +53,9 @@ public abstract class MonthDayYear implements DateParser{
                 }
             }
         }
+
+        //last try: removing all spaces?
+
         return fromAfterSpace;
     }
 

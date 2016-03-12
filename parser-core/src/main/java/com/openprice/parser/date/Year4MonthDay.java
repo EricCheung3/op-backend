@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.openprice.parser.date.ml.StringGeneralFeatures;
-
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -14,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  *  If day has two digits, it should return two-digit day if it makes sense (between 1-31)
  */
 @Slf4j
-public class Year4MonthDay implements DateParser{
+public class Year4MonthDay extends DateParserFromSpaces{
 
     //pattern for month and day
 //    public final static String DAY_MONTH_PATTERN = "\\s*(0?\\s*\\d|\\d\\s*\\d|\\d{1,2})\\s*";
@@ -32,18 +30,11 @@ public class Year4MonthDay implements DateParser{
 
     @Override
     public LocalDateFeatures parseWithSpaces(final String line) {
-        final String y4MD = DateParserUtils.pruneDateStringWithMatch(line, patternYear4MonthDay);
-        log.debug("y4MD="+y4MD);
-        final LocalDate localDate = parseToDate(y4MD);
-        return new LocalDateFeatures(
-                localDate,
-                DateStringFormat.Year4MonthDay,
-                y4MD,
-                StringGeneralFeatures.fromString(y4MD),
-                DateStringFeatures.fromString(y4MD));
+        return selectAccordingToWideSpace(line, patternYear4MonthDay, DateStringFormat.Year4MonthDay);
     }
 
-    private static LocalDate parseToDate(final String y4MD ) {
+    @Override
+    public LocalDate parseToDate(final String y4MD ) {
         final String[] splits = y4MD.split("[" + DateConstants.DATE_SPLITTERS +"]");
         if(splits.length < 3)
             return null;
