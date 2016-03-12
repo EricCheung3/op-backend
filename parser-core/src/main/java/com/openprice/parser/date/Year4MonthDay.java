@@ -4,14 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * "year (4-digit) month day" format
  *  month and day could one or two digits
  *  If day has two digits, it should return two-digit day if it makes sense (between 1-31)
  */
-@Slf4j
 public class Year4MonthDay extends DateParserFromSpaces{
 
     //pattern for month and day

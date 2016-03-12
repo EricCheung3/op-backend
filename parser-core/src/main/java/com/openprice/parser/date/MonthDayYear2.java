@@ -4,9 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class MonthDayYear2 extends DateParserFromSpaces{
 
     //month(one or two digits) and day (one or two digits), 2-digit year
@@ -25,7 +22,6 @@ public class MonthDayYear2 extends DateParserFromSpaces{
 
     @Override
     public LocalDate parseToDate(final String dateStr) {
-        log.debug("dateStr="+dateStr);
         final String[] mDY2 = dateStr.split("[" + DateConstants.DATE_SPLITTERS +"]");
         if(mDY2.length < 3)
             return null;

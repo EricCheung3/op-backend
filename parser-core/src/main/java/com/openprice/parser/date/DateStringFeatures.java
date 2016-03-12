@@ -6,12 +6,10 @@ import java.util.List;
 import com.openprice.common.StringCommon;
 
 import lombok.Value;
-import lombok.extern.slf4j.Slf4j;
 
 //features that encode a date string like "6                                     3 /05/ 16 "
 //assuming only one wide spaces. So input "6                                     3 /05/ 16        sdfasdas" are not allowed
 @Value
-@Slf4j
 public class DateStringFeatures {
 
     public static String WIDE_SPACE = "    ";

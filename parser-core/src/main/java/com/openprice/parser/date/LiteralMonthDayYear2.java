@@ -8,14 +8,11 @@ import java.util.regex.Pattern;
 import com.openprice.common.StringCommon;
 import com.openprice.parser.date.ml.StringGeneralFeatures;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * "literal month day year" format
  * day could be one or two digits
  * year is four digits
  */
-@Slf4j
 public class LiteralMonthDayYear2 implements DateParser{
 
     //format like "Feb 9, 2015"
@@ -57,7 +54,7 @@ public class LiteralMonthDayYear2 implements DateParser{
                     StringGeneralFeatures.fromString(literalMDY2),
                     DateStringFeatures.fromString(literalMDY2));
         }catch(Exception e){
-            log.warn(e.getMessage());
+//            log.warn(e.getMessage());
         }
         return null;
     }

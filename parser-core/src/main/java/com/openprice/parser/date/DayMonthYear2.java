@@ -7,9 +7,7 @@ import java.util.regex.Pattern;
 import com.openprice.parser.date.ml.StringGeneralFeatures;
 
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class DayMonthYear2 implements DateParser{
 
     // day (one or two digits), month(one or two digits), 4-digit year
@@ -47,7 +45,6 @@ public class DayMonthYear2 implements DateParser{
           if(mDY2.length < 3)
               return null;
           final List<String> cleanWords = DateParserUtils.getMeaningfulDateWords(mDY2);
-          log.debug("cleanWords="+cleanWords);
           return DateUtils.fromDayMonthYear(
                   cleanWords.get(0),
                   cleanWords.get(1),

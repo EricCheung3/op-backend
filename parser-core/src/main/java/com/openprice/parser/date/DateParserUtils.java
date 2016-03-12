@@ -14,9 +14,7 @@ import com.openprice.common.StringCommon;
 import com.openprice.parser.data.StringInt;
 
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class DateParserUtils {
 
     //oldest receipts allowed
@@ -65,11 +63,11 @@ public class DateParserUtils {
                     +words[1];
             }
         }
-//        log.debug("yMD="+yMD);
-//        log.debug("parsing using simpledateformatter: "+SIMPLE_DATE_FORMATTER.parse(yMD));
+//        //log.debug("yMD="+yMD);
+//        //log.debug("parsing using simpledateformatter: "+SIMPLE_DATE_FORMATTER.parse(yMD));
         result = LocalDate.parse(yMD, DATE_FORMATTER);//cannot handle single digit month or day
-        if(DateUtils.getToday().isBefore(result)) //prefer a parsed date that is before yesterday
-            log.warn("something is probably wrong. the date parsed is after today: "+ result);
+        //if(DateUtils.getToday().isBefore(result)) //prefer a parsed date that is before yesterday
+            //log.warn("something is probably wrong. the date parsed is after today: "+ result);
         return result;
     }
 
@@ -143,64 +141,64 @@ public class DateParserUtils {
             return map.get(DateStringFormat.LiteralMonthDayYear2).getDate();
         }
 
-        log.debug("not date pattern is matched.");
+        //log.debug("not date pattern is matched.");
         return null;
     }
 
     public static Map<DateStringFormat, LocalDateFeatures> allPossibleDatesInALine(final String str){
         final Map<DateStringFormat, LocalDateFeatures> result = new HashMap<>();
-//        log.debug("line string is "+str+"\n");
+//        //log.debug("line string is "+str+"\n");
         LocalDateFeatures dateFeatures = y4md.parseWithSpaces(str);
         if(dateFeatures !=null &&  isGoodDateBestGuess(dateFeatures.getDate())){
-            log.debug("y4md:" + dateFeatures.getDate());
+            //log.debug("y4md:" + dateFeatures.getDate());
             result.put(DateStringFormat.Year4MonthDay, dateFeatures);
         }
 
         dateFeatures =  mdy4.parseWithSpaces(str);
         if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
-            log.debug("mdy4:"+dateFeatures.getDate());
+            //log.debug("mdy4:"+dateFeatures.getDate());
             result.put(DateStringFormat.MonthDayYear4, dateFeatures);
         }
 
         dateFeatures =  mdy2.parseWithSpaces(str);
         if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
-            log.debug("mdy2:"+dateFeatures.getDate());
+            //log.debug("mdy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.LiteralMonthDayYear2, dateFeatures);
         }
 
         dateFeatures =  y2md.parseWithSpaces(str);
         if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
-            log.debug("y2md:"+dateFeatures.getDate());
+            //log.debug("y2md:"+dateFeatures.getDate());
             result.put(DateStringFormat.Year2MonthDay, dateFeatures);
         }
 
         dateFeatures =  dmy4.parseWithSpaces(str);
         if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
-            log.debug("dmy4:"+dateFeatures.getDate());
+            //log.debug("dmy4:"+dateFeatures.getDate());
             result.put(DateStringFormat.DayMonthYear4, dateFeatures);
         }
 
         dateFeatures =  dmy2.parseWithSpaces(str);
         if(dateFeatures !=null &&  isGoodDateBestGuess(dateFeatures.getDate())){
-            log.debug("dmy2:"+dateFeatures.getDate());
+            //log.debug("dmy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.DayMonthYear2, dateFeatures);
         }
 
         dateFeatures =  mdy2.parseWithSpaces(str);
         if(dateFeatures !=null &&  isGoodDateBestGuess(dateFeatures.getDate())){
-            log.debug("mdy2:"+dateFeatures.getDate());
+            //log.debug("mdy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.MonthDayYear2, dateFeatures);
         }
 
         dateFeatures = literalmdy4.parseWithSpaces(str);
         if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
-            log.debug("literalmdy4:"+dateFeatures.getDate());
+            //log.debug("literalmdy4:"+dateFeatures.getDate());
             result.put(DateStringFormat.LiteralMonthDayYear4, dateFeatures);
         }
 
         dateFeatures = literalmdy2.parseWithSpaces(str);
         if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
-            log.debug("literalmdy2:"+dateFeatures.getDate());
+            //log.debug("literalmdy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.LiteralMonthDayYear2, dateFeatures);
         }
         return result;
@@ -218,7 +216,7 @@ public class DateParserUtils {
         while(match.find()){
             allMatches.add(match.group());
         }
-        log.debug("allMatches="+allMatches);
+        //log.debug("allMatches="+allMatches);
         if(allMatches.size()==0)
             return StringCommon.EMPTY;
         return selectDateString(allMatches);
@@ -230,8 +228,8 @@ public class DateParserUtils {
      * @return
      */
     public static String selectDateString(final List<String> list){
-//        log.debug("all date strings are:\n");
-//        list.forEach(str->log.debug(str+"\n"));
+//        //log.debug("all date strings are:\n");
+//        list.forEach(str->//log.debug(str+"\n"));
         return list.get(0);
     }
 
