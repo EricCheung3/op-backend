@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * "month day year (4-digit)" format
  *  month and day could one or two digits
  */
-public class MonthDayYear4 extends DateParserFromSpaces{
+public class MonthDayYear4 extends DateParserRegularExpression{
 
     private static Pattern patternMonthDayYear4 = Pattern.compile(
             Year4MonthDay.DAY_MONTH_PATTERN

@@ -19,27 +19,17 @@ import lombok.extern.slf4j.Slf4j;
 public class LiteralMonthDayYear4 implements DateParser{
 
     //format like "Feb 9, 2015"
-    //http://stackoverflow.com/questions/2655476/regex-to-match-month-name-followed-by-year
-    private static Pattern patternLiteralMonthDayYear4=Pattern.compile(
-//            "\\b(?:Jan(?:uary)?|Feb(?:ruary)?||Mar(?:ch)?||Apr(?:il)?||May?"
-//            +"||Jun(?:e)?||Jul(?:y)?||Aug(?:ust)?||Sep(?:tember)?||Oct(?:ober)?||Nov(?:ember)?||Dec(?:ember)?) (?:19[7-9]\\d|2\\d{3})(?=\\D|$)");
-            "\\b(?:Jan(?:uary)?|Feb(?:ruary)?||Mar(?:ch)?||Apr(?:il)?||May?"
-          +"||JAN(?:UARY)?|FEB(?:RUARY)?||MAR(?:CH)?||APR(?:IL)?||MAY?"
-          +"||Jun(?:e)?||Jul(?:y)?||Aug(?:ust)?||Sep(?:tember)?||Oct(?:ober)?||Nov(?:ember)?||Dec(?:ember)?"
-          +"||JUN(?:E)?||JUL(?:Y)?||AUG(?:UST)?||SEP(?:TEMBER)?||OCT(?:OBER)?||NOV(?:EMBER)?||DEC(?:EMBER)?)"
-          + "\\s*"
-          + "(\\s*||,||\\.||_||'||’)"
-          + "\\s*"
-          + "([1-9]|0[1-9]|[12][0-9]|3[01])"
-          + "\\s*"
-          + "(\\s*||,||\\.||_||'||’)"
-          + "\\s*"
-          + "(?:19[7-9]\\d|2\\d{3})(?=\\D|$)");
+    private static Pattern pattern = Pattern.compile(
+            LiteralMonthDayYear2.LITERAL_MONTH +
+                LiteralMonthDayYear2.SPLITTER +
+            DateParserRegularExpression.DAY_MONTH_PATTERN +
+                LiteralMonthDayYear2.SPLITTER +
+            DateParserRegularExpression.YEAR_4_PATTERN
+            );
 
     @Override
     public LocalDateFeatures parseWithSpaces(String origLine) {
-        final String literalMDY4 = DateParserUtils.pruneDateStringWithMatch(origLine,
-                patternLiteralMonthDayYear4);
+        final String literalMDY4 = DateParserUtils.pruneDateStringWithMatch(origLine, pattern);
         final List<String> words = literalMonthDayYearSplit(literalMDY4);
 //        log.debug("words.size()="+words.size());
 //        for(String str: words)
@@ -52,7 +42,8 @@ public class LiteralMonthDayYear4 implements DateParser{
                     DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
                     words.get(2)
                     );
-            return new LocalDateFeatures(
+            if(date != null)
+                return new LocalDateFeatures(
                     date,
                     DateStringFormat.LiteralMonthDayYear4,
                     literalMDY4,

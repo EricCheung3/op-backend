@@ -30,6 +30,18 @@ public class LiteralMonthDayYear2Test {
     }
 
     @Test
+    public void spaceAsSplitter() throws Exception{
+        final ThreeStrings truth = threeStrings(2015, 1, 19);
+        assertEquals(truth, parseToThreeStrings("Jan 19 15  sfdgsd "));
+    }
+
+    @Test
+    public void spaceAsSplitter2() throws Exception{
+        final ThreeStrings truth = threeStrings(2015, 1, 19);
+        assertEquals(truth, parseToThreeStrings("Jan 19  1 5  sfdgsd "));
+    }
+
+    @Test
     public void patternlitermonthdayyeartest2() throws Exception{
         final ThreeStrings truth = threeStrings(2015, 1, 19);
         assertEquals(truth, parseToThreeStrings("Jan'19' 1 5  sfdgsd "));

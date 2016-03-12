@@ -23,9 +23,10 @@ public class DayMonthYear4Test {
     public ThreeStrings parseToThreeStrings(final String line){
         return threeStrings(dmy4.parseWithSpaces(line).getDate());
     }
+
     @Test
-    public void testPattern(){
-        assertTrue(DayMonthYear4.pattern.matcher("03/05/2015").matches());
+    public void testPatternMatches(){
+        assertTrue(DayMonthYear4.patternMonthDayYear4.matcher("03/05/2015").matches());
     }
 
     //TODO

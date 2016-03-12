@@ -9,12 +9,7 @@ import java.util.regex.Pattern;
  *  month and day could one or two digits
  *  If day has two digits, it should return two-digit day if it makes sense (between 1-31)
  */
-public class Year4MonthDay extends DateParserFromSpaces{
-
-    //pattern for month and day
-//    public final static String DAY_MONTH_PATTERN = "\\s*(0?\\s*\\d|\\d\\s*\\d|\\d{1,2})\\s*";
-    public final static String DAY_MONTH_PATTERN = "\\s*(\\d\\s*\\d|\\d{1,2})\\s*";
-    public final static String YEAR_4_PATTERN = "\\s*(1\\s*9|2\\s*0)\\s*\\d\\s*\\d\\s*";
+public class Year4MonthDay extends DateParserRegularExpression{
 
     private static Pattern patternYear4MonthDay = Pattern.compile(
                 YEAR_4_PATTERN

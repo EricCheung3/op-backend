@@ -4,13 +4,13 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class MonthDayYear2 extends DateParserFromSpaces{
+public class MonthDayYear2 extends DateParserRegularExpression{
 
     //month(one or two digits) and day (one or two digits), 2-digit year
     public static Pattern patternMonthDayYear2= Pattern.compile(
-            Year4MonthDay.DAY_MONTH_PATTERN
+            DAY_MONTH_PATTERN
                 + "["+ DateConstants.DATE_SPLITTERS + "]" +
-            Year4MonthDay.DAY_MONTH_PATTERN
+            DAY_MONTH_PATTERN
                 + "["+ DateConstants.DATE_SPLITTERS +"]" +
             Year2MonthDay.YEAR_2_PATTERN
             );

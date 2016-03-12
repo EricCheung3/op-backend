@@ -4,9 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class Year2MonthDay extends DateParserFromSpaces{
-
-    public final static String YEAR_2_PATTERN = "\\s*\\d\\s*\\d\\s*";//"\\d\\d";
+public class Year2MonthDay extends DateParserRegularExpression{
 
     private static Pattern patternYear2MonthDay= Pattern.compile(
             YEAR_2_PATTERN

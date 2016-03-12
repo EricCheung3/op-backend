@@ -8,7 +8,13 @@ import com.openprice.parser.date.ml.StringGeneralFeatures;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public abstract class DateParserFromSpaces implements DateParser{
+public abstract class DateParserRegularExpression implements DateParser{
+
+    //pattern for month and day
+//    public final static String DAY_MONTH_PATTERN = "\\s*(0?\\s*\\d|\\d\\s*\\d|\\d{1,2})\\s*";
+    public final static String DAY_MONTH_PATTERN = "\\s*(\\d\\s*\\d|\\d{1,2})\\s*";
+    public final static String YEAR_4_PATTERN = "\\s*(1\\s*9|2\\s*0)\\s*\\d\\s*\\d\\s*";
+    public final static String YEAR_2_PATTERN = "\\s*\\d\\s*\\d\\s*";//"\\d\\d";//"(\\d{2})(?=\\D|$)");
 
     public abstract LocalDate parseToDate(final String dateStr);
 
@@ -29,29 +35,40 @@ public abstract class DateParserFromSpaces implements DateParser{
             final Pattern pattern,
             final DateStringFormat format) {
         final String dateStr=DateParserUtils.pruneDateStringWithMatch(line, pattern);
-
+//        log.debug("dateStr="+dateStr);
         final String[] words = dateStr.split("\\s+");
         for(String w: words) {
             final LocalDateFeatures features = selectAccordingToSpace(w, pattern, format);
-            if(features != null) {
+            if(features != null && DateParserUtils.isGoodDateBestGuess(features.getDate())) {
+//                log.debug("parsing from no space word and got "+ features.getDate());
                 return features;
             }
         }
 
         final LocalDateFeatures fromWholeString = parseToFeatures(dateStr, format);
-        if(fromWholeString != null && !fromWholeString.getDateStringFeatures().isContainsWideSpace()){
-           log.warn("parsing from whole string success.");
+        if(fromWholeString != null && !fromWholeString.getDateStringFeatures().isContainsWideSpace()
+                && DateParserUtils.isGoodDateBestGuess(fromWholeString.getDate())){
+//           log.debug("parsing from whole string success.");
            return fromWholeString;
         }
+
         final DateStringFeatures wholeStringFeatures = DateStringFeatures.fromString(dateStr);
         final LocalDateFeatures fromBeforeSpace = parseToFeatures(wholeStringFeatures.getBeforeWideSpace(), format);
-        if(fromBeforeSpace != null){
-            log.warn("parsing from before string success.");
+        if(fromBeforeSpace != null
+                && DateParserUtils.isGoodDateBestGuess(fromBeforeSpace.getDate())){
+//            log.debug("parsing from before string success.");
             return fromBeforeSpace;
         }
         final LocalDateFeatures fromAfterSpace = parseToFeatures(wholeStringFeatures.getAfterWideSpace(), format);
-        if(fromAfterSpace != null){
-            log.warn("parsing from after string success.");
+        if(fromAfterSpace != null
+                && DateParserUtils.isGoodDateBestGuess(fromAfterSpace.getDate())){
+//            log.debug("parsing from after string success.");
+        }
+
+        if(fromWholeString != null
+                && DateParserUtils.isGoodDateBestGuess(fromWholeString.getDate())){
+//           log.debug("parsing from whole string allowing wide spaces success.");
+           return fromWholeString;
         }
 
         //last try: removing all spaces?
@@ -66,7 +83,7 @@ public abstract class DateParserFromSpaces implements DateParser{
         final LocalDateFeatures fromWholeString = parseToFeatures(dateStr, format);
 //        log.debug("localDate="+localDate);
         if(fromWholeString != null){
-           log.warn("parsing from whole string success.");
+//           log.debug("parsing from whole string success.");
            return fromWholeString;
         }
         return null;

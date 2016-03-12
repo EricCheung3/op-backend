@@ -149,55 +149,55 @@ public class DateParserUtils {
         final Map<DateStringFormat, LocalDateFeatures> result = new HashMap<>();
 //        //log.debug("line string is "+str+"\n");
         LocalDateFeatures dateFeatures = y4md.parseWithSpaces(str);
-        if(dateFeatures !=null &&  isGoodDateBestGuess(dateFeatures.getDate())){
+        if(dateFeatures !=null ){
             //log.debug("y4md:" + dateFeatures.getDate());
             result.put(DateStringFormat.Year4MonthDay, dateFeatures);
         }
 
         dateFeatures =  mdy4.parseWithSpaces(str);
-        if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
+        if(dateFeatures !=null){
             //log.debug("mdy4:"+dateFeatures.getDate());
             result.put(DateStringFormat.MonthDayYear4, dateFeatures);
         }
 
         dateFeatures =  mdy2.parseWithSpaces(str);
-        if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
+        if(dateFeatures !=null){
             //log.debug("mdy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.LiteralMonthDayYear2, dateFeatures);
         }
 
         dateFeatures =  y2md.parseWithSpaces(str);
-        if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
+        if(dateFeatures !=null){
             //log.debug("y2md:"+dateFeatures.getDate());
             result.put(DateStringFormat.Year2MonthDay, dateFeatures);
         }
 
         dateFeatures =  dmy4.parseWithSpaces(str);
-        if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
+        if(dateFeatures !=null){
             //log.debug("dmy4:"+dateFeatures.getDate());
             result.put(DateStringFormat.DayMonthYear4, dateFeatures);
         }
 
         dateFeatures =  dmy2.parseWithSpaces(str);
-        if(dateFeatures !=null &&  isGoodDateBestGuess(dateFeatures.getDate())){
+        if(dateFeatures !=null){
             //log.debug("dmy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.DayMonthYear2, dateFeatures);
         }
 
         dateFeatures =  mdy2.parseWithSpaces(str);
-        if(dateFeatures !=null &&  isGoodDateBestGuess(dateFeatures.getDate())){
+        if(dateFeatures !=null){
             //log.debug("mdy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.MonthDayYear2, dateFeatures);
         }
 
         dateFeatures = literalmdy4.parseWithSpaces(str);
-        if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
+        if(dateFeatures !=null){
             //log.debug("literalmdy4:"+dateFeatures.getDate());
             result.put(DateStringFormat.LiteralMonthDayYear4, dateFeatures);
         }
 
         dateFeatures = literalmdy2.parseWithSpaces(str);
-        if(dateFeatures !=null && isGoodDateBestGuess(dateFeatures.getDate())){
+        if(dateFeatures !=null){
             //log.debug("literalmdy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.LiteralMonthDayYear2, dateFeatures);
         }

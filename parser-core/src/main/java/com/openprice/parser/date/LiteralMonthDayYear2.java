@@ -13,28 +13,31 @@ import com.openprice.parser.date.ml.StringGeneralFeatures;
  * day could be one or two digits
  * year is four digits
  */
+//format like "OCT.08’ 15"
+//TODO also inherit DateParserRegularExpression
 public class LiteralMonthDayYear2 implements DateParser{
 
-    //format like "OCT.08’ 15"
     //http://stackoverflow.com/questions/2655476/regex-to-match-month-name-followed-by-year
-    private static Pattern patternLiteralMonthDayYear4=Pattern.compile(
-            "\\b(?:Jan(?:uary)?|Feb(?:ruary)?||Mar(?:ch)?||Apr(?:il)?||May?"
-          +"||JAN(?:UARY)?|FEB(?:RUARY)?||MAR(?:CH)?||APR(?:IL)?||MAY?"
-          +"||Jun(?:e)?||Jul(?:y)?||Aug(?:ust)?||Sep(?:tember)?||Oct(?:ober)?||Nov(?:ember)?||Dec(?:ember)?"
-          +"||JUN(?:E)?||JUL(?:Y)?||AUG(?:UST)?||SEP(?:TEMBER)?||OCT(?:OBER)?||NOV(?:EMBER)?||DEC(?:EMBER)?)"
-          + "\\s*"
-          + "(\\s*||,||\\.||_||'||’)"
-          + "\\s*"
-          + "([1-9]|0[1-9]|[12][0-9]|3[01])"
-          + "\\s*"
-          + "(\\s*||,||\\.||_||'||’)"
-          + "\\s*"
-          + "(\\d{2})(?=\\D|$)");
+    public static final String LITERAL_MONTH = "\\b(?:Jan(?:uary)?|Feb(?:ruary)?||Mar(?:ch)?||Apr(?:il)?||May?"
+            +"||JAN(?:UARY)?|FEB(?:RUARY)?||MAR(?:CH)?||APR(?:IL)?||MAY?"
+            +"||Jun(?:e)?||Jul(?:y)?||Aug(?:ust)?||Sep(?:tember)?||Oct(?:ober)?||Nov(?:ember)?||Dec(?:ember)?"
+            +"||JUN(?:E)?||JUL(?:Y)?||AUG(?:UST)?||SEP(?:TEMBER)?||OCT(?:OBER)?||NOV(?:EMBER)?||DEC(?:EMBER)?)";
+
+  //TODO this repeats with DataConstants.DATE_SPLITTERS
+    public static final String SPLITTER = "\\s*" + "(\\s*||,||\\.||_||'||’||-)"  + "\\s*";
+
+    private static Pattern pattern=Pattern.compile(
+          LITERAL_MONTH +
+          SPLITTER +
+          DateParserRegularExpression.DAY_MONTH_PATTERN +
+          SPLITTER +
+          DateParserRegularExpression.YEAR_2_PATTERN
+          );
 
     @Override
     public LocalDateFeatures parseWithSpaces(String origLine) {
         final String literalMDY2 = DateParserUtils.pruneDateStringWithMatch(origLine,
-                patternLiteralMonthDayYear4);
+                pattern);
         final List<String> words = literalMonthDayYearSplit(literalMDY2);
 //        log.debug("words.size()="+words.size());
 //        for(String str: words)
