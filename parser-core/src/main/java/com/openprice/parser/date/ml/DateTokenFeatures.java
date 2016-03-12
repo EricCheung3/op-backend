@@ -20,7 +20,7 @@ public class DateTokenFeatures implements Features {
 
     int numChars;
 
-    int length;//length of str.trim()
+    int trimLength;//length of str.trim()
 
     double mostSimMonthLiteralScore;//biggest similarity to all month literals
     String mostSimMonthLiteral;
@@ -48,5 +48,27 @@ public class DateTokenFeatures implements Features {
     @Override
     public int size() {
         return 6;
+    }
+
+    public String toString(final String splitter) {
+        return  intValue + splitter +
+                numDigits + splitter +
+                numChars + splitter +
+                trimLength+ splitter +
+                mostSimMonthLiteral + splitter+
+                mostSimMonthLiteralScore;
+
+    }
+
+    public String toString(final String featureSplitter, final String valueSplitter) {
+        return  formatFeatureValue(1, intValue+"", valueSplitter)   + featureSplitter +
+                formatFeatureValue(2, numDigits+"", valueSplitter)  + featureSplitter +
+                formatFeatureValue(3, numChars+"", valueSplitter)   + featureSplitter +
+                formatFeatureValue(4, trimLength+"", valueSplitter)  + featureSplitter +
+                formatFeatureValue(5, mostSimMonthLiteralScore+"", valueSplitter) ;
+    }
+
+    public String formatFeatureValue(int index, final String value, final String splitter) {
+        return index + splitter + value;
     }
 }

@@ -4,26 +4,36 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.openprice.common.StringCommon;
+import com.openprice.parser.date.ml.StringGeneralFeatures;
 
 public class DayMonthYear4 implements DateParser{
 
   // day (one or two digits), month(one or two digits), 4-digit year
     public static Pattern pattern= Pattern.compile(
-            "\\d{1,2}[" + DateConstants.DATE_SPLITTERS
-            + "]\\d{1,2}[" + DateConstants.DATE_SPLITTERS+"]\\d\\d\\d\\d"
+            Year4MonthDay.DAY_MONTH_PATTERN +
+                    "[" + DateConstants.DATE_SPLITTERS+ "]" +
+            Year4MonthDay.DAY_MONTH_PATTERN +
+                    "[" + DateConstants.DATE_SPLITTERS + "]" +
+            Year4MonthDay.YEAR_4_PATTERN
             );
 
-    @Override
-    public LocalDate parseNoSpaces(final String line) {
-        final String dateStr=DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line), pattern);
-        return parseToDate(dateStr);
-    }
+//    @Override
+//    public LocalDate parseNoSpaces(final String line) {
+//        final String dateStr=DateParserUtils.pruneDateStringWithMatch(StringCommon.removeAllSpaces(line), pattern);
+//        return parseToDate(dateStr);
+//    }
 
     @Override
-    public LocalDate parseWithSpaces(final String line) {
+    public LocalDateFeatures parseWithSpaces(final String line) {
         final String dateStr=DateParserUtils.pruneDateStringWithMatch(line, pattern);
-        return parseToDate(dateStr);
+        final LocalDate date = parseToDate(dateStr);
+        return new LocalDateFeatures(
+                date,
+                DateStringFormat.DayMonthYear4,
+                dateStr,
+                StringGeneralFeatures.fromString(dateStr),
+                DateStringFeatures.fromString(dateStr)
+                );
     }
 
     private static LocalDate parseToDate(final String dateStr) {
