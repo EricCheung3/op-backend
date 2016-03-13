@@ -18,12 +18,12 @@ public class DateUtilsTest {
 
     @Test
     public void formatDateStringTest1(){
-        assertEquals("2015/1/2", DateUtils.formatDateString(LocalDate.of(2015, 01, 02)));
+        assertEquals("2015/1/2", DateUtils.localDateToString(LocalDate.of(2015, 01, 02)));
     }
 
     @Test
     public void formatDateStringTest2(){
-        assertEquals("2015/1/2", DateUtils.formatDateString(LocalDate.of(2015, 1, 02)));
+        assertEquals("2015/1/2", DateUtils.localDateToString(LocalDate.of(2015, 1, 02)));
     }
 
     @Test(expected=Exception.class)

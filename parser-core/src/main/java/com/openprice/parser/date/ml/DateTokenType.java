@@ -1,10 +1,19 @@
 package com.openprice.parser.date.ml;
 
+import lombok.Getter;
+
 public enum DateTokenType {
 
-    Day,
-    Month,
-    Year,
-    DayOrMonth,//This is for "02"; we really don't know whether it's month or day (or even a year).
-    DayOrMonthOrYear
+    Day(1),
+    Month(2),
+    Year(3),
+    Unpredictable(-1);
+
+    @Getter
+    private final int intVal;
+
+    private DateTokenType(int i){
+        intVal = i;
+    }
+
 }

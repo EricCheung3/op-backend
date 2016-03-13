@@ -8,21 +8,16 @@ import java.util.regex.Pattern;
 import com.openprice.common.StringCommon;
 import com.openprice.parser.date.ml.StringGeneralFeatures;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * "literal month day year" format
  * day could be one or two digits
  * year is four digits
  */
-@Slf4j
-public class LiteralMonthDayYear4 implements DateParser{
+public class LiteralMonthDayYear2 implements DateParser{
 
     //format like "Feb 9, 2015"
     //http://stackoverflow.com/questions/2655476/regex-to-match-month-name-followed-by-year
     private static Pattern patternLiteralMonthDayYear4=Pattern.compile(
-//            "\\b(?:Jan(?:uary)?|Feb(?:ruary)?||Mar(?:ch)?||Apr(?:il)?||May?"
-//            +"||Jun(?:e)?||Jul(?:y)?||Aug(?:ust)?||Sep(?:tember)?||Oct(?:ober)?||Nov(?:ember)?||Dec(?:ember)?) (?:19[7-9]\\d|2\\d{3})(?=\\D|$)");
             "\\b(?:Jan(?:uary)?|Feb(?:ruary)?||Mar(?:ch)?||Apr(?:il)?||May?"
           +"||JAN(?:UARY)?|FEB(?:RUARY)?||MAR(?:CH)?||APR(?:IL)?||MAY?"
           +"||Jun(?:e)?||Jul(?:y)?||Aug(?:ust)?||Sep(?:tember)?||Oct(?:ober)?||Nov(?:ember)?||Dec(?:ember)?"
@@ -34,32 +29,32 @@ public class LiteralMonthDayYear4 implements DateParser{
           + "\\s*"
           + "(\\s*||,||\\.||_||'||’)"
           + "\\s*"
-          + "(?:19[7-9]\\d|2\\d{3})(?=\\D|$)");
+          + "(\\d{2})(?=\\D|$)");
 
     @Override
     public LocalDateFeatures parseWithSpaces(String origLine) {
-        final String literalMDY4 = DateParserUtils.pruneDateStringWithMatch(origLine,
+        final String literalMDY2 = DateParserUtils.pruneDateStringWithMatch(origLine,
                 patternLiteralMonthDayYear4);
-        final List<String> words = literalMonthDayYearSplit(literalMDY4);
+        final List<String> words = literalMonthDayYearSplit(literalMDY2);
 //        log.debug("words.size()="+words.size());
 //        for(String str: words)
 //            log.debug(str);
         if(words.size() < 3)
             return null;
         try{
-            LocalDate date = DateUtils.fromDayMonthYear(
+            final LocalDate date = DateUtils.fromDayMonthYear(
                     words.get(1),
                     DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
-                    words.get(2)
+                    "20" + words.get(2)
                     );
             return new LocalDateFeatures(
                     date,
-                    DateStringFormat.LiteralMonthDayYear4,
-                    literalMDY4,
-                    StringGeneralFeatures.fromString(literalMDY4),
-                    DateStringFeatures.fromString(literalMDY4));
+                    DateStringFormat.LiteralMonthDayYear2,
+                    literalMDY2,
+                    StringGeneralFeatures.fromString(literalMDY2),
+                    DateStringFeatures.fromString(literalMDY2));
         }catch(Exception e){
-            log.warn(e.getMessage());
+//            log.warn(e.getMessage());
         }
         return null;
     }
@@ -80,4 +75,5 @@ public class LiteralMonthDayYear4 implements DateParser{
       }
       return list;
   }
+
 }

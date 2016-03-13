@@ -11,7 +11,7 @@ public class DateTokenFeaturesTest {
     public void fromStringYearTest(){
         final DateTokenFeatures dF = DateTokenFeatures.fromString(" 2015");
         assertEquals(2015, dF.getIntValue());
-        assertEquals(4, dF.getLength());
+        assertEquals(4, dF.getTrimLength());
         assertEquals(StringCommon.EMPTY, dF.getMostSimMonthLiteral());
         assertEquals(0, dF.getNumChars());
         assertEquals(4, dF.getNumDigits());
@@ -22,7 +22,7 @@ public class DateTokenFeaturesTest {
     public void fromStringTwoDigitTest(){
         final DateTokenFeatures dF = DateTokenFeatures.fromString("03");
         assertEquals(3, dF.getIntValue());
-        assertEquals(2, dF.getLength());
+        assertEquals(2, dF.getTrimLength());
         assertEquals(StringCommon.EMPTY, dF.getMostSimMonthLiteral());
         assertEquals(0, dF.getNumChars());
         assertEquals(2, dF.getNumDigits());
@@ -33,7 +33,7 @@ public class DateTokenFeaturesTest {
     public void fromStringOneDigitTest(){
         final DateTokenFeatures dF = DateTokenFeatures.fromString("3");
         assertEquals(3, dF.getIntValue());
-        assertEquals(1, dF.getLength());
+        assertEquals(1, dF.getTrimLength());
         assertEquals(StringCommon.EMPTY, dF.getMostSimMonthLiteral());
         assertEquals(0, dF.getNumChars());
         assertEquals(1, dF.getNumDigits());
@@ -44,7 +44,7 @@ public class DateTokenFeaturesTest {
     public void fromStringMonthLiteralTest(){
         final DateTokenFeatures dF = DateTokenFeatures.fromString("Feb");
         assertEquals(-1, dF.getIntValue());
-        assertEquals(3, dF.getLength());
+        assertEquals(3, dF.getTrimLength());
         assertEquals("feb", dF.getMostSimMonthLiteral());
         assertEquals(3, dF.getNumChars());
         assertEquals(0, dF.getNumDigits());
@@ -55,7 +55,7 @@ public class DateTokenFeaturesTest {
     public void fromStringMonthLiteralSimilarTest(){
         final DateTokenFeatures dF = DateTokenFeatures.fromString("Fxb");
         assertEquals(-1, dF.getIntValue());
-        assertEquals(3, dF.getLength());
+        assertEquals(3, dF.getTrimLength());
         assertEquals("feb", dF.getMostSimMonthLiteral());
         assertEquals(3, dF.getNumChars());
         assertEquals(0, dF.getNumDigits());
