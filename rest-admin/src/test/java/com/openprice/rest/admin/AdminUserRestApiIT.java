@@ -3,6 +3,7 @@ package com.openprice.rest.admin;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +20,8 @@ import com.openprice.rest.admin.user.AdminUserProfileForm;
 
 @DatabaseSetup("classpath:/data/test-admin.xml")
 public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
+
+
 
     @Test
     public void getUserAccounts_ShouldReturnAllUserAccountsAndOrderByCreatedTime() {
@@ -150,6 +153,30 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
             .body("address.address1", equalTo("888 Broadway Ave"))
             .body("address.city", equalTo("Calgary"))
         ;
+    }
+
+    @Test
+    public void deleteUserProfile_ShouldDeleteUserAccount() {
+        final SessionFilter sessionFilter = login(TEST_ADMIN_USERNAME_NEWTON);
+        final String userUrl =  userUrl(sessionFilter, "user003");
+
+        given()
+            .filter(sessionFilter)
+        .when()
+            .delete(userUrl)
+        .then()
+            .statusCode(HttpStatus.SC_NO_CONTENT)
+        ;
+
+        given()
+            .filter(sessionFilter)
+        .when()
+            .get(userUrl)
+        .then()
+            .statusCode(HttpStatus.SC_NOT_FOUND)
+        ;
+
+        assertNull(userAccountRepository.findOne("user003"));
     }
 
 }
