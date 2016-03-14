@@ -2,21 +2,15 @@ package com.openprice.rest.admin;
 
 import static com.jayway.restassured.RestAssured.given;
 
-import javax.inject.Inject;
-
 import org.springframework.boot.test.SpringApplicationConfiguration;
 
 import com.damnhandy.uri.template.UriTemplate;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.openprice.common.ApiConstants;
-import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.rest.AbstractRestApiIntegrationTest;
 
 @SpringApplicationConfiguration(classes = {AdminApiTestApplication.class})
 public abstract class AbstractAdminRestApiIntegrationTest extends AbstractRestApiIntegrationTest implements AdminApiUrls {
-
-    @Inject
-    UserAccountRepository userAccountRepository;
 
     public static final String TEST_ADMIN_USERID_NEWTON = "admin001";
     public static final String TEST_ADMIN_USERNAME_NEWTON = "newton";

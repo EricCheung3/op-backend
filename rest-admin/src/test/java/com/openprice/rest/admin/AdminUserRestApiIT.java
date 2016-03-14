@@ -8,6 +8,8 @@ import static org.junit.Assert.assertNull;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
@@ -15,13 +17,15 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
+import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.rest.UtilConstants;
 import com.openprice.rest.admin.user.AdminUserProfileForm;
 
 @DatabaseSetup("classpath:/data/test-admin.xml")
 public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
 
-
+    @Inject
+    UserAccountRepository userAccountRepository;
 
     @Test
     public void getUserAccounts_ShouldReturnAllUserAccountsAndOrderByCreatedTime() {
