@@ -1,10 +1,6 @@
 package com.openprice.parser.date;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import java.time.LocalDate;
-import java.util.List;
 
 import org.junit.Test;
 
@@ -13,19 +9,10 @@ import com.openprice.parser.price.ThreeStrings;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class LiteralMonthDayYear4Test {
+public class LiteralMonthDayYear4Test extends DateParserRegularExpressionTestClass {
 
-    private final LiteralMonthDayYear4 literalMDY4 = new LiteralMonthDayYear4();
-
-    public static ThreeStrings threeStrings(final int y, final int m, final int d) {
-        return new ThreeStrings(y+"", m+"",  d+"");
-    }
-    public static ThreeStrings threeStrings(final LocalDate date){
-        return new ThreeStrings(date.getYear()+"", date.getMonthValue()+"", date.getDayOfMonth()+"");
-    }
-
-    public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(literalMDY4.parseWithSpaces(line).getDate());
+    public LiteralMonthDayYear4Test() {
+        super(new LiteralMonthDayYear4());
     }
 
     @Test
@@ -134,9 +121,9 @@ public class LiteralMonthDayYear4Test {
         assertEquals(dec19, parseToThreeStrings("DEC 19, 2015  sfdgsd "));
     }
 
-    @Test
-    public void testInvalidDateStringWillReturnNull(){
-        assertNull(literalMDY4.parseWithSpaces("December 44, 2015 "));
+    @Test(expected=Exception.class)
+    public void testInvalidDateStringWillThrowException(){
+        parseToThreeStrings("December 44, 2015 ");
     }
 
     @Test
@@ -146,118 +133,9 @@ public class LiteralMonthDayYear4Test {
     }
 
 
-    @Test
-    public void literalMonthDayYearSplitTest1(){
-        final List<String> words = LiteralMonthDayYear4.literalMonthDayYearSplit("Feb 9  , 2015");
-        assertEquals(3, words.size());
-        assertEquals("Feb", words.get(0));
-        assertEquals("9", words.get(1));
-        assertEquals("2015", words.get(2));
-    }
-
-    @Test
-    public void literalMonthDayYearSplitTest2(){
-        final List<String> words = LiteralMonthDayYear4.literalMonthDayYearSplit("Feb 9,2015");
-        assertEquals(3, words.size());
-        assertEquals("Feb", words.get(0));
-        assertEquals("9", words.get(1));
-        assertEquals("2015", words.get(2));
-    }
-
-    @Test
-    public void literalMonthDayYearSplitCommaSpacesIsOkay(){
-        final List<String> words = LiteralMonthDayYear4.literalMonthDayYearSplit("Feb 9,    2015");
-        assertEquals(3, words.size());
-        assertEquals("Feb", words.get(0));
-        assertEquals("9", words.get(1));
-        assertEquals("2015", words.get(2));
-    }
-
-    @Test
-    public void literalMonthDayYearUpperCaseIsOkay(){
-        final List<String> words = LiteralMonthDayYear4.literalMonthDayYearSplit("FEB 9,    2015");
-        assertEquals(3, words.size());
-        assertEquals("FEB", words.get(0));
-        assertEquals("9", words.get(1));
-        assertEquals("2015", words.get(2));
-    }
-
-
-    @Test
-    public void literalMonthDayYearSplitCommaSpacesIsOkay2(){
-        final List<String> words = LiteralMonthDayYear4.literalMonthDayYearSplit("Feb  9  ,    2015");
-        assertEquals(3, words.size());
-        assertEquals("Feb", words.get(0));
-        assertEquals("9", words.get(1));
-        assertEquals("2015", words.get(2));
-    }
-
-    @Test
-    public void literalMonthDayYearSplitDashSpacesIsOkay(){
-        final List<String> words = LiteralMonthDayYear4.literalMonthDayYearSplit("Feb 9-    2015");
-        assertEquals(3, words.size());
-        assertEquals("Feb", words.get(0));
-        assertEquals("9", words.get(1));
-        assertEquals("2015", words.get(2));
-    }
-
-    @Test
-    public void literalMonthDayYearSplitUpperIsOkay(){
-        final List<String> words = LiteralMonthDayYear4.literalMonthDayYearSplit("FEB 9-    2015");
-        assertEquals(3, words.size());
-        assertEquals("FEB", words.get(0));
-        assertEquals("9", words.get(1));
-        assertEquals("2015", words.get(2));
-    }
-
-    @Test
-    public void literalMonthDayYearSplitDashSpacesIsOkay2(){
-        final List<String> words = LiteralMonthDayYear4.literalMonthDayYearSplit("Feb 9   -       2015");
-        assertEquals(3, words.size());
-        assertEquals("Feb", words.get(0));
-        assertEquals("9", words.get(1));
-        assertEquals("2015", words.get(2));
-    }
-
-    @Test
-    public void literalMonthDayYearSplitUnderscoreSpacesIsOkay(){
-        final List<String> words = LiteralMonthDayYear4.literalMonthDayYearSplit("Feb 9 _    2015");
-        assertEquals(3, words.size());
-        assertEquals("Feb", words.get(0));
-        assertEquals("9", words.get(1));
-        assertEquals("2015", words.get(2));
-    }
-
-    @Test
-    public void literalMonthDayYearSplitUnderscoreSpacesIsOkay2(){
-        final List<String> words = LiteralMonthDayYear4.literalMonthDayYearSplit("Feb 9_    2015");
-        assertEquals(3, words.size());
-        assertEquals("Feb", words.get(0));
-        assertEquals("9", words.get(1));
-        assertEquals("2015", words.get(2));
-    }
-
-    @Test
-    public void twoDayWillHaveNull(){
-       assertNull(literalMDY4.parseWithSpaces("Apr 11 27 , 2015"));
-    }
-
-    @Test
-    public void singleQuoteNonUnicodeIsOkay(){
-        final List<String> words = LiteralMonthDayYear4.literalMonthDayYearSplit("OCT.08’2015");
-        assertEquals(3, words.size());
-        assertEquals("OCT", words.get(0));
-        assertEquals("08", words.get(1));
-        assertEquals("2015", words.get(2));
-    }
-
-    @Test
-    public void singleQuoteIsOkay(){
-        final List<String> words = LiteralMonthDayYear4.literalMonthDayYearSplit("OCT.08'2015");
-        assertEquals(3, words.size());
-        assertEquals("OCT", words.get(0));
-        assertEquals("08", words.get(1));
-        assertEquals("2015", words.get(2));
+    @Test(expected=Exception.class)
+    public void twoDayWillThrowException(){
+        parseToThreeStrings("Apr 11 27 , 2015");
     }
 
 }

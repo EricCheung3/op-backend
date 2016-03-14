@@ -25,7 +25,7 @@ public class LiteralMonthDayYear2 extends DateParserRegularExpression{
   //TODO this repeats with DataConstants.DATE_SPLITTERS
     public static final String SPLITTER = "\\s*" + "(\\s*||,||\\.||_||'||’||-)"  + "\\s*";
 
-    private static Pattern pattern=Pattern.compile(
+    private static Pattern pattern = Pattern.compile(
           LITERAL_MONTH +
           SPLITTER +
           DateParserRegularExpression.DAY_MONTH_PATTERN +
@@ -44,7 +44,7 @@ public class LiteralMonthDayYear2 extends DateParserRegularExpression{
 //      http://stackoverflow.com/questions/3654446/java-regex-help-splitting-string-on-spaces-and-commas
       final String[] words = dateString.split("\\s*(\\.|_|-|,|\\s|’|')\\s*");
       final List<String> cleanWords = DateParserUtils.getMeaningfulDateWords(words);
-//      log.debug("dateString="+dateString+", words.length="+words.length);
+      log.debug("dateString="+dateString+", cleanWords="+cleanWords);
 //      final List<String> list = new ArrayList<>();
 //      for(String w : words){
 //          if(w.length()==1

@@ -35,7 +35,7 @@ public abstract class DateParserRegularExpression implements DateParser{
             final Pattern pattern,
             final DateStringFormat format) {
         final String dateStr=DateParserUtils.pruneDateStringWithMatch(line, pattern);
-//        log.debug("dateStr="+dateStr);
+        log.debug("dateStr="+dateStr);
         final String[] words = dateStr.split("\\s+");
         for(String w: words) {
             final LocalDateFeatures features = selectAccordingToSpace(w, pattern, format);
@@ -46,9 +46,10 @@ public abstract class DateParserRegularExpression implements DateParser{
         }
 
         final LocalDateFeatures fromWholeString = parseToFeatures(dateStr, format);
+        log.debug("fromWholeString="+fromWholeString.getDate());
         if(fromWholeString != null && !fromWholeString.getDateStringFeatures().isContainsWideSpace()
                 && DateParserUtils.isGoodDateBestGuess(fromWholeString.getDate())){
-//           log.debug("parsing from whole string success.");
+           log.debug("parsing from whole string success.");
            return fromWholeString;
         }
 

@@ -1,12 +1,8 @@
 package com.openprice.parser.date;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import com.openprice.common.StringCommon;
-import com.openprice.parser.date.ml.StringGeneralFeatures;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  * year is four digits
  */
 @Slf4j
-public class LiteralMonthDayYear4 implements DateParser{
+public class LiteralMonthDayYear4  extends DateParserRegularExpression {
 
     //format like "Feb 9, 2015"
     private static Pattern pattern = Pattern.compile(
@@ -29,46 +25,26 @@ public class LiteralMonthDayYear4 implements DateParser{
 
     @Override
     public LocalDateFeatures parseWithSpaces(String origLine) {
-        final String literalMDY4 = DateParserUtils.pruneDateStringWithMatch(origLine, pattern);
-        final List<String> words = literalMonthDayYearSplit(literalMDY4);
-//        log.debug("words.size()="+words.size());
-//        for(String str: words)
-//            log.debug(str);
-        if(words.size() < 3)
-            return null;
-        try{
-            LocalDate date = DateUtils.fromDayMonthYear(
-                    words.get(1),
-                    DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
-                    words.get(2)
-                    );
-            if(date != null)
-                return new LocalDateFeatures(
-                    date,
-                    DateStringFormat.LiteralMonthDayYear4,
-                    literalMDY4,
-                    StringGeneralFeatures.fromString(literalMDY4),
-                    DateStringFeatures.fromString(literalMDY4));
-        }catch(Exception e){
-            log.warn(e.getMessage());
-        }
-        return null;
+        return selectAccordingToWideSpace(origLine, pattern, DateStringFormat.LiteralMonthDayYear4);
     }
 
-    //TODO similar to DataParserUtils.getMeaningfulWords?
-    public static List<String> literalMonthDayYearSplit(final String dateString){
-//      final String[] words = dateString.split("-|_|\\.|\\s+");//not correct. only one dilimiter is selected
-//      http://stackoverflow.com/questions/3654446/java-regex-help-splitting-string-on-spaces-and-commas
-      final String[] words = dateString.split("\\s*(\\.|_|-|,|\\s|’|')\\s*");
-//      log.debug("dateString="+dateString+", words.length="+words.length);
-      final List<String> list = new ArrayList<>();
-      for(String w : words){
-          if(w.length()==1
-              && !Character.isDigit(w.charAt(0))
-              && !Character.isLetter(w.charAt(0)))
-              continue;
-          list.add(StringCommon.removeAllSpaces(w));
+    @Override
+    public LocalDate parseToDate(final String literalMDY2) {
+        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit(literalMDY2);
+      log.debug("words.size()="+words.size());
+      for(String str: words)
+          log.debug(str);
+      if(words.size() < 3)
+          return null;
+      try{
+          return DateUtils.fromDayMonthYear(
+                  words.get(1),
+                  DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
+                  words.get(2)
+                  );
+      }catch(Exception e){
+          log.warn(e.getMessage());
       }
-      return list;
-  }
+      return null;
+    }
 }
