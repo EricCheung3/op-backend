@@ -5,9 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
+//@Slf4j
 public class MonthDayYear2 extends DateParserRegularExpression{
 
     //month(one or two digits) and day (one or two digits), 2-digit year
@@ -30,7 +28,7 @@ public class MonthDayYear2 extends DateParserRegularExpression{
         if(mDY2.length < 3)
             return null;
         final List<String> clean = DateParserUtils.getMeaningfulDateWords(mDY2);
-        log.debug("clean="+clean.toString());
+//        log.debug("clean="+clean.toString());
         return DateUtils.fromDayMonthYear(
                 clean.get(1).trim(),
                 clean.get(0).trim(),

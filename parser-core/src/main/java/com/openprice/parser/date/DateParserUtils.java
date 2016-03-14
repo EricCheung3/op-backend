@@ -14,7 +14,9 @@ import com.openprice.common.StringCommon;
 import com.openprice.parser.data.StringInt;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class DateParserUtils {
 
     //oldest receipts allowed
@@ -31,10 +33,18 @@ public class DateParserUtils {
     //TODO in case there are dates in multiple lines, it makes sense to keep all the date variants found by different patterns in a line; and then take intersection
     public static StringInt findDateInLinesAndSelect(final List<String> origLines, final int start){
         for(int i = start; i < origLines.size(); i++){
+            long startTime = System.currentTimeMillis();
             final String dateString = findDateInALine(origLines, i);
+            long endTime = System.currentTimeMillis();
+            long spentTime = endTime - startTime;
+            log.debug("line "+i + origLines.get(i) +": time for findDateInALine is "+ spentTime);
+
             if(dateString.isEmpty()) continue;
             //TODO select the date parsed from the first line
-            return finalFormat(dateString, i);
+            final StringInt result = finalFormat(dateString, i);
+            long endTime2 = System.currentTimeMillis();
+            log.debug("line "+ i + " time for finalFormat is "+ (endTime2-endTime));
+            return result;
         }
         return StringInt.emptyValue();
     }

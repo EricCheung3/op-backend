@@ -3,12 +3,9 @@ package com.openprice.parser.date;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
-import com.openprice.common.StringCommon;
 import com.openprice.parser.date.ml.StringGeneralFeatures;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
+//@Slf4j
 public abstract class DateParserRegularExpression implements DateParser{
 
     //pattern for month and day
@@ -35,22 +32,24 @@ public abstract class DateParserRegularExpression implements DateParser{
     public LocalDateFeatures selectAccordingToWideSpace(final String line,
             final Pattern pattern,
             final DateStringFormat format) {
+        long startTime = System.currentTimeMillis();
         final String dateStr=DateParserUtils.pruneDateStringWithMatch(line, pattern);
-        log.debug("dateStr="+dateStr);
+        //log.debug("selectAccordingToWideSpace, dateStr="+dateStr);
+        if(dateStr.isEmpty()) return null;
         final String[] words = dateStr.split("\\s+");
         for(String w: words) {
             final LocalDateFeatures features = selectAccordingToSpace(w, pattern, format);
             if(features != null && DateParserUtils.isGoodDateBestGuess(features.getDate())) {
-                log.debug("parsing from no space word and got "+ features.getDate());
+                //log.debug("parsing from no space word and got "+ features.getDate());
                 return features;
             }
         }
 
         final LocalDateFeatures fromWholeString = parseToFeatures(dateStr, format);
-        log.debug("fromWholeString="+fromWholeString.getDate());
+//        //log.debug("fromWholeString="+fromWholeString.getDate());
         if(fromWholeString != null && !fromWholeString.getDateStringFeatures().isContainsWideSpace()
                 && DateParserUtils.isGoodDateBestGuess(fromWholeString.getDate())){
-           log.debug("parsing from whole string success.");
+           //log.debug("parsing from whole string success.");
            return fromWholeString;
         }
 
@@ -58,28 +57,30 @@ public abstract class DateParserRegularExpression implements DateParser{
         final LocalDateFeatures fromBeforeSpace = parseToFeatures(wholeStringFeatures.getBeforeWideSpace(), format);
         if(fromBeforeSpace != null
                 && DateParserUtils.isGoodDateBestGuess(fromBeforeSpace.getDate())){
-            log.debug("parsing from before string success.");
+            //log.debug("parsing from before string success.");
             return fromBeforeSpace;
         }
         final LocalDateFeatures fromAfterSpace = parseToFeatures(wholeStringFeatures.getAfterWideSpace(), format);
         if(fromAfterSpace != null
                 && DateParserUtils.isGoodDateBestGuess(fromAfterSpace.getDate())){
-            log.debug("parsing from after string success.");
+            //log.debug("parsing from after string success.");
         }
 
         if(fromWholeString != null
                 && DateParserUtils.isGoodDateBestGuess(fromWholeString.getDate())){
-           log.debug("parsing from whole string allowing wide spaces success.");
+           //log.debug("parsing from whole string allowing wide spaces success.");
            return fromWholeString;
         }
-
+//        long endTime = System.currentTimeMillis();
+//        long spentTime = endTime - startTime;
+//        //log.debug("selectAccordingToWideSpace: spent time is "+spentTime);
         //last try: removing all spaces?
-        final LocalDateFeatures noSpaceLocalDate = parseToFeatures(StringCommon.removeAllSpaces(dateStr), format);
-        if(noSpaceLocalDate != null
-                && DateParserUtils.isGoodDateBestGuess(noSpaceLocalDate.getDate())){
-            log.debug("parsing without space successes");
-            return noSpaceLocalDate;
-        }
+//        final LocalDateFeatures noSpaceLocalDate = parseToFeatures(StringCommon.removeAllSpaces(dateStr), format);
+//        if(noSpaceLocalDate != null
+//                && DateParserUtils.isGoodDateBestGuess(noSpaceLocalDate.getDate())){
+//            //log.debug("parsing without space successes");
+//            return noSpaceLocalDate;
+//        }
         return fromAfterSpace;
     }
 
@@ -88,9 +89,9 @@ public abstract class DateParserRegularExpression implements DateParser{
             final DateStringFormat format) {
         final String dateStr=DateParserUtils.pruneDateStringWithMatch(str, pattern);
         final LocalDateFeatures fromWholeString = parseToFeatures(dateStr, format);
-//        log.debug("localDate="+localDate);
+//        //log.debug("localDate="+localDate);
         if(fromWholeString != null){
-//           log.debug("parsing from whole string success.");
+//           //log.debug("parsing from whole string success.");
            return fromWholeString;
         }
         return null;

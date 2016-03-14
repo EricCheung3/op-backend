@@ -7,8 +7,6 @@ import java.util.regex.Pattern;
 
 import com.openprice.common.StringCommon;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * "literal month day year" format
  * day could be one or two digits
@@ -16,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 //format like "OCT.08’ 15"
 //TODO also inherit DateParserRegularExpression
-@Slf4j
+//@Slf4j
 public class LiteralMonthDayYear2 extends DateParserRegularExpression{
 
     //http://stackoverflow.com/questions/2655476/regex-to-match-month-name-followed-by-year
@@ -45,17 +43,18 @@ public class LiteralMonthDayYear2 extends DateParserRegularExpression{
     public static List<String> literalMonthDayYearSplit(final String dateString, final int numYearDigits){
         //Why ’ cannot be replaced?
         final String noSpaceNoSplitter = StringCommon.removeAllSpaces(dateString).replaceAll("\\s+|\\.|_|-|,|\\s|’|'", "");
-        log.debug("noSpaceNoSplitter="+noSpaceNoSplitter);
+        if(noSpaceNoSplitter.isEmpty()) return null;
+        //log.debug("noSpaceNoSplitter="+noSpaceNoSplitter);
         final String yearDigits = StringCommon.lastDigits(noSpaceNoSplitter, numYearDigits);
-        log.debug("yearDigits="+yearDigits);
+        //log.debug("yearDigits="+yearDigits);
         final int indexOfYear = noSpaceNoSplitter.lastIndexOf(yearDigits);
         String dayDigits = "";
         String literalMonth = "";
         if(indexOfYear > 0) {
             final String literalMonthDay = noSpaceNoSplitter.substring(0, indexOfYear);
-            log.debug("literalMonthDay="+literalMonthDay);
+            //log.debug("literalMonthDay="+literalMonthDay);
             dayDigits = StringCommon.lastDigits(literalMonthDay, 2);
-            log.debug("dayDigits="+dayDigits);
+            //log.debug("dayDigits="+dayDigits);
             if(!dayDigits.isEmpty()) {
                 literalMonth = noSpaceNoSplitter.substring(0, noSpaceNoSplitter.length() - yearDigits.length() - dayDigits.length());
             }
@@ -73,7 +72,7 @@ public class LiteralMonthDayYear2 extends DateParserRegularExpression{
 //          cleanWords.set(2, cleanWords.get(2) + cleanWords.get(3));
 //          cleanWords.remove(3);
 //      }
-//      log.debug("dateString="+dateString+", cleanWords="+cleanWords);
+//      //log.debug("dateString="+dateString+", cleanWords="+cleanWords);
 //      final List<String> list = new ArrayList<>();
 //      for(String w : words){
 //          if(w.length()==1
@@ -88,22 +87,23 @@ public class LiteralMonthDayYear2 extends DateParserRegularExpression{
 
     @Override
     public LocalDate parseToDate(final String literalMDY2) {
-        final List<String> words = literalMonthDayYearSplit(literalMDY2, 2);
-      log.debug("words.size()="+words.size());
-      for(String str: words)
-          log.debug(str);
-      if(words.size() < 3)
+       final List<String> words = literalMonthDayYearSplit(literalMDY2, 2);
+       if(words == null) return null;
+       //log.debug("words.size()="+words.size());
+       for(String str: words)
+           //log.debug(str);
+       if(words.size() < 3)
           return null;
-      try{
+       try{
           return DateUtils.fromDayMonthYear(
                   words.get(1),
                   DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
                   "20" + words.get(2)
                   );
-      }catch(Exception e){
-          log.warn(e.getMessage());
-      }
-      return null;
+       }catch(Exception e){
+          //log.warn(e.getMessage());
+       }
+       return null;
     }
 
 }
