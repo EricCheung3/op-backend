@@ -2,6 +2,8 @@ package com.openprice.parser.date;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import com.openprice.parser.price.ThreeStrings;
@@ -132,10 +134,79 @@ public class LiteralMonthDayYear4Test extends DateParserRegularExpressionTestCla
         assertEquals(dec19, parseToThreeStrings("DECEMBER 19, 2015  sfdgsd "));
     }
 
+    @Test
+    public void spaceInYearIsOkay(){
+        final ThreeStrings dec19 = threeStrings(2015, 12, 19);
+        assertEquals(dec19, parseToThreeStrings("DECEMBER 19, 2 015  sfdgsd "));
+    }
+
 
     @Test(expected=Exception.class)
     public void twoDayWillThrowException(){
         parseToThreeStrings("Apr 11 27 , 2015");
     }
 
+    @Test
+    public void mergeTheLastDigitsIntoAYear1(){
+        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 9, 2 015", 4);
+        assertEquals(3, words.size());
+        assertEquals("Feb", words.get(0));
+        assertEquals("9", words.get(1));
+        assertEquals("2015", words.get(2));
+    }
+
+    @Test
+    public void mergeTheLastDigitsIntoAYear2(){
+        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 9, 2 0 15", 4);
+        assertEquals(3, words.size());
+        assertEquals("Feb", words.get(0));
+        assertEquals("9", words.get(1));
+        assertEquals("2015", words.get(2));
+    }
+
+    //TODO throw Exception?
+//    @Test
+//    public void mergeTheLastDigitsIntoAYear2A(){
+//        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 9, 2 05", 4);
+//        assertEquals(3, words.size());
+//        assertEquals("Feb", words.get(0));
+//        assertEquals("9", words.get(1));
+//        assertEquals("2015", words.get(2));
+//    }
+
+    @Test
+    public void mergeTheLastDigitsIntoAYear3(){
+        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 9, 2 0 1 5", 4);
+        assertEquals(3, words.size());
+        assertEquals("Feb", words.get(0));
+        assertEquals("9", words.get(1));
+        assertEquals("2015", words.get(2));
+    }
+
+    @Test
+    public void mergeTheLastDigitsIntoAYear4(){
+        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 9, 2 0 1 5 ", 4);
+        assertEquals(3, words.size());
+        assertEquals("Feb", words.get(0));
+        assertEquals("9", words.get(1));
+        assertEquals("2015", words.get(2));
+    }
+
+    @Test
+    public void mergeTheLastDigitsIntoAYear5(){
+        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 1 9 , 2 0 1 5 ", 4);
+        assertEquals(3, words.size());
+        assertEquals("Feb", words.get(0));
+        assertEquals("19", words.get(1));
+        assertEquals("2015", words.get(2));
+    }
+
+    @Test
+    public void mergeTheLastDigitsIntoAYear6(){
+        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Fe b 1 9 , 2 0 1 5 ", 4);
+        assertEquals(3, words.size());
+        assertEquals("Feb", words.get(0));
+        assertEquals("19", words.get(1));
+        assertEquals("2015", words.get(2));
+    }
 }

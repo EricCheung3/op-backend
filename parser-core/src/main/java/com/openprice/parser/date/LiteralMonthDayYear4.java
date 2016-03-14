@@ -30,7 +30,7 @@ public class LiteralMonthDayYear4  extends DateParserRegularExpression {
 
     @Override
     public LocalDate parseToDate(final String literalMDY2) {
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit(literalMDY2);
+        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit(literalMDY2, 4);
       log.debug("words.size()="+words.size());
       for(String str: words)
           log.debug(str);
@@ -47,4 +47,5 @@ public class LiteralMonthDayYear4  extends DateParserRegularExpression {
       }
       return null;
     }
+
 }

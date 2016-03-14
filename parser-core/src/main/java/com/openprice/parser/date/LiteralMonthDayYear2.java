@@ -1,8 +1,11 @@
 package com.openprice.parser.date;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import com.openprice.common.StringCommon;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,12 +42,38 @@ public class LiteralMonthDayYear2 extends DateParserRegularExpression{
     }
 
     //TODO similar to DataParserUtils.getMeaningfulWords?
-    public static List<String> literalMonthDayYearSplit(final String dateString){
+    public static List<String> literalMonthDayYearSplit(final String dateString, final int numYearDigits){
+        //Why ’ cannot be replaced?
+        final String noSpaceNoSplitter = StringCommon.removeAllSpaces(dateString).replaceAll("\\s+|\\.|_|-|,|\\s|’|'", "");
+        log.debug("noSpaceNoSplitter="+noSpaceNoSplitter);
+        final String yearDigits = StringCommon.lastDigits(noSpaceNoSplitter, numYearDigits);
+        log.debug("yearDigits="+yearDigits);
+        final int indexOfYear = noSpaceNoSplitter.lastIndexOf(yearDigits);
+        String dayDigits = "";
+        String literalMonth = "";
+        if(indexOfYear > 0) {
+            final String literalMonthDay = noSpaceNoSplitter.substring(0, indexOfYear);
+            log.debug("literalMonthDay="+literalMonthDay);
+            dayDigits = StringCommon.lastDigits(literalMonthDay, 2);
+            log.debug("dayDigits="+dayDigits);
+            if(!dayDigits.isEmpty()) {
+                literalMonth = noSpaceNoSplitter.substring(0, noSpaceNoSplitter.length() - yearDigits.length() - dayDigits.length());
+            }
+        }
+        return Arrays.asList(new String[]{literalMonth, dayDigits, yearDigits});
+
 //      final String[] words = dateString.split("-|_|\\.|\\s+");//not correct. only one dilimiter is selected
 //      http://stackoverflow.com/questions/3654446/java-regex-help-splitting-string-on-spaces-and-commas
-      final String[] words = dateString.split("\\s*(\\.|_|-|,|\\s|’|')\\s*");
-      final List<String> cleanWords = DateParserUtils.getMeaningfulDateWords(words);
-      log.debug("dateString="+dateString+", cleanWords="+cleanWords);
+//      final String[] words = dateString.split("\\s*(\\.|_|-|,|\\s|’|')\\s*");
+//      final List<String> cleanWords = DateParserUtils.getMeaningfulDateWords(words);
+//      if(cleanWords.size()==4
+//              && cleanWords.get(2).length() == 1
+//              && cleanWords.get(3).length() ==1){
+//          //merge the last two list
+//          cleanWords.set(2, cleanWords.get(2) + cleanWords.get(3));
+//          cleanWords.remove(3);
+//      }
+//      log.debug("dateString="+dateString+", cleanWords="+cleanWords);
 //      final List<String> list = new ArrayList<>();
 //      for(String w : words){
 //          if(w.length()==1
@@ -54,12 +83,12 @@ public class LiteralMonthDayYear2 extends DateParserRegularExpression{
 //          list.add(StringCommon.removeAllSpaces(w));
 //      }
 //      return list;
-      return cleanWords;
+//      return cleanWords;
   }
 
     @Override
     public LocalDate parseToDate(final String literalMDY2) {
-        final List<String> words = literalMonthDayYearSplit(literalMDY2);
+        final List<String> words = literalMonthDayYearSplit(literalMDY2, 2);
       log.debug("words.size()="+words.size());
       for(String str: words)
           log.debug(str);
