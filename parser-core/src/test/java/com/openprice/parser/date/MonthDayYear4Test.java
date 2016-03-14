@@ -21,37 +21,89 @@ public class MonthDayYear4Test {
         return new ThreeStrings(a+"", b+"", c+"");
     }
 
-    public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(mdy4.parseNoSpaces(line));
+    public ThreeStrings parseToThreeStrings(final String line) throws Exception{
+        if(mdy4.parseWithSpaces(line) == null)
+            throw new Exception("parsed result is null");
+        return threeStrings(mdy4.parseWithSpaces(line).getDate());
     }
 
     @Test
-    public void day2Month2IsOkay(){
+    public void day2Month2IsOkay() throws Exception{
         assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("05/08/2014 fdafda d"));
     }
 
     @Test
-    public void day1Month2IsOkay(){
+    public void day1Month2IsOkay() throws Exception{
         assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("5/08/2014 fdafda d"));
     }
 
     @Test
-    public void day1Month1IsOkay(){
+    public void day1Month1IsOkay() throws Exception{
         assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("sdfsd 5/8/2014 fdafda d"));
     }
 
     @Test
-    public void day1Month1IsOkaySpaceIsAlsoFine(){
+    public void day1Month1IsOkaySpaceIsAlsoFine() throws Exception {
         assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("sdfsd 5 /   8/2 014 fdafda d"));
     }
 
     @Test
     public void invalidMonthWillReturnNull(){
-        assertNull(mdy4.parseNoSpaces("15/8/2014"));
+        assertNull(mdy4.parseWithSpaces("15/8/2014"));
     }
 
     @Test
     public void invalidDayWillReturnNull(){
-        assertNull(mdy4.parseNoSpaces("12/40/2014"));
+        assertNull(mdy4.parseWithSpaces("12/40/2014"));
+    }
+
+    @Test
+    public void wideSpaceAfter() throws Exception{
+        assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("sdfsd 5/8/2014     133"));
+    }
+
+    @Test
+    public void fiveSpaceBefore() throws Exception {
+        assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("1     5/8/2014     133"));
+    }
+
+    @Test
+    public void fourSpaceBefore() throws Exception {
+        assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("1    5/8/2014     133"));
+    }
+
+    @Test
+    public void fourSpaceBefore2() throws Exception {
+        assertEquals(threeStrings(2014, 2, 8), parseToThreeStrings("1    2/8/2014     133"));
+    }
+
+    @Test
+    public void threeSpaceBefore2() throws Exception {
+        assertEquals(threeStrings(2014, 2, 8), parseToThreeStrings("1   2/8/2014     133"));
+    }
+
+    @Test
+    public void twoSpaceBefore2() throws Exception {
+        assertEquals(threeStrings(2014, 2, 8), parseToThreeStrings("1  2/8/2014     133"));
+    }
+
+    @Test
+    public void oneSpaceBefore1() throws Exception {
+        assertEquals(threeStrings(2014, 2, 8), parseToThreeStrings("1 2/8/2014     133"));
+    }
+
+    @Test
+    public void threeSpacesBefore() throws Exception {
+        assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("1   5/8/2014     133"));
+    }
+
+    @Test
+    public void twoSpacesBefore() throws Exception {
+        assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("1  5/8/2014     133"));
+    }
+
+    @Test(expected = Exception.class)
+    public void noSpacesBefore() throws Exception {
+        assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("15/8/2014     133"));
     }
 }

@@ -687,7 +687,7 @@ public class LondonDrugsTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "14.68",31);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, "*** cardholder copy ***",52);
 //        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2014/10/15",13);
-        verifyParsedField(fieldValues, ReceiptFieldType.Date, "1526/1/1",1);//TODO add a date selector (use ML)
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/1/1",1);//LD WEST EDMONTON MALL  780 9'1'1 '1526. TODO add a date selector (use ML)
     }
 
 

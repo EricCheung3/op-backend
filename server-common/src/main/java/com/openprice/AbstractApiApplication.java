@@ -76,7 +76,7 @@ public abstract class AbstractApiApplication {
         return MetadataLoader.loadMetadata();
     }
 
-    // Set maxPostSize of embedded tomcat server to 10 megabytes (default is 2 MB, not large enough to support file uploads > 1.5 MB)
+    // Set maxPostSize of embedded tomcat server to 100 megabytes (default is 2 MB, not large enough to support file uploads > 1.5 MB)
     // See http://stackoverflow.com/questions/33232849/increase-http-post-maxpostsize-in-spring-boot
     @Bean
     EmbeddedServletContainerCustomizer containerCustomizer() throws Exception {
@@ -85,7 +85,7 @@ public abstract class AbstractApiApplication {
                 TomcatEmbeddedServletContainerFactory tomcat = (TomcatEmbeddedServletContainerFactory) container;
                 tomcat.addConnectorCustomizers(
                     (connector) -> {
-                        connector.setMaxPostSize(10000000); // 10 MB
+                        connector.setMaxPostSize(100000000); // 100 MB
                     }
                 );
             }

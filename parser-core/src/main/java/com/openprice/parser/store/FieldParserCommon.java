@@ -113,6 +113,6 @@ public class FieldParserCommon {
     public static String parseDate(final ReceiptLine line){
         final List<String> origLines=line.getReceipt().getOriginalLines();
         final int currentNumber=line.getNumber();
-        return DateParserUtils.findDate(origLines, currentNumber).getValue();
+        return DateParserUtils.findDateInLinesAndSelect(origLines, currentNumber).getValue();
     }
 }

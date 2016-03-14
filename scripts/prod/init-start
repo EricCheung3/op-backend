@@ -3,7 +3,7 @@ gitroot=~/openprice
 # ========== Backend ==========
 
 cd $gitroot/op-backend
-mvn clean install -P prod,cloud-prod -DskipTests
+mvn clean install -P prod,cloud-prod -Djava.security.egd=file:/dev/./urandom
 
 
 docker run --name op-mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=openprice -e MYSQL_USER=openprice -e MYSQL_PASSWORD=openprice -v ~/groundtruth/mysql_data:/var/lib/mysql -d mysql:5.6
