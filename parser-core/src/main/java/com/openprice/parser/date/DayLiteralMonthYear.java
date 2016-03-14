@@ -8,4 +8,10 @@ public class DayLiteralMonthYear implements DateParser{
         return null;
     }
 
+    @Override
+    public String getDateSubString(String line) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

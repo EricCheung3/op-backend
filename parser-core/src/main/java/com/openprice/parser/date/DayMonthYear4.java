@@ -17,7 +17,7 @@ public class DayMonthYear4 extends DateParserRegularExpression{
 
     @Override
     public LocalDateFeatures parseWithSpaces(final String line) {
-        return selectAccordingToWideSpace(line, pattern, DateStringFormat.MonthDayYear4);
+        return selectAccordingToWideSpace(line, getDateSubString(line), DateStringFormat.MonthDayYear4);
     }
 
     @Override
@@ -31,6 +31,11 @@ public class DayMonthYear4 extends DateParserRegularExpression{
                 cleanWords.get(1),
                 cleanWords.get(2)
                 );
+    }
+
+    @Override
+    public String getDateSubString(String line) {
+        return DateParserUtils.pruneDateStringWithMatch(line, pattern);
     }
 
 }

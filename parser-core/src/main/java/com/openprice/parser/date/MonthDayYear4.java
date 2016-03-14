@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  */
 public class MonthDayYear4 extends DateParserRegularExpression{
 
-    private static Pattern patternMonthDayYear4 = Pattern.compile(
+    private static final Pattern pattern = Pattern.compile(
             Year4MonthDay.DAY_MONTH_PATTERN
                 + "["+ DateConstants.DATE_SPLITTERS + "]"
             + Year4MonthDay.DAY_MONTH_PATTERN
@@ -19,7 +19,7 @@ public class MonthDayYear4 extends DateParserRegularExpression{
 
     @Override
     public LocalDateFeatures parseWithSpaces(String line) {
-        return selectAccordingToWideSpace(line, patternMonthDayYear4, DateStringFormat.MonthDayYear4);
+        return selectAccordingToWideSpace(line, getDateSubString(line), DateStringFormat.MonthDayYear4);
     }
 
     @Override
@@ -32,6 +32,11 @@ public class MonthDayYear4 extends DateParserRegularExpression{
                 clean.get(1),
                 clean.get(0),
                 clean.get(2));
+    }
+
+    @Override
+    public String getDateSubString(String line) {
+        return DateParserUtils.pruneDateStringWithMatch(line, pattern);
     }
 
 }

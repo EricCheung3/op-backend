@@ -15,7 +15,7 @@ import com.openprice.common.StringCommon;
 //format like "OCT.08’ 15"
 //TODO also inherit DateParserRegularExpression
 //@Slf4j
-public class LiteralMonthDayYear2 extends DateParserRegularExpression{
+public class LiteralMonthDayYear2RE extends DateParserRegularExpression{
 
     //http://stackoverflow.com/questions/2655476/regex-to-match-month-name-followed-by-year
     public static final String LITERAL_MONTH = "\\b(?:Jan(?:uary)?|Feb(?:ruary)?||Mar(?:ch)?||Apr(?:il)?||May?"
@@ -36,7 +36,7 @@ public class LiteralMonthDayYear2 extends DateParserRegularExpression{
 
     @Override
     public LocalDateFeatures parseWithSpaces(String origLine) {
-        return selectAccordingToWideSpace(origLine, pattern, DateStringFormat.LiteralMonthDayYear2);
+        return selectAccordingToWideSpace(origLine, getDateSubString(origLine), DateStringFormat.LiteralMonthDayYear2);
     }
 
     //TODO similar to DataParserUtils.getMeaningfulWords?
@@ -104,6 +104,11 @@ public class LiteralMonthDayYear2 extends DateParserRegularExpression{
           //log.warn(e.getMessage());
        }
        return null;
+    }
+
+    @Override
+    public String getDateSubString(String line) {
+        return DateParserUtils.pruneDateStringWithMatch(line, pattern);
     }
 
 }

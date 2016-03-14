@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class LiteralMonthDayYear4Test extends DateParserRegularExpressionTestClass {
 
     public LiteralMonthDayYear4Test() {
-        super(new LiteralMonthDayYear4());
+        super(new LiteralMonthDayYear4RE());
     }
 
     @Test
@@ -148,7 +148,7 @@ public class LiteralMonthDayYear4Test extends DateParserRegularExpressionTestCla
 
     @Test
     public void mergeTheLastDigitsIntoAYear1(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 9, 2 015", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("Feb 9, 2 015", 4);
         assertEquals(3, words.size());
         assertEquals("Feb", words.get(0));
         assertEquals("9", words.get(1));
@@ -157,7 +157,7 @@ public class LiteralMonthDayYear4Test extends DateParserRegularExpressionTestCla
 
     @Test
     public void mergeTheLastDigitsIntoAYear2(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 9, 2 0 15", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("Feb 9, 2 0 15", 4);
         assertEquals(3, words.size());
         assertEquals("Feb", words.get(0));
         assertEquals("9", words.get(1));
@@ -176,7 +176,7 @@ public class LiteralMonthDayYear4Test extends DateParserRegularExpressionTestCla
 
     @Test
     public void mergeTheLastDigitsIntoAYear3(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 9, 2 0 1 5", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("Feb 9, 2 0 1 5", 4);
         assertEquals(3, words.size());
         assertEquals("Feb", words.get(0));
         assertEquals("9", words.get(1));
@@ -185,7 +185,7 @@ public class LiteralMonthDayYear4Test extends DateParserRegularExpressionTestCla
 
     @Test
     public void mergeTheLastDigitsIntoAYear4(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 9, 2 0 1 5 ", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("Feb 9, 2 0 1 5 ", 4);
         assertEquals(3, words.size());
         assertEquals("Feb", words.get(0));
         assertEquals("9", words.get(1));
@@ -194,7 +194,7 @@ public class LiteralMonthDayYear4Test extends DateParserRegularExpressionTestCla
 
     @Test
     public void mergeTheLastDigitsIntoAYear5(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 1 9 , 2 0 1 5 ", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("Feb 1 9 , 2 0 1 5 ", 4);
         assertEquals(3, words.size());
         assertEquals("Feb", words.get(0));
         assertEquals("19", words.get(1));
@@ -203,7 +203,7 @@ public class LiteralMonthDayYear4Test extends DateParserRegularExpressionTestCla
 
     @Test
     public void mergeTheLastDigitsIntoAYear6(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Fe b 1 9 , 2 0 1 5 ", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("Fe b 1 9 , 2 0 1 5 ", 4);
         assertEquals(3, words.size());
         assertEquals("Feb", words.get(0));
         assertEquals("19", words.get(1));

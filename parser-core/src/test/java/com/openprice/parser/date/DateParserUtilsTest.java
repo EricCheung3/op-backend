@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
@@ -687,6 +688,34 @@ public class DateParserUtilsTest {
         System.out.println("test time for testDateFileRCSS1 is "+searchTime);
     }
 
+    @Test
+    public void testCPUTime1(){
+        long startTime = System.currentTimeMillis();
+        Map<DateStringFormat, LocalDateFeatures> map = DateParserUtils.allPossibleDatesInALine("TOTAL                                                  85.50");
+        long endTime = System.currentTimeMillis();
+        long searchTime = endTime - startTime;
+        System.out.println("test time for allPossibleDatesInALine is "+searchTime);
+    }
+
+    @Test
+    public void testCPUTime2(){
+        long startTime = System.currentTimeMillis();
+        Map<DateStringFormat, LocalDateFeatures> map = DateParserUtils.allPossibleDatesInALine("     2 @ $1.99        ");
+        long endTime = System.currentTimeMillis();
+        long searchTime = endTime - startTime;
+        System.out.println("test time for allPossibleDatesInALine is "+searchTime);
+    }
+
+    @Test
+    public void testCPUTime3(){
+        long startTime = System.currentTimeMillis();
+        Map<DateStringFormat, LocalDateFeatures> map = DateParserUtils.allPossibleDatesInALine("SUBTOTAL                                              83.38");
+        long endTime = System.currentTimeMillis();
+        long searchTime = endTime - startTime;
+        System.out.println("test time for allPossibleDatesInALine is "+searchTime);
+    }
+
+    //15:56:48.448 [main] DEBUG c.o.parser.date.DateParserUtils - line 21    2 @ $1.99                                             : time for findDateInALine is 57994
     @Test
     public void testDateFileRCSS1_MostCPULine1(){
         long startTime = System.currentTimeMillis();

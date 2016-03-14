@@ -20,7 +20,7 @@ public class DayMonthYear2 extends DateParserRegularExpression{
 
       @Override
       public LocalDateFeatures parseWithSpaces(final String line) {
-          return selectAccordingToWideSpace(line, pattern, DateStringFormat.DayMonthYear2);
+          return selectAccordingToWideSpace(line, getDateSubString(line), DateStringFormat.DayMonthYear2);
       }
 
       @Override
@@ -35,5 +35,10 @@ public class DayMonthYear2 extends DateParserRegularExpression{
                   "20" + cleanWords.get(2)
                   );
       }
+
+    @Override
+    public String getDateSubString(String str) {
+        return DateParserUtils.pruneDateStringWithMatch(str, pattern);
+    }
 
 }

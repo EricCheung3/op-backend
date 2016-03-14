@@ -16,7 +16,7 @@ public class MonthDayYear2Test extends DateParserRegularExpressionTestClass {
 
     @Test
     public void testMatches(){
-        assertTrue(MonthDayYear2.patternMonthDayYear2.matcher("2/3/13").matches());
+        assertTrue(MonthDayYear2.pattern.matcher("2/3/13").matches());
         //TODO why these two lines don't pass
 //        assertTrue(MonthDayYear2.patternMonthDayYear2.matcher("1 2/3/13").matches());
 //        assertTrue(MonthDayYear2.patternMonthDayYear2.matcher("01429 15~ 7913 4606631  2/3/13             6:04P").matches());

@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class MonthDayYear2 extends DateParserRegularExpression{
 
     //month(one or two digits) and day (one or two digits), 2-digit year
-    public static Pattern patternMonthDayYear2= Pattern.compile(
+    public static Pattern pattern= Pattern.compile(
             DAY_MONTH_PATTERN
                 + "["+ DateConstants.DATE_SPLITTERS + "]" +
             DAY_MONTH_PATTERN
@@ -19,7 +19,7 @@ public class MonthDayYear2 extends DateParserRegularExpression{
 
     @Override
     public LocalDateFeatures parseWithSpaces(String line) {
-        return selectAccordingToWideSpace(line, patternMonthDayYear2, DateStringFormat.MonthDayYear2);
+        return selectAccordingToWideSpace(line, getDateSubString(line), DateStringFormat.MonthDayYear2);
     }
 
     @Override
@@ -34,6 +34,11 @@ public class MonthDayYear2 extends DateParserRegularExpression{
                 clean.get(0).trim(),
                 "20" + clean.get(2).trim()
                 );
+    }
+
+    @Override
+    public String getDateSubString(String line) {
+        return DateParserUtils.pruneDateStringWithMatch(line, pattern);
     }
 
 }

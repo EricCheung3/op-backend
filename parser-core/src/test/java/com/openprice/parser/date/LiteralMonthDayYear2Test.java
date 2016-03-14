@@ -11,7 +11,7 @@ import com.openprice.parser.price.ThreeStrings;
 
 public class LiteralMonthDayYear2Test {
 
-    private final LiteralMonthDayYear2 literalMDY2 = new LiteralMonthDayYear2();
+    private final LiteralMonthDayYear2RE literalMDY2 = new LiteralMonthDayYear2RE();
 
     public static ThreeStrings threeStrings(final int y, final int m, final int d) {
         return new ThreeStrings(y+"", m+"",  d+"");
@@ -54,7 +54,7 @@ public class LiteralMonthDayYear2Test {
 
     @Test
     public void literalMonthDayYearSplitTest1(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 9  , 2015", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("Feb 9  , 2015", 4);
         assertEquals(3, words.size());
         assertEquals("Feb", words.get(0));
         assertEquals("9", words.get(1));
@@ -63,7 +63,7 @@ public class LiteralMonthDayYear2Test {
 
     @Test
     public void mergeTheLastTwoDigits(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 9, 1 5", 2);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("Feb 9, 1 5", 2);
         assertEquals(3, words.size());
         assertEquals("Feb", words.get(0));
         assertEquals("9", words.get(1));
@@ -72,7 +72,7 @@ public class LiteralMonthDayYear2Test {
 
     @Test
     public void literalMonthDayYearSplitTest2(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 9,2015", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("Feb 9,2015", 4);
         assertEquals(3, words.size());
         assertEquals("Feb", words.get(0));
         assertEquals("9", words.get(1));
@@ -81,7 +81,7 @@ public class LiteralMonthDayYear2Test {
 
     @Test
     public void literalMonthDayYearSplitCommaSpacesIsOkay(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 9,    2015", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("Feb 9,    2015", 4);
         assertEquals(3, words.size());
         assertEquals("Feb", words.get(0));
         assertEquals("9", words.get(1));
@@ -90,7 +90,7 @@ public class LiteralMonthDayYear2Test {
 
     @Test
     public void literalMonthDayYearUpperCaseIsOkay(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("FEB 9,    2015", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("FEB 9,    2015", 4);
         assertEquals(3, words.size());
         assertEquals("FEB", words.get(0));
         assertEquals("9", words.get(1));
@@ -100,7 +100,7 @@ public class LiteralMonthDayYear2Test {
 
     @Test
     public void literalMonthDayYearSplitCommaSpacesIsOkay2(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb  9  ,    2015", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("Feb  9  ,    2015", 4);
         assertEquals(3, words.size());
         assertEquals("Feb", words.get(0));
         assertEquals("9", words.get(1));
@@ -109,7 +109,7 @@ public class LiteralMonthDayYear2Test {
 
     @Test
     public void literalMonthDayYearSplitDashSpacesIsOkay(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 9-    2015", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("Feb 9-    2015", 4);
         assertEquals(3, words.size());
         assertEquals("Feb", words.get(0));
         assertEquals("9", words.get(1));
@@ -118,7 +118,7 @@ public class LiteralMonthDayYear2Test {
 
     @Test
     public void literalMonthDayYearSplitUpperIsOkay(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("FEB 9-    2015", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("FEB 9-    2015", 4);
         assertEquals(3, words.size());
         assertEquals("FEB", words.get(0));
         assertEquals("9", words.get(1));
@@ -127,7 +127,7 @@ public class LiteralMonthDayYear2Test {
 
     @Test
     public void literalMonthDayYearSplitDashSpacesIsOkay2(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 9   -       2015", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("Feb 9   -       2015", 4);
         assertEquals(3, words.size());
         assertEquals("Feb", words.get(0));
         assertEquals("9", words.get(1));
@@ -136,7 +136,7 @@ public class LiteralMonthDayYear2Test {
 
     @Test
     public void literalMonthDayYearSplitUnderscoreSpacesIsOkay(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 9 _    2015", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("Feb 9 _    2015", 4);
         assertEquals(3, words.size());
         assertEquals("Feb", words.get(0));
         assertEquals("9", words.get(1));
@@ -145,7 +145,7 @@ public class LiteralMonthDayYear2Test {
 
     @Test
     public void literalMonthDayYearSplitUnderscoreSpacesIsOkay2(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("Feb 9_    2015", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("Feb 9_    2015", 4);
         assertEquals(3, words.size());
         assertEquals("Feb", words.get(0));
         assertEquals("9", words.get(1));
@@ -154,7 +154,7 @@ public class LiteralMonthDayYear2Test {
 
     @Test
     public void singleQuoteNonUnicodeIsOkay(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("OCT.08’2015", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("OCT.08’2015", 4);
         assertEquals(3, words.size());
         assertEquals("OCT", words.get(0));
         assertEquals("08", words.get(1));
@@ -163,7 +163,7 @@ public class LiteralMonthDayYear2Test {
 
     @Test
     public void singleQuoteIsOkay(){
-        final List<String> words = LiteralMonthDayYear2.literalMonthDayYearSplit("OCT.08'2015", 4);
+        final List<String> words = LiteralMonthDayYear2RE.literalMonthDayYearSplit("OCT.08'2015", 4);
         assertEquals(3, words.size());
         assertEquals("OCT", words.get(0));
         assertEquals("08", words.get(1));

@@ -4,12 +4,13 @@ import com.openprice.parser.ml.api.predictor.LinePredictor;
 import com.openprice.parser.ml.data.LineType;
 import com.openprice.parser.ml.data.PriceParserConstant;
 
-public class SimpleLinePredcitor implements LinePredictor{
+public class SimpleLinePredictor implements LinePredictor{
 
 
     @Override
     public LineType classify(final String str) {
-        if(str.contains("kg") && str.contains("@"))
+        if( (str.contains("kg") && str.contains("@")) ||
+            (str.contains("lb") && str.contains("@"))  )
             return LineType.WeightPrice;
 
         final StatisticalFeatures features =  StatisticalFeatures.fromString(str);

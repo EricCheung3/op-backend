@@ -1,7 +1,6 @@
 package com.openprice.parser.date;
 
 import java.time.LocalDate;
-import java.util.regex.Pattern;
 
 import com.openprice.parser.date.ml.StringGeneralFeatures;
 
@@ -11,7 +10,11 @@ public abstract class DateParserRegularExpression implements DateParser{
     //pattern for month and day
 //    public final static String DAY_MONTH_PATTERN = "\\s*(0?\\s*\\d|\\d\\s*\\d|\\d{1,2})\\s*";
     public final static String DAY_MONTH_PATTERN = "\\s*(\\d\\s*\\d|\\d{1,2})\\s*";
-    public final static String YEAR_4_PATTERN = "\\s*(1\\s*9|2\\s*0)\\s*\\d\\s*\\d\\s*";
+
+    //this leads to matcher very slow
+//    public final static String YEAR_4_PATTERN = "\\s*(1\\s*9|2\\s*0)\\s*\\d\\s*\\d\\s*";
+    public final static String YEAR_4_PATTERN = "20[0|1]\\d";
+
     public final static String YEAR_2_PATTERN = "\\s*\\d\\s*\\d\\s*";//"\\d\\d";//"(\\d{2})(?=\\D|$)");
 
     public abstract LocalDate parseToDate(final String dateStr);
@@ -30,20 +33,20 @@ public abstract class DateParserRegularExpression implements DateParser{
     }
 
     public LocalDateFeatures selectAccordingToWideSpace(final String line,
-            final Pattern pattern,
+            final String dateStr,
             final DateStringFormat format) {
-        long startTime = System.currentTimeMillis();
-        final String dateStr=DateParserUtils.pruneDateStringWithMatch(line, pattern);
         //log.debug("selectAccordingToWideSpace, dateStr="+dateStr);
         if(dateStr.isEmpty()) return null;
         final String[] words = dateStr.split("\\s+");
         for(String w: words) {
-            final LocalDateFeatures features = selectAccordingToSpace(w, pattern, format);
+            final LocalDateFeatures features = selectAccordingToSpace(w, getDateSubString(w), format);
             if(features != null && DateParserUtils.isGoodDateBestGuess(features.getDate())) {
                 //log.debug("parsing from no space word and got "+ features.getDate());
                 return features;
             }
         }
+        long t3 = System.currentTimeMillis();
+//        System.out.println("selectAccordingToSpace spends "+ (t3-t2));
 
         final LocalDateFeatures fromWholeString = parseToFeatures(dateStr, format);
 //        //log.debug("fromWholeString="+fromWholeString.getDate());
@@ -52,6 +55,8 @@ public abstract class DateParserRegularExpression implements DateParser{
            //log.debug("parsing from whole string success.");
            return fromWholeString;
         }
+        long t4 = System.currentTimeMillis();
+//        System.out.println("parseToFeatures fromWholeString spends "+ (t4-t3));
 
         final DateStringFeatures wholeStringFeatures = DateStringFeatures.fromString(dateStr);
         final LocalDateFeatures fromBeforeSpace = parseToFeatures(wholeStringFeatures.getBeforeWideSpace(), format);
@@ -60,11 +65,16 @@ public abstract class DateParserRegularExpression implements DateParser{
             //log.debug("parsing from before string success.");
             return fromBeforeSpace;
         }
+        long t5 = System.currentTimeMillis();
+//        System.out.println("parseToFeatures fromBeforeSpace spends "+ (t5-t4));
+
         final LocalDateFeatures fromAfterSpace = parseToFeatures(wholeStringFeatures.getAfterWideSpace(), format);
         if(fromAfterSpace != null
                 && DateParserUtils.isGoodDateBestGuess(fromAfterSpace.getDate())){
             //log.debug("parsing from after string success.");
         }
+        long t6 = System.currentTimeMillis();
+//        System.out.println("parseToFeatures fromAfterSpace spends "+ (t6-t5));
 
         if(fromWholeString != null
                 && DateParserUtils.isGoodDateBestGuess(fromWholeString.getDate())){
@@ -85,9 +95,8 @@ public abstract class DateParserRegularExpression implements DateParser{
     }
 
     public LocalDateFeatures selectAccordingToSpace(final String str,
-            final Pattern pattern,
+            final String dateStr,
             final DateStringFormat format) {
-        final String dateStr=DateParserUtils.pruneDateStringWithMatch(str, pattern);
         final LocalDateFeatures fromWholeString = parseToFeatures(dateStr, format);
 //        //log.debug("localDate="+localDate);
         if(fromWholeString != null){
