@@ -987,5 +987,12 @@ public class DateParserUtilsTest {
         assertEquals("2015/1/1", DateParserUtils.findDateInALine(line));
     }
 
+    @Test
+    public void monthDayYear1() throws Exception{
+        final String line = "03/06/16 15 :24 : 1'1 AUTH : 02506'1 ";
+        assertEquals("2016/3/6", DateParserUtils.findDateInALine(line));
+    }
+
+
 
 }

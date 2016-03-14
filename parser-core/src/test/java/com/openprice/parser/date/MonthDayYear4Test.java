@@ -1,30 +1,14 @@
 package com.openprice.parser.date;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import java.time.LocalDate;
 
 import org.junit.Test;
 
-import com.openprice.parser.price.ThreeStrings;
-
 //TODO only parse with no spaces is tested
-public class MonthDayYear4Test {
+public class MonthDayYear4Test extends DateParserRegularExpressionTestClass {
 
-    private final MonthDayYear4 mdy4 = new MonthDayYear4();
-
-    public static ThreeStrings threeStrings(final LocalDate date){
-        return new ThreeStrings(date.getYear()+"", date.getMonthValue()+"", date.getDayOfMonth()+"");
-    }
-    public static ThreeStrings threeStrings(final int a, final int b, final int c){
-        return new ThreeStrings(a+"", b+"", c+"");
-    }
-
-    public ThreeStrings parseToThreeStrings(final String line) throws Exception{
-        if(mdy4.parseWithSpaces(line) == null)
-            throw new Exception("parsed result is null");
-        return threeStrings(mdy4.parseWithSpaces(line).getDate());
+    public MonthDayYear4Test() {
+        super(new MonthDayYear4());
     }
 
     @Test
@@ -47,14 +31,14 @@ public class MonthDayYear4Test {
         assertEquals(threeStrings(2014, 5, 8), parseToThreeStrings("sdfsd 5 /   8/2 014 fdafda d"));
     }
 
-    @Test
+    @Test(expected=Exception.class)
     public void invalidMonthWillReturnNull(){
-        assertNull(mdy4.parseWithSpaces("15/8/2014"));
+        parseToThreeStrings("15/8/2014");
     }
 
-    @Test
+    @Test(expected=Exception.class)
     public void invalidDayWillReturnNull(){
-        assertNull(mdy4.parseWithSpaces("12/40/2014"));
+        parseToThreeStrings("12/40/2014");
     }
 
     @Test

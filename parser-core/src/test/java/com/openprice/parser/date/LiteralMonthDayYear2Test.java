@@ -19,8 +19,12 @@ public class LiteralMonthDayYear2Test {
         return new ThreeStrings(date.getYear()+"", date.getMonthValue()+"", date.getDayOfMonth()+"");
     }
 
-    public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(literalMDY2.parseWithSpaces(line).getDate());
+    public ThreeStrings parseToThreeStrings(final String line) throws Exception {
+        final LocalDateFeatures features = literalMDY2.parseWithSpaces(line);
+        if(features == null)
+            throw new Exception("parsed result is null");
+
+        return threeStrings(features.getDate());
     }
 
     @Test

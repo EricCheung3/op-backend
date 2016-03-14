@@ -26,7 +26,7 @@ public class DayMonthYear4Test {
 
     @Test
     public void testPatternMatches(){
-        assertTrue(DayMonthYear4.patternMonthDayYear4.matcher("03/05/2015").matches());
+        assertTrue(DayMonthYear4.pattern.matcher("03/05/2015").matches());
     }
 
     //TODO

@@ -1,12 +1,10 @@
 package com.openprice.parser.date;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.openprice.common.StringCommon;
-import com.openprice.parser.date.ml.StringGeneralFeatures;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * "literal month day year" format
@@ -15,7 +13,8 @@ import com.openprice.parser.date.ml.StringGeneralFeatures;
  */
 //format like "OCT.08’ 15"
 //TODO also inherit DateParserRegularExpression
-public class LiteralMonthDayYear2 implements DateParser{
+@Slf4j
+public class LiteralMonthDayYear2 extends DateParserRegularExpression{
 
     //http://stackoverflow.com/questions/2655476/regex-to-match-month-name-followed-by-year
     public static final String LITERAL_MONTH = "\\b(?:Jan(?:uary)?|Feb(?:ruary)?||Mar(?:ch)?||Apr(?:il)?||May?"
@@ -36,30 +35,7 @@ public class LiteralMonthDayYear2 implements DateParser{
 
     @Override
     public LocalDateFeatures parseWithSpaces(String origLine) {
-        final String literalMDY2 = DateParserUtils.pruneDateStringWithMatch(origLine,
-                pattern);
-        final List<String> words = literalMonthDayYearSplit(literalMDY2);
-//        log.debug("words.size()="+words.size());
-//        for(String str: words)
-//            log.debug(str);
-        if(words.size() < 3)
-            return null;
-        try{
-            final LocalDate date = DateUtils.fromDayMonthYear(
-                    words.get(1),
-                    DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
-                    "20" + words.get(2)
-                    );
-            return new LocalDateFeatures(
-                    date,
-                    DateStringFormat.LiteralMonthDayYear2,
-                    literalMDY2,
-                    StringGeneralFeatures.fromString(literalMDY2),
-                    DateStringFeatures.fromString(literalMDY2));
-        }catch(Exception e){
-//            log.warn(e.getMessage());
-        }
-        return null;
+        return selectAccordingToWideSpace(origLine, pattern, DateStringFormat.LiteralMonthDayYear2);
     }
 
     //TODO similar to DataParserUtils.getMeaningfulWords?
@@ -67,16 +43,38 @@ public class LiteralMonthDayYear2 implements DateParser{
 //      final String[] words = dateString.split("-|_|\\.|\\s+");//not correct. only one dilimiter is selected
 //      http://stackoverflow.com/questions/3654446/java-regex-help-splitting-string-on-spaces-and-commas
       final String[] words = dateString.split("\\s*(\\.|_|-|,|\\s|’|')\\s*");
+      final List<String> cleanWords = DateParserUtils.getMeaningfulDateWords(words);
 //      log.debug("dateString="+dateString+", words.length="+words.length);
-      final List<String> list = new ArrayList<>();
-      for(String w : words){
-          if(w.length()==1
-              && !Character.isDigit(w.charAt(0))
-              && !Character.isLetter(w.charAt(0)))
-              continue;
-          list.add(StringCommon.removeAllSpaces(w));
-      }
-      return list;
+//      final List<String> list = new ArrayList<>();
+//      for(String w : words){
+//          if(w.length()==1
+//              && !Character.isDigit(w.charAt(0))
+//              && !Character.isLetter(w.charAt(0)))
+//              continue;
+//          list.add(StringCommon.removeAllSpaces(w));
+//      }
+//      return list;
+      return cleanWords;
   }
+
+    @Override
+    public LocalDate parseToDate(final String literalMDY2) {
+        final List<String> words = literalMonthDayYearSplit(literalMDY2);
+      log.debug("words.size()="+words.size());
+      for(String str: words)
+          log.debug(str);
+      if(words.size() < 3)
+          return null;
+      try{
+          return DateUtils.fromDayMonthYear(
+                  words.get(1),
+                  DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
+                  "20" + words.get(2)
+                  );
+      }catch(Exception e){
+          log.warn(e.getMessage());
+      }
+      return null;
+    }
 
 }
