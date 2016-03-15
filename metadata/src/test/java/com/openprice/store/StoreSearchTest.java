@@ -9,6 +9,20 @@ import org.junit.Test;
 public class StoreSearchTest {
 
     @Test
+    public void emptyQueryShouldHaveEmptyResult() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+        List<StoreChain> result = metadata.findMatchingStoreChainByName("", 10);
+        assertTrue(result.size() == 0);
+    }
+
+    @Test
+    public void spaceQueryShouldHaveEmptyResult() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+        List<StoreChain> result = metadata.findMatchingStoreChainByName("  ", 10);
+        assertTrue(result.size() == 0);
+    }
+
+    @Test
     public void findMatchingStoreChainByNameTest_b_AllStartsWithb() throws Exception {
         StoreMetadata metadata = MetadataLoader.loadMetadata();
         List<StoreChain> result = metadata.findMatchingStoreChainByName("b", 10);

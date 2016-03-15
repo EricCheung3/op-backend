@@ -13,8 +13,13 @@ public class CatalogSearchTest {
     public void emptyQueryReturnsEmptyResult() throws Exception {
         StoreMetadata metadata = MetadataLoader.loadMetadata();
          List<CatalogProduct> result = metadata.findMatchingProducts("", "rcss", 10);
+         assertTrue(result.size() == 0);
+    }
 
-         result.stream().forEach( p -> System.out.println(p.getNaturalName()));
+    @Test
+    public void spaceQueryReturnsEmptyResult() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+         List<CatalogProduct> result = metadata.findMatchingProducts("  ", "rcss", 10);
          assertTrue(result.size() == 0);
     }
 
