@@ -52,19 +52,51 @@ public class StoreMetadata {
         if (storeChain == null) {
             return Collections.emptyList();
         }
-        return storeChain
+
+        final String queryTrimLower = query.trim().toLowerCase();
+
+        //special treatment for single-char query
+        List<CatalogProduct> singleCharResults = null;
+        if(queryTrimLower.length() == 1 && !Character.isDigit(queryTrimLower.charAt(0))){
+            singleCharResults =  storeChain
+                                    .getProducts()
+                                    .stream()
+                                    .filter(p -> p.getNaturalName().toLowerCase().startsWith(queryTrimLower))
+                                    .limit(returnCount)
+                                    .collect(Collectors.toList());
+                                    if (!singleCharResults.isEmpty()){
+                                        return singleCharResults;
+                                    }
+        }
+
+        final List<CatalogProduct> startWithQueryResults =storeChain
                 .getProducts()
                 .stream()
-                .map(p -> {
-                        Set<String> s = new HashSet<>(Arrays.asList(p.getNaturalName().split("\\s+")));
-                        double score = Levenshtein.mostSimilarScoreInSetLevenshtein(query, s);
-                        return new ProductWithScore(p, score);
-                })
-                .filter(ps -> ps.s > 0.3)
-                .sorted((p1, p2) -> Double.compare(0 - p1.s, 0 - p2.s))
+                .filter(p -> (Arrays.asList(p.getNaturalName().toLowerCase().split("\\s+")))
+                        .stream().anyMatch(w->w.startsWith(queryTrimLower)))
                 .limit(returnCount)
-                .map(ps -> ps.p)
                 .collect(Collectors.toList());
+                if (!startWithQueryResults.isEmpty() && startWithQueryResults.size() == returnCount){
+                    return startWithQueryResults;
+                }
+
+        final List<CatalogProduct> appendedResultsFromLevenshtein = storeChain
+            .getProducts()
+            .stream()
+            .map(p -> {
+                    Set<String> s = new HashSet<>(Arrays.asList(p.getNaturalName().split("\\s+")));
+                    double score = Levenshtein.mostSimilarScoreInSetLevenshtein(query, s);
+                    return new ProductWithScore(p, score);
+            })
+            .filter(ps -> ps.s > 0.3)
+            .filter(ps -> !startWithQueryResults.contains(ps.getP()))
+            .sorted((p1, p2) -> Double.compare(0 - p1.s, 0 - p2.s))
+            .limit(returnCount)
+            .map(ps -> ps.p)
+            .collect(Collectors.toList());
+
+        startWithQueryResults.addAll(appendedResultsFromLevenshtein);
+        return startWithQueryResults;
     }
 
     @Value

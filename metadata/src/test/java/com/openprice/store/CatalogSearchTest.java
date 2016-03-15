@@ -38,4 +38,65 @@ public class CatalogSearchTest {
          assertTrue(result.size() > 0);
          assertTrue(result.stream().anyMatch(p -> p.getNaturalName().equals("Apples")));
     }
+
+    @Test
+    public void findMatchingProducts_rcssTest_2percent() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+         List<CatalogProduct> result = metadata.findMatchingProducts("2%", "rcss", 10);
+
+         result.stream().forEach( p -> System.out.println(p.getNaturalName()));
+         assertTrue(result.size() > 0);
+//         assertTrue(result.stream().anyMatch(p -> p.getNaturalName().equals("Apples")));
+    }
+
+    @Test
+    public void findMatchingProducts_rcssTest_1percent() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+         List<CatalogProduct> result = metadata.findMatchingProducts("1%", "rcss", 10);
+
+         result.stream().forEach( p -> System.out.println(p.getNaturalName()));
+         assertTrue(result.size() > 0);
+//         assertTrue(result.stream().anyMatch(p -> p.getNaturalName().equals("Apples")));
+    }
+
+    @Test
+    public void findMatchingProducts_rcssTest_Beatrice() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+         List<CatalogProduct> result = metadata.findMatchingProducts("Beatrice", "rcss", 10);
+
+         result.stream().forEach( p -> System.out.println(p.getNaturalName()));
+         assertTrue(result.size() > 0);
+//         assertTrue(result.stream().anyMatch(p -> p.getNaturalName().equals("Apples")));
+    }
+
+    @Test
+    public void findMatchingProducts_rcssTest_Bea() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+         List<CatalogProduct> result = metadata.findMatchingProducts("Bea", "rcss", 10);
+
+         result.stream().forEach( p -> System.out.println(p.getNaturalName()));
+         assertTrue(result.size() > 0);
+//         assertTrue(result.stream().anyMatch(p -> p.getNaturalName().equals("Apples")));
+    }
+
+    @Test
+    public void findMatchingProducts_rcssTest_milk() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+         List<CatalogProduct> result = metadata.findMatchingProducts("milk", "rcss", 10);
+
+         result.stream().forEach( p -> System.out.println(p.getNaturalName()));
+         assertTrue(result.size() > 0);
+//         assertTrue(result.stream().anyMatch(p -> p.getNaturalName().equals("Apples")));
+    }
+
+    //TODO maybe should have the results that each word starting with the query
+    @Test
+    public void findMatchingProducts_rcssTest_lem() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+         List<CatalogProduct> result = metadata.findMatchingProducts("lem", "rcss", 10);
+         result.stream().forEach( p -> System.out.println(p.getNaturalName()));
+         assertTrue(result.size() > 0);
+//         assertTrue(result.stream().anyMatch(p -> p.getNaturalName().equals("Apples")));
+    }
+
 }
