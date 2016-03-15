@@ -121,8 +121,8 @@ public class DateParserUtils {
     public static LocalDate selectDateInALine(final List<String> lines, final int lineNumber){
         long startTime = System.currentTimeMillis();
         final Map<DateStringFormat, LocalDateFeatures> map = allPossibleDatesInALine(lines.get(lineNumber));
-        System.out.println(">>line : "+lines.get(lineNumber));
-        System.out.println(">>>>time for allPossibleDatesInALine(): "+ (System.currentTimeMillis()-startTime)+"ms \n" );
+//        System.out.println(">>line : "+lines.get(lineNumber));
+//        System.out.println(">>>>time for allPossibleDatesInALine(): "+ (System.currentTimeMillis()-startTime)+"ms \n" );
         if(map.containsKey(DateStringFormat.Year4MonthDay)){
             return map.get(DateStringFormat.Year4MonthDay).getDate();
         }
@@ -166,87 +166,87 @@ public class DateParserUtils {
     public static Map<DateStringFormat, LocalDateFeatures> allPossibleDatesInALine(final String str){
         final Map<DateStringFormat, LocalDateFeatures> result = new HashMap<>();
 //        //log.debug("line string is "+str+"\n");
-        long t1 = System.currentTimeMillis();
+//        long t1 = System.currentTimeMillis();
         LocalDateFeatures dateFeatures = y4md.parseWithSpaces(str);
         if(dateFeatures !=null ){
-            //log.debug("y4md:" + dateFeatures.getDate());
+            log.debug("y4md:" + dateFeatures.getDate());
             result.put(DateStringFormat.Year4MonthDay, dateFeatures);
         }
         long t2 = System.currentTimeMillis();
-        if(t2-t1>50)
-            System.out.println("cpu for y4md is "+ (t2-t1));
+//        if(t2-t1>50)
+//            System.out.println("cpu for y4md is "+ (t2-t1));
 
         dateFeatures =  mdy4.parseWithSpaces(str);
         if(dateFeatures !=null){
-            //log.debug("mdy4:"+dateFeatures.getDate());
+            log.debug("mdy4:"+dateFeatures.getDate());
             result.put(DateStringFormat.MonthDayYear4, dateFeatures);
         }
-        long t3 = System.currentTimeMillis();
-        if(t3-t2>50)
-            System.out.println("cpu for mdy4 is "+ (t3-t2));
+//        long t3 = System.currentTimeMillis();
+//        if(t3-t2>50)
+//            System.out.println("cpu for mdy4 is "+ (t3-t2));
 
         dateFeatures =  mdy2.parseWithSpaces(str);
         if(dateFeatures !=null){
-            //log.debug("mdy2:"+dateFeatures.getDate());
+            log.debug("mdy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.LiteralMonthDayYear2, dateFeatures);
         }
-        long t4 = System.currentTimeMillis();
-        if(t4-t3>50)
-            System.out.println("cpu for mdy2 is "+ (t4-t3));
+//        long t4 = System.currentTimeMillis();
+//        if(t4-t3>50)
+//            System.out.println("cpu for mdy2 is "+ (t4-t3));
 
         dateFeatures =  y2md.parseWithSpaces(str);
         if(dateFeatures !=null){
-            //log.debug("y2md:"+dateFeatures.getDate());
+            log.debug("y2md:"+dateFeatures.getDate());
             result.put(DateStringFormat.Year2MonthDay, dateFeatures);
         }
-        long t5 = System.currentTimeMillis();
-        if(t5-t4>50)
-            System.out.println("cpu for y2md is "+ (t5-t4));
+//        long t5 = System.currentTimeMillis();
+//        if(t5-t4>50)
+//            System.out.println("cpu for y2md is "+ (t5-t4));
 
         dateFeatures =  dmy4.parseWithSpaces(str);
         if(dateFeatures !=null){
-            //log.debug("dmy4:"+dateFeatures.getDate());
+            log.debug("dmy4:"+dateFeatures.getDate());
             result.put(DateStringFormat.DayMonthYear4, dateFeatures);
         }
-        long t6 = System.currentTimeMillis();
-        if(t6-t5>50)
-            System.out.println("cpu for dmy4 is "+ (t6-t5));
+//        long t6 = System.currentTimeMillis();
+//        if(t6-t5>50)
+//            System.out.println("cpu for dmy4 is "+ (t6-t5));
 
         dateFeatures =  dmy2.parseWithSpaces(str);
         if(dateFeatures !=null){
-            //log.debug("dmy2:"+dateFeatures.getDate());
+            log.debug("dmy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.DayMonthYear2, dateFeatures);
         }
-        long t7 = System.currentTimeMillis();
-        if(t7-t6>50)
-           System.out.println("cpu for dmy2 is "+ (t7-t6));
+//        long t7 = System.currentTimeMillis();
+//        if(t7-t6>50)
+//           System.out.println("cpu for dmy2 is "+ (t7-t6));
 
         dateFeatures =  mdy2.parseWithSpaces(str);
         if(dateFeatures !=null){
-            //log.debug("mdy2:"+dateFeatures.getDate());
+            log.debug("mdy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.MonthDayYear2, dateFeatures);
         }
-        long t8 = System.currentTimeMillis();
-        if(t8-t7>50)
-            System.out.println("cpu for mdy2 is "+ (t8-t7));
+//        long t8 = System.currentTimeMillis();
+//        if(t8-t7>50)
+//            System.out.println("cpu for mdy2 is "+ (t8-t7));
 
         dateFeatures = literalmdy4.parseWithSpaces(str);
         if(dateFeatures !=null){
-            //log.debug("literalmdy4:"+dateFeatures.getDate());
+            log.debug("literalmdy4:"+dateFeatures.getDate());
             result.put(DateStringFormat.LiteralMonthDayYear4, dateFeatures);
         }
-        long t9 = System.currentTimeMillis();
-        if(t9-t8>50)
-            System.out.println("cpu for literalmdy4 is "+ (t9-t8));
+//        long t9 = System.currentTimeMillis();
+//        if(t9-t8>50)
+//            System.out.println("cpu for literalmdy4 is "+ (t9-t8));
 
         dateFeatures = literalmdy2.parseWithSpaces(str);
         if(dateFeatures !=null){
-            //log.debug("literalmdy2:"+dateFeatures.getDate());
+            log.debug("literalmdy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.LiteralMonthDayYear2, dateFeatures);
         }
-        long t10 = System.currentTimeMillis();
-        if(t10-t9>50)
-            System.out.println("cpu for literalmdy2 is "+ (t10-t9));
+//        long t10 = System.currentTimeMillis();
+//        if(t10-t9>50)
+//            System.out.println("cpu for literalmdy2 is "+ (t10-t9));
         return result;
     }
 

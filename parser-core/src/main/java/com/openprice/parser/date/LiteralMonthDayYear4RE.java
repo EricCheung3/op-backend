@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.openprice.common.StringCommon;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -28,7 +30,20 @@ public class LiteralMonthDayYear4RE  extends DateParserRegularExpression {
 
     @Override
     public LocalDateFeatures parseWithSpaces(String origLine) {
-        return selectAccordingToWideSpace(origLine, getDateSubString(origLine), DateStringFormat.LiteralMonthDayYear4);
+        final String nonSpaceLower = StringCommon.removeAllSpaces(origLine).toLowerCase();
+//        log.debug("nonSpaceLower="+nonSpaceLower);
+//        MONTH_LITERALS.monthLiterals().forEach(m ->System.out.println("m=" + m.toLowerCase()));
+//        System.out.println(MONTH_LITERALS
+//                .monthLiterals()
+//                .stream()
+//                .anyMatch(m -> nonSpaceLower.contains(m.toLowerCase())));
+        if(MONTH_LITERALS
+                .monthLiterals()
+                .stream()
+                .anyMatch(m -> nonSpaceLower.contains(m.toLowerCase()))
+        )
+            return selectAccordingToWideSpace(origLine, getDateSubString(origLine), DateStringFormat.LiteralMonthDayYear4);
+        return null;
     }
 
     @Override

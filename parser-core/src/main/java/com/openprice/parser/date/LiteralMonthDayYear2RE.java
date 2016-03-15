@@ -36,7 +36,11 @@ public class LiteralMonthDayYear2RE extends DateParserRegularExpression{
 
     @Override
     public LocalDateFeatures parseWithSpaces(String origLine) {
-        return selectAccordingToWideSpace(origLine, getDateSubString(origLine), DateStringFormat.LiteralMonthDayYear2);
+        final String nonSpaceLower = StringCommon.removeAllSpaces(origLine).toLowerCase();
+//        System.out.println(MONTH_LITERALS.monthLiterals().stream().anyMatch(m -> nonSpaceLower.contains(m.toLowerCase())));
+        if(MONTH_LITERALS.monthLiterals().stream().anyMatch(m -> nonSpaceLower.contains(m.toLowerCase())))
+            return selectAccordingToWideSpace(origLine, getDateSubString(origLine), DateStringFormat.LiteralMonthDayYear2);
+        return null;
     }
 
     //TODO similar to DataParserUtils.getMeaningfulWords?

@@ -2,18 +2,21 @@ package com.openprice.parser.date;
 
 import java.time.LocalDate;
 
+import com.openprice.common.StringCommon;
 import com.openprice.parser.date.ml.StringGeneralFeatures;
 
-//@Slf4j
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public abstract class DateParserRegularExpression implements DateParser{
+
+    protected final static MonthLiterals MONTH_LITERALS = new MonthLiterals();
 
     //pattern for month and day
 //    public final static String DAY_MONTH_PATTERN = "\\s*(0?\\s*\\d|\\d\\s*\\d|\\d{1,2})\\s*";
     public final static String DAY_MONTH_PATTERN = "\\s*(\\d\\s*\\d|\\d{1,2})\\s*";
 
-    //this leads to matcher very slow
-//    public final static String YEAR_4_PATTERN = "\\s*(1\\s*9|2\\s*0)\\s*\\d\\s*\\d\\s*";
-    public final static String YEAR_4_PATTERN = "20[0|1]\\d";
+    public final static String YEAR_4_PATTERN = "\\s*(1\\s*9|2\\s*0)\\s*\\d\\s*\\d\\s*";
 
     public final static String YEAR_2_PATTERN = "\\s*\\d\\s*\\d\\s*";//"\\d\\d";//"(\\d{2})(?=\\D|$)");
 
@@ -84,13 +87,13 @@ public abstract class DateParserRegularExpression implements DateParser{
 //        long endTime = System.currentTimeMillis();
 //        long spentTime = endTime - startTime;
 //        //log.debug("selectAccordingToWideSpace: spent time is "+spentTime);
-        //last try: removing all spaces?
-//        final LocalDateFeatures noSpaceLocalDate = parseToFeatures(StringCommon.removeAllSpaces(dateStr), format);
-//        if(noSpaceLocalDate != null
-//                && DateParserUtils.isGoodDateBestGuess(noSpaceLocalDate.getDate())){
-//            //log.debug("parsing without space successes");
-//            return noSpaceLocalDate;
-//        }
+        //last try: removing all spaces
+        final LocalDateFeatures noSpaceLocalDate = parseToFeatures(StringCommon.removeAllSpaces(dateStr), format);
+        if(noSpaceLocalDate != null
+                && DateParserUtils.isGoodDateBestGuess(noSpaceLocalDate.getDate())){
+            log.debug("parsing without space successes");
+            return noSpaceLocalDate;
+        }
         return fromAfterSpace;
     }
 
