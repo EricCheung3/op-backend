@@ -101,8 +101,8 @@ public class DateParserUtils {
     private final static Year2MonthDay y2md = new Year2MonthDay();
     private final static DayMonthYear4 dmy4 = new DayMonthYear4();
     private final static DayMonthYear2 dmy2 = new DayMonthYear2();
-    private final static LiteralMonthDayYear4RE literalmdy4 = new LiteralMonthDayYear4RE();
-    private final static LiteralMonthDayYear2RE literalmdy2 = new LiteralMonthDayYear2RE();
+    private final static LiteralMonthDayYear4 literalmdy4 = new LiteralMonthDayYear4();
+    private final static LiteralMonthDayYear2 literalmdy2 = new LiteralMonthDayYear2();
 
     public static String findDateInALine(final String str){
         final List<String> lines = new ArrayList<String>();

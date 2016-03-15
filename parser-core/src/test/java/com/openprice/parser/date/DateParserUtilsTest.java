@@ -1055,6 +1055,20 @@ public class DateParserUtilsTest {
         assertEquals("2016/3/6", DateParserUtils.findDateInALine(line));
     }
 
+    @Test
+    public void mcDonalds1() throws Exception{
+        final String line = "DATE: 01/11/2015 TIME: 01:48:42 PM ";
+        assertEquals("2015/1/11", DateParserUtils.findDateInALine(line));
+    }
+
+    @Test
+    public void mcDonalds2() throws Exception{
+        final String line = "DATE/TIME:                      17-Jan-2015 13:50:35 ";
+        assertEquals("2015/1/17", DateParserUtils.findDateInALine(line));
+    }
+
+
+
 
 
 }

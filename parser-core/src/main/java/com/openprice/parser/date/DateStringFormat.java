@@ -5,7 +5,8 @@ package com.openprice.parser.date;
  *  formats for date string
  */
 public enum DateStringFormat {
-    DayLiteralMonthYear,
+    DayLiteralMonthYear2,
+    DayLiteralMonthYear4,
     DayMonthYear2,
     DayMonthYear4,
     LiteralMonthDayYear2,
