@@ -103,6 +103,7 @@ public class DateParserUtils {
     private final static DayMonthYear2 dmy2 = new DayMonthYear2();
     private final static LiteralMonthDayYear4 literalmdy4 = new LiteralMonthDayYear4();
     private final static LiteralMonthDayYear2 literalmdy2 = new LiteralMonthDayYear2();
+    private final static DayLiteralMonthYear4 dLiteralMY4 = new DayLiteralMonthYear4();
 
     public static String findDateInALine(final String str){
         final List<String> lines = new ArrayList<String>();
@@ -155,6 +156,10 @@ public class DateParserUtils {
             return map.get(DateStringFormat.LiteralMonthDayYear4).getDate();
         }
 
+        if(map.containsKey(DateStringFormat.DayLiteralMonthYear4)){
+            return map.get(DateStringFormat.DayLiteralMonthYear4).getDate();
+        }
+
         if(map.containsKey(DateStringFormat.LiteralMonthDayYear2)){
             return map.get(DateStringFormat.LiteralMonthDayYear2).getDate();
         }
@@ -188,7 +193,7 @@ public class DateParserUtils {
         dateFeatures =  mdy2.parseWithSpaces(str);
         if(dateFeatures !=null){
             log.debug("mdy2:"+dateFeatures.getDate());
-            result.put(DateStringFormat.LiteralMonthDayYear2, dateFeatures);
+            result.put(DateStringFormat.MonthDayYear2, dateFeatures);
         }
 //        long t4 = System.currentTimeMillis();
 //        if(t4-t3>50)
@@ -238,6 +243,11 @@ public class DateParserUtils {
 //        long t9 = System.currentTimeMillis();
 //        if(t9-t8>50)
 //            System.out.println("cpu for literalmdy4 is "+ (t9-t8));
+        dateFeatures = dLiteralMY4.parseWithSpaces(str);
+        if(dateFeatures !=null){
+            log.debug("dLiteralMY4:"+dateFeatures.getDate());
+            result.put(DateStringFormat.DayLiteralMonthYear4, dateFeatures);
+        }
 
         dateFeatures = literalmdy2.parseWithSpaces(str);
         if(dateFeatures !=null){
