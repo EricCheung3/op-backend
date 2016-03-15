@@ -46,7 +46,7 @@ public class DayLiteralMonthYear4 extends LiteralMonthDateParser {
       return null;
     }
 
-    //TODO just copied
+    //TODO just copied; test for single/two-digit date
     public static List<String> dayLiteralMonthYearSplit(final String dateString, final int numYearDigits){
         //Why ’ cannot be replaced?
         final String noSpaceNoSplitter = StringCommon.removeAllSpaces(dateString).replaceAll("\\s+|\\.|_|-|,|\\s|’|'", "");
