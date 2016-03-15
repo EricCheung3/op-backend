@@ -1,5 +1,6 @@
 package com.openprice.store;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +48,7 @@ public class StoreMetadata {
                                                      final String chainCode,
                                                      final int returnCount) {
         final StoreChain storeChain = getStoreChainByCode(chainCode);
-        if (storeChain == null) {
+        if (storeChain == null || query.trim().isEmpty()) {
             return Collections.emptyList();
         }
 
@@ -111,6 +112,8 @@ public class StoreMetadata {
     public List<StoreChain> findMatchingStoreChainByName(final String query, final int returnCount) {
       //special treatment for single-char query
         final String queryTrimLower = query.trim().toLowerCase();
+        if(queryTrimLower.isEmpty())
+            return new ArrayList<StoreChain>();
         List<StoreChain> singleCharResults = null;
         if(queryTrimLower.length() == 1 && !Character.isDigit(queryTrimLower.charAt(0))){
             singleCharResults =  storeChainMap

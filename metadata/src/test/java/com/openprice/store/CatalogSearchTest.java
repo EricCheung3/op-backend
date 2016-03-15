@@ -10,6 +10,15 @@ import org.junit.Test;
 public class CatalogSearchTest {
 
     @Test
+    public void emptyQueryReturnsEmptyResult() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+         List<CatalogProduct> result = metadata.findMatchingProducts("", "rcss", 10);
+
+         result.stream().forEach( p -> System.out.println(p.getNaturalName()));
+         assertTrue(result.size() == 0);
+    }
+
+    @Test
     public void findMatchingProducts_rcssTest_appls() throws Exception {
         StoreMetadata metadata = MetadataLoader.loadMetadata();
          List<CatalogProduct> result = metadata.findMatchingProducts("appls", "rcss", 10);
