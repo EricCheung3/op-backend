@@ -39,7 +39,7 @@ public class LiteralMonthDayYear2 extends LiteralMonthParser{
 
     @Override
     public List<String> splitToLiteralMonthDayYear4(final String dateString) {
-        final List<String> result = LiteralMonthParser.splitToLiteralMonthDayYear2OrYear4(dateString, 2);
+        final List<String> result = LiteralMonthParser.formatMonthDayYearToList(dateString, 2);
         if(result == null || result.size() <3 )
             return null;
         result.set(2, "20"+result.get(2));//add "20" before year digits like "15"

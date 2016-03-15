@@ -31,7 +31,7 @@ public class LiteralMonthDayYear4  extends LiteralMonthParser {
 
     @Override
     List<String> splitToLiteralMonthDayYear4(String dateString) {
-        return LiteralMonthParser.splitToLiteralMonthDayYear2OrYear4(dateString, 4);
+        return LiteralMonthParser.formatMonthDayYearToList(dateString, 4);
     }
 
 

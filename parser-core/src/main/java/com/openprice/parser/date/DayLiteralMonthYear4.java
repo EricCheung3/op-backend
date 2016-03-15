@@ -44,7 +44,7 @@ public class DayLiteralMonthYear4 extends LiteralMonthParser {
             final String dayAndLiteralMonth = noSpaceNoSplitter.substring(0, indexOfYear);
             dayDigits = StringCommon.firstContinuousDigitChunkBetween(dayAndLiteralMonth, 0, dayAndLiteralMonth.length(), 2);
             if( !dayDigits.isEmpty()) {
-                final int startOfMonth = noSpaceNoSplitter.indexOf(dayDigits) + dayDigits.length() + 1;
+                final int startOfMonth = noSpaceNoSplitter.indexOf(dayDigits) + dayDigits.length();
                 literalMonth = noSpaceNoSplitter.substring(startOfMonth,  indexOfYear);
                 log.debug("literalMonth="+literalMonth);
             }

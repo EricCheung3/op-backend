@@ -60,7 +60,7 @@ public abstract class LiteralMonthParser extends DateParserRegularExpression {
     }
 
     //split "Jan 19  1 5" into list: Jan, 08, 2015
-    public static List<String> splitToLiteralMonthDayYear2OrYear4(final String dateString, final int numYearDigits) {
+    public static List<String> formatMonthDayYearToList(final String dateString, final int numYearDigits) {
         if(numYearDigits != 2 && numYearDigits != 4)
             throw new RuntimeException("numYearDigits must be 2 or 4");
         final String noSpaceNoSplitter = StringCommon.removeAllSpaces(dateString).replaceAll("\\s+|\\.|_|-|,|\\s|’|'", "");
