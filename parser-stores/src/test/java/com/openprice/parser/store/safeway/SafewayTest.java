@@ -35,7 +35,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
     @Value("classpath:/testfiles/safeway/phone/csabaFeb24.txt")
     private Resource receipt_CsabaFeb24;
 
-    @Value("classpath:/testfiles/safeway/phone/reka_March_14.txt")
+    @Value("classpath:/testfiles/safeway/phone/reka_march_14.txt")
     private Resource receipt_reka_March_14;
 
     @Test
