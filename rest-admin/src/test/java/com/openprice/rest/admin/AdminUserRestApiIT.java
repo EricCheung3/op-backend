@@ -87,12 +87,11 @@ public class AdminUserRestApiIT extends AbstractAdminRestApiIntegrationTest {
         ;
 
         // verify user lock state
-        Response r = given()
+        given()
             .filter(sessionFilter)
         .when()
-            .get(userUrl);
-        r.prettyPrint();
-        r.then()
+            .get(userUrl)
+        .then()
             .statusCode(HttpStatus.SC_OK)
             .contentType(ContentType.JSON)
             .body("accountLocked", equalTo(true))
