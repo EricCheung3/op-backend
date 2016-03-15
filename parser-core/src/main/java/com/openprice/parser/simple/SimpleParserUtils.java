@@ -12,14 +12,14 @@ import com.openprice.parser.api.StoreConfig;
 import com.openprice.parser.api.StoreParser;
 import com.openprice.parser.data.ParsedItemImpl;
 import com.openprice.parser.ml.data.LineType;
-import com.openprice.parser.ml.line.SimpleLinePredcitor;
+import com.openprice.parser.ml.line.SimpleLinePredictor;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SimpleParserUtils {
 
-    private final static SimpleLinePredcitor linePredictor = new SimpleLinePredcitor();
+    private final static SimpleLinePredictor linePredictor = new SimpleLinePredictor();
 
     public static List<ParsedItem> parseItems(
             final MatchedRecord matchedRecord,

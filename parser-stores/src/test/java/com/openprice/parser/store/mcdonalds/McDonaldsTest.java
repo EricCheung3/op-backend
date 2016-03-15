@@ -91,7 +91,7 @@ public class McDonaldsTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedItem(iterator.next(), "1 hm 4nug s-fry yog",  "4.29", null, 23);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "10.27",30);
         verifyParsedField(fieldValues, ReceiptFieldType.Account, ",1\\cct: fl. ~~ll def~,u- t                        :~      10.27",43);
-        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/1/11",15);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/1/17",47);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "9.78",28);
         verifyParsedField(fieldValues, ReceiptFieldType.Ref, "order# :         1700711",50);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst                                                           0.49",29);
@@ -112,7 +112,7 @@ public class McDonaldsTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedItem(iterator.next(), "1 bacon mcwrap grilled",  "5.49", null, 19);
         verifyParsedItem(iterator.next(), "1 hm 4nug s-fry yog",  "4.29", null, 20);
         verifyParsedField(fieldValues, ReceiptFieldType.Total, "10.27",28);
-        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/1/17",15);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/1/17",48);
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "9.78",25);
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst                                                               0.49",27);
 

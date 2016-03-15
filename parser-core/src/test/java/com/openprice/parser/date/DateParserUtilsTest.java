@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
@@ -374,7 +375,7 @@ public class DateParserUtilsTest {
     }
 
     @Test
-    public void RespectSpaceShouldFind2AsMonthTwoSpaceBeforeDateString() throws Exception{
+    public void respectSpaceShouldFind2AsMonthTwoSpaceBeforeDateString() throws Exception{
         final String line = "01429 15~ 7913 4606631  2/3/13             6:04P";
         assertEquals("2013/2/3", DateParserUtils.findDateInALine(line));
     }
@@ -548,6 +549,15 @@ public class DateParserUtilsTest {
     }
 
     @Test
+    public void unitPriceLine(){
+        final String str = " 2 @ $1.99 ";
+        long startTime = System.currentTimeMillis();
+        assertEquals("", DateParserUtils.findDateInALine(str));
+        long endTime = System.currentTimeMillis();
+        log.debug("cputime is "+(endTime - startTime));
+    }
+
+    @Test
     public void testMonthDayYearOneDigitDay(){
         final String str = " 3/5/16 12 3* 0970 04 0209 2189 ";
         assertEquals("2016/3/5", DateParserUtils.findDateInALine(str));
@@ -660,20 +670,72 @@ public class DateParserUtilsTest {
 
     @Test
     public void testDateFileSafeway1()throws Exception{
+        long startTime = System.currentTimeMillis();
         final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/2015_02_27_20_04_24.jpg.dongcui.txt"));
         assertEquals("2015/2/27", DateParserUtils.findDateInLinesAndSelect(lines, 0).getValue());
+        long endTime = System.currentTimeMillis();
+        long searchTime = endTime - startTime;
+        System.out.println("test time for testDateFileSafeway1 is "+searchTime);
     }
 
     @Test
     public void testDateFileRCSS1()throws Exception{
         final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/2015_04_04_21_25_02.jpg.jingwang.txt"));
+        long startTime = System.currentTimeMillis();
         assertEquals("2015/2/21", DateParserUtils.findDateInLinesAndSelect(lines, 0).getValue());
+        long endTime = System.currentTimeMillis();
+        long searchTime = endTime - startTime;
+        System.out.println("test time for testDateFileRCSS1 is "+searchTime);
     }
 
     @Test
-    public void testDateFileRCSS2()throws Exception{
-        final List<String> lines=TextResourceUtils.loadStringArray(("/testFiles/2015_04_04_21_25_02.jpg.jingwang.txt"));
-        assertEquals("2015/2/21", DateParserUtils.findDateInLinesAndSelect(lines, 0).getValue());
+    public void testCPUTime1(){
+        long startTime = System.currentTimeMillis();
+        Map<DateStringFormat, LocalDateFeatures> map = DateParserUtils.allPossibleDatesInALine("TOTAL                                                  85.50");
+        long endTime = System.currentTimeMillis();
+        long searchTime = endTime - startTime;
+        System.out.println("test time for allPossibleDatesInALine is "+searchTime);
+    }
+
+    @Test
+    public void testCPUTime2(){
+        long startTime = System.currentTimeMillis();
+        Map<DateStringFormat, LocalDateFeatures> map = DateParserUtils.allPossibleDatesInALine("     2 @ $1.99        ");
+        long endTime = System.currentTimeMillis();
+        long searchTime = endTime - startTime;
+        System.out.println("test time for allPossibleDatesInALine is "+searchTime);
+    }
+
+    @Test
+    public void testCPUTime3(){
+        long startTime = System.currentTimeMillis();
+        Map<DateStringFormat, LocalDateFeatures> map = DateParserUtils.allPossibleDatesInALine("SUBTOTAL                                              83.38");
+        long endTime = System.currentTimeMillis();
+        long searchTime = endTime - startTime;
+        System.out.println("test time for allPossibleDatesInALine is "+searchTime);
+    }
+
+    //15:56:48.448 [main] DEBUG c.o.parser.date.DateParserUtils - line 21    2 @ $1.99                                             : time for findDateInALine is 57994
+    @Test
+    public void testDateFileRCSS1_MostCPULine1(){
+        long startTime = System.currentTimeMillis();
+        final String str = " 2 @ $1.99 ";
+        final List<String> lines = new ArrayList<>();
+        lines.add(str);
+        assertEquals("", DateParserUtils.findDateInLinesAndSelect(lines, 0).getValue());
+        long endTime = System.currentTimeMillis();
+        long searchTime = endTime - startTime;
+        System.out.println("test time for line " + str +" is "+searchTime);
+    }
+
+    @Test
+    public void testDateFileRCSS1_MostCPULine2(){
+        long startTime = System.currentTimeMillis();
+        final String str = " 2 @ $1.99 ";
+        assertEquals("", DateParserUtils.findDateInALine(str));
+        long endTime = System.currentTimeMillis();
+        long searchTime = endTime - startTime;
+        System.out.println("test time for line " + str +" is "+searchTime);
     }
 
     @Test
@@ -986,6 +1048,27 @@ public class DateParserUtilsTest {
         final String line = "LD WEST EDMONTON MALL  780 9'1'1 '1526 ";
         assertEquals("2015/1/1", DateParserUtils.findDateInALine(line));
     }
+
+    @Test
+    public void monthDayYear1() throws Exception{
+        final String line = "03/06/16 15 :24 : 1'1 AUTH : 02506'1 ";
+        assertEquals("2016/3/6", DateParserUtils.findDateInALine(line));
+    }
+
+    @Test
+    public void mcDonalds1() throws Exception{
+        final String line = "DATE: 01/11/2015 TIME: 01:48:42 PM ";
+        assertEquals("2015/1/11", DateParserUtils.findDateInALine(line));
+    }
+
+    @Test
+    public void mcDonalds2() throws Exception{
+        final String line = "DATE/TIME:                      17-Jan-2015 13:50:35 ";
+        assertEquals("2015/1/17", DateParserUtils.findDateInALine(line));
+    }
+
+
+
 
 
 }

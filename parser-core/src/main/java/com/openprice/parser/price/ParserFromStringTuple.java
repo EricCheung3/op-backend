@@ -3,7 +3,7 @@ package com.openprice.parser.price;
 import com.openprice.common.StringCommon;
 import com.openprice.parser.ml.data.LineType;
 import com.openprice.parser.ml.data.PriceParserConstant;
-import com.openprice.parser.ml.line.SimpleLinePredcitor;
+import com.openprice.parser.ml.line.SimpleLinePredictor;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +21,7 @@ public class ParserFromStringTuple implements ParserFromNStrings {
 
 //    private static NonWideSpaceParserImpl nonSpaceParser = new NonWideSpaceParserImpl();
 
-    private final static SimpleLinePredcitor linePredictor = new SimpleLinePredcitor();
+    private final static SimpleLinePredictor linePredictor = new SimpleLinePredictor();
 
     //product and price from four strings
     //product and price from four strings

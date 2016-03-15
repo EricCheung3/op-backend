@@ -35,6 +35,9 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
     @Value("classpath:/testfiles/safeway/phone/csabaFeb24.txt")
     private Resource receipt_CsabaFeb24;
 
+    @Value("classpath:/testfiles/safeway/phone/reka_march_14.txt")
+    private Resource receipt_reka_March_14;
+
     @Test
     public void testReceipt1TheCommentedItemsAreAllGone() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
@@ -43,7 +46,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
-        printResult(receipt);
+        //printResult(receipt);
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyParsedItem(iterator.next(), "sevengrain salad", "7.199", "sevengrain salad", 8);
@@ -84,7 +87,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
-        printResult(receipt);
+        //printResult(receipt);
         assertEquals(9,receipt.getItems().size());
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
@@ -130,7 +133,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
-        printResult(receipt);
+        //printResult(receipt);
         final Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(9,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 14);
@@ -157,6 +160,43 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst# 817093735",8);
     }
 
+    @Test
+    public void receipt_reka_March_14() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_reka_March_14, (line)-> receiptLines.add(line));
+
+        assertTrue(receiptLines.size() > 0);
+
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        //printResult(receipt);
+        final Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(17,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "3 qty sfy psta sce tom",  "5.97", null, 9);
+        verifyParsedItem(iterator.next(), "2 qty plugrr btr u/s eur .",  "5.58", null, 11);
+        verifyParsedItem(iterator.next(), "french bread",  "1.99", null, 17);
+        verifyParsedItem(iterator.next(), "fj extra lean fres",  "4.99", null, 21);
+        verifyParsedItem(iterator.next(), "pork sirln chop vp",  "7.45", null, 22);
+        verifyParsedItem(iterator.next(), "pk tndr uh",  "10.60", null, 23);
+        verifyParsedItem(iterator.next(), "s farms ckn brst",  "8.76", null, 24);
+        verifyParsedItem(iterator.next(), "er ckn thighs",  "9.51", null, 25);
+        verifyParsedItem(iterator.next(), "er ckn thighs",  "8.19", null, 26);
+        verifyParsedItem(iterator.next(), "gizzard/hrts",  "2.75", null, 27);
+        verifyParsedItem(iterator.next(), "gizzard/hrts",  "2.72", null, 28);
+        verifyParsedItem(iterator.next(), "ut    bananas",  "1.09", null, 33);
+        verifyParsedItem(iterator.next(), "cucumber",  "2.43", "cucumber", 37);
+        verifyParsedItem(iterator.next(), "ut    gala apples",  "4.90", null, 41);
+        verifyParsedItem(iterator.next(), "jt'    yellou sut 0niqns+",  "0.41", null, 43);
+        verifyParsedItem(iterator.next(), "jj    carrots",  "2.99", null, 45);
+        verifyParsedItem(iterator.next(), "i orgnc tomatoes +",  "94.76", null, 46);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "500",51);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreBranch, "?                  safeway o",0);
+        verifyParsedField(fieldValues, ReceiptFieldType.Card, "card savinas    2^00-",13);
+        verifyParsedField(fieldValues, ReceiptFieldType.Ref, "refrig/frozen",10);
+        verifyParsedField(fieldValues, ReceiptFieldType.Saving, "card savinas    2^00-",13);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "94.76",47);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2016/3/12",51);
+    }
 
     @Test
     public void receipt_Elis24() throws Exception {
@@ -167,7 +207,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
-        printResult(receipt);
+        //printResult(receipt);
         final Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(9,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 14);
