@@ -1,11 +1,10 @@
 package com.openprice.parser.date;
 
-import java.time.LocalDate;
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.openprice.common.StringCommon;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * "literal month day year" format
@@ -14,8 +13,8 @@ import com.openprice.common.StringCommon;
  */
 //format like "OCT.08’ 15"
 //TODO also inherit DateParserRegularExpression
-//@Slf4j
-public class LiteralMonthDayYear2 extends LiteralMonthDateParser{
+@Slf4j
+public class LiteralMonthDayYear2 extends LiteralMonthParser{
 
     //http://stackoverflow.com/questions/2655476/regex-to-match-month-name-followed-by-year
     public static final String LITERAL_MONTH = "\\b(?:Jan(?:uary)?|Feb(?:ruary)?||Mar(?:ch)?||Apr(?:il)?||May?"
@@ -38,27 +37,13 @@ public class LiteralMonthDayYear2 extends LiteralMonthDateParser{
         super(pattern, DateStringFormat.LiteralMonthDayYear2);
     }
 
-    //TODO similar to DataParserUtils.getMeaningfulWords?
-    public static List<String> literalMonthDayYearSplit(final String dateString, final int numYearDigits){
-        //Why ’ cannot be replaced?
-        final String noSpaceNoSplitter = StringCommon.removeAllSpaces(dateString).replaceAll("\\s+|\\.|_|-|,|\\s|’|'", "");
-        if(noSpaceNoSplitter.isEmpty()) return null;
-        //log.debug("noSpaceNoSplitter="+noSpaceNoSplitter);
-        final String yearDigits = StringCommon.lastDigits(noSpaceNoSplitter, numYearDigits);
-        //log.debug("yearDigits="+yearDigits);
-        final int indexOfYear = noSpaceNoSplitter.lastIndexOf(yearDigits);
-        String dayDigits = "";
-        String literalMonth = "";
-        if(indexOfYear > 0) {
-            final String literalMonthDay = noSpaceNoSplitter.substring(0, indexOfYear);
-            //log.debug("literalMonthDay="+literalMonthDay);
-            dayDigits = StringCommon.lastDigits(literalMonthDay, 2);
-            //log.debug("dayDigits="+dayDigits);
-            if(!dayDigits.isEmpty()) {
-                literalMonth = noSpaceNoSplitter.substring(0, noSpaceNoSplitter.length() - yearDigits.length() - dayDigits.length());
-            }
-        }
-        return Arrays.asList(new String[]{literalMonth, dayDigits, yearDigits});
+    @Override
+    public List<String> splitToLiteralMonthDayYear4(final String dateString) {
+        final List<String> result = LiteralMonthParser.splitToLiteralMonthDayYear2OrYear4(dateString, 2);
+        if(result == null || result.size() <3 )
+            return null;
+        result.set(2, "20"+result.get(2));//add "20" before year digits like "15"
+        return result;
 
 //      final String[] words = dateString.split("-|_|\\.|\\s+");//not correct. only one dilimiter is selected
 //      http://stackoverflow.com/questions/3654446/java-regex-help-splitting-string-on-spaces-and-commas
@@ -84,26 +69,26 @@ public class LiteralMonthDayYear2 extends LiteralMonthDateParser{
 //      return cleanWords;
   }
 
-    @Override
-    public LocalDate parseToDate(final String literalMDY2) {
-       final List<String> words = literalMonthDayYearSplit(literalMDY2, 2);
-       if(words == null) return null;
-       //log.debug("words.size()="+words.size());
-       for(String str: words)
-           //log.debug(str);
-       if(words.size() < 3)
-          return null;
-       try{
-          return DateUtils.fromDayMonthYear(
-                  words.get(1),
-                  DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
-                  "20" + words.get(2)
-                  );
-       }catch(Exception e){
-          //log.warn(e.getMessage());
-       }
-       return null;
-    }
+//    @Override
+//    public LocalDate parseToDate(final String literalMDY2) {
+//       final List<String> words = literalMonthDayYearSplit(literalMDY2, 2);
+//       if(words == null) return null;
+//       //log.debug("words.size()="+words.size());
+//       for(String str: words)
+//           //log.debug(str);
+//       if(words.size() < 3)
+//          return null;
+//       try{
+//          return DateUtils.fromDayMonthYear(
+//                  words.get(1),
+//                  DateParserUtils.getMonthLiterals().getMonthNumber(words.get(0))+"",
+//                  "20" + words.get(2)
+//                  );
+//       }catch(Exception e){
+//          //log.warn(e.getMessage());
+//       }
+//       return null;
+//    }
 
 
 }
