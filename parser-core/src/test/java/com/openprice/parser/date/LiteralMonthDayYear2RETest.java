@@ -2,30 +2,16 @@ package com.openprice.parser.date;
 
 import static org.junit.Assert.assertEquals;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.Test;
 
 import com.openprice.parser.price.ThreeStrings;
 
-public class LiteralMonthDayYear2Test {
+public class LiteralMonthDayYear2RETest extends DateParserRegularExpressionTestClass {
 
-    private final LiteralMonthDayYear2RE literalMDY2 = new LiteralMonthDayYear2RE();
-
-    public static ThreeStrings threeStrings(final int y, final int m, final int d) {
-        return new ThreeStrings(y+"", m+"",  d+"");
-    }
-    public static ThreeStrings threeStrings(final LocalDate date){
-        return new ThreeStrings(date.getYear()+"", date.getMonthValue()+"", date.getDayOfMonth()+"");
-    }
-
-    public ThreeStrings parseToThreeStrings(final String line) throws Exception {
-        final LocalDateFeatures features = literalMDY2.parseWithSpaces(line);
-        if(features == null)
-            throw new Exception("parsed result is null");
-
-        return threeStrings(features.getDate());
+    public LiteralMonthDayYear2RETest() {
+        super(new LiteralMonthDayYear2RE());
     }
 
     @Test

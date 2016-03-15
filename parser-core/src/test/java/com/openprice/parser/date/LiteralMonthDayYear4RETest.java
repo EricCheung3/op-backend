@@ -11,9 +11,9 @@ import com.openprice.parser.price.ThreeStrings;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class LiteralMonthDayYear4Test extends DateParserRegularExpressionTestClass {
+public class LiteralMonthDayYear4RETest extends DateParserRegularExpressionTestClass {
 
-    public LiteralMonthDayYear4Test() {
+    public LiteralMonthDayYear4RETest() {
         super(new LiteralMonthDayYear4RE());
     }
 
