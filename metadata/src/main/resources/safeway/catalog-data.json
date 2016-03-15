@@ -1,6 +1,6 @@
 [ {
   "name" : "milk skim",
-  "number" : "55=74250681",
+  "number" : "5574250681",
   "price" : "7.99",
   "naturalName" : "Skim Milk",
   "displayName" : "Skim Milk",
@@ -125,7 +125,7 @@
   "naturalName" : "red tomato on vine",
   "displayName" : "Tomato",
   "labelCodes" : "uncategorized",
-  "productCategory" : "fruit"
+  "productCategory" : "vegetables"
 }, {
   "name" : "hearts of rom salad",
   "number" : "",
@@ -157,7 +157,7 @@
   "naturalName" : "tomato reg large",
   "displayName" : "Tomato",
   "labelCodes" : "uncategorized",
-  "productCategory" : "fruit"
+  "productCategory" : "vegetables"
 }, {
   "name" : "org cshs crt gngr bs",
   "number" : "",

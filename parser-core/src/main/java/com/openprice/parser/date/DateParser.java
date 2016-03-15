@@ -8,5 +8,6 @@ public interface DateParser {
 
     LocalDateFeatures parseWithSpaces(String line);
 
-//    LocalDate parseNoSpaces(String lineWithNoSpace);
+    //get the date substring from the line
+    String getDateSubString(final String line);
 }

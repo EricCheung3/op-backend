@@ -14,6 +14,32 @@ import lombok.extern.slf4j.Slf4j;
 public class StringCommonTest {
 
     @Test
+    public void firstContinuousDigitChunk(){
+        assertEquals("123", StringCommon.firstContinuousDigitChunkBetween("A123B456", 0, 100, 100));
+        assertEquals("123", StringCommon.firstContinuousDigitChunkBetween("123B456", 0, 100, 100));
+        assertEquals("1", StringCommon.firstContinuousDigitChunkBetween("1", 0, 100, 100));
+        assertEquals("1", StringCommon.firstContinuousDigitChunkBetween("1", 0, 100, 1));
+        assertEquals("", StringCommon.firstContinuousDigitChunkBetween("1", 0, 100, 0));
+        assertEquals("", StringCommon.firstContinuousDigitChunkBetween("", 0, 100, 2));
+        assertEquals("122", StringCommon.firstContinuousDigitChunkBetween("A122", 0, 100, 3));
+        assertEquals("12", StringCommon.firstContinuousDigitChunkBetween("A122", 0, 100, 2));
+        assertEquals("1", StringCommon.firstContinuousDigitChunkBetween("A122", 0, 100, 1));
+    }
+
+    @Test
+    public void lastContinuousDigitChunk(){
+        assertEquals("56", StringCommon.lastContinuousDigitChunk("A123B456", 2));
+        assertEquals("6", StringCommon.lastContinuousDigitChunk("123B456", 1));
+        assertEquals("1", StringCommon.lastContinuousDigitChunk("1", 1));
+        assertEquals("", StringCommon.lastContinuousDigitChunk("1", 0));
+        assertEquals("", StringCommon.lastContinuousDigitChunk("", 2));
+        assertEquals("122", StringCommon.lastContinuousDigitChunk("A122", 3));
+        assertEquals("22", StringCommon.lastContinuousDigitChunk("A122", 2));
+        assertEquals("2", StringCommon.lastContinuousDigitChunk("A122", 1));
+    }
+
+
+    @Test
     public void formatPriceDashReplacedByComma(){
         assertEquals("21.69", StringCommon.formatPrice(
                 "TOTAL                        21 - 69                                           l:   "));

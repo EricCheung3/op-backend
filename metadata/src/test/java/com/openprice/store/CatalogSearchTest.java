@@ -10,6 +10,20 @@ import org.junit.Test;
 public class CatalogSearchTest {
 
     @Test
+    public void emptyQueryReturnsEmptyResult() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+         List<CatalogProduct> result = metadata.findMatchingProducts("", "rcss", 10);
+         assertTrue(result.size() == 0);
+    }
+
+    @Test
+    public void spaceQueryReturnsEmptyResult() throws Exception {
+        StoreMetadata metadata = MetadataLoader.loadMetadata();
+         List<CatalogProduct> result = metadata.findMatchingProducts("  ", "rcss", 10);
+         assertTrue(result.size() == 0);
+    }
+
+    @Test
     public void findMatchingProducts_rcssTest_appls() throws Exception {
         StoreMetadata metadata = MetadataLoader.loadMetadata();
          List<CatalogProduct> result = metadata.findMatchingProducts("appls", "rcss", 10);
@@ -23,7 +37,6 @@ public class CatalogSearchTest {
     public void findMatchingProducts_rcssTest_app() throws Exception {
         StoreMetadata metadata = MetadataLoader.loadMetadata();
          List<CatalogProduct> result = metadata.findMatchingProducts("app", "rcss", 10);
-
          result.stream().forEach( p -> System.out.println(p.getNaturalName()));
          assertTrue(result.size() > 0);
          assertTrue(result.stream().anyMatch(p -> p.getNaturalName().equals("Apples")));
@@ -40,137 +53,62 @@ public class CatalogSearchTest {
     }
 
     @Test
-    public void findMatchingStoreChainByNameTest_b_AllStartsWithb() throws Exception {
+    public void findMatchingProducts_rcssTest_2percent() throws Exception {
         StoreMetadata metadata = MetadataLoader.loadMetadata();
-        List<StoreChain> result = metadata.findMatchingStoreChainByName("b", 10);
-        result.stream().forEach( c -> System.out.println(c.getName()));
-        assertTrue(result.size() > 0);
-        assertTrue("Baseline".toLowerCase().startsWith("b".trim()));
-        assertTrue(result.stream().anyMatch(c -> c.getName().toLowerCase().startsWith("b")));
+         List<CatalogProduct> result = metadata.findMatchingProducts("2%", "rcss", 10);
+
+         result.stream().forEach( p -> System.out.println(p.getNaturalName()));
+         assertTrue(result.size() > 0);
+//         assertTrue(result.stream().anyMatch(p -> p.getNaturalName().equals("Apples")));
     }
 
     @Test
-    public void findMatchingStoreChainByNameTest_H_AllStartsWithH() throws Exception {
+    public void findMatchingProducts_rcssTest_1percent() throws Exception {
         StoreMetadata metadata = MetadataLoader.loadMetadata();
-        List<StoreChain> result = metadata.findMatchingStoreChainByName("H", 10);
-        result.stream().forEach( c -> System.out.println(c.getName()));
-        assertTrue(result.size() > 0);
-        assertTrue(result.stream().anyMatch(c -> c.getName().toLowerCase().startsWith("h")));
+         List<CatalogProduct> result = metadata.findMatchingProducts("1%", "rcss", 10);
+
+         result.stream().forEach( p -> System.out.println(p.getNaturalName()));
+         assertTrue(result.size() > 0);
+//         assertTrue(result.stream().anyMatch(p -> p.getNaturalName().equals("Apples")));
     }
 
     @Test
-    public void findMatchingStoreChainByNameTest_f_AllStartsWithf() throws Exception {
+    public void findMatchingProducts_rcssTest_Beatrice() throws Exception {
         StoreMetadata metadata = MetadataLoader.loadMetadata();
-        List<StoreChain> result = metadata.findMatchingStoreChainByName("f", 10);
-        result.stream().forEach( c -> System.out.println(c.getName()));
-        assertTrue(result.size() > 0);
-        assertTrue(result.stream().anyMatch(c -> c.getName().toLowerCase().startsWith("f")));
+         List<CatalogProduct> result = metadata.findMatchingProducts("Beatrice", "rcss", 10);
+
+         result.stream().forEach( p -> System.out.println(p.getNaturalName()));
+         assertTrue(result.size() > 0);
+//         assertTrue(result.stream().anyMatch(p -> p.getNaturalName().equals("Apples")));
     }
 
     @Test
-    public void findMatchingStoreChainByNameTest_S_AllStartsWithf() throws Exception {
+    public void findMatchingProducts_rcssTest_Bea() throws Exception {
         StoreMetadata metadata = MetadataLoader.loadMetadata();
-        List<StoreChain> result = metadata.findMatchingStoreChainByName("S", 10);
-        result.stream().forEach( c -> System.out.println(c.getName()));
-        assertTrue(result.size() > 0);
-        assertTrue(result.stream().anyMatch(c -> c.getName().toLowerCase().startsWith("s")));
+         List<CatalogProduct> result = metadata.findMatchingProducts("Bea", "rcss", 10);
+
+         result.stream().forEach( p -> System.out.println(p.getNaturalName()));
+         assertTrue(result.size() > 0);
+//         assertTrue(result.stream().anyMatch(p -> p.getNaturalName().equals("Apples")));
     }
 
     @Test
-    public void findMatchingStoreChainByNameTest_Su() throws Exception {
+    public void findMatchingProducts_rcssTest_milk() throws Exception {
         StoreMetadata metadata = MetadataLoader.loadMetadata();
-        List<StoreChain> result = metadata.findMatchingStoreChainByName("Su", 10);
-        result.stream().forEach( c -> System.out.println(c.getName()));
-        assertTrue(result.size() > 0);
+         List<CatalogProduct> result = metadata.findMatchingProducts("milk", "rcss", 10);
+
+         result.stream().forEach( p -> System.out.println(p.getNaturalName()));
+         assertTrue(result.size() > 0);
+//         assertTrue(result.stream().anyMatch(p -> p.getNaturalName().equals("Apples")));
     }
 
     @Test
-    public void findMatchingStoreChainByNameTest_St() throws Exception {
+    public void findMatchingProducts_rcssTest_lem() throws Exception {
         StoreMetadata metadata = MetadataLoader.loadMetadata();
-        List<StoreChain> result = metadata.findMatchingStoreChainByName("St", 10);
-        result.stream().forEach( c -> System.out.println(c.getName()));
-        assertTrue(result.size() > 0);
+         List<CatalogProduct> result = metadata.findMatchingProducts("lem", "rcss", 10);
+         result.stream().forEach( p -> System.out.println(p.getNaturalName()));
+         assertTrue(result.size() > 0);
+//         assertTrue(result.stream().anyMatch(p -> p.getNaturalName().equals("Apples")));
     }
 
-    @Test
-    public void findMatchingStoreChainByNameTest_Sup() throws Exception {
-        StoreMetadata metadata = MetadataLoader.loadMetadata();
-        List<StoreChain> result = metadata.findMatchingStoreChainByName("Sup", 10);
-        result.stream().forEach( c -> System.out.println(c.getName()));
-        assertTrue(result.size() > 0);
-        assertTrue(result.stream().anyMatch(c -> c.getName().equals("Superstore")));
-    }
-
-    @Test
-    public void findMatchingStoreChainByNameTest_9() throws Exception {
-        StoreMetadata metadata = MetadataLoader.loadMetadata();
-        List<StoreChain> result = metadata.findMatchingStoreChainByName("9", 10);
-        result.stream().forEach( c -> System.out.println(c.getName()));
-        assertTrue(result.size() > 0);
-        assertTrue(result.stream().anyMatch(c -> c.getName().equals("99 SUPERMARKET")));
-        assertTrue(result.stream().anyMatch(c -> c.getName().equals("Lucky 97")));
-    }
-
-    @Test
-    public void findMatchingStoreChainByNameTest_97() throws Exception {
-        StoreMetadata metadata = MetadataLoader.loadMetadata();
-        List<StoreChain> result = metadata.findMatchingStoreChainByName("97", 10);
-        result.stream().forEach( c -> System.out.println(c.getName()));
-        assertTrue(result.size() > 0);
-        assertTrue(result.stream().anyMatch(c -> c.getName().equals("Lucky 97")));
-    }
-
-    @Test
-    public void findMatchingStoreChainByNameTest_Bay() throws Exception {
-        StoreMetadata metadata = MetadataLoader.loadMetadata();
-        List<StoreChain> result = metadata.findMatchingStoreChainByName("Bay", 10);
-        result.stream().forEach( c -> System.out.println(c.getName()));
-        assertTrue(result.size() > 0);
-        assertTrue(result.stream().anyMatch(c -> c.getName().equals("Hudson's Bay")));
-    }
-
-    @Test
-    public void findMatchingStoreChainByNameTest_bes_lower() throws Exception {
-        StoreMetadata metadata = MetadataLoader.loadMetadata();
-        List<StoreChain> result = metadata.findMatchingStoreChainByName("bes", 10);
-        result.stream().forEach( c -> System.out.println(c.getName()));
-        assertTrue(result.size() > 0);
-        assertTrue(result.stream().anyMatch(c -> c.getName().equals("Best Buy")));
-    }
-
-    @Test
-    public void findMatchingStoreChainByNameTest_bes_upper() throws Exception {
-        StoreMetadata metadata = MetadataLoader.loadMetadata();
-        List<StoreChain> result = metadata.findMatchingStoreChainByName("Bes", 10);
-        result.stream().forEach( c -> System.out.println(c.getName()));
-        assertTrue(result.size() > 0);
-        assertTrue(result.stream().anyMatch(c -> c.getName().equals("Best Buy")));
-    }
-
-    @Test
-    public void findMatchingStoreChainByNameTest_be() throws Exception {
-        StoreMetadata metadata = MetadataLoader.loadMetadata();
-        List<StoreChain> result = metadata.findMatchingStoreChainByName("be", 10);
-        result.stream().forEach( c -> System.out.println(c.getName()));
-        assertTrue(result.size() > 0);
-        assertTrue(result.stream().anyMatch(c -> c.getName().equals("Best Buy")));
-    }
-
-    @Test
-    public void findMatchingStoreChainByNameTest_sa() throws Exception {
-        StoreMetadata metadata = MetadataLoader.loadMetadata();
-        List<StoreChain> result = metadata.findMatchingStoreChainByName("sa", 10);
-        result.stream().forEach( c -> System.out.println(c.getName()));
-        assertTrue(result.size() > 0);
-        assertTrue(result.stream().anyMatch(c -> c.getName().equals("Safeway")));
-    }
-
-    @Test
-    public void findMatchingStoreChainByNameTest_saf() throws Exception {
-        StoreMetadata metadata = MetadataLoader.loadMetadata();
-        List<StoreChain> result = metadata.findMatchingStoreChainByName("saf", 10);
-        result.stream().forEach( c -> System.out.println(c.getName()));
-        assertTrue(result.size() > 0);
-        assertTrue(result.stream().anyMatch(c -> c.getName().equals("Safeway")));
-    }
 }

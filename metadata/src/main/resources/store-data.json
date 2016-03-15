@@ -4,6 +4,12 @@
   "identity" : "99 SUPERMARKET",
   "category" : "Grocery",
   "icon" : "_99supermarket"
+},  {
+  "code" : "michaelkors",
+  "name" : "Michael Kors",
+  "identity" : "Michael Kors",
+  "category" : "Retail,clothing,bag,accessories",
+  "icon" : "michaelkors"
 }, {
   "code" : "aw",
   "name" : "A&W",

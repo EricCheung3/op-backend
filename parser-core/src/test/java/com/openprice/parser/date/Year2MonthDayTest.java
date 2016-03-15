@@ -1,32 +1,15 @@
 package com.openprice.parser.date;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
-import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
 
-import com.openprice.parser.price.ThreeStrings;
+public class Year2MonthDayTest extends DateParserRegularExpressionTestClass {
 
-public class Year2MonthDayTest {
-
-    private final Year2MonthDay y2md = new Year2MonthDay();
-
-    public static ThreeStrings threeStrings(final LocalDate date){
-        return new ThreeStrings(date.getYear()+"", date.getMonthValue()+"", date.getDayOfMonth()+"");
-    }
-    public static ThreeStrings threeStrings(final int[] array){
-        return threeStrings(array[0], array[1], array[2]);
-    }
-
-    public static ThreeStrings threeStrings(final int a, final int b, final int c){
-        return new ThreeStrings(a+"", b+"", c+"");
-    }
-
-    public ThreeStrings parseToThreeStrings(final String line){
-        return threeStrings(y2md.parseWithSpaces(line).getDate());
+    public Year2MonthDayTest(){
+        super(new Year2MonthDay());
     }
 
     @Test
@@ -46,19 +29,19 @@ public class Year2MonthDayTest {
         assertEquals(threeStrings(2015, 3, 14), parseToThreeStrings("sdfa 15/03/14"));
     }
 
-    @Test
+    @Test(expected = Exception.class)
     public void test2YearShouldHaveAtLeastTwoDigits(){
-        assertEquals(null, y2md.parseWithSpaces("5/03/14"));
+        parseToThreeStrings("5/03/14");
     }
 
-    @Test
+    @Test(expected = Exception.class)
     public void invalidDayWillReturnNull(){
-        assertNull(y2md.parseWithSpaces("15/03/67"));
+        parseToThreeStrings("15/03/67");
     }
 
-    @Test
+    @Test(expected = Exception.class)
     public void invalidMonthWillReturnNull(){
-        assertNull(y2md.parseWithSpaces("15/13/6"));
+        parseToThreeStrings("15/13/6");
     }
 
     @Test

@@ -398,6 +398,31 @@ public class StringCommon {
         return sb.reverse().toString();
     }
 
+    public static String lastContinuousDigitChunk(final String str, final int num) {
+        if(num <= 0)
+            return StringCommon.EMPTY;
+        StringBuilder sb = new StringBuilder();
+        int lastDigit = -1;
+        for (int i = str.length() - 1; i >= 0; i--) {
+            if (Character.isDigit(str.charAt(i))) {
+                lastDigit = i;
+                break;
+            }
+        }
+        if(lastDigit < 0)
+            return StringCommon.EMPTY;
+        for (int i = lastDigit; i >= 0; i--) {
+            if (Character.isDigit(str.charAt(i)))
+                sb.append(str.charAt(i));
+            else
+                break;
+
+            if (sb.length() == num)
+                break;
+        }
+        return sb.reverse().toString();
+    }
+
     public static String firstDigits(final String str, int num) {
         return digitsBetween(str, 0, str.length(), num);
     }
@@ -423,6 +448,40 @@ public class StringCommon {
                 if (sb.length() == num)
                     break;
             }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * first continuous digit chunck in the range. e.g., for "A123B456", 0, 7, 4; should give 123
+     * @param str
+     * @param begin
+     * @param end
+     * @param num
+     * @return
+     */
+    public static String firstContinuousDigitChunkBetween(final String str, final int begin, final int end, final int num) {
+        if (num <= 0)
+            return StringCommon.EMPTY;
+        int firstDigit = -1;
+        for (int i = Math.max(0, begin); i < Math.min(str.length(), end); i++) {
+            if (Character.isDigit(str.charAt(i))) {
+                firstDigit = i;
+                break;
+            }
+        }
+        log.debug("firstDigit="+firstDigit);
+        if(firstDigit < 0)
+            return StringCommon.EMPTY;
+        final StringBuilder sb = new StringBuilder();
+        for (int i = firstDigit; i < Math.min(str.length(), end); i++) {
+            if (Character.isDigit(str.charAt(i))) {
+                sb.append(str.charAt(i));
+            }else{
+                break;
+            }
+            if (sb.length() == num)
+                break;
         }
         return sb.toString();
     }
