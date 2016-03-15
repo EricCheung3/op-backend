@@ -35,6 +35,7 @@ import com.openprice.rest.admin.AbstractUserAdminRestController;
 @RestController
 public class AdminUserAccountRestController extends AbstractUserAdminRestController {
 
+    private final UserAccountRepository userAccountRepository;
     private final AdminUserAccountResource.Assembler userResourceAssembler;
 
     @Inject
@@ -43,6 +44,7 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
                                           final UserAccountRepository userAccountRepository,
                                           final AdminUserAccountResource.Assembler userResourceAssembler) {
         super(adminAccountService, userAccountService, userAccountRepository);
+        this.userAccountRepository =userAccountRepository;
         this.userResourceAssembler = userResourceAssembler;
     }
 
@@ -62,6 +64,15 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
             @PathVariable("userId") final String userId) throws ResourceNotFoundException {
         final UserAccount userAccount = getUserByUserId(userId);
         return ResponseEntity.ok(userResourceAssembler.toResource(userAccount));
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = URL_ADMIN_USERS_USER)
+    @Transactional
+    public HttpEntity<Void> deleteUserAccountByUserId(
+            @PathVariable("userId") final String userId) throws ResourceNotFoundException {
+        final UserAccount userAccount = getUserByUserId(userId);
+        userAccountRepository.delete(userAccount);
+        return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = URL_ADMIN_USERS_USER_LOCK_STATE)
