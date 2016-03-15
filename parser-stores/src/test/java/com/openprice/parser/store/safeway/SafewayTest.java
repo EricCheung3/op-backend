@@ -46,7 +46,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
-        printResult(receipt);
+        //printResult(receipt);
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
         verifyParsedItem(iterator.next(), "sevengrain salad", "7.199", "sevengrain salad", 8);
@@ -87,7 +87,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         assertTrue(receiptLines.size() > 0);
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
-        printResult(receipt);
+        //printResult(receipt);
         assertEquals(9,receipt.getItems().size());
 
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
@@ -133,7 +133,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
-        printResult(receipt);
+        //printResult(receipt);
         final Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(9,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 14);
@@ -160,7 +160,6 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedField(fieldValues, ReceiptFieldType.GstNumber, "gst# 817093735",8);
     }
 
-    //TODO too much noise
     @Test
     public void receipt_reka_March_14() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
@@ -170,9 +169,9 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
-        printResult(receipt);
+        //printResult(receipt);
         final Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
-        assertEquals(22,receipt.getItems().size());
+        assertEquals(17,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "3 qty sfy psta sce tom",  "5.97", null, 9);
         verifyParsedItem(iterator.next(), "2 qty plugrr btr u/s eur .",  "5.58", null, 11);
         verifyParsedItem(iterator.next(), "french bread",  "1.99", null, 17);
@@ -185,14 +184,9 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedItem(iterator.next(), "gizzard/hrts",  "2.75", null, 27);
         verifyParsedItem(iterator.next(), "gizzard/hrts",  "2.72", null, 28);
         verifyParsedItem(iterator.next(), "ut    bananas",  "1.09", null, 33);
-        verifyParsedItem(iterator.next(), "1.60 lb @ $1.49 /lb",  "2.38", null, 34);
-        verifyParsedItem(iterator.next(), "cucumber", null, "cucumber", 37);
-        verifyParsedItem(iterator.next(), "7.79 lb @ $1.29 /lb",  "10.05", null, 38);
-        verifyParsedItem(iterator.next(), "1    22 lb @ $1.99 /lb",  "2.43", null, 40);
-        verifyParsedItem(iterator.next(), "ut    gala apples", null, null, 41);
-        verifyParsedItem(iterator.next(), "2    46 lb @ $1.99 /lb",  "4.90", null, 42);
-        verifyParsedItem(iterator.next(), "jt'    yellou sut 0niqns+", null, null, 43);
-        verifyParsedItem(iterator.next(), "0 41 lb @ $0.99 /lb",  "0.41", null, 44);
+        verifyParsedItem(iterator.next(), "cucumber",  "2.43", "cucumber", 37);
+        verifyParsedItem(iterator.next(), "ut    gala apples",  "4.90", null, 41);
+        verifyParsedItem(iterator.next(), "jt'    yellou sut 0niqns+",  "0.41", null, 43);
         verifyParsedItem(iterator.next(), "jj    carrots",  "2.99", null, 45);
         verifyParsedItem(iterator.next(), "i orgnc tomatoes +",  "94.76", null, 46);
         verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "500",51);
@@ -213,7 +207,7 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
 
         ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
         Iterator<ParsedItem> iterator = receipt.getItems().iterator();
-        printResult(receipt);
+        //printResult(receipt);
         final Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
         assertEquals(9,receipt.getItems().size());
         verifyParsedItem(iterator.next(), "lucerne milk 2% 2l",  "3.49", "lucerne milk 2% 2l", 14);
