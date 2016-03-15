@@ -26,13 +26,13 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
     @Value("classpath:/testfiles/safeway/southgate/2015_02_27_20_04_24.jpg.dongcui.txt")
     private Resource sampleReceipt1;
 
-    @Value("classpath:/testfiles/safeway/phone/ElisFeb24.txt")
+    @Value("classpath:/testfiles/safeway/phone/elis_feb_24.txt")
     private Resource receipt_Elis24;
 
     @Value("classpath:/testfiles/safeway/mgrk_elksey_cole/2014_12_06_22_36_54.txt")
     private Resource receipt_36_54;
 
-    @Value("classpath:/testfiles/safeway/phone/csabaFeb24.txt")
+    @Value("classpath:/testfiles/safeway/phone/csaba_feb_24.txt")
     private Resource receipt_CsabaFeb24;
 
     @Value("classpath:/testfiles/safeway/phone/reka_march_14.txt")
