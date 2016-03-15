@@ -23,7 +23,6 @@ public class CatalogSearchTest {
     public void findMatchingProducts_rcssTest_app() throws Exception {
         StoreMetadata metadata = MetadataLoader.loadMetadata();
          List<CatalogProduct> result = metadata.findMatchingProducts("app", "rcss", 10);
-
          result.stream().forEach( p -> System.out.println(p.getNaturalName()));
          assertTrue(result.size() > 0);
          assertTrue(result.stream().anyMatch(p -> p.getNaturalName().equals("Apples")));
@@ -89,7 +88,6 @@ public class CatalogSearchTest {
 //         assertTrue(result.stream().anyMatch(p -> p.getNaturalName().equals("Apples")));
     }
 
-    //TODO maybe should have the results that each word starting with the query
     @Test
     public void findMatchingProducts_rcssTest_lem() throws Exception {
         StoreMetadata metadata = MetadataLoader.loadMetadata();

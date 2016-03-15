@@ -2,10 +2,8 @@ package com.openprice.store;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.openprice.common.Levenshtein;
@@ -75,6 +73,12 @@ public class StoreMetadata {
                 .filter(p -> (Arrays.asList(p.getNaturalName().toLowerCase().split("\\s+")))
                         .stream().anyMatch(w->w.startsWith(queryTrimLower)))
                 .limit(returnCount)
+                .map(p -> {
+                    double score = Levenshtein.weightedScoreByPositionOrder(query, Arrays.asList(p.getNaturalName().split("\\s+")));
+                    return new ProductWithScore(p, score);
+                })
+                .sorted((p1, p2) -> Double.compare(0 - p1.s, 0 - p2.s))
+                .map(ps -> ps.p)
                 .collect(Collectors.toList());
                 if (!startWithQueryResults.isEmpty() && startWithQueryResults.size() == returnCount){
                     return startWithQueryResults;
@@ -84,8 +88,7 @@ public class StoreMetadata {
             .getProducts()
             .stream()
             .map(p -> {
-                    Set<String> s = new HashSet<>(Arrays.asList(p.getNaturalName().split("\\s+")));
-                    double score = Levenshtein.mostSimilarScoreInSetLevenshtein(query, s);
+                    double score = Levenshtein.weightedScoreByPositionOrder(query, Arrays.asList(p.getNaturalName().split("\\s+")));
                     return new ProductWithScore(p, score);
             })
             .filter(ps -> ps.s > 0.3)
