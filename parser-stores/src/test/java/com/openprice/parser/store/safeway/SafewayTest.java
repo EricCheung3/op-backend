@@ -38,6 +38,9 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
     @Value("classpath:/testfiles/safeway/phone/reka_march_14.txt")
     private Resource receipt_reka_March_14;
 
+    @Value("classpath:/testfiles/safeway/phone/reka_march_10.txt")
+    private Resource receipt_reka_March_10;
+
     @Test
     public void testReceipt1TheCommentedItemsAreAllGone() throws Exception {
         final List<String> receiptLines = new ArrayList<>();
@@ -234,5 +237,40 @@ public class SafewayTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedField(fieldValues, ReceiptFieldType.TotalSold, "number of items                                                                                      10",55);
         verifyParsedField(fieldValues, ReceiptFieldType.Phone, "phone. 780.435.5132",7);
 
+    }
+
+    @Test
+    public void receipt_reka_March_10() throws Exception {
+        final List<String> receiptLines = new ArrayList<>();
+        TextResourceUtils.loadFromTextResource(receipt_reka_March_10, (line)-> receiptLines.add(line));
+        assertTrue(receiptLines.size() > 0);
+        ParsedReceipt receipt = simpleParser.parseLines(receiptLines);
+        Iterator<ParsedItem> iterator = receipt.getItems().iterator();
+        printResult(receipt);
+        final Map<ReceiptFieldType, ParsedField> fieldValues = receipt.getFields();
+        assertEquals(14,receipt.getItems().size());
+        verifyParsedItem(iterator.next(), "3 qty plugra btr u/s eur",  "11.37", null, 10);
+        verifyParsedItem(iterator.next(), "llic eggs large a",  "6.49", null, 11);
+        verifyParsedItem(iterator.next(), "shrd mozz",  "8.97", null, 12);
+        verifyParsedItem(iterator.next(), "lucrn mnt jck 8 oz",  "2.99", null, 13);
+        verifyParsedItem(iterator.next(), "homogzd milk----------*",  "3.99", null, 14);
+        verifyParsedItem(iterator.next(), "2 qty sour cream",  "3.98", null, 21);
+        verifyParsedItem(iterator.next(), "3rench bread",  "1.99", null, 25);
+        verifyParsedItem(iterator.next(), "lof bistro favorit",  "2.99", null, 28);
+        verifyParsedItem(iterator.next(), "fryng c1iickn",  "5.63", null, 29);
+        verifyParsedItem(iterator.next(), "lb b",  "2.49", null, 35);
+        verifyParsedItem(iterator.next(), "ut    broccoli croons",  "1.77", null, 36);
+        verifyParsedItem(iterator.next(), "ut    bananas", null, null, 38);
+        verifyParsedItem(iterator.next(), "cucumber",  "0.52", "cucumber", 40);
+        verifyParsedItem(iterator.next(), "ut    carrots",  "5.99", null, 46);
+        verifyParsedField(fieldValues, ReceiptFieldType.GstAmount, "",68);
+        verifyParsedField(fieldValues, ReceiptFieldType.Date, "2015/10/2",57);
+        verifyParsedField(fieldValues, ReceiptFieldType.AddressLine1, "500",98);
+        verifyParsedField(fieldValues, ReceiptFieldType.StoreBranch, "safeway store 80970",91);
+        verifyParsedField(fieldValues, ReceiptFieldType.Saving, "card savinas                                                                         7.40",66);
+        verifyParsedField(fieldValues, ReceiptFieldType.Ref, "ref 1510021 aijth : 0001 750b",98);
+        verifyParsedField(fieldValues, ReceiptFieldType.Cashier, "your cashier today was shfamus",60);
+        verifyParsedField(fieldValues, ReceiptFieldType.Card, "card 8 xxxxxxxxxxxx7029",97);
+        verifyParsedField(fieldValues, ReceiptFieldType.Total, "70.39",53);
     }
 }

@@ -16,6 +16,10 @@ public class StringCommon {
     public static final String EMPTY = "";
     public static final String WIDE_SPACES="    ";
 
+    //reduce spaces
+    public static String reduceSpaces(final String str) {
+        return str.trim().replaceAll("\\s{"+ WIDE_SPACES.length()+",}", WIDE_SPACES);
+    }
 
     /*
      * tail is approxiamtely a substring of line.

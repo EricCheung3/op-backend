@@ -14,6 +14,20 @@ import lombok.extern.slf4j.Slf4j;
 public class StringCommonTest {
 
     @Test
+    public void trimmedAndReplaceManySpacesByDeaultWideSpaces() {
+        assertEquals("", StringCommon.reduceSpaces("   "));
+        assertEquals("1", StringCommon.reduceSpaces("1   "));
+        assertEquals("1", StringCommon.reduceSpaces("1    "));
+        assertEquals("1", StringCommon.reduceSpaces("1      "));
+        assertEquals("1"+StringCommon.WIDE_SPACES+"a", StringCommon.reduceSpaces("1      a"));
+        assertEquals("1" +StringCommon.WIDE_SPACES+ "a", StringCommon.reduceSpaces("         1      a"));
+        assertEquals("1" +StringCommon.WIDE_SPACES +"a", StringCommon.reduceSpaces("         1      a"));
+        assertEquals("1" +StringCommon.WIDE_SPACES +"a", StringCommon.reduceSpaces("         1         a"));
+        assertEquals("1" +StringCommon.WIDE_SPACES +"a", StringCommon.reduceSpaces("         1         a     "));
+        assertEquals("1" +StringCommon.WIDE_SPACES +"a", StringCommon.reduceSpaces("         1                        a     "));
+    }
+
+    @Test
     public void firstContinuousDigitChunk(){
         assertEquals("123", StringCommon.firstContinuousDigitChunkBetween("A123B456", 0, 100, 100));
         assertEquals("123", StringCommon.firstContinuousDigitChunkBetween("123B456", 0, 100, 100));

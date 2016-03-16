@@ -5,9 +5,7 @@ import java.time.LocalDate;
 import com.openprice.common.StringCommon;
 import com.openprice.parser.date.ml.StringGeneralFeatures;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
+//@Slf4j
 public abstract class DateParserRegularExpression implements DateParser{
 
     protected final static MonthLiterals MONTH_LITERALS = new MonthLiterals();
@@ -42,6 +40,12 @@ public abstract class DateParserRegularExpression implements DateParser{
         if(dateStr.isEmpty()) return null;
         final String[] words = dateStr.split("\\s+");
         for(String w: words) {
+            System.out.println("w="+w);
+        }
+
+        long t2 = System.currentTimeMillis();
+        for(String w: words) {
+            System.out.println("w:="+w);
             final LocalDateFeatures features = selectAccordingToSpace(w, getDateSubString(w), format);
             if(features != null && DateParserUtils.isGoodDateBestGuess(features.getDate())) {
                 //log.debug("parsing from no space word and got "+ features.getDate());
@@ -49,7 +53,7 @@ public abstract class DateParserRegularExpression implements DateParser{
             }
         }
         long t3 = System.currentTimeMillis();
-//        System.out.println("selectAccordingToSpace spends "+ (t3-t2));
+        System.out.println("selectAccordingToSpace spends "+ (t3-t2));
 
         final LocalDateFeatures fromWholeString = parseToFeatures(dateStr, format);
 //        //log.debug("fromWholeString="+fromWholeString.getDate());
@@ -59,7 +63,7 @@ public abstract class DateParserRegularExpression implements DateParser{
            return fromWholeString;
         }
         long t4 = System.currentTimeMillis();
-//        System.out.println("parseToFeatures fromWholeString spends "+ (t4-t3));
+        System.out.println("parseToFeatures fromWholeString spends "+ (t4-t3));
 
         final DateStringFeatures wholeStringFeatures = DateStringFeatures.fromString(dateStr);
         final LocalDateFeatures fromBeforeSpace = parseToFeatures(wholeStringFeatures.getBeforeWideSpace(), format);
@@ -69,7 +73,7 @@ public abstract class DateParserRegularExpression implements DateParser{
             return fromBeforeSpace;
         }
         long t5 = System.currentTimeMillis();
-//        System.out.println("parseToFeatures fromBeforeSpace spends "+ (t5-t4));
+        System.out.println("parseToFeatures fromBeforeSpace spends "+ (t5-t4));
 
         final LocalDateFeatures fromAfterSpace = parseToFeatures(wholeStringFeatures.getAfterWideSpace(), format);
         if(fromAfterSpace != null
@@ -77,21 +81,21 @@ public abstract class DateParserRegularExpression implements DateParser{
             //log.debug("parsing from after string success.");
         }
         long t6 = System.currentTimeMillis();
-//        System.out.println("parseToFeatures fromAfterSpace spends "+ (t6-t5));
+        System.out.println("parseToFeatures fromAfterSpace spends "+ (t6-t5));
 
         if(fromWholeString != null
                 && DateParserUtils.isGoodDateBestGuess(fromWholeString.getDate())){
            //log.debug("parsing from whole string allowing wide spaces success.");
            return fromWholeString;
         }
-//        long endTime = System.currentTimeMillis();
-//        long spentTime = endTime - startTime;
-//        //log.debug("selectAccordingToWideSpace: spent time is "+spentTime);
+        long t7 = System.currentTimeMillis();
+        //log.debug("selectAccordingToWideSpace: spent time is "+spentTime);
         //last try: removing all spaces
         final LocalDateFeatures noSpaceLocalDate = parseToFeatures(StringCommon.removeAllSpaces(dateStr), format);
+        System.out.println("parseToFeatures fromAfterSpace spends "+ (t7-t6));
         if(noSpaceLocalDate != null
                 && DateParserUtils.isGoodDateBestGuess(noSpaceLocalDate.getDate())){
-            log.debug("parsing without space successes");
+//            log.debug("parsing without space successes");
             return noSpaceLocalDate;
         }
         return fromAfterSpace;
