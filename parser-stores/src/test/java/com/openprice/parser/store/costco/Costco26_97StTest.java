@@ -75,10 +75,10 @@ public class Costco26_97StTest extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testfiles/costco/branch_2616_91st/2015_04_04_21_17_15.jpg.jingwang.txt")
     private Resource receipt_17_15;
 
-    @Value("classpath:/testfiles/costco/branch_2616_91st/HuFeb25.txt")
+    @Value("classpath:/testfiles/costco/branch_2616_91st/hu_feb_25.txt")
     private Resource receipt_HuFeb25;
 
-    @Value("classpath:/testfiles/costco/branch_2616_91st/RichardHouFeb29.txt")
+    @Value("classpath:/testfiles/costco/branch_2616_91st/richard_hou_feb_29.txt")
     private Resource receipt_HouFeb29;
 
 

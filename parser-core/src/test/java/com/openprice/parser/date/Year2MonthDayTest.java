@@ -6,6 +6,9 @@ import java.util.regex.Pattern;
 
 import org.junit.Test;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Year2MonthDayTest extends DateParserRegularExpressionTestClass {
 
     public Year2MonthDayTest(){
@@ -53,6 +56,12 @@ public class Year2MonthDayTest extends DateParserRegularExpressionTestClass {
     @Test
     public void test3(){
         assertEquals(threeStrings(2014, 6, 15), parseToThreeStrings("sdfa DATE/TIME:            14/06/15 02:29:08"));
+    }
+
+    @Test(expected = Exception.class)
+    public void testCPUTime1A() throws Exception {
+        final String line = "ReaPrice    4    9                                                                                                        ";
+        parseToThreeStrings(line);
     }
 
 }

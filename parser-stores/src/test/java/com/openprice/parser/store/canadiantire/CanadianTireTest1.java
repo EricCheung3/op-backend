@@ -69,10 +69,10 @@ public class CanadianTireTest1 extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testfiles/canadiantire/2015_05_02_21_56_51.jpg.momingzhen159.txt")
     private Resource receipt_2015_05_02_21_56_51;
 
-    @Value("classpath:/testfiles/canadiantire/2015_07_02_18_13_23.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_07_02_18_13_23.jpg.henry_huang.txt")
     private Resource receipt_2015_07_02_18_13_23;
 
-    @Value("classpath:/testfiles/canadiantire/2015_07_02_18_14_49.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_07_02_18_14_49.jpg.henry_huang.txt")
     private Resource receipt_2015_07_02_18_14_49;
 
     @Value("classpath:/testfiles/canadiantire/2015_07_03_15_23_05.jpg.hengshuai.txt")
@@ -81,13 +81,13 @@ public class CanadianTireTest1 extends AbstractReceiptParserIntegrationTest{
     @Value("classpath:/testfiles/canadiantire/2015_07_03_15_35_46.jpg.hengshuai.txt")
     private Resource receipt_2015_07_03_15_35_46;
 
-    @Value("classpath:/testfiles/canadiantire/2015_07_21_10_49_03.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_07_21_10_49_03.jpg.henry_huang.txt")
     private Resource receipt_2015_07_21_10_49_03;
 
-    @Value("classpath:/testfiles/canadiantire/2015_07_21_10_56_27.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_07_21_10_56_27.jpg.henry_huang.txt")
     private Resource receipt_2015_07_21_10_56_27;
 
-    @Value("classpath:/testfiles/canadiantire/2015_07_21_10_57_34.jpg.henryHuang.txt")
+    @Value("classpath:/testfiles/canadiantire/2015_07_21_10_57_34.jpg.henry_huang.txt")
     private Resource receipt_2015_07_21_10_57_34;
 
     @Test

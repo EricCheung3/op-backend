@@ -1,6 +1,7 @@
 package com.openprice.parser.date;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -13,8 +14,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LiteralMonthDayYear4Test extends DateParserRegularExpressionTestClass {
 
+    final private static LiteralMonthDayYear4 parser = new LiteralMonthDayYear4();
+
     public LiteralMonthDayYear4Test() {
-        super(new LiteralMonthDayYear4());
+        super(parser);
+    }
+
+    @Test
+    public void isLiteralMonthFormat2() {
+        assertTrue(parser.isLiteralMonthFormat("Feb 19 2015"));
+        assertTrue(parser.isLiteralMonthFormat("Fe  b-1  9- 201  5"));
     }
 
     @Test
@@ -208,5 +217,11 @@ public class LiteralMonthDayYear4Test extends DateParserRegularExpressionTestCla
         assertEquals("Feb", words.get(0));
         assertEquals("19", words.get(1));
         assertEquals("2015", words.get(2));
+    }
+
+    @Test(expected=Exception.class)
+    public void soSlowForThisLineInAReceipt() throws Exception{
+        final String line = "ReaPrice    4    9                                                                                                        ";
+        parseToThreeStrings(line);
     }
 }

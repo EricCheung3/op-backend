@@ -4,8 +4,6 @@ package com.openprice.parser.date;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * "literal month day year" format
  * day could be one or two digits
@@ -13,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 //format like "OCT.08’ 15"
 //TODO also inherit DateParserRegularExpression
-@Slf4j
+//@Slf4j
 public class LiteralMonthDayYear2 extends LiteralMonthParser{
 
     //http://stackoverflow.com/questions/2655476/regex-to-match-month-name-followed-by-year

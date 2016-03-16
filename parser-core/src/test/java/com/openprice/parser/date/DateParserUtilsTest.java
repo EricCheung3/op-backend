@@ -698,6 +698,24 @@ public class DateParserUtilsTest {
     }
 
     @Test
+    public void testCPUTime1ShortenWideSpaces(){
+        long startTime = System.currentTimeMillis();
+        Map<DateStringFormat, LocalDateFeatures> map = DateParserUtils.allPossibleDatesInALine("TOTAL    85.50");
+        long endTime = System.currentTimeMillis();
+        long searchTime = endTime - startTime;
+        System.out.println("test time for allPossibleDatesInALine is "+searchTime);
+    }
+
+    @Test
+    public void testCPUTime1MoreWideSpaces(){
+        long startTime = System.currentTimeMillis();
+        Map<DateStringFormat, LocalDateFeatures> map = DateParserUtils.allPossibleDatesInALine("TOTAL                                                                    85.50");
+        long endTime = System.currentTimeMillis();
+        long searchTime = endTime - startTime;
+        System.out.println("test time for allPossibleDatesInALine is "+searchTime);
+    }
+
+    @Test
     public void testCPUTime2(){
         long startTime = System.currentTimeMillis();
         Map<DateStringFormat, LocalDateFeatures> map = DateParserUtils.allPossibleDatesInALine("     2 @ $1.99        ");
@@ -710,6 +728,15 @@ public class DateParserUtilsTest {
     public void testCPUTime3(){
         long startTime = System.currentTimeMillis();
         Map<DateStringFormat, LocalDateFeatures> map = DateParserUtils.allPossibleDatesInALine("SUBTOTAL                                              83.38");
+        long endTime = System.currentTimeMillis();
+        long searchTime = endTime - startTime;
+        System.out.println("test time for allPossibleDatesInALine is "+searchTime);
+    }
+
+    @Test
+    public void testCPUTime3ShortenWideSpaces(){
+        long startTime = System.currentTimeMillis();
+        Map<DateStringFormat, LocalDateFeatures> map = DateParserUtils.allPossibleDatesInALine("SUBTOTAL      83.38");
         long endTime = System.currentTimeMillis();
         long searchTime = endTime - startTime;
         System.out.println("test time for allPossibleDatesInALine is "+searchTime);
@@ -1067,8 +1094,46 @@ public class DateParserUtilsTest {
         assertEquals("2015/1/17", DateParserUtils.findDateInALine(line));
     }
 
+    @Test
+    public void testCPUTime1ASoSlow() throws Exception {
+        final String line = "ReaPrice    4    9                                                                                                        ";
+        assertEquals("", DateParserUtils.findDateInALine(line));
+    }
 
+    @Test
+    public void testCPUTime1ASoSlowCloserLookItContainsApr() throws Exception {
+        final String line = "ReaPrice    4    9                                                                                                        ";
+        DateParserUtils.pruneDateStringWithMatch(line, DayLiteralMonthYear4.getPattern());
+    }
 
+    @Test
+    public void testCPUTime1ASoSlowCloserLookItContainsAprFewerSpaces1() throws Exception {
+        final String line = "ReaPrice    4    9";
+        long start = System.currentTimeMillis();
+        DateParserUtils.pruneDateStringWithMatch(line, DayLiteralMonthYear4.getPattern());
+        log.debug("no widepaces at tail spent: " + (System.currentTimeMillis() - start) +" ms");
+    }
 
+    @Test
+    public void testCPUTime1ASoSlowCloserLookItContainsAprFewerSpaces2() throws Exception {
+        final String line = "ReaPrice    4    9       ";
+        long start = System.currentTimeMillis();
+        DateParserUtils.pruneDateStringWithMatch(line, DayLiteralMonthYear4.getPattern());
+        log.debug("a few widepaces at tail spent: " + (System.currentTimeMillis() - start) +" ms");
+    }
+
+    @Test
+    public void testCPUTime1ASoSlowCloserLookItContainsAprFewerSpaces3() throws Exception {
+        final String line = "ReaPrice    4    9                   ";
+        long start = System.currentTimeMillis();
+        DateParserUtils.pruneDateStringWithMatch(line, DayLiteralMonthYear4.getPattern());
+        log.debug("more widepaces at tail spent: " + (System.currentTimeMillis() - start) +" ms");
+    }
+
+    @Test
+    public void testCPUTime1B() throws Exception {
+        final String line = "Card Savinas    1    . 0                                                                                                  ";
+        assertEquals("", DateParserUtils.findDateInALine(line));
+    }
 
 }
