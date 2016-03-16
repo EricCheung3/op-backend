@@ -6,12 +6,13 @@ import java.util.regex.Pattern;
 
 import com.openprice.common.StringCommon;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.Getter;
 
-@Slf4j
+//@Slf4j
 public class DayLiteralMonthYear4 extends LiteralMonthParser {
 
     //format like "9-Feb-2015"
+    @Getter
     private static final Pattern pattern = Pattern.compile(
             DAY_MONTH_PATTERN +
                 LiteralMonthDayYear2.SPLITTER +
@@ -34,9 +35,9 @@ public class DayLiteralMonthYear4 extends LiteralMonthParser {
     public List<String> splitToLiteralMonthDayYear4(final String dateString){
         final String noSpaceNoSplitter = StringCommon.removeAllSpaces(dateString).replaceAll("\\s+|\\.|_|-|,|\\s|’|'", "");
         if(noSpaceNoSplitter.isEmpty()) return null;
-        log.debug("noSpaceNoSplitter="+noSpaceNoSplitter);
+//        log.debug("noSpaceNoSplitter="+noSpaceNoSplitter);
         final String yearDigits = StringCommon.lastContinuousDigitChunk(noSpaceNoSplitter, 4);//TODO should actually use last consecutive digits
-        log.debug("yearDigits="+yearDigits);
+//        log.debug("yearDigits="+yearDigits);
         final int indexOfYear = noSpaceNoSplitter.lastIndexOf(yearDigits);
         String dayDigits = "";
         String literalMonth = "";
@@ -46,7 +47,7 @@ public class DayLiteralMonthYear4 extends LiteralMonthParser {
             if( !dayDigits.isEmpty()) {
                 final int startOfMonth = noSpaceNoSplitter.indexOf(dayDigits) + dayDigits.length();
                 literalMonth = noSpaceNoSplitter.substring(startOfMonth,  indexOfYear);
-                log.debug("literalMonth="+literalMonth);
+//                log.debug("literalMonth="+literalMonth);
             }
         }
         return Arrays.asList(new String[]{literalMonth, dayDigits, yearDigits});

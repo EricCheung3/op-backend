@@ -85,6 +85,10 @@ public class StoreMetadata {
                     return startWithQueryResults;
                 }
 
+        if(startWithQueryResults.size() == returnCount) {
+            return startWithQueryResults;
+        }
+
         final List<CatalogProduct> appendedResultsFromLevenshtein = storeChain
             .getProducts()
             .stream()
@@ -92,10 +96,10 @@ public class StoreMetadata {
                     double score = Levenshtein.weightedScoreByPositionOrder(query, Arrays.asList(p.getNaturalName().split("\\s+")));
                     return new ProductWithScore(p, score);
             })
-            .filter(ps -> ps.s > 0.3)
+            .filter(ps -> ps.s > 0.4)
             .filter(ps -> !startWithQueryResults.contains(ps.getP()))
             .sorted((p1, p2) -> Double.compare(0 - p1.s, 0 - p2.s))
-            .limit(returnCount)
+            .limit(returnCount - startWithQueryResults.size())
             .map(ps -> ps.p)
             .collect(Collectors.toList());
 
@@ -136,6 +140,9 @@ public class StoreMetadata {
             if (!startWithQueryResults.isEmpty() && startWithQueryResults.size() == returnCount){
                 return startWithQueryResults;
             }
+        if(startWithQueryResults.size() == returnCount) {
+            return startWithQueryResults;
+        }
 
         //append results by Levenshtein
         final List<StoreChain> appendedResultsFromLevenshtein = storeChainMap

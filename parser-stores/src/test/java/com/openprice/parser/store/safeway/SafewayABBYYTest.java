@@ -62,7 +62,7 @@ public class SafewayABBYYTest extends AbstractReceiptParserIntegrationTest {
         verifyParsedField(fieldValues, ReceiptFieldType.SubTotal, "22.59",16);
     }
 
-    @Value("classpath:/testfiles/safeway/abbyy/receiptWithNoDateHeader.txt")
+    @Value("classpath:/testfiles/safeway/abbyy/receipt_no_date_header.txt")
     private Resource receiptWithNoDateHeader;
 
     @Test

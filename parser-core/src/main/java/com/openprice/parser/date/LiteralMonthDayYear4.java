@@ -3,8 +3,6 @@ package com.openprice.parser.date;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * "literal month day year" format
  * day could be one or two digits
@@ -13,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
  * This one can take 1-4 seconds for a simple line like  "TOTAL                                                  85.50"
  The bottleneck is the matcher.matches
  */
-@Slf4j
+//@Slf4j
 public class LiteralMonthDayYear4  extends LiteralMonthParser {
 
     //format like "Feb 9, 2015"

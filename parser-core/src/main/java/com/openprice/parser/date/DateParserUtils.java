@@ -16,9 +16,8 @@ import com.openprice.parser.ml.api.predictor.LinePredictor;
 import com.openprice.parser.ml.line.SimpleLinePredictor;
 
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+//@Slf4j
 public class DateParserUtils {
 
     //oldest receipts allowed
@@ -36,7 +35,6 @@ public class DateParserUtils {
 
     //TODO in case there are dates in multiple lines, it makes sense to keep all the date variants found by different patterns in a line; and then take intersection
     public static StringInt findDateInLinesAndSelect(final List<String> origLines, final int start){
-
         for(int i = start; i < origLines.size(); i++){
             long startTime = System.currentTimeMillis();
             final String dateString = findDateInALine(origLines, i);
@@ -44,8 +42,8 @@ public class DateParserUtils {
 //                continue;
             long endTime = System.currentTimeMillis();
             long spentTime = endTime - startTime;
-            System.out.println("@@line "+i + origLines.get(i));
-            System.out.println("@@@@@time for findDateInALine is "+ spentTime+" ms \n");
+            //System.out.println("@@line "+i + origLines.get(i));
+            //System.out.println("@@@@@time for findDateInALine is "+ spentTime+" ms \n");
 
             if(dateString.isEmpty()) continue;
             //TODO select the date parsed from the first line
@@ -78,8 +76,8 @@ public class DateParserUtils {
                     +words[1];
             }
         }
-//        //log.debug("yMD="+yMD);
-//        //log.debug("parsing using simpledateformatter: "+SIMPLE_DATE_FORMATTER.parse(yMD));
+//        ////log.debug("yMD="+yMD);
+//        ////log.debug("parsing using simpledateformatter: "+SIMPLE_DATE_FORMATTER.parse(yMD));
         result = LocalDate.parse(yMD, DATE_FORMATTER);//cannot handle single digit month or day
         //if(DateUtils.getToday().isBefore(result)) //prefer a parsed date that is before yesterday
             //log.warn("something is probably wrong. the date parsed is after today: "+ result);
@@ -122,8 +120,8 @@ public class DateParserUtils {
     public static LocalDate selectDateInALine(final List<String> lines, final int lineNumber){
         long startTime = System.currentTimeMillis();
         final Map<DateStringFormat, LocalDateFeatures> map = allPossibleDatesInALine(lines.get(lineNumber));
-//        System.out.println(">>line : "+lines.get(lineNumber));
-//        System.out.println(">>>>time for allPossibleDatesInALine(): "+ (System.currentTimeMillis()-startTime)+"ms \n" );
+//        //System.out.println(">>line : "+lines.get(lineNumber));
+//        //System.out.println(">>>>time for allPossibleDatesInALine(): "+ (System.currentTimeMillis()-startTime)+"ms \n" );
         if(map.containsKey(DateStringFormat.Year4MonthDay)){
             return map.get(DateStringFormat.Year4MonthDay).getDate();
         }
@@ -164,99 +162,105 @@ public class DateParserUtils {
             return map.get(DateStringFormat.LiteralMonthDayYear2).getDate();
         }
 
-        //log.debug("not date pattern is matched.");
+        ////log.debug("not date pattern is matched.");
         return null;
     }
 
     public static Map<DateStringFormat, LocalDateFeatures> allPossibleDatesInALine(final String str){
         final Map<DateStringFormat, LocalDateFeatures> result = new HashMap<>();
-//        //log.debug("line string is "+str+"\n");
+        //log.debug("line string is "+str+"\n");
 //        long t1 = System.currentTimeMillis();
         LocalDateFeatures dateFeatures = y4md.parseWithSpaces(str);
         if(dateFeatures !=null ){
-            log.debug("y4md:" + dateFeatures.getDate());
+            //log.debug("y4md:" + dateFeatures.getDate());
             result.put(DateStringFormat.Year4MonthDay, dateFeatures);
         }
-        long t2 = System.currentTimeMillis();
+//        long t2 = System.currentTimeMillis();
 //        if(t2-t1>50)
-//            System.out.println("cpu for y4md is "+ (t2-t1));
+            //System.out.println("cpu for y4md is "+ (t2-t1));
 
         dateFeatures =  mdy4.parseWithSpaces(str);
         if(dateFeatures !=null){
-            log.debug("mdy4:"+dateFeatures.getDate());
+            //log.debug("mdy4:"+dateFeatures.getDate());
             result.put(DateStringFormat.MonthDayYear4, dateFeatures);
         }
 //        long t3 = System.currentTimeMillis();
 //        if(t3-t2>50)
-//            System.out.println("cpu for mdy4 is "+ (t3-t2));
+            //System.out.println("cpu for mdy4 is "+ (t3-t2));
 
         dateFeatures =  mdy2.parseWithSpaces(str);
         if(dateFeatures !=null){
-            log.debug("mdy2:"+dateFeatures.getDate());
+            //log.debug("mdy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.MonthDayYear2, dateFeatures);
         }
 //        long t4 = System.currentTimeMillis();
 //        if(t4-t3>50)
-//            System.out.println("cpu for mdy2 is "+ (t4-t3));
+            //System.out.println("cpu for mdy2 is "+ (t4-t3));
 
         dateFeatures =  y2md.parseWithSpaces(str);
         if(dateFeatures !=null){
-            log.debug("y2md:"+dateFeatures.getDate());
+            //log.debug("y2md:"+dateFeatures.getDate());
             result.put(DateStringFormat.Year2MonthDay, dateFeatures);
         }
 //        long t5 = System.currentTimeMillis();
 //        if(t5-t4>50)
-//            System.out.println("cpu for y2md is "+ (t5-t4));
+            //System.out.println("cpu for y2md is "+ (t5-t4));
 
         dateFeatures =  dmy4.parseWithSpaces(str);
         if(dateFeatures !=null){
-            log.debug("dmy4:"+dateFeatures.getDate());
+            //log.debug("dmy4:"+dateFeatures.getDate());
             result.put(DateStringFormat.DayMonthYear4, dateFeatures);
         }
 //        long t6 = System.currentTimeMillis();
 //        if(t6-t5>50)
-//            System.out.println("cpu for dmy4 is "+ (t6-t5));
+            //System.out.println("cpu for dmy4 is "+ (t6-t5));
 
         dateFeatures =  dmy2.parseWithSpaces(str);
         if(dateFeatures !=null){
-            log.debug("dmy2:"+dateFeatures.getDate());
+            //log.debug("dmy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.DayMonthYear2, dateFeatures);
         }
 //        long t7 = System.currentTimeMillis();
 //        if(t7-t6>50)
-//           System.out.println("cpu for dmy2 is "+ (t7-t6));
+           //System.out.println("cpu for dmy2 is "+ (t7-t6));
 
         dateFeatures =  mdy2.parseWithSpaces(str);
         if(dateFeatures !=null){
-            log.debug("mdy2:"+dateFeatures.getDate());
+            //log.debug("mdy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.MonthDayYear2, dateFeatures);
         }
 //        long t8 = System.currentTimeMillis();
 //        if(t8-t7>50)
-//            System.out.println("cpu for mdy2 is "+ (t8-t7));
+            //System.out.println("cpu for mdy2 is "+ (t8-t7));
 
         dateFeatures = literalmdy4.parseWithSpaces(str);
+        //System.out.println("literalmdy4 finished ");
         if(dateFeatures !=null){
-            log.debug("literalmdy4:"+dateFeatures.getDate());
+            //log.debug("literalmdy4:"+dateFeatures.getDate());
             result.put(DateStringFormat.LiteralMonthDayYear4, dateFeatures);
         }
 //        long t9 = System.currentTimeMillis();
 //        if(t9-t8>50)
-//            System.out.println("cpu for literalmdy4 is "+ (t9-t8));
+            //System.out.println("cpu for literalmdy4 is "+ (t9-t8));
+
         dateFeatures = dLiteralMY4.parseWithSpaces(str);
         if(dateFeatures !=null){
-            log.debug("dLiteralMY4:"+dateFeatures.getDate());
+            //log.debug("dLiteralMY4:"+dateFeatures.getDate());
             result.put(DateStringFormat.DayLiteralMonthYear4, dateFeatures);
-        }
-
-        dateFeatures = literalmdy2.parseWithSpaces(str);
-        if(dateFeatures !=null){
-            log.debug("literalmdy2:"+dateFeatures.getDate());
-            result.put(DateStringFormat.LiteralMonthDayYear2, dateFeatures);
         }
 //        long t10 = System.currentTimeMillis();
 //        if(t10-t9>50)
-//            System.out.println("cpu for literalmdy2 is "+ (t10-t9));
+            //System.out.println("cpu for literalmdy2 is "+ (t10-t9));
+
+        dateFeatures = literalmdy2.parseWithSpaces(str);
+        //System.out.println("literalmdy2 finished ");
+        if(dateFeatures !=null){
+            //log.debug("literalmdy2:"+dateFeatures.getDate());
+            result.put(DateStringFormat.LiteralMonthDayYear2, dateFeatures);
+        }
+//        long t11 = System.currentTimeMillis();
+//        if(t11-t10>50)
+            //System.out.println("cpu for literalmdy2 is "+ (t11-t10));
         return result;
     }
 
@@ -266,21 +270,16 @@ public class DateParserUtils {
                Math.abs(ChronoUnit.DAYS.between(date, DateUtils.getToday())) <= OLDEST_RECEIPT_IN_DAYS;
     }
 
-    public static String pruneDateStringWithMatch(final String str, final Pattern pattern){
+    public static String pruneDateStringWithMatch(String strOrig, final Pattern pattern){
+        final String str = StringCommon.reduceSpaces(strOrig);//reduce spaces so that regular expression will be faster
+//        final String str = StringCommon.removeAllSpaces(strOrig);
         final Matcher match=pattern.matcher(str);
-//        final List<String> allMatches=new ArrayList<>();
-//        while(match.find()){
-//            allMatches.add(match.group());
-//        }
-//        //log.debug("allMatches="+allMatches);
-//        if(allMatches.size()==0)
-//            return StringCommon.EMPTY;
-//        return selectDateString(allMatches);
-
-        //just selecting the first
+        //log.debug("pruneDateStringWithMatch:"+str);
+        long start = System.currentTimeMillis();
         if(match.find()){
             return match.group(0);
         }
+        //log.debug("pruneDateStringWithMatch spent " + (System.currentTimeMillis() - start));
         return StringCommon.EMPTY;
     }
 
@@ -290,8 +289,8 @@ public class DateParserUtils {
      * @return
      */
     public static String selectDateString(final List<String> list){
-//        //log.debug("all date strings are:\n");
-//        list.forEach(str->//log.debug(str+"\n"));
+//        ////log.debug("all date strings are:\n");
+//        list.forEach(str->////log.debug(str+"\n"));
         return list.get(0);
     }
 

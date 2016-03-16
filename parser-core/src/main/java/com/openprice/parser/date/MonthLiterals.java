@@ -8,10 +8,8 @@ import java.util.Set;
 import com.openprice.common.Levenshtein;
 import com.openprice.common.StringCommon;
 
-import lombok.extern.slf4j.Slf4j;
-
 //TODO enum?
-@Slf4j
+//@Slf4j
 public class MonthLiterals {
 
     private Map<String, Integer> monthLiteralToNumber = new HashMap<>();
@@ -45,7 +43,7 @@ public class MonthLiterals {
     }
 
     public int getMonthNumber(final String literalMonth){
-        log.debug("literalMonth.toLowerCase()="+literalMonth.toLowerCase());
+//        log.debug("literalMonth.toLowerCase()="+literalMonth.toLowerCase());
         return monthLiteralToNumber.get(literalMonth.toLowerCase());
     }
 

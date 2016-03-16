@@ -2,9 +2,7 @@ package com.openprice.parser.date;
 
 import java.time.LocalDate;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
+//@Slf4j
 public class DateUtils {
 
     public static String localDateToString(final LocalDate date){
@@ -30,7 +28,7 @@ public class DateUtils {
                     Integer.valueOf(month.trim()),
                     Integer.valueOf(day.trim()));
         }catch(Exception e){
-            log.warn(e.getMessage());
+//            log.warn(e.getMessage());
         }
         return null;
     }

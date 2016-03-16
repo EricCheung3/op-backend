@@ -4,11 +4,14 @@ import java.time.LocalDate;
 
 import com.openprice.parser.price.ThreeStrings;
 
+import lombok.Getter;
+
 /**
  * all relevant DateParserRegularExpression Test classes inherit this class.
  */
 public class DateParserRegularExpressionTestClass {
 
+    @Getter
     private final DateParserRegularExpression parser;
 
     public DateParserRegularExpressionTestClass(final DateParserRegularExpression parser) {
