@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openprice.domain.account.user.UserAccount;
 import com.openprice.domain.account.user.UserAccountRepository;
 import com.openprice.domain.account.user.UserAccountService;
+import com.openprice.rest.UtilConstants;
 import com.openprice.store.ProductCategory;
 import com.openprice.store.StoreMetadata;
 
@@ -78,7 +79,7 @@ public class UserAccountRestController extends AbstractUserRestController {
     @Transactional(readOnly=true)
     public HttpEntity<Collection<StoreChainInfo>> searchStores(
             @RequestParam("query") String query) {
-        return ResponseEntity.ok(storeMetadata.findMatchingStoreChainByName(query, 10)
+        return ResponseEntity.ok(storeMetadata.findMatchingStoreChainByName(query, UtilConstants.SEARCH_RETURN_LIMIT)
                                               .stream()
                                               .map( chain -> new StoreChainInfo(chain.getCode(), chain.getName()))
                                               .collect(Collectors.toList()));
