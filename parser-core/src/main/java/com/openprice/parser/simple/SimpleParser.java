@@ -34,10 +34,8 @@ import com.openprice.store.StoreBranch;
 import com.openprice.store.StoreChain;
 import com.openprice.store.StoreMetadata;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@Slf4j
+//@Slf4j
 public class SimpleParser implements ReceiptParser {
 
     private final ChainRegistry chainRegistry;
@@ -55,7 +53,7 @@ public class SimpleParser implements ReceiptParser {
         try{
             final ReceiptData receipt = ReceiptDataImpl.fromOCRResults(ocrTextList);
             if (receipt.getReceiptLines().size() == 0) {
-                log.warn("No receipt data to parse.");
+                ////log.warn("No receipt data to parse.");
                 return null;
             }
             return parseReceiptData(receipt);
@@ -74,39 +72,39 @@ public class SimpleParser implements ReceiptParser {
 
         final StoreChain parserChain = (parserChainFound == null)? null : parserChainFound.getChain();
         if (parserChainFound == null) {
-            log.debug("No specific store parser for this receipt yet!");
+            ////log.debug("No specific store parser for this receipt yet!");
         } else {
-            log.debug("ChainRegistry: find matching chain {}, at {} at line {}.", parserChain.getCode(), parserChainFound.getFoundAt(), parserChainFound.getLineNumber());
+            ////log.debug("ChainRegistry: find matching chain {}, at {} at line {}.", parserChain.getCode(), parserChainFound.getFoundAt(), parserChainFound.getLineNumber());
         }
 
         final StoreChain genericChain = genericChainFound == null? null: genericChainFound.getChain();
         if(genericChain == null){
-            log.info("Generic chains: no chain found");
+            ////log.info("Generic chains: no chain found");
         }
 
         if (parserChain == null ||
                 (parserChainFound.getFoundAt() != FoundChainAt.BEGIN &&
                 genericChainFound.getFoundAt() == FoundChainAt.BEGIN)) {
             if (parserChain != null) {
-                log.info("With ChainRegistry, the chain code was found at the end. We decide to trust generic chain which is found in the beginning. ");
+                ////log.info("With ChainRegistry, the chain code was found at the end. We decide to trust generic chain which is found in the beginning. ");
             }
             try{
                 String genericCode = null;
                 if(genericChain != null)
                     genericCode = genericChain.getCode();
-                log.debug("genericChainCode=" + genericCode);
+                ////log.debug("genericChainCode=" + genericCode);
                 final StoreConfig storeConfig = GenericParser.fromGenericCode(genericCode, metadata);
                 final GenericParser genericParser = new GenericParser(storeConfig, PriceParserWithCatalog.withCatalog(new HashSet<Product>()));//selectParser(receipt);
                 return applyParser(genericParser, receipt, genericChain, null);
             } catch(Exception ex) {
                 ex.printStackTrace();//for debugging.
-                log.info("exception in calling generic parser: {}. now call cheapParser!", ex.getMessage());
+                ////log.info("exception in calling generic parser: {}. now call cheapParser!", ex.getMessage());
                 return new CheapParser().parseReceiptOcrResult(receipt.getOriginalLines());
             }
         }
         final StoreBranch branch = StoreChainUtils.matchBranchByScoreSum(parserChain, receipt);
         if (branch != null) {
-            log.debug("Parser find matching branch {}.", branch.getName());
+            ////log.debug("Parser find matching branch {}.", branch.getName());
         }
         final StoreParserSelector selector = chainRegistry.getParserSelector(parserChain.getCode());
         final StoreParser parser = selector.selectParser(receipt);
@@ -137,7 +135,7 @@ public class SimpleParser implements ReceiptParser {
         //globally finding the date string
         if (record.valueOfField(ReceiptFieldType.Date) == null ||
                 record.valueOfField(ReceiptFieldType.Date).getValue().isEmpty()) {
-            log.debug("date header not found: searching date string globally.");
+            ////log.debug("date header not found: searching date string globally.");
             final StringInt dateVL=DateParserUtils.findDateInLinesAndSelect(receipt.getOriginalLines(), 0);
             record.putFieldLineValue(ReceiptFieldType.Date, dateVL.getLine(), dateVL.getValue());
         }
