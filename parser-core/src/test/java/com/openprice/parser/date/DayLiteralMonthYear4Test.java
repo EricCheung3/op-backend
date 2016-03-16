@@ -64,4 +64,11 @@ public class DayLiteralMonthYear4Test extends DateParserRegularExpressionTestCla
         final String line = "ReaPrice    4    9                                                                                                        ";
         parseToThreeStrings(line);
     }
+
+    @Test
+    public void test1() throws Exception{
+        final String line = "DATE/TIME:                      17-Jan-2015 13:50:35 ";
+        assertEquals(threeStrings(2015,1,17), parseToThreeStrings(line));
+    }
+
 }

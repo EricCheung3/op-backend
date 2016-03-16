@@ -28,21 +28,22 @@ public abstract class LiteralMonthParser extends DateParserRegularExpression {
      * @return
      */
     //TODO in the future this can parse the date out, should replace Regular Expression
-    public boolean isLiteralMonthFormat(final String str) {
+    public boolean isLiteralMonthFormat(String strOrig) {
         log.debug("format="+format);
-        final String nonSpaceLower = StringCommon.removeAllSpaces(str).toLowerCase();
+        final String str = StringCommon.removeAllSpaces(strOrig).toLowerCase();
         final List<String> literalMonths = MONTH_LITERALS
         .monthLiterals()
         .stream()
-        .filter(m -> nonSpaceLower.contains(m.toLowerCase()))
+        .filter(m -> str.contains(m.toLowerCase()))
         .collect(Collectors.toList());
 
         if ( literalMonths.size() <=0 )
             return false;
 
         final String matchedMonth = literalMonths.get(0); //just get the first matched literal month
+        log.debug("matchedMonth="+ matchedMonth);
         if(format ==  DateStringFormat.LiteralMonthDayYear2 ) {
-            int monthStarts = nonSpaceLower.indexOf(matchedMonth);
+            int monthStarts = str.indexOf(matchedMonth);
             final String afterLiteralMonth = str.substring(monthStarts + matchedMonth.length());
             log.debug("afterLiteralMonth="+afterLiteralMonth);
             final int[] digitsAfterLiteralMonths = StringCommon.countDigitAndAlphabets(afterLiteralMonth);
@@ -50,7 +51,7 @@ public abstract class LiteralMonthParser extends DateParserRegularExpression {
         }
 
         if(format ==  DateStringFormat.LiteralMonthDayYear4 ) {
-            int monthStarts = nonSpaceLower.indexOf(matchedMonth);
+            int monthStarts = str.indexOf(matchedMonth);
             final String afterLiteralMonth = str.substring(monthStarts + matchedMonth.length());
             log.debug("afterLiteralMonth="+afterLiteralMonth);
             final int[] digitsAfterLiteralMonths = StringCommon.countDigitAndAlphabets(afterLiteralMonth);
@@ -58,24 +59,24 @@ public abstract class LiteralMonthParser extends DateParserRegularExpression {
         }
 
         if(format ==  DateStringFormat.DayLiteralMonthYear2 ) {
-            int monthStarts = nonSpaceLower.indexOf(matchedMonth);
+            int monthStarts = str.indexOf(matchedMonth);
             final String beforeLiteralMonth = str.substring(0, monthStarts);
             log.debug("beforeLiteralMonth="+beforeLiteralMonth);
             final int[] digitsBeforeLiteralMonths = StringCommon.countDigitAndAlphabets(beforeLiteralMonth);
 
             final String afterLiteralMonth = str.substring(monthStarts + matchedMonth.length());
             log.debug("afterLiteralMonth="+afterLiteralMonth);
-            final int[] digitsAfterLiteralMonths = StringCommon.countDigitAndAlphabets(beforeLiteralMonth);
+            final int[] digitsAfterLiteralMonths = StringCommon.countDigitAndAlphabets(afterLiteralMonth);
             return digitsBeforeLiteralMonths[0] >= 1 && digitsAfterLiteralMonths[0] >= 2;
         }
 
 
         if(format ==  DateStringFormat.DayLiteralMonthYear4 ) {
-            int monthStarts = nonSpaceLower.indexOf(matchedMonth);
+            int monthStarts = str.indexOf(matchedMonth);
+            log.debug("monthStarts="+monthStarts);
             final String beforeLiteralMonth = str.substring(0, monthStarts);
             log.debug("beforeLiteralMonth="+beforeLiteralMonth);
             final int[] digitsBeforeLiteralMonths = StringCommon.countDigitAndAlphabets(beforeLiteralMonth);
-
             final String afterLiteralMonth = str.substring(monthStarts + matchedMonth.length());
             log.debug("afterLiteralMonth="+afterLiteralMonth);
             final int[] digitsAfterLiteralMonths = StringCommon.countDigitAndAlphabets(afterLiteralMonth);
