@@ -8,9 +8,7 @@ import java.util.stream.Collectors;
 
 import com.openprice.common.StringCommon;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
+//@Slf4j
 public abstract class LiteralMonthParser extends DateParserRegularExpression {
 
     //format like "Feb 9, 2015"
@@ -29,7 +27,7 @@ public abstract class LiteralMonthParser extends DateParserRegularExpression {
      */
     //TODO in the future this can parse the date out, should replace Regular Expression
     public boolean isLiteralMonthFormat(String strOrig) {
-        log.debug("format="+format);
+//        //log.debug("format="+format);
         final String str = StringCommon.removeAllSpaces(strOrig).toLowerCase();
         final List<String> literalMonths = MONTH_LITERALS
         .monthLiterals()
@@ -41,11 +39,11 @@ public abstract class LiteralMonthParser extends DateParserRegularExpression {
             return false;
 
         final String matchedMonth = literalMonths.get(0); //just get the first matched literal month
-        log.debug("matchedMonth="+ matchedMonth);
+//        //log.debug("matchedMonth="+ matchedMonth);
         if(format ==  DateStringFormat.LiteralMonthDayYear2 ) {
             int monthStarts = str.indexOf(matchedMonth);
             final String afterLiteralMonth = str.substring(monthStarts + matchedMonth.length());
-            log.debug("afterLiteralMonth="+afterLiteralMonth);
+            //log.debug("afterLiteralMonth="+afterLiteralMonth);
             final int[] digitsAfterLiteralMonths = StringCommon.countDigitAndAlphabets(afterLiteralMonth);
             return digitsAfterLiteralMonths[0] >= 3;
         }
@@ -53,7 +51,7 @@ public abstract class LiteralMonthParser extends DateParserRegularExpression {
         if(format ==  DateStringFormat.LiteralMonthDayYear4 ) {
             int monthStarts = str.indexOf(matchedMonth);
             final String afterLiteralMonth = str.substring(monthStarts + matchedMonth.length());
-            log.debug("afterLiteralMonth="+afterLiteralMonth);
+//            //log.debug("afterLiteralMonth="+afterLiteralMonth);
             final int[] digitsAfterLiteralMonths = StringCommon.countDigitAndAlphabets(afterLiteralMonth);
             return digitsAfterLiteralMonths[0] >= 5;
         }
@@ -61,11 +59,11 @@ public abstract class LiteralMonthParser extends DateParserRegularExpression {
         if(format ==  DateStringFormat.DayLiteralMonthYear2 ) {
             int monthStarts = str.indexOf(matchedMonth);
             final String beforeLiteralMonth = str.substring(0, monthStarts);
-            log.debug("beforeLiteralMonth="+beforeLiteralMonth);
+//            //log.debug("beforeLiteralMonth="+beforeLiteralMonth);
             final int[] digitsBeforeLiteralMonths = StringCommon.countDigitAndAlphabets(beforeLiteralMonth);
 
             final String afterLiteralMonth = str.substring(monthStarts + matchedMonth.length());
-            log.debug("afterLiteralMonth="+afterLiteralMonth);
+//            //log.debug("afterLiteralMonth="+afterLiteralMonth);
             final int[] digitsAfterLiteralMonths = StringCommon.countDigitAndAlphabets(afterLiteralMonth);
             return digitsBeforeLiteralMonths[0] >= 1 && digitsAfterLiteralMonths[0] >= 2;
         }
@@ -73,15 +71,15 @@ public abstract class LiteralMonthParser extends DateParserRegularExpression {
 
         if(format ==  DateStringFormat.DayLiteralMonthYear4 ) {
             int monthStarts = str.indexOf(matchedMonth);
-            log.debug("monthStarts="+monthStarts);
+            //log.debug("monthStarts="+monthStarts);
             final String beforeLiteralMonth = str.substring(0, monthStarts);
-            log.debug("beforeLiteralMonth="+beforeLiteralMonth);
+            //log.debug("beforeLiteralMonth="+beforeLiteralMonth);
             final int[] digitsBeforeLiteralMonths = StringCommon.countDigitAndAlphabets(beforeLiteralMonth);
             final String afterLiteralMonth = str.substring(monthStarts + matchedMonth.length());
-            log.debug("afterLiteralMonth="+afterLiteralMonth);
+            //log.debug("afterLiteralMonth="+afterLiteralMonth);
             final int[] digitsAfterLiteralMonths = StringCommon.countDigitAndAlphabets(afterLiteralMonth);
-            log.debug("digitsBeforeLiteralMonths[0]="+digitsBeforeLiteralMonths[0]);
-            log.debug("digitsAfterLiteralMonths[0]="+digitsAfterLiteralMonths[0]);
+            //log.debug("digitsBeforeLiteralMonths[0]="+digitsBeforeLiteralMonths[0]);
+            //log.debug("digitsAfterLiteralMonths[0]="+digitsAfterLiteralMonths[0]);
             return digitsBeforeLiteralMonths[0] >= 1 && digitsAfterLiteralMonths[0] >= 4;
         }
 
@@ -108,9 +106,9 @@ public abstract class LiteralMonthParser extends DateParserRegularExpression {
     public LocalDate parseToDate(final String literalMDY2) {
        final List<String> words = splitToLiteralMonthDayYear4(literalMDY2);
        if(words == null) return null;
-//       log.debug("words.size()="+words.size());
+//       //log.debug("words.size()="+words.size());
 //       for(String str: words)
-//           log.debug(str);
+//           //log.debug(str);
        if(words.size() < 3)
            return null;
        try{
@@ -133,19 +131,19 @@ public abstract class LiteralMonthParser extends DateParserRegularExpression {
         final String noSpaceNoSplitter = StringCommon.removeAllSpaces(dateString).replaceAll("\\s+|\\.|_|-|,|\\s|’|'", "");
         if(noSpaceNoSplitter.isEmpty()) return null;
         final String yearDigits = StringCommon.lastDigits(noSpaceNoSplitter, numYearDigits);
-//        log.debug("yearDigits="+yearDigits);
+//        //log.debug("yearDigits="+yearDigits);
         final int indexOfYear = noSpaceNoSplitter.lastIndexOf(yearDigits);
         String dayDigits = "";
         String literalMonth = "";
         if(indexOfYear > 0) {
             final String literalMonthDay = noSpaceNoSplitter.substring(0, indexOfYear);
-//            log.debug("literalMonthDay="+literalMonthDay);
+//            //log.debug("literalMonthDay="+literalMonthDay);
             dayDigits = StringCommon.lastContinuousDigitChunk(literalMonthDay, 2);
-//            log.debug("dayDigits="+dayDigits);
+//            //log.debug("dayDigits="+dayDigits);
             if(!dayDigits.isEmpty()) {
                 final int startOfMonth = 0;
                 literalMonth = noSpaceNoSplitter.substring(startOfMonth, noSpaceNoSplitter.lastIndexOf(dayDigits));
-//                log.debug("literalMonth="+literalMonth);
+//                //log.debug("literalMonth="+literalMonth);
             }
         }
         return Arrays.asList(new String[]{literalMonth, dayDigits, yearDigits});

@@ -16,9 +16,8 @@ import com.openprice.parser.ml.api.predictor.LinePredictor;
 import com.openprice.parser.ml.line.SimpleLinePredictor;
 
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+//@Slf4j
 public class DateParserUtils {
 
     //oldest receipts allowed
@@ -77,8 +76,8 @@ public class DateParserUtils {
                     +words[1];
             }
         }
-//        //log.debug("yMD="+yMD);
-//        //log.debug("parsing using simpledateformatter: "+SIMPLE_DATE_FORMATTER.parse(yMD));
+//        ////log.debug("yMD="+yMD);
+//        ////log.debug("parsing using simpledateformatter: "+SIMPLE_DATE_FORMATTER.parse(yMD));
         result = LocalDate.parse(yMD, DATE_FORMATTER);//cannot handle single digit month or day
         //if(DateUtils.getToday().isBefore(result)) //prefer a parsed date that is before yesterday
             //log.warn("something is probably wrong. the date parsed is after today: "+ result);
@@ -163,17 +162,17 @@ public class DateParserUtils {
             return map.get(DateStringFormat.LiteralMonthDayYear2).getDate();
         }
 
-        //log.debug("not date pattern is matched.");
+        ////log.debug("not date pattern is matched.");
         return null;
     }
 
     public static Map<DateStringFormat, LocalDateFeatures> allPossibleDatesInALine(final String str){
         final Map<DateStringFormat, LocalDateFeatures> result = new HashMap<>();
-        log.debug("line string is "+str+"\n");
+        //log.debug("line string is "+str+"\n");
 //        long t1 = System.currentTimeMillis();
         LocalDateFeatures dateFeatures = y4md.parseWithSpaces(str);
         if(dateFeatures !=null ){
-            log.debug("y4md:" + dateFeatures.getDate());
+            //log.debug("y4md:" + dateFeatures.getDate());
             result.put(DateStringFormat.Year4MonthDay, dateFeatures);
         }
 //        long t2 = System.currentTimeMillis();
@@ -182,7 +181,7 @@ public class DateParserUtils {
 
         dateFeatures =  mdy4.parseWithSpaces(str);
         if(dateFeatures !=null){
-            log.debug("mdy4:"+dateFeatures.getDate());
+            //log.debug("mdy4:"+dateFeatures.getDate());
             result.put(DateStringFormat.MonthDayYear4, dateFeatures);
         }
 //        long t3 = System.currentTimeMillis();
@@ -191,7 +190,7 @@ public class DateParserUtils {
 
         dateFeatures =  mdy2.parseWithSpaces(str);
         if(dateFeatures !=null){
-            log.debug("mdy2:"+dateFeatures.getDate());
+            //log.debug("mdy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.MonthDayYear2, dateFeatures);
         }
 //        long t4 = System.currentTimeMillis();
@@ -200,7 +199,7 @@ public class DateParserUtils {
 
         dateFeatures =  y2md.parseWithSpaces(str);
         if(dateFeatures !=null){
-            log.debug("y2md:"+dateFeatures.getDate());
+            //log.debug("y2md:"+dateFeatures.getDate());
             result.put(DateStringFormat.Year2MonthDay, dateFeatures);
         }
 //        long t5 = System.currentTimeMillis();
@@ -209,7 +208,7 @@ public class DateParserUtils {
 
         dateFeatures =  dmy4.parseWithSpaces(str);
         if(dateFeatures !=null){
-            log.debug("dmy4:"+dateFeatures.getDate());
+            //log.debug("dmy4:"+dateFeatures.getDate());
             result.put(DateStringFormat.DayMonthYear4, dateFeatures);
         }
 //        long t6 = System.currentTimeMillis();
@@ -218,7 +217,7 @@ public class DateParserUtils {
 
         dateFeatures =  dmy2.parseWithSpaces(str);
         if(dateFeatures !=null){
-            log.debug("dmy2:"+dateFeatures.getDate());
+            //log.debug("dmy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.DayMonthYear2, dateFeatures);
         }
 //        long t7 = System.currentTimeMillis();
@@ -227,7 +226,7 @@ public class DateParserUtils {
 
         dateFeatures =  mdy2.parseWithSpaces(str);
         if(dateFeatures !=null){
-            log.debug("mdy2:"+dateFeatures.getDate());
+            //log.debug("mdy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.MonthDayYear2, dateFeatures);
         }
 //        long t8 = System.currentTimeMillis();
@@ -237,7 +236,7 @@ public class DateParserUtils {
         dateFeatures = literalmdy4.parseWithSpaces(str);
         //System.out.println("literalmdy4 finished ");
         if(dateFeatures !=null){
-            log.debug("literalmdy4:"+dateFeatures.getDate());
+            //log.debug("literalmdy4:"+dateFeatures.getDate());
             result.put(DateStringFormat.LiteralMonthDayYear4, dateFeatures);
         }
 //        long t9 = System.currentTimeMillis();
@@ -246,7 +245,7 @@ public class DateParserUtils {
 
         dateFeatures = dLiteralMY4.parseWithSpaces(str);
         if(dateFeatures !=null){
-            log.debug("dLiteralMY4:"+dateFeatures.getDate());
+            //log.debug("dLiteralMY4:"+dateFeatures.getDate());
             result.put(DateStringFormat.DayLiteralMonthYear4, dateFeatures);
         }
 //        long t10 = System.currentTimeMillis();
@@ -256,7 +255,7 @@ public class DateParserUtils {
         dateFeatures = literalmdy2.parseWithSpaces(str);
         //System.out.println("literalmdy2 finished ");
         if(dateFeatures !=null){
-            log.debug("literalmdy2:"+dateFeatures.getDate());
+            //log.debug("literalmdy2:"+dateFeatures.getDate());
             result.put(DateStringFormat.LiteralMonthDayYear2, dateFeatures);
         }
 //        long t11 = System.currentTimeMillis();
@@ -275,12 +274,12 @@ public class DateParserUtils {
         final String str = StringCommon.reduceSpaces(strOrig);//reduce spaces so that regular expression will be faster
 //        final String str = StringCommon.removeAllSpaces(strOrig);
         final Matcher match=pattern.matcher(str);
-        log.debug("pruneDateStringWithMatch:"+str);
+        //log.debug("pruneDateStringWithMatch:"+str);
         long start = System.currentTimeMillis();
         if(match.find()){
             return match.group(0);
         }
-        log.debug("pruneDateStringWithMatch spent " + (System.currentTimeMillis() - start));
+        //log.debug("pruneDateStringWithMatch spent " + (System.currentTimeMillis() - start));
         return StringCommon.EMPTY;
     }
 
@@ -290,8 +289,8 @@ public class DateParserUtils {
      * @return
      */
     public static String selectDateString(final List<String> list){
-//        //log.debug("all date strings are:\n");
-//        list.forEach(str->//log.debug(str+"\n"));
+//        ////log.debug("all date strings are:\n");
+//        list.forEach(str->////log.debug(str+"\n"));
         return list.get(0);
     }
 
