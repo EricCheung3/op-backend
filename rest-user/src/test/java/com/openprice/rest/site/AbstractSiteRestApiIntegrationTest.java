@@ -28,4 +28,8 @@ public abstract class AbstractSiteRestApiIntegrationTest extends AbstractRestApi
         return  when().get(ApiConstants.EXTERNAL_API_ROOT).then().extract().path("_links.resetPassword.href");
     }
 
+    protected String contactUrl() {
+        return ApiConstants.EXTERNAL_API_ROOT + URL_PUBLIC_CONTACT;
+    }
+
 }

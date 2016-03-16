@@ -1,5 +1,6 @@
 package com.openprice.rest.site;
 
+import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.endsWith;
 
@@ -27,4 +28,18 @@ public class WebsiteRestApiIT extends AbstractSiteRestApiIntegrationTest impleme
         ;
     }
 
+    @Test
+    public void sendContactMessage_ShouldReturnOK() {
+        final ContactForm form = new ContactForm("John Doe", "john.doe@email.com", "Hello!");
+
+        given()
+            .contentType(ContentType.JSON)
+            .body(form)
+        .when()
+            .post(contactUrl())
+        .then()
+            .statusCode(HttpStatus.SC_OK)
+        ;
+
+    }
 }

@@ -5,10 +5,14 @@ import javax.inject.Inject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.openprice.mail.EmailMessage;
+import com.openprice.mail.EmailProperties;
+import com.openprice.mail.EmailService;
 import com.openprice.rest.AbstractExternalRestController;
 
 /**
@@ -16,13 +20,19 @@ import com.openprice.rest.AbstractExternalRestController;
  *
  */
 @RestController
-public class WebsiteRestController extends AbstractExternalRestController {
+public class WebsiteRestController extends AbstractExternalRestController implements SiteApiUrls {
 
     private final WebsiteResource.Assembler websiteResourceAssembler;
+    private final EmailService emailService;
+    private final EmailProperties emailProperties;
 
     @Inject
-    public WebsiteRestController(final WebsiteResource.Assembler websiteResourceAssembler) {
+    public WebsiteRestController(final WebsiteResource.Assembler websiteResourceAssembler,
+                                 final EmailService emailService,
+                                 final EmailProperties emailProperties) {
         this.websiteResourceAssembler = websiteResourceAssembler;
+        this.emailService = emailService;
+        this.emailProperties = emailProperties;
     }
 
     /**
@@ -32,6 +42,15 @@ public class WebsiteRestController extends AbstractExternalRestController {
     @RequestMapping(method = RequestMethod.GET)
     public HttpEntity<WebsiteResource> getPublicWebsiteResource() {
         return new ResponseEntity<>(websiteResourceAssembler.toResource(), HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = URL_PUBLIC_CONTACT)
+    public HttpEntity<Void> sendContactMessage(@RequestBody final ContactForm contactForm) {
+        String subject = "Contact message from " + contactForm.getName();
+        String message = contactForm.getName() + " tried to contact you on your website: \n" + contactForm.getMessage();
+        emailService.sendEmail(
+                EmailMessage.createEmailToAdmin(emailProperties, subject, message));
+        return ResponseEntity.ok().build();
     }
 
 }
