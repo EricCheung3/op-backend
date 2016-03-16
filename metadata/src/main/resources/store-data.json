@@ -4,6 +4,12 @@
   "identity" : "99 SUPERMARKET",
   "category" : "Grocery",
   "icon" : "_99supermarket"
+},{
+  "code" : "fabricland",
+  "name" : "FABRICLAND",
+  "identity" : "FABRICLAND",
+  "category" : "Fabric",
+  "icon" : "fabricland"
 },  {
   "code" : "michaelkors",
   "name" : "Michael Kors",
