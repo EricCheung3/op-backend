@@ -23,6 +23,7 @@ import com.openprice.domain.shopping.ShoppingService;
 import com.openprice.domain.shopping.ShoppingStore;
 import com.openprice.domain.shopping.ShoppingStoreRepository;
 import com.openprice.rest.ResourceNotFoundException;
+import com.openprice.rest.UtilConstants;
 import com.openprice.store.CatalogProduct;
 import com.openprice.store.StoreMetadata;
 
@@ -72,7 +73,7 @@ public class ShoppingStoreRestController extends AbstractUserStoreRestController
             @PathVariable("storeId") final String storeId,
             @RequestParam("query") String query) throws ResourceNotFoundException {
         final ShoppingStore store = getShoppingStoreByIdAndCheckUser(storeId);
-        return ResponseEntity.ok(storeMetadata.findMatchingProducts(query, store.getChainCode(), 20));
+        return ResponseEntity.ok(storeMetadata.findMatchingProducts(query, store.getChainCode(), UtilConstants.SEARCH_RETURN_LIMIT));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = URL_USER_SHOPPING_STORES_STORE)

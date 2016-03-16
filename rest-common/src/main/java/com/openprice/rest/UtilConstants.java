@@ -9,4 +9,5 @@ public interface UtilConstants {
     int MAX_RETURN_RECORD_COUNT = 100;
     int DEFAULT_RETURN_RECORD_COUNT = 10;
 
+    int SEARCH_RETURN_LIMIT = 10;
 }
