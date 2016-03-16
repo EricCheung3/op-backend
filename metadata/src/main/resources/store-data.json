@@ -5,6 +5,12 @@
   "category" : "Grocery",
   "icon" : "_99supermarket"
 },{
+  "code" : "nordstrom",
+  "name" : "NORDSTROM",
+  "identity" : "NORDSTROM",
+  "category" : "Fashion, Retail",
+  "icon" : "nordstrom"
+},{
   "code" : "fabricland",
   "name" : "FABRICLAND",
   "identity" : "FABRICLAND",
