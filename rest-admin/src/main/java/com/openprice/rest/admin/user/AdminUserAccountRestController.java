@@ -66,15 +66,6 @@ public class AdminUserAccountRestController extends AbstractUserAdminRestControl
         return ResponseEntity.ok(userResourceAssembler.toResource(userAccount));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = URL_ADMIN_USERS_USER)
-    @Transactional
-    public HttpEntity<Void> deleteUserAccountByUserId(
-            @PathVariable("userId") final String userId) throws ResourceNotFoundException {
-        final UserAccount userAccount = getUserByUserId(userId);
-        userAccountRepository.delete(userAccount);
-        return ResponseEntity.noContent().build();
-    }
-
     @RequestMapping(method = RequestMethod.PUT, value = URL_ADMIN_USERS_USER_LOCK_STATE)
     @Transactional
     public HttpEntity<Void> changeUserLockStatus(
