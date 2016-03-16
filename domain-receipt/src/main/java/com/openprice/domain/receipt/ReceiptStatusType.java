@@ -4,5 +4,7 @@ public enum ReceiptStatusType {
     WAIT_FOR_RESULT,
     OCR_ERROR,
     PARSER_ERROR,
-    HAS_RESULT
+    HAS_RESULT,
+    VIEWED,
+    UPDATED
 }
