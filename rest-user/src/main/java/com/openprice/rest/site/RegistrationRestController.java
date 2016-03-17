@@ -142,7 +142,7 @@ public class RegistrationRestController extends AbstractExternalRestController i
     private void sendResetPasswordLinkToUser(final UserAccount user, final UserResetPasswordRequest request) {
         final String url = emailProperties.getWebServerUrl() + RESET_PASSWORD_PATH + request.getId();
         final String subject = "Reset Password in Openprice";
-        final String message = String.format(FORGET_PASSWORD_TEMPLATE, user.getProfile().getDisplayName(), url, url);
+        final String message = String.format(FORGET_PASSWORD_TEMPLATE, user.getProfile().getDisplayName(), url);
         emailService.sendEmail(EmailMessage.createEmail(emailProperties, user.getEmail(), user.getProfile().getDisplayName(), subject, message, null));
     }
 
@@ -153,7 +153,7 @@ public class RegistrationRestController extends AbstractExternalRestController i
 
     private static final String FORGET_PASSWORD_TEMPLATE = "Hi %s, \n" +
             "You have requested to reset your password. Please click following url to reset your password:\n" +
-            "<a href=\"%s\"> %s</a>\n This link will be expired after two hours.\n" +
+            " %s\n This link will be expired after two hours.\n" +
             "If you didn't request password reset, please ignore this email.\n\n" +
             "Sincerely, \n Openprice Team\n";
 }
