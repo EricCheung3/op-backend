@@ -123,6 +123,18 @@ public class DateParserUtils {
         final Map<DateStringFormat, LocalDateFeatures> map = allPossibleDatesInALine(lines.get(lineNumber));
 //        //System.out.println(">>line : "+lines.get(lineNumber));
 //        //System.out.println(">>>>time for allPossibleDatesInALine(): "+ (System.currentTimeMillis()-startTime)+"ms \n" );
+        if(map.containsKey(DateStringFormat.LiteralMonthDayYear4)){
+            return map.get(DateStringFormat.LiteralMonthDayYear4).getDate();
+        }
+
+        if(map.containsKey(DateStringFormat.DayLiteralMonthYear4)){
+            return map.get(DateStringFormat.DayLiteralMonthYear4).getDate();
+        }
+
+        if(map.containsKey(DateStringFormat.LiteralMonthDayYear2)){
+            return map.get(DateStringFormat.LiteralMonthDayYear2).getDate();
+        }
+
         if(map.containsKey(DateStringFormat.Year4MonthDay)){
             return map.get(DateStringFormat.Year4MonthDay).getDate();
         }
@@ -143,7 +155,6 @@ public class DateParserUtils {
             return map.get(DateStringFormat.Year2MonthDay).getDate();
         }
 
-
         if(map.containsKey(DateStringFormat.DayMonthYear2)){
             return map.get(DateStringFormat.DayMonthYear2).getDate();
         }
@@ -152,17 +163,7 @@ public class DateParserUtils {
             return map.get(DateStringFormat.MonthDayYear2).getDate();
         }
 
-        if(map.containsKey(DateStringFormat.LiteralMonthDayYear4)){
-            return map.get(DateStringFormat.LiteralMonthDayYear4).getDate();
-        }
 
-        if(map.containsKey(DateStringFormat.DayLiteralMonthYear4)){
-            return map.get(DateStringFormat.DayLiteralMonthYear4).getDate();
-        }
-
-        if(map.containsKey(DateStringFormat.LiteralMonthDayYear2)){
-            return map.get(DateStringFormat.LiteralMonthDayYear2).getDate();
-        }
 
         ////log.debug("not date pattern is matched.");
         return null;
