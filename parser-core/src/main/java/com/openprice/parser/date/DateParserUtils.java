@@ -131,12 +131,12 @@ public class DateParserUtils {
             return map.get(DateStringFormat.MonthDayYear4).getDate();
         }
 
-        if(map.containsKey(DateStringFormat.MonthDayYear2)){
-            return map.get(DateStringFormat.MonthDayYear2).getDate();
-        }
-
         if(map.containsKey(DateStringFormat.DayMonthYear4)){
             return map.get(DateStringFormat.DayMonthYear4).getDate();
+        }
+
+        if(map.containsKey(DateStringFormat.MonthDayYear2)){
+            return map.get(DateStringFormat.MonthDayYear2).getDate();
         }
 
         if(map.containsKey(DateStringFormat.Year2MonthDay)){
