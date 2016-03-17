@@ -8,7 +8,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.openprice" level="DEBUG"/>
+    <logger name="com.openprice" level="INFO"/>
 
     <logger name="javax.activation" level="WARN"/>
     <logger name="javax.xml.bind" level="WARN"/>
@@ -40,7 +40,7 @@
         <resetJUL>true</resetJUL>
     </contextListener>
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="CONSOLE"/>
     </root>
 

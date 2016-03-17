@@ -8,7 +8,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.jiwhiz" level="INFO"/>
+    <logger name="com.openprice" level="INFO"/>
 
     <logger name="javax.activation" level="WARN"/>
     <logger name="javax.xml.bind" level="WARN"/>
