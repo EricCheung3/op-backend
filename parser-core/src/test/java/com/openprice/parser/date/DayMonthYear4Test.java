@@ -56,6 +56,13 @@ public class DayMonthYear4Test {
     }
 
     @Test
+    public void recentDate1(){
+        final String line = "12/03/2016";
+        assertEquals(threeStrings(2016, 3, 12), parseToThreeStrings(line));
+    }
+
+
+    @Test
     public void fromLucky99()throws Exception{
         final String fromLucky99 = "DATE: 23/05/2015 TIME: 5:02:29 PM               HUA";
         assertEquals(threeStrings(2015, 5, 23), parseToThreeStrings(fromLucky99));
