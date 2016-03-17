@@ -16,8 +16,9 @@ import com.openprice.parser.ml.api.predictor.LinePredictor;
 import com.openprice.parser.ml.line.SimpleLinePredictor;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
-//@Slf4j
+@Slf4j
 public class DateParserUtils {
 
     //oldest receipts allowed
@@ -122,34 +123,6 @@ public class DateParserUtils {
         final Map<DateStringFormat, LocalDateFeatures> map = allPossibleDatesInALine(lines.get(lineNumber));
 //        //System.out.println(">>line : "+lines.get(lineNumber));
 //        //System.out.println(">>>>time for allPossibleDatesInALine(): "+ (System.currentTimeMillis()-startTime)+"ms \n" );
-        if(map.containsKey(DateStringFormat.Year4MonthDay)){
-            return map.get(DateStringFormat.Year4MonthDay).getDate();
-        }
-
-        if(map.containsKey(DateStringFormat.MonthDayYear4)){
-            return map.get(DateStringFormat.MonthDayYear4).getDate();
-        }
-
-        if(map.containsKey(DateStringFormat.MonthDayYear2)){
-            return map.get(DateStringFormat.MonthDayYear2).getDate();
-        }
-
-        if(map.containsKey(DateStringFormat.Year2MonthDay)){
-            return map.get(DateStringFormat.Year2MonthDay).getDate();
-        }
-
-        if(map.containsKey(DateStringFormat.DayMonthYear4)){
-            return map.get(DateStringFormat.DayMonthYear4).getDate();
-        }
-
-        if(map.containsKey(DateStringFormat.DayMonthYear2)){
-            return map.get(DateStringFormat.DayMonthYear2).getDate();
-        }
-
-        if(map.containsKey(DateStringFormat.MonthDayYear2)){
-            return map.get(DateStringFormat.MonthDayYear2).getDate();
-        }
-
         if(map.containsKey(DateStringFormat.LiteralMonthDayYear4)){
             return map.get(DateStringFormat.LiteralMonthDayYear4).getDate();
         }
@@ -161,6 +134,36 @@ public class DateParserUtils {
         if(map.containsKey(DateStringFormat.LiteralMonthDayYear2)){
             return map.get(DateStringFormat.LiteralMonthDayYear2).getDate();
         }
+
+        if(map.containsKey(DateStringFormat.Year4MonthDay)){
+            return map.get(DateStringFormat.Year4MonthDay).getDate();
+        }
+
+        if(map.containsKey(DateStringFormat.MonthDayYear4)){
+            return map.get(DateStringFormat.MonthDayYear4).getDate();
+        }
+
+        if(map.containsKey(DateStringFormat.DayMonthYear4)){
+            return map.get(DateStringFormat.DayMonthYear4).getDate();
+        }
+
+        if(map.containsKey(DateStringFormat.MonthDayYear2)){
+            return map.get(DateStringFormat.MonthDayYear2).getDate();
+        }
+
+        if(map.containsKey(DateStringFormat.Year2MonthDay)){
+            return map.get(DateStringFormat.Year2MonthDay).getDate();
+        }
+
+        if(map.containsKey(DateStringFormat.DayMonthYear2)){
+            return map.get(DateStringFormat.DayMonthYear2).getDate();
+        }
+
+        if(map.containsKey(DateStringFormat.MonthDayYear2)){
+            return map.get(DateStringFormat.MonthDayYear2).getDate();
+        }
+
+
 
         ////log.debug("not date pattern is matched.");
         return null;
@@ -197,20 +200,22 @@ public class DateParserUtils {
 //        if(t4-t3>50)
             //System.out.println("cpu for mdy2 is "+ (t4-t3));
 
+
+        dateFeatures =  dmy4.parseWithSpaces(str);
+        if(dateFeatures !=null){
+            log.debug("dmy4:"+dateFeatures.getDate());
+            result.put(DateStringFormat.DayMonthYear4, dateFeatures);
+        }
+
         dateFeatures =  y2md.parseWithSpaces(str);
         if(dateFeatures !=null){
-            //log.debug("y2md:"+dateFeatures.getDate());
+            log.debug("y2md:"+dateFeatures.getDate());
             result.put(DateStringFormat.Year2MonthDay, dateFeatures);
         }
 //        long t5 = System.currentTimeMillis();
 //        if(t5-t4>50)
             //System.out.println("cpu for y2md is "+ (t5-t4));
 
-        dateFeatures =  dmy4.parseWithSpaces(str);
-        if(dateFeatures !=null){
-            //log.debug("dmy4:"+dateFeatures.getDate());
-            result.put(DateStringFormat.DayMonthYear4, dateFeatures);
-        }
 //        long t6 = System.currentTimeMillis();
 //        if(t6-t5>50)
             //System.out.println("cpu for dmy4 is "+ (t6-t5));
