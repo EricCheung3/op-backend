@@ -49,7 +49,7 @@ public class WebsiteRestController extends AbstractExternalRestController implem
         String subject = "Contact message from " + contactForm.getName();
         String message = contactForm.getName() + " tried to contact you on your website: \n" + contactForm.getMessage();
         emailService.sendEmail(
-                EmailMessage.createEmailToAdmin(emailProperties, subject, message));
+                EmailMessage.createEmailToAdmin(emailProperties, subject, message, contactForm.getEmail()));
         return ResponseEntity.ok().build();
     }
 

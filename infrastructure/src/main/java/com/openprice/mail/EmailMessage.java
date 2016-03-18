@@ -23,14 +23,15 @@ public class EmailMessage {
 
     public static EmailMessage createEmailToAdmin(final EmailProperties properties,
                                                   final String subject,
-                                                  final String body) {
+                                                  final String body,
+                                                  final String replyTo) {
         return new EmailMessage(properties.getSystemEmail(),
                                 properties.getSystemName(),
                                 properties.getAdminEmail(),
                                 properties.getAdminName(),
                                 subject,
                                 body,
-                                null);
+                                replyTo);
     }
 
     public static EmailMessage createEmail(final EmailProperties properties,

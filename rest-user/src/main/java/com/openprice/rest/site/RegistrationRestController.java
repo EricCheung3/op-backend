@@ -130,7 +130,7 @@ public class RegistrationRestController extends AbstractExternalRestController i
         }
         final String subject = "New user registered";
         final String message = "A new user registered: name is " + user.getProfile().getDisplayName() + ", email is " + userEmail;
-        emailService.sendEmail(EmailMessage.createEmailToAdmin(emailProperties, subject, message));
+        emailService.sendEmail(EmailMessage.createEmailToAdmin(emailProperties, subject, message, null));
     }
 
     private void sendWelcomeEmailToNewUser(final UserAccount user) {
