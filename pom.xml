@@ -181,8 +181,8 @@
                 <logback.loglevel>DEBUG</logback.loglevel>
                 <logback.loggly.loglevel>OFF</logback.loggly.loglevel>
                 <openprice.web.url>http://192.168.99.101:8080</openprice.web.url>
-                <openprice.admin.email>jiwhiz@gmail.com</openprice.admin.email>
-                <openprice.support.email>jiwhiz@gmail.com</openprice.support.email>
+                <openprice.admin.email>hengshuai@gmail.com</openprice.admin.email>
+                <openprice.support.email>hengshuai@gmail.com</openprice.support.email>
                 <openprice.loggly.tag>openprice-local</openprice.loggly.tag>
             </properties>
             <dependencies>
@@ -210,8 +210,8 @@
             <id>cloud-dev</id> <!-- config for openprice development environment -->
             <properties>
                 <openprice.web.url>https://dev.theopenprice.com</openprice.web.url>
-                <openprice.admin.email>jiwhiz@gmail.com</openprice.admin.email>
-                <openprice.support.email>jiwhiz@gmail.com</openprice.support.email>
+                <openprice.admin.email>hengshuai@gmail.com</openprice.admin.email>
+                <openprice.support.email>hengshuai@gmail.com</openprice.support.email>
                 <openprice.loggly.tag>openprice-dev</openprice.loggly.tag>
             </properties>
         </profile>
