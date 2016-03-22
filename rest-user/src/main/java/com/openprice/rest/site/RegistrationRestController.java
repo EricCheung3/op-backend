@@ -114,7 +114,7 @@ public class RegistrationRestController extends AbstractExternalRestController i
         if (request == null) {
             throw new ResourceNotFoundException("No such reset password request.");
         }
-        userAccountService.resetPassword(request.getEmail(), form.getNewPassword());
+        userAccountService.resetPasswordWithRequest(requestId, request.getEmail(), form.getNewPassword());
         log.info("User <{}> successfully reset password.", request.getEmail());
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }

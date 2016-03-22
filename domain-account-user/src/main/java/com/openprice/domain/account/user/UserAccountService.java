@@ -145,6 +145,17 @@ public class UserAccountService implements UserDetailsService {
         userAccountRepository.save(userAccount);
     }
 
+    public void resetPasswordWithRequest(final String requestId, final String email, final String newPassword) {
+        final UserResetPasswordRequest request = getUserResetPasswordReqest(requestId);
+        if (request != null) {
+            UserAccount userAccount = userAccountRepository.findByEmail(email);
+            final String hashedPassword = passwordEncoder.encode(newPassword);
+            userAccount.setPassword(hashedPassword);
+            userAccountRepository.save(userAccount);
+            userResetPasswordRequestRepository.delete(request);
+        }
+    }
+
     private String getCurrentUsername() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null) {
