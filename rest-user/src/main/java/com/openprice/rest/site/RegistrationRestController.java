@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RegistrationRestController extends AbstractExternalRestController implements SiteApiUrls {
 
-    public static final String RESET_PASSWORD_PATH = "/#/reset/";  // It might change in the future.
+    public static final String RESET_PASSWORD_PATH = "/reset-password/";
 
     private final UserAccountService userAccountService;
     private final UserAccountRepository userAccountRepository;
@@ -135,23 +135,23 @@ public class RegistrationRestController extends AbstractExternalRestController i
 
     private void sendWelcomeEmailToNewUser(final UserAccount user) {
         final String subject = "Welcome to Openprice";
-        final String message = String.format(WELCOME_MESSAGE_TEMPLATE, user.getProfile().getDisplayName(), user.getEmail()); //TODO impl activation feature
+        final String message = String.format(WELCOME_MESSAGE_EMAIL_TEMPLATE, user.getProfile().getDisplayName(), user.getEmail()); //TODO impl activation feature
         emailService.sendEmail(EmailMessage.createEmail(emailProperties, user.getEmail(), user.getProfile().getDisplayName(), subject, message, null));
     }
 
     private void sendResetPasswordLinkToUser(final UserAccount user, final UserResetPasswordRequest request) {
         final String url = emailProperties.getWebServerUrl() + RESET_PASSWORD_PATH + request.getId();
         final String subject = "Reset Password in Openprice";
-        final String message = String.format(FORGET_PASSWORD_TEMPLATE, user.getProfile().getDisplayName(), url);
+        final String message = String.format(RESET_PASSWORD_EMAIL_TEMPLATE, user.getProfile().getDisplayName(), url);
         emailService.sendEmail(EmailMessage.createEmail(emailProperties, user.getEmail(), user.getProfile().getDisplayName(), subject, message, null));
     }
 
-    private static final String WELCOME_MESSAGE_TEMPLATE = "Dear %s,\n"+
+    private static final String WELCOME_MESSAGE_EMAIL_TEMPLATE = "Dear %s,\n"+
             "Welcome to Openprice. You, or someone on your behalf have registered with the email '%s'.\n" +
             "Enjoy the app! \n\n" +
             "Sincerely, \n Openprice Team\n";
 
-    private static final String FORGET_PASSWORD_TEMPLATE = "Hi %s, \n" +
+    private static final String RESET_PASSWORD_EMAIL_TEMPLATE = "Dear %s, \n" +
             "You have requested to reset your password. Please click following url to reset your password:\n" +
             " %s\n This link will be expired after two hours.\n" +
             "If you didn't request password reset, please ignore this email.\n\n" +

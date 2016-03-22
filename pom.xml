@@ -180,7 +180,7 @@
                 <!-- log configuration -->
                 <logback.loglevel>DEBUG</logback.loglevel>
                 <logback.loggly.loglevel>OFF</logback.loggly.loglevel>
-                <openprice.web.url>http://www.openprie.io</openprice.web.url>
+                <openprice.web.url>http://www.openprice.io</openprice.web.url>
                 <openprice.admin.email>ryanshawtel@gmail.com</openprice.admin.email>
                 <openprice.support.email>ryanshawtel@gmail.com</openprice.support.email>
                 <openprice.loggly.tag>openprice-local</openprice.loggly.tag>
