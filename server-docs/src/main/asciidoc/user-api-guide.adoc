@@ -15,7 +15,7 @@ This is the RESTful API documentation for Openprice User API, used by web-ui app
 [[Authentication]]
 
 User API client can signin to User API through this endpoint:
-`POST http://104.154.88.206:7800/api/signin`, with content of JSON data:
+`POST https://dev-api.theopenprice.com/api/signin`, with content of JSON data:
 
 `{username : 'jiwhiz@gmail.com', password : 'groundtruth'}`
 
@@ -25,7 +25,7 @@ User API client can signin to User API through this endpoint:
 == User
 
 The User resource provides the entry point into the service of current logged in user. Client can access
-the *User* resource through `http://104.154.88.206:7800/api/user`.
+the *User* resource through `https://dev-api.theopenprice.com/api/user`.
 
 
 [[resources-user-access]]

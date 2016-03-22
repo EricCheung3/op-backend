@@ -22,16 +22,39 @@ Openprice RESTful API is written using http://projects.spring.io/spring-boot[Spr
 makes it easy to get it up and running so that you can start exploring the REST API.
 
 We have DEV environment for front-end developer to use for their Web and mobile app development.
-The entry point is at `http://104.154.88.206:7800/api`.
+The entry point is at `https://dev-api.theopenprice.com/api`.
 
 You can check that the service is up and running by executing a simple request using
 cURL:
 
-`curl http://104.154.88.206:7800/api`
+`curl https://dev-api.theopenprice.com/api`
 
 This request should yield the following response:
 
-`{"authenticated":false,"currentUser":null,"_links":{"self":{"href":"http://104.154.88.206:7800/api"},"signin":{"href":"http://104.154.88.206:7800/api/signin"},"registration":{"href":"http://104.154.88.206:7800/api/public/registration"},"forgetPassword":{"href":"http://104.154.88.206:7800/api/public/resetPasswordRequests"},"resetPassword":{"href":"http://104.154.88.206:7800/api/public/resetPasswordRequests/{requestId}","templated":true}}}`
+```
+{
+   "authenticated":false,
+   "currentUser":null,
+   "_links":{
+      "self":{
+         "href":"https://dev-api.theopenprice.com/api"
+      },
+      "signin":{
+         "href":"https://dev-api.theopenprice.com/api/signin"
+      },
+      "registration":{
+         "href":"https://dev-api.theopenprice.com/api/public/registration"
+      },
+      "forgetPassword":{
+         "href":"https://dev-api.theopenprice.com/api/public/resetPasswordRequests"
+      },
+      "resetPassword":{
+         "href":"https://dev-api.theopenprice.com/api/public/resetPasswordRequests/{requestId}",
+         "templated":true
+      }
+   }
+}
+```
 
 Note the `_links` in the JSON response. They are key to navigating the API.
 

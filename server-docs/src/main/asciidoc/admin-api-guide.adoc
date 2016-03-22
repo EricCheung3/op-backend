@@ -15,7 +15,7 @@ This is the RESTful API documentation for Openprice Admin API, used by admin-ui 
 [[Authentication]]
 
 Admin API client can signin to Admin API through this endpoint:
-`POST http://104.154.88.206:7801/api/signin`, with content of JSON data:
+`POST https://dev-admin-api.theopenprice.com/api/signin`, with content of JSON data:
 
 `{username : 'jiwhiz', password : 'groundtruth'}`
 
@@ -26,7 +26,7 @@ Admin API client can signin to Admin API through this endpoint:
 The Admin resource provides the entry point into the service
 of current logged in admin.
 The Admin resource provides the entry point into the service of current logged in admin account. Client can access
-the *Admin* resource through `http://104.154.88.206:7801/api/admin`.
+the *Admin* resource through `https://dev-admin-api.theopenprice.com/api/admin`.
 
 
 [[resources-admin-access]]
