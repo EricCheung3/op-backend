@@ -210,8 +210,8 @@
             <id>cloud-dev</id> <!-- config for openprice development environment -->
             <properties>
                 <openprice.web.url>https://dev.theopenprice.com</openprice.web.url>
-                <openprice.admin.email>hengshuai@gmail.com</openprice.admin.email>
-                <openprice.support.email>hengshuai@gmail.com</openprice.support.email>
+                <openprice.admin.email>ryanshawtel@gmail.com</openprice.admin.email>
+                <openprice.support.email>ryanshawtel@gmail.com</openprice.support.email>
                 <openprice.loggly.tag>openprice-dev</openprice.loggly.tag>
             </properties>
         </profile>
