@@ -30,7 +30,7 @@ public class TokenAuthenticationService {
         final String token = request.getHeader(AUTH_HEADER_NAME);
         if (token != null) {
             final UserDetails user = tokenHandler.parseUserFromToken(token);
-            if (user != null) {
+            if (user != null && user.isAccountNonExpired() && user.isAccountNonLocked() && user.isEnabled()) {
                 return new UserAuthentication(user);
             }
         }

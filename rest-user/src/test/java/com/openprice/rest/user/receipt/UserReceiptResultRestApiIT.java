@@ -168,6 +168,42 @@ public class UserReceiptResultRestApiIT extends AbstractUserRestApiIntegrationTe
         ;
     }
 
+
+    @Test
+    public void updateUserReceiptResultOfToatlAndDate_ShouldUpdateDateAndTotal() throws Exception {
+        final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);
+        final String resultUrl = userReceiptResultUrl(sessionFilter, "receipt001");
+        final ReceiptResultForm form = new ReceiptResultForm("2016/11/11", "100.5");
+
+        given()
+            .filter(sessionFilter)
+            .contentType(ContentType.JSON)
+            .body(form)
+        .when()
+            .put(resultUrl)
+        .then()
+            .statusCode(HttpStatus.SC_NO_CONTENT)
+        ;
+
+        Response res = given()
+            .filter(sessionFilter)
+        .when()
+            .get(resultUrl);
+        res.prettyPrint();
+        res.then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType(ContentType.JSON)
+            .body("id", equalTo("recData001"))
+            .body("chainCode", equalTo("rcss"))
+            .body("branchName", equalTo("Calgary Trail"))
+            .body("storeName", equalTo("Superstore"))
+            .body("parsedDate", equalTo("2016/11/11"))
+            .body("parsedTotal", equalTo("100.5"))
+
+            .body("_links.self.href", endsWith(resultUrl))
+        ;
+    }
+
     @Test
     public void deleteUserReceiptItemById_ShouldDeleteReceiptItem() {
         final SessionFilter sessionFilter = login(TEST_USERNAME_JOHN_DOE);

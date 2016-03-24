@@ -117,6 +117,20 @@ public class UserReceiptResultRestController extends AbstractUserReceiptRestCont
         return ResponseEntity.noContent().build();
     }
 
+    @RequestMapping(method = RequestMethod.PUT, value = URL_USER_RECEIPTS_RECEIPT_RESULT)
+    public HttpEntity<Void> updateUserReceiptResultOfToatlAndDate(
+                @PathVariable("receiptId") final String receiptId,
+                @RequestBody final ReceiptResultForm form) throws ResourceNotFoundException {
+            final Receipt receipt = getReceiptByIdAndCheckUser(receiptId);
+            final ReceiptResult result = receiptResultRepository.findFirstByReceiptOrderByCreatedTimeDesc(receipt);
+            if (result == null) {
+                throw new ResourceNotFoundException("Cannot load parser result!");
+            }
+            receiptResultRepository.save(form.updateReceiptResult(result));
+            return ResponseEntity.noContent().build();
+        }
+
+
     /**
      * Set item ignore property to true, so user cannot see it.
      * @param receiptId
